@@ -1,16 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-function Card({ tabs, initial, children, onTabChange, ...rest }) {
-  const [selected, setSelected] = useState(initial || (tabs && tabs[0]))
-
+function Card({ tabs, current, handleSelect, children, ...rest }) {
   if(!(tabs && tabs.length)) {
     return <Box {...rest}>{ children }</Box>
-  }
-
-  const handleSelect = tab => {
-    setSelected(tab)
-    onTabChange && onTabChange(tab)
   }
 
   const format = text => text.charAt(0).toUpperCase() + text.slice(1)
@@ -21,7 +14,7 @@ function Card({ tabs, initial, children, onTabChange, ...rest }) {
         tabs.map((tab, index) => (
           <Tab
             key={index}
-            selected={selected === tab}
+            selected={current === tab}
             onClick={() => handleSelect(tab)}
           >
             { format(tab) }
@@ -31,7 +24,7 @@ function Card({ tabs, initial, children, onTabChange, ...rest }) {
     </Tabs>
   )
 
-  const CONTENT = children.find(child => child.props.tab === selected)
+  const CONTENT = children.find(child => child.props.tab === current)
 
   return (
     <TabBox {...rest}>
@@ -49,7 +42,7 @@ const Box = styled.div`
   border: 1px solid #e7eaf3;
   border-radius: 0.3125rem;
   padding: 1.5rem;
-`
+`;
 
 const TabBox = styled(Box)`
   padding: 0;
@@ -57,12 +50,12 @@ const TabBox = styled(Box)`
 
 const Content = styled.div`
   padding: 1.5rem;
-`
+`;
 
 const Tabs = styled.div`
   display: flex;
   border-bottom: 1px solid #e7eaf3;
-`
+`;
 
 const Tab = styled.div`
   flex: 1;
@@ -81,6 +74,6 @@ const Tab = styled.div`
     color: #377dff;
     border-bottom: 3px solid #377dff;
   `}
-`
+`;
 
 export default Card

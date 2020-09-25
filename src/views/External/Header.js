@@ -133,6 +133,7 @@ const Hash = styled(HashLink)`
 
 const StartButton = styled(Button)`
   font-size: 0.9rem;
+  height: 48px;
 `;
 
 export default Header;

@@ -22,8 +22,8 @@ function Contact() {
       <Subheading> We're always open to hearing more about your valuable insights </Subheading>
 
       <ContactForm>
-        <ContactEmail name="email" type="email" value={inputs.email} onChange={handleInput} />
-        <ContactMessage name="message" type="textarea" value={inputs.message} onChange={handleInput} />
+        <ContactEmail label name="email" type="email" value={inputs.email} onChange={handleInput} />
+        <ContactMessage label name="message" type="textarea" value={inputs.message} onChange={handleInput} />
         <Button onClick={submitForm}> Send Message </Button>
       </ContactForm>
     </Box>

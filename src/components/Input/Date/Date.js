@@ -4,7 +4,7 @@ import { Box, Above, Label, Block, Below, Error, Calendar } from '../styles'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-function Date({ name, type, limit, minDate, maxDate, value, error, onChange, ...rest }) {
+function Date({ name, label, type, limit, minDate, maxDate, value, error, onChange, ...rest }) {
   const [focus, setFocus] = useState(false)
 
   const handleChange = date => {
@@ -15,7 +15,7 @@ function Date({ name, type, limit, minDate, maxDate, value, error, onChange, ...
   return (
     <Box focus={focus} error={error} onBlur={() => setFocus(false)}>
       <Above>
-        <Label>{ name.split('_').join(' ') }</Label>
+        {label && <Label>{ name.split('_').join(' ') }</Label>}
       </Above>
       <Block>
         <DatePicker

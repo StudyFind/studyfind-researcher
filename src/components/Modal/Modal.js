@@ -1,20 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { colors } from './../../constants'
-
-import $ from 'jquery';
 
 import { Card, Button } from 'components'
 
 function Modal({ title, children, button, onSubmit, closeModal, ...rest }) {
+  const overlay = useRef()
 
   useEffect(() => {
-    $("body").css("overflow", "hidden");
-    return () => $("body").css("overflow", "scroll");
+    console.log(document.body.style.overflow)
+    document.body.style.overflow = "hidden"
+    return () => document.body.style.overflow = ""
   }, [])
 
+  const handleOverlayClick = e => {
+    if (e.target !== overlay.current) return
+    closeModal()
+  }
+
   return (
-    <Overlay>
+    <Overlay ref={overlay} onClick={handleOverlayClick}>
       <Dialog {...rest}>
         <DialogHeader>
           <h3>{ title }</h3>

@@ -4,7 +4,7 @@ import { Box, Above, Label, Block, Input, Close, Arrow, Below, Error } from '../
 import List from './DropdownList'
 import useDelayedBlur from './useDelayedBlur'
 
-function Dropdown({ name, options, value, error, onChange, ...rest }) {
+function Dropdown({ name, label, options, value, error, onChange, ...rest }) {
   const [focus, doFocus, doBlur] = useDelayedBlur()
   const [search, setSearch] = useState('')
   const [filtered, setFiltered] = useState(options)
@@ -27,7 +27,7 @@ function Dropdown({ name, options, value, error, onChange, ...rest }) {
   return (
     <Box focus={focus} error={error}>
       <Above>
-        <Label>{ name.split('_').join(' ') }</Label>
+        {label && <Label>{ name.split('_').join(' ') }</Label>}
       </Above>
       <Block onFocus={doFocus} onBlur={doBlur}>
         <Input

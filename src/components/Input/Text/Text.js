@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Box, Above, Label, Block, Below, Error, TextInput, Limit, Peek } from '../styles'
 
-function Text({ name, type, limit, value, error, onChange, ...rest }) {
+function Text({ name, type, label, limit, value, error, onChange, ...rest }) {
   const [peek, setPeek] = useState(false)
   const [count, setCount] = useState(limit)
   const [focus, setFocus] = useState(false)
@@ -25,7 +25,7 @@ function Text({ name, type, limit, value, error, onChange, ...rest }) {
   return (
     <Box focus={focus} error={error}>
       <Above>
-        <Label>{ name.split('_').join(' ') }</Label>
+        {label && <Label>{ name.split('_').join(' ') }</Label>}
         <Limit>{ limit && `${count} characters left`}</Limit>
       </Above>
       <Block>
@@ -43,7 +43,7 @@ function Text({ name, type, limit, value, error, onChange, ...rest }) {
         { (type === "password") && <Peek onClick={() => setPeek(!peek)} className={`fa fa-${peek ? 'eye' : 'eye-slash'}`} /> }
       </Block>
       <Below>
-        {!focus && (typeof error === 'string') &&  <Error error={error}>{ error }</Error>}
+        {!focus && (typeof error === 'string') &&  <Error>{ error }</Error>}
       </Below>
     </Box>
   )

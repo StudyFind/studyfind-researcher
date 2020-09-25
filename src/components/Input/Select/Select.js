@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 import { Box, Above, Label, Block, Below, Error, Arrow, SelectInput, Option } from '../styles'
 
-function Select({ name, options, value, error, onChange, ...rest }) {
+function Select({ name, label, options, value, error, onChange, ...rest }) {
   const [focus, setFocus] = useState(false)
 
   return (
     <Box focus={focus} error={error}>
       <Above>
-        <Label>{ name.split('_').join(' ') }</Label>
+        {label && <Label>{ name.split('_').join(' ') }</Label>}
       </Above>
       <Block>
         <SelectInput

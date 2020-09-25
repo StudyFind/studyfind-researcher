@@ -75,6 +75,10 @@ export const TabOption = styled.div`
     border-bottom-right-radius: 0.3125rem;
   }
 
+  &::selection {
+    color: none;
+    background: none;
+  }
 
   ${props => props.selected && `
     z-index: 2;
@@ -110,18 +114,18 @@ export const Box = styled.div`
       }
   `}
 
-  ${props => props.error !== undefined && !props.error && `
-      & > * > * {
-        color: ${colors.success.hard} !important;
-        border-color: ${colors.success.hard} !important;
-      }
-      .react-datepicker__input-container {
-        input {
-          color: ${colors.success.hard} !important;
-          border-color: ${colors.success.hard} !important;
-        }
-      }
-  `}
+  // ${props => props.error !== undefined && !props.error && `
+  //     & > * > * {
+  //       color: ${colors.success.hard} !important;
+  //       border-color: ${colors.success.hard} !important;
+  //     }
+  //     .react-datepicker__input-container {
+  //       input {
+  //         color: ${colors.success.hard} !important;
+  //         border-color: ${colors.success.hard} !important;
+  //       }
+  //     }
+  // `}
 
   ${props => props.focus && `
     & > * > * {
@@ -252,7 +256,6 @@ export const Error = styled.div`
   display: block;
   font-size: 0.75rem;
   margin-top: 2px;
-  font-weight: 500;
 `
 
 export const Limit = styled.div`

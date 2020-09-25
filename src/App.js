@@ -7,6 +7,7 @@ import Header from 'views/External/Header';
 import Footer from 'views/External/Footer';
 
 import Home from 'views/External/Home/Home';
+import Auth from 'views/External/Auth/Auth';
 
 function App() {
   const [data, setData] = useState(undefined);
@@ -29,6 +30,7 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged(cred => {
+      setData(undefined);
       if(cred) handleInternal(cred);
       else     handleExternal();
     });
@@ -39,6 +41,7 @@ function App() {
       <Header />
       <Switch>
         <Route exact path="/"><Home /></Route>
+        <Route exact path="/auth"><Auth /></Route>
         <Route path="*">{ location.pathname }</Route>
       </Switch>
       <Footer />
