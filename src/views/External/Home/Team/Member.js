@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Button, Card } from 'components'
+import { Card } from 'components'
 
 function Member({ name, img, major, college, collegeURL, linkedinURL }) {
   return (

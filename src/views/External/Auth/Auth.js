@@ -49,7 +49,6 @@ function Auth() {
   const handleForgotPassword = () => {
     setLoading(true);
     const { email } = inputs;
-    
     sendPasswordResetEmail(email)
     .then(() => {
       // tell user that the email has been successfully sent

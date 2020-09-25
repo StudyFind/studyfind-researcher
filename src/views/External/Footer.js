@@ -3,14 +3,32 @@ import styled from 'styled-components';
 
 import { colors } from './../../constants';
 
-import { Button } from 'components';
+import { Button, Modal, Input } from 'components';
 
 function Footer(){
-  const [feedbackModal, setFeedbackModal] = useState(false)
+  const [modal, setModal] = useState(false);
+  const [inputs, setInputs] = useState({});
+
+  const handleInputs = (name, value) => {
+    setInputs({ ...inputs, [name]: value });
+  }
+
+  const MODAL = (
+    <Modal title="Feedback" button="Submit Feedback" onSubmit={() => {}} closeModal={() => setModal(false)}>
+      <FeedbackMessage
+        name="feedback"
+        type="textarea"
+        placeholder="Type your feedback here..."
+        value={inputs.feedback}
+        onChange={handleInputs}
+      />
+    </Modal>
+  )
 
   return (
     <Box>
-      <Button color="primary" onClick={() => setFeedbackModal(true)}>
+      {modal && MODAL}
+      <Button color="primary" onClick={() => setModal(true)}>
         Feedback
         <FeedbackIcon className="fa fa-question-circle"></FeedbackIcon>
       </Button>
@@ -74,5 +92,9 @@ const Icon = styled.a`
     font-size: 1rem;
   }
 `
+
+const FeedbackMessage = styled(Input)`
+  height: 250px;
+`;
 
 export default Footer
