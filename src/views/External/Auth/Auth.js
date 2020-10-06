@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { signin, signup, sendPasswordResetEmail } from 'database';
+import { validate, signin, signup, sendPasswordResetEmail } from 'database';
 import { Card, Input, Button, Form, Message } from 'components';
 
 function Auth() {
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState('sign up');
+
+  useEffect(() => {
+    setErrors({})
+  }, [tab])
 
   const handleInputs = (name, value) => {
     setInputs({ ...inputs, [name]: value });
@@ -19,6 +23,16 @@ function Auth() {
 
   const handleSignup = () => {
     setLoading(true);
+
+    const inputErrors = validate(inputs);
+    const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
+
+    if(errorExists) {
+      setErrors(inputErrors);
+      setLoading(false);
+      return;
+    }
+
     const { email, password } = inputs;
 
     signup(email, password)
@@ -34,6 +48,15 @@ function Auth() {
 
   const handleSignin = () => {
     setLoading(true);
+
+    const inputErrors = validate(inputs);
+
+    if(Object.keys(inputErrors).length) {
+      setErrors(inputErrors);
+      setLoading(false);
+      return;
+    }
+
     const { email, password } = inputs;
 
     signin(email, password)
@@ -80,7 +103,7 @@ function Auth() {
             error={errors.password}
             onChange={handleInputs}
           />
-          <Button onClick={() => handleSignup()}> Sign up </Button>
+          <Button onClick={() => handleSignup()} loading={loading}> Sign up </Button>
           <AuthLink onClick={() => setTab('login')}> Have an account? </AuthLink>
         </AuthTab>
         <AuthTab tab="login">
@@ -101,7 +124,7 @@ function Auth() {
             error={errors.password}
             onChange={handleInputs}
           />
-          <Button onClick={() => handleSignin()}> Login </Button>
+          <Button onClick={() => handleSignin()} loading={loading}> Login </Button>
           <AuthLink onClick={() => setTab('forgot password')}> Forgot password? </AuthLink>
         </AuthTab>
         <AuthTab tab="forgot password">

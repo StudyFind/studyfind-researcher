@@ -34,7 +34,7 @@ const setUserData = ({ uid }) => database.ref(`users/${uid}`).set(defaultUser)
 const setUserType = user => user.updateProfile({ displayName: 'participant' })
 
 const sendVerificationEmail = user => user.sendEmailVerification()
-const sendPasswordResetEmail = async () => auth.sendPasswordResetEmail()
+const sendPasswordResetEmail = async email => auth.sendPasswordResetEmail(email)
 
 
 function validateEmail(email) {
@@ -48,7 +48,7 @@ function validatePassword(password) {
   if(!password) return ' '
   const checkCase = password !== password.toLowerCase()
   const checkSize = password.length > 7
-  if(!checkCase && !checkSize)  return 'Password must have atleast 8 digits and one capital letter'
+  if(!checkCase && !checkSize)  return 'Password must have at least 8 digits and one capital letter'
   if(!checkCase)                return 'Password must have a capital letter'
   if(!checkSize)                return 'Password must be at least 8 characters long'
   return ''
@@ -59,13 +59,10 @@ function validate({ email, password, newPassword }) {
   if(email       !== undefined) error.email       = validateEmail(email)
   if(password    !== undefined) error.password    = validatePassword(password)
   if(newPassword !== undefined) error.newPassword = validatePassword(newPassword)
-  if(error.email || error.password || error.newPassword) throw error
+  return error
 }
 
 const signup = async (email, password) => {
-
-  validate({ email, password })
-
   try {
 
     const { user } = await createUserAuth(email, password)
@@ -100,8 +97,6 @@ function checkUserType(user) {
 }
 
 const signin = async (email, password) => {
-  validate({ email, password })
-
   try {
 
     const { user } = await authenticateUser(email, password)
@@ -131,9 +126,6 @@ const verifyUser = async actionCode => auth.applyActionCode(actionCode)
 // ========================== ACCOUNT DELETION ========================== //
 
 const deleteUser = async (email, password) => {
-
-  validate({ password })
-
   try {
 
     const { user } = await authenticateUser(email, password)
@@ -151,9 +143,6 @@ const deleteUser = async (email, password) => {
 // ========================== PASSWORD UPDATES ========================== //
 
 const resetPassword = async (actionCode, password) => {
-
-  validate({ password })
-
   try {
 
     const email = await auth.verifyPasswordResetCode(actionCode)
@@ -169,9 +158,6 @@ const resetPassword = async (actionCode, password) => {
 
 
 const changePassword = async (email, password, newPassword) => {
-
-  validate({ password, newPassword })
-
   try {
 
     const { user } = await authenticateUser(email, password)
@@ -200,6 +186,7 @@ export {
   signin,
   signup,
   signout,
+  validate,
 
   sendVerificationEmail,
   sendPasswordResetEmail,
