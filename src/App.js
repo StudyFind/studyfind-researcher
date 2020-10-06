@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from 'database/firebase';
-import { signout, signin, fetchData } from 'database';
+import { signout, fetchData } from 'database';
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 
 import Header from 'views/External/Header';
@@ -38,15 +38,12 @@ function App() {
   }
 
   useEffect(() => {
+    // signout();
     auth.onAuthStateChanged(cred => {
       if(cred) handleInternal(cred);
       else     handleExternal();
     });
   }, [])
-
-  console.log(data);
-
-  // signout()
 
   return !data ? <div> LOADING </div> : (
     <div>

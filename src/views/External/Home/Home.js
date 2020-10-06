@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import Hero from './Hero/Hero';
 import Features from './Features/Features';

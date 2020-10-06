@@ -1,4 +1,4 @@
-import { auth, database, firestore } from './firebase'
+import { auth, database } from './firebase'
 import { errors, defaultUser, emailRegex } from './constants'
 
 // === DATA === //
@@ -86,13 +86,13 @@ const authenticateUser = async (email, password) => auth.signInWithEmailAndPassw
 function checkVerified(user) {
   if(!user.emailVerified) {
     sendVerificationEmail(user)
-    throw { code: 'auth/user-not-verified' }
+    throw new Error({ code: 'auth/user-not-verified' });
   }
 }
 
 function checkUserType(user) {
   if(user.displayName !== 'researcher') {
-    throw { code: 'auth/user-not-found' }
+    throw new Error({ code: 'auth/user-not-found' });
   }
 }
 
@@ -107,7 +107,6 @@ const signin = async (email, password) => {
 
   } catch(error) {
 
-    signout()
     throw getError(error)
 
   }

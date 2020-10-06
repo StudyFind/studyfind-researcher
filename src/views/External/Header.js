@@ -8,7 +8,6 @@ import { Button } from 'components';
 
 import SFLogo from 'images/logo.png';
 
-
 function Header() {
   const [active, setActive] = useState(false);
   const [activeHash, setActiveHash] = useState();
@@ -58,7 +57,7 @@ function Header() {
         <Name>StudyFind</Name>
       </Logo>
       <Hashes>
-        { hashes.map(hash => <Hash to={`/#${hash}`} active={checkActive(`/#${hash}`)}>{ hash }</Hash>) }
+        { hashes.map(hash => <Hash to={`/#${hash}`} key={hash} active={checkActive(`/#${hash}`)}>{ hash }</Hash>) }
         <Link to="/auth"><StartButton>Start Now</StartButton></Link>
       </Hashes>
     </Box>
@@ -124,10 +123,9 @@ const Hashes = styled.div`
 const Hash = styled(HashLink)`
   all: unset;
   font-weight: 500;
-  color: #888;
   text-transform: capitalize;
   cursor: pointer;
-
+  color: #888;
   color: ${props => props.active && '#377dff'};
 `;
 

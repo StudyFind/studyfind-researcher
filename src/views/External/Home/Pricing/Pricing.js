@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { colors } from './../../../../constants';
@@ -40,7 +40,7 @@ function Pricing() {
 
       <Plans>
         { plans.map(({ name, color, cost }) => (
-          <Plan>
+          <Plan key={name}>
             <Name color={color}>{name}</Name>
             <Price>
               <Dollar>$</Dollar> {cost}
