@@ -8,6 +8,7 @@ import { Card, Input, Button, Form, Message } from 'components';
 function Auth() {
   const [inputs, setInputs] = useState({});
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState('sign up');
 
@@ -23,7 +24,7 @@ function Auth() {
     signup(email, password)
     .then(user => {
       setLoading(false);
-      // tell user to expect a verification email
+      setSuccessMessage('Check your email for a verification link');
     })
     .catch(err => {
       setLoading(false);
@@ -51,14 +52,14 @@ function Auth() {
     const { email } = inputs;
     sendPasswordResetEmail(email)
     .then(() => {
-      // tell user that the email has been successfully sent
+      setSuccessMessage('Check your email for a password reset link');
     })
     .catch(err => {
 
     })
   }
 
-  return true ? (
+  return !successMessage ? (
     <Page>
       <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
         <AuthTab tab="sign up" handleSubmit={() => handleSignup()}>
@@ -122,7 +123,7 @@ function Auth() {
     <Page>
       <Success>
         <Message icon="check" type="success" title="Success!">
-          Check your email for a verification link
+          { successMessage }
         </Message>
       </Success>
     </Page>
@@ -130,7 +131,7 @@ function Auth() {
 }
 
 const Success = styled(Card)`
-  padding: 2.5rem;
+  padding: 2rem;
   width: 330px;
 `;
 
