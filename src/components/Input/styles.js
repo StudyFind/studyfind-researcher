@@ -10,16 +10,15 @@ import { colors } from './../../constants'
 export const Input = styled.input`
   width: 100%;
   font-size: 1rem;
+  color: black;
   padding: 0.75rem;
   border-radius: 0.25rem;
   border: 1px solid #d5dae2;
   -webkit-appearance: none;
-
   ${props => props.focus && `
     border-bottom: none;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    // box-shadow: 0 0 0 0.15rem ${colors.primary.alpha(0.5)};
   `}
 `
 
@@ -30,7 +29,7 @@ export const TextAreaInput = styled.textarea`
   width: 100%;
   height: ${props => props.height};
   font-size: 1rem;
-  color: black !important;
+  color: black;
   padding: 0.75rem;
   border-radius: 0.25rem;
   border: 1px solid #d5dae2;
@@ -41,7 +40,8 @@ export const RadioInput = styled.input``
 export const SelectInput = styled.select`
   width: 100%;
   font-size: 1rem;
-  color: black !important;
+  color: black;
+  background: white;
   padding: 0.75rem;
   border-radius: 0.25rem;
   border: 1px solid #d5dae2;
@@ -64,22 +64,18 @@ export const TabOption = styled.div`
   margin-right: -1px;
   padding: 0.75rem;
   text-align: center;
-
   &:first-child {
     border-top-left-radius: 0.3125rem;
     border-bottom-left-radius: 0.3125rem;
   }
-
   &:last-child {
     border-top-right-radius: 0.3125rem;
     border-bottom-right-radius: 0.3125rem;
   }
-
   &::selection {
     color: none;
     background: none;
   }
-
   ${props => props.selected && `
     z-index: 2;
     font-weight: 500;
@@ -101,40 +97,43 @@ export const RadioOption = styled.div`
 
 export const Box = styled.div`
   width: 100%;
+  color: #888;
   ${props => props.error && `
-      & > * > * {
-        color: ${colors.danger.hard} !important;
+    color: ${colors.danger.hard};
+    & > * > * {
+      color: ${colors.danger.hard};
+      border-color: ${colors.danger.hard} !important;
+    }
+    .react-datepicker__input-container {
+      input {
+        color: ${colors.danger.hard};
         border-color: ${colors.danger.hard} !important;
       }
-      .react-datepicker__input-container {
-        input {
-          color: ${colors.danger.hard} !important;
-          border-color: ${colors.danger.hard} !important;
-        }
-      }
+    }
   `}
-
-  // ${props => props.error !== undefined && !props.error && `
-  //     & > * > * {
-  //       color: ${colors.success.hard} !important;
-  //       border-color: ${colors.success.hard} !important;
-  //     }
-  //     .react-datepicker__input-container {
-  //       input {
-  //         color: ${colors.success.hard} !important;
-  //         border-color: ${colors.success.hard} !important;
-  //       }
-  //     }
-  // `}
-
-  ${props => props.focus && `
+  ${props => props.error !== undefined && !props.error && `
+    color: ${colors.success.hard};
     & > * > * {
-      color: rgba(55, 125, 255) !important;
+      color: ${colors.success.hard};
+      border-color: ${colors.success.hard} !important;
+    }
+    .react-datepicker__input-container {
+      input {
+        color: ${colors.success.hard};
+        border-color: ${colors.success.hard} !important;
+      }
+    }
+  `}
+  ${props => props.focus && `
+    color: rgba(55, 125, 255);
+
+    & > * > * {
+      color: rgba(55, 125, 255);
       border-color: rgba(55, 125, 255, 0.8) !important;
     }
     .react-datepicker__input-container {
       input {
-        color: rgba(55, 125, 255) !important;
+        color: rgba(55, 125, 255);
         border-color: rgba(55, 125, 255, 0.8) !important;
       }
     }
@@ -222,7 +221,7 @@ export const Calendar = styled.span`
 export const Label = styled.div`
   display: block;
   text-transform: uppercase;
-  color: #888;
+  color: inherit;
   font-weight: 600;
   font-size: 0.75rem;
 `
@@ -240,7 +239,6 @@ export const OptionLabel = styled.div`
   color: #999;
   margin-left: 4px;
   margin-top: 2px;
-
   ${props => props.selected && `
     color: black;
     font-weight: 500;
@@ -249,13 +247,14 @@ export const OptionLabel = styled.div`
 
 export const Prompt = styled.div`
   font-weight: 600;
-  color: #888;
+  color: inherit;
 `
 
 export const Error = styled.div`
   display: block;
   font-size: 0.75rem;
   margin-top: 2px;
+  font-weight: 500;
 `
 
 export const Limit = styled.div`
