@@ -5,7 +5,7 @@ import { AuthTab, Heading, AuthLink } from './styles';
 
 function Signup({ inputs, errors, loading, setTab, handleInputs, handleSignup }) {
   return (
-    <AuthTab tab="sign up" handleSubmit={() => handleSignup()}>
+    <AuthTab handleSubmit={() => handleSignup()}>
       <Heading> Create Account </Heading>
       <Input
         name="email"

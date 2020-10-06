@@ -5,7 +5,7 @@ import { AuthTab, Heading, AuthLink } from './styles';
 
 function Login({ inputs, errors, loading, setTab, handleInputs, handleSignin }) {
   return (
-    <AuthTab tab="login" handleSubmit={() => handleSignin()}>
+    <AuthTab handleSubmit={() => handleSignin()}>
       <Heading> Welcome Back </Heading>
       <Input
         name="email"

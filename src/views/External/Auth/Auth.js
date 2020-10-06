@@ -86,19 +86,48 @@ function Auth() {
     });
   }
 
-  return !successMessage ? (
-    <Page>
-      <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
-        <Login tab="login" inputs={inputs} errors={errors} loading={loading} setTab={setTab} handleInputs={handleInputs} handleSignin={handleSignin} />
-        <Signup tab="sign up" inputs={inputs} errors={errors} loading={loading} setTab={setTab} handleInputs={handleInputs} handleSignup={handleSignup} />
-        <ForgotPassword tab="forgot password" inputs={inputs} errors={errors} loading={loading} setTab={setTab} handleInputs={handleInputs} handleForgotPassword={handleForgotPassword} />
-      </Card>
-    </Page>
-  ) : (
-    <Page>
 
+
+  return (
+    <Page>
+      {
+        successMessage
+        ? <Success setTab={setTab} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
+        : (
+          <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
+            <Login
+              tab="login"
+              inputs={inputs}
+              errors={errors}
+              loading={loading}
+              setTab={setTab}
+              handleInputs={handleInputs}
+              handleSignin={handleSignin}
+            />
+            <Signup
+              tab="sign up"
+              inputs={inputs}
+              errors={errors}
+              loading={loading}
+              setTab={setTab}
+              handleInputs={handleInputs}
+              handleSignup={handleSignup}
+            />
+            <ForgotPassword
+              tab="forgot password"
+              inputs={inputs}
+              errors={errors}
+              loading={loading}
+              setTab={setTab}
+              handleInputs={handleInputs}
+              handleForgotPassword={handleForgotPassword}
+
+            />
+          </Card>
+        )
+      }
     </Page>
-  );
+  )
 }
 
 const Page = styled.div`

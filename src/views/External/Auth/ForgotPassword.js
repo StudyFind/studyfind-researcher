@@ -5,7 +5,7 @@ import { AuthTab, Heading, AuthLink } from './styles';
 
 function ForgotPassword({ inputs, errors, loading, setTab, handleInputs, handleForgotPassword }) {
   return (
-    <AuthTab tab="forgot password" handleSubmit={() => handleForgotPassword()}>
+    <AuthTab handleSubmit={() => handleForgotPassword()}>
       <Heading> Forgot Password </Heading>
       <Input
         name="email"
