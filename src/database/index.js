@@ -31,7 +31,7 @@ const createCookie = () => localStorage.setItem('exists', true)
 const deleteCookie = () => localStorage.setItem('exists', false)
 
 const setUserData = ({ uid }) => database.ref(`users/${uid}`).set(defaultUser)
-const setUserType = user => user.updateProfile({ displayName: 'participant' })
+const setUserType = user => user.updateProfile({ displayName: 'researcher' })
 
 const sendVerificationEmail = user => user.sendEmailVerification()
 const sendPasswordResetEmail = async email => auth.sendPasswordResetEmail(email)
@@ -91,7 +91,7 @@ function checkVerified(user) {
 }
 
 function checkUserType(user) {
-  if(user.displayName !== 'participant') {
+  if(user.displayName !== 'researcher') {
     throw { code: 'auth/user-not-found' }
   }
 }
@@ -106,6 +106,7 @@ const signin = async (email, password) => {
     return user
 
   } catch(error) {
+
     signout()
     throw getError(error)
 

@@ -18,9 +18,18 @@ function App() {
   const internal = ['/account'];
 
   const handleInternal = async cred => {
-    const { user, studies } = await fetchData(cred.uid);
-    setData({ cred, user, studies });
-    if(external.includes(location.pathname)) history.push("/account");
+    if(cred.emailVerified && cred.displayName === 'researcher') {
+
+      const { user, studies } = await fetchData(cred.uid);
+      setData({ cred, user, studies });
+      if(external.includes(location.pathname)) history.push("/account");
+
+    } else {
+
+      setData({});
+      signout();
+
+    }
   }
 
   const handleExternal = () => {
@@ -30,11 +39,14 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged(cred => {
-      setData(undefined);
       if(cred) handleInternal(cred);
       else     handleExternal();
     });
   }, [])
+
+  console.log(data);
+
+  // signout()
 
   return !data ? <div> LOADING </div> : (
     <div>

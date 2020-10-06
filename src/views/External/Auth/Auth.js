@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import { validate, signin, signup, sendPasswordResetEmail } from 'database';
 import { Card, Input, Button, Form, Message } from 'components';
@@ -13,11 +12,11 @@ function Auth() {
   const [tab, setTab] = useState('sign up');
 
   useEffect(() => {
-    setErrors({})
+    setErrors({});
   }, [tab])
 
   const handleInputs = (name, value) => {
-    setInputs({ ...inputs, [name]: value });
+    setInputs({ ...inputs, [name]: value.trim() });
     setErrors({ ...errors, [name]: !value });
   }
 
@@ -43,15 +42,16 @@ function Auth() {
     .catch(err => {
       setLoading(false);
       setErrors(err);
-    })
+    });
   }
 
   const handleSignin = () => {
     setLoading(true);
 
     const inputErrors = validate(inputs);
+    const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
 
-    if(Object.keys(inputErrors).length) {
+    if(errorExists) {
       setErrors(inputErrors);
       setLoading(false);
       return;
@@ -61,13 +61,12 @@ function Auth() {
 
     signin(email, password)
     .then(user => {
-      setLoading(false);
       // sign in user (redirect is automatic through onAuthStateChanged function in App.js)
     })
     .catch(err => {
       setLoading(false);
       setErrors(err);
-    })
+    });
   }
 
   const handleForgotPassword = () => {
@@ -78,8 +77,8 @@ function Auth() {
       setSuccessMessage('Check your email for a password reset link');
     })
     .catch(err => {
-
-    })
+      setErrors(err);
+    });
   }
 
   return !successMessage ? (
@@ -106,7 +105,7 @@ function Auth() {
           <Button onClick={() => handleSignup()} loading={loading}> Sign up </Button>
           <AuthLink onClick={() => setTab('login')}> Have an account? </AuthLink>
         </AuthTab>
-        <AuthTab tab="login">
+        <AuthTab tab="login" handleSubmit={() => handleSignin()}>
           <Heading> Welcome Back </Heading>
           <Input
             name="email"
@@ -172,7 +171,7 @@ const Page = styled.div`
   align-items: center;
 `;
 
-const AuthLink = styled(Link)`
+const AuthLink = styled.a`
   all: unset;
   cursor: pointer;
   margin: auto;
