@@ -93,8 +93,7 @@ function Auth() {
       {
         successMessage
         ? <Success setTab={setTab} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
-        : (
-          <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
+        : <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
             <Login
               tab="login"
               inputs={inputs}
@@ -121,10 +120,8 @@ function Auth() {
               setTab={setTab}
               handleInputs={handleInputs}
               handleForgotPassword={handleForgotPassword}
-
             />
           </Card>
-        )
       }
     </Page>
   )

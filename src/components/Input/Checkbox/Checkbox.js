@@ -28,7 +28,6 @@ const Box = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-
   ${props => props.checked && `
     border-color: ${colors.primary.hard};
     background: ${colors.primary.hard};
@@ -40,6 +39,7 @@ const Hidden = styled.input`
   height: 0;
   width: 0;
   margin: 0;
+  position: absolute;
 `;
 
 const Check = styled.span`
