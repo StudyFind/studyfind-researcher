@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { signin, signup, sendPasswordResetEmail } from 'database';
-import { Card, Input, Button, Form } from 'components';
+import { Card, Input, Button, Form, Message } from 'components';
 
 function Auth() {
   const [inputs, setInputs] = useState({});
@@ -58,7 +58,7 @@ function Auth() {
     })
   }
 
-  return (
+  return true ? (
     <Page>
       <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
         <AuthTab tab="sign up" handleSubmit={() => handleSignup()}>
@@ -118,10 +118,23 @@ function Auth() {
         </AuthTab>
       </Card>
     </Page>
+  ) : (
+    <Page>
+      <Success>
+        <Message icon="check" type="success" title="Success!">
+          Check your email for a verification link
+        </Message>
+      </Success>
+    </Page>
   );
 }
 
-const Heading = styled.h3`
+const Success = styled(Card)`
+  padding: 2.5rem;
+  width: 330px;
+`;
+
+const Heading = styled.h2`
   color: #377dff;
   text-align: center;
 `;

@@ -113,7 +113,7 @@ const Name = styled.h4`
 
 const Hashes = styled.div`
   display: flex;
-  grid-gap: 50px;
+  grid-gap: 60px;
   align-items: center;
 
   @media only screen and (max-width: 1000px) {

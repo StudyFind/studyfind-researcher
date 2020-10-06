@@ -61,7 +61,7 @@ const Tab = styled.div`
   flex: 1;
   color: #96a0aa;
   text-align: center;
-  padding: 0.75rem;
+  padding: 1rem 0.75rem;
   cursor: pointer;
   font-weight: 500;
   margin-bottom: -2px;

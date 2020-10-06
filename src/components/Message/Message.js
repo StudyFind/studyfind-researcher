@@ -15,7 +15,7 @@ function Message({ type, icon, title, children, ...rest }) {
     <Center {...rest}>
       <Box>
         <Icon color={types[type] || colors.primary}><FaIcon className={`fas fa-${icon || 'exclamation'}`} /></Icon>
-        <Heading color={types[type] || colors.primary}>{ title }</Heading>
+        <Heading color={colors.primary}>{ title }</Heading>
         <Description>{ children }</Description>
       </Box>
     </Center>
@@ -37,18 +37,23 @@ const Box = styled.div`
   align-items: center;
 `;
 
-const Heading = styled.h2`
+const Heading = styled.h1`
+  line-height: 1.5;
   color: ${props => props.color.hard};
+  text-align: center;
 `;
 
 const Description = styled.div`
-  font-size: 1.25rem;
+  line-height: 1.5;
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-align: center;
 `;
 
 const Icon = styled.span`
-  padding: 20px;
+  padding: 26px;
   margin-bottom: 15px;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   border-radius: 100px;
   color: ${props => props.color.hard};
   background: ${props => props.color.alpha(0.1)};
@@ -58,8 +63,8 @@ const FaIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 `;
 
 export default Message
