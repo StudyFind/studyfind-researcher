@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Node.js CI](https://github.com/mfigurski80/studyfind-researcher/workflows/Node.js%20CI/badge.svg)
+
+# StudyFind Researcher Site
 
 ## Available Scripts
 
