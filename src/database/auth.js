@@ -27,7 +27,7 @@ const getError = ({ code }) => {
 
 const createUserAuth = async (email, password) => auth.createUserAuthWithEmailAndPassword(email, password)
 const deleteUserAuth = user => user.delete()
-const updateUser = data => database.ref(`users/${uid}`).set(defaultUser)
+const updateUser = data => database.ref(`users/${data.uid}`).set(defaultUser)
 
 const createCookie = () => localStorage.setItem('exists', true)
 const deleteCookie = () => localStorage.setItem('exists', false)

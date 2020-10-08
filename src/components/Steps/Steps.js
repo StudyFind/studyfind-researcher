@@ -15,7 +15,7 @@ function Steps({ steps, width, ...rest }) {
       <Timeline>
         {
           steps.map((step, index) => (
-            <Step>
+            <Step key={index}>
               {
                 index < current
                 ? <Success className="fas fa-check" />
