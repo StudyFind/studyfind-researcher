@@ -5,9 +5,6 @@ import { auth } from 'database/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signout, fetchData } from 'database';
 
-import Header from 'views/External/Header';
-import Footer from 'views/External/Footer';
-
 import Home from 'views/External/Home/Home';
 import Auth from 'views/External/Auth/Auth';
 
@@ -46,13 +43,11 @@ function App() {
 
   return !data ? <div> LOADING </div> : (
     <div>
-      <Header />
       <Switch>
         <Route exact path="/"><Home /></Route>
         <Route exact path="/auth"><Auth /></Route>
         <Route path="*"><button onClick={signout} style={{ marginTop: 100 }}>signout</button></Route>
       </Switch>
-      <Footer />
     </div>
   );
 }

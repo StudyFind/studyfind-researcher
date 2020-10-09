@@ -4,10 +4,15 @@ import styled from 'styled-components';
 import { validate, signin, signup, sendPasswordResetEmail } from 'database';
 import { Card } from 'components';
 
+import ResearcherImage from 'images/research.jpg';
+
 import Signup from './Signup';
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
 import Success from './Success';
+
+import { NavHashLink as HashLink } from 'react-router-hash-link';
+import SFLogo from 'images/logo.png';
 
 function Auth() {
   const [inputs, setInputs] = useState({ email: '', password: '' });
@@ -18,7 +23,7 @@ function Auth() {
 
   useEffect(() => {
     setErrors({});
-  }, [tab])
+  }, [tab]);
 
   const handleInputs = (name, value) => {
     setInputs({ ...inputs, [name]: value.trim() });
@@ -26,16 +31,15 @@ function Auth() {
   }
 
   const handleSignup = () => {
-    setLoading(true);
-
     const inputErrors = validate(inputs);
     const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
 
     if(errorExists) {
       setErrors(inputErrors);
-      setLoading(false);
       return;
     }
+
+    setLoading(true);
 
     const { email, password } = inputs;
 
@@ -51,16 +55,15 @@ function Auth() {
   }
 
   const handleSignin = () => {
-    setLoading(true);
-
     const inputErrors = validate(inputs);
     const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
 
     if(errorExists) {
       setErrors(inputErrors);
-      setLoading(false);
       return;
     }
+
+    setLoading(true);
 
     const { email, password } = inputs;
 
@@ -90,47 +93,125 @@ function Auth() {
 
   return (
     <Page>
-      {
-        successMessage
-        ? <Success setTab={setTab} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
-        : <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
-            <Login
-              tab="login"
-              inputs={inputs}
-              errors={errors}
-              loading={loading}
-              setTab={setTab}
-              handleInputs={handleInputs}
-              handleSignin={handleSignin}
-            />
-            <Signup
-              tab="sign up"
-              inputs={inputs}
-              errors={errors}
-              loading={loading}
-              setTab={setTab}
-              handleInputs={handleInputs}
-              handleSignup={handleSignup}
-            />
-            <ForgotPassword
-              tab="forgot password"
-              inputs={inputs}
-              errors={errors}
-              loading={loading}
-              setTab={setTab}
-              handleInputs={handleInputs}
-              handleForgotPassword={handleForgotPassword}
-            />
-          </Card>
-      }
+      <Left>
+        <Logo to="/#home">
+          <Icon src={SFLogo} />
+          <Name>StudyFind</Name>
+        </Logo>
+        <AuthBox>
+        {
+          successMessage
+          ? <Success setTab={setTab} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
+          : <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
+              <Login
+                tab="login"
+                inputs={inputs}
+                errors={errors}
+                loading={loading}
+                setTab={setTab}
+                handleInputs={handleInputs}
+                handleSignin={handleSignin}
+              />
+              <Signup
+                tab="sign up"
+                inputs={inputs}
+                errors={errors}
+                loading={loading}
+                setTab={setTab}
+                handleInputs={handleInputs}
+                handleSignup={handleSignup}
+              />
+              <ForgotPassword
+                tab="forgot password"
+                inputs={inputs}
+                errors={errors}
+                loading={loading}
+                setTab={setTab}
+                handleInputs={handleInputs}
+                handleForgotPassword={handleForgotPassword}
+              />
+            </Card>
+        }
+        </AuthBox>
+      </Left>
+      <Image />
     </Page>
   )
 }
 
+// <h1 style={{ textAlign: 'right' }}>Participant Management</h1>
+// <h2 style={{ textAlign: 'right' }}>From beginning to end</h2>
+
+const Logo = styled(HashLink)`
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  padding: 0 40px;
+  align-items: center;
+`
+
+const Icon = styled.img`
+  height: 2.2rem;
+`
+
+const Name = styled.h4`
+  font-family: 'Avenir', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+  margin-left: 10px;
+  color: #323232;
+`
+
+
+const Image = styled.div`
+
+  & > h1 {
+    color: white;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+  width: 50vw;
+  height: 100vh;
+  background: linear-gradient(0deg, rgb(55, 125, 255, 0.75), rgb(55, 125, 255, 0.75)),
+              url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23377dff' fill-opacity='0.1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"),
+              url(${ResearcherImage});
+
+  background-position: center;
+
+  // display: none;
+  @media only screen and (max-width: 900px) {
+    display: none;
+  }
+`;
+
+const Left = styled.div`
+  width: 50vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+
+  // width: 100vw;
+  @media only screen and (max-width: 900px) {
+    width: 100vw;
+  }
+`;
+
+const AuthBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40px;
+`;
+
 const Page = styled.div`
   width: 100vw;
-  height: calc(100vh - 78px);
-  padding-top: 108px;
   display: flex;
   justify-content: center;
   align-items: center;
