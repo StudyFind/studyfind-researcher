@@ -86,13 +86,13 @@ const authenticateUser = async (email, password) => auth.signInWithEmailAndPassw
 function checkVerified(user) {
   if(!user.emailVerified) {
     sendVerificationEmail(user)
-    throw { code: 'auth/user-not-verified' };
+    throw Error('auth/user-not-verified');
   }
 }
 
 function checkUserType(user) {
   if(user.displayName !== 'researcher') {
-    throw { code: 'auth/user-not-found' };
+    throw Error('auth/user-not-found');
   }
 }
 

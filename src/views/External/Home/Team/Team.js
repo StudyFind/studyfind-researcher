@@ -2,9 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Member from './Member'
-
 import { Box, Pill, Heading, Subheading } from 'views/External/Home/styles';
 
+import yohanImg from 'images/yohan.png'
+import andrewImg from 'images/andrew.png'
+import virImg from 'images/vir.png'
 
 function Team() {
   return (
@@ -16,7 +18,7 @@ function Team() {
       <Members>
         <Member
           name="Yohan Jhaveri"
-          img={require('images/yohan.png')}
+          img={yohanImg}
           major="Computer Science"
           college="Emory University"
           collegeURL="https://www.emory.edu/"
@@ -25,7 +27,7 @@ function Team() {
 
         <Member
           name="Andrew Garcia"
-          img={require('images/andrew.png')}
+          img={andrewImg}
           major="Health Policy and Management"
           college="Rollins School of Public Health"
           collegeURL="https://www.sph.emory.edu/"
@@ -34,7 +36,7 @@ function Team() {
 
         <Member
           name="Vir Mittal"
-          img={require('images/vir.png')}
+          img={virImg}
           major="Computer Science"
           college="Emory University"
           collegeURL="https://www.emory.edu/"

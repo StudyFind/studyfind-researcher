@@ -19,7 +19,7 @@ function Contact() {
     <Box id="contact">
       <Pill size="sm" color="success" type="soft"> Contact </Pill>
       <Heading> Feedback or Suggestions? </Heading>
-      <Subheading> We're always open to hearing more about your valuable insights </Subheading>
+      <Subheading> We&apos;re always open to hearing more about your valuable insights </Subheading>
 
       <ContactForm>
         <ContactEmail label name="email" type="email" value={inputs.email} onChange={handleInput} />
