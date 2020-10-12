@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { Input, Button } from 'components';
 import { AuthTab, Heading, AuthLink, SocialButtons, FacebookButton, GoogleButton, Divider, Line } from './styles';

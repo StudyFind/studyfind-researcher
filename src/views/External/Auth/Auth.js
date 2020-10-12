@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { validate, signin, signup, sendPasswordResetEmail } from 'database';
+import { validate, signinEmail, signupEmail, sendPasswordResetEmail } from 'database';
 import { Card } from 'components';
 
 import ResearcherImage from 'images/research.jpg';
@@ -43,7 +43,7 @@ function Auth() {
 
     const { email, password } = inputs;
 
-    signup(email, password)
+    signupEmail(email, password)
     .then(user => {
       setLoading(false);
       setSuccessMessage('Check your email for a verification link');
@@ -75,7 +75,7 @@ function Auth() {
 
     const { email, password } = inputs;
 
-    signin(email, password)
+    signinEmail(email, password)
     .then(user => {
       // sign in user (redirect is automatic through onAuthStateChanged function in App.js)
     })

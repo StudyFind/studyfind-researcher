@@ -23,7 +23,6 @@ const getError = ({ code }) => ({ email: '', password: '', ...errors[code] })
 // 3. Add User Data Ref to Realtime Database
 // 4. Send Verification Email
 
-const createUserAuth = async (email, password) => auth.createUserWithEmailAndPassword(email, password)
 const deleteUserAuth = user => user.delete()
 const updateUser = async (uid, data) => database.ref(`users/${uid}`).set(defaultUser)
 
@@ -62,10 +61,10 @@ function validate({ email, password, newPassword }) {
   return error
 }
 
-const signup = async (email, password) => {
+const signupEmail = async (email, password) => {
   try {
 
-    const { user } = await createUserAuth(email, password)
+    const { user } = await auth.createUserWithEmailAndPassword(email, password)
     createCookie()
     setUserType(user)
     setUserData(user)
@@ -81,7 +80,6 @@ const signup = async (email, password) => {
 
 
 // ========================== HANDLE SIGN IN ========================== //
-const authenticateUser = async (email, password) => auth.signInWithEmailAndPassword(email, password)
 
 function checkVerified(user) {
   if(!user.emailVerified) {
@@ -96,10 +94,10 @@ function checkUserType(user) {
   }
 }
 
-const signin = async (email, password) => {
+const signinEmail = async (email, password) => {
   try {
 
-    const { user } = await authenticateUser(email, password)
+    const { user } = await auth.signInWithEmailAndPassword(email, password)
     createCookie()
     checkUserType(user)
     checkVerified(user)
@@ -128,7 +126,7 @@ const verifyUser = async actionCode => auth.applyActionCode(actionCode)
 const deleteUser = async (email, password) => {
   try {
 
-    const { user } = await authenticateUser(email, password)
+    const { user } = await auth.signInWithEmailAndPassword(email, password)
     await deleteUserAuth(user)
     deleteCookie()
 
@@ -147,7 +145,7 @@ const resetPassword = async (actionCode, password) => {
 
     const email = await auth.verifyPasswordResetCode(actionCode)
     await auth.confirmPasswordReset(actionCode, password)
-    return signin(email, password)
+    return signinEmail(email, password)
 
   } catch(error) {
 
@@ -160,7 +158,7 @@ const resetPassword = async (actionCode, password) => {
 const changePassword = async (email, password, newPassword) => {
   try {
 
-    const { user } = await authenticateUser(email, password)
+    const { user } = await auth.signInWithEmailAndPassword(email, password)
     return user.updatePassword(newPassword)
 
   } catch(error) {
@@ -183,8 +181,8 @@ export {
   changePassword,
 
   // AUTH //
-  signin,
-  signup,
+  signupEmail,
+  signinEmail,
   signout,
   validate,
 
