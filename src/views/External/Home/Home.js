@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import Header from 'views/External/Header';
-import Footer from 'views/External/Footer';
+import Header from "views/External/Header";
+import Footer from "views/External/Footer";
 
-import Hero from './Hero/Hero';
-import Features from './Features/Features';
-import Team from './Team/Team';
-import Pricing from './Pricing/Pricing';
-import Contact from './Contact/Contact';
+import Hero from "./Hero/Hero";
+import Features from "./Features/Features";
+import Team from "./Team/Team";
+import Pricing from "./Pricing/Pricing";
+import Contact from "./Contact/Contact";
 
 function Home() {
   return (
@@ -20,7 +20,7 @@ function Home() {
       <Contact />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

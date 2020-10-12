@@ -1,11 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import { Button } from 'components';
+import { Button } from "components";
 
-
-import HeroBackground from 'images/analysis.svg';
+import HeroBackground from "images/analysis.svg";
 
 function Hero() {
   return (
@@ -24,7 +23,7 @@ function Hero() {
       </Intro>
       <Image src={HeroBackground} />
     </Box>
-  )
+  );
 }
 
 const Box = styled.section`

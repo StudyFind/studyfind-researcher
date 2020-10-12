@@ -1,19 +1,18 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Card, Message, Button } from 'components';
+import { Card, Message, Button } from "components";
 
 function Success({ successMessage, setSuccessMessage, setTab }) {
-
   const handleRedirect = () => {
-    setTab('login');
-    setSuccessMessage('');
-  }
+    setTab("login");
+    setSuccessMessage("");
+  };
 
   return (
     <Box>
       <Message icon="check" type="success" title="Success!">
-        { successMessage }
+        {successMessage}
       </Message>
       <Button onClick={handleRedirect}> Back to login </Button>
     </Box>

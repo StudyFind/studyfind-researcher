@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 function Feature({ image, heading, description }) {
   return (
     <Box>
-      <Icon src={ image } />
-      <Heading>{ heading }</Heading>
-      <Description>{ description }</Description>
+      <Icon src={image} />
+      <Heading>{heading}</Heading>
+      <Description>{description}</Description>
     </Box>
   );
 }
@@ -40,4 +40,4 @@ const Description = styled.p`
   line-height: 1.7;
 `;
 
-export default Feature
+export default Feature;

@@ -19,13 +19,7 @@ function Auth() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState();
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState("sign up");
-
-  useEffect(() => {
-    const exists = localStorage.getItem("exists") === "true";
-    const defaultTab = exists ? "login" : "sign up";
-    setTab(defaultTab);
-  }, []);
+  const [tab, setTab] = useState(localStorage.getItem("exists") === "true" ? "login" : "sign up");
 
   useEffect(() => {
     setErrors({});
@@ -104,17 +98,9 @@ function Auth() {
         </Logo>
         <AuthBox>
           {successMessage ? (
-            <Success
-              setTab={setTab}
-              successMessage={successMessage}
-              setSuccessMessage={setSuccessMessage}
-            />
+            <Success setTab={setTab} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
           ) : (
-            <Card
-              current={tab}
-              tabs={["sign up", "login"]}
-              handleSelect={setTab}
-            >
+            <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
               <Login
                 tab="login"
                 inputs={inputs}
@@ -151,9 +137,6 @@ function Auth() {
   );
 }
 
-// <h1 style={{ textAlign: 'right' }}>Participant Management</h1>
-// <h2 style={{ textAlign: 'right' }}>From beginning to end</h2>
-
 const Logo = styled(HashLink)`
   all: unset;
   cursor: pointer;
@@ -189,17 +172,12 @@ const Image = styled.div`
   padding: 30px;
   width: 50vw;
   height: 100vh;
-  background: linear-gradient(
-      0deg,
-      rgb(55, 125, 255, 0.75),
-      rgb(55, 125, 255, 0.75)
-    ),
+  background: linear-gradient(0deg, rgb(55, 125, 255, 0.75), rgb(55, 125, 255, 0.75)),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23377dff' fill-opacity='0.1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"),
     url(${ResearcherImage});
 
   background-position: center;
 
-  // display: none;
   @media only screen and (max-width: 900px) {
     display: none;
   }
@@ -211,7 +189,6 @@ const Left = styled.div`
   display: grid;
   grid-template-rows: 100px 1fr;
 
-  // width: 100vw;
   @media only screen and (max-width: 900px) {
     width: 100vw;
   }

@@ -1,19 +1,19 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-import Member from './Member'
-import { Box, Pill, Heading, Subheading } from 'views/External/Home/styles';
+import Member from "./Member";
+import { Box, Pill, Heading, Subheading } from "views/External/Home/styles";
 
-import yohanImg from 'images/yohan.png'
-import andrewImg from 'images/andrew.png'
-import virImg from 'images/vir.png'
+import yohanImg from "images/yohan.png";
+import andrewImg from "images/andrew.png";
+import virImg from "images/vir.png";
 
 function Team() {
   return (
     <Box id="team">
       <Pill> Founders </Pill>
       <Heading> Trust the professionals </Heading>
-      <Subheading> Our co-founders are ready to help you find research studies </Subheading>
+      <Subheading>Our co-founders are ready to help you find research studies</Subheading>
 
       <Members>
         <Member
@@ -44,7 +44,7 @@ function Team() {
         />
       </Members>
     </Box>
-  )
+  );
 }
 
 const Members = styled.div`
@@ -58,6 +58,6 @@ const Members = styled.div`
     flex-direction: column;
     justify-content: flex-start;
   }
-`
+`;
 
-export default Team
+export default Team;

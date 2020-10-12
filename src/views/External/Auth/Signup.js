@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Input, Button } from 'components';
-import { AuthTab, Heading, AuthLink } from './styles';
+import { Input, Button } from "components";
+import { AuthTab, Heading, AuthLink } from "./styles";
 
 function Signup({ inputs, errors, loading, setTab, handleInputs, handleSignup }) {
   return (
@@ -24,15 +24,21 @@ function Signup({ inputs, errors, loading, setTab, handleInputs, handleSignup })
         error={errors.password}
         onChange={handleInputs}
       />
-      <Button onClick={() => handleSignup()} loading={loading}> Sign up </Button>
+      <Button onClick={() => handleSignup()} loading={loading}>
+        Sign up
+      </Button>
       <Divider>
-        <Line/> OR <Line/>
+        <Line /> OR <Line />
       </Divider>
       <SocialButtons>
-        <FacebookButton onClick={() => {}} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
-        <GoogleButton onClick={() => {}} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
+        <FacebookButton onClick={() => {}} loading={loading}>
+          <i className="fa fa-facebook" /> Facebook
+        </FacebookButton>
+        <GoogleButton onClick={() => {}} loading={loading} color="danger">
+          <i className="fa fa-google" /> Google
+        </GoogleButton>
       </SocialButtons>
-      <AuthLink onClick={() => setTab('login')}> Have an account? </AuthLink>
+      <AuthLink onClick={() => setTab("login")}> Have an account? </AuthLink>
     </AuthTab>
   );
 }
@@ -73,6 +79,5 @@ const GoogleButton = styled(Button)`
   justify-content: center;
   align-items: center;
 `;
-
 
 export default Signup;

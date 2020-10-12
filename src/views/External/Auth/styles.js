@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Form } from 'components';
+import styled from "styled-components";
+import { Form } from "components";
 
 const AuthTab = styled(Form)`
   width: 330px;
@@ -28,4 +28,4 @@ const AuthLink = styled.a`
   }
 `;
 
-export { AuthTab, Heading, AuthLink }
+export { AuthTab, Heading, AuthLink };

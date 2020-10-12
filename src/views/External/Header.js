@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
-import { NavHashLink as HashLink } from 'react-router-hash-link';
-import $ from 'jquery';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Link, useLocation } from "react-router-dom";
+import { NavHashLink as HashLink } from "react-router-hash-link";
+import $ from "jquery";
 
-import { Button } from 'components';
+import { Button } from "components";
 
-import SFLogo from 'images/logo.png';
+import SFLogo from "images/logo.png";
 
 function Header() {
   const [active, setActive] = useState(false);
@@ -14,12 +14,12 @@ function Header() {
   const [activePath, setActivePath] = useState();
   const location = useLocation();
 
-  const LIMIT = 50
+  const LIMIT = 50;
 
   $(document).scroll(() => {
-    const scroll = $(document).scrollTop()
-    setActive(scroll >= LIMIT)
-  })
+    const scroll = $(document).scrollTop();
+    setActive(scroll >= LIMIT);
+  });
 
   useEffect(() => {
     // $(document).bind('scroll',function(e) {
@@ -43,12 +43,12 @@ function Header() {
     setActivePath(location.pathname);
   }, [location]);
 
-  const checkActive = link => {
-    const [path, hash] = link.split('#');
-    return (activePath === path) && (hash ? activeHash === ('#' + hash) : true)
-  }
+  const checkActive = (link) => {
+    const [path, hash] = link.split("#");
+    return activePath === path && (hash ? activeHash === "#" + hash : true);
+  };
 
-  const hashes = ['home', 'features', 'team', 'pricing', 'contact']
+  const hashes = ["home", "features", "team", "pricing", "contact"];
 
   return (
     <Box active={active}>
@@ -57,8 +57,14 @@ function Header() {
         <Name>StudyFind</Name>
       </Logo>
       <Hashes>
-        { hashes.map(hash => <Hash to={`/#${hash}`} key={hash} active={checkActive(`/#${hash}`)}>{ hash }</Hash>) }
-        <Link to="/auth"><StartButton>Start Now</StartButton></Link>
+        {hashes.map((hash) => (
+          <Hash to={`/#${hash}`} key={hash} active={checkActive(`/#${hash}`)}>
+            {hash}
+          </Hash>
+        ))}
+        <Link to="/auth">
+          <StartButton>Start Now</StartButton>
+        </Link>
       </Hashes>
     </Box>
   );
@@ -79,7 +85,9 @@ const Box = styled.div`
     padding: 30px;
   }
 
-  ${props => props.active && `
+  ${(props) =>
+    props.active &&
+    `
     padding: 24px 50px;
     background: white;
     box-shadow: 0 0 10px 0 rgb(240,240,240) !important;
@@ -88,27 +96,27 @@ const Box = styled.div`
       padding: 24px 30px;
     }
   `}
-`
+`;
 
 const Logo = styled(HashLink)`
   all: unset;
   cursor: pointer;
   display: flex;
   flex-direction: row;
-`
+`;
 
 const Icon = styled.img`
   height: 2.2rem;
-`
+`;
 
 const Name = styled.h4`
-  font-family: 'Avenir', sans-serif;
+  font-family: "Avenir", sans-serif;
   font-size: 1.5rem;
   font-weight: 800;
   margin: 0;
   margin-left: 10px;
   color: #323232;
-`
+`;
 
 const Hashes = styled.div`
   display: flex;
@@ -126,7 +134,7 @@ const Hash = styled(HashLink)`
   text-transform: capitalize;
   cursor: pointer;
   color: #888;
-  color: ${props => props.active && '#377dff'};
+  color: ${(props) => props.active && "#377dff"};
 `;
 
 const StartButton = styled(Button)`

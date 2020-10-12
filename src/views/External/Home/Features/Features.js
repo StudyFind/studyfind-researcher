@@ -1,20 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Box, Pill, Heading, Subheading } from 'views/External/Home/styles';
+import { Box, Pill, Heading, Subheading } from "views/External/Home/styles";
 
-import PostStudies from 'images/post-studies.svg';
-import SelectParticipants from 'images/select-participants.svg';
-import TrackRecruitment from 'images/track-recruitment.svg';
+import PostStudies from "images/post-studies.svg";
+import SelectParticipants from "images/select-participants.svg";
+import TrackRecruitment from "images/track-recruitment.svg";
 
-import Feature from './Feature';
+import Feature from "./Feature";
 
 function Features() {
   return (
     <Box id="features">
       <Pill>Features</Pill>
       <Heading>Find Participants Effectively</Heading>
-      <Subheading color="secondary">Transform your participant recruitment process using StudyFind</Subheading>
+      <Subheading color="secondary">
+        Transform your participant recruitment process using StudyFind
+      </Subheading>
       <FeatureList>
         <Feature
           image={PostStudies}
@@ -35,7 +37,7 @@ function Features() {
         />
       </FeatureList>
     </Box>
-  )
+  );
 }
 
 const FeatureList = styled.div`
