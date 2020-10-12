@@ -50,3 +50,17 @@ export const GoogleButton = styled(Button)`
   justify-content: center;
   align-items: center;
 `;
+
+export const Divider = styled.span`
+  display: flex;
+  align-items: center;
+  color: darkgrey;
+  grid-gap: 10px;
+  font-size: 0.8rem;
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  background: lightgrey;
+`;

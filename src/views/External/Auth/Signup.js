@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Input, Button } from 'components';
-import { AuthTab, Heading, AuthLink, SocialButtons, FacebookButton, GoogleButton } from './styles';
+import { AuthTab, Heading, AuthLink, SocialButtons, FacebookButton, GoogleButton, Divider, Line } from './styles';
 
 function Signup({ inputs, errors, loading, setTab, handleInputs, handleEmailSignup, handleGoogleSignup, handleFacebookSignup }) {
   return (
@@ -36,20 +36,6 @@ function Signup({ inputs, errors, loading, setTab, handleInputs, handleEmailSign
     </AuthTab>
   );
 }
-
-const Divider = styled.span`
-  display: flex;
-  align-items: center;
-  color: darkgrey;
-  grid-gap: 10px;
-  font-size: 0.8rem;
-`;
-
-const Line = styled.div`
-  width: 100%;
-  height: 1px;
-  background: lightgrey;
-`;
 
 
 export default Signup;

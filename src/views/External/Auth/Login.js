@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Input, Button } from 'components';
-import { AuthTab, Heading, AuthLink } from './styles';
+import { Input, Button} from 'components';
+import { AuthTab, Heading, AuthLink, SocialButtons, FacebookButton, GoogleButton, Divider, Line  } from './styles';
 
-function Login({ inputs, errors, loading, setTab, handleInputs, handleEmailSignin }) {
+function Login({ inputs, errors, loading, setTab, handleInputs, handleEmailSignin, handleGoogleSignin, handleFacebookSignin }) {
   return (
     <AuthTab handleSubmit={handleEmailSignin}>
       <Heading> Welcome Back </Heading>
@@ -24,6 +24,13 @@ function Login({ inputs, errors, loading, setTab, handleInputs, handleEmailSigni
         onChange={handleInputs}
       />
       <Button onClick={handleEmailSignin} loading={loading}> Login </Button>
+      <Divider>
+        <Line/> OR <Line/>
+      </Divider>
+      <SocialButtons>
+        <FacebookButton onClick={handleGoogleSignin} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
+        <GoogleButton onClick={handleFacebookSignin} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
+      </SocialButtons>
       <AuthLink onClick={() => setTab('forgot password')}> Forgot password? </AuthLink>
     </AuthTab>
   );
