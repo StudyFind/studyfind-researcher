@@ -3,9 +3,9 @@ import React from 'react';
 import { Input, Button } from 'components';
 import { AuthTab, Heading, AuthLink } from './styles';
 
-function Login({ inputs, errors, loading, setTab, handleInputs, handleSignin }) {
+function Login({ inputs, errors, loading, setTab, handleInputs, handleEmailSignin }) {
   return (
-    <AuthTab handleSubmit={() => handleSignin()}>
+    <AuthTab handleSubmit={handleEmailSignin}>
       <Heading> Welcome Back </Heading>
       <Input
         name="email"
@@ -23,7 +23,7 @@ function Login({ inputs, errors, loading, setTab, handleInputs, handleSignin }) 
         error={errors.password}
         onChange={handleInputs}
       />
-      <Button onClick={() => handleSignin()} loading={loading}> Login </Button>
+      <Button onClick={handleEmailSignin} loading={loading}> Login </Button>
       <AuthLink onClick={() => setTab('forgot password')}> Forgot password? </AuthLink>
     </AuthTab>
   );

@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Input, Button } from 'components';
-import { AuthTab, Heading, AuthLink } from './styles';
+import { AuthTab, Heading, AuthLink, SocialButtons, FacebookButton, GoogleButton } from './styles';
 
-function Signup({ inputs, errors, loading, setTab, handleInputs, handleSignup }) {
+function Signup({ inputs, errors, loading, setTab, handleInputs, handleEmailSignup, handleGoogleSignup, handleFacebookSignup }) {
   return (
-    <AuthTab handleSubmit={() => handleSignup()}>
+    <AuthTab handleSubmit={handleEmailSignup}>
       <Heading> Create Account </Heading>
       <Input
         name="email"
@@ -24,13 +24,13 @@ function Signup({ inputs, errors, loading, setTab, handleInputs, handleSignup })
         error={errors.password}
         onChange={handleInputs}
       />
-      <Button onClick={() => handleSignup()} loading={loading}> Sign up </Button>
+      <Button onClick={handleEmailSignup} loading={loading}> Sign up </Button>
       <Divider>
         <Line/> OR <Line/>
       </Divider>
       <SocialButtons>
-        <FacebookButton onClick={() => {}} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
-        <GoogleButton onClick={() => {}} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
+        <FacebookButton onClick={handleGoogleSignup} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
+        <GoogleButton onClick={handleFacebookSignup} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
       </SocialButtons>
       <AuthLink onClick={() => setTab('login')}> Have an account? </AuthLink>
     </AuthTab>
@@ -49,29 +49,6 @@ const Line = styled.div`
   width: 100%;
   height: 1px;
   background: lightgrey;
-`;
-
-const SocialButtons = styled.div`
-  display: flex;
-  grid-gap: 10px;
-`;
-
-const FacebookButton = styled(Button)`
-  background: rgb(60, 89, 153);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const GoogleButton = styled(Button)`
-  background: rgb(203, 64, 35);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
 `;
 
 

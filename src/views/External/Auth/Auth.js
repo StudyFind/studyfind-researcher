@@ -30,7 +30,7 @@ function Auth() {
     setErrors({ ...errors, [name]: !value });
   }
 
-  const handleSignup = () => {
+  const handleEmailSignup = () => {
     const inputErrors = validate(inputs);
     const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
 
@@ -54,7 +54,15 @@ function Auth() {
     });
   }
 
-  const handleSignin = () => {
+  const handleGoogleSignup = () => {
+
+  }
+
+  const handleFacebookSignup = () => {
+    
+  }
+
+  const handleEmailSignin = () => {
     const inputErrors = validate(inputs);
     const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
 
@@ -75,6 +83,14 @@ function Auth() {
       setLoading(false);
       setErrors(err);
     });
+  }
+
+  const handleGoogleSignin = () => {
+
+  }
+
+  const handleFacebookSignin = () => {
+    
   }
 
   const handleForgotPassword = () => {
@@ -110,7 +126,9 @@ function Auth() {
                 loading={loading}
                 setTab={setTab}
                 handleInputs={handleInputs}
-                handleSignin={handleSignin}
+                handleEmailSignin={handleEmailSignin}
+                handleGoogleSignin={handleGoogleSignin}
+                handleFacebookSignin={handleFacebookSignin}
               />
               <Signup
                 tab="sign up"
@@ -119,7 +137,9 @@ function Auth() {
                 loading={loading}
                 setTab={setTab}
                 handleInputs={handleInputs}
-                handleSignup={handleSignup}
+                handleEmailSignup={handleEmailSignup}
+                handleGoogleSignup={handleGoogleSignup}
+                handleFacebookSignup={handleFacebookSignup}
               />
               <ForgotPassword
                 tab="forgot password"
