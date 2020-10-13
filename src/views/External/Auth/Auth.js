@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Card } from "components";
 
 import Header from "views/External/Header";
-import Footer from "views/External/Footer";
 import Signup from "./Signup";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
@@ -18,14 +17,11 @@ function getDefaultTab() {
     resetPassword: "reset password",
   };
 
-  if (Object.keys(modes).includes(mode)) {
-    const url = new URL(window.location.href);
-    const mode = url.searchParams.get("mode");
-    return modes[mode];
-  } else {
-    const accountExists = localStorage.getItem("exists") === "true";
-    return accountExists ? "login" : "sign up";
-  }
+  const url = new URL(window.location.href);
+  const mode = url.searchParams.get("mode");
+  const accountExists = localStorage.getItem("exists") === "true";
+
+  return modes[mode] || (accountExists ? "login" : "sign up");
 }
 
 function Auth() {
