@@ -14,7 +14,12 @@ const fetchData = async (uid) => {
 // === AUTH === //
 
 // ========================== HANDLE API ERRORS ========================== //
-const getError = ({ code }) => ({ email: "", password: "", ...errors[code] });
+const getError = ({ code }) => ({
+  email: "",
+  password: "",
+  newPassword: "",
+  ...errors[code],
+});
 
 // ========================== HANDLE SIGN UP ========================== //
 // 1. Create Firebase Auth User
@@ -22,9 +27,11 @@ const getError = ({ code }) => ({ email: "", password: "", ...errors[code] });
 // 3. Add User Data Ref to Realtime Database
 // 4. Send Verification Email
 
-const createUserAuth = async (email, password) => auth.createUserWithEmailAndPassword(email, password);
+const createUserAuth = async (email, password) =>
+  auth.createUserWithEmailAndPassword(email, password);
 const deleteUserAuth = (user) => user.delete();
-const updateUser = async (uid, data) => database.ref(`users/${uid}`).set(defaultUser);
+const updateUser = async (uid, data) =>
+  database.ref(`users/${uid}`).set(defaultUser);
 
 const createCookie = () => localStorage.setItem("exists", true);
 const deleteCookie = () => localStorage.setItem("exists", false);
@@ -33,7 +40,8 @@ const setUserData = ({ uid }) => database.ref(`users/${uid}`).set(defaultUser);
 const setUserType = (user) => user.updateProfile({ displayName: "researcher" });
 
 const sendVerificationEmail = (user) => user.sendEmailVerification();
-const sendPasswordResetEmail = async (email) => auth.sendPasswordResetEmail(email);
+const sendPasswordResetEmail = async (email) =>
+  auth.sendPasswordResetEmail(email);
 
 function validateEmail(email) {
   if (!email) return " ";
@@ -46,7 +54,8 @@ function validatePassword(password) {
   if (!password) return " ";
   const checkCase = password !== password.toLowerCase();
   const checkSize = password.length > 7;
-  if (!checkCase && !checkSize) return "Password must have at least 8 digits and one capital letter";
+  if (!checkCase && !checkSize)
+    return "Password must have at least 8 digits and one capital letter";
   if (!checkCase) return "Password must have a capital letter";
   if (!checkSize) return "Password must be at least 8 characters long";
   return "";
@@ -56,7 +65,8 @@ function validate({ email, password, newPassword }) {
   const error = {};
   if (email !== undefined) error.email = validateEmail(email);
   if (password !== undefined) error.password = validatePassword(password);
-  if (newPassword !== undefined) error.newPassword = validatePassword(newPassword);
+  if (newPassword !== undefined)
+    error.newPassword = validatePassword(newPassword);
   return error;
 }
 
@@ -69,12 +79,14 @@ const signup = async (email, password) => {
     sendVerificationEmail(user);
     return user;
   } catch (error) {
+    console.log(error);
     throw getError(error);
   }
 };
 
 // ========================== HANDLE SIGN IN ========================== //
-const authenticateUser = async (email, password) => auth.signInWithEmailAndPassword(email, password);
+const authenticateUser = async (email, password) =>
+  auth.signInWithEmailAndPassword(email, password);
 
 function checkVerified(user) {
   if (!user.emailVerified) {

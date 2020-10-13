@@ -1,25 +1,26 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-import { colors } from './../../constants'
+import { colors } from "./../../constants";
 
 function Message({ type, icon, title, children, ...rest }) {
-
   const types = {
     neutral: colors.primary,
     success: colors.success,
-    error: colors.danger,
-  }
+    failure: colors.danger,
+  };
 
   return (
     <Center {...rest}>
       <Box>
-        <Icon color={types[type] || colors.primary}><FaIcon className={`fas fa-${icon || 'exclamation'}`} /></Icon>
-        <Heading color={colors.primary}>{ title }</Heading>
-        <Description>{ children }</Description>
+        <Icon color={types[type] || colors.primary}>
+          <FaIcon className={`fas fa-${icon || "exclamation"}`} />
+        </Icon>
+        <Heading color={colors.primary}>{title}</Heading>
+        <Description>{children}</Description>
       </Box>
     </Center>
-  )
+  );
 }
 
 const Center = styled.div`
@@ -39,7 +40,7 @@ const Box = styled.div`
 
 const Heading = styled.h1`
   line-height: 1.5;
-  color: ${props => props.color.hard};
+  color: ${(props) => props.color.hard};
   text-align: center;
 `;
 
@@ -55,8 +56,8 @@ const Icon = styled.span`
   margin-bottom: 15px;
   font-size: 1.75rem;
   border-radius: 100px;
-  color: ${props => props.color.hard};
-  background: ${props => props.color.alpha(0.1)};
+  color: ${(props) => props.color.hard};
+  background: ${(props) => props.color.alpha(0.1)};
 `;
 
 const FaIcon = styled.div`
@@ -67,4 +68,4 @@ const FaIcon = styled.div`
   height: 28px;
 `;
 
-export default Message
+export default Message;

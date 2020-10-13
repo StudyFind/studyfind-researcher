@@ -7,32 +7,63 @@ import {
   signup,
   sendPasswordResetEmail,
   sendVerificationEmail,
+  resetPassword,
+  verifyUser,
 } from "database";
 import { Card } from "components";
 
-import ResearcherImage from "images/research.jpg";
-
 import Header from "views/External/Header";
+import Footer from "views/External/Footer";
 import Signup from "./Signup";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
-import Success from "./Success";
+import ResetPassword from "./ResetPassword";
+import AuthMessage from "./AuthMessage";
 
+import { useHistory } from "react-router-dom";
 import { NavHashLink as HashLink } from "react-router-hash-link";
 
+function getDefaultTab(url) {
+  const mode = url.searchParams.get("mode");
+  const modeValues = ["verifyEmail", "resetPassword"];
+  const accountExists = localStorage.getItem("exists") === "true";
+
+  const modeToTabs = {
+    verifyEmail: "verify email",
+    resetPassword: "reset password",
+  };
+
+  return modeValues.includes(mode)
+    ? modeToTabs[mode]
+    : accountExists
+    ? "login"
+    : "sign up";
+}
+
 function Auth() {
-  const [inputs, setInputs] = useState({ email: "", password: "" });
+  const history = useHistory();
+  const url = new URL(window.location.href);
+  const actionCode = url.searchParams.get("oobCode");
+
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState(
-    "Check your email for a password reset link"
-  );
+  const [message, setMessage] = useState();
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState(
-    localStorage.getItem("exists") === "true" ? "login" : "sign up"
-  );
+  const [tab, setTab] = useState(getDefaultTab(url));
 
   useEffect(() => {
+    setInputs({
+      email: "",
+      password: "",
+    });
     setErrors({});
+
+    if (tab === "verify email") {
+      handleVerifyEmail();
+    }
   }, [tab]);
 
   const handleInputs = (name, value) => {
@@ -56,7 +87,11 @@ function Auth() {
     signup(email, password)
       .then((user) => {
         setLoading(false);
-        setSuccessMessage("Check your email for a verification link");
+        setMessage({
+          type: "success",
+          title: "Success!",
+          text: "Check your email for a verification link",
+        });
       })
       .catch((err) => {
         setLoading(false);
@@ -79,6 +114,7 @@ function Auth() {
 
     signin(email, password)
       .then((user) => {
+        setLoading(false);
         // sign in user (redirect is automatic through onAuthStateChanged function in App.js)
       })
       .catch((err) => {
@@ -88,11 +124,25 @@ function Auth() {
   };
 
   const handleForgotPassword = () => {
+    const inputErrors = validate(inputs);
+    const errorExists = Object.keys(inputErrors).some((v) => inputErrors[v]);
+
+    if (errorExists) {
+      setErrors(inputErrors);
+      return;
+    }
+
     setLoading(true);
+
     const { email } = inputs;
+
     sendPasswordResetEmail(email)
       .then(() => {
-        setSuccessMessage("Check your email for a password reset link");
+        setMessage({
+          type: "success",
+          title: "Success!",
+          text: "Check your email for a password reset link",
+        });
       })
       .catch((err) => {
         setLoading(false);
@@ -100,15 +150,108 @@ function Auth() {
       });
   };
 
+  const handleResetPassword = () => {
+    const inputErrors = validate(inputs);
+    const errorExists = Object.keys(inputErrors).some((v) => inputErrors[v]);
+
+    if (errorExists) {
+      setErrors(inputErrors);
+      return;
+    }
+
+    setLoading(true);
+
+    const { newPassword } = inputs;
+
+    resetPassword(actionCode, newPassword)
+      .then(() => {
+        setLoading(false);
+        setMessage({
+          type: "success",
+          title: "Success!",
+          text: "Your password has been reset!",
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setErrors(err);
+      });
+  };
+
+  const handleVerifyEmail = () => {
+    setLoading(true);
+    verifyUser(actionCode)
+      .then(() => {
+        setLoading(false);
+        setMessage({
+          type: "success",
+          title: "Verification successful!",
+          text: "Your email has now been verified!",
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setMessage({
+          type: "failure",
+          title: "Verification expired",
+          text: "Your email verification was unsuccessful!",
+        });
+      });
+  };
+
+  const handleGoogleAuth = () => {
+    setLoading(true);
+    verifyUser(actionCode)
+      .then(() => {
+        setLoading(false);
+        setMessage({
+          type: "success",
+          title: "Verification successful!",
+          text: "Your email has now been verified!",
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setMessage({
+          type: "failure",
+          title: "Verification expired",
+          text: "Your email verification was unsuccessful!",
+        });
+      });
+  };
+
+  const handleFacebookAuth = () => {
+    setLoading(true);
+    verifyUser(actionCode)
+      .then(() => {
+        setLoading(false);
+        setMessage({
+          type: "success",
+          title: "Verification successful!",
+          text: "Your email has now been verified!",
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setMessage({
+          type: "failure",
+          title: "Verification expired",
+          text: "Your email verification was unsuccessful!",
+        });
+      });
+  };
+
   return (
-    <Page>
+    <Box>
       <Header />
       <AuthBox>
-        {successMessage ? (
-          <Success
+        {message ? (
+          <AuthMessage
             setTab={setTab}
-            successMessage={successMessage}
-            setSuccessMessage={setSuccessMessage}
+            type={message.type}
+            title={message.title}
+            message={message.text}
+            setMessage={setMessage}
           />
         ) : (
           <AuthCard
@@ -124,6 +267,8 @@ function Auth() {
               setTab={setTab}
               handleInputs={handleInputs}
               handleSignin={handleSignin}
+              handleGoogleAuth={handleGoogleAuth}
+              handleFacebookAuth={handleFacebookAuth}
             />
             <Signup
               tab="sign up"
@@ -133,6 +278,8 @@ function Auth() {
               setTab={setTab}
               handleInputs={handleInputs}
               handleSignup={handleSignup}
+              handleGoogleAuth={handleGoogleAuth}
+              handleFacebookAuth={handleFacebookAuth}
             />
             <ForgotPassword
               tab="forgot password"
@@ -143,12 +290,30 @@ function Auth() {
               handleInputs={handleInputs}
               handleForgotPassword={handleForgotPassword}
             />
+            <ResetPassword
+              tab="reset password"
+              inputs={inputs}
+              errors={errors}
+              loading={loading}
+              setTab={setTab}
+              handleInputs={handleInputs}
+              handleResetPassword={handleResetPassword}
+            />
           </AuthCard>
         )}
       </AuthBox>
-    </Page>
+    </Box>
   );
 }
+
+const Box = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Logo = styled(HashLink)`
   all: unset;
@@ -174,11 +339,11 @@ const Name = styled.h4`
 
 const AuthBox = styled.div`
   display: flex;
-  margin-top: 50px;
   justify-content: center;
   align-items: center;
+  margin-top: 54px;
+  height: 100%;
   width: 350px;
-
   @media (max-width: 600px) {
     width: 90%;
   }
@@ -186,14 +351,6 @@ const AuthBox = styled.div`
 
 const AuthCard = styled(Card)`
   width: 100%;
-`;
-
-const Page = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export default Auth;

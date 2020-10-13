@@ -33,8 +33,14 @@ const errors = {
   "auth/wrong-password": { password: "Password is incorrect" },
 
   // EMAIL VERIFICATION or PASSWORD RESET
-  "auth/expired-action-code": "The email verification link has expired",
-  "auth/invalid-action-code": "The email verification link is invalid",
+  "auth/expired-action-code": {
+    email: "The action link has expired",
+    password: "The action link has expired",
+  },
+  "auth/invalid-action-code": {
+    email: "The action link is invalid",
+    password: "The action link is invalid",
+  },
 };
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

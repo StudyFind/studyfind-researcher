@@ -12,7 +12,7 @@ function ForgotPassword({
   handleForgotPassword,
 }) {
   return (
-    <AuthTab handleSubmit={() => handleForgotPassword()}>
+    <AuthTab handleSubmit={handleForgotPassword}>
       <Heading> Forgot Password </Heading>
       <Input
         name="email"
@@ -22,7 +22,7 @@ function ForgotPassword({
         error={errors.email}
         onChange={handleInputs}
       />
-      <Button onClick={() => handleForgotPassword()} loading={loading}>
+      <Button onClick={handleForgotPassword} loading={loading}>
         Send Password Reset Email
       </Button>
       <AuthLink onClick={() => setTab("login")}> Return to login </AuthLink>

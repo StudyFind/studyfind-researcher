@@ -2,11 +2,27 @@ import React from "react";
 import styled from "styled-components";
 
 import { Input, Button } from "components";
-import { AuthTab, Heading, AuthLink } from "./styles";
+import {
+  AuthTab,
+  Heading,
+  AuthLink,
+  Divider,
+  Line,
+  SocialButtons,
+  FacebookButton,
+  GoogleButton,
+} from "./styles";
 
-function Login({ inputs, errors, loading, setTab, handleInputs, handleSignin }) {
+function Login({
+  inputs,
+  errors,
+  loading,
+  setTab,
+  handleInputs,
+  handleSignin,
+}) {
   return (
-    <AuthTab handleSubmit={() => handleSignin()}>
+    <AuthTab handleSubmit={handleSignin}>
       <Heading> Welcome Back </Heading>
       <Input
         name="email"
@@ -24,10 +40,23 @@ function Login({ inputs, errors, loading, setTab, handleInputs, handleSignin }) 
         error={errors.password}
         onChange={handleInputs}
       />
-      <Button onClick={() => handleSignin()} loading={loading}>
+      <Button onClick={handleSignin} loading={loading}>
         Login
       </Button>
-      <AuthLink onClick={() => setTab("forgot password")}>Forgot password?</AuthLink>
+      <Divider>
+        <Line /> OR <Line />
+      </Divider>
+      <SocialButtons>
+        <FacebookButton onClick={() => {}}>
+          <i className="fa fa-facebook" /> Facebook
+        </FacebookButton>
+        <GoogleButton onClick={() => {}} color="danger">
+          <i className="fa fa-google" /> Google
+        </GoogleButton>
+      </SocialButtons>
+      <AuthLink onClick={() => setTab("forgot password")}>
+        Forgot password?
+      </AuthLink>
     </AuthTab>
   );
 }
