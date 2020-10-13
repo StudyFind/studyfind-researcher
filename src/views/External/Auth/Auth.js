@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { validate, signin, signup, sendPasswordResetEmail } from 'database';
+import { validate, signin, signup, googleAuth, sendPasswordResetEmail } from 'database';
 import { Card } from 'components';
 
 import ResearcherImage from 'images/research.jpg';
@@ -54,14 +54,6 @@ function Auth() {
     });
   }
 
-  const handleGoogleSignup = () => {
-
-  }
-
-  const handleFacebookSignup = () => {
-    
-  }
-
   const handleEmailSignin = () => {
     const inputErrors = validate(inputs);
     const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
@@ -85,11 +77,14 @@ function Auth() {
     });
   }
 
-  const handleGoogleSignin = () => {
-
+  const handleGoogleAuth = () => {
+    setLoading(true)
+    googleAuth().then(resp => {
+      console.log(resp)
+    })
   }
 
-  const handleFacebookSignin = () => {
+  const handleFacebookAuth = () => {
     
   }
 
@@ -127,8 +122,8 @@ function Auth() {
                 setTab={setTab}
                 handleInputs={handleInputs}
                 handleEmailSignin={handleEmailSignin}
-                handleGoogleSignin={handleGoogleSignin}
-                handleFacebookSignin={handleFacebookSignin}
+                handleGoogleSignin={handleGoogleAuth}
+                handleFacebookSignin={handleFacebookAuth}
               />
               <Signup
                 tab="sign up"
@@ -138,8 +133,8 @@ function Auth() {
                 setTab={setTab}
                 handleInputs={handleInputs}
                 handleEmailSignup={handleEmailSignup}
-                handleGoogleSignup={handleGoogleSignup}
-                handleFacebookSignup={handleFacebookSignup}
+                handleGoogleSignup={handleGoogleAuth}
+                handleFacebookSignup={handleFacebookAuth}
               />
               <ForgotPassword
                 tab="forgot password"

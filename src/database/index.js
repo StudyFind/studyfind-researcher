@@ -1,4 +1,5 @@
 import { auth, database } from './firebase'
+import firebase from 'firebase'
 import { errors, defaultUser, emailRegex } from './constants'
 
 // === DATA === //
@@ -22,6 +23,8 @@ const getError = ({ code }) => ({ email: '', password: '', ...errors[code] })
 // 2. Set User Type (displayName is used to store user type)
 // 3. Add User Data Ref to Realtime Database
 // 4. Send Verification Email
+
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 
 const createUserAuth = async (email, password) => auth.createUserWithEmailAndPassword(email, password)
 const deleteUserAuth = user => user.delete()
@@ -77,6 +80,26 @@ const signup = async (email, password) => {
     throw getError(error)
 
   }
+}
+
+const googleAuth = async () => {
+  await auth.signInWithPopup(googleAuthProvider)
+  .then(resp => {
+
+    console.log(resp)
+    createCookie()
+    if (resp.additionalUserInfo.isNewUser) {
+      setUserType(resp.user)
+      setUserData(resp.User)
+    }
+    return resp
+
+  })
+  .catch(error => {
+
+    throw getError(error)
+    
+  })
 }
 
 
@@ -185,6 +208,7 @@ export {
   // AUTH //
   signin,
   signup,
+  googleAuth,
   signout,
   validate,
 
