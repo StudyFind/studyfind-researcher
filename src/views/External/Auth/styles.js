@@ -8,7 +8,7 @@ const AuthTab = styled(Form)`
   grid-gap: 15px;
 `;
 
-const Heading = styled.h2`
+const AuthHeading = styled.h2`
   color: #377dff;
   text-align: center;
 `;
@@ -28,50 +28,31 @@ const AuthLink = styled.a`
   }
 `;
 
-const Divider = styled.span`
-  display: flex;
-  align-items: center;
-  color: darkgrey;
-  grid-gap: 10px;
-  font-size: 0.8rem;
-`;
-
-const Line = styled.div`
+const Tab = styled(Form)`
   width: 100%;
-  height: 1px;
-  background: lightgrey;
+  padding: 10px;
+  display: grid;
+  grid-gap: 15px;
 `;
 
-const SocialButtons = styled.div`
-  display: flex;
-  grid-gap: 10px;
+const Heading = styled.h2`
+  color: #377dff;
+  text-align: center;
 `;
 
-const FacebookButton = styled(Button)`
-  background: rgb(60, 89, 153);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
+const Link = styled.a`
+  all: unset;
+  cursor: pointer;
+  margin: auto;
+  color: grey;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed grey;
+
+  &:hover {
+    color: #377dff;
+    border-color: #377dff;
+    text-decoration: none;
+  }
 `;
 
-const GoogleButton = styled(Button)`
-  background: rgb(203, 64, 35);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-export {
-  AuthTab,
-  Heading,
-  AuthLink,
-  Divider,
-  Line,
-  SocialButtons,
-  FacebookButton,
-  GoogleButton,
-};
+export { AuthTab, AuthHeading, AuthLink, Tab, Heading, Link };

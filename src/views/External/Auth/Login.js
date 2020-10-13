@@ -1,63 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Input, Button } from "components";
-import {
-  AuthTab,
-  Heading,
-  AuthLink,
-  Divider,
-  Line,
-  SocialButtons,
-  FacebookButton,
-  GoogleButton,
-} from "./styles";
+import AuthForm from "./AuthForm";
+import { signin } from "database";
 
-function Login({
-  inputs,
-  errors,
-  loading,
-  setTab,
-  handleInputs,
-  handleSignin,
-}) {
+function Login({ setTab, setMessage }) {
+  const handleSubmit = ({ email, password }) => signin(email, password);
+
   return (
-    <AuthTab handleSubmit={handleSignin}>
-      <Heading> Welcome Back </Heading>
-      <Input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={inputs.email}
-        error={errors.email}
-        onChange={handleInputs}
-      />
-      <Input
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={inputs.password}
-        error={errors.password}
-        onChange={handleInputs}
-      />
-      <Button onClick={handleSignin} loading={loading}>
-        Login
-      </Button>
-      <Divider>
-        <Line /> OR <Line />
-      </Divider>
-      <SocialButtons>
-        <FacebookButton onClick={() => {}}>
-          <i className="fa fa-facebook" /> Facebook
-        </FacebookButton>
-        <GoogleButton onClick={() => {}} color="danger">
-          <i className="fa fa-google" /> Google
-        </GoogleButton>
-      </SocialButtons>
-      <AuthLink onClick={() => setTab("forgot password")}>
-        Forgot password?
-      </AuthLink>
-    </AuthTab>
+    <AuthForm
+      heading="Welcome Back"
+      initial={{ email: "", password: "" }}
+      button="Login"
+      social
+      setTab={setTab}
+      redirect={{ prompt: "Forgot Password?", tab: "forgot password" }}
+      onSubmit={handleSubmit}
+      onSuccess={() => console.log("success")}
+      onFailure={() => console.log("failure")}
+    ></AuthForm>
   );
 }
 

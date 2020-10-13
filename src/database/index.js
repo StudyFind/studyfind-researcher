@@ -43,33 +43,6 @@ const sendVerificationEmail = (user) => user.sendEmailVerification();
 const sendPasswordResetEmail = async (email) =>
   auth.sendPasswordResetEmail(email);
 
-function validateEmail(email) {
-  if (!email) return " ";
-  const checkValid = emailRegex.test(email.toLowerCase());
-  if (!checkValid) return "Email is invalid";
-  return "";
-}
-
-function validatePassword(password) {
-  if (!password) return " ";
-  const checkCase = password !== password.toLowerCase();
-  const checkSize = password.length > 7;
-  if (!checkCase && !checkSize)
-    return "Password must have at least 8 digits and one capital letter";
-  if (!checkCase) return "Password must have a capital letter";
-  if (!checkSize) return "Password must be at least 8 characters long";
-  return "";
-}
-
-function validate({ email, password, newPassword }) {
-  const error = {};
-  if (email !== undefined) error.email = validateEmail(email);
-  if (password !== undefined) error.password = validatePassword(password);
-  if (newPassword !== undefined)
-    error.newPassword = validatePassword(newPassword);
-  return error;
-}
-
 const signup = async (email, password) => {
   try {
     const { user } = await createUserAuth(email, password);
@@ -167,7 +140,6 @@ export {
   signin,
   signup,
   signout,
-  validate,
   sendVerificationEmail,
   sendPasswordResetEmail,
 };

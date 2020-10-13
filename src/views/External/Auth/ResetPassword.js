@@ -1,32 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
+import styled from "styled-components";
 
-import { Input, Button } from "components";
-import { AuthTab, Heading, AuthLink } from "./styles";
+import AuthForm from "./AuthForm";
+import { resetPassword } from "database";
 
-function ResetPassword({
-  inputs,
-  errors,
-  loading,
-  setTab,
-  handleInputs,
-  handleResetPassword,
-}) {
+function ResetPassword({ setTab, setMessage }) {
+  const url = new URL(window.location.href);
+  const actionCode = url.searchParams.get("oobCode");
+
+  const handleSubmit = ({ newPassword }) =>
+    resetPassword(actionCode, newPassword);
+
+  const handleSuccess = () => {
+    setMessage({
+      type: "success",
+      title: "Success!",
+      text: "Your password has been reset!",
+    });
+  };
+
   return (
-    <AuthTab handleSubmit={handleResetPassword}>
-      <Heading>Reset Password</Heading>
-      <Input
-        name="password"
-        type="password"
-        placeholder="New Password"
-        value={inputs.password}
-        error={errors.password}
-        onChange={handleInputs}
-      />
-      <Button color="primary" onClick={handleResetPassword} loading={loading}>
-        Reset Password
-      </Button>
-      <AuthLink onClick={() => setTab("login")}> Return to login </AuthLink>
-    </AuthTab>
+    <AuthForm
+      heading="Reset Password"
+      initial={{ newPassword: "" }}
+      button="Reset Password"
+      setTab={setTab}
+      redirect={{ prompt: "Return to login?", tab: "login" }}
+      onSubmit={handleSubmit}
+      onSuccess={handleSuccess}
+      onFailure={() => console.log("failure")}
+    ></AuthForm>
   );
 }
 

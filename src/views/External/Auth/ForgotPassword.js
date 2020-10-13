@@ -1,33 +1,32 @@
 import React from "react";
+import styled from "styled-components";
 
-import { Input, Button } from "components";
-import { AuthTab, Heading, AuthLink } from "./styles";
+import AuthForm from "./AuthForm";
+import { sendPasswordResetEmail } from "database";
 
-function ForgotPassword({
-  inputs,
-  errors,
-  loading,
-  setTab,
-  handleInputs,
-  handleForgotPassword,
-}) {
+function Signup({ setTab, setMessage }) {
+  const handleSubmit = ({ email }) => sendPasswordResetEmail(email);
+
+  const handleSuccess = () => {
+    setMessage({
+      type: "success",
+      title: "Success!",
+      text: "Check your email for a password reset link",
+    });
+  };
+
   return (
-    <AuthTab handleSubmit={handleForgotPassword}>
-      <Heading> Forgot Password </Heading>
-      <Input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={inputs.email}
-        error={errors.email}
-        onChange={handleInputs}
-      />
-      <Button onClick={handleForgotPassword} loading={loading}>
-        Send Password Reset Email
-      </Button>
-      <AuthLink onClick={() => setTab("login")}> Return to login </AuthLink>
-    </AuthTab>
+    <AuthForm
+      heading="Forgot Password"
+      initial={{ email: "" }}
+      button="Send password reset email"
+      setTab={setTab}
+      redirect={{ prompt: "Back to login?", tab: "login" }}
+      onSubmit={handleSubmit}
+      onSuccess={handleSuccess}
+      onFailure={() => console.log("failure")}
+    ></AuthForm>
   );
 }
 
-export default ForgotPassword;
+export default Signup;

@@ -3,18 +3,24 @@ import styled from "styled-components";
 
 import { colors } from "./../../constants";
 
-function Message({ type, icon, title, children, ...rest }) {
+function Message({ type, title, children, ...rest }) {
   const types = {
     neutral: colors.primary,
     success: colors.success,
     failure: colors.danger,
   };
 
+  const icons = {
+    neutral: "exclamation",
+    success: "check",
+    failure: "times",
+  };
+
   return (
     <Center {...rest}>
       <Box>
         <Icon color={types[type] || colors.primary}>
-          <FaIcon className={`fas fa-${icon || "exclamation"}`} />
+          <FaIcon className={`fas fa-${icons[type] || "exclamation"}`} />
         </Icon>
         <Heading color={colors.primary}>{title}</Heading>
         <Description>{children}</Description>
