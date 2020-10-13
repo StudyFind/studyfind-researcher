@@ -1,4 +1,4 @@
-import { auth, database } from './firebase'
+import { auth, database, firestore } from './firebase'
 import { errors, defaultUser, emailRegex } from './constants'
 
 // === DATA === //
@@ -15,7 +15,9 @@ const fetchData = async uid => {
 // === AUTH === //
 
 // ========================== HANDLE API ERRORS ========================== //
-const getError = ({ code }) => ({ email: '', password: '', ...errors[code] })
+const getError = ({ code }) => {
+  return { email: '', password: '', ...errors[code] }
+}
 
 // ========================== HANDLE SIGN UP ========================== //
 // 1. Create Firebase Auth User
@@ -23,18 +25,18 @@ const getError = ({ code }) => ({ email: '', password: '', ...errors[code] })
 // 3. Add User Data Ref to Realtime Database
 // 4. Send Verification Email
 
-const createUserAuth = async (email, password) => auth.createUserWithEmailAndPassword(email, password)
+const createUserAuth = async (email, password) => auth.createUserAuthWithEmailAndPassword(email, password)
 const deleteUserAuth = user => user.delete()
-const updateUser = async (uid, data) => database.ref(`users/${uid}`).set(defaultUser)
+const updateUser = data => database.ref(`users/${data.uid}`).set(defaultUser)
 
 const createCookie = () => localStorage.setItem('exists', true)
 const deleteCookie = () => localStorage.setItem('exists', false)
 
 const setUserData = ({ uid }) => database.ref(`users/${uid}`).set(defaultUser)
-const setUserType = user => user.updateProfile({ displayName: 'researcher' })
+const setUserType = user => user.updateProfile({ displayName: 'participant' })
 
 const sendVerificationEmail = user => user.sendEmailVerification()
-const sendPasswordResetEmail = async email => auth.sendPasswordResetEmail(email)
+const sendPasswordResetEmail = async () => auth.sendPasswordResetEmail()
 
 
 function validateEmail(email) {
@@ -48,7 +50,7 @@ function validatePassword(password) {
   if(!password) return ' '
   const checkCase = password !== password.toLowerCase()
   const checkSize = password.length > 7
-  if(!checkCase && !checkSize)  return 'Password must have at least 8 digits and one capital letter'
+  if(!checkCase && !checkSize)  return 'Password must have atleast 8 digits and one capital letter'
   if(!checkCase)                return 'Password must have a capital letter'
   if(!checkSize)                return 'Password must be at least 8 characters long'
   return ''
@@ -59,10 +61,13 @@ function validate({ email, password, newPassword }) {
   if(email       !== undefined) error.email       = validateEmail(email)
   if(password    !== undefined) error.password    = validatePassword(password)
   if(newPassword !== undefined) error.newPassword = validatePassword(newPassword)
-  return error
+  if(error.email || error.password || error.newPassword) throw error
 }
 
 const signup = async (email, password) => {
+
+  validate({ email, password })
+
   try {
 
     const { user } = await createUserAuth(email, password)
@@ -73,7 +78,6 @@ const signup = async (email, password) => {
     return user
 
   } catch(error) {
-
     throw getError(error)
 
   }
@@ -86,27 +90,29 @@ const authenticateUser = async (email, password) => auth.signInWithEmailAndPassw
 function checkVerified(user) {
   if(!user.emailVerified) {
     sendVerificationEmail(user)
-    throw Error('auth/user-not-verified');
+    throw { code: 'auth/user-not-verified' }
   }
 }
 
-function checkUserType(user) {
-  if(user.displayName !== 'researcher') {
-    throw Error('auth/user-not-found');
+function checkUsertype(user) {
+  if(user.displayName !== 'participant') {
+    throw { code: 'auth/user-not-found' }
   }
 }
 
 const signin = async (email, password) => {
+  validate({ email, password })
+
   try {
 
     const { user } = await authenticateUser(email, password)
     createCookie()
-    checkUserType(user)
+    // checkUsertype(user)
     checkVerified(user)
     return user
 
   } catch(error) {
-
+    signout()
     throw getError(error)
 
   }
@@ -120,12 +126,15 @@ const signout = async () => auth.signOut()
 
 // ========================== EMAIL VERIFICATION ========================== //
 
-const verifyUser = async actionCode => auth.applyActionCode(actionCode)
+const verify = async actionCode => auth.applyActionCode(actionCode)
 
 
 // ========================== ACCOUNT DELETION ========================== //
 
 const deleteUser = async (email, password) => {
+
+  validate({ password })
+
   try {
 
     const { user } = await authenticateUser(email, password)
@@ -143,6 +152,9 @@ const deleteUser = async (email, password) => {
 // ========================== PASSWORD UPDATES ========================== //
 
 const resetPassword = async (actionCode, password) => {
+
+  validate({ password })
+
   try {
 
     const email = await auth.verifyPasswordResetCode(actionCode)
@@ -158,6 +170,9 @@ const resetPassword = async (actionCode, password) => {
 
 
 const changePassword = async (email, password, newPassword) => {
+
+  validate({ password, newPassword })
+
   try {
 
     const { user } = await authenticateUser(email, password)
@@ -171,23 +186,17 @@ const changePassword = async (email, password, newPassword) => {
 }
 
 
+
 export {
   // DATA //
-  verifyUser,
   updateUser,
-  deleteUser,
+  deleteUserAuth,
   fetchData,
   fetchUser,
   fetchStudies,
-  resetPassword,
-  changePassword,
 
   // AUTH //
   signin,
   signup,
   signout,
-  validate,
-
-  sendVerificationEmail,
-  sendPasswordResetEmail,
 }

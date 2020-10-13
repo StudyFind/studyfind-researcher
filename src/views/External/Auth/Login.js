@@ -28,8 +28,8 @@ function Login({ inputs, errors, loading, setTab, handleInputs, handleEmailSigni
         <Line/> OR <Line/>
       </Divider>
       <SocialButtons>
-        <GoogleButton onClick={handleGoogleSignin} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
-        <FacebookButton onClick={handleFacebookSignin} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
+        <FacebookButton onClick={handleGoogleSignin} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
+        <GoogleButton onClick={handleFacebookSignin} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
       </SocialButtons>
       <AuthLink onClick={() => setTab('forgot password')}> Forgot password? </AuthLink>
     </AuthTab>

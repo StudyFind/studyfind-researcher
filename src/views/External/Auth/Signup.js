@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { Input, Button } from 'components';
 import { AuthTab, Heading, AuthLink, SocialButtons, FacebookButton, GoogleButton, Divider, Line } from './styles';
@@ -28,8 +29,8 @@ function Signup({ inputs, errors, loading, setTab, handleInputs, handleEmailSign
         <Line/> OR <Line/>
       </Divider>
       <SocialButtons>
-        <GoogleButton onClick={handleGoogleSignup} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
-        <FacebookButton onClick={handleFacebookSignup} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
+        <FacebookButton onClick={handleGoogleSignup} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
+        <GoogleButton onClick={handleFacebookSignup} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
       </SocialButtons>
       <AuthLink onClick={() => setTab('login')}> Have an account? </AuthLink>
     </AuthTab>
