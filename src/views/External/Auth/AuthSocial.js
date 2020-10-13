@@ -13,12 +13,12 @@ function AuthSocial() {
         <Line /> OR <Line />
       </Divider>
       <SocialButtons>
-        <FacebookButton onClick={() => {}}>
-          <i className="fa fa-facebook" /> Facebook
-        </FacebookButton>
-        <GoogleButton onClick={() => {}} color="danger">
+        <GoogleButton onClick={handleGoogleAuth} color="danger">
           <i className="fa fa-google" /> Google
         </GoogleButton>
+        <FacebookButton onClick={handleFacebookAuth}>
+          <i className="fa fa-facebook" /> Facebook
+        </FacebookButton>
       </SocialButtons>
     </>
   );

@@ -21,7 +21,7 @@ function Signup({ setTab, setMessage }) {
       initial={{ email: "" }}
       button="Send password reset email"
       setTab={setTab}
-      redirect={{ prompt: "Back to login?", tab: "login" }}
+      redirect={{ prompt: "Return to login", tab: "login" }}
       onSubmit={handleSubmit}
       onSuccess={handleSuccess}
       onFailure={() => console.log("failure")}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 
-import { Form, Input, Button } from "components";
+import { Input, Button } from "components";
 import { Tab, Heading, Link } from "./styles";
 
 import AuthSocial from "./AuthSocial";
@@ -133,9 +132,7 @@ function AuthForm({
 
       {social && <AuthSocial />}
 
-      <Link onClick={() => setTab(redirect && redirect.tab)}>
-        {redirect && redirect.prompt}
-      </Link>
+      <Link onClick={() => setTab(redirect && redirect.tab)}>{redirect && redirect.prompt}</Link>
     </Tab>
   );
 }
