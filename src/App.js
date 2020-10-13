@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import { Switch, Route, useHistory } from "react-router-dom";
 
 import { auth } from "database/firebase";
@@ -10,7 +11,7 @@ import Auth from "views/External/Auth/Auth";
 
 function App() {
   const [cred, loading] = useAuthState(auth);
-  const [data, setData] = useState(undefined);
+  const [data, setData] = useState();
   const history = useHistory();
 
   const handleInternal = async () => {
@@ -38,7 +39,7 @@ function App() {
   return !data ? (
     <div> LOADING </div>
   ) : (
-    <div>
+    <Screen>
       <Switch>
         <Route exact path="/">
           <Home />
@@ -47,13 +48,16 @@ function App() {
           <Auth />
         </Route>
         <Route path="*">
-          <button onClick={signout} style={{ marginTop: 100 }}>
-            signout
-          </button>
+          <button onClick={signout}>signout</button>
         </Route>
       </Switch>
-    </div>
+    </Screen>
   );
 }
+
+const Screen = styled.div`
+  height: 100vh;
+  width: 100vw;
+`;
 
 export default App;

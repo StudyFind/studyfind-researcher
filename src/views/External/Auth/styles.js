@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Form } from "components";
 
 const AuthTab = styled(Form)`
-  width: 330px;
+  width: 100%;
   padding: 10px;
   display: grid;
   grid-gap: 15px;

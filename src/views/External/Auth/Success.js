@@ -20,12 +20,16 @@ function Success({ successMessage, setSuccessMessage, setTab }) {
 }
 
 const Box = styled(Card)`
-  padding: 2rem;
-  width: 330px;
+  padding: 3rem;
+  width: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
   grid-gap: 20px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export default Success;

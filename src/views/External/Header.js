@@ -122,10 +122,6 @@ const Hashes = styled.div`
   display: flex;
   grid-gap: 60px;
   align-items: center;
-
-  @media only screen and (max-width: 1000px) {
-    display: none;
-  }
 `;
 
 const Hash = styled(HashLink)`
@@ -135,6 +131,10 @@ const Hash = styled(HashLink)`
   cursor: pointer;
   color: #888;
   color: ${(props) => props.active && "#377dff"};
+
+  @media only screen and (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const StartButton = styled(Button)`

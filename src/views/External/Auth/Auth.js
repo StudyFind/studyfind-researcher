@@ -1,25 +1,35 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { validate, signin, signup, sendPasswordResetEmail } from "database";
+import {
+  validate,
+  signin,
+  signup,
+  sendPasswordResetEmail,
+  sendVerificationEmail,
+} from "database";
 import { Card } from "components";
 
 import ResearcherImage from "images/research.jpg";
 
+import Header from "views/External/Header";
 import Signup from "./Signup";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
 import Success from "./Success";
 
 import { NavHashLink as HashLink } from "react-router-hash-link";
-import SFLogo from "images/logo.png";
 
 function Auth() {
   const [inputs, setInputs] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState();
+  const [successMessage, setSuccessMessage] = useState(
+    "Check your email for a password reset link"
+  );
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState(localStorage.getItem("exists") === "true" ? "login" : "sign up");
+  const [tab, setTab] = useState(
+    localStorage.getItem("exists") === "true" ? "login" : "sign up"
+  );
 
   useEffect(() => {
     setErrors({});
@@ -85,54 +95,57 @@ function Auth() {
         setSuccessMessage("Check your email for a password reset link");
       })
       .catch((err) => {
+        setLoading(false);
         setErrors(err);
       });
   };
 
   return (
     <Page>
-      <Left>
-        <Logo to="/#home">
-          <Icon src={SFLogo} />
-          <Name>StudyFind</Name>
-        </Logo>
-        <AuthBox>
-          {successMessage ? (
-            <Success setTab={setTab} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
-          ) : (
-            <Card current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
-              <Login
-                tab="login"
-                inputs={inputs}
-                errors={errors}
-                loading={loading}
-                setTab={setTab}
-                handleInputs={handleInputs}
-                handleSignin={handleSignin}
-              />
-              <Signup
-                tab="sign up"
-                inputs={inputs}
-                errors={errors}
-                loading={loading}
-                setTab={setTab}
-                handleInputs={handleInputs}
-                handleSignup={handleSignup}
-              />
-              <ForgotPassword
-                tab="forgot password"
-                inputs={inputs}
-                errors={errors}
-                loading={loading}
-                setTab={setTab}
-                handleInputs={handleInputs}
-                handleForgotPassword={handleForgotPassword}
-              />
-            </Card>
-          )}
-        </AuthBox>
-      </Left>
-      <Image />
+      <Header />
+      <AuthBox>
+        {successMessage ? (
+          <Success
+            setTab={setTab}
+            successMessage={successMessage}
+            setSuccessMessage={setSuccessMessage}
+          />
+        ) : (
+          <AuthCard
+            current={tab}
+            tabs={["sign up", "login"]}
+            handleSelect={setTab}
+          >
+            <Login
+              tab="login"
+              inputs={inputs}
+              errors={errors}
+              loading={loading}
+              setTab={setTab}
+              handleInputs={handleInputs}
+              handleSignin={handleSignin}
+            />
+            <Signup
+              tab="sign up"
+              inputs={inputs}
+              errors={errors}
+              loading={loading}
+              setTab={setTab}
+              handleInputs={handleInputs}
+              handleSignup={handleSignup}
+            />
+            <ForgotPassword
+              tab="forgot password"
+              inputs={inputs}
+              errors={errors}
+              loading={loading}
+              setTab={setTab}
+              handleInputs={handleInputs}
+              handleForgotPassword={handleForgotPassword}
+            />
+          </AuthCard>
+        )}
+      </AuthBox>
     </Page>
   );
 }
@@ -159,50 +172,25 @@ const Name = styled.h4`
   color: #323232;
 `;
 
-const Image = styled.div`
-  & > h1 {
-    color: white;
-  }
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  padding: 30px;
-  width: 50vw;
-  height: 100vh;
-  background: linear-gradient(0deg, rgb(55, 125, 255, 0.75), rgb(55, 125, 255, 0.75)),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23377dff' fill-opacity='0.1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"),
-    url(${ResearcherImage});
-
-  background-position: center;
-
-  @media only screen and (max-width: 900px) {
-    display: none;
-  }
-`;
-
-const Left = styled.div`
-  width: 50vw;
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 100px 1fr;
-
-  @media only screen and (max-width: 900px) {
-    width: 100vw;
-  }
-`;
-
 const AuthBox = styled.div`
   display: flex;
+  margin-top: 50px;
   justify-content: center;
   align-items: center;
-  padding: 0 40px;
+  width: 350px;
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
+`;
+
+const AuthCard = styled(Card)`
+  width: 100%;
 `;
 
 const Page = styled.div`
   width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
