@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { validate, signinEmail, signupEmail, sendPasswordResetEmail } from 'database';
+import { validate, signinEmail, signupEmail, signinGoogle, signupGoogle, sendPasswordResetEmail } from 'database';
 import { Card } from 'components';
 
 import ResearcherImage from 'images/research.jpg';
@@ -55,7 +55,19 @@ function Auth() {
   }
 
   const handleGoogleSignup = () => {
+    console.log('handle google signin')
 
+    setLoading(true)
+    
+    signupGoogle()
+    .then(user => {
+      setLoading(false)
+      setSuccessMessage('Check your email for a verification link')
+    })
+    .catch(err => {
+      setLoading(false)
+      setErrors(err)
+    })
   }
 
   const handleFacebookSignup = () => {

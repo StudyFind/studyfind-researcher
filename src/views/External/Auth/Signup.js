@@ -28,8 +28,8 @@ function Signup({ inputs, errors, loading, setTab, handleInputs, handleEmailSign
         <Line/> OR <Line/>
       </Divider>
       <SocialButtons>
-        <FacebookButton onClick={handleGoogleSignup} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
-        <GoogleButton onClick={handleFacebookSignup} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
+        <GoogleButton onClick={handleGoogleSignup} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
+        <FacebookButton onClick={handleFacebookSignup} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
       </SocialButtons>
       <AuthLink onClick={() => setTab('login')}> Have an account? </AuthLink>
     </AuthTab>
