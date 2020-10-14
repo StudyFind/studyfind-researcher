@@ -78,7 +78,7 @@ function Auth() {
   const handleGoogleAuth = () => {
     setLoading(true)
     googleAuth().then(resp => {
-      console.log(resp)
+      console.log(resp.user)
     })
     .catch(err => alert(err))
     .finally(() => setLoading(false))
@@ -87,7 +87,7 @@ function Auth() {
   const handleFacebookAuth = async () => {
     setLoading(true)
     facebookAuth().then(resp => {
-      console.log(resp)
+      console.log(resp.user)
     })
     .catch(err => alert(err))
     .finally(() => setLoading(false))
