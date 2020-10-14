@@ -25,6 +25,7 @@ const getError = ({ code }) => ({ email: '', password: '', ...errors[code] })
 // 4. Send Verification Email
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+const facebookAuthProvider = new firebase.auth.FacebookAuthProvider()
 
 const createUserAuth = async (email, password) => auth.createUserWithEmailAndPassword(email, password)
 const deleteUserAuth = user => user.delete()
@@ -83,25 +84,38 @@ const signup = async (email, password) => {
 }
 
 const googleAuth = async () => {
-  await auth.signInWithPopup(googleAuthProvider)
+  return await auth.signInWithPopup(googleAuthProvider)
   .then(resp => {
 
-    console.log(resp)
     createCookie()
     if (resp.additionalUserInfo.isNewUser) {
       setUserType(resp.user)
-      setUserData(resp.User)
+      setUserData(resp.user)
     }
     return resp
 
   })
-  .catch(error => {
-
-    throw getError(error)
-    
+  .catch(err => {
+    throw err.message
   })
 }
 
+const facebookAuth = async () => {
+  return await auth.signInWithPopup(facebookAuthProvider)
+  .then(resp => {
+
+    createCookie()
+    if (resp.additionalUserInfo.isNewUser) {
+      setUserType(resp.user)
+      setUserData(resp.user)
+    }
+    return resp
+
+  })
+  .catch(err => {
+    throw err.message
+  })
+}
 
 // ========================== HANDLE SIGN IN ========================== //
 const authenticateUser = async (email, password) => auth.signInWithEmailAndPassword(email, password)
@@ -209,6 +223,7 @@ export {
   signin,
   signup,
   googleAuth,
+  facebookAuth,
   signout,
   validate,
 
