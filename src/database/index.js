@@ -1,4 +1,5 @@
 import { auth, database } from './firebase'
+import firebase from 'firebase'
 import { errors, defaultUser, emailRegex } from './constants'
 
 // === DATA === //
@@ -22,6 +23,9 @@ const getError = ({ code }) => ({ email: '', password: '', ...errors[code] })
 // 2. Set User Type (displayName is used to store user type)
 // 3. Add User Data Ref to Realtime Database
 // 4. Send Verification Email
+
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+const facebookAuthProvider = new firebase.auth.FacebookAuthProvider()
 
 const createUserAuth = async (email, password) => auth.createUserWithEmailAndPassword(email, password)
 const deleteUserAuth = user => user.delete()
@@ -79,6 +83,39 @@ const signup = async (email, password) => {
   }
 }
 
+const googleAuth = async () => {
+  return await auth.signInWithPopup(googleAuthProvider)
+  .then(resp => {
+
+    createCookie()
+    if (resp.additionalUserInfo.isNewUser) {
+      setUserType(resp.user)
+      setUserData(resp.user)
+    }
+    return resp
+
+  })
+  .catch(err => {
+    throw err.message
+  })
+}
+
+const facebookAuth = async () => {
+  return await auth.signInWithPopup(facebookAuthProvider)
+  .then(resp => {
+
+    createCookie()
+    if (resp.additionalUserInfo.isNewUser) {
+      setUserType(resp.user)
+      setUserData(resp.user)
+    }
+    return resp
+
+  })
+  .catch(err => {
+    throw err.message
+  })
+}
 
 // ========================== HANDLE SIGN IN ========================== //
 const authenticateUser = async (email, password) => auth.signInWithEmailAndPassword(email, password)
@@ -185,6 +222,8 @@ export {
   // AUTH //
   signin,
   signup,
+  googleAuth,
+  facebookAuth,
   signout,
   validate,
 

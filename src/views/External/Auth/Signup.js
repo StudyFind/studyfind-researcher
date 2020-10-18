@@ -1,12 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { Input, Button } from 'components';
-import { AuthTab, Heading, AuthLink } from './styles';
+import { AuthTab, Heading, AuthLink, SocialButtons, FacebookButton, GoogleButton, Divider, Line } from './styles';
 
-function Signup({ inputs, errors, loading, setTab, handleInputs, handleSignup }) {
+function Signup({ inputs, errors, loading, setTab, handleInputs, handleEmailSignup, handleGoogleSignup, handleFacebookSignup }) {
   return (
-    <AuthTab handleSubmit={() => handleSignup()}>
+    <AuthTab handleSubmit={handleEmailSignup}>
       <Heading> Create Account </Heading>
       <Input
         name="email"
@@ -24,55 +23,18 @@ function Signup({ inputs, errors, loading, setTab, handleInputs, handleSignup })
         error={errors.password}
         onChange={handleInputs}
       />
-      <Button onClick={() => handleSignup()} loading={loading}> Sign up </Button>
+      <Button onClick={handleEmailSignup} loading={loading}> Sign up </Button>
       <Divider>
-        <Line/> OR <Line/>
+        <Line /> OR <Line />
       </Divider>
       <SocialButtons>
-        <FacebookButton onClick={() => {}} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
-        <GoogleButton onClick={() => {}} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
+        <GoogleButton onClick={handleGoogleSignup} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
+        <FacebookButton onClick={handleFacebookSignup} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
       </SocialButtons>
       <AuthLink onClick={() => setTab('login')}> Have an account? </AuthLink>
     </AuthTab>
   );
 }
-
-const Divider = styled.span`
-  display: flex;
-  align-items: center;
-  color: darkgrey;
-  grid-gap: 10px;
-  font-size: 0.8rem;
-`;
-
-const Line = styled.div`
-  width: 100%;
-  height: 1px;
-  background: lightgrey;
-`;
-
-const SocialButtons = styled.div`
-  display: flex;
-  grid-gap: 10px;
-`;
-
-const FacebookButton = styled(Button)`
-  background: rgb(60, 89, 153);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const GoogleButton = styled(Button)`
-  background: rgb(203, 64, 35);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
-`;
 
 
 export default Signup;
