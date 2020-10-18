@@ -38,20 +38,20 @@ function Footer() {
         <FeedbackIcon className="fa fa-question-circle"></FeedbackIcon>
       </Button>
       <Icons>
-        <Icon size="sm" target="_blank" href="https://www.facebook.com/studyfindco">
-          <i className="fab fa-facebook-f"></i>
-        </Icon>
-        <Icon size="sm" target="_blank" href="https://www.instagram.com/studyfindco">
-          <i className="fab fa-instagram"></i>
-        </Icon>
-        <Icon size="sm" target="_blank" href="https://twitter.com/studyfindco">
-          <i className="fab fa-twitter"></i>
-        </Icon>
-        <Icon size="sm" target="_blank" href="https://www.linkedin.com/company/studyfind">
-          <i className="fab fa-linkedin"></i>
-        </Icon>
+        <SocialIcon icon="facebook-f" link="https://www.facebook.com/studyfindco" />
+        <SocialIcon icon="instagram" link="https://www.instagram.com/studyfindco" />
+        <SocialIcon icon="twitter" link="https://twitter.com/studyfindco" />
+        <SocialIcon icon="linkedin" link="https://www.linkedin.com/company/studyfind" />
       </Icons>
     </Box>
+  );
+}
+
+function SocialIcon({ icon, link }) {
+  return (
+    <Icon size="sm" target="_blank" href={link}>
+      <i className={`fab fa-${icon}`}></i>
+    </Icon>
   );
 }
 

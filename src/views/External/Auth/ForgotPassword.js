@@ -10,7 +10,7 @@ function Signup({ setTab, setMessage }) {
   const handleSuccess = () => {
     setMessage({
       type: "success",
-      title: "Success!",
+      title: "Email Sent!",
       text: "Check your email for a password reset link",
     });
   };

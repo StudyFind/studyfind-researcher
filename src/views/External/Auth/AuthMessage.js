@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Card, Message, Button } from "components";
+import { Message, Button } from "components";
 
 function AuthMessage({ type, title, message, setMessage, setTab }) {
   const handleRedirect = () => {
     setTab("login");
-    setMessage("");
+    setMessage();
   };
 
   return (
@@ -25,10 +25,6 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   grid-gap: 20px;
-
-  @media (max-width: 600px) {
-    // width: 100%;
-  }
 `;
 
 export default AuthMessage;

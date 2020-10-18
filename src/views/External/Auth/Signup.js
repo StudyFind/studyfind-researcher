@@ -10,9 +10,13 @@ function Signup({ setTab, setMessage }) {
   const handleSuccess = () => {
     setMessage({
       type: "success",
-      title: "Success!",
+      title: "Account Created!",
       text: "Check your email for a verification link",
     });
+  };
+
+  const handleFailure = (error) => {
+    console.log(error);
   };
 
   return (
@@ -24,7 +28,7 @@ function Signup({ setTab, setMessage }) {
       redirect={{ prompt: "Have an account?", tab: "login" }}
       onSubmit={handleSubmit}
       onSuccess={handleSuccess}
-      onFailure={() => console.log("failure")}
+      onFailure={handleFailure}
     ></AuthForm>
   );
 }
