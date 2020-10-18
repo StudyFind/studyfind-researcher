@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { validate, signin, signup, googleAuth, facebookAuth, sendPasswordResetEmail } from 'database';
+import { validate, signin, signup, sendPasswordResetEmail } from 'database';
 import { Card } from 'components';
 
 import ResearcherImage from 'images/research.jpg';
@@ -30,7 +30,7 @@ function Auth() {
     setErrors({ ...errors, [name]: !value });
   }
 
-  const handleEmailSignup = () => {
+  const handleSignup = () => {
     const inputErrors = validate(inputs);
     const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
 
@@ -54,7 +54,7 @@ function Auth() {
     });
   }
 
-  const handleEmailSignin = () => {
+  const handleSignin = () => {
     const inputErrors = validate(inputs);
     const errorExists = Object.keys(inputErrors).some(v => inputErrors[v]);
 
@@ -71,26 +71,10 @@ function Auth() {
     .then(user => {
       // sign in user (redirect is automatic through onAuthStateChanged function in App.js)
     })
-    .catch(err => setErrors(err))
-    .finally(() => setLoading(false))
-  }
-
-  const handleGoogleAuth = () => {
-    setLoading(true)
-    googleAuth().then(resp => {
-      console.log(resp.user)
-    })
-    .catch(err => alert(err))
-    .finally(() => setLoading(false))
-  }
-
-  const handleFacebookAuth = async () => {
-    setLoading(true)
-    facebookAuth().then(resp => {
-      console.log(resp.user)
-    })
-    .catch(err => alert(err))
-    .finally(() => setLoading(false))
+    .catch(err => {
+      setLoading(false);
+      setErrors(err);
+    });
   }
 
   const handleForgotPassword = () => {
@@ -126,9 +110,7 @@ function Auth() {
                 loading={loading}
                 setTab={setTab}
                 handleInputs={handleInputs}
-                handleEmailSignin={handleEmailSignin}
-                handleGoogleSignin={handleGoogleAuth}
-                handleFacebookSignin={handleFacebookAuth}
+                handleSignin={handleSignin}
               />
               <Signup
                 tab="sign up"
@@ -137,9 +119,7 @@ function Auth() {
                 loading={loading}
                 setTab={setTab}
                 handleInputs={handleInputs}
-                handleEmailSignup={handleEmailSignup}
-                handleGoogleSignup={handleGoogleAuth}
-                handleFacebookSignup={handleFacebookAuth}
+                handleSignup={handleSignup}
               />
               <ForgotPassword
                 tab="forgot password"

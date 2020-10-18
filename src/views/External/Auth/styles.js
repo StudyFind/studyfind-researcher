@@ -1,19 +1,19 @@
 import styled from 'styled-components';
-import { Form, Button } from 'components';
+import { Form } from 'components';
 
-export const AuthTab = styled(Form)`
+const AuthTab = styled(Form)`
   width: 330px;
   padding: 10px;
   display: grid;
   grid-gap: 15px;
 `;
 
-export const Heading = styled.h2`
+const Heading = styled.h2`
   color: #377dff;
   text-align: center;
 `;
 
-export const AuthLink = styled.a`
+const AuthLink = styled.a`
   all: unset;
   cursor: pointer;
   margin: auto;
@@ -28,39 +28,4 @@ export const AuthLink = styled.a`
   }
 `;
 
-export const SocialButtons = styled.div`
-  display: flex;
-  grid-gap: 10px;
-`;
-
-export const FacebookButton = styled(Button)`
-  background: rgb(60, 89, 153);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const GoogleButton = styled(Button)`
-  background: rgb(203, 64, 35);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Divider = styled.span`
-  display: flex;
-  align-items: center;
-  color: darkgrey;
-  grid-gap: 10px;
-  font-size: 0.8rem;
-`;
-
-export const Line = styled.div`
-  width: 100%;
-  height: 1px;
-  background: lightgrey;
-`;
+export { AuthTab, Heading, AuthLink }
