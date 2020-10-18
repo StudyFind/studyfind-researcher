@@ -17,7 +17,6 @@ const fetchData = async (uid) => {
 const getError = ({ code }) => ({
   email: "",
   password: "",
-  newPassword: "",
   ...errors[code],
 });
 
@@ -30,8 +29,7 @@ const getError = ({ code }) => ({
 const createUserAuth = async (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 const deleteUserAuth = (user) => user.delete();
-const updateUser = async (uid, data) =>
-  database.ref(`users/${uid}`).set(defaultUser);
+const updateUser = async (uid, data) => database.ref(`users/${uid}`).set(defaultUser);
 
 const createCookie = () => localStorage.setItem("exists", true);
 const deleteCookie = () => localStorage.setItem("exists", false);
@@ -40,8 +38,7 @@ const setUserData = ({ uid }) => database.ref(`users/${uid}`).set(defaultUser);
 const setUserType = (user) => user.updateProfile({ displayName: "researcher" });
 
 const sendVerificationEmail = (user) => user.sendEmailVerification();
-const sendPasswordResetEmail = async (email) =>
-  auth.sendPasswordResetEmail(email);
+const sendPasswordResetEmail = async (email) => auth.sendPasswordResetEmail(email);
 
 const signup = async (email, password) => {
   try {
@@ -52,7 +49,6 @@ const signup = async (email, password) => {
     sendVerificationEmail(user);
     return user;
   } catch (error) {
-    console.log(error);
     throw getError(error);
   }
 };
@@ -113,6 +109,7 @@ const resetPassword = async (actionCode, password) => {
     await auth.confirmPasswordReset(actionCode, password);
     return signin(email, password);
   } catch (error) {
+    console.log(error);
     throw getError(error);
   }
 };

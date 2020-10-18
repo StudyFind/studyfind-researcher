@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Card } from "components";
 
 import Header from "views/External/Header";
+import Footer from "views/External/Footer";
+
 import Signup from "./Signup";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
@@ -50,33 +52,32 @@ function Auth() {
           </AuthCard>
         )}
       </AuthBox>
+      <Footer />
     </Box>
   );
 }
 
 const Box = styled.div`
-  width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  height: 100vh;
 `;
 
 const AuthBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 54px;
+  margin-top: 50px;
   height: 100%;
-  width: 350px;
   @media (max-width: 600px) {
     width: 90%;
   }
 `;
 
 const AuthCard = styled(Card)`
-  width: 100%;
+  width: 350px;
 `;
 
 export default Auth;

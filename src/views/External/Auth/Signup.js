@@ -20,7 +20,6 @@ function Signup({ setTab, setMessage }) {
       heading="Create Account"
       initial={{ email: "", password: "" }}
       button="Sign up"
-      social
       setTab={setTab}
       redirect={{ prompt: "Have an account?", tab: "login" }}
       onSubmit={handleSubmit}

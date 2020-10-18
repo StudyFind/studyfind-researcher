@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Input, Button } from "components";
-import { Tab, Heading, Link } from "./styles";
+import { AuthTab, AuthHeading, AuthLink } from "./styles";
 
 import AuthSocial from "./AuthSocial";
 
@@ -90,8 +90,8 @@ function AuthForm({
   };
 
   return (
-    <Tab handleSubmit={handleSubmit}>
-      <Heading>{heading}</Heading>
+    <AuthTab handleSubmit={handleSubmit}>
+      <AuthHeading>{heading}</AuthHeading>
 
       {inputs.email !== undefined && (
         <Input
@@ -115,25 +115,16 @@ function AuthForm({
         />
       )}
 
-      {inputs.newPassword !== undefined && (
-        <Input
-          name="newPassword"
-          type="newPassword"
-          placeholder="New Password"
-          value={inputs.newPassword}
-          error={errors.newPassword}
-          onChange={setForm}
-        />
-      )}
-
       <Button onClick={handleSubmit} loading={loading}>
         {button}
       </Button>
 
       {social && <AuthSocial />}
 
-      <Link onClick={() => setTab(redirect && redirect.tab)}>{redirect && redirect.prompt}</Link>
-    </Tab>
+      <AuthLink onClick={() => setTab(redirect && redirect.tab)}>
+        {redirect && redirect.prompt}
+      </AuthLink>
+    </AuthTab>
   );
 }
 

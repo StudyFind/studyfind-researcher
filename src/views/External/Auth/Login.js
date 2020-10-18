@@ -12,7 +12,6 @@ function Login({ setTab, setMessage }) {
       heading="Welcome Back"
       initial={{ email: "", password: "" }}
       button="Login"
-      social
       setTab={setTab}
       redirect={{ prompt: "Forgot Password?", tab: "forgot password" }}
       onSubmit={handleSubmit}

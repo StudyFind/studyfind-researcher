@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 
 import Header from "views/External/Header";
 import Footer from "views/External/Footer";

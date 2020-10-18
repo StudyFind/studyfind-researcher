@@ -1,20 +1,4 @@
-const defaultUser = {
-  sex: "",
-  height: "",
-  weight: "",
-  tobacco: "",
-  alcohol: "",
-  veteran: "",
-  ethnicity: "",
-  birthdate: "",
-  blood_group: "",
-  saved: [0],
-  enrolled: [0],
-  preferences: {
-    confirmation: true,
-    location: true,
-  },
-};
+const defaultUser = {};
 
 const errors = {
   // COMMON
@@ -40,6 +24,9 @@ const errors = {
   "auth/invalid-action-code": {
     email: "The action link is invalid",
     password: "The action link is invalid",
+  },
+  "auth/argument-error": {
+    password: "Invalid link",
   },
 };
 

@@ -19,7 +19,7 @@ function AuthMessage({ type, title, message, setMessage, setTab }) {
   );
 }
 
-const Box = styled(Card)`
+const Box = styled.div`
   padding: 3rem;
   display: flex;
   flex-direction: column;
