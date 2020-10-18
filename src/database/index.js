@@ -1,4 +1,4 @@
-import { auth, database } from "./firebase";
+import { auth, database, googleAuthProvider, facebookAuthProvider } from "./firebase";
 import { errors, defaultUser, emailRegex } from "./constants";
 
 // === DATA === //
@@ -87,6 +87,41 @@ const signin = async (email, password) => {
 };
 
 // ========================== HANDLE SIGN OUT ========================== //
+const googleAuth = async () => {
+  return await auth.signInWithPopup(googleAuthProvider)
+  .then(resp => {
+
+    createCookie()
+    if (resp.additionalUserInfo.isNewUser) {
+      setUserType(resp.user)
+      setUserData(resp.user)
+    }
+    return resp
+
+  })
+  .catch(err => {
+    throw err.message
+  })
+}
+
+const facebookAuth = async () => {
+  return await auth.signInWithPopup(facebookAuthProvider)
+  .then(resp => {
+
+    createCookie()
+    if (resp.additionalUserInfo.isNewUser) {
+      setUserType(resp.user)
+      setUserData(resp.user)
+    }
+    return resp
+
+  })
+  .catch(err => {
+    throw err.message
+  })
+}
+
+// ========================== HANDLE SIGN OUT ========================== //
 const signout = async () => auth.signOut();
 
 // ========================== EMAIL VERIFICATION ========================== //
@@ -136,6 +171,9 @@ export {
   fetchStudies,
   resetPassword,
   changePassword,
+  googleAuth,
+  facebookAuth,
+
   // AUTH //
   signin,
   signup,

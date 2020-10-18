@@ -1,11 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
+import { googleAuth, facebookAuth } from "database";
+
 import { Button } from "components";
 
 function AuthSocial() {
-  const handleGoogleAuth = () => {};
-  const handleFacebookAuth = () => {};
+  const handleGoogleAuth = () => {
+    googleAuth().then(resp => {
+      console.log(resp.user)
+    })
+    .catch(err => alert(err))
+  }
+
+  const handleFacebookAuth = async () => {
+    facebookAuth().then(resp => {
+      console.log(resp.user)
+    })
+    .catch(err => alert(err))
+  }
 
   return (
     <>

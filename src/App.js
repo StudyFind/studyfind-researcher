@@ -8,7 +8,6 @@ import { signout, fetchData } from "database";
 
 import Home from "views/External/Home/Home";
 import Auth from "views/External/Auth/Auth";
-import Manage from "views/External/Manage/Manage";
 
 function App() {
   const [cred, loading] = useAuthState(auth);
@@ -47,9 +46,6 @@ function App() {
         </Route>
         <Route exact path="/auth">
           <Auth />
-        </Route>
-        <Route exact path="/manage">
-          <Manage />
         </Route>
         <Route path="*">
           <button onClick={signout}>signout</button>
