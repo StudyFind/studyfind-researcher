@@ -11,50 +11,39 @@ import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import VerifyEmail from "./VerifyEmail";
-import { AuthMessage } from "blocks";
 
 function Auth() {
+  const getDefaultTab = () => {
+    const modes = {
+      verifyEmail: "verify email",
+      resetPassword: "reset password",
+    };
+
+    const url = new URL(window.location.href);
+    const mode = url.searchParams.get("mode");
+    const accountExists = localStorage.getItem("exists") === "true";
+
+    return modes[mode] || (accountExists ? "login" : "sign up");
+  };
+
   const [tab, setTab] = useState(getDefaultTab());
-  const [message, setMessage] = useState();
+  const tabs = ["sign up", "login"];
 
   return (
     <Box>
       <Header />
       <AuthBox>
-        {message ? (
-          <AuthMessage
-            type={message.type}
-            title={message.title}
-            message={message.text}
-            setTab={setTab}
-            setMessage={setMessage}
-          />
-        ) : (
-          <AuthCard current={tab} tabs={["sign up", "login"]} handleSelect={setTab}>
-            <Login tab="login" setTab={setTab} setMessage={setMessage} />
-            <Signup tab="sign up" setTab={setTab} setMessage={setMessage} />
-            <ForgotPassword tab="forgot password" setTab={setTab} setMessage={setMessage} />
-            <ResetPassword tab="reset password" setTab={setTab} setMessage={setMessage} />
-            <VerifyEmail tab="verify email" setTab={setTab} setMessage={setMessage} />
-          </AuthCard>
-        )}
+        <AuthCard current={tab} tabs={tabs} hideTabs={!tabs.includes(tab)} handleSelect={setTab}>
+          <Login tab="login" setTab={setTab} />
+          <Signup tab="sign up" setTab={setTab} />
+          <ForgotPassword tab="forgot password" setTab={setTab} />
+          <ResetPassword tab="reset password" setTab={setTab} />
+          <VerifyEmail tab="verify email" setTab={setTab} />
+        </AuthCard>
       </AuthBox>
       <Footer />
     </Box>
   );
-}
-
-function getDefaultTab() {
-  const modes = {
-    verifyEmail: "verify email",
-    resetPassword: "reset password",
-  };
-
-  const url = new URL(window.location.href);
-  const mode = url.searchParams.get("mode");
-  const accountExists = localStorage.getItem("exists") === "true";
-
-  return modes[mode] || (accountExists ? "login" : "sign up");
 }
 
 const Box = styled.div`

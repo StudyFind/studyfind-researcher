@@ -7,14 +7,15 @@ import { changePassword } from "database";
 import { Input, Form, Button, Card, Message } from "components";
 
 function ChangePassword() {
-  const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm(
-    changePassword
-  );
+  const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
+    initial: { password: "", newPassword: "" },
+    onSubmit: changePassword,
+  });
 
   if (success) {
     return (
       <AuthCard>
-        <Message type="success" title="Successfully Changed Password">
+        <Message type="success" title="Password Changed!">
           You can now use your new password to log in
         </Message>
       </AuthCard>
@@ -23,7 +24,7 @@ function ChangePassword() {
 
   return (
     <AuthCard>
-      <AuthForm handleSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
+      <AuthForm onSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
         <Heading>Change Password</Heading>
 
         <Input
@@ -44,9 +45,7 @@ function ChangePassword() {
           onChange={handleInput}
         />
 
-        <Button onClick={() => handleSubmit(inputs.password, inputs.newPassword)} loading={loading}>
-          Confirm Change Password
-        </Button>
+        <Button loading={loading}>Confirm Change Password</Button>
       </AuthForm>
     </AuthCard>
   );

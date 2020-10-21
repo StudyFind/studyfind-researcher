@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { validate } from "functions";
 
-function useAuthForm(onSubmit) {
-  const [inputs, setInputs] = useState({});
+function useAuthForm({ initial, onSubmit }) {
+  const [inputs, setInputs] = useState(initial);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState();

@@ -1,31 +1,73 @@
 import React from "react";
+import styled from "styled-components";
 
-import { AuthForm } from "blocks";
+import { useAuthForm } from "hooks";
 import { sendPasswordResetEmail } from "database";
 
-function Signup({ setTab, setMessage }) {
-  const handleSubmit = ({ email }) => sendPasswordResetEmail(email);
+import { Input, Form, Button, Card, Message } from "components";
 
-  const handleSuccess = () => {
-    setMessage({
-      type: "success",
-      title: "Email Sent!",
-      text: "Check your email for a password reset link",
-    });
-  };
+function ForgotPassword({ setTab }) {
+  const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
+    initial: { email: "" },
+    onSubmit: sendPasswordResetEmail,
+  });
+
+  if (success) {
+    return (
+      <Message type="success" title="Email Sent!">
+        Check your email for a password reset link
+        <div>
+          <Button onClick={() => setTab("login")}> Back to login </Button>
+        </div>
+      </Message>
+    );
+  }
 
   return (
-    <AuthForm
-      heading="Forgot Password"
-      initial={{ email: "" }}
-      button="Send password reset email"
-      setTab={setTab}
-      redirect={{ prompt: "Return to login", tab: "login" }}
-      onSubmit={handleSubmit}
-      onSuccess={handleSuccess}
-      onFailure={() => console.log("failure")}
-    ></AuthForm>
+    <AuthForm onSubmit={() => handleSubmit(inputs.email)}>
+      <Heading>Forgot Password</Heading>
+
+      <Input
+        name="email"
+        type="email"
+        placeholder="Email"
+        value={inputs.email}
+        error={errors.email}
+        onChange={handleInput}
+      />
+
+      <Button loading={loading}>Confirm Change Password</Button>
+
+      <TabLink onClick={() => setTab("login")}>Return to login</TabLink>
+    </AuthForm>
   );
 }
 
-export default Signup;
+const AuthForm = styled(Form)`
+  width: 100%;
+  padding: 10px;
+  display: grid;
+  grid-gap: 15px;
+`;
+
+const Heading = styled.h2`
+  color: #377dff;
+  text-align: center;
+`;
+
+const TabLink = styled.a`
+  all: unset;
+  cursor: pointer;
+  margin: auto;
+  color: grey;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed grey;
+
+  &:hover {
+    color: #377dff;
+    border-color: #377dff;
+    text-decoration: none;
+  }
+`;
+
+export default ForgotPassword;

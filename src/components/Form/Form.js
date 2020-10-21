@@ -1,22 +1,20 @@
 import React from "react";
 
-function Form({ children, spacing, handleSubmit, ...props }) {
+function Form({ children, spacing, onSubmit, ...props }) {
   const handleEnter = (event) => {
-    if (event.keyCode === 13) {
-      window.focus();
+    event.preventDefault();
 
-      if (document.activeElement) {
-        document.activeElement.blur();
-      }
-
-      handleSubmit();
+    if (document.activeElement) {
+      document.activeElement.blur();
     }
+
+    onSubmit();
   };
 
   return (
-    <div onKeyUp={handleEnter} {...props}>
+    <form onSubmit={handleEnter} {...props}>
       {children}
-    </div>
+    </form>
   );
 }
 
