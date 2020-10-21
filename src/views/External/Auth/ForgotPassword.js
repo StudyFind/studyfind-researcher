@@ -36,7 +36,7 @@ function ForgotPassword({ setTab }) {
         onChange={handleInput}
       />
 
-      <Button loading={loading}>Confirm Change Password</Button>
+      <Button loading={loading}>Request Password Reset Email</Button>
 
       <TabLink onClick={() => setTab("login")}>Return to login</TabLink>
     </AuthForm>
