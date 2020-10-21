@@ -1,6 +1,6 @@
 import React from "react";
 
-import AuthForm from "./AuthForm";
+import { AuthForm } from "components";
 import { resetPassword } from "database";
 
 function ResetPassword({ setTab, setMessage }) {

@@ -15,7 +15,7 @@ function ChangePassword() {
     setErrors({ ...errors, ...validate.password(value) });
   };
 
-  const handleChangePassword = () => {
+  const handleChangePassword = async () => {
     const errors = validate.all(inputs);
     setErrors(errors);
 
@@ -23,9 +23,17 @@ function ChangePassword() {
       return;
     }
 
-    const { email, password } = inputs;
+    const { old_password, new_password } = inputs;
 
-    changePassword(email, password);
+    setLoading(true);
+    changePassword(old_password, new_password)
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        setErrors({ old_password: err.password, new_password: "" });
+        setLoading(false);
+      });
   };
 
   return (
@@ -50,7 +58,9 @@ function ChangePassword() {
           onChange={handleInput}
         />
 
-        <Button onClick={handleChangePassword}>Confirm Change Password</Button>
+        <Button loading={loading} onClick={handleChangePassword}>
+          Confirm Change Password
+        </Button>
       </AuthTab>
     </AuthCard>
   );
@@ -70,21 +80,6 @@ const AuthTab = styled(Form)`
 const AuthHeading = styled.h2`
   color: #377dff;
   text-align: center;
-`;
-
-const AuthLink = styled.a`
-  all: unset;
-  cursor: pointer;
-  margin: auto;
-  color: grey;
-  font-size: 0.9rem;
-  border-bottom: 1px dashed grey;
-
-  &:hover {
-    color: #377dff;
-    border-color: #377dff;
-    text-decoration: none;
-  }
 `;
 
 export default ChangePassword;

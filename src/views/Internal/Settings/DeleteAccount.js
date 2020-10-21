@@ -25,7 +25,14 @@ function DeleteAccount() {
 
     const { email, password } = inputs;
 
-    deleteUser(email, password);
+    setLoading(true);
+    deleteUser(email, password)
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -48,7 +55,7 @@ function DeleteAccount() {
           error={errors.password}
           onChange={handleInput}
         />
-        <Button color="danger" onClick={handleDeleteUser}>
+        <Button color="danger" loading={loading} onClick={handleDeleteUser}>
           Confirm Delete Account
         </Button>
       </AuthTab>

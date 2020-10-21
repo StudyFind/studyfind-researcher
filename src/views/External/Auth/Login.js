@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 
-import AuthForm from "./AuthForm";
+import { AuthForm } from "components";
 import { signin } from "database";
 
 function Login({ setTab, setMessage }) {

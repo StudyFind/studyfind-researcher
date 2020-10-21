@@ -4,19 +4,16 @@ const validate = {
 
     for (const i in inputs) {
       if (inputs[i] !== undefined) {
-        switch (i) {
-          case "email":
-            errors[i] = validate.email(inputs[i]);
-            break;
-          case "password":
-            errors[i] = validate.password(inputs[i]);
-            break;
-          default:
-            errors[i] = validate.input(inputs[i]);
-            break;
+        if (i.toLowerCase().includes("email")) {
+          errors[i] = validate.email(inputs[i]);
+        } else if (i.toLowerCase().includes("password")) {
+          errors[i] = validate.password(inputs[i]);
+        } else {
+          errors[i] = validate.input(inputs[i]);
         }
       }
     }
+
     return errors;
   },
 

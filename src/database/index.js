@@ -138,13 +138,13 @@ const resetPassword = async (actionCode, password) => {
     await auth.confirmPasswordReset(actionCode, password);
     return signin(email, password);
   } catch (error) {
-    console.log(error);
     throw getError(error);
   }
 };
 
-const changePassword = async (email, password, newPassword) => {
+const changePassword = async (password, newPassword) => {
   try {
+    const { email } = await auth.currentUser;
     const { user } = await authenticateUser(email, password);
     return user.updatePassword(newPassword);
   } catch (error) {

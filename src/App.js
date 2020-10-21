@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { auth } from "database/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -10,14 +10,23 @@ import Internal from "views/Internal/Internal";
 
 function App() {
   const [cred, loading] = useAuthState(auth);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
-    if (cred && !(cred.emailVerified && cred.displayName === "researcher")) {
-      signout();
+    if (!loading) {
+      if (cred) {
+        if (cred.emailVerified && cred.displayName === "researcher") {
+          setIsLoggedIn(true);
+          return;
+        } else {
+          signout();
+        }
+      }
+      setIsLoggedIn(false);
     }
-  }, [cred]);
+  }, [cred, loading]);
 
-  return loading ? <Loading /> : cred ? <Internal /> : <External />;
+  return loading || isLoggedIn === null ? <Loading /> : isLoggedIn ? <Internal /> : <External />;
 }
 
 export default App;

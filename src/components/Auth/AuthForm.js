@@ -1,10 +1,8 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import { validate } from "functions";
-import _ from "lodash";
-
-import { Input, Button } from "components";
-import { AuthTab, AuthHeading, AuthLink } from "./styles";
+import { Input, Button, Form } from "components";
 
 import AuthSocial from "./AuthSocial";
 
@@ -32,7 +30,7 @@ function AuthForm({
     const errors = validate.all(inputs);
     setErrors(errors);
 
-    if (!_.isEmpty(errors)) {
+    if (Object.keys(errors).some((v) => errors[v])) {
       return;
     }
 
@@ -87,5 +85,32 @@ function AuthForm({
     </AuthTab>
   );
 }
+
+const AuthTab = styled(Form)`
+  width: 100%;
+  padding: 10px;
+  display: grid;
+  grid-gap: 15px;
+`;
+
+const AuthHeading = styled.h2`
+  color: #377dff;
+  text-align: center;
+`;
+
+const AuthLink = styled.a`
+  all: unset;
+  cursor: pointer;
+  margin: auto;
+  color: grey;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed grey;
+
+  &:hover {
+    color: #377dff;
+    border-color: #377dff;
+    text-decoration: none;
+  }
+`;
 
 export default AuthForm;
