@@ -1,15 +1,21 @@
-import React from 'react'
+import React from "react";
 
-function Form({ children, spacing, handleSubmit, ...props }) {
-  const handleEnter = event => {
-    if(event.keyCode === 13) handleSubmit()
-  }
+function Form({ children, spacing, onSubmit, ...props }) {
+  const handleEnter = (event) => {
+    event.preventDefault();
+
+    if (document.activeElement) {
+      document.activeElement.blur();
+    }
+
+    onSubmit();
+  };
 
   return (
-    <div onKeyUp={handleEnter} {...props}>
+    <form onSubmit={handleEnter} {...props}>
       {children}
-    </div>
-  )
+    </form>
+  );
 }
 
-export default Form
+export default Form;

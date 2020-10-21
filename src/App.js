@@ -1,55 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 
-import { auth } from 'database/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { signout, fetchData } from 'database';
+import { auth } from "database/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signout } from "database";
 
-import Home from 'views/External/Home/Home';
-import Auth from 'views/External/Auth/Auth';
+import Loading from "./Loading";
+import External from "views/External/External";
+import Internal from "views/Internal/Internal";
 
 function App() {
-  const [cred, loading, error] = useAuthState(auth);
-  const [data, setData] = useState(undefined);
-  const history = useHistory();
-
-  const handleInternal = async () => {
-    if(cred.emailVerified && cred.displayName === 'researcher') {
-
-      const { user, studies } = await fetchData(cred.uid);
-      setData({ cred, user, studies });
-      history.push("/account");
-
-    } else {
-
-      setData({});
-      signout();
-
-    }
-  }
-
-  const handleExternal = () => {
-    setData({});
-    history.push("/auth");
-  }
+  const [cred, loading] = useAuthState(auth);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
-    if(!loading) {
-      cred
-      ? handleInternal()
-      : handleExternal()
+    if (!loading) {
+      if (cred) {
+        if (cred.emailVerified && cred.displayName === "researcher") {
+          setIsLoggedIn(true);
+          return;
+        } else {
+          signout();
+        }
+      }
+      setIsLoggedIn(false);
     }
-  }, [loading, cred])
+  }, [cred, loading]);
 
-  return !data ? <div> LOADING </div> : (
-    <div>
-      <Switch>
-        <Route exact path="/"><Home /></Route>
-        <Route exact path="/auth"><Auth /></Route>
-        <Route path="*"><button onClick={signout} style={{ marginTop: 100 }}>signout</button></Route>
-      </Switch>
-    </div>
-  );
+  return loading || isLoggedIn === null ? <Loading /> : isLoggedIn ? <Internal /> : <External />;
 }
 
 export default App;

@@ -1,45 +1,43 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { colors } from './../../../../constants';
+import { colors } from "./../../../../constants";
 
-import { Card, Button } from 'components';
-import { Box, Pill, Heading, Subheading } from 'views/External/Home/styles';
-
+import { Card, Button } from "components";
+import { Box, Pill, Heading, Subheading } from "views/External/Home/styles";
 
 function Pricing() {
-
   const plans = [
     {
-      name: 'Common',
-      color: 'primary',
-      cost: 5
+      name: "Common",
+      color: "primary",
+      cost: 5,
     },
     {
-      name: 'Uncommon',
-      color: 'success',
-      cost: 30
+      name: "Uncommon",
+      color: "success",
+      cost: 30,
     },
     {
-      name: 'Limited',
-      color: 'warning',
-      cost: 200
+      name: "Limited",
+      color: "warning",
+      cost: 200,
     },
     {
-      name: 'Rare',
-      color: 'danger',
-      cost: 1000
-    }
-  ]
+      name: "Rare",
+      color: "danger",
+      cost: 1000,
+    },
+  ];
 
   return (
     <Box id="pricing">
       <Pill> Pricing </Pill>
       <Heading color=""> Variable Pricing Plans </Heading>
-      <Subheading> Pricing varies based on eligible participant demographics </Subheading>
+      <Subheading>Pricing varies based on eligible participant demographics</Subheading>
 
       <Plans>
-        { plans.map(({ name, color, cost }) => (
+        {plans.map(({ name, color, cost }) => (
           <Plan key={name}>
             <Name color={color}>{name}</Name>
             <Price>
@@ -48,10 +46,10 @@ function Pricing() {
             <Per>per participant</Per>
             <StartButton color={color}>Start</StartButton>
           </Plan>
-        )) }
+        ))}
       </Plans>
     </Box>
-  )
+  );
 }
 
 const Plans = styled.div`
@@ -68,7 +66,7 @@ const Plans = styled.div`
 `;
 
 const Name = styled.h4`
-  color: ${props => colors[props.color].hard};
+  color: ${(props) => colors[props.color].hard};
   margin-bottom: 15px;
 `;
 
@@ -105,4 +103,4 @@ const StartButton = styled(Button)`
   font-size: 0.9rem;
 `;
 
-export default Pricing
+export default Pricing;

@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import { colors } from './../../constants';
+import { colors } from "./../../constants";
 
-import { Button, Modal, Input } from 'components';
+import { Button, Modal, Input } from "components";
 
-function Footer(){
+function Footer() {
   const [modal, setModal] = useState(false);
   const [inputs, setInputs] = useState({});
 
   const handleInputs = (name, value) => {
     setInputs({ ...inputs, [name]: value });
-  }
+  };
 
   const MODAL = (
-    <Modal title="Feedback" button="Submit Feedback" onSubmit={() => {}} closeModal={() => setModal(false)}>
+    <Modal
+      title="Feedback"
+      button="Submit Feedback"
+      onSubmit={() => {}}
+      closeModal={() => setModal(false)}
+    >
       <FeedbackMessage
         name="feedback"
         type="textarea"
@@ -23,7 +28,7 @@ function Footer(){
         onChange={handleInputs}
       />
     </Modal>
-  )
+  );
 
   return (
     <Box>
@@ -33,13 +38,21 @@ function Footer(){
         <FeedbackIcon className="fa fa-question-circle"></FeedbackIcon>
       </Button>
       <Icons>
-        <Icon size="sm" target="_blank" href="https://www.facebook.com/studyfindco"><i className="fab fa-facebook-f"></i></Icon>
-        <Icon size="sm" target="_blank" href="https://www.instagram.com/studyfindco"><i className="fab fa-instagram"></i></Icon>
-        <Icon size="sm" target="_blank" href="https://twitter.com/studyfindco"><i className="fab fa-twitter"></i></Icon>
-        <Icon size="sm" target="_blank" href="https://www.linkedin.com/company/studyfind"><i className="fab fa-linkedin"></i></Icon>
+        <SocialIcon icon="facebook-f" link="https://www.facebook.com/studyfindco" />
+        <SocialIcon icon="instagram" link="https://www.instagram.com/studyfindco" />
+        <SocialIcon icon="twitter" link="https://twitter.com/studyfindco" />
+        <SocialIcon icon="linkedin" link="https://www.linkedin.com/company/studyfind" />
       </Icons>
     </Box>
-  )
+  );
+}
+
+function SocialIcon({ icon, link }) {
+  return (
+    <Icon size="sm" target="_blank" href={link}>
+      <i className={`fab fa-${icon}`}></i>
+    </Icon>
+  );
 }
 
 const Box = styled.div`
@@ -53,11 +66,11 @@ const Box = styled.div`
   @media only screen and (max-width: 600px) {
     padding: 0.8rem 20px;
   }
-`
+`;
 
 const FeedbackIcon = styled.i`
   margin-left: 5px;
-`
+`;
 
 const Icons = styled.div`
   display: flex;
@@ -66,7 +79,7 @@ const Icons = styled.div`
   @media only screen and (max-width: 600px) {
     grid-gap: 0px;
   }
-`
+`;
 
 const Icon = styled.a`
   all: unset;
@@ -84,17 +97,18 @@ const Icon = styled.a`
   justify-content: center;
   align-items: center;
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     background: ${colors.primary.dark};
   }
 
   @media only screen and (max-width: 600px) {
     font-size: 1rem;
   }
-`
+`;
 
 const FeedbackMessage = styled(Input)`
   height: 250px;
 `;
 
-export default Footer
+export default Footer;

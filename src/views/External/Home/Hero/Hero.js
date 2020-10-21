@@ -1,11 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import { Button } from 'components';
+import { Button } from "components";
 
-
-import HeroBackground from 'images/analysis.svg';
+import HeroBackground from "images/analysis.svg";
 
 function Hero() {
   return (
@@ -24,7 +23,7 @@ function Hero() {
       </Intro>
       <Image src={HeroBackground} />
     </Box>
-  )
+  );
 }
 
 const Box = styled.section`
@@ -34,23 +33,25 @@ const Box = styled.section`
   display: flex;
   justify-content: space-between;
 
-  @media only screen and (max-width: 600px) {
+  @media (max-width: 600px) {
     flex-direction: column-reverse;
+    justify-content: flex-start;
+    align-items: flex-start;
     padding: 30px;
   }
 `;
 
 const Image = styled.img`
-  height: 100%;
-  margin-bottom: 30px;
+  margin-top: auto;
+  width: 50vw;
 
-  @media only screen and (max-width: 600px) {
-    width: 100%;
+  @media (max-width: 600px) {
+    width: 60vw;
+    margin-bottom: 30px;
   }
 `;
 
 const Intro = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -73,6 +74,10 @@ const StartButton = styled(Button)`
 const Heading = styled.h1`
   font-size: 3rem;
   color: #323232;
+
+  @media (max-width: 600px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const StyledLink = styled(Link)`

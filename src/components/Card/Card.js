@@ -1,39 +1,31 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-function Card({ tabs, current, handleSelect, children, ...rest }) {
-  if(!(tabs && tabs.length)) {
-    return <Box {...rest}>{ children }</Box>
+function Card({ tabs, current, hideTabs, handleSelect, children, ...rest }) {
+  if (!(tabs && tabs.length)) {
+    return <Box {...rest}>{children}</Box>;
   }
 
-  const format = text => text.charAt(0).toUpperCase() + text.slice(1)
+  const format = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
   const TABS = (
     <Tabs>
-      {
-        tabs.map((tab, index) => (
-          <Tab
-            key={index}
-            selected={current === tab}
-            onClick={() => handleSelect(tab)}
-          >
-            { format(tab) }
-          </Tab>
-        ))
-      }
+      {tabs.map((tab, index) => (
+        <Tab key={index} selected={current === tab} onClick={() => handleSelect(tab)}>
+          {format(tab)}
+        </Tab>
+      ))}
     </Tabs>
-  )
+  );
 
-  const CONTENT = children.find(child => child.props.tab === current)
+  const CONTENT = children.find((child) => child.props.tab === current);
 
   return (
     <TabBox {...rest}>
-      { TABS }
-      <Content>
-        { CONTENT }
-      </Content>
+      {hideTabs || TABS}
+      <Content>{CONTENT}</Content>
     </TabBox>
-  )
+  );
 }
 
 const Box = styled.div`
@@ -70,10 +62,12 @@ const Tab = styled.div`
     color: #377dff;
   }
 
-  ${props => props.selected && `
+  ${(props) =>
+    props.selected &&
+    `
     color: #377dff;
     border-bottom: 3px solid #377dff;
   `}
 `;
 
-export default Card
+export default Card;

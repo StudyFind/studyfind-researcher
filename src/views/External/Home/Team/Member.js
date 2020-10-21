@@ -1,22 +1,26 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-import { Card } from 'components'
+import { Card } from "components";
 
 function Member({ name, img, major, college, collegeURL, linkedinURL }) {
   return (
     <Box>
       <Top>
-        <Heading size="6" margin="0">{ name }</Heading>
+        <Heading size="6" margin="0">
+          {name}
+        </Heading>
         <LinkedinIcon className="fab fa-linkedin fa-md" href={linkedinURL} target="_blank"></LinkedinIcon>
       </Top>
       <Image src={img} />
       <Education className="education">
-        <Major className="major">{ major }</Major>
-        <College className="college" href={collegeURL} target="_blank"> {college} </College>
+        <Major className="major">{major}</Major>
+        <College className="college" href={collegeURL} target="_blank">
+          {college}
+        </College>
       </Education>
     </Box>
-  )
+  );
 }
 
 const Box = styled(Card)`
@@ -68,4 +72,4 @@ const Heading = styled.h5`
   margin: 4px 0;
 `;
 
-export default Member
+export default Member;

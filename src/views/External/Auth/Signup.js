@@ -1,78 +1,82 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Input, Button } from 'components';
-import { AuthTab, Heading, AuthLink } from './styles';
+import { useAuthForm } from "hooks";
+import { signup } from "database";
 
-function Signup({ inputs, errors, loading, setTab, handleInputs, handleSignup }) {
+import { Input, Form, Button, Card, Message } from "components";
+
+function Login({ setTab }) {
+  const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
+    initial: { email: "", password: "" },
+    onSubmit: signup,
+  });
+
+  if (success) {
+    return (
+      <Message type="success" title="Account Created!">
+        Check your email for a verification link
+        <div>
+          <Button onClick={() => setTab("login")}> Back to login </Button>
+        </div>
+      </Message>
+    );
+  }
+
   return (
-    <AuthTab handleSubmit={() => handleSignup()}>
-      <Heading> Create Account </Heading>
+    <AuthForm onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
+      <Heading>Create Account</Heading>
+
       <Input
         name="email"
         type="email"
         placeholder="Email"
         value={inputs.email}
         error={errors.email}
-        onChange={handleInputs}
+        onChange={handleInput}
       />
+
       <Input
         name="password"
         type="password"
         placeholder="Password"
         value={inputs.password}
         error={errors.password}
-        onChange={handleInputs}
+        onChange={handleInput}
       />
-      <Button onClick={() => handleSignup()} loading={loading}> Sign up </Button>
-      <Divider>
-        <Line/> OR <Line/>
-      </Divider>
-      <SocialButtons>
-        <FacebookButton onClick={() => {}} loading={loading}> <i className="fa fa-facebook" /> Facebook </FacebookButton>
-        <GoogleButton onClick={() => {}} loading={loading} color="danger"> <i className="fa fa-google" /> Google </GoogleButton>
-      </SocialButtons>
-      <AuthLink onClick={() => setTab('login')}> Have an account? </AuthLink>
-    </AuthTab>
+
+      <Button loading={loading}>Sign up</Button>
+
+      <TabLink onClick={() => setTab("login")}>Have an account?</TabLink>
+    </AuthForm>
   );
 }
 
-const Divider = styled.span`
-  display: flex;
-  align-items: center;
-  color: darkgrey;
-  grid-gap: 10px;
-  font-size: 0.8rem;
-`;
-
-const Line = styled.div`
+const AuthForm = styled(Form)`
   width: 100%;
-  height: 1px;
-  background: lightgrey;
+  padding: 10px;
+  display: grid;
+  grid-gap: 15px;
 `;
 
-const SocialButtons = styled.div`
-  display: flex;
-  grid-gap: 10px;
+const Heading = styled.h2`
+  color: #377dff;
+  text-align: center;
 `;
 
-const FacebookButton = styled(Button)`
-  background: rgb(60, 89, 153);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
+const TabLink = styled.a`
+  all: unset;
+  cursor: pointer;
+  margin: auto;
+  color: grey;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed grey;
+
+  &:hover {
+    color: #377dff;
+    border-color: #377dff;
+    text-decoration: none;
+  }
 `;
 
-const GoogleButton = styled(Button)`
-  background: rgb(203, 64, 35);
-  width: 100%;
-  display: flex;
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-
-export default Signup;
+export default Login;

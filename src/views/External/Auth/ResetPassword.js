@@ -2,20 +2,23 @@ import React from "react";
 import styled from "styled-components";
 
 import { useAuthForm } from "hooks";
-import { sendPasswordResetEmail } from "database";
+import { resetPassword } from "database";
 
-import { Input, Form, Button, Card, Message } from "components";
+import { Input, Form, Button, Message } from "components";
 
-function ForgotPassword({ setTab }) {
+function ResetPassword({ setTab }) {
+  const url = new URL(window.location.href);
+  const actionCode = url.searchParams.get("oobCode");
+
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
-    initial: { email: "" },
-    onSubmit: sendPasswordResetEmail,
+    initial: { password: "" },
+    onSubmit: resetPassword,
   });
 
   if (success) {
     return (
-      <Message type="success" title="Email Sent!">
-        Check your email for a password reset link
+      <Message type="success" title="Password Reset!">
+        You can now use your new password to log in
         <div>
           <Button onClick={() => setTab("login")}> Back to login </Button>
         </div>
@@ -24,19 +27,19 @@ function ForgotPassword({ setTab }) {
   }
 
   return (
-    <AuthForm onSubmit={() => handleSubmit(inputs.email)}>
-      <Heading>Forgot Password</Heading>
+    <AuthForm onSubmit={() => handleSubmit(actionCode, inputs.password)}>
+      <Heading>Reset Password</Heading>
 
       <Input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={inputs.email}
-        error={errors.email}
+        name="password"
+        type="password"
+        placeholder="New Password"
+        value={inputs.password}
+        error={errors.password}
         onChange={handleInput}
       />
 
-      <Button loading={loading}>Confirm Change Password</Button>
+      <Button loading={loading}>Confirm Reset Password</Button>
 
       <TabLink onClick={() => setTab("login")}>Return to login</TabLink>
     </AuthForm>
@@ -70,4 +73,4 @@ const TabLink = styled.a`
   }
 `;
 
-export default ForgotPassword;
+export default ResetPassword;

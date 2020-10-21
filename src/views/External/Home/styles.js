@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Heading = styled.h3`
   text-align: center;
@@ -26,7 +26,8 @@ const Box = styled.section`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 30px;
   padding-top: 84px;
 `;
 
-export { Box, Pill, Heading, Subheading }
+export { Box, Pill, Heading, Subheading };
