@@ -14,11 +14,7 @@ const fetchData = async (uid) => {
 // === AUTH === //
 
 // ========================== HANDLE API ERRORS ========================== //
-const getError = ({ code }) => ({
-  email: "",
-  password: "",
-  ...errors[code],
-});
+const getError = ({ code }) => ({ email: "", password: "", ...errors[code] });
 
 // ========================== HANDLE SIGN UP ========================== //
 // 1. Create Firebase Auth User
@@ -84,38 +80,36 @@ const signin = async (email, password) => {
 
 // ========================== HANDLE SIGN OUT ========================== //
 const googleAuth = async () => {
-  return await auth.signInWithPopup(googleAuthProvider)
-  .then(resp => {
-
-    createCookie()
-    if (resp.additionalUserInfo.isNewUser) {
-      setUserType(resp.user)
-      setUserData(resp.user)
-    }
-    return resp
-
-  })
-  .catch(err => {
-    throw err.message
-  })
-}
+  return await auth
+    .signInWithPopup(googleAuthProvider)
+    .then((resp) => {
+      createCookie();
+      if (resp.additionalUserInfo.isNewUser) {
+        setUserType(resp.user);
+        setUserData(resp.user);
+      }
+      return resp;
+    })
+    .catch((err) => {
+      throw err.message;
+    });
+};
 
 const facebookAuth = async () => {
-  return await auth.signInWithPopup(facebookAuthProvider)
-  .then(resp => {
-
-    createCookie()
-    if (resp.additionalUserInfo.isNewUser) {
-      setUserType(resp.user)
-      setUserData(resp.user)
-    }
-    return resp
-
-  })
-  .catch(err => {
-    throw err.message
-  })
-}
+  return await auth
+    .signInWithPopup(facebookAuthProvider)
+    .then((resp) => {
+      createCookie();
+      if (resp.additionalUserInfo.isNewUser) {
+        setUserType(resp.user);
+        setUserData(resp.user);
+      }
+      return resp;
+    })
+    .catch((err) => {
+      throw err.message;
+    });
+};
 
 // ========================== HANDLE SIGN OUT ========================== //
 const signout = async () => auth.signOut();
@@ -170,7 +164,6 @@ export {
   changePassword,
   googleAuth,
   facebookAuth,
-
   // AUTH //
   signin,
   signup,

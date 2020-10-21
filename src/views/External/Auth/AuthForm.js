@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { validate } from "./functions";
+import { validate } from "functions";
+import _ from "lodash";
 
 import { Input, Button } from "components";
 import { AuthTab, AuthHeading, AuthLink } from "./styles";
@@ -22,16 +23,16 @@ function AuthForm({
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const setForm = (name, value) => {
+  const handleInput = (name, value) => {
     setInputs({ ...inputs, [name]: value.trim() });
-    setErrors({ ...errors, ...validate({ [name]: value }) });
+    setErrors({ ...errors, ...validate.all({ [name]: value }) });
   };
 
   const handleSubmit = () => {
-    const errors = validate(inputs);
+    const errors = validate.all(inputs);
     setErrors(errors);
 
-    if (Object.keys(errors).some((v) => errors[v])) {
+    if (!_.isEmpty(errors)) {
       return;
     }
 
@@ -59,7 +60,7 @@ function AuthForm({
           placeholder="Email"
           value={inputs.email}
           error={errors.email}
-          onChange={setForm}
+          onChange={handleInput}
         />
       )}
 
@@ -70,7 +71,7 @@ function AuthForm({
           placeholder="Password"
           value={inputs.password}
           error={errors.password}
-          onChange={setForm}
+          onChange={handleInput}
         />
       )}
 

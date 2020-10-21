@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import { Card } from "components";
 
-import { getDefaultTab } from "./functions";
-
 import Header from "views/External/Header";
 import Footer from "views/External/Footer";
 
@@ -16,12 +14,8 @@ import VerifyEmail from "./VerifyEmail";
 import AuthMessage from "./AuthMessage";
 
 function Auth() {
-  const [message, setMessage] = useState({
-    type: "success",
-    title: "Password Reset Email Sent!",
-    text: "Check your email for a password reset link",
-  });
   const [tab, setTab] = useState(getDefaultTab());
+  const [message, setMessage] = useState();
 
   return (
     <Box>
@@ -48,6 +42,19 @@ function Auth() {
       <Footer />
     </Box>
   );
+}
+
+function getDefaultTab() {
+  const modes = {
+    verifyEmail: "verify email",
+    resetPassword: "reset password",
+  };
+
+  const url = new URL(window.location.href);
+  const mode = url.searchParams.get("mode");
+  const accountExists = localStorage.getItem("exists") === "true";
+
+  return modes[mode] || (accountExists ? "login" : "sign up");
 }
 
 const Box = styled.div`
