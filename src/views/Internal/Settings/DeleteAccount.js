@@ -29,7 +29,7 @@ function DeleteAccount() {
         <Input
           name="password"
           type="password"
-          placeholder="Old Password"
+          placeholder="Password"
           value={inputs.password}
           error={errors.password}
           onChange={handleInput}

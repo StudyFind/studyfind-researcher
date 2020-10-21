@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useAuthForm } from "hooks";
 import { signup } from "database";
 
-import { Input, Form, Button, Card, Message } from "components";
+import { Input, Form, Button, Message } from "components";
 
 function Login({ setTab }) {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({

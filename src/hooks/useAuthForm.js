@@ -25,15 +25,16 @@ function useAuthForm({ initial, onSubmit }) {
       setLoading(true);
       onSubmit(...params)
         .then((data) => {
-          setLoading(false);
           setSuccess(true);
           resolve(data);
         })
-        .catch((error) => {
-          setLoading(false);
-          setErrors(error);
+        .catch((err) => {
           setSuccess(false);
-          reject(error);
+          setErrors(err);
+          reject(err);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     });
 

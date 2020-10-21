@@ -1,5 +1,5 @@
 import { auth, database, googleAuthProvider, facebookAuthProvider } from "./firebase";
-import { errors, defaultUser, emailRegex } from "./constants";
+import { errors } from "./constants";
 
 // === DATA === //
 const fetchRef = (ref) => ref.once("value").then((data) => data.val());
@@ -25,12 +25,12 @@ const getError = ({ code }) => ({ email: "", password: "", ...errors[code] });
 const createUserAuth = async (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 const deleteUserAuth = (user) => user.delete();
-const updateUser = async (uid, data) => database.ref(`users/${uid}`).set(defaultUser);
+const updateUser = async (uid, data) => database.ref(`users/${uid}`).update(data);
 
 const createCookie = () => localStorage.setItem("exists", true);
 const deleteCookie = () => localStorage.setItem("exists", false);
 
-const setUserData = ({ uid }) => database.ref(`users/${uid}`).set(defaultUser);
+const setUserData = ({ uid }) => database.ref(`users/${uid}`).set({});
 const setUserType = (user) => user.updateProfile({ displayName: "researcher" });
 
 const sendVerificationEmail = (user) => user.sendEmailVerification();
