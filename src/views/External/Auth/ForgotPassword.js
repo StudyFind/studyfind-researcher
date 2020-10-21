@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AuthForm } from "components";
+import { AuthForm } from "blocks";
 import { sendPasswordResetEmail } from "database";
 
 function Signup({ setTab, setMessage }) {

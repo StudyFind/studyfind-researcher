@@ -11,7 +11,7 @@ import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import VerifyEmail from "./VerifyEmail";
-import AuthMessage from "../../../components/Auth/AuthMessage";
+import { AuthMessage } from "blocks";
 
 function Auth() {
   const [tab, setTab] = useState(getDefaultTab());

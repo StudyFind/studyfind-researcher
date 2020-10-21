@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 
-import { AuthForm } from "components";
 import { verifyUser } from "database";
 
 function VerifyEmail({ setTab, setMessage }) {

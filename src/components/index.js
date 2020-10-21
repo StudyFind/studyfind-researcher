@@ -1,4 +1,3 @@
-import { AuthForm, AuthMessage, AuthSocial } from "./Auth/Auth";
 import Badge from "./Badge/Badge";
 import Button from "./Button/Button";
 import Card from "./Card/Card";
@@ -14,9 +13,6 @@ import Input from "./Input/Input";
 import Message from "./Message/Message";
 
 export {
-  AuthForm,
-  AuthMessage,
-  AuthSocial,
   Badge,
   Button,
   Card,

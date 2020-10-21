@@ -1,67 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import { validate } from "functions";
+import { useAuthForm } from "hooks";
 import { changePassword } from "database";
-import { Card, Form, Input, Button } from "components";
+
+import { Input, Form, Button, Card, Message } from "components";
 
 function ChangePassword() {
-  const [inputs, setInputs] = useState({ old_password: "", new_password: "" });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
+  const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm(
+    changePassword
+  );
 
-  const handleInput = (name, value) => {
-    setInputs({ ...inputs, [name]: value.trim() });
-    setErrors({ ...errors, ...validate.password(value) });
-  };
-
-  const handleChangePassword = async () => {
-    const errors = validate.all(inputs);
-    setErrors(errors);
-
-    if (Object.keys(errors).some((v) => errors[v])) {
-      return;
-    }
-
-    const { old_password, new_password } = inputs;
-
-    setLoading(true);
-    changePassword(old_password, new_password)
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((err) => {
-        setErrors({ old_password: err.password, new_password: "" });
-        setLoading(false);
-      });
-  };
+  if (success) {
+    return (
+      <AuthCard>
+        <Message type="success" title="Successfully Changed Password">
+          You can now use your new password to log in
+        </Message>
+      </AuthCard>
+    );
+  }
 
   return (
     <AuthCard>
-      <AuthTab handleSubmit={handleChangePassword}>
-        <AuthHeading>Change Password</AuthHeading>
+      <AuthForm handleSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
+        <Heading>Change Password</Heading>
+
         <Input
-          name="old_password"
+          name="password"
           type="password"
           placeholder="Old Password"
-          value={inputs.old_password}
-          error={errors.old_password}
+          value={inputs.password}
+          error={errors.password}
           onChange={handleInput}
         />
 
         <Input
-          name="new_password"
+          name="newPassword"
           type="password"
           placeholder="New Password"
-          value={inputs.new_password}
-          error={errors.new_password}
+          value={inputs.newPassword}
+          error={errors.newPassword}
           onChange={handleInput}
         />
 
-        <Button loading={loading} onClick={handleChangePassword}>
+        <Button onClick={() => handleSubmit(inputs.password, inputs.newPassword)} loading={loading}>
           Confirm Change Password
         </Button>
-      </AuthTab>
+      </AuthForm>
     </AuthCard>
   );
 }
@@ -70,14 +56,14 @@ const AuthCard = styled(Card)`
   width: 350px;
 `;
 
-const AuthTab = styled(Form)`
+const AuthForm = styled(Form)`
   width: 100%;
   padding: 10px;
   display: grid;
   grid-gap: 15px;
 `;
 
-const AuthHeading = styled.h2`
+const Heading = styled.h2`
   color: #377dff;
   text-align: center;
 `;

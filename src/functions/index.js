@@ -1,20 +1,27 @@
+const inferType = (name) => {
+  const includesKeyword = (keyword) => name.toLowerCase().includes(keyword);
+  if (includesKeyword("email")) return "email";
+  if (includesKeyword("password")) return "password";
+  return "default";
+};
+
 const validate = {
   all: (inputs) => {
     const errors = {};
 
     for (const i in inputs) {
       if (inputs[i] !== undefined) {
-        if (i.toLowerCase().includes("email")) {
-          errors[i] = validate.email(inputs[i]);
-        } else if (i.toLowerCase().includes("password")) {
-          errors[i] = validate.password(inputs[i]);
-        } else {
-          errors[i] = validate.input(inputs[i]);
-        }
+        const type = inferType(i);
+        errors[i] = validate[type](inputs[i]);
       }
     }
-
+    console.log(errors);
     return errors;
+  },
+
+  input: (name, value) => {
+    const type = inferType(name);
+    return validate[type](value);
   },
 
   email: (email) => {
@@ -37,7 +44,7 @@ const validate = {
     return "";
   },
 
-  input: (i) => !i,
+  default: (i) => !i,
 };
 
 export { validate };

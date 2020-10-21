@@ -145,6 +145,7 @@ const resetPassword = async (actionCode, password) => {
 const changePassword = async (password, newPassword) => {
   try {
     const { email } = await auth.currentUser;
+    console.log(email, password, newPassword);
     const { user } = await authenticateUser(email, password);
     return user.updatePassword(newPassword);
   } catch (error) {
