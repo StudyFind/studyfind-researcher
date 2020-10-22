@@ -50,9 +50,10 @@ exports.getStudy = functions.https.onRequest(async (req, res) => {
                 return admin.auth().getUser(decodedToken.uid)
             })
             .catch(err => {
-                return { email: 'jdipersi@wustl.edu', uid: 'aaahahaa' }
-                // res.status(401)
-                // throw Error(`parameter idToken '${idToken}' is not a valid firebase user token`)
+                // TO TEST:
+                // return { email: 'jdipersi@wustl.edu', uid: 'aaahahaa' }
+                res.status(401)
+                throw Error(`parameter idToken '${idToken}' is not a valid firebase user token`)
             })
     ])
         .then(async ([data, user]) => { // create default listing and check emails
