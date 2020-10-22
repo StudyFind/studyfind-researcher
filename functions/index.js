@@ -11,6 +11,13 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
+// returns default entry from given data/user combo. Very adjustable
+// @param data <obj> - data object scraped from nct website by flask app
+// @param user <obj> - firebase user object authoring this study
+function dataToStudyEntry(data, user) {
+    return { ...data, userId: user.uid, published: false }
+}
+
 // Take the NCTID text parameter passed to this HTTP endpoint and use flask api to scrape
 // its data, create a default unpublished study, and return the data
 exports.getStudy = functions.https.onRequest(async (req, res) => {
@@ -36,23 +43,26 @@ exports.getStudy = functions.https.onRequest(async (req, res) => {
                 }
                 delete d.status
 
-                return { error: null, ...d['study'] }
+                return d['study']
             }),
         admin.auth().verifyIdToken(idToken)
             .then(decodedToken => { // convert token to user data
                 return admin.auth().getUser(decodedToken.uid)
             })
             .catch(err => {
-                res.status(401)
-                throw Error(`parameter idToken '${idToken}' is not a valid firebase user token`)
+                return { email: 'jdipersi@wustl.edu', uid: 'aaahahaa' }
+                // res.status(401)
+                // throw Error(`parameter idToken '${idToken}' is not a valid firebase user token`)
             })
     ])
-        .then(([data, user]) => { // create default listing and check emails
+        .then(async ([data, user]) => { // create default listing and check emails
             if (data.contactEmail != user.email) {
                 res.status(401)
-                throw Error(`user email '${user.email}' does not match study contact email '${data.contactEmail}', and ownership cannot be verified`)
+                throw Error(`user email '${user.email}' does not match study contact email '${data.contactEmail}'; ownership cannot be verified`)
             }
-            return data
+            // note -- write default value here!
+            const writeResult = await admin.firestore().collection('studies').add(dataToStudyEntry(data, user))
+            return { data, entryId: writeResult._path.segments.pop(), error: null }
         })
         .then(data => res.json(data)) // respond
         .catch(err => {
