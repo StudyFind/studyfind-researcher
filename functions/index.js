@@ -10,7 +10,7 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
-const { getStudy } = require('./src')
+const { makeStudy } = require('./src')
 const context = { admin }
 
-exports.getStudy = functions.https.onRequest(getStudy(context))
+exports.makeStudy = functions.https.onRequest(makeStudy(context))

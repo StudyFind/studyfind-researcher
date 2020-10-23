@@ -1,3 +1,3 @@
 module.exports = {
-    getStudy: require('./get-study')
+    makeStudy: require('./make-study')
 }
