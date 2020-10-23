@@ -17,7 +17,7 @@ module.exports = ({ admin }) => async (req, res) => {
     }
 
     functions.logger.log(`[getStudy] scraping NCTID '${id}'`)
-    Promise.all([ // simultaneously query flask scraper and auth user
+    return Promise.all([ // simultaneously query flask scraper and auth user
         axios.get(`https://flask-fire-27eclhhcra-uc.a.run.app/autoFillStudy?nctID=${id}`)
             .then(resp => { // check for fail in flask api
                 const d = resp.data
