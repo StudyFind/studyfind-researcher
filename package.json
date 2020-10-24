@@ -21,6 +21,7 @@
     "build": "react-scripts build",
     "deploy": "firebase deploy",
     "serve": "firebase serve",
+    "emulate": "firebase emulators:start",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .js,.jsx"
@@ -47,6 +48,7 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.21.2",
     "eslint-plugin-react-hooks": "^4.1.2",
+    "firebase-tools": "^8.13.1",
     "jest-styled-components": "^7.0.3"
   }
 }
