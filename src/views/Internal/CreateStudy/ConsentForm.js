@@ -6,6 +6,7 @@ function ConsentForm({ nctID }) {
   const [file, setFile] = useState();
   const [error, setError] = useState("");
   const [status, setStatus] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     setName(e.target.value);
@@ -26,6 +27,8 @@ function ConsentForm({ nctID }) {
       return;
     }
 
+    setLoading(true);
+
     const ref = storage.ref(`consent/${nctID}.pdf`);
     const task = ref.put(file);
 
@@ -36,9 +39,14 @@ function ConsentForm({ nctID }) {
         const uploaded = snapshot.bytesTransferred;
         const percent = Math.round((100 * uploaded) / filesize);
         setStatus(percent);
+
+        if (percent === 100) {
+          setLoading(false);
+        }
       },
       (error) => {
         setError(error.message);
+        setLoading(false);
       }
     );
   };
@@ -46,7 +54,9 @@ function ConsentForm({ nctID }) {
   return (
     <div>
       <input onChange={handleFileChange} type="file" />
-      <button onClick={handleFileUpload}>Upload</button>
+      <button onClick={handleFileUpload} disabled={loading}>
+        Upload
+      </button>
       <div>{status}</div>
       <div>{error}</div>
     </div>
