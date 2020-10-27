@@ -4,27 +4,41 @@ import { storage } from "database/firebase";
 function ConsentForm({ nctID }) {
   const [name, setName] = useState();
   const [file, setFile] = useState();
+  const [error, setError] = useState("");
+  const [status, setStatus] = useState(0);
 
   const handleFileChange = (e) => {
     setName(e.target.value);
     setFile(e.target.files[0]);
+    setError("");
   };
 
   const handleFileUpload = () => {
+    if (!file || !name) {
+      setError("File does not exist");
+      return;
+    }
+
     const ext = name.split(".").reverse()[0];
 
-    if (ext !== "pdf") return;
+    if (ext !== "pdf") {
+      setError("File must be a pdf");
+      return;
+    }
 
     const ref = storage.ref(`consent/${nctID}.pdf`);
     const task = ref.put(file);
 
     task.on(
-      "state_change",
+      "state_changed",
       (snapshot) => {
-        console.log("Success");
+        const filesize = snapshot.totalBytes;
+        const uploaded = snapshot.bytesTransferred;
+        const percent = Math.round((100 * uploaded) / filesize);
+        setStatus(percent);
       },
       (error) => {
-        console.log("Failure");
+        setError(error.message);
       }
     );
   };
@@ -33,6 +47,8 @@ function ConsentForm({ nctID }) {
     <div>
       <input onChange={handleFileChange} type="file" />
       <button onClick={handleFileUpload}>Upload</button>
+      <div>{status}</div>
+      <div>{error}</div>
     </div>
   );
 }
