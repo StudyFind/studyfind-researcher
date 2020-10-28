@@ -44,7 +44,7 @@ describe('make-study', () => {
     })
 
     it('creates a study on correct nctid and idtoken', async () => {
-        mAxios.get.mockImplementationOnce(async () => ({
+        mAxios.get.mockImplementationOnce(async (url) => ({
             data: {
                 status: 'success',
                 study: {
@@ -86,7 +86,7 @@ describe('make-study', () => {
     })
 
     it('generates survey from criteria', async () => {
-        mAxios.get.mockImplementationOnce(async () => ({
+        mAxios.get.mockImplementationOnce(async (url) => ({
             data: {
                 status: 'success',
                 study: {
@@ -122,7 +122,7 @@ describe('make-study', () => {
         expect(resp.data.questions).not.toBeUndefined()
         expect(resp.data.questions.length).toBeGreaterThan(0)
         resp.data.questions.forEach(item => {
-            expect(item.type).toBeIn(['Inclusion', 'Exclusion'])
+            expect(['Inclusion', 'Exclusion']).toContain(item.type)
         })
     })
 
