@@ -5,7 +5,7 @@ import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { firestore } from "database/firebase";
 import { compute } from "functions";
 
-function EditFields({ nctID }) {
+function ModifyFields({ nctID }) {
   nctID = "NCT00000000";
   const ref = firestore.collection("studies").doc(nctID);
   const [data, retrieving] = useDocumentDataOnce(ref);
@@ -102,4 +102,4 @@ function EditFields({ nctID }) {
   );
 }
 
-export default EditFields;
+export default ModifyFields;

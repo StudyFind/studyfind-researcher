@@ -1,14 +1,20 @@
 import React from "react";
 
-import EditFields from "./EditFields";
+import { Card } from "components";
+
+import FetchStudy from "./FetchStudy";
 import ConsentForm from "./ConsentForm";
+import ModifyFields from "./ModifyFields";
+import ModifySurvey from "./ModifySurvey";
 
 function CreateStudy() {
   return (
-    <div>
-      <EditFields />
+    <Card>
+      <FetchStudy />
+      <ModifyFields />
+      <ModifySurvey />
       <ConsentForm />
-    </div>
+    </Card>
   );
 }
 

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.21.0",
+    "axois": "^0.0.1-security",
     "firebase": "^7.22.1",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
