@@ -1,7 +1,9 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
 
-const utils = require('./utils')
+const verifyIdToken = require('./utils/verify-id-token')
+const getUser = require('./utils/get-user')
+const addFirestoreEntry = require('./utils/add-firestore-entry')
 
 // Take the NCTID text parameter passed to this HTTP endpoint and use flask api to scrape
 // its data, create a default unpublished study, and return the data
@@ -17,29 +19,27 @@ module.exports = ({ admin }) => async (req, res) => {
         return res.json({ error: 'parameter idToken needs to be defined' })
     }
 
+    // functions.logger.log(`[getStudy] scraping NCTID '${id}'`)
     const auth = admin.auth()
-    functions.logger.log(`[getStudy] scraping NCTID '${id}'`)
     return Promise.all([ // simultaneously query flask scraper and auth user
         axios.get(`https://flask-fire-27eclhhcra-uc.a.run.app/autoFillStudy?nctID=${id}`)
             .then(resp => { // check for fail in flask api
                 const d = resp.data
 
-                if (d.status == 'failure') {
+                if (!d || d.status === 'failure') {
                     throw Error(`parameter NCTID '${id}' is likely invalid`)
                 }
                 delete d.status
 
                 return d['study']
             }),
-        utils.verifyIdToken(admin, idToken)
+        verifyIdToken(admin, idToken)
             .then(decodedToken => { // convert token to user data
-                return utils.getUser(auth, decodedToken.uid)
+                return getUser(auth, decodedToken.uid)
             })
             .catch(err => {
-                // TO TEST:
-                return { email: 'jdipersi@wustl.edu', uid: 'TEST_UID' }
                 res.status(401)
-                throw Error(`parameter idToken '${idToken}' is not a valid firebase user token`)
+                throw Error(`parameter idToken '${idToken}' is not a valid firebase user token: ${err}`)
             })
     ])
         .then(async ([data, user]) => { // create default listing and check emails
@@ -48,12 +48,12 @@ module.exports = ({ admin }) => async (req, res) => {
                 throw Error(`user email '${user.email}' does not match study contact email '${data.contactEmail}'; ownership cannot be verified`)
             }
             // note -- write default value here!
-            const writeResult = await utils.addFirestoreEntry(admin.firestore(), 'studies', dataToStudyEntry(data, user))
+            const writeResult = await addFirestoreEntry(admin.firestore(), 'studies', dataToStudyEntry(data, user))
             return { data, entryId: writeResult._path.segments.pop(), error: null }
         })
         .then(data => res.json(data)) // respond
         .catch(err => {
-            functions.logger.log(`[getStudy] failed: ${err}`)
+            // functions.logger.log(`[getStudy] failed: ${err}`)
             res.json({ error: err.toString() })
         })
 }
