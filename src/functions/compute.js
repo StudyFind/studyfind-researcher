@@ -2,7 +2,7 @@ const compute = {
   readabilityIndex: (text) => {
     // https://en.wikipedia.org/wiki/Automated_readability_index
     // https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch%E2%80%93Kincaid_grade_level
-    const sentences = text.split(".").length - 1;
+    const sentences = text.split(".").length;
 
     const words = text
       .toLowerCase()
@@ -10,8 +10,6 @@ const compute = {
       .split(/\r?\n| /) // splits text at newlines and spaces
       .map((word) => word.trim()) // removes whitespace from each word
       .filter((word) => word); // removes empty strings
-
-    console.log(words);
 
     const letters = words.join("").length;
 
