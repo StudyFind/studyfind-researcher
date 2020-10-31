@@ -41,7 +41,7 @@ module.exports = ({ admin }) => async (req, res) => {
 
           return d["study"];
         }),
-      verifyIdToken(admin, idToken)
+      verifyIdToken(auth, idToken)
         // convert token to user data
         .then((decodedToken) => {
           return getUser(auth, decodedToken.uid);
