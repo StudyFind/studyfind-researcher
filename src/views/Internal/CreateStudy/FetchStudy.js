@@ -24,6 +24,7 @@ function FetchStudy({ setTab, setStudy, setStudyID }) {
     const validID = checkValidID(nctID);
 
     if (validID) {
+      setError("");
       setLoading(true);
       auth.currentUser
         .getIdToken(false)
@@ -39,6 +40,7 @@ function FetchStudy({ setTab, setStudy, setStudyID }) {
           );
 
           const { study, error } = response.data;
+          console.log(response.data);
 
           if (study) {
             console.log("FETCHED");

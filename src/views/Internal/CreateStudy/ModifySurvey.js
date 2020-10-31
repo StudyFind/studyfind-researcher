@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Input, Button } from "components";
 
 function ModifySurvey({ study, setStudy, setTab }) {
-  const [questions, setQuestions] = useState(study.questions);
+  const [questions, setQuestions] = useState(study.questions || []);
 
   const addQuestion = () => {
     const updated = [...questions];
@@ -16,33 +18,73 @@ function ModifySurvey({ study, setStudy, setTab }) {
   };
 
   const removeQuestion = (index) => {
-    const updated = questions.filter((i) => i !== index);
+    const updated = questions.filter((_, i) => i !== index);
     setQuestions(updated);
   };
 
+  const removeAllQuestions = () => {
+    setQuestions([]);
+  };
+
+  const handleSubmit = () => {
+    // handle submit button
+  };
+
   const questionComponents = questions.map((question, index) => (
-    <div key={index}>
-      <select
+    <Row key={index}>
+      <Input
+        type="select"
         value={question.type}
-        handleChange={(e) => editQuestion(index, "type", e.target.value)}
-      >
-        <option value="Inclusion">Inclusion</option>
-        <option value="Exclusion">Inclusion</option>
-      </select>
-      <input
-        value={question.prompt}
-        handleChange={(e) => editQuestion(index, "prompt", e.target.value)}
+        options={["Inclusion", "Exclusion"]}
+        onChange={(e) => editQuestion(index, "type", e.target.value)}
       />
-      <button>Remove</button>
-    </div>
+      <Input
+        value={question.prompt}
+        onChange={(e) => editQuestion(index, "prompt", e.target.value)}
+      />
+      <Button color="secondary" onClick={() => removeQuestion(index)}>
+        Remove
+      </Button>
+    </Row>
   ));
 
   return (
-    <div>
+    <Grid>
       {questionComponents}
-      <button>Add</button>
-    </div>
+      <Buttons>
+        <Button color="danger" onClick={removeAllQuestions}>
+          Remove All
+        </Button>
+        <Button color="success" onClick={addQuestion}>
+          Add
+        </Button>
+        <Button color="primary" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Buttons>
+    </Grid>
   );
 }
+
+const Row = styled.div`
+  display: grid;
+  grid-template-columns: 150px 1fr 100px;
+  grid-gap: 10px;
+  width: 100%;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-gap: 10px;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  grid-gap: 10px;
+
+  & > * {
+    flex: 1;
+  }
+`;
 
 export default ModifySurvey;

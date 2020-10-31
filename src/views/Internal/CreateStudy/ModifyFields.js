@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button } from "components";
 import { compute } from "functions";
 
 function ModifyFields({ study, setStudy, setTab }) {
-  const [inputs, setInputs] = useState({ title: study.title, description: study.description });
+  const [inputs, setInputs] = useState({});
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setInputs({ title: study.title, description: study.description });
+  }, [study]);
 
   const checker = (name, value) => {
     const check = {

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 import { Card } from "components";
 
@@ -8,9 +9,9 @@ import ModifyFields from "./ModifyFields";
 import ModifySurvey from "./ModifySurvey";
 
 function CreateStudy() {
-  const [tab, setTab] = useState("fetch");
-  const [study, setStudy] = useState();
-  const [studyID, setStudyID] = useState();
+  const [tab, setTab] = useState("survey");
+  const [study, setStudy] = useState({});
+  const [studyID, setStudyID] = useState("");
 
   const render = {
     fetch: <FetchStudy setTab={setTab} setStudyID={setStudyID} setStudy={setStudy} />,
@@ -19,7 +20,11 @@ function CreateStudy() {
     consent: <ConsentForm setTab={setTab} study={study} studyID={studyID} />,
   };
 
-  return <Card>{render[tab]}</Card>;
+  return <Form>{render[tab]}</Form>;
 }
+
+const Form = styled(Card)`
+  width: 100%;
+`;
 
 export default CreateStudy;

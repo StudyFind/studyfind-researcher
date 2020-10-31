@@ -5,123 +5,81 @@ const verifyIdToken = require("./utils/verify-id-token");
 const getUser = require("./utils/get-user");
 const addFirestoreEntry = require("./utils/add-firestore-entry");
 
-// Take the nctID text parameter passed to this HTTP endpoint and use flask api to scrape
-// its data, create a default unpublished study, and return the data
-module.exports = ({ admin }) => async (req, res) => {
-  // Disable CORS
-  res.set("Access-Control-Allow-Origin", "*");
+// fetches currently authenticated user
+async function fetchUser(auth, idToken) {
+  try {
+    const decodedToken = await verifyIdToken(auth, idToken);
+    const user = await getUser(auth, decodedToken.uid);
+    return user;
+  } catch (error) {
+    throw Error(`parameter idToken '${idToken}' is not a valid firebase user token: ${error}`);
+  }
+}
 
-  // Grab the nctID and user idToken parameters.
-  const { nctID, idToken } = req.query;
+// fetches study by nctID using flask API
+async function fetchStudy(nctID) {
+  const API = "https://flask-fire-27eclhhcra-uc.a.run.app/autoFillStudy";
+  const { data } = await axios.get(`${API}?nctID=${nctID}`);
 
-  if (!nctID) {
-    res.status(400);
-    return res.json({ error: "parameter nctID needs to be defined" });
+  if (!data || data.status === "failure") {
+    throw Error(`parameter nctID '${nctID}' is likely invalid`);
   }
 
-  if (!idToken) {
-    res.status(400);
-    return res.json({ error: "parameter idToken needs to be defined" });
-  }
+  return data.study;
+}
 
-  const auth = admin.auth();
-  const firestore = admin.firestore()
-  return (
-    Promise.all([
-      // simultaneously query flask scraper and auth user
-      axios
-        .get(`https://flask-fire-27eclhhcra-uc.a.run.app/autoFillStudy?nctID=${nctID}`)
-        // check for fail in flask api
-        .then((resp) => {
-          const d = resp.data;
+// checks that study email matches user email
+function checkOwnership(data, user) {
+  const userEmail = user.email.toLowerCase();
+  const studyEmail = data.contactEmail.toLowerCase();
 
-          if (!d || d.status === "failure") {
-            throw Error(`parameter nctID '${nctID}' is likely invalid`);
-          }
-          delete d.status;
+  // if (userEmail !== studyEmail) {
+  //   throw Error(
+  //     `user email '${user.email}' does not match study contact email '${data.contactEmail}'; ownership cannot be verified`
+  //   );
+  // }
 
-          return d["study"];
-        }),
-      verifyIdToken(auth, idToken)
-        // convert token to user data
-        .then((decodedToken) => {
-          return getUser(auth, decodedToken.uid);
-        })
-        .catch((err) => {
-          res.status(401);
-          throw Error(`parameter idToken '${idToken}' is not a valid firebase user token: ${err}`);
-        }),
-    ])
-      // check emails for match
-      .then(([data, user]) => {
-        if (data.contactEmail != user.email) {
-          res.status(401);
-          throw Error(
-            `user email '${user.email}' does not match study contact email '${data.contactEmail}'; ownership cannot be verified`
-          );
-        }
-        return [data, user];
-      })
-      // create questions from study
-      .then(([data, user]) => {
-        let inclusion = true;
-        data.questions = data.additionalCriteria
-          .split("\n")
-          .map((i) => {
-            if (i == "") return null;
-            let norm = i.toLowerCase();
-            if (norm.includes("exclusion")) {
-              inclusion = false;
-              return null;
-            }
-            if (norm.includes("criteria")) return null;
-            if (norm.includes("following")) return null;
+  data.uid = user.uid;
+  return data;
+}
 
-            return {
-              type: inclusion ? "Inclusion" : "Exclusion",
-              prompt: i,
-            };
-          })
-          .filter((i) => i != null);
+// generates survey questions from inclusion and exclusion criteria
+function generateQuestions(data) {
+  let type = "Inclusion";
+  data.questions = data.additionalCriteria
+    .split("\n")
+    .map((prompt) => {
+      if (prompt.trim() === "") return null;
 
-        return [data, user];
-      })
-      // convert to final study object
-      .then(([data, user]) => dataToStudyEntry(data, user))
-      // write data to firestore
-      .then(async study => {
-        const writeResult = await addFirestoreEntry({
-          firestore,
-          collection: "studies",
-          document: nctID,
-          data: study
-        });
-        return { study, entryId: writeResult._path.segments.pop(), error: null };
-      })
-      // respond
-      .then((data) => res.json(data))
-      // catch all errors
-      .catch((err) => {
-        // functions.logger.log(`[getStudy] failed: ${err}`)
-        res.json({ study: null, error: err.toString() });
-      })
-  );
-};
+      const norm = prompt.toLowerCase();
+      if (norm.includes("exclusion")) {
+        type = "Exclusion";
+        return null;
+      }
+      if (norm.includes("criteria")) return null;
+      if (norm.includes("following")) return null;
+
+      return { type, prompt };
+    })
+    .filter((i) => i !== null);
+
+  return data;
+}
 
 // returns default entry from given data/user combo. Designed to be adjustable
 // @param data <obj> - data object scraped from nct website by flask app
 // @param user <obj> - firebase user object authoring this study
-function dataToStudyEntry(data, user) {
+function generateStudyFromData(data) {
   return {
     published: false,
     activated: false,
     updatedAt: Date.now(),
     nctID: data.nctID,
     title: data.title,
-    status: data.status,
+    status: data.recruitmentStatus,
     description: data.shortDescription,
     researcher: {
-      id: user.uid,
+      id: data.uid,
       name: data.contactName,
       email: data.contactEmail,
     },
@@ -130,6 +88,56 @@ function dataToStudyEntry(data, user) {
     control: data.control,
     questions: data.questions,
     locations: data.locations,
-    conditions: data.conditions
+    conditions: data.conditions,
   };
 }
+
+// saves study as a new document to firestore
+async function writeToFirestore(firestore, nctID, study) {
+  await addFirestoreEntry({
+    firestore,
+    collection: "studies",
+    document: nctID,
+    data: study,
+  });
+  return study;
+}
+
+// Take the nctID text parameter passed to this HTTP endpoint and use flask api to scrape
+// its data, create a default unpublished study, and return the data
+module.exports = ({ admin }) => async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+
+  const { nctID, idToken } = req.query;
+
+  if (!nctID) return res.json({ error: "parameter nctID needs to be defined" });
+  if (!idToken) return res.json({ error: "parameter idToken needs to be defined" });
+
+  const auth = admin.auth();
+  const firestore = admin.firestore();
+
+  // try {
+  //   const [data, user] = Promise.all([fetchStudy(nctID), fetchUser(auth, idToken)]);
+
+  //   const uid = checkOwnership(data, user);
+  //   const questions = generateQuestions(data);
+  //   const study = generateStudyFromData(data);
+
+  //   study.questions = questions;
+  //   study.researcher.uid = uid;
+
+  //   writeToFirestore(firestore, nctID, study);
+
+  //   res.json({ study, error: null });
+  // } catch (error) {
+  //   res.json({ study: null, error: error.toString() });
+  // }
+
+  return Promise.all([fetchStudy(nctID), fetchUser(auth, idToken)])
+    .then(([data, user]) => checkOwnership(data, user))
+    .then((data) => generateQuestions(data))
+    .then((data) => generateStudyFromData(data))
+    .then((study) => writeToFirestore(firestore, nctID, study))
+    .then((study) => res.json({ study, nctID, error: null }))
+    .catch((err) => res.json({ study: null, error: err.toString() }));
+};
