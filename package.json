@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-	"postinstall": "(cd functions && npm install);",
+    "postinstall": "(cd functions && npm install);",
     "deploy": "firebase deploy",
     "serve": "firebase serve",
     "emulate": "firebase emulators:start",
