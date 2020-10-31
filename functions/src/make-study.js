@@ -25,6 +25,7 @@ module.exports = ({ admin }) => async (req, res) => {
   }
 
   const auth = admin.auth();
+  const firestore = admin.firestore()
   return (
     Promise.all([
       // simultaneously query flask scraper and auth user
@@ -52,7 +53,7 @@ module.exports = ({ admin }) => async (req, res) => {
         }),
     ])
       // check emails for match
-      .then(async ([data, user]) => {
+      .then(([data, user]) => {
         if (data.contactEmail != user.email) {
           res.status(401);
           throw Error(
@@ -62,7 +63,7 @@ module.exports = ({ admin }) => async (req, res) => {
         return [data, user];
       })
       // create questions from study
-      .then(async ([data, user]) => {
+      .then(([data, user]) => {
         let inclusion = true;
         data.questions = data.additionalCriteria
           .split("\n")
@@ -85,22 +86,24 @@ module.exports = ({ admin }) => async (req, res) => {
 
         return [data, user];
       })
-      // write data to firestore, create final respond
-      .then(async ([data, user]) => {
+      // convert to final study object
+      .then(([data, user]) => dataToStudyEntry(data, user))
+      // write data to firestore
+      .then(async study => {
         const writeResult = await addFirestoreEntry({
-          firestore: admin.firestore(),
+          firestore,
           collection: "studies",
           document: nctID,
-          data: dataToStudyEntry(data, user)
+          data: study
         });
-        return { data, entryId: writeResult._path.segments.pop(), error: null };
+        return { study, entryId: writeResult._path.segments.pop(), error: null };
       })
       // respond
       .then((data) => res.json(data))
       // catch all errors
       .catch((err) => {
         // functions.logger.log(`[getStudy] failed: ${err}`)
-        res.json({ error: err.toString() });
+        res.json({ study: null, error: err.toString() });
       })
   );
 };
@@ -109,5 +112,24 @@ module.exports = ({ admin }) => async (req, res) => {
 // @param data <obj> - data object scraped from nct website by flask app
 // @param user <obj> - firebase user object authoring this study
 function dataToStudyEntry(data, user) {
-  return { ...data, userId: user.uid, published: false };
+  return {
+    published: false,
+    activated: false,
+    updatedAt: Date.now(),
+    nctID: data.nctID,
+    title: data.title,
+    status: data.status,
+    description: data.shortDescription,
+    researcher: {
+      id: user.uid,
+      name: data.contactName,
+      email: data.contactEmail,
+    },
+    sex: data.sex,
+    age: `${data.minAge}-${data.maxAge}`,
+    control: data.control,
+    questions: data.questions,
+    locations: data.locations,
+    conditions: data.conditions
+  };
 }

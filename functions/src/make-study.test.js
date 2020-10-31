@@ -75,14 +75,18 @@ describe('make-study', () => {
 
         await func(req, res)
 
+        expect(res.json).toHaveBeenCalledTimes(1)
         const resp = res.json.mock.calls[0][0]
         expect(resp.error).toBeNull()
         expect(resp.entryId).not.toBeNull()
-        expect(resp.data).not.toBeNull()
+        expect(resp.study).not.toBeNull()
 
+        expect(mAddFirestoreEntry).toHaveBeenCalledTimes(1)
+        expect(mAddFirestoreEntry.mock.calls[0][0].document).toBe('NCTID')
         const entry = mAddFirestoreEntry.mock.calls[0][0].data
         expect(entry.nctID).toBe('NCTID')
-        expect(entry.contactEmail).toBe('TEST_EMAIL')
+        expect(entry.researcher.email).toBe('TEST_EMAIL')
+        expect(entry.published).toBe(false)
     })
 
     it('generates survey from criteria', async () => {
@@ -118,10 +122,10 @@ describe('make-study', () => {
         await func(req, res)
 
         const resp = res.json.mock.calls[0][0]
-        expect(resp.data.questions).not.toBeNull()
-        expect(resp.data.questions).not.toBeUndefined()
-        expect(resp.data.questions.length).toBeGreaterThan(0)
-        resp.data.questions.forEach(item => {
+        expect(resp.study.questions).not.toBeNull()
+        expect(resp.study.questions).not.toBeUndefined()
+        expect(resp.study.questions.length).toBeGreaterThan(0)
+        resp.study.questions.forEach(item => {
             expect(['Inclusion', 'Exclusion']).toContain(item.type)
         })
     })
