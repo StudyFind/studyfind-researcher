@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { auth } from "database/firebase";
 
 import { Form, Input, Button } from "components";
 
@@ -14,7 +15,7 @@ function FetchStudy() {
     if (lastEight.length !== 8) return false;
     if (!isNumeric) return false;
 
-    return lastEight;
+    return "NCT" + lastEight;
   };
 
   const fetchStudy = () => {
@@ -22,6 +23,24 @@ function FetchStudy() {
     console.log(validID);
     if (validID) {
       // TODO: call make-study cloud function here
+      auth.currentUser
+        .getIdToken(false)
+        .then(async (token) => {
+          const response = await axios.get(
+            "https://us-central1-studyfind-researcher.cloudfunctions.net/makeStudy",
+            {
+              params: {
+                nctID: validID,
+                idToken: token,
+              },
+            }
+          );
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+          setError("Unable to authenticate user");
+        });
     } else {
       setError("The entered NCT ID is invalid");
     }
@@ -36,7 +55,7 @@ function FetchStudy() {
           placeholder="NCT00000000"
           value={nctID}
           error={error}
-          onChange={(name, value) => setNctID(value)}
+          onChange={(_, value) => setNctID(value)}
         />
         <Button>Fetch</Button>
       </Form>
