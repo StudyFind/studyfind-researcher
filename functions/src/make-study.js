@@ -87,11 +87,12 @@ module.exports = ({ admin }) => async (req, res) => {
       })
       // write data to firestore, create final respond
       .then(async ([data, user]) => {
-        const writeResult = await addFirestoreEntry(
-          admin.firestore(),
-          "studies",
-          dataToStudyEntry(data, user)
-        );
+        const writeResult = await addFirestoreEntry({
+          firestore: admin.firestore(),
+          collection: "studies",
+          document: nctID,
+          data: dataToStudyEntry(data, user)
+        });
         return { data, entryId: writeResult._path.segments.pop(), error: null };
       })
       // respond

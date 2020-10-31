@@ -80,7 +80,7 @@ describe('make-study', () => {
         expect(resp.entryId).not.toBeNull()
         expect(resp.data).not.toBeNull()
 
-        const entry = mAddFirestoreEntry.mock.calls[0][2]
+        const entry = mAddFirestoreEntry.mock.calls[0][0].data
         expect(entry.nctID).toBe('NCTID')
         expect(entry.contactEmail).toBe('TEST_EMAIL')
     })
