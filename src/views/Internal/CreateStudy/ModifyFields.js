@@ -1,77 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Input, Button } from "components";
-
-import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
-import { firestore } from "database/firebase";
 import { compute } from "functions";
 
-function ModifyFields({ nctID }) {
-  nctID = "NCT00000000";
-  const ref = firestore.collection("studies").doc(nctID);
-  const [data, retrieving] = useDocumentDataOnce(ref);
-  const [inputs, setInputs] = useState({});
+function ModifyFields({ study, setStudy, setTab }) {
+  const [inputs, setInputs] = useState({ title: study.title, description: study.description });
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState();
-  const [success, setSuccess] = useState();
 
-  useEffect(() => {
-    if (!retrieving) {
-      if (data) {
-        setInputs({
-          title: data.title,
-          description: data.shortDescription,
-        });
-      } else {
-        setErrors({
-          title: "Failed to load study data",
-          description: "Failed to load study data",
-        });
-      }
-    }
-  }, [retrieving]);
+  const checker = (name, value) => {
+    const check = {
+      title: (value) => {
+        if (value.length > 100) {
+          return "The best titles are fewer than 100 characters";
+        }
+      },
 
-  const check = (name, value) => {
-    if (name === "title") {
-      if (value.length > 100) {
-        return "The best titles are fewer than 100 characters";
-      }
-    } else {
-      if (value.length < 200 || value.length > 300) {
-        return "The best descriptions are between 200 and 300 characters";
-      }
+      description: (value) => {
+        if (value.length < 200 || value.length > 300) {
+          return "The best descriptions are between 200 and 300 characters";
+        }
 
-      if (compute.readabilityIndex(value) > 16) {
-        return "Description is too complicated for the general population";
-      }
-    }
+        if (compute.readabilityIndex(value) > 16) {
+          return "Description is too complicated for the general population";
+        }
+      },
+    };
+
+    return check[name](value);
   };
 
   const handleInputs = (name, value) => {
     setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: check(name, value) });
+    setErrors({ ...errors, [name]: checker(name, value) });
   };
 
   const handleSubmit = () => {
     const err = {
-      title: check("title", inputs.title),
-      description: check("description", inputs.description),
+      title: checker("title", inputs.title),
+      description: checker("description", inputs.description),
     };
 
     setErrors(err);
+    const errorExists = Object.keys(err).some((i) => err[i]);
+    if (errorExists) return;
 
-    if (Object.keys(err).some((v) => err[v])) {
-      return;
-    }
-
-    ref
-      .update({ title: inputs.title, shortDescription: inputs.description })
-      .then(() => setSuccess(true))
-      .catch(() => setSuccess(false))
-      .finally(() => setLoading(false));
+    setStudy({ ...study, title: inputs.title, description: inputs.description });
+    setTab("survey");
   };
-
-  if (loading) return <div>Loading...</div>;
-  if (success) return <div>Success :)</div>;
 
   return (
     <Form onSubmit={handleSubmit}>

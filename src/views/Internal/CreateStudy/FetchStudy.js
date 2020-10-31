@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import { auth } from "database/firebase";
+import axios from "axios";
 
 import { Form, Input, Button } from "components";
 
-function FetchStudy() {
+function FetchStudy({ setTab, setStudy, setStudyID }) {
   const [nctID, setNctID] = useState("");
   const [error, setError] = useState();
+  const [loading, setLoading] = useState();
 
   const checkValidID = (nctID) => {
     const lastEight = nctID.substr(nctID.length - 8);
@@ -20,9 +22,9 @@ function FetchStudy() {
 
   const fetchStudy = () => {
     const validID = checkValidID(nctID);
-    console.log(validID);
+
     if (validID) {
-      // TODO: call make-study cloud function here
+      setLoading(true);
       auth.currentUser
         .getIdToken(false)
         .then(async (token) => {
@@ -35,12 +37,22 @@ function FetchStudy() {
               },
             }
           );
-          console.log(response);
+
+          const { study, error } = response.data;
+
+          if (study) {
+            console.log("FETCHED");
+            setTab("fields");
+            setStudy(study);
+            setStudyID(validID);
+          } else {
+            setError(error);
+          }
         })
-        .catch(function (err) {
-          console.log(err);
+        .catch((err) => {
           setError("Unable to authenticate user");
-        });
+        })
+        .finally(() => setLoading(false));
     } else {
       setError("The entered NCT ID is invalid");
     }
@@ -57,7 +69,7 @@ function FetchStudy() {
           error={error}
           onChange={(_, value) => setNctID(value)}
         />
-        <Button>Fetch</Button>
+        <Button loading={loading}>Fetch</Button>
       </Form>
     </div>
   );

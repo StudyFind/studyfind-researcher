@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { storage } from "database/firebase";
 
-function ConsentForm({ nctID }) {
+function ConsentForm({ studyID }) {
   const [name, setName] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState("");
@@ -29,7 +29,7 @@ function ConsentForm({ nctID }) {
 
     setLoading(true);
 
-    const ref = storage.ref(`consent/${nctID}.pdf`);
+    const ref = storage.ref(`consent/${studyID}.pdf`);
     const task = ref.put(file);
 
     task.on(
