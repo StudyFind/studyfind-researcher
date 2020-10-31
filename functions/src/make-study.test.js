@@ -22,8 +22,8 @@ describe('make-study', () => {
 
     beforeEach(async () => {
         func = Func(context)
-        req = { query: { NCTID: 'NCTID', idToken: 'IDTOKEN' } }
-        res = { json: jest.fn(), status: jest.fn() }
+        req = { query: { nctID: 'NCTID', idToken: 'IDTOKEN' } }
+        res = { json: jest.fn(), status: jest.fn(), set: jest.fn() }
     })
 
     afterEach(() => {
