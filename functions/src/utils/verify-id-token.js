@@ -1,8 +1,8 @@
 // utils/verify-id-token.js
 
-module.exports = async (auth, idToken) => {
+module.exports = async (admin, idToken) => {
   if (!idToken) {
     return null;
   }
-  return auth.verifyIdToken(idToken);
+  return admin.auth().verifyIdToken(idToken);
 };
