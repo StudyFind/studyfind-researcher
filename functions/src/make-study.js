@@ -118,7 +118,7 @@ function dataToStudyEntry(data, user) {
     updatedAt: Date.now(),
     nctID: data.nctID,
     title: data.title,
-    status: data.status,
+    status: data.recruitmentStatus,
     description: data.shortDescription,
     researcher: {
       id: user.uid,
