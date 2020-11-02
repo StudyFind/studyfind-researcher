@@ -9,7 +9,7 @@ import ModifyFields from "./ModifyFields";
 import ModifySurvey from "./ModifySurvey";
 
 function CreateStudy() {
-  const [tab, setTab] = useState("survey");
+  const [tab, setTab] = useState("fetch");
   const [study, setStudy] = useState({});
   const [studyID, setStudyID] = useState("");
 
@@ -20,11 +20,35 @@ function CreateStudy() {
     consent: <ConsentForm setTab={setTab} study={study} studyID={studyID} />,
   };
 
-  return <Form>{render[tab]}</Form>;
+  return (
+    <Box>
+      <Head>
+        <Heading>Create Study</Heading>
+      </Head>
+      <Body>
+        <Form>{render[tab]}</Form>
+      </Body>
+    </Box>
+  );
 }
 
-const Form = styled(Card)`
+const Box = styled.div`
   width: 100%;
 `;
+
+const Head = styled.div`
+  padding: 10px 20px;
+`;
+
+const Body = styled.div`
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Heading = styled.h2``;
+
+const Form = styled(Card)``;
 
 export default CreateStudy;
