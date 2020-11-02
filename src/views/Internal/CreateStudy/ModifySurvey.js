@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Input, Button } from "components";
+import { Input, Select, Button, IconButton } from "@chakra-ui/core";
+import { FaTimes } from "react-icons/fa";
 
 function ModifySurvey({ study, setStudy, setTab }) {
-  const [questions, setQuestions] = useState(study.questions || []);
+  const [questions, setQuestions] = useState(
+    study.questions || [{ prompt: "Hello", type: "Exclusion" }]
+  );
 
   const addQuestion = () => {
     const updated = [...questions];
@@ -32,19 +35,19 @@ function ModifySurvey({ study, setStudy, setTab }) {
 
   const questionComponents = questions.map((question, index) => (
     <Row key={index}>
-      <Input
-        type="select"
+      <Type
+        w="180px"
         value={question.type}
-        options={["Inclusion", "Exclusion"]}
         onChange={(e) => editQuestion(index, "type", e.target.value)}
-      />
+      >
+        <option value="Inclusion">Inclusion</option>
+        <option value="Exclusion">Exclusion</option>
+      </Type>
       <Input
         value={question.prompt}
         onChange={(e) => editQuestion(index, "prompt", e.target.value)}
       />
-      <Button color="secondary" onClick={() => removeQuestion(index)}>
-        Remove
-      </Button>
+      <IconButton icon={FaTimes} variantColor="gray" onClick={() => removeQuestion(index)} />
     </Row>
   ));
 
@@ -52,13 +55,13 @@ function ModifySurvey({ study, setStudy, setTab }) {
     <Grid>
       {questionComponents}
       <Buttons>
-        <Button color="danger" onClick={removeAllQuestions}>
+        <Button variantColor="red" onClick={removeAllQuestions}>
           Remove All
         </Button>
-        <Button color="success" onClick={addQuestion}>
+        <Button variantColor="green" onClick={addQuestion}>
           Add
         </Button>
-        <Button color="primary" onClick={handleSubmit}>
+        <Button variantColor="blue" onClick={handleSubmit}>
           Submit
         </Button>
       </Buttons>
@@ -67,8 +70,7 @@ function ModifySurvey({ study, setStudy, setTab }) {
 }
 
 const Row = styled.div`
-  display: grid;
-  grid-template-columns: 150px 1fr 100px;
+  display: flex;
   grid-gap: 10px;
   width: 100%;
 `;
@@ -85,6 +87,10 @@ const Buttons = styled.div`
   & > * {
     flex: 1;
   }
+`;
+
+const Type = styled(Select)`
+  width: 150px;
 `;
 
 export default ModifySurvey;
