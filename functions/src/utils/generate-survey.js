@@ -1,6 +1,10 @@
+const InclusionsMatcher = /(?:inclusions?\s*criteria:)((?:\n|.)*?)(?:exclusions?\s*criteria:)/gi
+const ExclusionsMatcher = /(?:exclusions? criteria:)((?:\n|.)*?)$/gi
+const SubpointMatcher = /(\n.*:\n(?:\n|.)*)(?:\n\n)/gi
+
 module.exports = (criteria) => {
-    let incMatch = criteria.matchAll(/(?:inclusions?\s*criteria:)((?:\n|.)*?)(?:exclusions?\s*criteria:)/gi).next().value
-    let excMatch = criteria.matchAll(/(?:exclusions? criteria:)((?:\n|.)*?)$/gi).next().value
+    let incMatch = criteria.matchAll(InclusionsMatcher).next().value
+    let excMatch = criteria.matchAll(ExclusionsMatcher).next().value
 
 
 
@@ -11,7 +15,7 @@ module.exports = (criteria) => {
 }
 
 function makeCriteria(s) {
-    s = s.replace(/(\n.*:\n(?:\n|.)*)(?:\n\n)/gi, (match, $1) => {
+    s = s.replace(SubpointMatcher, (match, $1) => {
         let sp = $1.split('\n').filter(i => i.trim() !== '')
         return sp[0] + ' ' + sp.slice(1).join(', ') + '\n'
     })
