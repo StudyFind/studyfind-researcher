@@ -3,8 +3,8 @@ const ExclusionsMatcher = /(?:exclusions? criteria:)((?:\n|.)*?)$/gi
 const SubpointMatcher = /(\n.*:\n(?:\n|.)*)(?:\n\n)/gi
 
 module.exports = (criteria) => {
-    let incMatch = criteria.matchAll(InclusionsMatcher).next().value
-    let excMatch = criteria.matchAll(ExclusionsMatcher).next().value
+    const incMatch = criteria.matchAll(InclusionsMatcher).next().value
+    const excMatch = criteria.matchAll(ExclusionsMatcher).next().value
 
 
 
