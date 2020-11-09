@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 import { Card } from "components";
 
-import FetchStudy from "./FetchStudy";
+import FetchStudy from "views/Internal/CreateStudy/FetchStudy";
 import ConsentForm from "./ConsentForm";
-import ModifyFields from "./ModifyFields";
+import ModifyFields from "views/Internal/CreateStudy/ModifyFields";
 import ModifySurvey from "./ModifySurvey";
 
 function CreateStudy() {

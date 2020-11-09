@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button } from "components";
 import { compute } from "functions";
 
+import ModifyFieldsView from "./ModifyFieldsView";
+
 function ModifyFields({ study, setStudy, setTab }) {
-  const [inputs, setInputs] = useState({});
-  const [errors, setErrors] = useState({});
+  const [inputs, setInputs] = useState({ title: "", description: "" });
+  const [errors, setErrors] = useState({ title: "", description: "" });
 
   useEffect(() => {
-    setInputs({ title: study.title, description: study.description });
+    setInputs({ title: study.title || "", description: study.description || "" });
   }, [study]);
 
   const checker = (name, value) => {
@@ -32,7 +34,7 @@ function ModifyFields({ study, setStudy, setTab }) {
     return check[name](value);
   };
 
-  const handleInputs = (name, value) => {
+  const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
     setErrors({ ...errors, [name]: checker(name, value) });
   };
@@ -52,31 +54,12 @@ function ModifyFields({ study, setStudy, setTab }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <div>
-        We at StudyFind strive to make research studies as accessible as possible. To achieve this,
-        we ask that researchers simplify the language used in the study description by avoiding
-        medical jargon and making it readable for the general population to improve their partipant
-        recruitment
-      </div>
-      <Input
-        label
-        name="title"
-        type="textarea"
-        value={inputs.title}
-        error={errors.title}
-        onChange={handleInputs}
-      />
-      <Input
-        label
-        name="description"
-        type="textarea"
-        value={inputs.description}
-        error={errors.description}
-        onChange={handleInputs}
-      />
-      <Button>Submit</Button>
-    </Form>
+    <ModifyFieldsView
+      inputs={inputs}
+      errors={errors}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
   );
 }
 

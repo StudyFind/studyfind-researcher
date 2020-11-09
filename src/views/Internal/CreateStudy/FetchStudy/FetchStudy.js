@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-
 import { auth } from "database/firebase";
 import axios from "axios";
 
-import { Form, Input, Button } from "components";
+import FetchStudyView from "./FetchStudyView";
 
 function FetchStudy({ setTab, setStudy, setStudyID }) {
   const [nctID, setNctID] = useState("");
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const checkValidID = (nctID) => {
     const lastEight = nctID.substr(nctID.length - 8);
@@ -20,7 +19,12 @@ function FetchStudy({ setTab, setStudy, setStudyID }) {
     return "NCT" + lastEight;
   };
 
-  const fetchStudy = () => {
+  const handleChange = (_, value) => {
+    setNctID(value);
+    setError("");
+  };
+
+  const handleSubmit = () => {
     const validID = checkValidID(nctID);
 
     if (validID) {
@@ -43,12 +47,11 @@ function FetchStudy({ setTab, setStudy, setStudyID }) {
           console.log(response.data);
 
           if (study) {
-            console.log("FETCHED");
             setTab("fields");
             setStudy(study);
             setStudyID(validID);
           } else {
-            setError(error);
+            setError("Entered ID does not exist");
           }
         })
         .catch((err) => {
@@ -61,19 +64,13 @@ function FetchStudy({ setTab, setStudy, setStudyID }) {
   };
 
   return (
-    <div>
-      <Form onSubmit={fetchStudy}>
-        <Input
-          label
-          name="nct_id"
-          placeholder="NCT00000000"
-          value={nctID}
-          error={error}
-          onChange={(_, value) => setNctID(value)}
-        />
-        <Button loading={loading}>Fetch</Button>
-      </Form>
-    </div>
+    <FetchStudyView
+      nctID={nctID}
+      error={error}
+      loading={loading}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
   );
 }
 

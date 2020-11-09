@@ -1,0 +1,53 @@
+import React from "react";
+import styled from "styled-components";
+
+import { Form } from "components";
+import { Textarea } from "chakra";
+import { Text, Button, Heading } from "@chakra-ui/core";
+
+function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
+  console.log(inputs);
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Heading size="lg" mb="10px">
+        Modifying Title and Description
+      </Heading>
+      <Text mb="10px" color="gray.500">
+        We at StudyFind strive to make research studies as accessible as possible. To achieve this,
+        we ask that researchers simplify the language used in the study description by avoiding
+        medical jargon and making it readable for the general population to improve their partipant
+        recruitment
+      </Text>
+      <Inputs>
+        <Textarea
+          label="Study Title"
+          name="title"
+          type="textarea"
+          value={inputs.title}
+          error={errors.title}
+          limit={200}
+          onChange={handleChange}
+        />
+        <Textarea
+          label="Study Description"
+          name="description"
+          type="textarea"
+          value={inputs.description}
+          error={errors.description}
+          limit={500}
+          onChange={handleChange}
+        />
+      </Inputs>
+      <Button variantColor="green">Submit</Button>
+    </Form>
+  );
+}
+
+const Inputs = styled.div`
+  display: grid;
+  padding-top: 10px;
+  grid-gap: 10px;
+`;
+
+export default ModifyFieldsView;
