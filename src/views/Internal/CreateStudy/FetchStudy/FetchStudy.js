@@ -44,14 +44,13 @@ function FetchStudy({ setTab, setStudy, setStudyID }) {
           );
 
           const { study, error } = response.data;
-          console.log(response.data);
 
           if (study) {
             setTab("fields");
             setStudy(study);
             setStudyID(validID);
           } else {
-            setError("Entered ID does not exist");
+            setError(error);
           }
         })
         .catch((err) => {

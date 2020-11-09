@@ -25,7 +25,7 @@ async function fetchStudy(nctID) {
   );
 
   if (!data || data.status === "failure") {
-    throw Error("Parameter is invalid");
+    throw Error("Entered ID does not exist");
   }
 
   return data.study;

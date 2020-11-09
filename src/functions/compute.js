@@ -61,7 +61,7 @@ const compute = {
       const response = responses[i];
 
       if (response === "Yes") {
-        if (question.type === "Inclusive") {
+        if (question.type === "Inclusion") {
           score += 1;
         } else {
           score -= 1;
@@ -69,7 +69,7 @@ const compute = {
       }
 
       if (response === "No") {
-        if (question.type === "Exclusive") {
+        if (question.type === "Exclusion") {
           score += 1;
         } else {
           score -= 1;
