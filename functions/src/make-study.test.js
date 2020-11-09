@@ -1,11 +1,11 @@
 jest.mock("axios");
-jest.mock("./utils/verify-id-token");
-jest.mock("./utils/get-user");
-jest.mock("./utils/add-firestore-entry");
+jest.mock("./firebase/verify-id-token");
+jest.mock("./firebase/get-user");
+jest.mock("./firebase/add-firestore-entry");
 
 const mAxios = require("axios");
-const mGetUser = require("./utils/get-user");
-const mAddFirestoreEntry = require("./utils/add-firestore-entry");
+const mGetUser = require("./firebase/get-user");
+const mAddFirestoreEntry = require("./firebase/add-firestore-entry");
 
 const admin = require("firebase-admin");
 admin.initializeApp();

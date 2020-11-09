@@ -1,9 +1,11 @@
 const functions = require("firebase-functions");
 const axios = require("axios");
 
-const verifyIdToken = require("./utils/verify-id-token");
-const getUser = require("./utils/get-user");
-const addFirestoreEntry = require("./utils/add-firestore-entry");
+const verifyIdToken = require("./firebase/verify-id-token");
+const getUser = require("./firebase/get-user");
+const addFirestoreEntry = require("./firebase/add-firestore-entry");
+
+const generateSurvey = require("./utils/generate-survey");
 
 // fetches currently authenticated user
 async function fetchUser(auth, idToken) {
@@ -12,17 +14,18 @@ async function fetchUser(auth, idToken) {
     const user = await getUser(auth, decodedToken.uid);
     return user;
   } catch (error) {
-    throw Error(`parameter idToken '${idToken}' is not a valid firebase user token: ${error}`);
+    throw Error("User is not authenticated");
   }
 }
 
 // fetches study by nctID using flask API
 async function fetchStudy(nctID) {
-  const API = "https://flask-fire-27eclhhcra-uc.a.run.app/autoFillStudy";
-  const { data } = await axios.get(`${API}?nctID=${nctID}`);
+  const { data } = await axios.get(
+    `https://flask-fire-27eclhhcra-uc.a.run.app/autoFillStudy?nctID=${nctID}`
+  );
 
   if (!data || data.status === "failure") {
-    throw Error(`parameter nctID '${nctID}' is likely invalid`);
+    throw Error("Parameter is invalid");
   }
 
   return data.study;
@@ -32,6 +35,9 @@ async function fetchStudy(nctID) {
 function checkOwnership(data, user) {
   const userEmail = user.email.toLowerCase();
   const studyEmail = data.contactEmail.toLowerCase();
+
+  // ***** NOTE: ********************* //
+  // ***** COMMENTED FOR TESTING ***** //
 
   // if (userEmail !== studyEmail) {
   //   throw Error(
@@ -45,25 +51,11 @@ function checkOwnership(data, user) {
 
 // generates survey questions from inclusion and exclusion criteria
 function generateQuestions(data) {
-  let type = "Inclusion";
-  data.questions = data.additionalCriteria
-    .split("\n")
-    .map((prompt) => {
-      if (prompt.trim() === "") return null;
-
-      const norm = prompt.toLowerCase();
-      if (norm.includes("exclusion")) {
-        type = "Exclusion";
-        return null;
-      }
-      if (norm.includes("criteria")) return null;
-      if (norm.includes("following")) return null;
-
-      return { type, prompt };
-    })
-    .filter((i) => i !== null);
-
-  return data;
+  const { inclusion, exclusion } = generateSurvey(data.additionalCriteria);
+  const inclusionList = inclusion.map((prompt) => ({ type: "Inclusion", prompt }));
+  const exclusionList = exclusion.map((prompt) => ({ type: "Exclusion", prompt }));
+  const criterionList = inclusionList.concat(exclusionList);
+  return { ...data, questions: criterionList };
 }
 
 // returns default entry from given data/user combo. Designed to be adjustable
@@ -115,23 +107,6 @@ module.exports = ({ admin }) => async (req, res) => {
 
   const auth = admin.auth();
   const firestore = admin.firestore();
-
-  // try {
-  //   const [data, user] = Promise.all([fetchStudy(nctID), fetchUser(auth, idToken)]);
-
-  //   const uid = checkOwnership(data, user);
-  //   const questions = generateQuestions(data);
-  //   const study = generateStudyFromData(data);
-
-  //   study.questions = questions;
-  //   study.researcher.uid = uid;
-
-  //   writeToFirestore(firestore, nctID, study);
-
-  //   res.json({ study, error: null });
-  // } catch (error) {
-  //   res.json({ study: null, error: error.toString() });
-  // }
 
   return Promise.all([fetchStudy(nctID), fetchUser(auth, idToken)])
     .then(([data, user]) => checkOwnership(data, user))
