@@ -28,6 +28,8 @@ const Screen = styled.div`
 
 const Page = styled.div`
   margin-left: 250px;
+  width: 100%;
+  min-height: 100vh;
 `;
 
 export default Internal;

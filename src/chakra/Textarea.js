@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Text, FormControl, Textarea, Input, FormLabel, FormErrorMessage } from "@chakra-ui/core";
+import { Text, FormControl, Textarea, FormLabel, FormErrorMessage } from "@chakra-ui/core";
 
 function Field({ name, value, label, height, placeholder, limit, error, onChange }) {
-  const [count, setCount] = useState(value.length);
+  const [count, setCount] = useState();
+
+  useEffect(() => {
+    setCount(value.length);
+  }, [value]);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setCount(value.length);
     onChange(name, value);
   };
 
@@ -20,15 +23,29 @@ function Field({ name, value, label, height, placeholder, limit, error, onChange
         maxLength={limit}
         placeholder={placeholder}
         onChange={handleChange}
+        style={{ minHeight: 0 }}
       />
-      {limit && <Limit color="gray.500">{`${count}/${limit}`}</Limit>}
-      <FormErrorMessage>{error}</FormErrorMessage>
+      <Bottom>
+        <Error>{error}</Error>
+        <Limit color="gray.500">{limit && `${count}/${limit}`}</Limit>
+      </Bottom>
     </FormControl>
   );
 }
 
 const Limit = styled(Text)`
   text-align: right;
+`;
+
+const Bottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0;
+`;
+
+const Error = styled(FormErrorMessage)`
+  margin-top: 0px !important;
 `;
 
 export default Field;

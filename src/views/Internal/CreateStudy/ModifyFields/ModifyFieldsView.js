@@ -6,8 +6,6 @@ import { Textarea } from "chakra";
 import { Text, Button, Heading } from "@chakra-ui/core";
 
 function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
-  console.log(inputs);
-
   return (
     <Form onSubmit={handleSubmit}>
       <Heading size="lg" mb="10px">
@@ -26,7 +24,8 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
           type="textarea"
           value={inputs.title}
           error={errors.title}
-          limit={200}
+          limit={100}
+          height="60px"
           onChange={handleChange}
         />
         <Textarea
@@ -36,10 +35,13 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
           value={inputs.description}
           error={errors.description}
           limit={500}
+          height="150px"
           onChange={handleChange}
         />
       </Inputs>
-      <Button variantColor="green">Submit</Button>
+      <Button mt="20px" variantColor="teal" type="submit">
+        Submit
+      </Button>
     </Form>
   );
 }
