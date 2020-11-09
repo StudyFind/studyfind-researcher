@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Card } from "components";
+import { Card, Steps } from "components";
+import { Stack, Tag, TagLabel } from "@chakra-ui/core";
 
 import FetchStudy from "views/Internal/CreateStudy/FetchStudy";
 import ConsentForm from "./ConsentForm";
 import ModifyFields from "views/Internal/CreateStudy/ModifyFields";
-import ModifySurvey from "./ModifySurvey";
+import ModifySurvey from "./ModifySurvey/ModifySurvey";
 
 function CreateStudy() {
   const [tab, setTab] = useState("fetch");
   const [study, setStudy] = useState({});
   const [studyID, setStudyID] = useState("");
+  const tabs = ["fetch", "fields", "survey", "consent"];
 
   const render = {
     fetch: <FetchStudy setTab={setTab} setStudyID={setStudyID} setStudy={setStudy} />,
@@ -20,35 +22,35 @@ function CreateStudy() {
     consent: <ConsentForm setTab={setTab} study={study} studyID={studyID} />,
   };
 
+  const steps = (
+    <Stack spacing={2} my="10px" isInline>
+      {tabs.map((t, i) => (
+        <Tag
+          key={i}
+          size="sm"
+          rounded="full"
+          variant={t === tab ? "solid" : "outline"}
+          variantColor="teal"
+        >
+          <TagLabel>{i + 1}</TagLabel>
+        </Tag>
+      ))}
+    </Stack>
+  );
+
   return (
     <Box>
-      <Head>
-        <Heading>Create Study</Heading>
-      </Head>
-      <Body>
-        <Form>{render[tab]}</Form>
-      </Body>
+      {steps}
+      {render[tab]}
     </Box>
   );
 }
 
 const Box = styled.div`
-  width: 100%;
-`;
-
-const Head = styled.div`
-  padding: 10px 20px;
-`;
-
-const Body = styled.div`
   padding: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #f8f9fa;
+  width: 100%;
+  height: 100%;
 `;
-
-const Heading = styled.h2``;
-
-const Form = styled(Card)``;
 
 export default CreateStudy;
