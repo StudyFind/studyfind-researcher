@@ -28,7 +28,8 @@ function ModifySurvey({ study, setStudy, setTab }) {
   };
 
   const handleSubmit = () => {
-    // handle submit button
+    setStudy({ ...study, questions });
+    setTab("consent");
   };
 
   return (

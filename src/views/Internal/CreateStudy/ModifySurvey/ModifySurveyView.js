@@ -46,7 +46,7 @@ function ModifySurveyView({
         <Button leftIcon={FaPlus} variantColor="green" onClick={createQuestion}>
           Add Question
         </Button>
-        <Button variantColor="blue" onClick={handleSubmit}>
+        <Button variantColor="blue" onClick={handleSubmit} type="submit">
           Next
         </Button>
       </Buttons>
@@ -72,10 +72,6 @@ const Questions = styled.div`
 const Buttons = styled.div`
   display: flex;
   grid-gap: 10px;
-
-  // & > * {
-  //   flex: 1;
-  // }
 `;
 
 export default ModifySurveyView;
