@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { storage } from "database/firebase";
+import { Heading, Text, Input, Button } from "@chakra-ui/core";
 
 function ConsentForm({ studyID }) {
   const [name, setName] = useState();
@@ -53,14 +55,39 @@ function ConsentForm({ studyID }) {
 
   return (
     <div>
-      <input onChange={handleFileChange} type="file" />
-      <button onClick={handleFileUpload} disabled={loading}>
-        Upload
-      </button>
-      <div>{status}</div>
-      <div>{error}</div>
+      <Heading size="lg" mb="10px">
+        Upload Consent Form
+      </Heading>
+      <Text mb="10px" color="gray.500">
+        These exclusion and inclusion criteria will be used to automatically generate a survey for
+        interested participants to answer in their process of enrolling.
+      </Text>
+      <Inputs>
+        <FileInput onChange={handleFileChange} type="file" />
+        <Button
+          variantColor="teal"
+          onClick={handleFileUpload}
+          loadingText="Uploading..."
+          isLoading={loading}
+          type="submit"
+        >
+          Upload
+        </Button>
+      </Inputs>
     </div>
   );
 }
+
+const Inputs = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  width: 250px;
+`;
+
+const FileInput = styled(Input)`
+  padding: 4px;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+`;
 
 export default ConsentForm;
