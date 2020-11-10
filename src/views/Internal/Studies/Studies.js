@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { auth, firestore } from "database/firebase";
 
-import StudyCard from "./StudyCard";
+import StudyCardSmall from "views/Internal/StudyCardSmall";
 import { Heading, Button, Spinner } from "@chakra-ui/core";
 import { FaPlusCircle } from "react-icons/fa";
 
@@ -10,7 +10,7 @@ function Studies() {
   const [studies, setStudies] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchStudy = async () => {
+  const fetchStudies = async () => {
     const { currentUser } = await auth;
     firestore
       .collection("studies")
@@ -20,24 +20,26 @@ function Studies() {
         const studies = [];
         snapshot.forEach((doc) => studies.push(doc.data()));
         setStudies(studies);
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
 
   useEffect(() => {
-    fetchStudy();
+    fetchStudies();
   }, []);
 
   const GRID = (
     <StudyGrid n={studies.length}>
       {studies.map((study, index) => (
-        <StudyCard key={index} study={study} />
+        <StudyCardSmall key={index} study={study} />
       ))}
     </StudyGrid>
   );
 
   const LOAD = (
-    <PageLoader n={studies.length}>
+    <PageLoader>
       <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="teal.500" size="lg" />
     </PageLoader>
   );
