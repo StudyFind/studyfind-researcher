@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { auth, firestore } from "database/firebase";
 
+import NoStudies from "./NoStudies";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
+
+import { Link } from "react-router-dom";
 import { Heading, Button, Spinner } from "@chakra-ui/core";
 import { FaPlusCircle } from "react-icons/fa";
 
@@ -30,12 +33,24 @@ function Studies() {
     fetchStudies();
   }, []);
 
-  const GRID = (
-    <StudyGrid n={studies.length}>
-      {studies.map((study, index) => (
-        <StudyCardSmall key={index} study={study} />
-      ))}
-    </StudyGrid>
+  const GRID = studies.length ? (
+    <>
+      <Head>
+        <Heading>Your Studies</Heading>
+        <Link to="/create">
+          <Button leftIcon={FaPlusCircle} variantColor="teal">
+            Create Study
+          </Button>
+        </Link>
+      </Head>
+      <StudyGrid n={studies.length}>
+        {studies.map((study, index) => (
+          <StudyCardSmall key={index} study={study} />
+        ))}
+      </StudyGrid>
+    </>
+  ) : (
+    <NoStudies />
   );
 
   const LOAD = (
@@ -44,17 +59,7 @@ function Studies() {
     </PageLoader>
   );
 
-  return (
-    <Page>
-      <Head>
-        <Heading>Your Studies</Heading>
-        <Button leftIcon={FaPlusCircle} variantColor="teal">
-          Create Study
-        </Button>
-      </Head>
-      {loading ? LOAD : GRID}
-    </Page>
-  );
+  return <Page>{loading ? LOAD : GRID}</Page>;
 }
 
 const Page = styled.div`
@@ -82,7 +87,7 @@ const PageLoader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 500px;
+  height: 100%;
 `;
 
 export default Studies;
