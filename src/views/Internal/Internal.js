@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import CreateStudy from "views/Internal/CreateStudy/CreateStudy";
 import Settings from "views/Internal/Settings/Settings";
 import Studies from "views/Internal/Studies/Studies";
+import Study from "views/Internal/Study/Study";
 
 function Internal() {
   return (
@@ -16,6 +17,7 @@ function Internal() {
         <Switch>
           <Route exact path="/" component={CreateStudy} />
           <Route exact path="/studies" component={Studies} />
+          <Route exact path="/study/:id" component={Study} />
           <Route exact path="/settings" component={Settings} />
         </Switch>
       </Page>
