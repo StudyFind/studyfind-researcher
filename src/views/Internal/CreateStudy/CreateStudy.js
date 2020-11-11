@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { Stack, Tag, TagLabel } from "@chakra-ui/core";
 
 import FetchStudy from "views/Internal/CreateStudy/FetchStudy";
-import ConsentForm from "./ConsentForm";
+import ConsentForm from "./ConsentForm/ConsentForm";
 import ModifyFields from "views/Internal/CreateStudy/ModifyFields";
 import ModifySurvey from "./ModifySurvey/ModifySurvey";
 import ReviewStudy from "./ReviewStudy";
+import Success from "./Success/Success";
 
 function CreateStudy() {
   const [tab, setTab] = useState("fetch");
@@ -20,7 +21,8 @@ function CreateStudy() {
     fields: <ModifyFields setTab={setTab} study={study} setStudy={setStudy} />,
     survey: <ModifySurvey setTab={setTab} study={study} setStudy={setStudy} />,
     consent: <ConsentForm setTab={setTab} study={study} studyID={studyID} />,
-    review: <ReviewStudy study={study} studyID={studyID} />,
+    review: <ReviewStudy setTab={setTab} study={study} studyID={studyID} />,
+    success: <Success />,
   };
 
   const steps = (
@@ -41,7 +43,7 @@ function CreateStudy() {
 
   return (
     <Box>
-      {steps}
+      {tab !== "success" && steps}
       {render[tab]}
     </Box>
   );
