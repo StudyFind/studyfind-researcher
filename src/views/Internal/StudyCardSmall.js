@@ -7,7 +7,7 @@ import { Box, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/core";
 function StudyCard({ study }) {
   return (
     <Card to={`/study/${study.nctID}`}>
-      <Box borderWidth="1px" rounded="lg" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
+      <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
         <Text fontSize="sm" color="gray.400">
           {study.nctID}
         </Text>

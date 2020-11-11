@@ -33,7 +33,7 @@ function Sidebar() {
 
   return (
     <Box>
-      <Head>
+      <Head to="/">
         <Logo src={StudyFindLogo} />
         <Name>StudyFind</Name>
       </Head>
@@ -63,7 +63,7 @@ const Box = styled.div`
   flex-direction: column;
 `;
 
-const Head = styled.div`
+const Head = styled(Link)`
   display: flex;
   align-items: center;
   grid-gap: 10px;
@@ -105,8 +105,12 @@ const NavLink = styled(Link)`
   font-size: 16px;
   font-weight: 500;
 
-  color: ${(props) => props.selected && "white"};
-  background: ${(props) => props.selected && "rgb(0, 0, 0, 0.1)"};
+  ${(props) =>
+    props.selected &&
+    `
+    color: white;
+    background: rgb(0, 0, 0, 0.1);
+  `}
 `;
 
 export default Sidebar;
