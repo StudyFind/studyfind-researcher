@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { firestore } from "database/firebase";
 
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
 import { Heading, Text, Button } from "@chakra-ui/core";
 
-function ReviewStudy({ studyID, study }) {
-  if (!studyID) {
-    studyID = "NCT04316676";
-    study = {
-      title: "The MATCH Investigation: CT Myocardial Perfusion and CT-FFR vs PET MPI",
-      description: `In an effort to simplify and validate study creation, we require that your research study is
-    registered on clinicaltrials.gov. Submitting your Clinical Trials ID below allows us to
-    identify your study and add it to your StudyFind account. In an effort to simplify and validate study creation, we require that your research study is
-    registered on clinicaltrials.gov. Submitting your Clinical Trials ID below allows us to
-    identify your study and add it to your StudyFind account.In an effort to simplify and validate study creation, we require that your research study is
-    registered on clinicaltrials.gov.`,
-      conditions: ["Diabetes", "Myocardial", "Ulcers"],
-      sex: "Male",
-      age: "20-45",
-      control: "Yes",
-    };
-  }
+function ReviewStudy({ studyID, study, setTab }) {
+  const [publishLoading, setPublishLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
+  const handlePublish = () => {
+    setPublishLoading(true);
+    return firestore
+      .collection("studies")
+      .doc(studyID || " ")
+      .update({ ...study, published: true, activated: true })
+      .then(() => setTab("success"))
+      .catch((err) => console.log(err))
+      .finally(() => setPublishLoading(false));
+  };
+
+  const handleDelete = () => {
+    setDeleteLoading(true);
+    return firestore
+      .collection("studies")
+      .doc(studyID || " ")
+      .delete()
+      .then(() => setTab("success"))
+      .catch(() => alert("Study does not exist"))
+      .finally(() => setDeleteLoading(false));
+  };
 
   return (
     <div>
@@ -35,8 +44,22 @@ function ReviewStudy({ studyID, study }) {
       </Text>
       <StudyCardLarge study={study} />
       <Buttons>
-        <Button variantColor="red">Cancel</Button>
-        <Button variantColor="blue">Publish</Button>
+        <Button
+          variantColor="red"
+          onClick={handleDelete}
+          isLoading={deleteLoading}
+          loadingText="Deleting"
+        >
+          Delete
+        </Button>
+        <Button
+          variantColor="teal"
+          onClick={handlePublish}
+          isLoading={publishLoading}
+          loadingText="Publishing"
+        >
+          Publish
+        </Button>
       </Buttons>
     </div>
   );

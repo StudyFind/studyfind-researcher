@@ -25,7 +25,13 @@ function ModifySurveyView({
         value={question.prompt}
         onChange={(e) => updateQuestion(index, "prompt", e.target.value)}
       />
-      <IconButton variantColor="red" icon={FaTrash} onClick={() => deleteQuestion(index)} />
+      <IconButton
+        variantColor=""
+        color="gray.500"
+        _hover={{ color: "red.500", bg: "red.100" }}
+        icon={FaTrash}
+        onClick={() => deleteQuestion(index)}
+      />
     </Row>
   ));
 
@@ -38,16 +44,26 @@ function ModifySurveyView({
         These exclusion and inclusion criteria will be used to automatically generate a survey for
         interested participants to answer in their process of enrolling.
       </Text>
-      <Questions>{questionComponents}</Questions>
-      <Buttons>
-        <Button leftIcon={FaTrash} variantColor="red" onClick={deleteAllQuestions}>
+      {questions && questions.length ? (
+        <Button
+          leftIcon={FaTrash}
+          variantColor=""
+          color="red.500"
+          _hover={{ bg: "red.100" }}
+          onClick={deleteAllQuestions}
+        >
           Delete All
         </Button>
-        <Button leftIcon={FaPlus} variantColor="green" onClick={createQuestion}>
+      ) : null}
+      <Questions>
+        {questionComponents}
+        <Button leftIcon={FaPlus} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>
-        <Button variantColor="blue" onClick={handleSubmit} type="submit">
-          Next
+      </Questions>
+      <Buttons>
+        <Button variantColor="teal" onClick={handleSubmit} type="submit">
+          Submit
         </Button>
       </Buttons>
     </Grid>
@@ -72,6 +88,7 @@ const Questions = styled.div`
 const Buttons = styled.div`
   display: flex;
   grid-gap: 10px;
+  justify-content: flex-end;
 `;
 
 export default ModifySurveyView;

@@ -8,14 +8,16 @@ function ModifyFields({ study, setStudy, setTab }) {
   const [errors, setErrors] = useState({ title: "", description: "" });
 
   useEffect(() => {
-    setInputs({ title: study.title || "", description: study.description || "" });
+    if (study.nctID) {
+      setInputs({ title: study.title || "", description: study.description || "" });
 
-    const err = {
-      title: checker("title", inputs.title),
-      description: checker("description", inputs.description),
-    };
+      const err = {
+        title: checker("title", study.title),
+        description: checker("description", study.description),
+      };
 
-    setErrors(err);
+      setErrors(err);
+    }
   }, [study]);
 
   const checker = (name, value) => {
