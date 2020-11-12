@@ -8,7 +8,8 @@ import ConsentForm from "./ConsentForm/ConsentForm";
 import ModifyFields from "views/Internal/CreateStudy/ModifyFields";
 import ModifySurvey from "./ModifySurvey/ModifySurvey";
 import ReviewStudy from "./ReviewStudy/ReviewStudy";
-import Success from "./Success/Success";
+import Published from "./Success/Published";
+import Deleted from "./Success/Deleted";
 
 function CreateStudy() {
   const [tab, setTab] = useState("fetch");
@@ -21,7 +22,8 @@ function CreateStudy() {
     survey: <ModifySurvey setTab={setTab} study={study} setStudy={setStudy} />,
     consent: <ConsentForm setTab={setTab} study={study} />,
     review: <ReviewStudy setTab={setTab} study={study} />,
-    success: <Success />,
+    published: <Published />,
+    deleted: <Deleted />,
   };
 
   const steps = (
@@ -42,7 +44,7 @@ function CreateStudy() {
 
   return (
     <Box>
-      {tab !== "success" && steps}
+      {["published", "deleted"].includes(tab) || steps}
       {render[tab]}
     </Box>
   );

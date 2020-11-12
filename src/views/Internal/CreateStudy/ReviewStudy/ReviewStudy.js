@@ -13,7 +13,7 @@ function ReviewStudy({ study, setTab }) {
       .collection("studies")
       .doc(study.nctID || " ")
       .update({ ...study, published: true, activated: true })
-      .then(() => setTab("success"))
+      .then(() => setTab("published"))
       .catch((err) => console.log(err))
       .finally(() => setPublishLoading(false));
   };
@@ -24,7 +24,7 @@ function ReviewStudy({ study, setTab }) {
       .collection("studies")
       .doc(study.nctID || " ")
       .delete()
-      .then(() => setTab("success"))
+      .then(() => setTab("deleted"))
       .catch(() => alert("Study does not exist"))
       .finally(() => setDeleteLoading(false));
   };

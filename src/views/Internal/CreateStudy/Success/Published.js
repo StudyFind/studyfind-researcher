@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
 import { Heading, Text, Button, Box } from "@chakra-ui/core";
 import { FaCheckCircle } from "react-icons/fa";
 
-function PublishSuccess({ study }) {
+function Published() {
   return (
     <Page>
       <Center>
@@ -19,9 +20,11 @@ function PublishSuccess({ study }) {
           participants to view and enroll. You can edit your study title, description, criteria and
           consent form from your study settings.
         </Text>
-        <Button mt="20px" variantColor="teal">
-          View Studies
-        </Button>
+        <Link to="/studies">
+          <Button mt="20px" variantColor="teal">
+            View Studies
+          </Button>
+        </Link>
       </Center>
     </Page>
   );
@@ -52,4 +55,4 @@ const Center = styled.div`
   width: 400px;
 `;
 
-export default PublishSuccess;
+export default Published;
