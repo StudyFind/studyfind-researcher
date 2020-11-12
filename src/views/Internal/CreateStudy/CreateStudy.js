@@ -7,7 +7,7 @@ import FetchStudy from "views/Internal/CreateStudy/FetchStudy";
 import ConsentForm from "./ConsentForm/ConsentForm";
 import ModifyFields from "views/Internal/CreateStudy/ModifyFields";
 import ModifySurvey from "./ModifySurvey/ModifySurvey";
-import ReviewStudy from "./ReviewStudy";
+import ReviewStudy from "./ReviewStudy/ReviewStudy";
 import Success from "./Success/Success";
 
 function CreateStudy() {
