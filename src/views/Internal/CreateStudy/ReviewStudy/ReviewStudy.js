@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateStudy, deleteStudy } from "database";
+import { updateStudy, deleteStudy } from "database/studies";
 
 import ReviewStudyView from "./ReviewStudyView";
 
@@ -9,7 +9,7 @@ function ReviewStudy({ study, setTab }) {
 
   const handlePublish = () => {
     setPublishLoading(true);
-    return updateStudy(study.nctID, { ...study, published: true, activated: true })
+    updateStudy({ ...study, published: true, activated: true })
       .then(() => setTab("published"))
       .catch((err) => console.log(err))
       .finally(() => setPublishLoading(false));
@@ -17,9 +17,9 @@ function ReviewStudy({ study, setTab }) {
 
   const handleDelete = () => {
     setDeleteLoading(true);
-    return deleteStudy(study.nctID)
+    deleteStudy(study.nctID)
       .then(() => setTab("deleted"))
-      .catch(() => alert("Study does not exist"))
+      .catch((err) => console.log(err))
       .finally(() => setDeleteLoading(false));
   };
 

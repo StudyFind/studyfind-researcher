@@ -5,16 +5,6 @@ import { errors } from "./constants";
 const fetchRef = (ref) => ref.once("value").then((data) => data.val());
 const fetchUser = (uid) => fetchRef(database.ref(`users/${uid}`));
 const fetchStudies = () => fetchRef(database.ref("studies"));
-const fetchStudiesWhere = (field, relation, value) => firestore.collection("studies")
-  .where(field, relation, value).get()
-  .then(snapshot => {
-    const map = [];
-    snapshot.forEach(doc => map.push(doc.data()));
-    return map;
-  });
-const deleteStudy = (nctid) => firestore.collection("studies").doc(nctid).delete();
-const updateStudy = (nctid, newData) => firestore.collection("studies").doc(nctid).update(newData);
-
 const fetchData = async (uid) => {
   const [user, studies] = await Promise.all([fetchUser(uid), fetchStudies()]);
   return { user, studies };
@@ -170,15 +160,11 @@ export {
   fetchData,
   fetchUser,
   fetchStudies,
-  fetchStudiesWhere,
-  deleteStudy,
-  updateStudy,
   resetPassword,
   changePassword,
   googleAuth,
   facebookAuth,
   // AUTH //
-  auth,
   signin,
   signup,
   signout,

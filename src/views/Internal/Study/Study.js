@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { firestore } from "database/firebase";
+import { fetchStudy } from "database/studies";
 
 import { Spinner, PseudoBox } from "@chakra-ui/core";
 
@@ -16,22 +16,12 @@ function Study() {
   const [study, setStudy] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchStudy = async () => {
-    firestore
-      .collection("studies")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        setStudy(doc.data());
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
   useEffect(() => {
-    id && fetchStudy();
-  }, [id]);
+    fetchStudy(id)
+      .then(setStudy)
+      .catch(console.log)
+      .finally(() => setLoading(false));
+  }, []);
 
   const render = {
     Details: <Details study={study} />,
