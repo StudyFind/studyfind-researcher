@@ -1,11 +1,10 @@
-import { auth, database, googleAuthProvider, facebookAuthProvider } from "./firebase";
+import { auth, database, googleAuthProvider, facebookAuthProvider, firestore } from "./firebase";
 import { errors } from "./constants";
 
-// === DATA === //
+// === DATA CRUD === //
 const fetchRef = (ref) => ref.once("value").then((data) => data.val());
 const fetchUser = (uid) => fetchRef(database.ref(`users/${uid}`));
 const fetchStudies = () => fetchRef(database.ref("studies"));
-
 const fetchData = async (uid) => {
   const [user, studies] = await Promise.all([fetchUser(uid), fetchStudies()]);
   return { user, studies };

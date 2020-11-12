@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { firestore } from "database/firebase";
+import { updateStudy, deleteStudy } from "database/studies";
 
 import ReviewStudyView from "./ReviewStudyView";
 
@@ -9,10 +9,7 @@ function ReviewStudy({ study, setTab }) {
 
   const handlePublish = () => {
     setPublishLoading(true);
-    return firestore
-      .collection("studies")
-      .doc(study.nctID || " ")
-      .update({ ...study, published: true, activated: true })
+    updateStudy({ ...study, published: true, activated: true })
       .then(() => setTab("published"))
       .catch((err) => console.log(err))
       .finally(() => setPublishLoading(false));
@@ -20,12 +17,9 @@ function ReviewStudy({ study, setTab }) {
 
   const handleDelete = () => {
     setDeleteLoading(true);
-    return firestore
-      .collection("studies")
-      .doc(study.nctID || " ")
-      .delete()
+    deleteStudy(study.nctID)
       .then(() => setTab("deleted"))
-      .catch(() => alert("Study does not exist"))
+      .catch((err) => console.log(err))
       .finally(() => setDeleteLoading(false));
   };
 
