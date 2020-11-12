@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 import {
   Heading, Text, Box, Button, Flex,
-  Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
+  ModalBody, ModalFooter,
   FormControl, Input,
   useDisclosure
 } from "@chakra-ui/core";
+
+import { Modal } from "chakra"
 
 
 function Settings({ study }) {
@@ -32,21 +34,18 @@ function Settings({ study }) {
       </Flex>
 
       {/* MODAL */}
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Delete Study</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Text>This is a permanent action. Please re-enter the NCT-ID of the study you want to delete.</Text>
-            <FormControl pt={5}>
-              <Input placeholder="Type here..." ref={deleteInput} />
-            </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <Button variantColor="red" onClick={onDelete}>Delete</Button>
-          </ModalFooter>
-        </ModalContent>
+      <Modal isOpen={isOpen} onClose={onClose} title="Delete study?">
+
+        <ModalBody>
+          <Text>This is a permanent action. Please re-enter the NCT-ID of the study you want to delete.</Text>
+          <FormControl pt={5}>
+            <Input placeholder="Type here..." ref={deleteInput} />
+          </FormControl>
+        </ModalBody>
+        <ModalFooter>
+          <Button variantColor="red" onClick={onDelete}>Delete</Button>
+        </ModalFooter>
+
       </Modal>
     </Box>
   )
