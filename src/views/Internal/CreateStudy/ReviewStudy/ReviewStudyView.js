@@ -1,37 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { firestore } from "database/firebase";
 
 import StudyCardLarge from "views/Internal/StudyCardLarge";
-
 import { Heading, Text, Button } from "@chakra-ui/core";
 
-function ReviewStudy({ studyID, study, setTab }) {
-  const [publishLoading, setPublishLoading] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-
-  const handlePublish = () => {
-    setPublishLoading(true);
-    return firestore
-      .collection("studies")
-      .doc(studyID || " ")
-      .update({ ...study, published: true, activated: true })
-      .then(() => setTab("success"))
-      .catch((err) => console.log(err))
-      .finally(() => setPublishLoading(false));
-  };
-
-  const handleDelete = () => {
-    setDeleteLoading(true);
-    return firestore
-      .collection("studies")
-      .doc(studyID || " ")
-      .delete()
-      .then(() => setTab("success"))
-      .catch(() => alert("Study does not exist"))
-      .finally(() => setDeleteLoading(false));
-  };
-
+function ReviewStudyView({ study, handleDelete, handlePublish, deleteLoading, publishLoading }) {
   return (
     <div>
       <Heading size="lg" mb="10px">
@@ -72,4 +45,4 @@ const Buttons = styled.div`
   margin: 15px 0;
 `;
 
-export default ReviewStudy;
+export default ReviewStudyView;
