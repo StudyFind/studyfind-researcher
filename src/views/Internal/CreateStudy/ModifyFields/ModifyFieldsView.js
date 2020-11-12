@@ -39,9 +39,17 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
           onChange={handleChange}
         />
       </Inputs>
-      <Button mt="20px" variantColor="teal" type="submit">
-        Submit
-      </Button>
+      <Buttons>
+        <Button
+          mt="20px"
+          ml="auto"
+          variantColor="teal"
+          type="submit"
+          style={{ textAlign: "right" }}
+        >
+          Submit
+        </Button>
+      </Buttons>
     </Form>
   );
 }
@@ -50,6 +58,12 @@ const Inputs = styled.div`
   display: grid;
   padding-top: 10px;
   grid-gap: 10px;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  grid-gap: 10px;
+  justify-content: flex-end;
 `;
 
 export default ModifyFieldsView;

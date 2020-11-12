@@ -27,19 +27,21 @@ function Field({ name, value, label, height, placeholder, limit, error, onChange
       />
       <Bottom>
         <Error>{error}</Error>
-        <Limit color="gray.500">{limit && `${count}/${limit}`}</Limit>
+        <Limit color="gray.500" fontSize="sm">
+          {limit && `${count}/${limit}`}
+        </Limit>
       </Bottom>
     </FormControl>
   );
 }
 
 const Limit = styled(Text)`
-  text-align: right;
+  margin-left: auto;
 `;
 
 const Bottom = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin: 4px 0;
 `;

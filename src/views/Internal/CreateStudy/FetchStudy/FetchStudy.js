@@ -4,7 +4,7 @@ import axios from "axios";
 
 import FetchStudyView from "./FetchStudyView";
 
-function FetchStudy({ setTab, setStudy, setStudyID }) {
+function FetchStudy({ setTab, setStudy }) {
   const [nctID, setNctID] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -46,9 +46,8 @@ function FetchStudy({ setTab, setStudy, setStudyID }) {
           const { study, error } = response.data;
 
           if (study) {
-            setTab("fields");
             setStudy(study);
-            setStudyID(validID);
+            setTab("fields");
           } else {
             setError(error);
           }

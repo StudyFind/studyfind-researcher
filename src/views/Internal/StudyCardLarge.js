@@ -5,7 +5,10 @@ import { Heading, Text, Box, Tag, TagLabel, Stack, Avatar } from "@chakra-ui/cor
 import { FaVenusMars, FaBirthdayCake, FaHeart } from "react-icons/fa";
 
 function StudyCardLarge({ study }) {
+  const { researcher } = study;
+
   const getInitials = (name) => {
+    if (!name) return "";
     const split = name.split(" ");
     return split[0] + " " + split[split.length - 1];
   };
@@ -34,13 +37,13 @@ function StudyCardLarge({ study }) {
           <Criterion>
             <Box as={FaVenusMars} color="teal.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
-              {study.sex}
+              {study.sex || "All"}
             </Text>
           </Criterion>
           <Criterion>
             <Box as={FaBirthdayCake} color="teal.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
-              {study.age} years
+              {study.age || "All"} years
             </Text>
           </Criterion>
           <Criterion>
@@ -52,17 +55,17 @@ function StudyCardLarge({ study }) {
             </Text>
           </Criterion>
         </Eligibility>
-        <Researcher borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="12px">
-          <Avatar bg="teal.500" name={study.researcher && getInitials(study.researcher.name)} />
-          <Box>
-            <Name>{study.researcher && study.researcher.name}</Name>
-            <Email color="gray.500">
-              <a href={`mailto:${study.researcher && study.researcher.email}`}>
-                {study.researcher && study.researcher.email}
-              </a>
-            </Email>
-          </Box>
-        </Researcher>
+        {researcher && (
+          <Researcher borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="12px">
+            <Avatar bg="teal.500" name={getInitials(researcher.name)} />
+            <Box>
+              <Text>{researcher.name}</Text>
+              <Text color="gray.500">
+                <a href={`mailto:${researcher.email}`}>{researcher.email}</a>
+              </Text>
+            </Box>
+          </Researcher>
+        )}
       </Details>
     </Study>
   );
@@ -97,7 +100,5 @@ const Researcher = styled(Box)`
   grid-gap: 10px;
   align-self: flex-end;
 `;
-const Name = styled(Text)``;
-const Email = styled(Text)``;
 
 export default StudyCardLarge;

@@ -12,7 +12,7 @@ import Settings from "./Settings";
 
 function Study() {
   const { id } = useParams();
-  const [selected, setSelected] = useState("Details");
+  const [tab, setTab] = useState("Details");
   const [study, setStudy] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -43,20 +43,20 @@ function Study() {
   const tabs = ["Details", "Survey", "Participants", "Settings"];
   const TABS = (
     <Tabs>
-      {tabs.map((tab, index) => (
+      {tabs.map((t, i) => (
         <PseudoBox
-          key={index}
+          key={i}
           as="button"
-          color={tab === selected ? "white" : "gray.500"}
-          bg={tab === selected ? "teal.500" : "transparent"}
+          color={tab === t ? "white" : "gray.500"}
+          bg={tab === t ? "teal.500" : "transparent"}
           fontWeight="semibold"
           py={2}
           px={4}
           rounded="md"
-          onClick={() => setSelected(tab)}
-          _hover={{ bg: tab === selected ? "teal.600" : "gray.200" }}
+          onClick={() => setTab(t)}
+          _hover={{ bg: tab === t || "gray.200" }}
         >
-          {tab}
+          {t}
         </PseudoBox>
       ))}
     </Tabs>
@@ -71,7 +71,7 @@ function Study() {
   const BODY = (
     <div>
       {TABS}
-      {render[selected]}
+      {render[tab]}
     </div>
   );
 
