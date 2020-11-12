@@ -3,7 +3,7 @@ import { storage } from "database/firebase";
 
 import ConsentFormView from "./ConsentFormView";
 
-function ConsentForm({ studyID, setTab }) {
+function ConsentForm({ study, setTab }) {
   const [name, setName] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState("");
@@ -29,13 +29,13 @@ function ConsentForm({ studyID, setTab }) {
       return;
     }
 
-    if (!studyID) {
+    if (!study.nctID) {
       setError("Study ID is missing");
     }
 
     setLoading(true);
 
-    const ref = storage.ref(`consent/${studyID}.pdf`);
+    const ref = storage.ref(`consent/${study.nctID}.pdf`);
     const task = ref.put(file);
 
     task.on(

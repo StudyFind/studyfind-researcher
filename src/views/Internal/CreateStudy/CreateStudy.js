@@ -13,15 +13,14 @@ import Success from "./Success/Success";
 function CreateStudy() {
   const [tab, setTab] = useState("fetch");
   const [study, setStudy] = useState({});
-  const [studyID, setStudyID] = useState("");
   const tabs = ["fetch", "fields", "survey", "consent", "review"];
 
   const render = {
-    fetch: <FetchStudy setTab={setTab} setStudyID={setStudyID} setStudy={setStudy} />,
+    fetch: <FetchStudy setTab={setTab} setStudy={setStudy} />,
     fields: <ModifyFields setTab={setTab} study={study} setStudy={setStudy} />,
     survey: <ModifySurvey setTab={setTab} study={study} setStudy={setStudy} />,
-    consent: <ConsentForm setTab={setTab} study={study} studyID={studyID} />,
-    review: <ReviewStudy setTab={setTab} study={study} studyID={studyID} />,
+    consent: <ConsentForm setTab={setTab} study={study} />,
+    review: <ReviewStudy setTab={setTab} study={study} />,
     success: <Success />,
   };
 
