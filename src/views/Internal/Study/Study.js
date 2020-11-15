@@ -5,14 +5,12 @@ import { fetchStudy } from "database/studies";
 
 import { Spinner, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/core";
 
-import Details from "./Details";
+import Details from "./Details/Details";
 import Survey from "./Survey/Survey";
-import Participants from "./Participants";
-import Settings from "./Settings";
 
 function Study() {
   const { id } = useParams();
-  const [study, setStudy] = useState([]);
+  const [study, setStudy] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,22 +32,35 @@ function Study() {
         <TabList mb="15px">
           <TabItem>Details</TabItem>
           <TabItem>Survey</TabItem>
+          <TabItem>Consent</TabItem>
+          <TabItem>Locations</TabItem>
           <TabItem>Participants</TabItem>
           <TabItem>Settings</TabItem>
         </TabList>
-
         <TabPanels>
           <TabPanel>
-            <Details study={study} />
+            <Details study={study} setStudy={setStudy} />
           </TabPanel>
           <TabPanel>
             <Survey study={study} setStudy={setStudy} />
           </TabPanel>
           <TabPanel>
-            <Participants study={study} />
+            <div>Consent: Add PDF viewer here to display consent form</div>
           </TabPanel>
           <TabPanel>
-            <Settings study={study} />
+            <div>Locations: Add table of locations which have external link to google maps</div>
+          </TabPanel>
+          <TabPanel>
+            <div>
+              Participants: Add table of participants with link to response review page +
+              accept/reject buttons + eligibility score
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div>
+              Settings: Update Study, Activate/Deactivate Study, Delete Study, Intro message
+              template
+            </div>
           </TabPanel>
         </TabPanels>
       </Tabs>
