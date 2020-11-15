@@ -8,7 +8,7 @@ function Details({ study }) {
   return (
     <>
       <Head>
-        <Heading fontSize="30px">Study Details</Heading>
+        <Heading fontSize="28px">Study Details</Heading>
         <Button variantColor="blue">Edit Details</Button>
       </Head>
       <StudyCardLarge study={study} />

@@ -40,7 +40,7 @@ function SurveyEdit({
   return (
     <>
       <Head>
-        <Heading fontSize="30px">Edit Survey Questions</Heading>
+        <Heading fontSize="28px">Edit Survey Questions</Heading>
         <Buttons>
           <Button
             variantColor=""

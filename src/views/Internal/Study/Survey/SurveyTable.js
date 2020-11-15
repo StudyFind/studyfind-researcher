@@ -8,7 +8,7 @@ function SurveyTable({ questions, setEdit }) {
   return (
     <>
       <Head>
-        <Heading fontSize="30px">Survey Questions</Heading>
+        <Heading fontSize="28px">Survey Questions</Heading>
         <Button variantColor="blue" onClick={() => setEdit(true)}>
           Edit Questions
         </Button>
