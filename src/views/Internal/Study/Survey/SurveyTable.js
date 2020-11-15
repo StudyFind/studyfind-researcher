@@ -2,13 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 import { Heading, Button, Tag } from "@chakra-ui/core";
-import { FaPencilAlt } from "react-icons/fa";
 
 function SurveyTable({ questions, setEdit }) {
   return (
     <>
       <Head>
-        <Heading fontSize="28px">Survey Questions</Heading>
+        <Heading fontSize="28px">Study Survey</Heading>
         <Button variantColor="blue" onClick={() => setEdit(true)}>
           Edit Questions
         </Button>

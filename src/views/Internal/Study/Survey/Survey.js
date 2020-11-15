@@ -5,7 +5,6 @@ import SurveyTable from "./SurveyTable";
 import SurveyEdit from "./SurveyEdit";
 
 function Survey({ study, setStudy }) {
-  console.log(study);
   const [edit, setEdit] = useState(false);
   const [questions, setQuestions] = useState(study.questions || {});
 
@@ -36,8 +35,9 @@ function Survey({ study, setStudy }) {
   };
 
   const handleSubmit = () => {
-    updateStudy({ ...study, questions });
-    setStudy({ ...study, questions });
+    const updated = { ...study, questions };
+    updateStudy(updated);
+    setStudy(updated);
     setEdit(false);
   };
 

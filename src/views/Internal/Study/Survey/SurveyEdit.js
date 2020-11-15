@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Heading, Input, Select, Button, IconButton } from "@chakra-ui/core";
-import { FaTrash, FaPlus, FaSave, FaTimes } from "react-icons/fa";
+import { FaTrash, FaPlus } from "react-icons/fa";
 
 function SurveyEdit({
   original,
@@ -40,7 +40,7 @@ function SurveyEdit({
   return (
     <>
       <Head>
-        <Heading fontSize="28px">Edit Survey Questions</Heading>
+        <Heading fontSize="28px">Edit Questions</Heading>
         <Buttons>
           <Button
             variantColor=""
