@@ -40,7 +40,7 @@ function SurveyEdit({
   return (
     <>
       <Head>
-        <Heading fontSize="28px">Edit Questions</Heading>
+        <Heading fontSize="28px">Edit Survey</Heading>
         <Buttons>
           <Button
             variantColor=""
@@ -77,7 +77,7 @@ const Head = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;
 
 const Row = styled.div`

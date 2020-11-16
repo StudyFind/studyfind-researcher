@@ -56,7 +56,7 @@ const Head = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;
 
 const Inputs = styled.div`

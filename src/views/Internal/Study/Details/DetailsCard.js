@@ -8,7 +8,7 @@ function DetailsCard({ study, setEdit }) {
   return (
     <>
       <Head>
-        <Heading fontSize="28px">Study Details</Heading>
+        <Heading fontSize="28px">Details</Heading>
         <Button variantColor="blue" onClick={() => setEdit(true)}>
           Edit Details
         </Button>
@@ -22,7 +22,7 @@ const Head = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;
 
 export default DetailsCard;

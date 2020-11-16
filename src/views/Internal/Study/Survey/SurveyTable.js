@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Button, Tag } from "@chakra-ui/core";
+import { Heading, Button, Tag, Text } from "@chakra-ui/core";
 
 function SurveyTable({ questions, setEdit }) {
   return (
     <>
       <Head>
-        <Heading fontSize="28px">Study Survey</Heading>
+        <Heading fontSize="28px">Survey</Heading>
         <Button variantColor="blue" onClick={() => setEdit(true)}>
           Edit Questions
         </Button>
@@ -27,7 +27,9 @@ function SurveyTable({ questions, setEdit }) {
                   {question.type}
                 </Tag>
               </BodyCell>
-              <BodyCell nowrap>{question.prompt}</BodyCell>
+              <BodyCell nowrap>
+                <Text color="gray.600">{question.prompt}</Text>
+              </BodyCell>
             </tr>
           ))}
         </tbody>
@@ -40,7 +42,7 @@ const Head = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;
 
 const Table = styled.table`
@@ -49,14 +51,14 @@ const Table = styled.table`
 `;
 
 const HeadCell = styled.th`
-  border: 1px solid rgb(217, 218, 219);
+  border: 1px solid #e1e2e3;
   background: #f1f2f3;
   padding: 8px 12px;
   text-align: left;
 `;
 
 const BodyCell = styled.td`
-  border: 1px solid rgb(217, 218, 219);
+  border: 1px solid #e1e2e3;
   padding: 8px 12px;
 `;
 
