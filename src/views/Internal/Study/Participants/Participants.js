@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { compute } from "functions";
 
 import { Heading, Text, Button, Box } from "@chakra-ui/core";
 
+import ParticipantsFilter from "./ParticipantsFilter";
+
 function Participants({ study, participants }) {
+  const [filter, setFilter] = useState(false);
+  const [status, setStatus] = useState({});
+  const [search, setSearch] = useState("");
+  const [minScore, setMinScore] = useState("");
+
   study = { questions: [] };
   participants = [
     { fakename: "Amazing Alpaca", status: "Interested", responses: [] },
@@ -19,8 +26,17 @@ function Participants({ study, participants }) {
     <>
       <Head>
         <Heading fontSize="28px">Participants</Heading>
-        <Button variantColor="blue">Filter Participants</Button>
+        {filter ? (
+          <Button variantColor="gray" onClick={() => setFilter(false)}>
+            Clear Filters
+          </Button>
+        ) : (
+          <Button variantColor="blue" onClick={() => setFilter(true)}>
+            Filter Participants
+          </Button>
+        )}
       </Head>
+      {filter && <ParticipantsFilter />}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participants.map((participant, index) => (
           <Row key={index}>
