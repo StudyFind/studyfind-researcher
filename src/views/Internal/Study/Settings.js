@@ -1,45 +1,45 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Heading, Text, Box, Button, Flex,
-  ModalBody, ModalFooter,
-  FormControl, Input,
+  ModalBody, ModalFooter, FormControl, Input,
   useDisclosure
 } from "@chakra-ui/core";
 
 import { Modal } from "chakra"
+import { deleteStudy } from "database/studies"
 
 
 function Settings({ study }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [deleteConfirmed, setDeleteConfirmed] = useState(true)
   const deleteInput = useRef()
 
-  const onDelete = e => {
-    console.log(deleteInput.current.value)
+  const onDelete = async e => {
     if (deleteInput.current.value != study.nctID) {
-      // TODO: Error out
+      setDeleteConfirmed(false)
       return
     }
-    // TODO: delete
+    await deleteStudy(study.nctID)
     onClose()
   }
 
   return (
     <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px">
-      <Text fontSize="sm" color="gray.400">
+      <Text fontSize="sm" color="gray.400" pb="3">
         {study.nctID}
       </Text>
       <Flex align="center">
         <Button variantColor="red" onClick={onOpen} >Delete</Button>
-        <Heading size="sm" pl="4">Delete this study:</Heading>
+        <Heading size="sm" pl="5">Delete this study:</Heading>
       </Flex>
 
-      {/* MODAL */}
+      {/* DELETE MODAL */}
       <Modal isOpen={isOpen} onClose={onClose} title="Delete study?">
 
         <ModalBody>
           <Text>This is a permanent action. Please re-enter the NCT-ID of the study you want to delete.</Text>
           <FormControl pt={5}>
-            <Input placeholder="Type here..." ref={deleteInput} />
+            <Input placeholder="Type here..." ref={deleteInput} isInvalid={!deleteConfirmed} />
           </FormControl>
         </ModalBody>
         <ModalFooter>
