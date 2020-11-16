@@ -6,7 +6,10 @@ import { fetchStudy } from "database/studies";
 import { Spinner, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/core";
 
 import Details from "./Details/Details";
+import Location from "./Location/Location";
 import Survey from "./Survey/Survey";
+import Consent from "./Consent/Consent";
+import Participants from "./Participants/Participants";
 
 function Study() {
   const { id } = useParams();
@@ -22,18 +25,18 @@ function Study() {
 
   const LOAD = (
     <PageLoader>
-      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="teal.500" size="lg" />
+      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="blue.500" size="lg" />
     </PageLoader>
   );
 
   const BODY = (
     <div>
-      <Tabs variantColor="teal">
-        <TabList mb="15px">
+      <Tabs variantColor="blue">
+        <TabList>
           <TabItem>Details</TabItem>
+          <TabItem>Locations</TabItem>
           <TabItem>Survey</TabItem>
           <TabItem>Consent</TabItem>
-          <TabItem>Locations</TabItem>
           <TabItem>Participants</TabItem>
           <TabItem>Settings</TabItem>
         </TabList>
@@ -42,19 +45,16 @@ function Study() {
             <Details study={study} setStudy={setStudy} />
           </TabPanel>
           <TabPanel>
+            <Location study={study} setStudy={setStudy} />
+          </TabPanel>
+          <TabPanel>
             <Survey study={study} setStudy={setStudy} />
           </TabPanel>
           <TabPanel>
-            <div>Consent: Add PDF viewer here to display consent form</div>
+            <Consent study={study} />
           </TabPanel>
           <TabPanel>
-            <div>Locations: Add table of locations which have external link to google maps</div>
-          </TabPanel>
-          <TabPanel>
-            <div>
-              Participants: Add table of participants with link to response review page +
-              accept/reject buttons + eligibility score
-            </div>
+            <Participants />
           </TabPanel>
           <TabPanel>
             <div>
@@ -79,6 +79,15 @@ const Page = styled.div`
 const TabItem = styled(Tab)`
   font-weight: 600;
   color: rgb(161, 175, 192);
+
+  &:active {
+    background: transparent !important;
+    color: rgb(101, 115, 132);
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
 `;
 
 const PageLoader = styled.div`
