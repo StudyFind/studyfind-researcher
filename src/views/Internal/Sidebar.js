@@ -6,15 +6,7 @@ import { signout } from "database";
 
 import StudyFindLogo from "images/logo.png";
 
-import {
-  FaChartPie,
-  FaClipboard,
-  FaBell,
-  FaComment,
-  FaCalendarAlt,
-  FaCog,
-  FaUser,
-} from "react-icons/fa";
+import { FaClipboard, FaComment, FaCog, FaUser } from "react-icons/fa";
 
 import { Button } from "@chakra-ui/core";
 
@@ -22,11 +14,8 @@ function Sidebar() {
   const location = useLocation();
 
   const links = [
-    // { name: "Dashboard", path: "/dashboard", icon: <FaChartPie /> },
     { name: "Studies", path: "/studies", icon: <FaClipboard /> },
-    // { name: "Notifications", path: "/notifications", icon: <FaBell /> },
     { name: "Messages", path: "/messages", icon: <FaComment /> },
-    // { name: "Calendar", path: "/calendar", icon: <FaCalendarAlt /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUser /> },
   ];

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Text, Button, Link } from "@chakra-ui/core";
+import { Heading, Text, Button } from "@chakra-ui/core";
 
 import { Input } from "chakra";
 import { Form } from "components";

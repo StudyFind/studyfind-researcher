@@ -1,14 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  Heading,
-  Text,
-  Input,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  Progress,
-} from "@chakra-ui/core";
+import { Heading, Input, Button, FormControl, FormErrorMessage, Progress } from "@chakra-ui/core";
 
 function ConsentForm({ setEdit, loading, status, error, handleFileSelect, handleFileUpload }) {
   return (

@@ -19,7 +19,7 @@ function Location({ study, setEdit }) {
               <a
                 key={index}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 href={`https://www.google.com/maps?saddr=My+Location&daddr=${
                   address && address.trim().split(" ").join("+")
                 }`}

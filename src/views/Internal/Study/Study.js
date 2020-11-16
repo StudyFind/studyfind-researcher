@@ -21,7 +21,7 @@ function Study() {
       .then(setStudy)
       .catch(console.log)
       .finally(() => setLoading(false));
-  }, []);
+  }, [id]);
 
   const LOAD = (
     <PageLoader>
