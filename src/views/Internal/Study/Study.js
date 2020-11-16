@@ -10,6 +10,7 @@ import Location from "./Location/Location";
 import Survey from "./Survey/Survey";
 import Consent from "./Consent/Consent";
 import Participants from "./Participants/Participants";
+import Settings from "./Settings";
 
 function Study() {
   const { id } = useParams();
@@ -57,10 +58,7 @@ function Study() {
             <Participants />
           </TabPanel>
           <TabPanel>
-            <div>
-              Settings: Update Study, Activate/Deactivate Study, Delete Study, Intro message
-              template
-            </div>
+            <Settings study={study} setStudy={setStudy} />
           </TabPanel>
         </TabPanels>
       </Tabs>
