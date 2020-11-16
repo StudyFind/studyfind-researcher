@@ -23,7 +23,7 @@ function ConsentForm({ loading, status, error, handleFileSelect, handleFileUploa
       </Text>
       <Inputs>
         {loading ? (
-          <Progress hasStripe value={status} color="teal" />
+          <Progress hasStripe value={status} color="blue" />
         ) : (
           <FormControl isInvalid={error}>
             <FileInput type="file" onChange={handleFileSelect} isInvalid={error} />
@@ -31,7 +31,7 @@ function ConsentForm({ loading, status, error, handleFileSelect, handleFileUploa
           </FormControl>
         )}
         <Button
-          variantColor="teal"
+          variantColor="blue"
           onClick={handleFileUpload}
           loadingText="Uploading..."
           isLoading={loading}

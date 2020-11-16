@@ -57,7 +57,7 @@ function Sidebar() {
 const Box = styled.div`
   width: 250px;
   height: 100vh;
-  background: teal;
+  background: #2b6cb0;
   position: fixed;
   display: flex;
   flex-direction: column;

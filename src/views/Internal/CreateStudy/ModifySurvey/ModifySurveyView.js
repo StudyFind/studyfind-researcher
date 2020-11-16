@@ -62,7 +62,7 @@ function ModifySurveyView({
         </Button>
       </Questions>
       <Buttons>
-        <Button variantColor="teal" onClick={handleSubmit} type="submit">
+        <Button variantColor="blue" onClick={handleSubmit} type="submit">
           Submit
         </Button>
       </Buttons>

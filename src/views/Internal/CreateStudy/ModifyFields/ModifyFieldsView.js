@@ -43,7 +43,7 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
         <Button
           mt="20px"
           ml="auto"
-          variantColor="teal"
+          variantColor="blue"
           type="submit"
           style={{ textAlign: "right" }}
         >

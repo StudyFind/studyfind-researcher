@@ -21,7 +21,7 @@ function Deleted() {
           the study by following the same process if you choose to do so.
         </Text>
         <Link to="/studies">
-          <Button mt="20px" variantColor="teal">
+          <Button mt="20px" variantColor="blue">
             View Studies
           </Button>
         </Link>

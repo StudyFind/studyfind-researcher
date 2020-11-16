@@ -14,7 +14,7 @@ function StudyCardLarge({ study }) {
   };
 
   return (
-    <Study borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px">
+    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px">
       <Text fontSize="sm" color="gray.400">
         {study.nctID}
       </Text>
@@ -24,7 +24,7 @@ function StudyCardLarge({ study }) {
       <Conditions spacing={1} isInline mt="6px">
         {study.conditions &&
           study.conditions.map((condition, index) => (
-            <Condition key={index} variant="solid" size="sm" variantColor="teal">
+            <Condition key={index} variant="solid" size="sm" variantColor="blue">
               <TagLabel>{condition}</TagLabel>
             </Condition>
           ))}
@@ -35,19 +35,19 @@ function StudyCardLarge({ study }) {
       <Details>
         <Eligibility>
           <Criterion>
-            <Box as={FaVenusMars} color="teal.500" size="16px" />
+            <Box as={FaVenusMars} color="blue.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
               {study.sex || "All"}
             </Text>
           </Criterion>
           <Criterion>
-            <Box as={FaBirthdayCake} color="teal.500" size="16px" />
+            <Box as={FaBirthdayCake} color="blue.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
               {study.age || "All"} years
             </Text>
           </Criterion>
           <Criterion>
-            <Box as={FaHeart} color="teal.500" size="16px" />
+            <Box as={FaHeart} color="blue.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
               {study.control === "Yes"
                 ? "Accepts Healthy Volunteers"
@@ -57,7 +57,7 @@ function StudyCardLarge({ study }) {
         </Eligibility>
         {researcher && (
           <Researcher borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="12px">
-            <Avatar bg="teal.500" name={getInitials(researcher.name)} />
+            <Avatar bg="blue.500" name={getInitials(researcher.name)} />
             <Box>
               <Text>{researcher.name}</Text>
               <Text color="gray.500">
@@ -67,11 +67,9 @@ function StudyCardLarge({ study }) {
           </Researcher>
         )}
       </Details>
-    </Study>
+    </Box>
   );
 }
-
-const Study = styled(Box)``;
 
 const Conditions = styled(Stack)`
   display: grid;

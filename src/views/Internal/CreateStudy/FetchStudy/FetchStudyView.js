@@ -27,7 +27,7 @@ function FetchStudyView({ nctID, error, loading, handleChange, handleSubmit }) {
         />
         <Button
           mt="10px"
-          variantColor="teal"
+          variantColor="blue"
           loadingText="Fetching..."
           isLoading={loading}
           type="submit"

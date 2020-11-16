@@ -34,7 +34,7 @@ function CreateStudy() {
           size="sm"
           rounded="full"
           variant={t === tab ? "solid" : "outline"}
-          variantColor="teal"
+          variantColor="blue"
         >
           <TagLabel>{i + 1}</TagLabel>
         </Tag>

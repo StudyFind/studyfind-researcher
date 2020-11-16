@@ -26,7 +26,7 @@ function ReviewStudyView({ study, handleDelete, handlePublish, deleteLoading, pu
           Delete
         </Button>
         <Button
-          variantColor="teal"
+          variantColor="blue"
           onClick={handlePublish}
           isLoading={publishLoading}
           loadingText="Publishing"

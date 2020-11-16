@@ -21,7 +21,7 @@ function Published() {
           consent form from your study settings.
         </Text>
         <Link to="/studies">
-          <Button mt="20px" variantColor="teal">
+          <Button mt="20px" variantColor="blue">
             View Studies
           </Button>
         </Link>
