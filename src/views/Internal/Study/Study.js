@@ -7,6 +7,7 @@ import { Spinner, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/cor
 
 import Details from "./Details/Details";
 import Survey from "./Survey/Survey";
+import Settings from "./Settings";
 
 function Study() {
   const { id } = useParams();
@@ -57,10 +58,7 @@ function Study() {
             </div>
           </TabPanel>
           <TabPanel>
-            <div>
-              Settings: Update Study, Activate/Deactivate Study, Delete Study, Intro message
-              template
-            </div>
+            <Settings study={study} setStudy={setStudy} />
           </TabPanel>
         </TabPanels>
       </Tabs>

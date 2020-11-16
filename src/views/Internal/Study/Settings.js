@@ -1,33 +1,53 @@
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
-  Text, Button, Switch, Stack,
-  ModalBody, ModalFooter, FormControl, Input, FormLabel,
-  useDisclosure
+  Text,
+  Button,
+  Switch,
+  Stack,
+  ModalBody,
+  ModalFooter,
+  FormControl,
+  FormLabel,
+  useDisclosure,
 } from "@chakra-ui/core";
 
+import { Input } from "chakra";
 
-import { Modal } from "chakra"
-import { deleteStudy, updateStudy } from "database/studies"
+import { Modal } from "chakra";
+import { deleteStudy, updateStudy } from "database/studies";
 
-
-function Settings({ study }) {
+function Settings({ study, setStudy }) {
+  const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [deleteConfirmed, setDeleteConfirmed] = useState(true)
-  const deleteInput = useRef()
+  const [nctID, setNctID] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const onToggleActive = e => {
-    const toggledStudy = { ...study, activated: !study.activated }
-    updateStudy(toggledStudy)
-  }
+  const handleChange = (name, value) => {
+    setNctID(value);
+    setError("");
+  };
 
-  const onDelete = async e => {
-    if (deleteInput.current.value != study.nctID) {
-      setDeleteConfirmed(false)
-      return
+  const handleDelete = () => {
+    if (nctID !== study.nctID) {
+      setError("Entered ID does not match");
+      return;
     }
-    await deleteStudy(study.nctID)
-    onClose()
-  }
+    setLoading(true);
+    deleteStudy(study.nctID)
+      .then(() => {
+        history.push("/studies");
+      })
+      .catch(console.log)
+      .finally(() => setLoading(false));
+  };
+
+  const handleToggle = () => {
+    const updated = { ...study, activated: !study.activated };
+    updateStudy(updated);
+    setStudy(updated);
+  };
 
   return (
     <Stack spacing={2} borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px">
@@ -36,38 +56,48 @@ function Settings({ study }) {
       </Text>
 
       <FormControl display="flex" alignItems="center">
-        <Switch id="activate-toggle" size="lg"
+        <Switch
+          id="activate-toggle"
+          size="lg"
           isDisabled={!study.published}
           isChecked={study.activated}
-          onChange={onToggleActive}
+          onChange={handleToggle}
         />
-        <FormLabel for="activate-toggle" pl={3}>Activate this study</FormLabel>
+        <FormLabel for="activate-toggle" pl={3}>
+          Activate this study
+        </FormLabel>
       </FormControl>
 
       <FormControl display="flex" alignItems="center">
-        <Button id="delete-button" variantColor="red"
-          onClick={onOpen}
-        >Delete</Button>
-        <FormLabel for="delete-button" pl={3}>Delete this study</FormLabel>
+        <Button id="delete-button" variantColor="red" onClick={onOpen}>
+          Delete
+        </Button>
+        <FormLabel for="delete-button" pl={3}>
+          Delete this study
+        </FormLabel>
       </FormControl>
 
-
       {/* DELETE MODAL */}
-      <Modal isOpen={isOpen} onClose={onClose} title="Delete study?">
-
+      <Modal isOpen={isOpen} onClose={onClose} title="Delete study">
         <ModalBody>
-          <Text>This is a permanent action. Please re-enter the NCT-ID of the study you want to delete.</Text>
-          <FormControl pt={5}>
-            <Input placeholder="Type here..." ref={deleteInput} isInvalid={!deleteConfirmed} />
-          </FormControl>
+          <Text>
+            This is a permanent action. Please re-enter the NCT-ID of the study you want to delete.
+          </Text>
+          <Input placeholder="Type here..." value={nctID} error={error} onChange={handleChange} />
         </ModalBody>
         <ModalFooter>
-          <Button variantColor="red" onClick={onDelete}>Delete</Button>
+          <Button
+            variantColor="red"
+            onClick={handleDelete}
+            isLoading={loading}
+            loadingText="Deleting"
+          >
+            Delete
+          </Button>
         </ModalFooter>
-
       </Modal>
     </Stack>
-  )
+  );
 }
 
 export default Settings;
