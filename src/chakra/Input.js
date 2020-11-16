@@ -9,9 +9,9 @@ function Field({ name, value, label, placeholder, error, onChange }) {
 
   return (
     <FormControl isInvalid={error}>
-      <FormLabel>{label}</FormLabel>
+      {label && <FormLabel>{label}</FormLabel>}
       <Input value={value} placeholder={placeholder} onChange={handleChange} />
-      <FormErrorMessage>{error}</FormErrorMessage>
+      {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
 }
