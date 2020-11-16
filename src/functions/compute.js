@@ -54,6 +54,9 @@ const compute = {
     */
 
     const num = questions.length;
+
+    if (!num) return 0;
+
     let score = 0;
 
     for (let i = 0; i < num; i++) {
