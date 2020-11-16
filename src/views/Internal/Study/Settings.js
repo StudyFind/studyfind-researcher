@@ -15,8 +15,6 @@ function Settings({ study }) {
   const [deleteConfirmed, setDeleteConfirmed] = useState(true)
   const deleteInput = useRef()
 
-  console.log(study)
-
   const onToggleActive = e => {
     const toggledStudy = { ...study, activated: !study.activated }
     updateStudy(toggledStudy)
