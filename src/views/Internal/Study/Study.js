@@ -10,7 +10,7 @@ import Location from "./Location/Location";
 import Survey from "./Survey/Survey";
 import Consent from "./Consent/Consent";
 import Participants from "./Participants/Participants";
-import Settings from "./Settings";
+import Settings from "./Settings/Settings";
 
 function Study() {
   const { id } = useParams();
