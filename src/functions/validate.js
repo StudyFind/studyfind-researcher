@@ -15,7 +15,6 @@ const validate = {
         errors[i] = validate[type](inputs[i]);
       }
     }
-    console.log(errors);
     return errors;
   },
 

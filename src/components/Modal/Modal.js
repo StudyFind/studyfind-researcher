@@ -1,40 +1,44 @@
-import React, { useEffect, useRef } from 'react'
-import styled from 'styled-components'
-import { colors } from './../../constants'
+import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
+import { colors } from "./../../constants";
 
-import { Card, Button } from 'components'
+import { Card, Button } from "components";
 
 function Modal({ title, children, button, onSubmit, closeModal, ...rest }) {
-  const overlay = useRef()
+  const overlay = useRef();
 
   useEffect(() => {
-    console.log(document.body.style.overflow)
-    document.body.style.overflow = "hidden"
-    return () => document.body.style.overflow = ""
-  }, [])
+    document.body.style.overflow = "hidden";
+    return () => (document.body.style.overflow = "");
+  }, []);
 
-  const handleOverlayClick = e => {
-    if (e.target !== overlay.current) return
-    closeModal()
-  }
+  const handleOverlayClick = (e) => {
+    if (e.target !== overlay.current) return;
+    closeModal();
+  };
 
   return (
     <Overlay ref={overlay} onClick={handleOverlayClick}>
       <Dialog {...rest}>
         <DialogHeader>
-          <h3>{ title }</h3>
-          <CloseButton onClick={closeModal}><Close className="fa fa-times" /></CloseButton>
+          <h3>{title}</h3>
+          <CloseButton onClick={closeModal}>
+            <Close className="fa fa-times" />
+          </CloseButton>
         </DialogHeader>
-        <DialogBody>
-          { children }
-        </DialogBody>
+        <DialogBody>{children}</DialogBody>
         <DialogFooter>
-          <Button color="secondary" onClick={closeModal}> Close </Button>
-          <Button color="primary" onClick={() => onSubmit()}>{ button }</Button>
+          <Button color="secondary" onClick={closeModal}>
+            {" "}
+            Close{" "}
+          </Button>
+          <Button color="primary" onClick={() => onSubmit()}>
+            {button}
+          </Button>
         </DialogFooter>
       </Dialog>
     </Overlay>
-  )
+  );
 }
 
 const Overlay = styled.div`
@@ -49,7 +53,7 @@ const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Dialog = styled(Card)`
   z-index: 101;
@@ -57,7 +61,7 @@ const Dialog = styled(Card)`
   width: 500px;
   background: white;
   border: none;
-`
+`;
 
 const DialogHeader = styled.div`
   padding: 15px;
@@ -69,13 +73,13 @@ const DialogHeader = styled.div`
   background: rgb(246, 247, 248);
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
-`
+`;
 
 const DialogBody = styled.div`
   padding: 15px;
   max-height: 60vh;
   overflow-y: scroll;
-`
+`;
 
 const DialogFooter = styled.div`
   padding: 15px;
@@ -86,7 +90,7 @@ const DialogFooter = styled.div`
   background: rgb(246, 247, 248);
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
-`
+`;
 
 const CloseButton = styled.button`
   all: unset;
@@ -108,7 +112,6 @@ const Close = styled.span`
   &:hover {
     background: ${colors.secondary.soft};
   }
-`
+`;
 
-
-export default Modal
+export default Modal;

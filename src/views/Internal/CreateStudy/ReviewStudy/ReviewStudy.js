@@ -11,7 +11,7 @@ function ReviewStudy({ study, setTab }) {
     setPublishLoading(true);
     updateStudy({ ...study, published: true, activated: true })
       .then(() => setTab("published"))
-      .catch((err) => console.log(err))
+      .catch(console.log)
       .finally(() => setPublishLoading(false));
   };
 
@@ -19,7 +19,7 @@ function ReviewStudy({ study, setTab }) {
     setDeleteLoading(true);
     deleteStudy(study.nctID)
       .then(() => setTab("deleted"))
-      .catch((err) => console.log(err))
+      .catch(console.log)
       .finally(() => setDeleteLoading(false));
   };
 
