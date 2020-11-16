@@ -1,18 +1,26 @@
 import React, { useRef, useState } from "react";
 import {
-  Heading, Text, Box, Button, Flex,
-  ModalBody, ModalFooter, FormControl, Input,
+  Text, Button, Switch, Stack,
+  ModalBody, ModalFooter, FormControl, Input, FormLabel,
   useDisclosure
 } from "@chakra-ui/core";
 
+
 import { Modal } from "chakra"
-import { deleteStudy } from "database/studies"
+import { deleteStudy, updateStudy } from "database/studies"
 
 
 function Settings({ study }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [deleteConfirmed, setDeleteConfirmed] = useState(true)
   const deleteInput = useRef()
+
+  console.log(study)
+
+  const onToggleActive = e => {
+    const toggledStudy = { ...study, activated: !study.activated }
+    updateStudy(toggledStudy)
+  }
 
   const onDelete = async e => {
     if (deleteInput.current.value != study.nctID) {
@@ -24,14 +32,27 @@ function Settings({ study }) {
   }
 
   return (
-    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px">
-      <Text fontSize="sm" color="gray.400" pb="3">
+    <Stack spacing={2} borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px">
+      <Text fontSize="sm" color="gray.400">
         {study.nctID}
       </Text>
-      <Flex align="center">
-        <Button variantColor="red" onClick={onOpen} >Delete</Button>
-        <Heading size="sm" pl="5">Delete this study:</Heading>
-      </Flex>
+
+      <FormControl display="flex" alignItems="center">
+        <Switch id="activate-toggle" size="lg"
+          isDisabled={!study.published}
+          isChecked={study.activated}
+          onChange={onToggleActive}
+        />
+        <FormLabel for="activate-toggle" pl={3}>Activate this study</FormLabel>
+      </FormControl>
+
+      <FormControl display="flex" alignItems="center">
+        <Button id="delete-button" variantColor="red"
+          onClick={onOpen}
+        >Delete</Button>
+        <FormLabel for="delete-button" pl={3}>Delete this study</FormLabel>
+      </FormControl>
+
 
       {/* DELETE MODAL */}
       <Modal isOpen={isOpen} onClose={onClose} title="Delete study?">
@@ -47,7 +68,7 @@ function Settings({ study }) {
         </ModalFooter>
 
       </Modal>
-    </Box>
+    </Stack>
   )
 }
 
