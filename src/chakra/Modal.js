@@ -6,7 +6,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
 // since we're redefining Modal here, need to alter import name
 function Modal({ isOpen, onClose, title, children }) {

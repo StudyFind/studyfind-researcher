@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Text, Button } from "@chakra-ui/core";
+import { Heading, Text, Button } from "@chakra-ui/react";
 
 import { Input } from "chakra";
 import { Form } from "components";
@@ -27,7 +27,7 @@ function FetchStudyView({ nctID, error, loading, handleChange, handleSubmit }) {
         />
         <Button
           mt="10px"
-          variantColor="blue"
+          colorScheme="blue"
           loadingText="Fetching..."
           isLoading={loading}
           type="submit"

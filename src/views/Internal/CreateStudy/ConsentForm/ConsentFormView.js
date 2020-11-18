@@ -8,7 +8,7 @@ import {
   FormControl,
   FormErrorMessage,
   Progress,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
 function ConsentForm({ loading, status, error, handleFileSelect, handleFileUpload }) {
   return (
@@ -23,7 +23,7 @@ function ConsentForm({ loading, status, error, handleFileSelect, handleFileUploa
       </Text>
       <Inputs>
         {loading ? (
-          <Progress hasStripe value={status} color="blue" />
+          <Progress hasStripe value={status} colorScheme="blue" />
         ) : (
           <FormControl isInvalid={error}>
             <FileInput type="file" onChange={handleFileSelect} isInvalid={error} />
@@ -31,7 +31,7 @@ function ConsentForm({ loading, status, error, handleFileSelect, handleFileUploa
           </FormControl>
         )}
         <Button
-          variantColor="blue"
+          colorScheme="blue"
           onClick={handleFileUpload}
           loadingText="Uploading..."
           isLoading={loading}

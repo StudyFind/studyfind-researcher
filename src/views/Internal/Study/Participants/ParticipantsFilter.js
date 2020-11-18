@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Input } from "chakra";
-import { Checkbox, FormLabel } from "@chakra-ui/core";
+import { Checkbox, FormLabel } from "@chakra-ui/react";
 
 function ParticipantsFilter() {
   return (

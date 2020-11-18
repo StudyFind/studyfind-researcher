@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Input, Select, Button, IconButton } from "@chakra-ui/core";
+import { Heading, Input, Select, Button, IconButton } from "@chakra-ui/react";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
 function SurveyEdit({
@@ -28,10 +28,10 @@ function SurveyEdit({
         onChange={(e) => updateQuestion(index, "prompt", e.target.value)}
       />
       <IconButton
-        variantColor=""
+        colorScheme=""
         color="gray.500"
         _hover={{ color: "red.500", bg: "red.100" }}
-        icon={FaTrash}
+        icon={<FaTrash />}
         onClick={() => deleteQuestion(index)}
       />
     </Row>
@@ -43,7 +43,7 @@ function SurveyEdit({
         <Heading fontSize="28px">Edit Survey</Heading>
         <Buttons>
           <Button
-            variantColor=""
+            colorScheme=""
             color="gray.500"
             bg="gray.200"
             _hover={{ bg: "gray.300" }}
@@ -52,12 +52,12 @@ function SurveyEdit({
             Cancel
           </Button>
           {questions && questions.length ? (
-            <Button variantColor="red" onClick={deleteAllQuestions}>
+            <Button colorScheme="red" onClick={deleteAllQuestions}>
               Delete All
             </Button>
           ) : null}
           {JSON.stringify(questions) !== JSON.stringify(original) ? (
-            <Button variantColor="green" onClick={handleSubmit}>
+            <Button colorScheme="green" onClick={handleSubmit}>
               Save Changes
             </Button>
           ) : null}
@@ -65,7 +65,7 @@ function SurveyEdit({
       </Head>
       <Questions>
         {questionComponents}
-        <Button leftIcon={FaPlus} color="gray.500" onClick={createQuestion}>
+        <Button leftIcon={<FaPlus />} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>
       </Questions>

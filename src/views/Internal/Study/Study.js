@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { fetchStudy } from "database/studies";
 
-import { Spinner, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/core";
+import { Spinner, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
 import Location from "./Location/Location";
@@ -32,7 +32,7 @@ function Study() {
 
   const BODY = (
     <div>
-      <Tabs variantColor="blue">
+      <Tabs colorScheme="blue">
         <TabList>
           <TabItem>Details</TabItem>
           <TabItem>Locations</TabItem>
@@ -42,22 +42,22 @@ function Study() {
           <TabItem>Settings</TabItem>
         </TabList>
         <TabPanels>
-          <TabPanel>
+          <TabPanel p="0px">
             <Details study={study} setStudy={setStudy} />
           </TabPanel>
-          <TabPanel>
+          <TabPanel p="0px">
             <Location study={study} setStudy={setStudy} />
           </TabPanel>
-          <TabPanel>
+          <TabPanel p="0px">
             <Survey study={study} setStudy={setStudy} />
           </TabPanel>
-          <TabPanel>
+          <TabPanel p="0px">
             <Consent study={study} />
           </TabPanel>
-          <TabPanel>
+          <TabPanel p="0px">
             <Participants />
           </TabPanel>
-          <TabPanel>
+          <TabPanel p="0px">
             <Settings study={study} setStudy={setStudy} />
           </TabPanel>
         </TabPanels>

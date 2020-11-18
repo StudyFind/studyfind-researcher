@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Button } from "@chakra-ui/core";
+import { Heading, Button } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
 function DetailsCard({ study, setEdit }) {
@@ -9,7 +9,7 @@ function DetailsCard({ study, setEdit }) {
     <>
       <Head>
         <Heading fontSize="28px">Details</Heading>
-        <Button variantColor="blue" onClick={() => setEdit(true)}>
+        <Button colorScheme="blue" onClick={() => setEdit(true)}>
           Edit Details
         </Button>
       </Head>

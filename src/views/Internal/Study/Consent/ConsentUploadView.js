@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Input, Button, FormControl, FormErrorMessage, Progress } from "@chakra-ui/core";
+import { Heading, Input, Button, FormControl, FormErrorMessage, Progress } from "@chakra-ui/react";
 
 function ConsentForm({ setEdit, loading, status, error, handleFileSelect, handleFileUpload }) {
   return (
     <div>
       <Head>
         <Heading fontSize="28px">Upload Consent Form</Heading>
-        <Button variantColor="gray" onClick={() => setEdit(false)}>
+        <Button colorScheme="gray" onClick={() => setEdit(false)}>
           Cancel
         </Button>
       </Head>
       <Inputs>
         {loading ? (
-          <Progress hasStripe value={status} color="blue" />
+          <Progress hasStripe value={status} colorScheme="blue" />
         ) : (
           <FormControl isInvalid={error}>
             <FileInput type="file" onChange={handleFileSelect} isInvalid={error} />
@@ -21,7 +21,7 @@ function ConsentForm({ setEdit, loading, status, error, handleFileSelect, handle
           </FormControl>
         )}
         <Button
-          variantColor="blue"
+          colorScheme="blue"
           onClick={handleFileUpload}
           loadingText="Uploading..."
           isLoading={loading}

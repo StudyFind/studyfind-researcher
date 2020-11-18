@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { compute } from "functions";
 
 import { FaTimes, FaCheck, FaInfoCircle, FaChevronDown } from "react-icons/fa";
-import { Heading, Text, Button, Avatar } from "@chakra-ui/core";
+import { Heading, Text, Button, Avatar } from "@chakra-ui/react";
 
 function Participants({ study, participants }) {
   study = { questions: [] };
@@ -26,7 +26,7 @@ function Participants({ study, participants }) {
     <>
       <Head>
         <Heading fontSize="28px">Participants</Heading>
-        <Button variantColor="blue">Filter Participants</Button>
+        <Button colorScheme="blue">Filter Participants</Button>
       </Head>
       {participants.map((participant, index) => (
         <Row key={index}>
@@ -38,13 +38,13 @@ function Participants({ study, participants }) {
             {compute.eligibilityScore(study.questions, participants.responses)}% eligible
           </Text>
           <Buttons>
-            <Button size="sm" variantColor="cyan">
+            <Button size="sm" colorScheme="cyan">
               Screen
             </Button>
-            <Button size="sm" variantColor="red">
+            <Button size="sm" colorScheme="red">
               Reject
             </Button>
-            <Button size="sm" variantColor="green">
+            <Button size="sm" colorScheme="green">
               Accept
             </Button>
           </Buttons>

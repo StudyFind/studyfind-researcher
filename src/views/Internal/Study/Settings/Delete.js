@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { Form } from "components";
 import { Input } from "chakra";
-import { Heading, Text, Button } from "@chakra-ui/core";
+import { Heading, Text, Button } from "@chakra-ui/react";
 
 import { deleteStudy } from "database/studies";
 
@@ -37,21 +37,27 @@ function Delete({ study }) {
   return (
     <Section>
       <Heading size="md">Delete Study</Heading>
-      <Text my="8px">
+      {/* <Text my="8px">
         <List>
           <li>Deleting your study is a permanant action and cannot be undone</li>
           <li>Deleting your study will erase all data associated with your research study</li>
           <li>If you wish to pause recruitment consider deactivating your study instead</li>
         </List>
+      </Text> */}
+
+      <Text my="8px" color="gray.500">
+        Deleting your study will erase all data associated with your research study. This is a
+        permanant action and cannot be undone. If you wish to pause recruitment consider
+        deactivating your study instead.
       </Text>
 
-      <Text color="gray.500" mt="24px" mb="8px">
-        Please type <Bold>{study.nctID}</Bold> to confirm:
+      <Text mt="24px" mb="8px" color="gray.500">
+        Please type <strong>{study.nctID}</strong> to confirm:
       </Text>
 
       <DeleteForm onSubmit={handleDelete}>
         <Input placeholder="Type here..." value={nctID} error={error} onChange={handleChange} />
-        <Button type="submit" variantColor="red" isLoading={loading} loadingText="Deleting">
+        <Button type="submit" colorScheme="red" isLoading={loading} loadingText="Deleting">
           Delete
         </Button>
       </DeleteForm>
@@ -62,14 +68,6 @@ function Delete({ study }) {
 const Section = styled.section`
   padding: 20px;
   border-bottom: 1px solid #f1f2f3;
-`;
-
-const List = styled.ul`
-  padding-left: 20px;
-`;
-
-const Bold = styled.strong`
-  color: black;
 `;
 
 const DeleteForm = styled(Form)`

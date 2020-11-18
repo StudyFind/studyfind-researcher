@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Form } from "components";
 import { Textarea } from "chakra";
-import { Text, Button, Heading } from "@chakra-ui/core";
+import { Text, Button, Heading } from "@chakra-ui/react";
 
 function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
   return (
@@ -40,13 +40,7 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
         />
       </Inputs>
       <Buttons>
-        <Button
-          mt="20px"
-          ml="auto"
-          variantColor="blue"
-          type="submit"
-          style={{ textAlign: "right" }}
-        >
+        <Button mt="20px" ml="auto" colorScheme="blue" type="submit" style={{ textAlign: "right" }}>
           Submit
         </Button>
       </Buttons>

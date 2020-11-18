@@ -6,18 +6,44 @@ import { signout } from "database";
 
 import StudyFindLogo from "images/logo.png";
 
-import { FaClipboard, FaComment, FaCog, FaUser } from "react-icons/fa";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
-import { Button } from "@chakra-ui/core";
+import {
+  FaChartPie,
+  FaClipboard,
+  FaBell,
+  FaComment,
+  FaCalendarAlt,
+  FaCog,
+  FaUsers,
+  FaList,
+  FaUserCircle,
+  FaPoll,
+  FaInfoCircle,
+  FaAlignJustify,
+  FaFileAlt,
+  FaLocationArrow,
+} from "react-icons/fa";
+
+import { Button } from "@chakra-ui/react";
 
 function Sidebar() {
   const location = useLocation();
 
   const links = [
-    { name: "Studies", path: "/studies", icon: <FaClipboard /> },
+    { name: "Dashboard", path: "/dashboard", icon: <FaChartPie /> },
+    { name: "Details", path: "/details", icon: <FaFileAlt /> },
+    { name: "Survey", path: "/survey", icon: <FaPoll /> },
+    { name: "Locations", path: "/locations", icon: <FaLocationArrow /> },
+    { name: "Consent", path: "/consent", icon: <FaClipboard /> },
+    { name: "Participants", path: "/participants", icon: <FaUsers /> },
     { name: "Messages", path: "/messages", icon: <FaComment /> },
-    { name: "Settings", path: "/settings", icon: <FaCog /> },
-    { name: "Account", path: "/account", icon: <FaUser /> },
+
+    // THESE OPTIONS WILL BE ON THE NAVBAR
+    // { name: "Calendar", path: "/calendar", icon: <FaCalendarAlt /> },
+    // { name: "Notifications", path: "/notifications", icon: <FaBell /> },
+    // { name: "Settings", path: "/settings", icon: <FaCog /> },
+    // { name: "Account", path: "/account", icon: <FaUserCircle /> },
   ];
 
   return (
@@ -35,7 +61,7 @@ function Sidebar() {
         ))}
       </Links>
       <Signout>
-        <SignoutButton onClick={signout} leftIcon="arrow-back" w="100%" variantColor="black">
+        <SignoutButton onClick={signout} leftIcon={<ArrowBackIcon />} w="100%" colorScheme="black">
           Sign Out
         </SignoutButton>
       </Signout>
@@ -92,7 +118,7 @@ const NavLink = styled(Link)`
   align-items: center;
   color: rgb(255, 255, 255, 0.5);
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
 
   ${(props) =>
     props.selected &&

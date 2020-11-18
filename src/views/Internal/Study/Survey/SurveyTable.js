@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Button, Tag, Text } from "@chakra-ui/core";
+import { Heading, Button, Tag, Text } from "@chakra-ui/react";
 
 function SurveyTable({ questions, setEdit }) {
   return (
     <>
       <Head>
         <Heading fontSize="28px">Survey</Heading>
-        <Button variantColor="blue" onClick={() => setEdit(true)}>
+        <Button colorScheme="blue" onClick={() => setEdit(true)}>
           Edit Questions
         </Button>
       </Head>
@@ -23,7 +23,7 @@ function SurveyTable({ questions, setEdit }) {
           {questions.map((question, index) => (
             <tr key={index}>
               <BodyCell nowrap>
-                <Tag size="sm" variantColor={question.type === "Inclusion" ? "green" : "red"}>
+                <Tag size="sm" colorScheme={question.type === "Inclusion" ? "green" : "red"}>
                   {question.type}
                 </Tag>
               </BodyCell>

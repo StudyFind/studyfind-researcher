@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, Input, FormLabel, FormErrorMessage } from "@chakra-ui/core";
+import { FormControl, Input, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 
 function Field({ name, value, label, placeholder, error, onChange }) {
   const handleChange = (e) => {

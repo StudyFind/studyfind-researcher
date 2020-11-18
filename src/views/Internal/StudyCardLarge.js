@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Text, Box, Tag, TagLabel, Stack, Avatar } from "@chakra-ui/core";
+import { Heading, Text, Box, Tag, TagLabel, Stack, Avatar } from "@chakra-ui/react";
 import { FaVenusMars, FaBirthdayCake, FaHeart } from "react-icons/fa";
 
 function StudyCardLarge({ study }) {
@@ -24,7 +24,7 @@ function StudyCardLarge({ study }) {
       <Conditions spacing={1} isInline mt="6px">
         {study.conditions &&
           study.conditions.map((condition, index) => (
-            <Condition key={index} variant="solid" size="sm" variantColor="blue">
+            <Condition key={index} variant="solid" size="sm" colorScheme="blue">
               <TagLabel>{condition}</TagLabel>
             </Condition>
           ))}

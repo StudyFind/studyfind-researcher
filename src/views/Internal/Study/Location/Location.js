@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Tag, TagLabel } from "@chakra-ui/core";
+import { Heading, Tag, TagLabel } from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons";
 import { FaLocationArrow } from "react-icons/fa";
 
 function Location({ study, setEdit }) {
@@ -24,7 +25,7 @@ function Location({ study, setEdit }) {
                   address && address.trim().split(" ").join("+")
                 }`}
               >
-                <Tag leftIcon="check" key={index} color="blue.500">
+                <Tag leftIcon={<CheckIcon />} key={index} color="blue.500">
                   <FaLocationArrow size="14px" />
                   <TagLabel ml="8px">{address}</TagLabel>
                 </Tag>

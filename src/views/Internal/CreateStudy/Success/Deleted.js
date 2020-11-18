@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { Heading, Text, Button, Box } from "@chakra-ui/core";
+import { Heading, Text, Button, Box } from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
 
 function Deleted() {
@@ -21,7 +21,7 @@ function Deleted() {
           the study by following the same process if you choose to do so.
         </Text>
         <Link to="/studies">
-          <Button mt="20px" variantColor="blue">
+          <Button mt="20px" colorScheme="blue">
             View Studies
           </Button>
         </Link>

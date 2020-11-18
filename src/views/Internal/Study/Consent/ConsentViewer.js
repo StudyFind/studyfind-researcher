@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { storage } from "database/firebase";
 import { useDownloadURL } from "react-firebase-hooks/storage";
-import { Heading, Button, Spinner } from "@chakra-ui/core";
+import { Heading, Button, Spinner } from "@chakra-ui/react";
 
 function ConsentViewer({ study, setEdit }) {
   const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.nctID}.pdf`));
@@ -23,7 +23,7 @@ function ConsentViewer({ study, setEdit }) {
     <>
       <Head>
         <Heading fontSize="28px">Consent Form</Heading>
-        <Button variantColor="blue" onClick={() => setEdit(true)}>
+        <Button colorScheme="blue" onClick={() => setEdit(true)}>
           Upload New File
         </Button>
       </Head>

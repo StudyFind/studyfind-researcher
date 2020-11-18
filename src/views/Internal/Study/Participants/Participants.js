@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { compute } from "functions";
 
-import { Heading, Text, Button, Box } from "@chakra-ui/core";
+import { Heading, Text, Button, Box } from "@chakra-ui/react";
 
 import ParticipantsFilter from "./ParticipantsFilter";
 
@@ -27,11 +27,11 @@ function Participants({ study, participants }) {
       <Head>
         <Heading fontSize="28px">Participants</Heading>
         {filter ? (
-          <Button variantColor="gray" onClick={() => setFilter(false)}>
+          <Button colorScheme="gray" onClick={() => setFilter(false)}>
             Clear Filters
           </Button>
         ) : (
-          <Button variantColor="blue" onClick={() => setFilter(true)}>
+          <Button colorScheme="blue" onClick={() => setFilter(true)}>
             Filter Participants
           </Button>
         )}
@@ -40,7 +40,7 @@ function Participants({ study, participants }) {
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participants.map((participant, index) => (
           <Row key={index}>
-            <Button size="sm" variantColor="blue">
+            <Button size="sm" colorScheme="blue">
               Screen
             </Button>
             <Text fontSize="md" fontWeight="500">
@@ -50,10 +50,10 @@ function Participants({ study, participants }) {
               {compute.eligibilityScore(study.questions, participants.responses)}% eligible
             </Text>
             <Buttons>
-              <Button size="sm" variantColor="red">
+              <Button size="sm" colorScheme="red">
                 Reject
               </Button>
-              <Button size="sm" variantColor="green">
+              <Button size="sm" colorScheme="green">
                 Accept
               </Button>
             </Buttons>

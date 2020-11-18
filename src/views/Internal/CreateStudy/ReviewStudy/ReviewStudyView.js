@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import StudyCardLarge from "views/Internal/StudyCardLarge";
-import { Heading, Text, Button } from "@chakra-ui/core";
+import { Heading, Text, Button } from "@chakra-ui/react";
 
 function ReviewStudyView({ study, handleDelete, handlePublish, deleteLoading, publishLoading }) {
   return (
@@ -18,7 +18,7 @@ function ReviewStudyView({ study, handleDelete, handlePublish, deleteLoading, pu
       <StudyCardLarge study={study} />
       <Buttons>
         <Button
-          variantColor="red"
+          colorScheme="red"
           onClick={handleDelete}
           isLoading={deleteLoading}
           loadingText="Deleting"
@@ -26,7 +26,7 @@ function ReviewStudyView({ study, handleDelete, handlePublish, deleteLoading, pu
           Delete
         </Button>
         <Button
-          variantColor="blue"
+          colorScheme="blue"
           onClick={handlePublish}
           isLoading={publishLoading}
           loadingText="Publishing"
