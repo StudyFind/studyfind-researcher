@@ -39,7 +39,7 @@ function Sidebar() {
     { name: "Participants", path: "/participants", icon: <FaUsers /> },
     { name: "Messages", path: "/messages", icon: <FaComment /> },
 
-    // THESE OPTIONS WILL BE ON THE NAVBAR
+    // THESE OPTIONS WILL BE ON THE TOP NAVBAR
     // { name: "Calendar", path: "/calendar", icon: <FaCalendarAlt /> },
     // { name: "Notifications", path: "/notifications", icon: <FaBell /> },
     // { name: "Settings", path: "/settings", icon: <FaCog /> },
