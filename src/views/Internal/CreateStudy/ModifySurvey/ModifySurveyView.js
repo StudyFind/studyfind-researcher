@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Text, Input, Select, Button, IconButton } from "@chakra-ui/core";
+import { Heading, Text, Input, Select, Button, IconButton } from "@chakra-ui/react";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
 function ModifySurveyView({
@@ -26,10 +26,10 @@ function ModifySurveyView({
         onChange={(e) => updateQuestion(index, "prompt", e.target.value)}
       />
       <IconButton
-        variantColor=""
+        colorScheme=""
         color="gray.500"
         _hover={{ color: "red.500", bg: "red.100" }}
-        icon={FaTrash}
+        icon={<FaTrash />}
         onClick={() => deleteQuestion(index)}
       />
     </Row>
@@ -46,8 +46,8 @@ function ModifySurveyView({
       </Text>
       {questions && questions.length ? (
         <Button
-          leftIcon={FaTrash}
-          variantColor=""
+          leftIcon={<FaTrash />}
+          colorScheme=""
           color="red.500"
           _hover={{ bg: "red.100" }}
           onClick={deleteAllQuestions}
@@ -57,12 +57,12 @@ function ModifySurveyView({
       ) : null}
       <Questions>
         {questionComponents}
-        <Button leftIcon={FaPlus} color="gray.500" onClick={createQuestion}>
+        <Button leftIcon={<FaPlus />} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>
       </Questions>
       <Buttons>
-        <Button variantColor="teal" onClick={handleSubmit} type="submit">
+        <Button colorScheme="blue" onClick={handleSubmit} type="submit">
           Submit
         </Button>
       </Buttons>

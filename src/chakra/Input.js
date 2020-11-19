@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, Input, FormLabel, FormErrorMessage } from "@chakra-ui/core";
+import { FormControl, Input, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 
 function Field({ name, value, label, placeholder, error, onChange }) {
   const handleChange = (e) => {
@@ -9,9 +9,9 @@ function Field({ name, value, label, placeholder, error, onChange }) {
 
   return (
     <FormControl isInvalid={error}>
-      <FormLabel>{label}</FormLabel>
+      {label && <FormLabel>{label}</FormLabel>}
       <Input value={value} placeholder={placeholder} onChange={handleChange} />
-      <FormErrorMessage>{error}</FormErrorMessage>
+      {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
 }

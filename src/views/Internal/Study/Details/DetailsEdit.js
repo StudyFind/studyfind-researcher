@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Textarea } from "chakra";
-import { Text, Button, Heading } from "@chakra-ui/core";
+import { Button, Heading } from "@chakra-ui/react";
 
 function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, handleSubmit }) {
   return (
@@ -11,7 +11,7 @@ function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, han
         <Heading fontSize="28px">Edit Details</Heading>
         <Buttons>
           <Button
-            variantColor=""
+            colorScheme=""
             color="gray.500"
             bg="gray.200"
             _hover={{ bg: "gray.300" }}
@@ -20,7 +20,7 @@ function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, han
             Cancel
           </Button>
           {JSON.stringify(inputs) !== JSON.stringify(original) ? (
-            <Button variantColor="green" onClick={handleSubmit}>
+            <Button colorScheme="green" onClick={handleSubmit}>
               Save Changes
             </Button>
           ) : null}
@@ -56,7 +56,7 @@ const Head = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;
 
 const Inputs = styled.div`

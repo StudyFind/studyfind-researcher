@@ -1,4 +1,4 @@
-import { auth, database, googleAuthProvider, facebookAuthProvider, firestore } from "./firebase";
+import { auth, database, googleAuthProvider, facebookAuthProvider } from "./firebase";
 import { errors } from "./constants";
 
 // === DATA CRUD === //

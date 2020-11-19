@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Stack, Tag, TagLabel } from "@chakra-ui/core";
+import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 
 import FetchStudy from "views/Internal/CreateStudy/FetchStudy";
 import ConsentForm from "./ConsentForm/ConsentForm";
@@ -31,10 +31,12 @@ function CreateStudy() {
       {tabs.map((t, i) => (
         <Tag
           key={i}
-          size="sm"
+          // size="sm"
+          h="24px"
+          w="24px"
           rounded="full"
           variant={t === tab ? "solid" : "outline"}
-          variantColor="teal"
+          colorScheme="blue"
         >
           <TagLabel>{i + 1}</TagLabel>
         </Tag>

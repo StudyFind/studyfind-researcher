@@ -3,10 +3,14 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { fetchStudy } from "database/studies";
 
-import { Spinner, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/core";
+import { Spinner, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
+import Location from "./Location/Location";
 import Survey from "./Survey/Survey";
+import Consent from "./Consent/Consent";
+import Participants from "./Participants/Participants";
+import Settings from "./Settings/Settings";
 
 function Study() {
   const { id } = useParams();
@@ -18,49 +22,43 @@ function Study() {
       .then(setStudy)
       .catch(console.log)
       .finally(() => setLoading(false));
-  }, []);
+  }, [id]);
 
   const LOAD = (
     <PageLoader>
-      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="teal.500" size="lg" />
+      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="blue.500" size="lg" />
     </PageLoader>
   );
 
   const BODY = (
     <div>
-      <Tabs variantColor="teal">
-        <TabList mb="15px">
+      <Tabs colorScheme="blue">
+        <TabList>
           <TabItem>Details</TabItem>
+          <TabItem>Locations</TabItem>
           <TabItem>Survey</TabItem>
           <TabItem>Consent</TabItem>
-          <TabItem>Locations</TabItem>
           <TabItem>Participants</TabItem>
           <TabItem>Settings</TabItem>
         </TabList>
         <TabPanels>
-          <TabPanel>
+          <TabPanel p="0px">
             <Details study={study} setStudy={setStudy} />
           </TabPanel>
-          <TabPanel>
+          <TabPanel p="0px">
+            <Location study={study} setStudy={setStudy} />
+          </TabPanel>
+          <TabPanel p="0px">
             <Survey study={study} setStudy={setStudy} />
           </TabPanel>
-          <TabPanel>
-            <div>Consent: Add PDF viewer here to display consent form</div>
+          <TabPanel p="0px">
+            <Consent study={study} />
           </TabPanel>
-          <TabPanel>
-            <div>Locations: Add table of locations which have external link to google maps</div>
+          <TabPanel p="0px">
+            <Participants />
           </TabPanel>
-          <TabPanel>
-            <div>
-              Participants: Add table of participants with link to response review page +
-              accept/reject buttons + eligibility score
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div>
-              Settings: Update Study, Activate/Deactivate Study, Delete Study, Intro message
-              template
-            </div>
+          <TabPanel p="0px">
+            <Settings study={study} setStudy={setStudy} />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -79,6 +77,15 @@ const Page = styled.div`
 const TabItem = styled(Tab)`
   font-weight: 600;
   color: rgb(161, 175, 192);
+
+  &:active {
+    background: transparent !important;
+    color: rgb(101, 115, 132);
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
 `;
 
 const PageLoader = styled.div`

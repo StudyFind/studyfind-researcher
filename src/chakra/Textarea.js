@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Text, FormControl, Textarea, FormLabel, FormErrorMessage } from "@chakra-ui/core";
+import { Text, FormControl, Textarea, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 
 function Field({ name, value, label, height, placeholder, limit, error, onChange }) {
   const [count, setCount] = useState();

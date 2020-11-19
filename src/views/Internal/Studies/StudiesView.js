@@ -4,7 +4,7 @@ import styled from "styled-components";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 import { Link } from "react-router-dom";
-import { Box, Heading, Text, Button, Spinner } from "@chakra-ui/core";
+import { Box, Heading, Text, Button, Spinner } from "@chakra-ui/react";
 import { FaPlusCircle } from "react-icons/fa";
 
 function StudiesView({ studies, loading }) {
@@ -13,7 +13,7 @@ function StudiesView({ studies, loading }) {
       <Head>
         <Heading>Your Studies</Heading>
         <Link to="/create">
-          <Button leftIcon={FaPlusCircle} variantColor="teal">
+          <Button leftIcon={<FaPlusCircle />} colorScheme="blue">
             Create Study
           </Button>
         </Link>
@@ -34,7 +34,7 @@ function StudiesView({ studies, loading }) {
         participants almost instantaneously. StudyFind automates a lot of your work for you.
       </Text>
       <Link to="/create">
-        <Button mt="40px" leftIcon={FaPlusCircle} variantColor="teal">
+        <Button mt="40px" leftIcon={<FaPlusCircle />} colorScheme="blue">
           Create Study
         </Button>
       </Link>
@@ -45,7 +45,7 @@ function StudiesView({ studies, loading }) {
 
   const LOAD = (
     <PageLoader>
-      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="teal.500" size="lg" />
+      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="blue.500" size="lg" />
     </PageLoader>
   );
 

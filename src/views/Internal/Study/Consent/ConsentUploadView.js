@@ -1,26 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  Heading,
-  Text,
-  Input,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  Progress,
-} from "@chakra-ui/react";
+import { Heading, Input, Button, FormControl, FormErrorMessage, Progress } from "@chakra-ui/react";
 
-function ConsentForm({ loading, status, error, handleFileSelect, handleFileUpload }) {
+function ConsentForm({ setEdit, loading, status, error, handleFileSelect, handleFileUpload }) {
   return (
     <div>
-      <Heading size="lg" mb="10px">
-        Upload Consent Form
-      </Heading>
-      <Text mb="10px" color="gray.500">
-        This Consent Form will be displayed to interested participants when they decide to enroll
-        for this study. They will have to agree to the terms of this consent form before completing
-        their enrollment.
-      </Text>
+      <Head>
+        <Heading fontSize="28px">Upload Consent Form</Heading>
+        <Button colorScheme="gray" onClick={() => setEdit(false)}>
+          Cancel
+        </Button>
+      </Head>
       <Inputs>
         {loading ? (
           <Progress hasStripe value={status} colorScheme="blue" />
@@ -43,6 +33,13 @@ function ConsentForm({ loading, status, error, handleFileSelect, handleFileUploa
     </div>
   );
 }
+
+const Head = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+`;
 
 const Inputs = styled.div`
   display: grid;

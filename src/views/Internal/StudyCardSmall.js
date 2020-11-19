@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { Box, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/core";
+import { Box, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/react";
 
 function StudyCard({ study }) {
   return (
@@ -17,7 +17,7 @@ function StudyCard({ study }) {
         <Conditions spacing={0} isInline mt="6px">
           {study.conditions &&
             study.conditions.map((condition, index) => (
-              <Condition key={index} variant="solid" size="sm" variantColor="teal">
+              <Condition key={index} variant="solid" size="sm" colorScheme="blue">
                 <TagLabel>{condition}</TagLabel>
               </Condition>
             ))}
