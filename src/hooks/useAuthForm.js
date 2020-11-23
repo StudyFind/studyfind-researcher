@@ -8,7 +8,7 @@ function useAuthForm({ initial, onSubmit }) {
   const [success, setSuccess] = useState();
 
   const handleInput = (name, value) => {
-    setInputs({ ...inputs, [name]: value.trim() });
+    setInputs({ ...inputs, [name]: value });
     setErrors({ ...errors, [name]: validate.input(name, value) });
   };
 
