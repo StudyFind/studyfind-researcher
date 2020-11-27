@@ -86,7 +86,7 @@ function generateStudyFromData(data) {
 }
 
 // compares with any study that already exists in firestore
-async function compareWithExistingStudy(data) {
+async function compareWithExistingStudy(firestore, data) {
   const e = await getFirestoreEntry({
     firestore,
     collection: "studies",
@@ -135,7 +135,7 @@ module.exports = ({ admin }) => async (req, res) => {
     .then(([data, user]) => checkOwnership(data, user))
     .then((data) => generateQuestions(data))
     .then((data) => generateStudyFromData(data))
-    .then((data) => compareWithExistingStudy(data))
+    .then((data) => compareWithExistingStudy(firestore, data))
     .then((study) => writeToFirestore(firestore, nctID, study))
     .then((study) => res.json({ study, nctID, error: null }))
     .catch((err) => res.json({ study: null, error: err.toString() }));
