@@ -2,6 +2,7 @@ jest.mock("axios");
 jest.mock("./firebase/verify-id-token");
 jest.mock("./firebase/get-user");
 jest.mock("./firebase/add-firestore-entry");
+jest.mock("./firebase/get-firestore-entry");
 
 const mAxios = require("axios");
 const mGetUser = require("./firebase/get-user");
