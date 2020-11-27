@@ -4,10 +4,11 @@ const axios = require("axios");
 const verifyIdToken = require("./firebase/verify-id-token");
 const getUser = require("./firebase/get-user");
 const addFirestoreEntry = require("./firebase/add-firestore-entry");
+const getFirestoreEntry = require("./firebase/get-firestore-entry");
 
 const generateSurvey = require("./utils/generate-survey");
 
-// fetches currently authenticated user
+// fetches user associated with idToken
 async function fetchUser(auth, idToken) {
   try {
     const decodedToken = await verifyIdToken(auth, idToken);
@@ -84,6 +85,28 @@ function generateStudyFromData(data) {
   };
 }
 
+// compares with any study that already exists in firestore
+async function compareWithExistingStudy(data) {
+  const e = await getFirestoreEntry({
+    firestore,
+    collection: "studies",
+    document: data.nctID,
+  });
+  if (!e.exists)
+    return data
+  // oop. User is trying to refresh study. Lets transfer unchangeable data
+  return {
+    ...data,
+    published: e.published,
+    activated: e.activated,
+    nctID: e.nctID,
+    title: e.title,
+    description: e.description,
+    researcher: e.researcher,
+    questions: e.questions
+  }
+}
+
 // saves study as a new document to firestore
 async function writeToFirestore(firestore, nctID, study) {
   await addFirestoreEntry({
@@ -112,6 +135,7 @@ module.exports = ({ admin }) => async (req, res) => {
     .then(([data, user]) => checkOwnership(data, user))
     .then((data) => generateQuestions(data))
     .then((data) => generateStudyFromData(data))
+    .then((data) => compareWithExistingStudy(data))
     .then((study) => writeToFirestore(firestore, nctID, study))
     .then((study) => res.json({ study, nctID, error: null }))
     .catch((err) => res.json({ study: null, error: err.toString() }));
