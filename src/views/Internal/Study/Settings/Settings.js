@@ -5,6 +5,7 @@ import { Heading, Box } from "@chakra-ui/react";
 
 import Activate from "./Activate";
 import Delete from "./Delete";
+import Reset from "./Reset";
 
 function Settings({ study, setStudy }) {
   return (
@@ -15,6 +16,7 @@ function Settings({ study, setStudy }) {
       <Card borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         <Activate study={study} />
         <Delete study={study} />
+        <Reset study={study} />
       </Card>
     </>
   );
