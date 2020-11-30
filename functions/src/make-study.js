@@ -121,15 +121,12 @@ async function writeToFirestore(firestore, nctID, study) {
 // Take the nctID text parameter passed to this HTTP endpoint and use flask api to scrape
 // its data, create a default unpublished study, and return the data
 module.exports = ({ admin }) => async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
-
   const { nctID, idToken } = req.query;
+  const auth = admin.auth();
+  const firestore = admin.firestore();
 
   if (!nctID) return res.json({ error: "parameter nctID needs to be defined" });
   if (!idToken) return res.json({ error: "parameter idToken needs to be defined" });
-
-  const auth = admin.auth();
-  const firestore = admin.firestore();
 
   return Promise.all([fetchStudy(nctID), fetchUser(auth, idToken)])
     .then(([data, user]) => checkOwnership(data, user))

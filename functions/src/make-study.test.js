@@ -42,6 +42,7 @@ describe("make-study", () => {
 
     const resp = res.json.mock.calls[0][0];
     expect(resp.error).not.toBeNull();
+    expect(resp.error).not.toBeUndefined();
   });
 
   it("creates a study on correct nctid and idtoken", async () => {
