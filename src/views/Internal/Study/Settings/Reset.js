@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Heading, Text, Button, Form } from "@chakra-ui/react";
-import { makeStudy } from "database/studies";
+import { updateStudy } from "database/studies";
 
 function Reset({ study }) {
     const [loading, setLoading] = useState(false);
 
     const handleReset = () => {
         setLoading(true)
-        makeStudy(study.nctID)
+        updateStudy(study.nctID)
             .finally(() => setLoading(false))
     }
 
