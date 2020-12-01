@@ -19,7 +19,7 @@ const makeStudy = (nctID) => {
     .then(({ data }) => data);
 }
 
-const updateStudy = (nctID) => {
+const refreshStudy = (nctID) => {
   return auth.currentUser
     .getIdToken(false)
     .then((idToken) => axios.get(
@@ -56,4 +56,4 @@ const fetchStudiesWhere = async (field, relation, value) => {
 const updateStudy = (study) => firestore.collection("studies").doc(study.nctID).update(study);
 const deleteStudy = (nctID) => firestore.collection("studies").doc(nctID).delete();
 
-export { makeStudy, updateStudy, fetchStudy, fetchStudies, fetchStudiesWhere, updateStudy, deleteStudy };
+export { makeStudy, refreshStudy, fetchStudy, fetchStudies, fetchStudiesWhere, updateStudy, deleteStudy };
