@@ -1,6 +1,6 @@
 jest.mock('./utils/switch-list');
 
-const switchList = require('./utils/switch-list');
+const mSwitchList = require('./utils/switch-list');
 
 const admin = require("firebase-admin");
 admin.initializeApp();
@@ -47,8 +47,8 @@ describe("switch-func", () => {
 
     it("properly inits with context", async () => {
         // this.beforeEach already inits each func
-        expect(switchList.TEST_FUNC).toHaveBeenCalledTimes(1);
-        const arg = switchList.TEST_FUNC.mock.calls[0][0];
+        expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(1);
+        const arg = mSwitchList.TEST_FUNC.mock.calls[0][0];
         expect(arg).toBe(context);
     });
 
@@ -58,8 +58,8 @@ describe("switch-func", () => {
 
         expect(res.json).toHaveBeenCalledTimes(0);
 
-        expect(switchList.TEST_FUNC).toHaveBeenCalledTimes(2);
-        const args = switchList.TEST_FUNC.mock.calls[1];
+        expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
+        const args = mSwitchList.TEST_FUNC.mock.calls[1];
         expect(args[0]).toBe(req);
         expect(args[1]).toBe(res);
     });
