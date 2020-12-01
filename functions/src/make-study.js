@@ -1,36 +1,10 @@
-const functions = require("firebase-functions");
-const axios = require("axios");
-
-const verifyIdToken = require("./firebase/verify-id-token");
-const getUser = require("./firebase/get-user");
+const getUserByToken = require("./firebase/get-user-by-token");
 const addFirestoreEntry = require("./firebase/add-firestore-entry");
 const getFirestoreEntry = require("./firebase/get-firestore-entry");
 
+const fetchStudy = require("./utils/fetch-study");
 const generateSurvey = require("./utils/generate-survey");
-
-// fetches user associated with idToken
-async function fetchUser(auth, idToken) {
-  try {
-    const decodedToken = await verifyIdToken(auth, idToken);
-    const user = await getUser(auth, decodedToken.uid);
-    return user;
-  } catch (error) {
-    throw Error("User is not authenticated");
-  }
-}
-
-// fetches study by nctID using flask API
-async function fetchStudy(nctID) {
-  const { data } = await axios.get(
-    `https://flask-fire-27eclhhcra-uc.a.run.app/autoFillStudy?nctID=${nctID}`
-  );
-
-  if (!data || data.status === "failure") {
-    throw Error("Entered ID does not exist");
-  }
-
-  return data.study;
-}
+const cleanStudy = require("./utils/clean-study");
 
 // checks that study email matches user email
 function checkOwnership(data, user) {
@@ -57,32 +31,6 @@ function generateQuestions(data) {
   const exclusionList = exclusion.map((prompt) => ({ type: "Exclusion", prompt }));
   const criterionList = inclusionList.concat(exclusionList);
   return { ...data, questions: criterionList };
-}
-
-// returns default entry from given data/user combo. Designed to be adjustable
-// @param data <obj> - data object scraped from nct website by flask app
-// @param user <obj> - firebase user object authoring this study
-function generateStudyFromData(data) {
-  return {
-    published: false,
-    activated: false,
-    updatedAt: Date.now(),
-    nctID: data.nctID,
-    title: data.title,
-    status: data.recruitmentStatus,
-    description: data.shortDescription,
-    researcher: {
-      id: data.uid,
-      name: data.contactName,
-      email: data.contactEmail,
-    },
-    sex: data.sex,
-    age: `${data.minAge}-${data.maxAge}`,
-    control: data.control,
-    questions: data.questions,
-    locations: data.locations,
-    conditions: data.conditions,
-  };
 }
 
 // compares with any study that already exists in firestore
@@ -128,10 +76,10 @@ module.exports = ({ admin }) => async (req, res) => {
   if (!nctID) return res.json({ error: "parameter nctID needs to be defined" });
   if (!idToken) return res.json({ error: "parameter idToken needs to be defined" });
 
-  return Promise.all([fetchStudy(nctID), fetchUser(auth, idToken)])
+  return Promise.all([fetchStudy(nctID), getUserByToken(auth, idToken)])
     .then(([data, user]) => checkOwnership(data, user))
     .then((data) => generateQuestions(data))
-    .then((data) => generateStudyFromData(data))
+    .then((data) => cleanStudy(data))
     .then((data) => compareWithExistingStudy(firestore, data))
     .then((study) => writeToFirestore(firestore, nctID, study))
     .then((study) => res.json({ study, nctID, error: null }))
