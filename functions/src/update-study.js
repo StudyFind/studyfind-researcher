@@ -1,7 +1,8 @@
-const verifyIdToken = require("./firebase/verify-id-token");
+const getUserByToken = require("./firebase/get-user-by-token");
+const getFirestoreEntry = require("./firebase/get-firestore-entry");
 const updateFirestoreEntry = require("./firebase/update-firestore-entry");
 
-const fetchStudy = require("./utils/fetch-study");
+const fetchStudyData = require("./utils/fetch-study");
 const cleanStudy = require("./utils/clean-study");
 
 // updates existing study in firestore
@@ -24,6 +25,11 @@ async function updateFirestore(firestore, nctID, study) {
     return study
 }
 
+async function assertOwnership([data, study, user]) {
+    if (study.researcher.id != user.uid) throw Error(`User ${user.uid} is not allowed to update this study`)
+    return data
+}
+
 // Take the nctID text parameter and rescrape associated
 // study while preserving some persistant fields
 module.exports = ({ admin }) => async (req, res) => {
@@ -34,8 +40,12 @@ module.exports = ({ admin }) => async (req, res) => {
     if (!nctID) return res.json({ error: "parameter nctID needs to be defined" });
     if (!idToken) return res.json({ error: "parameter idToken needs to be defined" });
 
-    return Promise.all([fetchStudy(nctID), verifyIdToken(auth, idToken)])
-        .then(([data, token]) => data)
+    return Promise.all([
+        fetchStudyData(nctID),
+        getFirestoreEntry(firestore, "studies", nctID),
+        getUserByToken(auth, idToken)
+    ])
+        .then(([data, study, user]) => assertOwnership([data, study, user]))
         .then((data) => cleanStudy(data))
         .then((study) => updateFirestore(firestore, nctID, study))
         .then((study) => res.json({ study, nctID, error: null }))

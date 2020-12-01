@@ -1,3 +1,6 @@
+// `functions/src/switch-func.js`
+
+// import the switch list of cloud functions
 const funcs = require('./utils/switch-list');
 // note, the const below needs to match exported
 // func name in `/functions/index.js` for switch to work
