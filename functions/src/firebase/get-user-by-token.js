@@ -8,6 +8,6 @@ module.exports = async (auth, idToken) => {
         const user = await getUser(auth, decodedToken.uid);
         return user;
     } catch (error) {
-        throw Error("User is not authenticated");
+        throw Error(`User token '${idToken}' is not valid`);
     }
 }
