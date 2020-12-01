@@ -34,7 +34,7 @@ function generateQuestions(data) {
 }
 
 // compares with any study that already exists in firestore
-async function compareWithExistingStudy(firestore, data) {
+async function ensureNewStudy(firestore, data) {
   const e = await getFirestoreEntry({
     firestore,
     collection: "studies",
@@ -42,17 +42,8 @@ async function compareWithExistingStudy(firestore, data) {
   });
   if (!e.exists)
     return data
-  // oop. User is trying to refresh study. Lets transfer unchangeable data
-  return {
-    ...data,
-    published: e.published,
-    activated: e.activated,
-    nctID: e.nctID,
-    title: e.title,
-    description: e.description,
-    researcher: e.researcher,
-    questions: e.questions
-  }
+  // oop. User is trying to create a pre-existing study. Error time
+  throw Error(`Study with nctID '${data.nctID}' already exists`);
 }
 
 // saves study as a new document to firestore
@@ -80,7 +71,7 @@ module.exports = ({ admin }) => async (req, res) => {
     .then(([data, user]) => checkOwnership(data, user))
     .then((data) => generateQuestions(data))
     .then((data) => cleanStudy(data))
-    .then((data) => compareWithExistingStudy(firestore, data))
+    .then((data) => ensureNewStudy(firestore, data))
     .then((study) => writeToFirestore(firestore, nctID, study))
     .then((study) => res.json({ study, nctID, error: null }))
     .catch((err) => res.json({ study: null, error: err.toString() }));
