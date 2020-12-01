@@ -1,3 +1,4 @@
 module.exports = ({
-    makeStudy: require('../make-study')
+    makeStudy: require('../make-study'),
+    updateStudy: require('../update-study')
 })
