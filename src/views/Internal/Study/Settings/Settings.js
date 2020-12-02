@@ -15,8 +15,8 @@ function Settings({ study, setStudy }) {
       </Head>
       <Card borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         <Activate study={study} />
-        <Delete study={study} />
         <Reset study={study} />
+        <Delete study={study} />
       </Card>
     </>
   );

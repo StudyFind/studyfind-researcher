@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Heading, Text, Button, Form } from "@chakra-ui/react";
-import { refreshStudy } from "database/studies";
+import { Form } from "components";
+import { Heading, Text, Button, FormErrorMessage } from "@chakra-ui/react";
+import { resetStudy } from "database/studies";
 
 function Reset({ study }) {
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleReset = () => {
         setLoading(true)
-        refreshStudy(study.nctID)
-            .finally(() => setLoading(false))
+        resetStudy(study.nctID)
+            .catch((err) => {
+                setError(`Reset failed: ${err}`);
+            })
+            .finally(() => setLoading(false));
     }
 
     return (
@@ -24,11 +29,12 @@ function Reset({ study }) {
                 study.
             </Text>
 
-            <DeleteForm onSubmit={handleReset}>
+            <Form onSubmit={handleReset}>
                 <Button type="submit" colorScheme="blue" isLoading={loading} loadingText="Updating">
                     Reset
                 </Button>
-            </DeleteForm>
+                {error && <FormErrorMessage>{error}</FormErrorMessage>}
+            </Form>
         </Section>
     )
 }
@@ -37,13 +43,6 @@ function Reset({ study }) {
 const Section = styled.section`
   padding: 20px;
   border-bottom: 1px solid #f1f2f3;
-`;
-
-
-const DeleteForm = styled(Form)`
-  display: flex;
-  grid-gap: 10px;
-  width: 100%;
 `;
 
 export default Reset;

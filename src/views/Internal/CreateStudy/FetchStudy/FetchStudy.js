@@ -41,7 +41,7 @@ function FetchStudy({ setTab, setStudy }) {
           }
         })
         .catch((err) => {
-          setError("Unable to authenticate user");
+          setError("Unable to authenticate user: " + err.toString());
         })
         .finally(() => setLoading(false));
     } else {
