@@ -53,7 +53,7 @@ function CreateStudy() {
 }
 
 const Box = styled.div`
-  padding: 30px 50px;
+  padding: 50px;
   background: #f8f9fa;
   width: 100%;
   height: 100%;

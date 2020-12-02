@@ -1,57 +1,32 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-
-import { signout } from "database";
-
 import StudyFindLogo from "images/logo.png";
 
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Box, Heading, Flex, Text } from "components";
 
-import {
-  FaChartPie,
-  FaClipboard,
-  FaBell,
-  FaComment,
-  FaCalendarAlt,
-  FaCog,
-  FaUsers,
-  FaList,
-  FaUserCircle,
-  FaPoll,
-  FaInfoCircle,
-  FaAlignJustify,
-  FaFileAlt,
-  FaLocationArrow,
-} from "react-icons/fa";
-
-import { Button } from "@chakra-ui/react";
+import { FaBell, FaCalendar, FaCog, FaPoll, FaCompass, FaUserCircle } from "react-icons/fa";
+import { Avatar, Tooltip } from "@chakra-ui/react";
 
 function Sidebar() {
   const location = useLocation();
 
   const links = [
-    { name: "Dashboard", path: "/dashboard", icon: <FaChartPie /> },
-    { name: "Details", path: "/details", icon: <FaFileAlt /> },
-    { name: "Survey", path: "/survey", icon: <FaPoll /> },
-    { name: "Locations", path: "/locations", icon: <FaLocationArrow /> },
-    { name: "Consent", path: "/consent", icon: <FaClipboard /> },
-    { name: "Participants", path: "/participants", icon: <FaUsers /> },
-    { name: "Messages", path: "/messages", icon: <FaComment /> },
-
-    // THESE OPTIONS WILL BE ON THE TOP NAVBAR
-    // { name: "Calendar", path: "/calendar", icon: <FaCalendarAlt /> },
-    // { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    // { name: "Settings", path: "/settings", icon: <FaCog /> },
-    // { name: "Account", path: "/account", icon: <FaUserCircle /> },
+    { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
+    { name: "Notifications", path: "/notifications", icon: <FaBell /> },
+    { name: "Calendar", path: "/calendar", icon: <FaCalendar /> },
+    { name: "Settings", path: "/settings", icon: <FaCog /> },
+    { name: "Account", path: "/account", icon: <FaUserCircle /> },
   ];
 
   return (
-    <Box>
-      <Head to="/">
-        <Logo src={StudyFindLogo} />
-        <Name>StudyFind</Name>
-      </Head>
+    <Fixed bg="blue.900">
+      <Logo to="/#">
+        <LogoIcon src={StudyFindLogo} />
+        <LogoName fontSize="1.5rem" color="white">
+          StudyFind
+        </LogoName>
+      </Logo>
       <Links>
         {links.map((link, index) => (
           <NavLink key={index} to={link.path} selected={location.pathname === link.path}>
@@ -60,39 +35,51 @@ function Sidebar() {
           </NavLink>
         ))}
       </Links>
-      <Signout>
-        <SignoutButton onClick={signout} leftIcon={<ArrowBackIcon />} w="100%" colorScheme="black">
-          Sign Out
-        </SignoutButton>
-      </Signout>
-    </Box>
+      <Box p="15px">
+        <Flex rounded="md" align="center">
+          <Avatar name="Yohan Jhaveri" bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
+          <Info>
+            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="100px">
+              Yohan Jhaveri
+            </Text>
+            <Tooltip label="yohanjhaveri@gmail.com" placement="right">
+              <Text fontSize="0.9rem" color="gray.500" isTruncated maxWidth="180px">
+                yohanjhaveri@gmail.com
+              </Text>
+            </Tooltip>
+          </Info>
+        </Flex>
+      </Box>
+    </Fixed>
   );
 }
 
-const Box = styled.div`
-  width: 250px;
+const Info = styled.div``;
+
+const Logo = styled(Link)`
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+`;
+
+const LogoIcon = styled.img`
+  height: 1.75rem;
+  margin-right: 10px;
+`;
+
+const LogoName = styled(Heading)``;
+
+const Fixed = styled(Box)`
+  width: 280px;
   height: 100vh;
   background: #2b6cb0;
   position: fixed;
   display: flex;
   flex-direction: column;
-`;
-
-const Head = styled(Link)`
-  display: flex;
-  align-items: center;
-  grid-gap: 10px;
-  padding: 15px;
-`;
-
-const Logo = styled.img`
-  width: 25px;
-`;
-
-const Name = styled.div`
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: white;
+  z-index: 100;
 `;
 
 const Links = styled.div`
@@ -100,19 +87,8 @@ const Links = styled.div`
   margin-bottom: auto;
 `;
 
-const Signout = styled.div`
-  padding: 10px;
-`;
-
-const SignoutButton = styled(Button)`
-  justify-content: flex-start !important;
-  &:hover {
-    background: rgb(0, 0, 0, 0.1) !important;
-  }
-`;
-
 const NavLink = styled(Link)`
-  padding: 20px;
+  padding: 25px 20px;
   display: flex;
   grid-gap: 12px;
   align-items: center;
@@ -120,11 +96,15 @@ const NavLink = styled(Link)`
   font-size: 16px;
   font-weight: 600;
 
+  &:hover {
+    color: white;
+  }
+
   ${(props) =>
     props.selected &&
     `
     color: white;
-    background: rgb(0, 0, 0, 0.1);
+    background: rgb(0, 0, 0, 0.2);
   `}
 `;
 

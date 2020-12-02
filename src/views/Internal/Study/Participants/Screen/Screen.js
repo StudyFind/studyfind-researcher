@@ -3,20 +3,40 @@ import styled from "styled-components";
 
 import { Heading, Button, Tag, Text } from "@chakra-ui/react";
 
-function SurveyTable({ questions, setEdit }) {
+function Screen({ questions, responses }) {
+  responses = [
+    "Yes",
+    "No",
+    "I don't know",
+    "No",
+    "I don't know",
+    "No",
+    "Yes",
+    "Yes",
+    "No",
+    "I don't know",
+    "No",
+    "I don't know",
+    "No",
+    "Yes",
+    "Yes",
+    "No",
+    "I don't know",
+    "No",
+    "I don't know",
+  ];
   return (
     <>
       <Head>
         <Heading fontSize="28px">Survey</Heading>
-        <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Questions
-        </Button>
+        <Button colorScheme="blue">Edit Questions</Button>
       </Head>
       <Table>
         <thead>
           <tr>
             <HeadCell>Type</HeadCell>
             <HeadCell>Question</HeadCell>
+            <HeadCell>Response</HeadCell>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +49,9 @@ function SurveyTable({ questions, setEdit }) {
               </BodyCell>
               <BodyCell nowrap>
                 <Text color="gray.600">{question.prompt}</Text>
+              </BodyCell>
+              <BodyCell nowrap>
+                <Text color="gray.600">{responses[index]}</Text>
               </BodyCell>
             </tr>
           ))}
@@ -62,4 +85,4 @@ const BodyCell = styled.td`
   padding: 8px 12px;
 `;
 
-export default SurveyTable;
+export default Screen;

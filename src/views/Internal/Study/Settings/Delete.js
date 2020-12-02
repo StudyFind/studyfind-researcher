@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-import { Form } from "components";
-import { Input } from "chakra";
+import { Form, Input } from "components";
 import { Heading, Text, Button } from "@chakra-ui/react";
 
 import { deleteStudy } from "database/studies";

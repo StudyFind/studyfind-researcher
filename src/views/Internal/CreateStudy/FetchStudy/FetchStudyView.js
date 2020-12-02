@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 import { Heading, Text, Button } from "@chakra-ui/react";
 
-import { Input } from "chakra";
-import { Form } from "components";
+import { Form, Input } from "components";
 
 function FetchStudyView({ nctID, error, loading, handleChange, handleSubmit }) {
   return (

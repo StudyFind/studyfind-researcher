@@ -7,7 +7,7 @@ function AuthNew() {
     const mode = url.searchParams.get("mode");
     const accountExists = localStorage.getItem("exists") === "true";
 
-    return mode || (accountExists ? "login" : "sign up");
+    return mode || (accountExists ? "login" : "signup");
   };
 
   const [tab, setTab] = useState(getDefaultTab());

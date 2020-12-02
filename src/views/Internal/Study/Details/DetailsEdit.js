@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Textarea } from "chakra";
-import { Button, Heading } from "@chakra-ui/react";
+import { Button, Heading, Textarea } from "components";
 
 function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, handleSubmit }) {
   return (

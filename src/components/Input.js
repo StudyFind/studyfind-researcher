@@ -37,6 +37,7 @@ function Field({
           </InputLeftElement>
         )}
         <Input
+          w="100%"
           pl={leftWidth || "1rem"}
           pr={rightWidth || "1rem"}
           value={value}

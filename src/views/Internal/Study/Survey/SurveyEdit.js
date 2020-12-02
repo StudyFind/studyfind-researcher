@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Input, Select, Button, IconButton } from "@chakra-ui/react";
+import { Heading, Input, Select, Button, IconButton } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
 function SurveyEdit({
@@ -18,14 +18,12 @@ function SurveyEdit({
       <Select
         w="210px"
         value={question.type}
-        onChange={(e) => updateQuestion(index, "type", e.target.value)}
-      >
-        <option value="Inclusion">Inclusion</option>
-        <option value="Exclusion">Exclusion</option>
-      </Select>
+        onChange={(_, value) => updateQuestion(index, "type", value)}
+        options={["Inclusion", "Exclusion"]}
+      />
       <Input
         value={question.prompt}
-        onChange={(e) => updateQuestion(index, "prompt", e.target.value)}
+        onChange={(_, value) => updateQuestion(index, "prompt", value)}
       />
       <IconButton
         colorScheme=""
