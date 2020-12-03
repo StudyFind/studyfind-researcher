@@ -35,11 +35,7 @@ function Notifications() {
     },
   ];
 
-  const LOAD = (
-    <PageLoader>
-      <Spinner />
-    </PageLoader>
-  );
+  const LOAD = <Spinner />;
 
   const BODY = (
     <>
@@ -68,13 +64,6 @@ const Page = styled.div`
   padding: 20px;
   height: 100%;
   background: #f8f9fa;
-`;
-
-const PageLoader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 `;
 
 export default Notifications;

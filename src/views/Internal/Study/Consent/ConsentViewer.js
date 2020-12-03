@@ -2,22 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { storage } from "database/firebase";
 import { useDownloadURL } from "react-firebase-hooks/storage";
-import { Heading, Button, Spinner } from "@chakra-ui/react";
+import { Heading, Button, Spinner } from "components";
 
 function ConsentViewer({ study, setEdit }) {
   const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.nctID}.pdf`));
 
-  const LOAD = (
-    <PageLoader>
-      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="blue.500" size="lg" />
-    </PageLoader>
-  );
+  const LOAD = <Spinner />;
 
-  const BODY = (
-    <PageLoader>
-      {value ? <PDFViewer src={value} /> : <strong>{error && error.message}</strong>}
-    </PageLoader>
-  );
+  const BODY = value ? <PDFViewer src={value} /> : <strong>{error && error.message}</strong>;
 
   return (
     <>
