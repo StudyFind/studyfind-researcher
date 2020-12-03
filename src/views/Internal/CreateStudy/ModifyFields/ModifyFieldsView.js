@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Form } from "components";
-import { Textarea } from "chakra";
+import { Form, Textarea } from "components";
 import { Text, Button, Heading } from "@chakra-ui/react";
 
 function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {

@@ -247,3 +247,11 @@
 // .react-datepicker__day--outside-month {
 //   color: #bbb;
 // }
+
+input:focus input[data-focus] {
+  box-shadow: 0 0 0 0.5px #3182ce !important;
+}
+
+input[aria-invalid="true"] input[data-invalid] {
+  box-shadow: 0 0 0 0.5px #e53e3e !important;
+}

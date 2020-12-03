@@ -1,29 +1,28 @@
-import Badge from "./Badge/Badge";
-import Button from "./Button/Button";
-import Card from "./Card/Card";
-import Form from "./Form/Form";
-import Spinner from "./Spinner/Spinner";
-import Modal from "./Modal/Modal";
-import Steps from "./Steps/Steps";
-import Tabs from "./Tabs/Tabs";
-import Tag from "./Tag/Tag";
-import Toast from "./Toast/Toast";
-import Tooltip from "./Tooltip/Tooltip";
-import Input from "./Input/Input";
-import Message from "./Message/Message";
+import Card from "./Card";
+import Form from "./Form";
+import Spinner from "./Spinner";
+import Modal from "./Modal";
+import Input from "./Input";
+import Select from "./Select";
+import Textarea from "./Textarea";
+
+import { Box, Heading, Text, Icon, IconButton, Button, Grid, Flex, Center } from "@chakra-ui/react";
 
 export {
-  Badge,
+  Box,
+  Grid,
+  Flex,
+  Center,
+  Heading,
+  Text,
+  Select,
+  Icon,
+  IconButton,
   Button,
   Card,
   Form,
   Spinner,
   Modal,
-  Steps,
-  Tag,
-  Tabs,
-  Toast,
-  Tooltip,
   Input,
-  Message,
+  Textarea,
 };

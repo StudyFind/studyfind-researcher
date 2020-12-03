@@ -23,7 +23,7 @@ function SurveyTable({ questions, setEdit }) {
           {questions.map((question, index) => (
             <tr key={index}>
               <BodyCell nowrap>
-                <Tag size="sm" colorScheme={question.type === "Inclusion" ? "green" : "red"}>
+                <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
                   {question.type}
                 </Tag>
               </BodyCell>

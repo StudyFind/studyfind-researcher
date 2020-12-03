@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { fetchStudy } from "database/studies";
 
-import { Spinner, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Spinner } from "components";
+import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
+import { FaPoll, FaComment, FaUsers, FaCog, FaInfoCircle } from "react-icons/fa";
 
 import Details from "./Details/Details";
 import Location from "./Location/Location";
@@ -16,6 +18,22 @@ function Study() {
   const { id } = useParams();
   const [study, setStudy] = useState({});
   const [loading, setLoading] = useState(true);
+  const [current, setCurrent] = useState("Details");
+
+  const tabs = [
+    { name: "Details", icon: <FaInfoCircle /> },
+    { name: "Survey", icon: <FaPoll /> },
+    { name: "Messages", icon: <FaComment /> },
+    { name: "Participants", icon: <FaUsers /> },
+    { name: "Settings", icon: <FaCog /> },
+  ];
+
+  const content = {
+    Details: <Details study={study} setStudy={setStudy} />,
+    Survey: <Survey study={study} setStudy={setStudy} />,
+    Participants: <Participants />,
+    Settings: <Settings study={study} setStudy={setStudy} />,
+  };
 
   useEffect(() => {
     fetchStudy(id)
@@ -26,7 +44,7 @@ function Study() {
 
   const LOAD = (
     <PageLoader>
-      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="blue.500" size="lg" />
+      <Spinner />
     </PageLoader>
   );
 
@@ -35,29 +53,29 @@ function Study() {
       <Tabs colorScheme="blue">
         <TabList>
           <TabItem>Details</TabItem>
-          <TabItem>Locations</TabItem>
           <TabItem>Survey</TabItem>
           <TabItem>Consent</TabItem>
+          <TabItem>Messages</TabItem>
           <TabItem>Participants</TabItem>
           <TabItem>Settings</TabItem>
         </TabList>
         <TabPanels>
-          <TabPanel p="0px">
+          <TabPanel pt="1px">
             <Details study={study} setStudy={setStudy} />
           </TabPanel>
-          <TabPanel p="0px">
-            <Location study={study} setStudy={setStudy} />
-          </TabPanel>
-          <TabPanel p="0px">
+          <TabPanel pt="1px">
             <Survey study={study} setStudy={setStudy} />
           </TabPanel>
-          <TabPanel p="0px">
-            <Consent study={study} />
+          <TabPanel pt="1px">
+            <Consent study={study} setStudy={setStudy} />
           </TabPanel>
-          <TabPanel p="0px">
-            <Participants />
+          <TabPanel pt="1px">
+            <div />
           </TabPanel>
-          <TabPanel p="0px">
+          <TabPanel pt="1px">
+            <Participants study={study} />
+          </TabPanel>
+          <TabPanel pt="1px">
             <Settings study={study} setStudy={setStudy} />
           </TabPanel>
         </TabPanels>
@@ -68,15 +86,12 @@ function Study() {
   return <Page>{loading ? LOAD : BODY}</Page>;
 }
 
-const Page = styled.div`
-  padding: 30px;
-  height: 100%;
-  background: #f8f9fa;
-`;
-
 const TabItem = styled(Tab)`
   font-weight: 600;
   color: rgb(161, 175, 192);
+  display: flex;
+  grid-gap: 8px;
+  align-items: center;
 
   &:active {
     background: transparent !important;
@@ -86,6 +101,12 @@ const TabItem = styled(Tab)`
   &:focus {
     box-shadow: none !important;
   }
+`;
+
+const Page = styled.div`
+  padding: 20px;
+  height: 100%;
+  background: #f8f9fa;
 `;
 
 const PageLoader = styled.div`
