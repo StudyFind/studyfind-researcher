@@ -40,8 +40,7 @@ async function ensureNewStudy(firestore, data) {
     collection: "studies",
     document: data.nctID,
   });
-  if (!e.exists)
-    return data
+  if (!e.exists) return data;
   // oop. User is trying to create a pre-existing study. Error time
   throw Error(`Study with nctID '${data.nctID}' already exists`);
 }
