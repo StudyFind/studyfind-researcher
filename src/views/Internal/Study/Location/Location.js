@@ -5,7 +5,7 @@ import { Heading, Tag, TagLabel } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import { FaLocationArrow } from "react-icons/fa";
 
-function Location({ study, setEdit }) {
+function Location({ study }) {
   return (
     <>
       <Head>

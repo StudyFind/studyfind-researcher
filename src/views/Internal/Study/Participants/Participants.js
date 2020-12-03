@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
 import { fetchParticipants } from "database/participants";
 
-import { Heading, Button, Box } from "@chakra-ui/react";
+import { Heading, Button, Box, Message } from "components";
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 
 import { compute } from "functions";
 
 function Participants({ study }) {
-  const { id } = useParams();
   const [toggle, setToggle] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [participants, setParticipants] = useState([]);
   const [participantsFiltered, setParticipantsFiltered] = useState([]);
 
@@ -26,8 +25,8 @@ function Participants({ study }) {
   });
 
   useEffect(() => {
-    fetchParticipants(id).then((data) => {
-      console.log(data);
+    setLoading(true);
+    fetchParticipants(study.nctID).then((data) => {
       setParticipants(
         data.map(({ id, fakename, status, responses }) => ({
           id,
@@ -36,6 +35,7 @@ function Participants({ study }) {
           score: compute.eligibilityScore(study.questions, responses),
         }))
       );
+      setLoading(false);
     });
   }, []);
 
@@ -57,7 +57,6 @@ function Participants({ study }) {
     const filteredSearch = filterSearch(initial);
     const filteredStatus = filterStatus(filteredSearch);
     const sorted = sortParticipants(filteredStatus);
-    console.log(sorted);
     setParticipantsFiltered(sorted);
   }, [sort, status, search, participants]);
 
@@ -124,6 +123,30 @@ function Participants({ study }) {
     return participants.filter((p) => p.fakename.toLowerCase().includes(search));
   };
 
+  const LOAD = (
+    <Message
+      type="failure"
+      title="No participants yet"
+      description="Your study does not have any participants yet!"
+    />
+  );
+
+  const EMPTY = (
+    <Message
+      type="failure"
+      title="No participants yet"
+      description="Your study does not have any participants yet!"
+    />
+  );
+
+  const LIST = (
+    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
+      {participantsFiltered.map((participant, index) => (
+        <ParticipantsRow key={index} participant={participant} />
+      ))}
+    </Box>
+  );
+
   return (
     <>
       <Head>
@@ -148,11 +171,7 @@ function Participants({ study }) {
           setSort={setSort}
         />
       )}
-      <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {participantsFiltered.map((participant, index) => (
-          <ParticipantsRow key={index} participant={participant} />
-        ))}
-      </Box>
+      <Box h="100%">{loading ? LOAD : participantsFiltered.length ? LIST : EMPTY}</Box>
     </>
   );
 }

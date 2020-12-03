@@ -4,7 +4,7 @@ import styled from "styled-components";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 import { Link } from "react-router-dom";
-import { Box, Heading, Text, Button, Spinner } from "@chakra-ui/react";
+import { Box, Heading, Text, Button, Spinner } from "components";
 import { FaPlusCircle } from "react-icons/fa";
 
 function StudiesView({ studies, loading }) {
@@ -43,11 +43,7 @@ function StudiesView({ studies, loading }) {
 
   const BODY = studies.length ? GRID : NONE;
 
-  const LOAD = (
-    <PageLoader>
-      <Spinner thickness="4px" speed="0.5s" emptyColor="gray.200" color="blue.500" size="lg" />
-    </PageLoader>
-  );
+  const LOAD = <Spinner />;
 
   return <Page>{loading ? LOAD : BODY}</Page>;
 }
