@@ -15,7 +15,7 @@ import { Input } from "components";
 
 function Login({ setTab }) {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
-    initial: { name: "", email: "", password: "" },
+    initial: { email: "", password: "" },
     onSubmit: signup,
   });
 
@@ -34,14 +34,6 @@ function Login({ setTab }) {
   return (
     <Form onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
       <Heading>Create Account!</Heading>
-      <Input
-        size="lg"
-        name="name"
-        placeholder="Name"
-        value={inputs.name}
-        error={errors.name}
-        onChange={handleInput}
-      />
       <Email value={inputs.email} error={errors.email} onChange={handleInput} />
       <Password value={inputs.password} error={errors.password} onChange={handleInput} />
       <Button loading={loading}>Sign up</Button>
