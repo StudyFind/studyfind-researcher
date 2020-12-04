@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Box, Heading, Text, Button, Spinner } from "components";
 import { FaPlusCircle } from "react-icons/fa";
 
-function StudiesView({ studies, loading }) {
+function DashboardView({ studies, loading }) {
   const GRID = (
     <Box>
       <Head>
@@ -69,11 +69,4 @@ const StudyGrid = styled.div`
   align-items: flex-start;
 `;
 
-const PageLoader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
-
-export default StudiesView;
+export default DashboardView;

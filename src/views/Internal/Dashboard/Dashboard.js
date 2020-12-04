@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { fetchStudies } from "database/studies";
 
-import StudiesView from "./StudiesView";
+import DashboardView from "./DashboardView";
 
-function Studies() {
+function Dashboard() {
   const [studies, setStudies] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +14,7 @@ function Studies() {
       .finally(() => setLoading(false));
   }, []);
 
-  return <StudiesView studies={studies} loading={loading} />;
+  return <DashboardView studies={studies} loading={loading} />;
 }
 
-export default Studies;
+export default Dashboard;
