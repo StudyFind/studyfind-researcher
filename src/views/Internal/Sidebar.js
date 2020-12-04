@@ -54,6 +54,16 @@ function Sidebar() {
   );
 }
 
+const Fixed = styled(Box)`
+  width: 280px;
+  height: 100vh;
+  background: #2b6cb0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+`;
+
 const Info = styled.div``;
 
 const Logo = styled(Link)`
@@ -71,16 +81,6 @@ const LogoIcon = styled.img`
 `;
 
 const LogoName = styled(Heading)``;
-
-const Fixed = styled(Box)`
-  width: 280px;
-  height: 100vh;
-  background: #2b6cb0;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-`;
 
 const Links = styled.div`
   display: grid;

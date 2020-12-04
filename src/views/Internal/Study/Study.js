@@ -60,7 +60,7 @@ function Study() {
         <TabItem>Participants</TabItem>
         <TabItem>Settings</TabItem>
       </TabList>
-      <TabPanels h="100%">
+      <TabPanels>
         <Panel pt="1px">
           <Details study={study} setStudy={setStudy} />
         </Panel>
@@ -101,14 +101,14 @@ const TabItem = styled(Tab)`
 `;
 
 const Panel = styled(TabPanel)`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // height: 100%;
 `;
 
 const Page = styled.div`
   padding: 20px;
-  height: calc(100vh - 82px);
+  height: 100vh;
   background: #f8f9fa;
 `;
 

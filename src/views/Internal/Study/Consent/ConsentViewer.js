@@ -19,7 +19,7 @@ function ConsentViewer({ study, setEdit }) {
           Upload New File
         </Button>
       </Head>
-      <p>{loading ? LOAD : BODY}</p>
+      {loading ? LOAD : BODY}
     </>
   );
 }
@@ -35,12 +35,12 @@ const PageLoader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 500px;
+  height: 100%;
 `;
 
 const PDFViewer = styled.iframe`
   width: 100%;
-  height: 500px;
+  height: 100%;
 `;
 
 export default ConsentViewer;
