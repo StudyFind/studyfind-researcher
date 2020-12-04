@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { fetchParticipants } from "database/participants";
 
-import { Heading, Button, Box, Message } from "components";
+import { Heading, Button, Box, Message, Card } from "components";
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 
@@ -41,6 +41,7 @@ function Participants({ study }) {
 
   useEffect(() => {
     if (!toggle) {
+      setSearch("");
       setSort("fakename");
       setStatus({
         interested: true,
@@ -124,19 +125,23 @@ function Participants({ study }) {
   };
 
   const LOAD = (
-    <Message
-      type="failure"
-      title="No participants yet"
-      description="Your study does not have any participants yet!"
-    />
+    <Card>
+      <Message
+        type="failure"
+        title="No participants yet"
+        description="Your study does not have any participants yet!"
+      />
+    </Card>
   );
 
   const EMPTY = (
-    <Message
-      type="failure"
-      title="No participants yet"
-      description="Your study does not have any participants yet!"
-    />
+    <Card h="100%" bg="white">
+      <Message
+        type="failure"
+        title="No participants yet"
+        description="Your study does not have any participants yet!"
+      />
+    </Card>
   );
 
   const LIST = (
@@ -171,7 +176,7 @@ function Participants({ study }) {
           setSort={setSort}
         />
       )}
-      <Box h="100%">{loading ? LOAD : participantsFiltered.length ? LIST : EMPTY}</Box>
+      {loading ? LOAD : participantsFiltered.length ? LIST : EMPTY}
     </>
   );
 }

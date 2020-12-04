@@ -61,21 +61,21 @@ function Study() {
         <TabItem>Settings</TabItem>
       </TabList>
       <TabPanels h="100%">
-        <TabPanel pt="1px">
+        <Panel pt="1px">
           <Details study={study} setStudy={setStudy} />
-        </TabPanel>
-        <TabPanel pt="1px">
+        </Panel>
+        <Panel pt="1px">
           <Survey study={study} setStudy={setStudy} />
-        </TabPanel>
-        <TabPanel pt="1px">
+        </Panel>
+        <Panel pt="1px">
           <Consent study={study} setStudy={setStudy} />
-        </TabPanel>
-        <TabPanel pt="1px">
+        </Panel>
+        <Panel pt="1px">
           <Participants study={study} />
-        </TabPanel>
-        <TabPanel pt="1px">
+        </Panel>
+        <Panel pt="1px">
           <Settings study={study} setStudy={setStudy} />
-        </TabPanel>
+        </Panel>
       </TabPanels>
     </Tabs>
   );
@@ -100,9 +100,15 @@ const TabItem = styled(Tab)`
   }
 `;
 
+const Panel = styled(TabPanel)`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
 const Page = styled.div`
   padding: 20px;
-  height: 100%;
+  height: calc(100vh - 82px);
   background: #f8f9fa;
 `;
 

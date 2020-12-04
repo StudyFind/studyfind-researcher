@@ -5,24 +5,27 @@ import Modal from "./Modal";
 import Input from "./Input";
 import Select from "./Select";
 import Textarea from "./Textarea";
+import Message from "./Message";
 
-import { Box, Heading, Text, Icon, IconButton, Button, Grid, Flex, Center } from "@chakra-ui/react";
+// import * as ChakraComponents from "@chakra-ui/react";
+import { Box, Flex, Grid, Center, Heading, Text, Button, Icon, IconButton } from "@chakra-ui/react";
 
 export {
   Box,
-  Grid,
   Flex,
+  Grid,
   Center,
   Heading,
   Text,
-  Select,
+  Button,
   Icon,
   IconButton,
-  Button,
+  Select,
   Card,
   Form,
   Spinner,
   Modal,
   Input,
   Textarea,
+  Message,
 };
