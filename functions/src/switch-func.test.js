@@ -15,7 +15,7 @@ describe("switch-func", () => {
 
     beforeEach(async () => {
         func = Func(context);
-        req = { originalUrl: "http://localhost:5001/studyfind-researcher/us-central1/studies" };
+        req = { originalUrl: "/studyfind-researcher/us-central1/studies" };
         res = { json: jest.fn(), status: jest.fn(), set: jest.fn() };
     });
 

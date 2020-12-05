@@ -19,13 +19,13 @@ module.exports = (ctx) => {
     return async (req, res) => {
         res.set("Access-Control-Allow-Origin", "*");
 
-        const path = new URL(req.originalUrl).pathname.split('/');
+        const path = new URL("http://ha-fake-server.com" + req.originalUrl).pathname.split('/');
         const i = path.indexOf("studies");
         if (i === path.length) return res.json({ error: "please specify a function to call" });
         const name = path[i + 1];
         if (!funcs[name]) return res.json({ error: `function '${name}' does not exist` });
 
-        logger.info(`running function '${name}' from `, req.originalUrl);
+        logger.info(`running function '${name}' from`, req.originalUrl);
 
         return funcs[name](req, res);
     }

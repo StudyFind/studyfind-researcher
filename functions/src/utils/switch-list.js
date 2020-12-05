@@ -1,4 +1,4 @@
 module.exports = ({
     makeStudy: require('../make-study'),
-    updateStudy: require('../update-study')
+    resetStudy: require('../reset-study')
 })

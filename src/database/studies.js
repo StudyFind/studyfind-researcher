@@ -23,7 +23,7 @@ const resetStudy = (nctID) => {
   return auth.currentUser
     .getIdToken(false)
     .then((idToken) => axios.get(
-      "https://us-central1-studyfind-researcher.cloudfunctions.net/studies/updateStudy",
+      "https://us-central1-studyfind-researcher.cloudfunctions.net/studies/resetStudy",
       {
         params: { nctID, idToken }
       }

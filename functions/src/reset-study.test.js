@@ -13,7 +13,7 @@ const mGetFirestoreEntry = require("./firebase/get-firestore-entry");
 const admin = require("firebase-admin");
 admin.initializeApp();
 const context = { admin };
-const Func = require("./update-study");
+const Func = require("./reset-study");
 
 describe("update-study", () => {
     let func;
