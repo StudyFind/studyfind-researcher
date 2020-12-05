@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { Box, Flex } from "components";
 
 import Sidebar from "./Sidebar";
 
@@ -12,9 +12,9 @@ import Notifications from "./Notifications/Notifications";
 
 function Internal() {
   return (
-    <Screen>
+    <Flex bg="#f8f9fa">
       <Sidebar />
-      <Page>
+      <Box ml="280px" w="100%" minH="100vh">
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/dashboard" component={Dashboard} />
@@ -24,20 +24,9 @@ function Internal() {
           <Route exact path="/settings" component={Settings} />
           <Redirect to="/" />
         </Switch>
-      </Page>
-    </Screen>
+      </Box>
+    </Flex>
   );
 }
-
-const Screen = styled.div`
-  display: flex;
-  background: #f8f9fa;
-`;
-
-const Page = styled.div`
-  margin-left: 280px;
-  width: 100%;
-  min-height: 100vh;
-`;
 
 export default Internal;

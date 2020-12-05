@@ -125,13 +125,13 @@ function Participants({ study }) {
   };
 
   const LOAD = (
-    <Card>
+    <Box rounded="md" h="500px" w="100%">
       <Message
         type="failure"
         title="No participants yet"
         description="Your study does not have any participants yet!"
       />
-    </Card>
+    </Box>
   );
 
   const EMPTY = (
