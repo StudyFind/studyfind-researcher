@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { updateStudy } from "database/studies";
 
-import SurveyTable from "./SurveyTable";
+import SurveyView from "./SurveyView";
 import SurveyEdit from "./SurveyEdit";
 
 function Survey({ study, setStudy }) {
   const [edit, setEdit] = useState(false);
-  const [questions, setQuestions] = useState(study.questions || {});
+  const [questions, setQuestions] = useState(study.questions || []);
 
   const createQuestion = () => {
     const updated = [...questions];
-    updated[updated.length] = { type: "", prompt: "" };
+    updated[updated.length] = { type: "Inclusion", prompt: "" };
     setQuestions(updated);
   };
 
@@ -53,7 +53,7 @@ function Survey({ study, setStudy }) {
       handleSubmit={handleSubmit}
     />
   ) : (
-    <SurveyTable questions={questions} setEdit={setEdit} />
+    <SurveyView questions={questions} setEdit={setEdit} />
   );
 }
 

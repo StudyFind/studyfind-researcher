@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Button, Tag, Text } from "@chakra-ui/react";
+import { Box, Heading, Message, Button, Tag, Text } from "components";
 
-function SurveyTable({ questions, setEdit }) {
-  return (
+function SurveyView({ questions, setEdit }) {
+  const BODY = (
     <>
       <Head>
         <Heading fontSize="28px">Survey</Heading>
@@ -36,6 +36,22 @@ function SurveyTable({ questions, setEdit }) {
       </Table>
     </>
   );
+
+  const EMPTY = (
+    <Box h="500px">
+      <Message
+        type="neutral"
+        title="Create screening survey"
+        description="The screening survey allows you to screen participants using your inclusion and exclusion eligibility criteria"
+      >
+        <Button colorScheme="blue" onClick={() => setEdit(true)}>
+          Create Survey
+        </Button>
+      </Message>
+    </Box>
+  );
+
+  return questions.length ? BODY : EMPTY;
 }
 
 const Head = styled.div`
@@ -62,4 +78,4 @@ const BodyCell = styled.td`
   padding: 8px 12px;
 `;
 
-export default SurveyTable;
+export default SurveyView;

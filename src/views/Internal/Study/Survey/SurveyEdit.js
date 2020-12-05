@@ -22,6 +22,7 @@ function SurveyEdit({
         options={["Inclusion", "Exclusion"]}
       />
       <Input
+        placeholder="Question Prompt"
         value={question.prompt}
         onChange={(_, value) => updateQuestion(index, "prompt", value)}
       />
