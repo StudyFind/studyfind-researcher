@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Box, Spinner } from "@chakra-ui/react";
-import NotificationsRow from "./NotificationsRow";
+import { Heading, Spinner, List } from "@chakra-ui/react";
+import Notification from "./Notification";
 
 function Notifications() {
   const loading = false;
@@ -42,11 +42,13 @@ function Notifications() {
       <Head>
         <Heading fontSize="28px">Notifications</Heading>
       </Head>
-      <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
+      <List>
         {notifications.map((notification, index) => (
-          <NotificationsRow key={index} notification={notification} />
+          <List.Row key={index}>
+            <Notification notification={notification} />
+          </List.Row>
         ))}
-      </Box>
+      </List>
     </>
   );
 

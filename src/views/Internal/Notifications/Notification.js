@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Box, Flex, Heading, Text, Icon } from "components";
 import { FaCertificate, FaStopwatch, FaUser, FaComment } from "react-icons/fa";
 
-function NotificationsRow({ notification }) {
+function Notification({ notification }) {
   const icons = {
     milestone: {
       name: FaCertificate,
@@ -51,7 +51,7 @@ function NotificationsRow({ notification }) {
   const icon = icons[notification.type];
 
   return (
-    <Row>
+    <>
       <div>
         <Flex
           w="40px"
@@ -75,21 +75,8 @@ function NotificationsRow({ notification }) {
           {notification.description}
         </Text>
       </Box>
-    </Row>
+    </>
   );
 }
 
-const Row = styled.div`
-  display: flex;
-  align-items: flex-start;
-  grid-gap: 10px;
-  padding: 16px;
-
-  border-bottom: 1px solid #f1f2f3;
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-export default NotificationsRow;
+export default Notification;
