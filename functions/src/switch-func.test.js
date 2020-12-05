@@ -59,9 +59,27 @@ describe("switch-func", () => {
         expect(res.json).toHaveBeenCalledTimes(0);
 
         expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
-        const args = mSwitchList.TEST_FUNC.mock.calls[1];
-        expect(args[0]).toBe(req);
-        expect(args[1]).toBe(res);
+        expect(mSwitchList.TEST_FUNC.mock.calls[1]).toEqual([req, res]);
+    });
+
+    it("handles additional url subroutes", async () => {
+        req.originalUrl += "/TEST_FUNC/SUBROUTE";
+        await func(req, res);
+
+        expect(res.json).toHaveBeenCalledTimes(0);
+
+        expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
+        expect(mSwitchList.TEST_FUNC.mock.calls[1]).toEqual([req, res]);
+    });
+
+    it("handles additional url parameters", async () => {
+        req.originalUrl += "/TEST_FUNC?param=1";
+        await func(req, res);
+
+        expect(res.json).toHaveBeenCalledTimes(0);
+
+        expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
+        expect(mSwitchList.TEST_FUNC.mock.calls[1]).toEqual([req, res]);
     });
 
 });
