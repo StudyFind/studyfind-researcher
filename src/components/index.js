@@ -1,3 +1,4 @@
+import List from "./List";
 import Card from "./Card";
 import Form from "./Form";
 import Spinner from "./Spinner";
@@ -8,7 +9,21 @@ import Textarea from "./Textarea";
 import Message from "./Message";
 
 // import * as ChakraComponents from "@chakra-ui/react";
-import { Box, Flex, Grid, Center, Heading, Text, Button, Icon, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  Center,
+  Heading,
+  Text,
+  Button,
+  Icon,
+  IconButton,
+  Tag,
+  FormControl,
+  FormErrorMessage,
+  Progress,
+} from "@chakra-ui/react";
 
 export {
   Box,
@@ -28,4 +43,9 @@ export {
   Input,
   Textarea,
   Message,
+  Tag,
+  FormControl,
+  FormErrorMessage,
+  Progress,
+  List,
 };

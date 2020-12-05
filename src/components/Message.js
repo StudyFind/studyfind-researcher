@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Heading, Text, Box } from "components";
-import { FaTimesCircle, FaCheckCircle, FaQuestionCircle } from "react-icons/fa";
+import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 function Message({ type, title, description, children }) {
   const status = {
@@ -11,7 +11,7 @@ function Message({ type, title, description, children }) {
       color: "green",
     },
     neutral: {
-      icon: FaQuestionCircle,
+      icon: FaExclamationCircle,
       color: "blue",
     },
     failure: {
@@ -20,7 +20,7 @@ function Message({ type, title, description, children }) {
     },
   };
 
-  const { icon, color } = status[type] || status["success"];
+  const { icon, color } = status[type] || status["neutral"];
 
   return (
     <Page>
