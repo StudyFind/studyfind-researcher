@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-import ConsentViewer from "./ConsentViewer";
-import ConsentUpload from "./ConsentUpload";
+import ConsentView from "./ConsentView";
+import ConsentEdit from "./ConsentEdit";
 
 function Consent({ study }) {
   const [edit, setEdit] = useState(false);
 
   return edit ? (
-    <ConsentUpload study={study} setEdit={setEdit} />
+    <ConsentEdit study={study} setEdit={setEdit} />
   ) : (
-    <ConsentViewer study={study} setEdit={setEdit} />
+    <ConsentView study={study} setEdit={setEdit} />
   );
 }
 

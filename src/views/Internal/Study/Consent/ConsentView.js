@@ -2,16 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { storage } from "database/firebase";
 import { useDownloadURL } from "react-firebase-hooks/storage";
-import { Heading, Button, Spinner } from "components";
+import { Heading, Button, Spinner, Box, Message } from "components";
 
 function ConsentViewer({ study, setEdit }) {
   const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.nctID}.pdf`));
 
   const LOAD = <Spinner />;
 
-  const BODY = value ? <PDFViewer src={value} /> : <strong>{error && error.message}</strong>;
+  const FORM = value ? <PDFViewer src={value} /> : <strong>{error && error.message}</strong>;
 
-  return (
+  const BODY = (
     <>
       <Head>
         <Heading fontSize="28px">Consent Form</Heading>
@@ -19,9 +19,27 @@ function ConsentViewer({ study, setEdit }) {
           Upload New File
         </Button>
       </Head>
-      {loading ? LOAD : BODY}
+      <Box h="500px" w="100%">
+        {loading ? LOAD : FORM}
+      </Box>
     </>
   );
+
+  const EMPTY = (
+    <Box h="500px">
+      <Message
+        type="neutral"
+        title="Create screening survey"
+        description="The screening survey allows you to screen participants using your inclusion and exclusion eligibility criteria"
+      >
+        <Button colorScheme="blue" onClick={() => setEdit(true)}>
+          Create Survey
+        </Button>
+      </Message>
+    </Box>
+  );
+
+  return value ? BODY : EMPTY;
 }
 
 const Head = styled.div`
@@ -29,13 +47,6 @@ const Head = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 15px 0;
-`;
-
-const PageLoader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 `;
 
 const PDFViewer = styled.iframe`
