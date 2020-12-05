@@ -18,8 +18,10 @@ async function updateFirestore(firestore, nctID, study) {
   return study;
 }
 
-async function assertOwnership([data, study, user]) {
-  if (study.researcher.id != user.uid)
+async function assertOwnership(data, study, user) {
+  data.uid = study.researcher.id;
+
+  if (study.researcher.id !== user.uid)
     throw Error(`User ${user.uid} is not allowed to update this study`);
   return data;
 }
@@ -36,10 +38,10 @@ module.exports = ({ admin }) => async (req, res) => {
 
   return Promise.all([
     fetchStudyData(nctID),
-    getFirestoreEntry(firestore, "studies", nctID),
+    getFirestoreEntry({ firestore, collection: "studies", document: nctID }),
     getUserByToken(auth, idToken),
   ])
-    .then(([data, study, user]) => assertOwnership([data, study, user]))
+    .then(([data, study, user]) => assertOwnership(data, study, user))
     .then((data) => cleanStudy(data))
     .then((study) => updateFirestore(firestore, nctID, study))
     .then((study) => res.json({ study, nctID, error: null }))

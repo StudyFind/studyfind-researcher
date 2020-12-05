@@ -11,7 +11,9 @@ function Reset({ study }) {
   const handleReset = () => {
     setLoading(true);
     resetStudy(study.nctID)
+      .then(console.log)
       .catch((err) => {
+        console.log(err);
         setError(`Reset failed: ${err}`);
       })
       .finally(() => setLoading(false));
