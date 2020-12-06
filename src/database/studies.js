@@ -1,10 +1,35 @@
 import { auth, firestore } from "./firebase";
+import axios from "axios";
 
 const map = (snapshot) => {
   const collection = [];
   snapshot.forEach((doc) => collection.push(doc.data()));
   return collection;
 };
+
+const makeStudy = (nctID) => {
+  return auth.currentUser
+    .getIdToken(false)
+    .then((idToken) => axios.get(
+      "https://us-central1-studyfind-researcher.cloudfunctions.net/studies/makeStudy",
+      {
+        params: { nctID, idToken }
+      }
+    ))
+    .then(({ data }) => data);
+}
+
+const resetStudy = (nctID) => {
+  return auth.currentUser
+    .getIdToken(false)
+    .then((idToken) => axios.get(
+      "https://us-central1-studyfind-researcher.cloudfunctions.net/studies/resetStudy",
+      {
+        params: { nctID, idToken }
+      }
+    ))
+    .then(({ data }) => data);
+}
 
 const fetchStudy = async (nctID) => {
   const document = await firestore.collection("studies").doc(nctID).get();
@@ -31,4 +56,4 @@ const fetchStudiesWhere = async (field, relation, value) => {
 const updateStudy = (study) => firestore.collection("studies").doc(study.nctID).update(study);
 const deleteStudy = (nctID) => firestore.collection("studies").doc(nctID).delete();
 
-export { fetchStudy, fetchStudies, fetchStudiesWhere, updateStudy, deleteStudy };
+export { makeStudy, resetStudy, fetchStudy, fetchStudies, fetchStudiesWhere, updateStudy, deleteStudy };
