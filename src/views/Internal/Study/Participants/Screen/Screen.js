@@ -12,18 +12,24 @@ function Screen() {
   const [participant, setParticipant] = useState({});
   const [loadingStudy, setLoadingStudy] = useState(true);
   const [loadingParticipant, setLoadingParticipant] = useState(true);
+
+  console.log(study);
+  console.log(participant);
+
   useEffect(() => {
     fetchStudy(id)
       .then(setStudy)
       .catch(console.log)
       .finally(() => setLoadingStudy(false));
   }, [id]);
+
   useEffect(() => {
     fetchParticipant(id, participantid)
       .then(setParticipant)
       .catch(console.log)
       .finally(() => setLoadingParticipant(false));
   }, [participantid]);
+
   const LOAD = (
     <PageLoader>
       <Spinner />
@@ -31,7 +37,6 @@ function Screen() {
   );
 
   const BODY = (
-
     <>
       <Head>
         <Heading fontSize="28px">Survey</Heading>
@@ -46,27 +51,27 @@ function Screen() {
           </tr>
         </thead>
         <tbody>
-          {study.questions.map((question, index) => (
-            <tr key={index}>
-              <BodyCell nowrap>
-                <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
-                  {question.type}
-                </Tag>
-              </BodyCell>
-              <BodyCell nowrap>
-                <Text color="gray.600">{question.prompt}</Text>
-              </BodyCell>
-              <BodyCell nowrap>
-                <Text color="gray.600">{question.prompt}</Text>
-              </BodyCell>
-            </tr>
-          ))}
+          {study.questions &&
+            study.questions.map((question, index) => (
+              <tr key={index}>
+                <BodyCell nowrap>
+                  <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
+                    {question.type}
+                  </Tag>
+                </BodyCell>
+                <BodyCell nowrap>
+                  <Text color="gray.600">{question.prompt}</Text>
+                </BodyCell>
+                <BodyCell nowrap>
+                  <Text color="gray.600">{question.prompt}</Text>
+                </BodyCell>
+              </tr>
+            ))}
         </tbody>
       </Table>
     </>
   );
-  return <Page>{(loadingStudy || loadingParticipant) ? LOAD : BODY}</Page>;
-  
+  return <Page>{loadingStudy || loadingParticipant ? LOAD : BODY}</Page>;
 }
 
 const Head = styled.div`
