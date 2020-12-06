@@ -44,7 +44,7 @@ function ParticipantRow({ study, participant }) {
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaClock />} />
         </Tooltip>
       </Buttons>
-      <Link to={`/study/${study.nctID}/participant/${participant.key}`}>
+      <Link to={`/study/${study.nctID}/participant/${participant.id}`}>
         <Button size="sm" colorScheme="blue">
           Screen
         </Button>
