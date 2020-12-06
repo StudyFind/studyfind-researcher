@@ -5,6 +5,7 @@ import { Heading, Button, Tag, Text } from "@chakra-ui/react";
 import { fetchStudy } from "database/studies";
 import { fetchParticipant } from "database/participants";
 import { Spinner } from "components";
+import { Link } from "react-router-dom";
 
 function Screen() {
   const { id, participantid } = useParams();
@@ -40,7 +41,9 @@ function Screen() {
     <>
       <Head>
         <Heading fontSize="28px">Survey</Heading>
-        <Button colorScheme="blue">Edit Questions</Button>
+        <Link to={`/study/${study.nctID}`}>
+        <Button colorScheme="blue">Go back</Button>
+      </Link>
       </Head>
       <Table>
         <thead>
@@ -63,7 +66,7 @@ function Screen() {
                   <Text color="gray.600">{question.prompt}</Text>
                 </BodyCell>
                 <BodyCell nowrap>
-                  <Text color="gray.600">{question.prompt}</Text>
+                  <Text color="gray.600">{participant.responses && participant.responses[index]}</Text>
                 </BodyCell>
               </tr>
             ))}
