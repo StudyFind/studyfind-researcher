@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Box, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/react";
 
-function StudyCard({ study }) {
+function StudyCardSmall({ study }) {
   return (
     <Card to={`/study/${study.nctID}`}>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
@@ -38,7 +38,7 @@ const Conditions = styled(Stack)`
   display: grid;
   grid-gap: 4px;
   flex-wrap: wrap;
-  height: 25px;
+  height: 24px;
   overflow: hidden;
 `;
 
@@ -64,4 +64,4 @@ const Description = styled(Text)`
   -webkit-box-orient: vertical;
 `;
 
-export default StudyCard;
+export default StudyCardSmall;

@@ -135,24 +135,16 @@ function Participants({ study }) {
   );
 
   const EMPTY = (
-    <Card h="100%" bg="white">
+    <Box h="500px">
       <Message
         type="failure"
         title="No participants yet"
         description="Your study does not have any participants yet!"
       />
-    </Card>
-  );
-
-  const LIST = (
-    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-      {participantsFiltered.map((participant, index) => (
-        <ParticipantsRow key={index} participant={participant} />
-      ))}
     </Box>
   );
 
-  return (
+  const LIST = (
     <>
       <Head>
         <Heading fontSize="28px">Participants</Heading>
@@ -176,9 +168,15 @@ function Participants({ study }) {
           setSort={setSort}
         />
       )}
-      {loading ? LOAD : participantsFiltered.length ? LIST : EMPTY}
+      <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
+        {participantsFiltered.map((participant, index) => (
+          <ParticipantsRow key={index} participant={participant} />
+        ))}
+      </Box>
     </>
   );
+
+  return <>{loading ? LOAD : participantsFiltered.length ? LIST : EMPTY}</>;
 }
 
 const Head = styled.div`

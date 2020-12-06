@@ -14,11 +14,9 @@ function Settings() {
 }
 
 const Box = styled.div`
-  width: 100vw;
-  height: 100vh;
+  padding: 40px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  grid-gap: 20px;
 `;
 
 export default Settings;

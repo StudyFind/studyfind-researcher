@@ -13,7 +13,7 @@ function Activate({ study, setStudy }) {
   return (
     <Section>
       <Heading mb="8px" size="md">
-        Study Status
+        Recruitment Status
       </Heading>
       {study.activated ? (
         <Badge colorScheme="green" fontSize="0.8rem">

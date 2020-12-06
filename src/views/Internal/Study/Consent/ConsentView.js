@@ -7,7 +7,11 @@ import { Heading, Button, Spinner, Box, Message } from "components";
 function ConsentViewer({ study, setEdit }) {
   const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.nctID}.pdf`));
 
-  const LOAD = <Spinner />;
+  const LOAD = (
+    <Box h="500px" w="100%">
+      <Spinner />
+    </Box>
+  );
 
   const FORM = value ? <PDFViewer src={value} /> : <strong>{error && error.message}</strong>;
 
@@ -20,7 +24,7 @@ function ConsentViewer({ study, setEdit }) {
         </Button>
       </Head>
       <Box h="500px" w="100%">
-        {loading ? LOAD : FORM}
+        {FORM}
       </Box>
     </>
   );
@@ -29,17 +33,17 @@ function ConsentViewer({ study, setEdit }) {
     <Box h="500px">
       <Message
         type="neutral"
-        title="Create screening survey"
-        description="The screening survey allows you to screen participants using your inclusion and exclusion eligibility criteria"
+        title="Upload consent form"
+        description="The consent form allows participants to know details and risks of the research study and makes them aware of what they're signing up for"
       >
         <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Create Survey
+          Upload Consent
         </Button>
       </Message>
     </Box>
   );
 
-  return value ? BODY : EMPTY;
+  return loading ? LOAD : value ? BODY : EMPTY;
 }
 
 const Head = styled.div`

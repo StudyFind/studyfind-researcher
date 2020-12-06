@@ -11,9 +11,9 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
         Modifying Title and Description
       </Heading>
       <Text mb="10px" color="gray.500">
-        We at StudyFind strive to make research studies as accessible as possible. To achieve this,
-        we ask that researchers simplify the language used in the study description by avoiding
-        medical jargon and making it readable for the general population to improve their partipant
+        StudyFind strives to make research studies as accessible as possible. To achieve this, we
+        ask that researchers simplify the language used in the study description by avoiding medical
+        jargon and making it readable for the general population to improve their partipant
         recruitment
       </Text>
       <Inputs>

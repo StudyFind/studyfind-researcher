@@ -9,7 +9,7 @@ function SurveyView({ questions, setEdit }) {
       <Head>
         <Heading fontSize="28px">Survey</Heading>
         <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Questions
+          Edit Survey
         </Button>
       </Head>
       <Table>
