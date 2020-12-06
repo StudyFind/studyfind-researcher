@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState }from "react";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 import { Text, Button, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
 import { FaClock, FaPhone, FaFilter, FaComment } from "react-icons/fa";
 
 function ParticipantRow({ study, participant }) {
+  const [screen, setScreen] = useState(false);
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -43,9 +44,11 @@ function ParticipantRow({ study, participant }) {
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaClock />} />
         </Tooltip>
       </Buttons>
-      <Button size="sm" colorScheme="blue">
-        Screen
-      </Button>
+      <Link to={`/study/${study.nctID}/participant/${participant.key}`}>
+        <Button size="sm" colorScheme="blue">
+          Screen
+        </Button>
+      </Link>
       <Button size="sm" colorScheme="teal">
         Message
       </Button>
@@ -58,6 +61,7 @@ function ParticipantRow({ study, participant }) {
     </Row>
   );
 }
+const showResult = () => console.log("a")
 
 const Row = styled.div`
   display: flex;
@@ -90,6 +94,29 @@ const Cell = styled.div`
   grid-gap: 10px;
   flex: ${(props) => props.flex};
   align-items: center;
+`;
+const Head = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  background: white;
+`;
+
+const HeadCell = styled.th`
+  border: 1px solid #e1e2e3;
+  background: #f1f2f3;
+  padding: 8px 12px;
+  text-align: left;
+`;
+
+const BodyCell = styled.td`
+  border: 1px solid #e1e2e3;
+  padding: 8px 12px;
 `;
 
 export default ParticipantRow;

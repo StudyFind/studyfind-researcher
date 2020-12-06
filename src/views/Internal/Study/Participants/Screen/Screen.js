@@ -39,7 +39,7 @@ function Screen({ questions, responses }) {
             <HeadCell>Response</HeadCell>
           </tr>
         </thead>
-        <tbody>
+        {/* <tbody>
           {questions.map((question, index) => (
             <tr key={index}>
               <BodyCell nowrap>
@@ -55,7 +55,7 @@ function Screen({ questions, responses }) {
               </BodyCell>
             </tr>
           ))}
-        </tbody>
+        </tbody> */}
       </Table>
     </>
   );
