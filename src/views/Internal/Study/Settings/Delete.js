@@ -46,8 +46,7 @@ function Delete({ study }) {
 
       <Text my="8px" color="gray.500">
         Deleting your study will erase all data associated with your research study. This is a
-        permanant action and cannot be undone. If you wish to pause recruitment consider
-        deactivating your study instead.
+        permanant action and cannot be undone.
       </Text>
 
       <Text mt="24px" mb="8px" color="gray.500">

@@ -23,6 +23,8 @@ import {
   FormControl,
   FormErrorMessage,
   Progress,
+  Badge,
+  Switch,
 } from "@chakra-ui/react";
 
 export {
@@ -48,4 +50,6 @@ export {
   FormErrorMessage,
   Progress,
   List,
+  Badge,
+  Switch,
 };
