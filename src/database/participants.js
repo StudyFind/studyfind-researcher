@@ -13,7 +13,7 @@ const fetchParticipant = async (nctID, userID) => {
     .collection("participants")
     .doc(userID)
     .get();
-  return document.data();
+  return { id: document.id, ...document.data() };
 };
 
 const fetchParticipants = async (nctID) => {
