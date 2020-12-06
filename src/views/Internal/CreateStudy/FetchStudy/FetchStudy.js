@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { auth } from "database/firebase";
-import axios from "axios";
+import { makeStudy } from "database/studies";
 
 import FetchStudyView from "./FetchStudyView";
 
@@ -30,20 +29,9 @@ function FetchStudy({ setTab, setStudy }) {
     if (validID) {
       setError("");
       setLoading(true);
-      auth.currentUser
-        .getIdToken(false)
-        .then(async (token) => {
-          const response = await axios.get(
-            "https://us-central1-studyfind-researcher.cloudfunctions.net/makeStudy",
-            {
-              params: {
-                nctID: validID,
-                idToken: token,
-              },
-            }
-          );
-
-          const { study, error } = response.data;
+      makeStudy(nctID)
+        .then((data) => {
+          const { study, error } = data;
 
           if (study) {
             setStudy(study);
@@ -53,7 +41,7 @@ function FetchStudy({ setTab, setStudy }) {
           }
         })
         .catch((err) => {
-          setError("Unable to authenticate user");
+          setError("Unable to authenticate user: " + err.toString());
         })
         .finally(() => setLoading(false));
     } else {
