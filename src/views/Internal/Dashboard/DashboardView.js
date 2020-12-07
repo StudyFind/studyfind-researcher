@@ -11,7 +11,7 @@ function DashboardView({ studies, loading }) {
   const GRID = (
     <Box>
       <Head>
-        <Heading>Your Studies</Heading>
+        <Heading>Dashboard</Heading>
         <Link to="/create">
           <Button leftIcon={<FaPlusCircle />} colorScheme="blue">
             Create Study
