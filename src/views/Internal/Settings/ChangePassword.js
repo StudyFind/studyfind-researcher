@@ -13,7 +13,7 @@ function ChangePassword() {
 
   if (success) {
     return (
-      <Box p="40px 30px">
+      <Box p="40px 50px" w="350px" bg="#f8f9fa" borderWidth="1px" borderColor="gray" rounded="md">
         <Message
           type="success"
           title="Password Changed!"

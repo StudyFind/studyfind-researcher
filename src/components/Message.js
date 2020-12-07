@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Text, Box } from "components";
+import { Heading, Text, Box, Center, Flex } from "components";
 import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 function Message({ type, title, description, children }) {
@@ -24,17 +24,19 @@ function Message({ type, title, description, children }) {
 
   return (
     <Page>
-      <Center>
-        <Box as={icon} size="48px" color={`${color}.400`} />
-        <Head>
-          <Heading size="lg" mt="20px" mb="10px">
-            {title}
-          </Heading>
-        </Head>
-        <Text mb="15px" color="gray.500">
-          {description}
-        </Text>
-        {children}
+      <Center maxW="400px">
+        <Flex direction="column" align="center" textAlign="center">
+          <Box as={icon} size="48px" color={`${color}.400`} />
+          <Head>
+            <Heading size="lg" mt="20px" mb="10px">
+              {title}
+            </Heading>
+          </Head>
+          <Text mb="15px" color="gray.500">
+            {description}
+          </Text>
+          {children}
+        </Flex>
       </Center>
     </Page>
   );
@@ -54,15 +56,6 @@ const Head = styled.div`
   justify-content: center;
   align-items: center;
   grid-gap: 10px;
-`;
-
-const Center = styled.div`
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
 `;
 
 export default Message;
