@@ -9,7 +9,6 @@ import Textarea from "./Textarea";
 import Message from "./Message";
 import DescriptionAccessibilityScore from "./DescriptionAccessibilityScore";
 
-// import * as ChakraComponents from "@chakra-ui/react";
 import {
   Box,
   Flex,
@@ -27,6 +26,7 @@ import {
   Badge,
   Switch,
   Tooltip,
+  Alert,
 } from "@chakra-ui/react";
 
 export {
@@ -56,4 +56,5 @@ export {
   Switch,
   DescriptionAccessibilityScore,
   Tooltip,
+  Alert,
 };

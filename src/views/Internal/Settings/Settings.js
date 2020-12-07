@@ -26,11 +26,4 @@ const Body = styled.div`
   grid-gap: 20px;
 `;
 
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-`;
-
 export default Settings;
