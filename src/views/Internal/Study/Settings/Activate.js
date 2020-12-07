@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import { Heading, Text, Switch, Badge, Flex } from "@chakra-ui/react";
+import { Heading, Text, Switch, Badge, Box, Flex } from "@chakra-ui/react";
 import { updateStudy } from "database/studies";
 
 function Activate({ study, setStudy }) {
@@ -11,21 +10,25 @@ function Activate({ study, setStudy }) {
   };
 
   return (
-    <Section>
-      <Flex align="center" mb="8px" gap="10px">
-        <Heading size="md">Recruitment Status</Heading>
+    <Box p="20px" borderBottom="1px solid #f1f2f3">
+      <Flex align="center" mb="8px">
+        <Heading size="md" mr="10px">
+          Recruitment Status
+        </Heading>
         {study.activated ? (
-          <Badge colorScheme="green" fontSize="0.8rem">
+          <Badge colorScheme="green" fontSize="0.9rem">
             ACTIVE
           </Badge>
         ) : (
-          <Badge colorScheme="red" fontSize="0.8rem">
+          <Badge colorScheme="red" fontSize="0.9rem">
             INACTIVE
           </Badge>
         )}
       </Flex>
       <Text color="gray.500" my="8px">
-        Your study recruitment status allows / prevents participants from enrolling in your study.
+        Your study recruitment status corresponds to whether you are accepting participants into
+        your study. A status of active allows participants to enroll while a status of inactive
+        prevents participants from enrolling.
       </Text>
 
       <Switch
@@ -34,13 +37,8 @@ function Activate({ study, setStudy }) {
         isChecked={study.activated}
         onChange={handleToggle}
       />
-    </Section>
+    </Box>
   );
 }
-
-const Section = styled.section`
-  padding: 20px;
-  border-bottom: 1px solid #f1f2f3;
-`;
 
 export default Activate;

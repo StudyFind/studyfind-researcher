@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Box, Grid } from "components";
+import { Heading, Box } from "components";
 
 import Activate from "./Activate";
 import Delete from "./Delete";
@@ -13,17 +13,11 @@ function Settings({ study, setStudy }) {
       <Head>
         <Heading fontSize="28px">Settings</Heading>
       </Head>
-      <Grid templateColumns="1fr 1fr" gap="20px">
-        <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-          <Activate study={study} setStudy={setStudy} />
-        </Box>
-        <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-          <Reset study={study} />
-        </Box>
-        <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-          <Delete study={study} />
-        </Box>
-      </Grid>
+      <Box borderWidth="1px" rounded="md" bg="white">
+        <Activate study={study} setStudy={setStudy} />
+        <Reset study={study} />
+        <Delete study={study} />
+      </Box>
     </>
   );
 }
