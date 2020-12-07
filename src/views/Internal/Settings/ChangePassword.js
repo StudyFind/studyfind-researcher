@@ -13,7 +13,7 @@ function ChangePassword() {
 
   if (success) {
     return (
-      <Box p="40px 50px" w="350px" bg="#f8f9fa" borderWidth="1px" borderColor="gray" rounded="md">
+      <Box p="40px 50px" w="350px" bg="white" borderWidth="1px" borderColor="gray" rounded="md">
         <Message
           type="success"
           title="Password Changed!"
@@ -24,7 +24,7 @@ function ChangePassword() {
   }
 
   return (
-    <Box w="350px" bg="#f8f9fa" borderWidth="1px" borderColor="gray" rounded="md">
+    <Box w="350px" bg="white" borderWidth="1px" borderColor="gray" rounded="md">
       <Form onSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
         <Heading>Change Password</Heading>
         <Password

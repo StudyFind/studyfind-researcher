@@ -12,11 +12,11 @@ function ChangePassword() {
   });
 
   return (
-    <Box w="350px" bg="#f8f9fa" borderWidth="1px" borderColor="gray" rounded="md">
+    <Box w="350px" bg="white" borderWidth="1px" borderColor="gray" rounded="md">
       <Form onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
         <Heading color="red.500">Delete Account</Heading>
         <Email value={inputs.email} error={errors.email} onChange={handleInput} />
-        <Password value={inputs.Password} error={errors.Password} onChange={handleInput} />
+        <Password value={inputs.password} error={errors.password} onChange={handleInput} />
         <Button loading={loading} colorScheme="red">
           Confirm Delete Account
         </Button>
