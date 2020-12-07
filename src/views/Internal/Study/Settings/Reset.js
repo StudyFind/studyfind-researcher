@@ -20,7 +20,7 @@ function Reset({ study }) {
   return (
     <Box p="20px" borderBottom="1px solid #f1f2f3">
       <Heading mb="8px" size="md">
-        Reset Study Data
+        Reset Study
       </Heading>
 
       <Text color="gray.500" my="8px">
