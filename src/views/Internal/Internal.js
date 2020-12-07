@@ -9,10 +9,10 @@ import Settings from "views/Internal/Settings/Settings";
 import Studies from "views/Internal/Studies/Studies";
 import Study from "views/Internal/Study/Study";
 import Notifications from "./Notifications/Notifications";
-
+import Screen from "./Study/Participants/Screen/Screen";
 function Internal() {
   return (
-    <Screen>
+    <ThisScreen>
       <Sidebar />
       <Page>
         <Switch>
@@ -22,14 +22,15 @@ function Internal() {
           <Route exact path="/create" component={CreateStudy} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/settings" component={Settings} />
+          <Route exact path="/study/:id/participant/:participantid" component={Screen} />
           <Redirect to="/" />
         </Switch>
       </Page>
-    </Screen>
+    </ThisScreen>
   );
 }
 
-const Screen = styled.div`
+const ThisScreen = styled.div`
   display: flex;
   background: #f8f9fa;
 `;

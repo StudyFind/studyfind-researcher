@@ -150,7 +150,7 @@ function Participants({ study }) {
       )}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participantsFiltered.map((participant, index) => (
-          <ParticipantsRow key={index} participant={participant} />
+          <ParticipantsRow key={index} study={study} participant={participant} />
         ))}
       </Box>
     </>
