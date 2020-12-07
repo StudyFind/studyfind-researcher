@@ -144,6 +144,16 @@ function Participants({ study }) {
     </Box>
   );
 
+  const FILTER_EMPTY = (
+    <Box h="500px">
+      <Message
+        type="failure"
+        title="Empty Filter Results"
+        description="Your filters matched no participants"
+      />
+    </Box>
+  );
+
   const LIST = (
     <>
       <Head>
@@ -169,14 +179,16 @@ function Participants({ study }) {
         />
       )}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {participantsFiltered.map((participant, index) => (
-          <ParticipantsRow key={index} participant={participant} />
-        ))}
+        {participantsFiltered && participantsFiltered.length
+          ? participantsFiltered.map((participant, index) => (
+              <ParticipantsRow key={index} participant={participant} />
+            ))
+          : FILTER_EMPTY}
       </Box>
     </>
   );
 
-  return <>{loading ? LOAD : participantsFiltered.length ? LIST : EMPTY}</>;
+  return <>{loading ? LOAD : participants.length ? LIST : EMPTY}</>;
 }
 
 const Head = styled.div`
