@@ -7,6 +7,7 @@ import Input from "./Input";
 import Select from "./Select";
 import Textarea from "./Textarea";
 import Message from "./Message";
+import DescriptionAccessibilityScore from "./DescriptionAccessibilityScore";
 
 // import * as ChakraComponents from "@chakra-ui/react";
 import {
@@ -25,6 +26,7 @@ import {
   Progress,
   Badge,
   Switch,
+  Tooltip,
 } from "@chakra-ui/react";
 
 export {
@@ -52,4 +54,6 @@ export {
   List,
   Badge,
   Switch,
+  DescriptionAccessibilityScore,
+  Tooltip,
 };

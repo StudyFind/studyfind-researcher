@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-import { Form, Textarea } from "components";
-import { Text, Button, Heading } from "@chakra-ui/react";
+import { Form, Textarea, Text, Button, Heading, DescriptionAccessibilityScore } from "components";
 
 function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
   return (
@@ -38,6 +36,7 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
           onChange={handleChange}
         />
       </Inputs>
+      <DescriptionAccessibilityScore description={inputs.description} />
       <Buttons>
         <Button mt="20px" ml="auto" colorScheme="blue" type="submit" style={{ textAlign: "right" }}>
           Submit

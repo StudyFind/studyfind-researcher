@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-import { Button, Heading, Textarea } from "components";
+import { Button, Heading, Textarea, DescriptionAccessibilityScore } from "components";
 
 function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, handleSubmit }) {
   return (
@@ -46,6 +45,7 @@ function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, han
           height="150px"
           onChange={handleChange}
         />
+        <DescriptionAccessibilityScore description={inputs.description} />
       </Inputs>
     </>
   );

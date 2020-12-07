@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { updateStudy } from "database/studies";
-import { compute } from "functions";
 
 import DetailsCard from "./DetailsCard";
 import DetailsEdit from "./DetailsEdit";
@@ -9,10 +8,6 @@ function Details({ study, setStudy }) {
   const [edit, setEdit] = useState(false);
   const [inputs, setInputs] = useState({ title: study.title, description: study.description });
   const [errors, setErrors] = useState({ title: "", description: "" });
-
-  useEffect(() => {
-    setErrors({ title: "", description: "" });
-  }, [edit]);
 
   useEffect(() => {
     if (study.nctID) {
@@ -39,15 +34,11 @@ function Details({ study, setStudy }) {
       },
 
       description: (value) => {
-        const MIN_LIMIT = 400;
+        const MIN_LIMIT = 300;
         const MAX_LIMIT = 500;
 
         if (value.length < MIN_LIMIT || value.length > MAX_LIMIT) {
           return `The best descriptions are between ${MIN_LIMIT} and ${MAX_LIMIT} characters`;
-        }
-
-        if (compute.readabilityIndex(value) > 16) {
-          return "Description is too complicated for the general population";
         }
       },
     };

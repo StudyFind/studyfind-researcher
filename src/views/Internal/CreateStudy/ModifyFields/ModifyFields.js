@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { compute } from "functions";
 
 import ModifyFieldsView from "./ModifyFieldsView";
 
@@ -32,15 +31,11 @@ function ModifyFields({ study, setStudy, setTab }) {
       },
 
       description: (value) => {
-        const MIN_LIMIT = 400;
+        const MIN_LIMIT = 300;
         const MAX_LIMIT = 500;
 
         if (value.length < MIN_LIMIT || value.length > MAX_LIMIT) {
           return `The best descriptions are between ${MIN_LIMIT} and ${MAX_LIMIT} characters`;
-        }
-
-        if (compute.readabilityIndex(value) > 16) {
-          return "Description is too complicated for the general population";
         }
       },
     };

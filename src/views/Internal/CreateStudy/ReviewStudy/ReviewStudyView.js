@@ -11,31 +11,27 @@ function ReviewStudyView({ study, handleDelete, handlePublish, deleteLoading, pu
         Review Your Study
       </Heading>
       <Text mb="15px" color="gray.500">
-        This is how your research study will appear to participants. Please check that the details
-        of the study match what you would like to present to the participants. If you would like the
-        change anything, please update your study on clinicaltrials.gov and re-create the study.
+        Please check that the details of the study match what you would like to present to potential
+        participants. If you would like to change the study title and description, you can edit
+        these once the study is published. If you would like to change other study information,
+        please make changes to the study on clinicaltrials.gov and update the study through the
+        StudyFind study settings.
       </Text>
       <StudyCardLarge study={study} />
       <Buttons>
         <Button
           colorScheme="red"
           onClick={handleDelete}
+          isDisabled={deleteLoading || publishLoading}
           isLoading={deleteLoading}
           loadingText="Deleting"
         >
           Delete
         </Button>
         <Button
-          colorScheme="blue"
-          onClick={handlePublish}
-          isLoading={publishLoading}
-          loadingText="Saving"
-        >
-          Save
-        </Button>
-        <Button
           colorScheme="green"
           onClick={handlePublish}
+          isDisabled={deleteLoading || publishLoading}
           isLoading={publishLoading}
           loadingText="Publishing"
         >
