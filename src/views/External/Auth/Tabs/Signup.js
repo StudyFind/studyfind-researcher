@@ -2,16 +2,8 @@ import React from "react";
 
 import { useAuthForm } from "hooks";
 import { signup } from "database";
-import {
-  Form,
-  Heading,
-  Email,
-  Password,
-  Button,
-  TabLink,
-  Message,
-} from "views/External/Auth/Blocks";
-import { Input } from "components";
+import { Form, Heading, Email, Password, Button, TabLink } from "views/External/Auth/Blocks";
+import { Message, Box } from "components";
 
 function Login({ setTab }) {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
@@ -21,13 +13,15 @@ function Login({ setTab }) {
 
   if (success) {
     return (
-      <Message
-        type="success"
-        title="Account Created!"
-        description=" Check your email for a verification link"
-      >
-        <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
-      </Message>
+      <Box p="40px 30px">
+        <Message
+          type="success"
+          title="Account Created!"
+          description="Check your email for a verification link"
+        >
+          <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
+        </Message>
+      </Box>
     );
   }
 

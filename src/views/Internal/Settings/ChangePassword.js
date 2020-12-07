@@ -1,10 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 
 import { useAuthForm } from "hooks";
 import { changePassword } from "database";
-import { Form, Heading, Password, Button, Message } from "views/External/Auth/Blocks";
-import { Box } from "components";
+import { Form, Heading, Password, Button } from "views/External/Auth/Blocks";
+import { Box, Message } from "components";
 
 function ChangePassword() {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
@@ -14,11 +13,13 @@ function ChangePassword() {
 
   if (success) {
     return (
-      <Message
-        type="success"
-        title="Password Changed!"
-        description="You can now use your new password to log in"
-      />
+      <Box p="40px 30px">
+        <Message
+          type="success"
+          title="Password Changed!"
+          description="You can now use your new password to log in"
+        />
+      </Box>
     );
   }
 

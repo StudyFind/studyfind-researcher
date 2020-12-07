@@ -2,7 +2,8 @@ import React from "react";
 
 import { useAuthForm } from "hooks";
 import { sendPasswordResetEmail } from "database";
-import { Form, Heading, Email, Button, TabLink, Message } from "views/External/Auth/Blocks";
+import { Form, Heading, Email, Button, TabLink } from "views/External/Auth/Blocks";
+import { Box, Message } from "components";
 
 function ForgotPassword({ setTab }) {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
@@ -12,12 +13,15 @@ function ForgotPassword({ setTab }) {
 
   if (success) {
     return (
-      <Message type="success" title="Email Sent!">
-        Check your email for a password reset link
-        <div>
-          <Button onClick={() => setTab("login")}> Back to login </Button>
-        </div>
-      </Message>
+      <Box p="40px 30px">
+        <Message
+          type="success"
+          title="Email Sent!"
+          description="Check your email for a password reset link"
+        >
+          <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
+        </Message>
+      </Box>
     );
   }
 

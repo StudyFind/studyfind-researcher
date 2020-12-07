@@ -2,7 +2,8 @@ import React from "react";
 
 import { useAuthForm } from "hooks";
 import { resetPassword } from "database";
-import { Form, Heading, Password, Button, TabLink, Message } from "views/External/Auth/Blocks";
+import { Form, Heading, Password, Button, TabLink } from "views/External/Auth/Blocks";
+import { Box, Message } from "components";
 
 function ResetPassword({ setTab }) {
   const url = new URL(window.location.href);
@@ -15,13 +16,15 @@ function ResetPassword({ setTab }) {
 
   if (success) {
     return (
-      <Message
-        type="success"
-        title="Password Reset!"
-        description="You can now use your new password to log in"
-      >
-        <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
-      </Message>
+      <Box p="40px 30px">
+        <Message
+          type="success"
+          title="Password Reset!"
+          description="You can now use your new password to log in"
+        >
+          <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
+        </Message>
+      </Box>
     );
   }
 
