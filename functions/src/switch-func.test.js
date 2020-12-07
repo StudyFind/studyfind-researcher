@@ -15,7 +15,7 @@ describe("switch-func", () => {
 
     beforeEach(async () => {
         func = Func(context);
-        req = { originalUrl: "/studyfind-researcher/us-central1/studies" };
+        req = { url: "" };
         res = { json: jest.fn(), status: jest.fn(), set: jest.fn() };
     });
 
@@ -37,7 +37,7 @@ describe("switch-func", () => {
         expect(resp.error).not.toBeNull();
         expect(resp.error).not.toBeUndefined();
 
-        req.originalUrl += "/NON_EXISTING_FUNC";
+        req.url += "/NON_EXISTING_FUNC";
         await func(req, res);
 
         resp = res.json.mock.calls[0][0];
@@ -53,33 +53,39 @@ describe("switch-func", () => {
     });
 
     it("calls correct func with right arguments", async () => {
-        req.originalUrl += "/TEST_FUNC";
+        req.url += "/TEST_FUNC";
         await func(req, res);
 
         expect(res.json).toHaveBeenCalledTimes(0);
 
         expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
-        expect(mSwitchList.TEST_FUNC.mock.calls[1]).toEqual([req, res]);
+        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1]
+        expect(retReq.url).toBe("/");
+        expect(retRes).toBe(res);
     });
 
     it("handles additional url subroutes", async () => {
-        req.originalUrl += "/TEST_FUNC/SUBROUTE";
+        req.url += "/TEST_FUNC/SUBROUTE";
         await func(req, res);
 
         expect(res.json).toHaveBeenCalledTimes(0);
 
         expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
-        expect(mSwitchList.TEST_FUNC.mock.calls[1]).toEqual([req, res]);
+        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1]
+        expect(retReq.url).toBe("/SUBROUTE");
+        expect(retRes).toBe(res);
     });
 
     it("handles additional url parameters", async () => {
-        req.originalUrl += "/TEST_FUNC?param=1";
+        req.url += "/TEST_FUNC?param=1";
         await func(req, res);
 
         expect(res.json).toHaveBeenCalledTimes(0);
 
         expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
-        expect(mSwitchList.TEST_FUNC.mock.calls[1]).toEqual([req, res]);
+        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1]
+        expect(retReq.url).toBe("/?param=1");
+        expect(retRes).toBe(res);
     });
 
 });
