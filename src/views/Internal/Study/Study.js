@@ -102,7 +102,6 @@ const TabItem = styled(Tab)`
 
 const Page = styled.div`
   padding: 20px;
-  height: 100vh;
   background: #f8f9fa;
 `;
 
@@ -110,7 +109,7 @@ const PageLoader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: calc(100vh - 40px);
 `;
 
 export default Study;

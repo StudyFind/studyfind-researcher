@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 import { Text, Button, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
-import { FaClock, FaPhone, FaFilter, FaComment } from "react-icons/fa";
+import { FaClock, FaList, FaComment } from "react-icons/fa";
 
-function ParticipantRow({ study, participant }) {
+function ParticipantRow({ participant }) {
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -34,27 +34,23 @@ function ParticipantRow({ study, participant }) {
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
         </Tooltip>
         <Tooltip label="Screen">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaFilter />} />
-        </Tooltip>
-        <Tooltip label="Schedule">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaPhone />} />
+          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaList />} />
         </Tooltip>
         <Tooltip label="Remind">
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaClock />} />
         </Tooltip>
       </Buttons>
-      <Button size="sm" colorScheme="blue">
-        Screen
-      </Button>
-      <Button size="sm" colorScheme="teal">
-        Message
-      </Button>
-      <Button size="sm" colorScheme="orange">
-        Schedule
-      </Button>
-      <Button size="sm" colorScheme="purple">
-        Remind
-      </Button>
+      <Buttons>
+        <Button size="sm" colorScheme="blue">
+          Screen
+        </Button>
+        <Button size="sm" colorScheme="teal">
+          Message
+        </Button>
+        <Button size="sm" colorScheme="orange">
+          Remind
+        </Button>
+      </Buttons>
     </Row>
   );
 }
@@ -64,14 +60,6 @@ const Row = styled.div`
   align-items: center;
   grid-gap: 10px;
   padding: 10px;
-
-  // &:nth-child(even) {
-  //   background: #ebf8ff;
-  // }
-
-  // &:nth-child(odd) {
-  //   background: white;
-  // }
 
   border-bottom: 1px solid #f1f2f3;
 
@@ -83,13 +71,7 @@ const Row = styled.div`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const Cell = styled.div`
-  display: flex;
   grid-gap: 10px;
-  flex: ${(props) => props.flex};
-  align-items: center;
 `;
 
 export default ParticipantRow;

@@ -18,7 +18,7 @@ function ConsentViewer({ study, setEdit }) {
   const BODY = (
     <>
       <Head>
-        <Heading fontSize="28px">Consent Form</Heading>
+        <Heading fontSize="28px">Consent</Heading>
         <Button colorScheme="blue" onClick={() => setEdit(true)}>
           Upload New File
         </Button>
@@ -37,7 +37,7 @@ function ConsentViewer({ study, setEdit }) {
         description="The consent form allows participants to know details and risks of the research study and makes them aware of what they're signing up for"
       >
         <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Upload Consent
+          Upload Consent Form
         </Button>
       </Message>
     </Box>
