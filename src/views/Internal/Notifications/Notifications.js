@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Spinner, List } from "@chakra-ui/react";
+import { Heading, Spinner, Box } from "@chakra-ui/react";
 import Notification from "./Notification";
 
 function Notifications() {
@@ -39,31 +39,20 @@ function Notifications() {
 
   const BODY = (
     <>
-      <Head>
-        <Heading fontSize="28px">Notifications</Heading>
-      </Head>
-      <List>
+      <Heading mb="25px">Notifications</Heading>
+      <Box borderWidth="1px" rounded="md" bg="white">
         {notifications.map((notification, index) => (
-          <List.Row key={index}>
-            <Notification notification={notification} />
-          </List.Row>
+          <Notification key={index} notification={notification} />
         ))}
-      </List>
+      </Box>
     </>
   );
 
   return <Page>{loading ? LOAD : BODY}</Page>;
 }
 
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
 const Page = styled.div`
-  padding: 20px;
+  padding: 30px;
   height: 100%;
   background: #f8f9fa;
 `;
