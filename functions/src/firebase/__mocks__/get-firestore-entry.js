@@ -1,5 +1,3 @@
 module.exports = jest.fn(
-    async ({ firestore, collection, document }) => ({
-        exists: false,
-    })
+    async ({ firestore, collection, document }) => undefined
 )
