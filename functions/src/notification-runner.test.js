@@ -1,21 +1,43 @@
-const admin = require("firebase-admin");
-admin.initializeApp();
+const admin = require('./__mocks__/admin');
+
+const firestore = admin.firestore();
+
 const context = { admin };
-const Func = require("./reset-study");
+const Func = require("./notification-runner");
 
 describe("notification-runner", () => {
     let func;
-    let req;
-    let res;
 
     beforeEach(async () => {
         func = Func(context);
-        req = { query: { nctID: "NCTID", idToken: "IDTOKEN" } };
-        res = { json: jest.fn(), status: jest.fn(), set: jest.fn() };
     });
 
     afterEach(() => {
         jest.clearAllMocks();
     });
 
+    it("asks for all studies", async () => {
+        firestore.snapshot.mockReturnValueOnce(mStudies)
+
+        await func();
+
+        expect(firestore.set).toHaveBeenCalledTimes(0);
+
+        expect(firestore.collection).toHaveBeenCalledTimes(1);
+        expect(firestore.collection).toHaveBeenCalledWith("studies");
+        expect(firestore.get).toHaveBeenCalledTimes(1);
+    });
+
 });
+
+const mStudies = [
+    {
+        notifications: [{
+            text: 'TEST',
+            times: [100],
+            startDate: 0,
+            endDate: 1000,
+            lastNotified: 0
+        }]
+    }
+]
