@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
 import { Text, Button, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
-import { FaClock, FaList, FaComment } from "react-icons/fa";
+import { FaClock, FaPhone, FaFilter, FaComment } from "react-icons/fa";
 
-function ParticipantRow({ participant }) {
+function ParticipantRow({ participant, handleDrawer }) {
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -34,23 +33,27 @@ function ParticipantRow({ participant }) {
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
         </Tooltip>
         <Tooltip label="Screen">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaList />} />
+          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaFilter />} />
+        </Tooltip>
+        <Tooltip label="Schedule">
+          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaPhone />} />
         </Tooltip>
         <Tooltip label="Remind">
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaClock />} />
         </Tooltip>
       </Buttons>
-      <Buttons>
-        <Button size="sm" colorScheme="blue">
-          Screen
-        </Button>
-        <Button size="sm" colorScheme="teal">
-          Message
-        </Button>
-        <Button size="sm" colorScheme="orange">
-          Remind
-        </Button>
-      </Buttons>
+      <Button size="sm" colorScheme="blue" onClick={() => handleDrawer("screen", participant.id)}>
+        Screen
+      </Button>
+      <Button size="sm" colorScheme="teal">
+        Message
+      </Button>
+      <Button size="sm" colorScheme="orange">
+        Schedule
+      </Button>
+      <Button size="sm" colorScheme="purple">
+        Remind
+      </Button>
     </Row>
   );
 }
@@ -71,7 +74,6 @@ const Row = styled.div`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-  grid-gap: 10px;
 `;
 
 export default ParticipantRow;

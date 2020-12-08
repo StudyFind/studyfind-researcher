@@ -27,6 +27,13 @@ import {
   Switch,
   Tooltip,
   Alert,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerFooter,
 } from "@chakra-ui/react";
 
 export {
@@ -57,4 +64,11 @@ export {
   DescriptionAccessibilityScore,
   Tooltip,
   Alert,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerFooter,
 };

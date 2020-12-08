@@ -1,16 +1,38 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { fetchParticipants } from "database/participants";
 
-import { Heading, Button, Box, Message, Card } from "components";
+import { useDisclosure } from "@chakra-ui/react";
+import {
+  Text,
+  Heading,
+  Button,
+  Box,
+  Flex,
+  Message,
+  Spinner,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  DrawerCloseButton,
+} from "components";
+
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
+import Screen from "./Screen/Screen";
 
 import { compute } from "functions";
 
 function Participants({ study }) {
+  const { nctID } = useParams();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [drawer, setDrawer] = useState({ action: "", participant: {} });
   const [toggle, setToggle] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [participants, setParticipants] = useState([]);
   const [participantsFiltered, setParticipantsFiltered] = useState([]);
 
@@ -24,19 +46,28 @@ function Participants({ study }) {
     rejected: true,
   });
 
+  const handleDrawer = (action, participantID) => {
+    const participant = participants.find((participant) => participant.id === participantID) || {
+      responses: [],
+    };
+    setDrawer({ action, participant });
+    onOpen();
+  };
+
   useEffect(() => {
-    setLoading(true);
-    fetchParticipants(study.nctID).then((data) => {
-      setParticipants(
-        data.map(({ id, fakename, status, responses }) => ({
-          id,
-          fakename,
-          status,
-          score: compute.eligibilityScore(study.questions, responses),
-        }))
-      );
-      setLoading(false);
-    });
+    fetchParticipants(nctID)
+      .then((data) => {
+        setParticipants(
+          data.map(({ id, fakename, status, responses }) => ({
+            id,
+            fakename,
+            status,
+            responses,
+            score: compute.eligibilityScore(study.questions, responses),
+          }))
+        );
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -125,12 +156,8 @@ function Participants({ study }) {
   };
 
   const LOAD = (
-    <Box rounded="md" h="500px" w="100%">
-      <Message
-        type="failure"
-        title="No participants yet"
-        description="Your study does not have any participants yet!"
-      />
+    <Box h="500px">
+      <Spinner />
     </Box>
   );
 
@@ -181,14 +208,40 @@ function Participants({ study }) {
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participantsFiltered && participantsFiltered.length
           ? participantsFiltered.map((participant, index) => (
-              <ParticipantsRow key={index} participant={participant} />
+              <ParticipantsRow key={index} participant={participant} handleDrawer={handleDrawer} />
             ))
           : FILTER_EMPTY}
       </Box>
+      <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
+            <Flex align="center">
+              {drawer.participant.fakename}
+              <Text ml="8px" mr="auto" fontSize="0.9rem" fontWeight="400" color="gray.500">
+                {drawer.participant.score}% eligible
+              </Text>
+              <DrawerCloseButton position="static" />
+            </Flex>
+          </DrawerHeader>
+          <DrawerBody p="20px" bg="#f8f9fa">
+            <Screen responses={drawer.participant.responses} questions={study.questions} />
+          </DrawerBody>
+          <DrawerFooter borderTopWidth="1px">
+            <Button variant="outline" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="red" mr={3} onClick={onClose}>
+              Reject
+            </Button>
+            <Button colorScheme="green">Accept</Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 
-  return <>{loading ? LOAD : participants.length ? LIST : EMPTY}</>;
+  return loading ? LOAD : participants.length ? LIST : EMPTY;
 }
 
 const Head = styled.div`

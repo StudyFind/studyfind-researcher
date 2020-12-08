@@ -1,88 +1,31 @@
 import React from "react";
-import styled from "styled-components";
-
-import { Heading, Button, Tag, Text } from "@chakra-ui/react";
+import { Tag, Heading, Text, Box, Flex, Grid } from "components";
+import { compute } from "functions";
 
 function Screen({ questions, responses }) {
-  responses = [
-    "Yes",
-    "No",
-    "I don't know",
-    "No",
-    "I don't know",
-    "No",
-    "Yes",
-    "Yes",
-    "No",
-    "I don't know",
-    "No",
-    "I don't know",
-    "No",
-    "Yes",
-    "Yes",
-    "No",
-    "I don't know",
-    "No",
-    "I don't know",
-  ];
   return (
-    <>
-      <Head>
-        <Heading fontSize="28px">Survey</Heading>
-        <Button colorScheme="blue">Edit Questions</Button>
-      </Head>
-      <Table>
-        <thead>
-          <tr>
-            <HeadCell>Type</HeadCell>
-            <HeadCell>Question</HeadCell>
-            <HeadCell>Response</HeadCell>
-          </tr>
-        </thead>
-        <tbody>
-          {questions.map((question, index) => (
-            <tr key={index}>
-              <BodyCell nowrap>
-                <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
-                  {question.type}
-                </Tag>
-              </BodyCell>
-              <BodyCell nowrap>
-                <Text color="gray.600">{question.prompt}</Text>
-              </BodyCell>
-              <BodyCell nowrap>
-                <Text color="gray.600">{responses[index]}</Text>
-              </BodyCell>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </>
+    <Grid gap="15px">
+      {questions &&
+        questions.length &&
+        questions.map((question, index) => (
+          <Box borderWidth="1px" bg="white" rounded="md" p="10px" key={index}>
+            <Tag size="sm" colorScheme={question.type === "Inclusion" ? "green" : "red"}>
+              {question.type}
+            </Tag>
+            <Text fontWeight="600" color="black">
+              {question.prompt}
+            </Text>
+            <Text color="gray.600">
+              {(responses && responses.length && responses[index]) || (
+                <Text fontStyle="italic" color="gray.400">
+                  no response
+                </Text>
+              )}
+            </Text>
+          </Box>
+        ))}
+    </Grid>
   );
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  background: white;
-`;
-
-const HeadCell = styled.th`
-  border: 1px solid #e1e2e3;
-  background: #f1f2f3;
-  padding: 8px 12px;
-  text-align: left;
-`;
-
-const BodyCell = styled.td`
-  border: 1px solid #e1e2e3;
-  padding: 8px 12px;
-`;
 
 export default Screen;
