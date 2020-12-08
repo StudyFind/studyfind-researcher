@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import ModifySurveyView from "./ModifySurveyView";
 
 function ModifySurvey({ study, setStudy, setTab }) {
-  const [questions, setQuestions] = useState(
-    study.questions || [{ prompt: "Hello", type: "Exclusion" }]
-  );
+  const [questions, setQuestions] = useState(study.questions || []);
 
   const createQuestion = () => {
     const updated = [...questions];

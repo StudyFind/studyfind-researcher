@@ -48,7 +48,7 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
 
 const Inputs = styled.div`
   display: grid;
-  padding-top: 10px;
+  padding: 10px 0;
   grid-gap: 10px;
 `;
 

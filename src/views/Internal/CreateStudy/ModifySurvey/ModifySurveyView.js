@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Text, Input, Select, Button, IconButton } from "@chakra-ui/react";
+import { Heading, Text, Input, Select, Button, IconButton } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
 function ModifySurveyView({
@@ -11,29 +11,30 @@ function ModifySurveyView({
   deleteAllQuestions,
   handleSubmit,
 }) {
-  const questionComponents = questions.map((question, index) => (
-    <Row key={index}>
-      <Select
-        w="210px"
-        value={question.type}
-        onChange={(e) => updateQuestion(index, "type", e.target.value)}
-      >
-        <option value="Inclusion">Inclusion</option>
-        <option value="Exclusion">Exclusion</option>
-      </Select>
-      <Input
-        value={question.prompt}
-        onChange={(e) => updateQuestion(index, "prompt", e.target.value)}
-      />
-      <IconButton
-        colorScheme=""
-        color="gray.500"
-        _hover={{ color: "red.500", bg: "red.100" }}
-        icon={<FaTrash />}
-        onClick={() => deleteQuestion(index)}
-      />
-    </Row>
-  ));
+  const questionComponents =
+    questions &&
+    questions.map((question, index) => (
+      <Row key={index}>
+        <Select
+          w="210px"
+          value={question.type}
+          onChange={(_, value) => updateQuestion(index, "type", value)}
+          options={["Inclusion", "Exclusion"]}
+        />
+        <Input
+          placeholder="Question Prompt"
+          value={question.prompt}
+          onChange={(_, value) => updateQuestion(index, "prompt", value)}
+        />
+        <IconButton
+          colorScheme=""
+          color="gray.500"
+          _hover={{ color: "red.500", bg: "red.100" }}
+          icon={<FaTrash />}
+          onClick={() => deleteQuestion(index)}
+        />
+      </Row>
+    ));
 
   return (
     <Grid>

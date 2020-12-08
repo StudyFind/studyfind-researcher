@@ -57,7 +57,7 @@ function StudyCardLarge({ study }) {
         </Eligibility>
         {researcher && (
           <Researcher borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="12px">
-            <Avatar bg="blue.500" name={getInitials(researcher.name)} />
+            <Avatar color="white" bg="blue.500" name={getInitials(researcher.name)} />
             <Box>
               <Text>{researcher.name}</Text>
               <Text color="gray.500">
