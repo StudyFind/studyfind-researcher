@@ -4,7 +4,7 @@ import { Heading, Button, FormControl, FormErrorMessage, Progress } from "compon
 import { Input } from "@chakra-ui/react";
 import { storage } from "database/firebase";
 
-function ConsentUpload({ study, setEdit }) {
+function ConsentEdit({ study, setEdit }) {
   const [name, setName] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState("");
@@ -30,13 +30,13 @@ function ConsentUpload({ study, setEdit }) {
       return;
     }
 
-    if (!study.nctID) {
+    if (!study.id) {
       setError("Study ID is missing");
     }
 
     setLoading(true);
 
-    const ref = storage.ref(`consent/${study.nctID}.pdf`);
+    const ref = storage.ref(`consent/${study.id}.pdf`);
     const task = ref.put(file);
 
     task.on(
@@ -109,4 +109,4 @@ const FileInput = styled(Input)`
   padding-right: 4px !important;
 `;
 
-export default ConsentUpload;
+export default ConsentEdit;

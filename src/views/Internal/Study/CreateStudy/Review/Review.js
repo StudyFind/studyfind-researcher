@@ -17,7 +17,7 @@ function Review({ study, setTab }) {
 
   const handleDelete = () => {
     setDeleteLoading(true);
-    deleteStudy(study.nctID)
+    deleteStudy(study.id)
       .then(() => setTab("deleted"))
       .catch(console.log)
       .finally(() => setDeleteLoading(false));

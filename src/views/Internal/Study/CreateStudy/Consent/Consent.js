@@ -29,13 +29,13 @@ function Consent({ study, setTab }) {
       return;
     }
 
-    if (!study.nctID) {
+    if (!study.id) {
       setError("Study ID is missing");
     }
 
     setLoading(true);
 
-    const ref = storage.ref(`consent/${study.nctID}.pdf`);
+    const ref = storage.ref(`consent/${study.id}.pdf`);
     const task = ref.put(file);
 
     task.on(

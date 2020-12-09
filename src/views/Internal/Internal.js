@@ -22,7 +22,6 @@ function Internal() {
           <Route exact path="/create" component={CreateStudy} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/settings" component={Settings} />
-          <Route exact path="/study/:id/participant/:participantid" component={Screen} />
           <Redirect to="/" />
         </Switch>
       </Box>

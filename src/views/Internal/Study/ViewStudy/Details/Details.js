@@ -10,7 +10,7 @@ function Details({ study, setStudy }) {
   const [errors, setErrors] = useState({ title: "", description: "" });
 
   useEffect(() => {
-    if (study.nctID) {
+    if (study.id) {
       setInputs({ title: study.title || "", description: study.description || "" });
 
       const err = {

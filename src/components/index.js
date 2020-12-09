@@ -1,4 +1,3 @@
-import List from "../views/Internal/List";
 import Card from "./Card";
 import Form from "./Form";
 import Spinner from "./Spinner";
@@ -59,7 +58,6 @@ export {
   FormControl,
   FormErrorMessage,
   Progress,
-  List,
   Badge,
   Switch,
   Tooltip,

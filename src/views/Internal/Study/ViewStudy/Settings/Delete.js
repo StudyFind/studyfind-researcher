@@ -20,9 +20,9 @@ function Delete({ study }) {
   };
 
   const handleDelete = () => {
-    if (nctID === study.nctID) {
+    if (nctID === study.id) {
       setLoading(true);
-      deleteStudy(study.nctID)
+      deleteStudy(study.id)
         .then(() => {
           history.push("/studies");
         })
@@ -43,7 +43,7 @@ function Delete({ study }) {
       </Text>
 
       <Text mt="24px" mb="8px" color="gray.500">
-        Please type <strong>{study.nctID}</strong> to confirm:
+        Please type <strong>{study.id}</strong> to confirm:
       </Text>
 
       <DeleteForm onSubmit={handleDelete}>

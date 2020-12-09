@@ -16,7 +16,7 @@ function StudyCardLarge({ study }) {
   return (
     <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px">
       <Text fontSize="sm" color="gray.400">
-        {study.nctID}
+        {study.id}
       </Text>
       <Heading size="md" mt="5px">
         {study.title}

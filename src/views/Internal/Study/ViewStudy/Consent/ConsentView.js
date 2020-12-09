@@ -5,7 +5,7 @@ import { useDownloadURL } from "react-firebase-hooks/storage";
 import { Heading, Button, Spinner, Box, Message } from "components";
 
 function ConsentViewer({ study, setEdit }) {
-  const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.nctID}.pdf`));
+  const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.id}.pdf`));
 
   const LOAD = (
     <Box h="500px" w="100%">

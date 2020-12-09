@@ -9,7 +9,7 @@ function Reset({ study }) {
 
   const handleReset = () => {
     setLoading(true);
-    resetStudy(study.nctID)
+    resetStudy(study.id)
       .then(console.log)
       .catch((err) => {
         console.log(err);
