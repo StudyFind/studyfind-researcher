@@ -8,7 +8,7 @@ import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
 import Settings from "views/Internal/Settings/Settings";
 import Dashboard from "views/Internal/Dashboard/Dashboard";
 import Study from "views/Internal/Study/Study";
-import Notifications from "./Notifications/Notifications";
+import Notifications from "views/Internal/Notifications/Notifications";
 
 function Internal() {
   return (
@@ -22,6 +22,7 @@ function Internal() {
           <Route exact path="/create" component={CreateStudy} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/settings" component={Settings} />
+          <Route exact path="/study/:id/participant/:participantid" component={Screen} />
           <Redirect to="/" />
         </Switch>
       </Box>

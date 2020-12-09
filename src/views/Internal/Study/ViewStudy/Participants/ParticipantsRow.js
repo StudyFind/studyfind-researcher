@@ -57,6 +57,7 @@ function ParticipantRow({ participant, handleDrawer }) {
     </Row>
   );
 }
+const showResult = () => console.log("a");
 
 const Row = styled.div`
   display: flex;
