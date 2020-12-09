@@ -6,11 +6,11 @@ import { Heading, Button, Spinner } from "@chakra-ui/react";
 
 function PictureViewer({ user, setEdit }) {
   var pictureName = user.uid
-  const [tempvalue, temploading, temperror] = useDownloadURL(storage.ref(`profile-pics/${pictureName}.png`));
+  const [tempvalue, temploading, temperror] = useDownloadURL(storage.ref(`profile-pics/${pictureName}`));
   if (!tempvalue) {
-      pictureName = undefined
+      pictureName = "undefined.png"
   }
-  const [value, loading, error] = useDownloadURL(storage.ref(`profile-pics/${pictureName}.png`));
+  const [value, loading, error] = useDownloadURL(storage.ref(`profile-pics/${pictureName}`));
 
     
   const LOAD = (

@@ -24,7 +24,7 @@ function PictureView({ user, setEdit }) {
 
     const ext = name.split(".").reverse()[0];
 
-    if (ext !== "png") {
+    if (ext !== "png" && ext !== "jpg") {
        setError("Sorry we only support png for now");
        return;
     }
@@ -32,7 +32,7 @@ function PictureView({ user, setEdit }) {
 
     setLoading(true);
     console.log(user.uid)
-    const ref = storage.ref(`profile-pics/${user.uid}.png`);
+    const ref = storage.ref(`profile-pics/${user.uid}`);
     const task = ref.put(file);
 
     task.on(
