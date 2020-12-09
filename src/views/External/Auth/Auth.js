@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AuthView from "./AuthView";
 
-function AuthNew() {
+function Auth() {
   const getDefaultTab = () => {
     const url = new URL(window.location.href);
     const mode = url.searchParams.get("mode");
@@ -15,4 +15,4 @@ function AuthNew() {
   return <AuthView tab={tab} setTab={setTab} />;
 }
 
-export default AuthNew;
+export default Auth;

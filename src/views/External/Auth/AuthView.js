@@ -42,7 +42,7 @@ const Tabs = styled.div`
   border-bottom: 1px solid #e7eaf3;
 `;
 
-const Tab = styled.div`
+const Tab = styled.button`
   flex: 1;
   color: #96a0aa;
   text-align: center;
@@ -50,8 +50,11 @@ const Tab = styled.div`
   cursor: pointer;
   font-weight: 600;
   margin-bottom: -2px;
+  outline: none;
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active {
     color: rgb(49, 130, 207);
   }
 

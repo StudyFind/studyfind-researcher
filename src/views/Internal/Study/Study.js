@@ -3,44 +3,27 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { fetchStudy } from "database/studies";
 
-import { Spinner } from "components";
+import { Spinner, Message } from "components";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
-import { FaPoll, FaComment, FaUsers, FaCog, FaInfoCircle } from "react-icons/fa";
 
-import Details from "./Details/Details";
-import Location from "./Location/Location";
-import Survey from "./Survey/Survey";
-import Consent from "./Consent/Consent";
-import Participants from "./Participants/Participants";
-import Settings from "./Settings/Settings";
+import Details from "./ViewStudy/Details/Details";
+import Survey from "./ViewStudy/Survey/Survey";
+import Consent from "./ViewStudy/Consent/Consent";
+import Participants from "./ViewStudy/Participants/Participants";
+import Settings from "./ViewStudy/Settings/Settings";
 
 function Study() {
-  const { id } = useParams();
+  const { nctID } = useParams();
   const [study, setStudy] = useState({});
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [current, setCurrent] = useState("Details");
-
-  const tabs = [
-    { name: "Details", icon: <FaInfoCircle /> },
-    { name: "Survey", icon: <FaPoll /> },
-    { name: "Messages", icon: <FaComment /> },
-    { name: "Participants", icon: <FaUsers /> },
-    { name: "Settings", icon: <FaCog /> },
-  ];
-
-  const content = {
-    Details: <Details study={study} setStudy={setStudy} />,
-    Survey: <Survey study={study} setStudy={setStudy} />,
-    Participants: <Participants />,
-    Settings: <Settings study={study} setStudy={setStudy} />,
-  };
 
   useEffect(() => {
-    fetchStudy(id)
+    fetchStudy(nctID)
       .then(setStudy)
-      .catch(console.log)
+      .catch(setError)
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [nctID]);
 
   const LOAD = (
     <PageLoader>
@@ -48,42 +31,56 @@ function Study() {
     </PageLoader>
   );
 
-  const BODY = (
-    <div>
-      <Tabs colorScheme="blue">
-        <TabList>
-          <TabItem>Details</TabItem>
-          <TabItem>Survey</TabItem>
-          <TabItem>Consent</TabItem>
-          <TabItem>Messages</TabItem>
-          <TabItem>Participants</TabItem>
-          <TabItem>Settings</TabItem>
-        </TabList>
-        <TabPanels>
-          <TabPanel pt="1px">
-            <Details study={study} setStudy={setStudy} />
-          </TabPanel>
-          <TabPanel pt="1px">
-            <Survey study={study} setStudy={setStudy} />
-          </TabPanel>
-          <TabPanel pt="1px">
-            <Consent study={study} setStudy={setStudy} />
-          </TabPanel>
-          <TabPanel pt="1px">
-            <div />
-          </TabPanel>
-          <TabPanel pt="1px">
-            <Participants study={study} />
-          </TabPanel>
-          <TabPanel pt="1px">
-            <Settings study={study} setStudy={setStudy} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </div>
+  const MISSING = (
+    <Message
+      type="failure"
+      title="Study not found!"
+      description={`The study ${nctID} could not be found in the StudyFind database. Please
+  ensure that it has been successfully created by following all directions in the study
+  creation process.`}
+    />
   );
 
-  return <Page>{loading ? LOAD : BODY}</Page>;
+  const DENIED = (
+    <Message
+      type="failure"
+      title="Permission Denied!"
+      description={`You do not have the authorization required to access the study
+  ${nctID}. If you require access to the study, please contact the study owner to grant you
+  priviledge access to the study.`}
+    />
+  );
+
+  const BODY = (
+    <Tabs colorScheme="blue" h="100%">
+      <TabList>
+        <TabItem>Details</TabItem>
+        <TabItem>Survey</TabItem>
+        <TabItem>Consent</TabItem>
+        <TabItem>Participants</TabItem>
+        <TabItem>Settings</TabItem>
+      </TabList>
+      <TabPanels>
+        <TabPanel pt="1px">
+          <Details study={study} setStudy={setStudy} />
+        </TabPanel>
+        <TabPanel pt="1px">
+          <Survey study={study} setStudy={setStudy} />
+        </TabPanel>
+        <TabPanel pt="1px">
+          <Consent study={study} setStudy={setStudy} />
+        </TabPanel>
+        <TabPanel pt="1px">
+          <Participants study={study} />
+        </TabPanel>
+        <TabPanel pt="1px">
+          <Settings study={study} setStudy={setStudy} />
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
+  );
+
+  return <Page>{loading ? LOAD : error ? DENIED : study ? BODY : MISSING}</Page>;
 }
 
 const TabItem = styled(Tab)`
@@ -105,7 +102,6 @@ const TabItem = styled(Tab)`
 
 const Page = styled.div`
   padding: 20px;
-  height: 100%;
   background: #f8f9fa;
 `;
 
@@ -113,7 +109,7 @@ const PageLoader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: calc(100vh - 40px);
 `;
 
 export default Study;

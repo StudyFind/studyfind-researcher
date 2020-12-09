@@ -17,14 +17,12 @@ function Password({ name, placeholder, value, error, onChange }) {
       type={show ? "text" : "password"}
       rightWidth="5rem"
       right={
-        <Toggle size="sm" onClick={handleToggle}>
+        <Button size="sm" onClick={handleToggle}>
           {show ? "Hide" : "Show"}
-        </Toggle>
+        </Button>
       }
     />
   );
 }
-
-const Toggle = styled(Button)``;
 
 export default Password;
