@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { storage } from "database/firebase";
 
-import ConsentFormView from "./ConsentFormView";
+import ConsentView from "./Consent";
 
-function ConsentForm({ study, setTab }) {
+function Consent({ study, setTab }) {
   const [name, setName] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState("");
@@ -59,7 +59,7 @@ function ConsentForm({ study, setTab }) {
   };
 
   return (
-    <ConsentFormView
+    <ConsentView
       loading={loading}
       status={status}
       error={error}
@@ -69,4 +69,4 @@ function ConsentForm({ study, setTab }) {
   );
 }
 
-export default ConsentForm;
+export default Consent;

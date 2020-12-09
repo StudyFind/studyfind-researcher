@@ -4,7 +4,7 @@ import { Box, Flex } from "components";
 
 import Sidebar from "./Sidebar";
 
-import CreateStudy from "views/Internal/CreateStudy/CreateStudy";
+import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
 import Settings from "views/Internal/Settings/Settings";
 import Dashboard from "views/Internal/Dashboard/Dashboard";
 import Study from "views/Internal/Study/Study";

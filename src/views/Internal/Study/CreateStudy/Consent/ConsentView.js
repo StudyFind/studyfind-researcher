@@ -10,7 +10,7 @@ import {
   Progress,
 } from "@chakra-ui/react";
 
-function ConsentForm({ loading, status, error, handleFileSelect, handleFileUpload }) {
+function ConsentView({ loading, status, error, handleFileSelect, handleFileUpload }) {
   return (
     <div>
       <Heading size="lg" mb="10px">
@@ -56,4 +56,4 @@ const FileInput = styled(Input)`
   padding-right: 4px !important;
 `;
 
-export default ConsentForm;
+export default ConsentView;

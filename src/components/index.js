@@ -1,4 +1,4 @@
-import List from "./List";
+import List from "../views/Internal/List";
 import Card from "./Card";
 import Form from "./Form";
 import Spinner from "./Spinner";
@@ -7,7 +7,6 @@ import Input from "./Input";
 import Select from "./Select";
 import Textarea from "./Textarea";
 import Message from "./Message";
-import DescriptionAccessibilityScore from "./DescriptionAccessibilityScore";
 
 import {
   Box,
@@ -63,7 +62,6 @@ export {
   List,
   Badge,
   Switch,
-  DescriptionAccessibilityScore,
   Tooltip,
   Alert,
   Drawer,

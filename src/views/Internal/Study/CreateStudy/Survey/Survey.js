@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ModifySurveyView from "./ModifySurveyView";
+import SurveyView from "./SurveyView";
 
-function ModifySurvey({ study, setStudy, setTab }) {
+function Survey({ study, setStudy, setTab }) {
   const [questions, setQuestions] = useState(study.questions || []);
 
   const createQuestion = () => {
@@ -31,7 +31,7 @@ function ModifySurvey({ study, setStudy, setTab }) {
   };
 
   return (
-    <ModifySurveyView
+    <SurveyView
       questions={questions}
       createQuestion={createQuestion}
       updateQuestion={updateQuestion}
@@ -42,4 +42,4 @@ function ModifySurvey({ study, setStudy, setTab }) {
   );
 }
 
-export default ModifySurvey;
+export default Survey;

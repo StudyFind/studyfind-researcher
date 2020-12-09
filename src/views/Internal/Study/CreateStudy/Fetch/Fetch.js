@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { makeStudy } from "database/studies";
 
-import FetchStudyView from "./FetchStudyView";
+import FetchView from "./FetchView";
 
-function FetchStudy({ setTab, setStudy }) {
+function Fetch({ setTab, setStudy }) {
   const [nctID, setNctID] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -50,7 +50,7 @@ function FetchStudy({ setTab, setStudy }) {
   };
 
   return (
-    <FetchStudyView
+    <FetchView
       nctID={nctID}
       error={error}
       loading={loading}
@@ -60,4 +60,4 @@ function FetchStudy({ setTab, setStudy }) {
   );
 }
 
-export default FetchStudy;
+export default Fetch;

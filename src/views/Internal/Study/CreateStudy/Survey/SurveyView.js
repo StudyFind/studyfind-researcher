@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Heading, Text, Input, Select, Button, IconButton } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
-function ModifySurveyView({
+function SurveyView({
   questions,
   createQuestion,
   updateQuestion,
@@ -92,4 +92,4 @@ const Buttons = styled.div`
   justify-content: flex-end;
 `;
 
-export default ModifySurveyView;
+export default SurveyView;

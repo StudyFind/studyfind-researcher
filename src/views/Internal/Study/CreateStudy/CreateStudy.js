@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 
-import FetchStudy from "views/Internal/CreateStudy/FetchStudy";
-import ConsentForm from "./ConsentForm/ConsentForm";
-import ModifyFields from "views/Internal/CreateStudy/ModifyFields";
-import ModifySurvey from "./ModifySurvey/ModifySurvey";
-import ReviewStudy from "./ReviewStudy/ReviewStudy";
+import Fetch from "./Fetch/Fetch";
+import Consent from "./Consent/Consent";
+import Details from "./Details/Details";
+import Survey from "./Survey/Survey";
+import Review from "./Review/Review";
 import Published from "./Success/Published";
 import Deleted from "./Success/Deleted";
 
@@ -17,11 +17,11 @@ function CreateStudy() {
   const tabs = ["fetch", "fields", "survey", "consent", "review"];
 
   const render = {
-    fetch: <FetchStudy setTab={setTab} setStudy={setStudy} />,
-    fields: <ModifyFields setTab={setTab} study={study} setStudy={setStudy} />,
-    survey: <ModifySurvey setTab={setTab} study={study} setStudy={setStudy} />,
-    consent: <ConsentForm setTab={setTab} study={study} />,
-    review: <ReviewStudy setTab={setTab} study={study} />,
+    fetch: <Fetch setTab={setTab} setStudy={setStudy} />,
+    fields: <Details setTab={setTab} study={study} setStudy={setStudy} />,
+    survey: <Survey setTab={setTab} study={study} setStudy={setStudy} />,
+    consent: <Consent setTab={setTab} study={study} />,
+    review: <Review setTab={setTab} study={study} />,
     published: <Published />,
     deleted: <Deleted />,
   };
@@ -31,7 +31,6 @@ function CreateStudy() {
       {tabs.map((t, i) => (
         <Tag
           key={i}
-          // size="sm"
           h="24px"
           w="24px"
           rounded="full"

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Heading, Textarea, DescriptionAccessibilityScore } from "components";
+import { Button, Heading, Textarea } from "components";
+import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
 
 function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, handleSubmit }) {
   return (

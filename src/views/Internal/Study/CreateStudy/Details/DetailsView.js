@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Form, Textarea, Text, Button, Heading, DescriptionAccessibilityScore } from "components";
+import { Form, Textarea, Text, Button, Heading } from "components";
+import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
 
-function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
+function DetailsView({ inputs, errors, handleChange, handleSubmit }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Heading size="lg" mb="10px">
@@ -58,4 +59,4 @@ const Buttons = styled.div`
   justify-content: flex-end;
 `;
 
-export default ModifyFieldsView;
+export default DetailsView;

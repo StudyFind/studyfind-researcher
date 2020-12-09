@@ -4,7 +4,7 @@ import styled from "styled-components";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 import { Heading, Text, Button } from "components";
 
-function ReviewStudyView({ study, handleDelete, handlePublish, deleteLoading, publishLoading }) {
+function ReviewView({ study, handleDelete, handlePublish, deleteLoading, publishLoading }) {
   return (
     <div>
       <Heading size="lg" mb="10px">
@@ -49,4 +49,4 @@ const Buttons = styled.div`
   margin: 15px 0;
 `;
 
-export default ReviewStudyView;
+export default ReviewView;

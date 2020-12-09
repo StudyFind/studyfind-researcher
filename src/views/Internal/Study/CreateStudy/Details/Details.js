@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import ModifyFieldsView from "./ModifyFieldsView";
+import DetailsView from "./DetailsView";
 
-function ModifyFields({ study, setStudy, setTab }) {
+function Details({ study, setStudy, setTab }) {
   const [inputs, setInputs] = useState({ title: "", description: "" });
   const [errors, setErrors] = useState({ title: "", description: "" });
 
@@ -63,7 +63,7 @@ function ModifyFields({ study, setStudy, setTab }) {
   };
 
   return (
-    <ModifyFieldsView
+    <DetailsView
       inputs={inputs}
       errors={errors}
       handleChange={handleChange}
@@ -72,4 +72,4 @@ function ModifyFields({ study, setStudy, setTab }) {
   );
 }
 
-export default ModifyFields;
+export default Details;

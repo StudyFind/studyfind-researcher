@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { updateStudy, deleteStudy } from "database/studies";
 
-import ReviewStudyView from "./ReviewStudyView";
+import ReviewView from "./ReviewView";
 
-function ReviewStudy({ study, setTab }) {
+function Review({ study, setTab }) {
   const [publishLoading, setPublishLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
@@ -24,7 +24,7 @@ function ReviewStudy({ study, setTab }) {
   };
 
   return (
-    <ReviewStudyView
+    <ReviewView
       study={study}
       handleDelete={handleDelete}
       handlePublish={handlePublish}
@@ -34,4 +34,4 @@ function ReviewStudy({ study, setTab }) {
   );
 }
 
-export default ReviewStudy;
+export default Review;
