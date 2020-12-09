@@ -35,8 +35,8 @@ function ModifyFieldsView({ inputs, errors, handleChange, handleSubmit }) {
           height="150px"
           onChange={handleChange}
         />
+        <DescriptionAccessibilityScore description={inputs.description} />
       </Inputs>
-      <DescriptionAccessibilityScore description={inputs.description} />
       <Buttons>
         <Button mt="20px" ml="auto" colorScheme="blue" type="submit" style={{ textAlign: "right" }}>
           Submit
