@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Heading, Button } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
-function DetailsCard({ study, setEdit }) {
+function DetailsView({ study, setEdit }) {
   return (
     <>
       <Head>
@@ -25,4 +25,4 @@ const Head = styled.div`
   margin: 15px 0;
 `;
 
-export default DetailsCard;
+export default DetailsView;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { updateStudy } from "database/studies";
 
-import DetailsCard from "./DetailsCard";
+import DetailsView from "./DetailsView";
 import DetailsEdit from "./DetailsEdit";
 
 function Details({ study, setStudy }) {
@@ -82,7 +82,7 @@ function Details({ study, setStudy }) {
       handleSubmit={handleSubmit}
     />
   ) : (
-    <DetailsCard study={study} setEdit={setEdit} />
+    <DetailsView study={study} setEdit={setEdit} />
   );
 }
 
