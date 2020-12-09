@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Text, Button, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
 import { FaClock, FaPhone, FaFilter, FaComment } from "react-icons/fa";
@@ -57,7 +57,6 @@ function ParticipantRow({ participant, handleDrawer }) {
     </Row>
   );
 }
-const showResult = () => console.log("a");
 
 const Row = styled.div`
   display: flex;
