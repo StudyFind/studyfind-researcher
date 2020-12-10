@@ -16,17 +16,27 @@ describe("reminders-runner", () => {
         jest.clearAllMocks();
     });
 
-    it("asks for all studies", async () => {
-        firestore.data.mockReturnValueOnce(mStudies()).mockReturnValueOnce(mParticipants())
-        firestore.Timestamp.now.mockReturnValueOnce(100)
+    it("calls all proper functions (base case)", async () => {
+        firestore.data.mockReturnValueOnce(mStudies()).mockReturnValueOnce(mParticipants());
+        firestore.Timestamp.now.mockReturnValueOnce(100);
 
         await func();
-
-        expect(firestore.set).toHaveBeenCalledTimes(0);
 
         expect(firestore.collection).toHaveBeenCalled();
         expect(firestore.collection).toHaveBeenCalledWith("studies");
         expect(firestore.get).toHaveBeenCalled();
+        expect(firestore.set).toHaveBeenCalled();
+    });
+
+    it("adds correct reminders to participant", async () => {
+        firestore.data.mockReturnValueOnce(mStudies()).mockReturnValueOnce(mParticipants())
+        firestore.Timestamp.now.mockReturnValueOnce(100);
+
+        await func();
+
+        expect(firestore.collection).toHaveBeenLastCalledWith("participants");
+        expect(firestore.doc).toHaveBeenLastCalledWith("TEST_PARTICIPANT_ID");
+        expect(firestore.set).toHaveBeenLastCalledWith({ reminders: ["TEST"] }, { merge: true });
     });
 
 });

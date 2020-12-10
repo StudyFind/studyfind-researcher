@@ -42,6 +42,8 @@ const buildNewParticipantReminders = (reminders, all_data) => {
     return participantReminders;
 }
 
+
+
 module.exports = ({ admin }) => (async () => {
     const firestore = admin.firestore();
 
@@ -52,6 +54,13 @@ module.exports = ({ admin }) => (async () => {
             firestore.collection("studies").doc(r.nctID).collection("participants").get()
         ))])
         .then(([reminders, all_data]) => buildNewParticipantReminders(reminders, all_data))
+        .then(reminders => Promise.all(reminders.map(r =>
+            firestore.collection("studies").doc(r.nctID).collection("participants").doc(r.participantID)
+                .set({ reminders: r.reminders }, { merge: true })
+        )))
+        .then(all_resp => {
+            logger.info(`Successfully sent ${all_resp.length} reminder(s)`);
+        })
         .catch(err => {
             logger.error(`Error sending reminders at ${now}: ${err}`);
             throw err;
