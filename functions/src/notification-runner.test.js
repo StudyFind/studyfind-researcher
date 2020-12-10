@@ -17,7 +17,7 @@ describe("notification-runner", () => {
     });
 
     it("asks for all studies", async () => {
-        firestore.snapshot.mockReturnValueOnce(mStudies)
+        firestore.data.mockReturnValueOnce(mStudies)
 
         await func();
 
@@ -32,6 +32,7 @@ describe("notification-runner", () => {
 
 const mStudies = [
     {
+        nctID: 'NCT000',
         notifications: [{
             text: 'TEST',
             times: [100],

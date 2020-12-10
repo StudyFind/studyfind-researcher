@@ -7,10 +7,12 @@ module.exports = ({ admin }) => async () => {
     let offset = now % 604860000; // 1000*60*60*24*7 + 1000*60 == week in milliseconds + 1 min offset
     let count = 0;
 
-    // cannot yet get on subcollections. Check back when that changes
-    const snapshot = await firestore.collection("studies").get();
-    if (snapshot.empty) return;
-    snapshot.forEach(study => {
+    // build studyNotifications with tuple of [studyId, reminderText] of studies with pending reminders
+    const studyNotifications = []
+    const data = await firestore.collection("studies").get();
+    if (data.empty) return;
+    data.forEach(study => {
+        study = study.data();
         study.notifications.forEach(notification => {
 
             if (notification.startDate > now || notification.endDate < now)
@@ -18,6 +20,7 @@ module.exports = ({ admin }) => async () => {
             if (!notification.times.some(t => t > notification.lastNotified && t < offset))
                 return;
 
+            studyNotifications.push([study.nctID, notification.text]);
             // TODO: add user notifications!
 
             count++;
