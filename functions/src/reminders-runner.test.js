@@ -17,28 +17,39 @@ describe("reminders-runner", () => {
     });
 
     it("asks for all studies", async () => {
-        firestore.data.mockReturnValueOnce(mStudies)
+        firestore.data.mockReturnValueOnce(mStudies()).mockReturnValueOnce(mParticipants())
+        firestore.Timestamp.now.mockReturnValueOnce(100)
 
         await func();
 
         expect(firestore.set).toHaveBeenCalledTimes(0);
 
-        expect(firestore.collection).toHaveBeenCalledTimes(1);
+        expect(firestore.collection).toHaveBeenCalled();
         expect(firestore.collection).toHaveBeenCalledWith("studies");
-        expect(firestore.get).toHaveBeenCalledTimes(1);
+        expect(firestore.get).toHaveBeenCalled();
     });
 
 });
 
-const mStudies = [
+// these are functions so they aren't alterable between tests
+const mStudies = () => [
     {
-        nctID: 'NCT000',
+        nctID: "NCT000",
         reminders: [{
-            text: 'TEST',
-            times: [100],
+            id: "TEST_REMINDER_ID",
+            text: "TEST",
+            times: [0, 100],
             startDate: 0,
             endDate: 1000,
             lastNotified: 0
         }]
+    }
+]
+const mParticipants = () => [
+    {
+        id: "TEST_PARTICIPANT_ID",
+        fakeName: "TEST_NAME",
+        status: "accepted",
+        reminders: [],
     }
 ]

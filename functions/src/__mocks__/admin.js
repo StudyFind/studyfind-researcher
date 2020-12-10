@@ -12,7 +12,7 @@ const mFirestore = {
             return { exists: !!data, data: mFirestore.data }
 
         if (!Array.isArray(data)) data = []
-        data = data.map(snapshot => ({ data: () => snapshot }))
+        data = data.map(snapshot => ({ data: () => snapshot, id: snapshot.id }))
         data.exists = data.length > 0
         return data
     }),

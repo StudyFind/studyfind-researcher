@@ -1,32 +1,46 @@
 const { logger } = require("firebase-functions");
 
-module.exports = ({ admin }) => async () => {
-    const firestore = admin.firestore();
-
-    let now = firestore.Timestamp.now(); // in milliseconds
+/**
+ * filter studies and build tuple of { nctID, text } for studies with next pending reminders
+ * @param {firestore.collection} data 
+ * @param {firestore.Timestamp} now 
+ */
+const filterCurrentReminders = (data, now) => {
     let offset = now % 604860000; // 1000*60*60*24*7 + 1000*60 == week in milliseconds + 1 min offset
-    let count = 0;
-
-    // build study reminders with tuple of [studyId, reminderText] of studies with pending reminders
     const studyReminders = []
-    const data = await firestore.collection("studies").get();
-    if (data.empty) return;
     data.forEach(study => {
         study = study.data();
-        study.reminders.forEach(reminder => {
+        study.reminders.forEach(r => {
 
-            if (reminder.startDate > now || reminder.endDate < now)
+            if (r.startDate > now || r.endDate < now)
+                return; // continue
+            if (!r.times.some(t => t > r.lastNotified && t <= offset))
                 return;
-            if (!reminder.times.some(t => t > reminder.lastNotified && t < offset))
-                return;
 
-            studyReminders.push([study.nctID, reminder.text]);
-            // TODO: add user reminders!
-
-            count++;
-
+            studyReminders.push({ nctID: study.nctID, text: r.text });
         });
     });
-
-    logger.info(`sent reminders from #${count} studies`);
+    console.log(studyReminders); // FIXME: remove logging
+    return studyReminders;
 }
+
+module.exports = ({ admin }) => (async () => {
+    const firestore = admin.firestore();
+
+    return await firestore.collection("studies")
+        .get()
+        .then(data => filterCurrentReminders(data, firestore.Timestamp.now()))
+        .then(async reminders => [reminders, await Promise.all(reminders.map(r =>
+            firestore.collection("studies").doc(r.nctID).collection("participants").get()
+        ))])
+        .then(([reminders, all_data]) => {
+            // console.log(all_data)
+            all_data.forEach(d => console.log)
+        })
+        .catch(err => {
+            logger.error(`Error sending reminders at ${now}: ${err}`);
+            throw err
+        })
+
+    // logger.info(`sent reminders from #${count} studies`);
+})
