@@ -34,9 +34,9 @@ describe("reminders-runner", () => {
 // these are functions so they aren't alterable between tests
 const mStudies = () => [
     {
+        id: "NCT000",
         nctID: "NCT000",
         reminders: [{
-            id: "TEST_REMINDER_ID",
             text: "TEST",
             times: [0, 100],
             startDate: 0,

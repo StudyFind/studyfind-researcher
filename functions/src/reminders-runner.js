@@ -1,7 +1,7 @@
 const { logger } = require("firebase-functions");
 
 /**
- * filter studies and build tuple of { nctID, text } for studies with next pending reminders
+ * Filter studies and build array of tuples like: { nctID, text } for studies with next pending reminders
  * @param {firestore.collection} data 
  * @param {firestore.Timestamp} now 
  */
@@ -20,8 +20,26 @@ const filterCurrentReminders = (data, now) => {
             studyReminders.push({ nctID: study.nctID, text: r.text });
         });
     });
-    console.log(studyReminders); // FIXME: remove logging
     return studyReminders;
+}
+
+/**
+ * Build flat list of structures like: { nctID, participantID, reminders } corresponding to the new
+ * reminders that should be written to study participants in firebase
+ * @param {[{nctID, text}]} reminders list of corresponding studies and reminders to post
+ * @param {[firestore.collection]} all_data list of study participants from firestore; ordered same as reminders
+ */
+const buildNewParticipantReminders = (reminders, all_data) => {
+    const participantReminders = [];
+    all_data.forEach((study_data, i) => study_data.forEach(participant => {
+        let d = participant.data();
+        participantReminders.push({
+            nctID: reminders[i].nctID,
+            participantID: participant.id,
+            reminders: [...d.reminders, reminders[i].text]
+        });
+    }));
+    return participantReminders;
 }
 
 module.exports = ({ admin }) => (async () => {
@@ -33,14 +51,11 @@ module.exports = ({ admin }) => (async () => {
         .then(async reminders => [reminders, await Promise.all(reminders.map(r =>
             firestore.collection("studies").doc(r.nctID).collection("participants").get()
         ))])
-        .then(([reminders, all_data]) => {
-            // console.log(all_data)
-            all_data.forEach(d => console.log)
-        })
+        .then(([reminders, all_data]) => buildNewParticipantReminders(reminders, all_data))
         .catch(err => {
             logger.error(`Error sending reminders at ${now}: ${err}`);
-            throw err
-        })
+            throw err;
+        });
 
     // logger.info(`sent reminders from #${count} studies`);
 })

@@ -13,7 +13,7 @@ const mFirestore = {
 
         if (!Array.isArray(data)) data = []
         data = data.map(snapshot => ({ data: () => snapshot, id: snapshot.id }))
-        data.exists = data.length > 0
+        data.empty = data.length === 0
         return data
     }),
     Timestamp: { now: jest.fn(() => 0) },
