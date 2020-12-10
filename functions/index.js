@@ -15,6 +15,6 @@ exports.studies = functions.https.onRequest(switchFunc(context));
 // ***** Cron Functions *****
 // note, these will not work in emulator. Automatic testing is paramount
 
-const notificationRunner = require('./src/notification-runner.js');
-exports.notificationRunner = functions.pubsub
-    .schedule('*/30 * * * *').onRun(notificationRunner(context));
+const remindersRunner = require('./src/reminders-runner.js');
+exports.remindersRunner = functions.pubsub
+    .schedule('*/30 * * * *').onRun(remindersRunner(context));

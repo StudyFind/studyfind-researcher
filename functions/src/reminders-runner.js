@@ -7,26 +7,26 @@ module.exports = ({ admin }) => async () => {
     let offset = now % 604860000; // 1000*60*60*24*7 + 1000*60 == week in milliseconds + 1 min offset
     let count = 0;
 
-    // build studyNotifications with tuple of [studyId, reminderText] of studies with pending reminders
-    const studyNotifications = []
+    // build study reminders with tuple of [studyId, reminderText] of studies with pending reminders
+    const studyReminders = []
     const data = await firestore.collection("studies").get();
     if (data.empty) return;
     data.forEach(study => {
         study = study.data();
-        study.notifications.forEach(notification => {
+        study.reminders.forEach(reminder => {
 
-            if (notification.startDate > now || notification.endDate < now)
+            if (reminder.startDate > now || reminder.endDate < now)
                 return;
-            if (!notification.times.some(t => t > notification.lastNotified && t < offset))
+            if (!reminder.times.some(t => t > reminder.lastNotified && t < offset))
                 return;
 
-            studyNotifications.push([study.nctID, notification.text]);
-            // TODO: add user notifications!
+            studyReminders.push([study.nctID, reminder.text]);
+            // TODO: add user reminders!
 
             count++;
 
         });
     });
 
-    logger.info(`sent notifications from #${count} studies`);
+    logger.info(`sent reminders from #${count} studies`);
 }

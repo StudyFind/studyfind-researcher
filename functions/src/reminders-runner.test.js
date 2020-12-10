@@ -3,9 +3,9 @@ const admin = require('./__mocks__/admin');
 const firestore = admin.firestore();
 
 const context = { admin };
-const Func = require("./notification-runner");
+const Func = require("./reminders-runner");
 
-describe("notification-runner", () => {
+describe("reminders-runner", () => {
     let func;
 
     beforeEach(async () => {
@@ -33,7 +33,7 @@ describe("notification-runner", () => {
 const mStudies = [
     {
         nctID: 'NCT000',
-        notifications: [{
+        reminders: [{
             text: 'TEST',
             times: [100],
             startDate: 0,
