@@ -6,6 +6,7 @@ const mFirestore = {
     where: jest.fn(() => mFirestore),
     doc: jest.fn(() => { isQueryingDoc = true; return mFirestore; }),
     set: jest.fn(async () => undefined),
+    update: jest.fn(async () => undefined),
     get: jest.fn(async () => {
         let data = mFirestore.data()
         if (isQueryingDoc)
@@ -17,6 +18,7 @@ const mFirestore = {
         return data
     }),
     Timestamp: { now: jest.fn(() => 0) },
+    runTransaction: jest.fn((fn) => fn(mFirestore)),
 
     // useful when mocking
     data: jest.fn(() => undefined),
