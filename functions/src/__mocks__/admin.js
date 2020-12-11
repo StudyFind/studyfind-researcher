@@ -1,27 +1,79 @@
 let isQueryingDoc = false;
 
+const updateData = (data, path, newData, create = false) => {
+    while (path.length > 1) {
+        let p = path.shift();
+        if (!data[p]) {
+            if (!create) throw TypeError(`Cannot read property '${p}' of ${data}`);
+            else data[p] = {}
+        }
+        data = data[p];
+    }
+    data[path.shift()] = newData;
+}
+
 const mFirestore = {
     // actually present methods
-    collection: jest.fn(() => { isQueryingDoc = false; return mFirestore; }),
+    collection: jest.fn(c => {
+        mFirestore.path.push("collection")
+        mFirestore.path.push(c);
+        isQueryingDoc = false;
+        return mFirestore;
+    }),
     where: jest.fn(() => mFirestore),
-    doc: jest.fn(() => { isQueryingDoc = true; return mFirestore; }),
-    set: jest.fn(async () => undefined),
-    update: jest.fn(async () => undefined),
+    doc: jest.fn(c => {
+        mFirestore.path.push(c);
+        isQueryingDoc = true;
+        return mFirestore;
+    }),
+    set: jest.fn(async d => {
+        let { queries, path, data } = mFirestore;
+        queries.push(path);
+        while (path.length > 1) {
+            let p = path.shift();
+            if (!data[p]) data[p] = {};
+            data = data[p];
+        }
+        data[path.shift()] = d;
+        path = [];
+    }),
+    update: jest.fn(async d => {
+        let { queries, path, data } = mFirestore;
+        queries.push(path);
+        while (path.length > 1) {
+            data = data[path.shift()];
+        }
+        let p = path.shift();
+        data[p] = { ...data[p], ...d };
+        path = [];
+    }),
     get: jest.fn(async () => {
-        let data = mFirestore.data()
-        if (isQueryingDoc)
-            return { exists: !!data, data: mFirestore.data }
-
-        if (!Array.isArray(data)) data = []
-        data = data.map(snapshot => ({ data: () => snapshot, id: snapshot.id }))
-        data.empty = data.length === 0
-        return data
+        mFirestore.queries.push(mFirestore.path);
+        const data = mFirestore.path.reduce((d, p) => d[p], mFirestore.data);
+        mFirestore.path = []
+        // if querying single doc, easy peasy
+        if (isQueryingDoc) {
+            let d = { ...data }
+            delete d.collection;
+            return { exists: !!d, data: () => d };
+        }
+        // if querying collection, need to convert to array too
+        let snapshots = Object.keys(data).map(k => {
+            let d = { ...data[k] };
+            delete d.collection;
+            return { id: k, data: () => d }
+        });
+        snapshots.empty = snapshots.length === 0;
+        return snapshots
     }),
     Timestamp: { now: jest.fn(() => 0) },
-    runTransaction: jest.fn((fn) => fn(mFirestore)),
+    runTransaction: jest.fn(async (fn) => await fn(mFirestore)),
 
-    // useful when mocking
-    data: jest.fn(() => undefined),
+    // useful when mocking / testing
+    data: {}, // fill this with data on every test
+    path: [], // current path
+    queries: [], // paths taken so far
+    reset: () => { mFirestore.data = {}; mFirestore.path = []; mFirestore.queries = []; }
 }
 
 module.exports = {
