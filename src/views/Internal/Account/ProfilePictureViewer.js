@@ -52,8 +52,8 @@ const PageLoader = styled.div`
   height: 300px;
 `;
 
-const PictureViewerBox = styled.iframe`
-  width: 100%;
+const PictureViewerBox = styled.img`
+  margin-left: 0px;
   height: 200px;
 `;
 
