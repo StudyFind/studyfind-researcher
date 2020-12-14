@@ -64,6 +64,9 @@ describe("reminders-runner", () => {
         await firestore.collection("studies").doc("TEST_STUDY_ID_2").update({ title: "TEST_TITLE_2_REVISED" });
         study = await firestore.collection("studies").doc("TEST_STUDY_ID_2").get();
         expect(study.data().title).toBe("TEST_TITLE_2_REVISED");
+
+        // await firestore.runTransaction(async t => {
+        // });
     });
 
     it("calls all proper functions (base case)", async () => {
@@ -89,15 +92,17 @@ describe("reminders-runner", () => {
         expect(study.exists).toBe(true);
         const studyData = study.data()
         expect(studyData.nctID).toBe("NCT000");
-        expect(studyData.reminders.length).toBe(1);
-        expect(studyData.reminders[0].lastReminded).toBe(1000 * 60 * 30);
+        // expect(studyData.reminders.length).toBe(1);
+        // expect(studyData.reminders[0].lastReminded).toBe(1000 * 60 * 30);
 
         const participant = await firestore.collection("studies").doc("TEST_STUDY_ID")
             .collection("participants").doc("TEST_PARTICIPANT_ID").get();
         expect(participant.exists).toBe(true);
         const participantData = participant.data();
         expect(participantData.fakeName).toBe("TEST_NAME");
-        expect(participantData.reminders).toEqual(["TEST_REMINDER"]);
+        expect(participantData.currentReminders).toEqual(["TEST_REMINDER"]);
+        expect(participantData.reminders.length).toBe(1);
+        expect(participantData.reminders[0].lastReminded).toBe(1000 * 60 * 30);
     });
 
 });
@@ -108,19 +113,19 @@ const mFirestore = () => ({
         studies: {
             "TEST_STUDY_ID": {
                 nctID: "NCT000",
-                reminders: [{
-                    text: "TEST_REMINDER",
-                    times: [1000 * 60 * 30], // 30 mins
-                    startDate: 0,
-                    endDate: 1000 * 60 * 60 * 24 * 365, // 1 year
-                    lastReminded: 0
-                }],
                 collection: {
                     participants: {
                         "TEST_PARTICIPANT_ID": {
                             fakeName: "TEST_NAME",
                             status: "accepted",
-                            reminders: [],
+                            currentReminders: [],
+                            reminders: [{
+                                text: "TEST_REMINDER",
+                                times: [1000 * 60 * 30], // 30 mins
+                                startDate: 0,
+                                endDate: 1000 * 60 * 60 * 24 * 365, // 1 year
+                                lastReminded: 0
+                            }]
                         }
                     }
                 }

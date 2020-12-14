@@ -1,4 +1,5 @@
 let isQueryingDoc = false;
+let isTransaction = false;
 
 const updateData = (data, path, newData, create = false) => {
     while (path.length > 1) {
@@ -21,14 +22,17 @@ const mFirestore = {
         return mFirestore;
     }),
     where: jest.fn(() => mFirestore),
+    select: jest.fn(() => mFirestore),
     doc: jest.fn(c => {
         mFirestore.path.push(c);
         isQueryingDoc = true;
         return mFirestore;
     }),
-    set: jest.fn(async d => {
+    set: jest.fn(async (d, transaction_d) => {
         let { queries, path, data } = mFirestore;
+        if (isTransaction) d = transaction_d;
         queries.push(path);
+
         while (path.length > 1) {
             let p = path.shift();
             if (!data[p]) data[p] = {};
@@ -37,9 +41,11 @@ const mFirestore = {
         data[path.shift()] = d;
         path = [];
     }),
-    update: jest.fn(async d => {
+    update: jest.fn(async (d, transaction_d) => {
         let { queries, path, data } = mFirestore;
+        if (isTransaction) d = transaction_d;
         queries.push(path);
+
         while (path.length > 1) {
             data = data[path.shift()];
         }
@@ -67,7 +73,7 @@ const mFirestore = {
         return snapshots
     }),
     Timestamp: { now: jest.fn(() => 0) },
-    runTransaction: jest.fn(async (fn) => await fn(mFirestore)),
+    runTransaction: jest.fn(async (fn) => { isTransaction = true; return await fn(mFirestore) }),
 
     // useful when mocking / testing
     data: {}, // fill this with data on every test
