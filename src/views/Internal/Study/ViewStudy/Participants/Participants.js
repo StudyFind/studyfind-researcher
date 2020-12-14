@@ -24,6 +24,7 @@ import {
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 import Screen from "./Screen/Screen";
+import Remind from "./Remind/Remind";
 
 import { compute } from "functions";
 
@@ -49,6 +50,7 @@ function Participants({ study }) {
   const handleDrawer = (action, participantID) => {
     const participant = participants.find((participant) => participant.id === participantID) || {
       responses: [],
+      remind: [],
     };
     setDrawer({ action, participant });
     onOpen();
@@ -58,11 +60,12 @@ function Participants({ study }) {
     fetchParticipants(nctID)
       .then((data) => {
         setParticipants(
-          data.map(({ id, fakename, status, responses }) => ({
+          data.map(({ id, fakename, status, responses, remind }) => ({
             id,
             fakename,
             status,
             responses,
+            remind,
             score: compute.eligibilityScore(study.questions, responses),
           }))
         );
@@ -212,6 +215,7 @@ function Participants({ study }) {
             ))
           : FILTER_EMPTY}
       </Box>
+      {drawer.action == "screen" && 
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
@@ -231,16 +235,41 @@ function Participants({ study }) {
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Save
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>}
+      {drawer.action == "remind" && 
+      <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
+            <Flex align="center">
+              {drawer.participant.fakename}
+              <Text ml="8px" mr="auto" fontSize="0.9rem" fontWeight="400" color="gray.500">
+                {drawer.participant.score}% eligible
+              </Text>
+              <DrawerCloseButton position="static" />
+            </Flex>
+          </DrawerHeader>
+          <DrawerBody p="20px" bg="#f8f9fa">
+            <Remind reminder={drawer.participant.remind}/>
+          </DrawerBody>
+          <DrawerFooter borderTopWidth="1px">
+            <Button variant="outline" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
             <Button colorScheme="red" mr={3} onClick={onClose}>
               Reject
             </Button>
             <Button colorScheme="green">Accept</Button>
           </DrawerFooter>
         </DrawerContent>
-      </Drawer>
+      </Drawer>}
     </>
   );
-
   return loading ? LOAD : participants.length ? LIST : EMPTY;
 }
 

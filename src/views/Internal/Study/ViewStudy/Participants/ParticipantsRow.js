@@ -51,7 +51,7 @@ function ParticipantRow({ participant, handleDrawer }) {
       <Button size="sm" colorScheme="orange">
         Schedule
       </Button>
-      <Button size="sm" colorScheme="purple">
+      <Button size="sm" colorScheme="purple" onClick={() => handleDrawer("remind", participant.id)}>
         Remind
       </Button>
     </Row>
