@@ -41,7 +41,7 @@ const forEachStudyParticipant = async (studyID, fn, firestore) => {
  */
 const getParticipantReminders = (p, now, offset) =>
     p.reminders.map(r => {
-        if (r.startData > now || r.endData < now) return undefined;
+        if (r.startDate > now || r.endDate < now) return undefined;
         if (!r.times.some(t => t > r.lastReminded && t <= offset)) return undefined;
         return r.text;
     });
@@ -71,7 +71,6 @@ module.exports = ({ admin }) => async () => {
     const firestore = admin.firestore();
     const now = firestore.Timestamp.now();
     const offset = getCurrentOffset(now);
-    console.log(now)
 
     const resp = await forEachStudy(async study => await forEachStudyParticipant(study.id, async participant => {
         // for each study participant
