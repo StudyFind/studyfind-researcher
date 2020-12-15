@@ -1,25 +1,26 @@
 import React from "react";
-import styled from "styled-components";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { Box, Flex } from "components";
 
 import Sidebar from "./Sidebar";
 
-import CreateStudy from "views/Internal/CreateStudy/CreateStudy";
+import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
 import Settings from "views/Internal/Settings/Settings";
-import Studies from "views/Internal/Studies/Studies";
+import Dashboard from "views/Internal/Dashboard/Dashboard";
 import Study from "views/Internal/Study/Study";
 import Notifications from "./Notifications/Notifications";
 import Screen from "./Study/Participants/Screen/Screen";
-import Account from "views/Internal/Account/Account"
+import Account from "views/Internal/Account/Account";
+
 function Internal() {
   return (
-    <ThisScreen>
+    <Flex bg="#f8f9fa">
       <Sidebar />
-      <Page>
+      <Box ml="280px" w="100%" minH="100vh">
         <Switch>
-          <Route exact path="/" component={CreateStudy} />
-          <Route exact path="/studies" component={Studies} />
-          <Route exact path="/study/:id" component={Study} />
+          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/study/:nctID" component={Study} />
           <Route exact path="/create" component={CreateStudy} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/settings" component={Settings} />
@@ -27,20 +28,9 @@ function Internal() {
           <Route exact path="/account" component={Account} />
           <Redirect to="/" />
         </Switch>
-      </Page>
-    </ThisScreen>
+      </Box>
+    </Flex>
   );
 }
-
-const ThisScreen = styled.div`
-  display: flex;
-  background: #f8f9fa;
-`;
-
-const Page = styled.div`
-  margin-left: 280px;
-  width: 100%;
-  min-height: 100vh;
-`;
 
 export default Internal;

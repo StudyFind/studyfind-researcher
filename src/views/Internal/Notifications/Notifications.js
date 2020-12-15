@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Box, Spinner } from "@chakra-ui/react";
-import NotificationsRow from "./NotificationsRow";
+import { Heading, Spinner, Box } from "@chakra-ui/react";
+import Notification from "./Notification";
 
 function Notifications() {
   const loading = false;
@@ -35,20 +35,14 @@ function Notifications() {
     },
   ];
 
-  const LOAD = (
-    <PageLoader>
-      <Spinner />
-    </PageLoader>
-  );
+  const LOAD = <Spinner />;
 
   const BODY = (
     <>
-      <Head>
-        <Heading fontSize="28px">Notifications</Heading>
-      </Head>
-      <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
+      <Heading mb="25px">Notifications</Heading>
+      <Box borderWidth="1px" rounded="md" bg="white">
         {notifications.map((notification, index) => (
-          <NotificationsRow key={index} notification={notification} />
+          <Notification key={index} notification={notification} />
         ))}
       </Box>
     </>
@@ -57,24 +51,10 @@ function Notifications() {
   return <Page>{loading ? LOAD : BODY}</Page>;
 }
 
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
 const Page = styled.div`
-  padding: 20px;
+  padding: 30px;
   height: 100%;
   background: #f8f9fa;
-`;
-
-const PageLoader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 `;
 
 export default Notifications;

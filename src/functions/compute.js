@@ -1,21 +1,28 @@
+import flesch from "flesch";
+import syllable from "syllable";
+
 const compute = {
   readabilityIndex: (text) => {
     // https://en.wikipedia.org/wiki/Automated_readability_index
     // https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch%E2%80%93Kincaid_grade_level
     const sentences = text.split(".").length;
 
-    const words = text
+    const wordList = text
       .toLowerCase()
       .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") // removes all punctuation
       .split(/\r?\n| /) // splits text at newlines and spaces
       .map((word) => word.trim()) // removes whitespace from each word
       .filter((word) => word); // removes empty strings
+    const words = wordList.length;
 
-    const letters = words.join("").length;
+    const syllablesList = wordList.map((word) => syllable(word));
+    const syllables = words ? syllablesList.reduce((a, b) => a + b) : 0;
 
-    const wordsCount = words.length;
+    let score = flesch({ sentence: sentences, word: words, syllable: syllables });
+    if (score > 100) score = 100;
+    if (score < 0) score = 0;
 
-    return 4.71 * (letters / wordsCount) + 0.5 * (wordsCount / sentences) - 21.43;
+    return Math.round(score);
   },
 
   eligibilityScore: (questions, responses) => {
