@@ -107,7 +107,7 @@ describe("reminders-runner", () => {
         firestore.data = mFirestore();
         firestore.data.collection.studies["TEST_STUDY_ID"]
             .collection.participants["TEST_PARTICIPANT_ID"]
-            .reminders[0].startData = 1000 * 60 * 60 * 24;
+            .reminders[0].startDate = 1000 * 60 * 60 * 24;
 
         firestore.Timestamp.now.mockReturnValueOnce(0);
         await func();
