@@ -28,12 +28,10 @@ const sendVerificationEmail = (user) => user.sendEmailVerification();
 const sendPasswordResetEmail = async (email) => auth.sendPasswordResetEmail(email);
 
 const signup = (name, email, password) => {
-  firestore.collection("researchers").doc("yohan").set({ name, isUser: true });
   return auth
     .createUserWithEmailAndPassword(email, password)
     .then((resp) => {
-      console.log("hello");
-      firestore.collection("researchers").doc("yohan").set({ name, isUser: true });
+      firestore.collection("researchers").doc(resp.user.uid).set({ name }).catch(console.error);
       resp.user.updateProfile({ displayName: "researcher" });
       resp.user.sendEmailVerification();
     })
