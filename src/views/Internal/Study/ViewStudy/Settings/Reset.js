@@ -13,7 +13,7 @@ function Reset({ study }) {
       .then(console.log)
       .catch((err) => {
         console.log(err);
-        setError(`Reset failed: ${err}`);
+        setError(`Update failed: ${err}`);
       })
       .finally(() => setLoading(false));
   };
@@ -21,11 +21,12 @@ function Reset({ study }) {
   return (
     <Box p="20px" borderBottom="1px solid #f1f2f3">
       <Heading mb="8px" size="md">
-        Reset Study
+        Update Study
       </Heading>
       <Text color="gray.500" my="8px">
-        Resetting the study will retrieve any new data clinicaltrials.gov and update it accordingly.
-        This action will not overwrite your edited study title, description and survey questions.
+        Updating the study will retrieve any new study data from clinicaltrials.gov and update the
+        it accordingly. This action will not overwrite your edited study title, description and
+        survey questions.
       </Text>
       <Flex mt="16px" mb="8px">
         <Text color="black" fontWeight="500">
@@ -40,9 +41,9 @@ function Reset({ study }) {
         onClick={handleReset}
         colorScheme="blue"
         isLoading={loading}
-        loadingText="Resetting"
+        loadingText="Updating"
       >
-        Reset
+        Update
       </Button>
       {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </Box>
