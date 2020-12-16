@@ -52,7 +52,7 @@ function Study() {
   );
 
   const BODY = (
-    <Tabs colorScheme="blue" h="100%">
+    <Tabs colorScheme="blue" h="100%" isLazy>
       <TabList>
         <TabItem>Details</TabItem>
         <TabItem>Survey</TabItem>
