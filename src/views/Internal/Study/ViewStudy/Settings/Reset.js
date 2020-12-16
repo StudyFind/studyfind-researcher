@@ -11,10 +11,7 @@ function Reset({ study }) {
     setLoading(true);
     resetStudy(study.id)
       .then(console.log)
-      .catch((err) => {
-        console.log(err);
-        setError(`Update failed: ${err}`);
-      })
+      .catch((err) => setError(`Update failed: ${err}`))
       .finally(() => setLoading(false));
   };
 

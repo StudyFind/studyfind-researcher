@@ -10,9 +10,10 @@ const validate = {
     const errors = {};
 
     for (const i in inputs) {
-      if (inputs[i] !== undefined) {
+      const value = inputs[i].trim();
+      if (value !== undefined) {
         const type = inferType(i);
-        errors[i] = validate[type](inputs[i]);
+        errors[i] = validate[type](value);
       }
     }
     return errors;

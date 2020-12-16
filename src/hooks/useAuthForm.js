@@ -9,7 +9,7 @@ function useAuthForm({ initial, onSubmit }) {
 
   const handleInput = (name, value) => {
     setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: validate.input(name, value) });
+    setErrors({ ...errors, [name]: validate.input(name, value.trim()) });
   };
 
   const handleSubmit = (...params) =>
