@@ -61,11 +61,11 @@ function EditProfilePicture({ setEdit }) {
         {loading ? (
           <Progress hasStripe value={status} colorScheme="blue" />
         ) : (
-          <FormControl isInvalid={error}>
-            <FileInput type="file" onChange={handleFileSelect} isInvalid={error} />
-            <FormErrorMessage>{error}</FormErrorMessage>
-          </FormControl>
-        )}
+            <FormControl isInvalid={error}>
+              <FileInput type="file" accept="image/*" onChange={handleFileSelect} isInvalid={error} />
+              <FormErrorMessage>{error}</FormErrorMessage>
+            </FormControl>
+          )}
         <Buttons>
           <Button colorScheme="gray" onClick={() => setEdit(false)}>
             Cancel
