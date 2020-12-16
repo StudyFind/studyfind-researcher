@@ -1,14 +1,5 @@
-import { auth, database, googleAuthProvider, facebookAuthProvider } from "./firebase";
-import { errors } from "./constants";
-
-// === DATA CRUD === //
-const fetchRef = (ref) => ref.once("value").then((data) => data.val());
-const fetchUser = (uid) => fetchRef(database.ref(`users/${uid}`));
-const fetchStudies = () => fetchRef(database.ref("studies"));
-const fetchData = async (uid) => {
-  const [user, studies] = await Promise.all([fetchUser(uid), fetchStudies()]);
-  return { user, studies };
-};
+import { auth, firestore, googleAuthProvider, facebookAuthProvider } from "database/firebase";
+import { errors } from "database/constants";
 
 // === AUTH === //
 
@@ -24,28 +15,33 @@ const getError = ({ code }) => ({ email: "", password: "", ...errors[code] });
 const createUserAuth = async (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 const deleteUserAuth = (user) => user.delete();
-const updateUser = async (uid, data) => database.ref(`users/${uid}`).update(data);
 
-const createCookie = () => localStorage.setItem("exists", true);
-const deleteCookie = () => localStorage.setItem("exists", false);
+const createCookie = () => localStorage.setItem("account-exists", true);
+const deleteCookie = () => localStorage.setItem("account-exists", false);
 
-const setUserData = ({ uid }) => database.ref(`users/${uid}`).set({});
+const setUserData = (uid, name) => {
+  firestore.collection("hello").doc("hi2").set({ name: "Yohan", uid: "ABC" });
+};
 const setUserType = (user) => user.updateProfile({ displayName: "researcher" });
 
 const sendVerificationEmail = (user) => user.sendEmailVerification();
 const sendPasswordResetEmail = async (email) => auth.sendPasswordResetEmail(email);
 
-const signup = async (email, password) => {
-  try {
-    const { user } = await createUserAuth(email, password);
-    createCookie();
-    setUserType(user);
-    setUserData(user);
-    sendVerificationEmail(user);
-    return user;
-  } catch (error) {
-    throw getError(error);
-  }
+const signup = (name, email, password) => {
+  firestore.collection("researchers").doc("yohan").set({ name, isUser: true });
+  return auth
+    .createUserWithEmailAndPassword(email, password)
+    .then((resp) => {
+      console.log("hello");
+      firestore.collection("researchers").doc("yohan").set({ name, isUser: true });
+      resp.user.updateProfile({ displayName: "researcher" });
+      resp.user.sendEmailVerification();
+    })
+    .then(() => localStorage.setItem("account-exists", true))
+    .catch((error) => {
+      console.log(error);
+      return getError(error);
+    });
 };
 
 // ========================== HANDLE SIGN IN ========================== //
@@ -154,11 +150,7 @@ const changePassword = async (password, newPassword) => {
 export {
   // DATA //
   verifyUser,
-  updateUser,
   deleteUser,
-  fetchData,
-  fetchUser,
-  fetchStudies,
   resetPassword,
   changePassword,
   googleAuth,

@@ -3,11 +3,11 @@ import React from "react";
 import { useAuthForm } from "hooks";
 import { signup } from "database";
 import { Form, Heading, Email, Password, Button, TabLink } from "views/External/Auth/Blocks";
-import { Message, Box } from "components";
+import { Message, Box, Input } from "components";
 
-function Login({ setTab }) {
+function Signup({ setTab }) {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
-    initial: { email: "", password: "" },
+    initial: { name: "", email: "", password: "" },
     onSubmit: signup,
   });
 
@@ -26,8 +26,16 @@ function Login({ setTab }) {
   }
 
   return (
-    <Form onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
+    <Form onSubmit={() => handleSubmit(inputs.name, inputs.email, inputs.password)}>
       <Heading>Create Account!</Heading>
+      <Input
+        size="lg"
+        name="name"
+        placeholder="Name"
+        value={inputs.name}
+        error={errors.name}
+        onChange={handleInput}
+      />
       <Email value={inputs.email} error={errors.email} onChange={handleInput} />
       <Password value={inputs.password} error={errors.password} onChange={handleInput} />
       <Button loading={loading}>Sign up</Button>
@@ -36,4 +44,4 @@ function Login({ setTab }) {
   );
 }
 
-export default Login;
+export default Signup;
