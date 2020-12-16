@@ -28,20 +28,6 @@ function ParticipantRow({ participant, handleDrawer }) {
         {participant.status}
       </Badge>
       <Text color="gray.400">{participant.score}% eligible</Text>
-      <Buttons>
-        <Tooltip label="Message">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
-        </Tooltip>
-        <Tooltip label="Screen">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaFilter />} />
-        </Tooltip>
-        <Tooltip label="Schedule">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaPhone />} />
-        </Tooltip>
-        <Tooltip label="Remind">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaClock />} />
-        </Tooltip>
-      </Buttons>
       <Button size="sm" colorScheme="blue" onClick={() => handleDrawer("screen", participant.id)}>
         Screen
       </Button>
@@ -49,9 +35,6 @@ function ParticipantRow({ participant, handleDrawer }) {
         Message
       </Button>
       <Button size="sm" colorScheme="orange">
-        Schedule
-      </Button>
-      <Button size="sm" colorScheme="purple">
         Remind
       </Button>
     </Row>
