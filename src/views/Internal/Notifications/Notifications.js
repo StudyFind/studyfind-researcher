@@ -39,7 +39,9 @@ function Notifications() {
 
   const BODY = (
     <>
-      <Heading mb="25px">Notifications</Heading>
+      <Heading size="lg" mb="25px">
+        Notifications
+      </Heading>
       <Box borderWidth="1px" rounded="md" bg="white">
         {notifications.map((notification, index) => (
           <Notification key={index} notification={notification} />
