@@ -50,7 +50,7 @@ function Participants({ study }) {
   const handleDrawer = (action, participantID) => {
     const participant = participants.find((participant) => participant.id === participantID) || {
       responses: [],
-      remind: [],
+      reminders: [],
     };
     setDrawer({ action, participant });
     onOpen();
@@ -60,12 +60,12 @@ function Participants({ study }) {
     fetchParticipants(nctID)
       .then((data) => {
         setParticipants(
-          data.map(({ id, fakename, status, responses, remind }) => ({
+          data.map(({ id, fakename, status, responses, reminders }) => ({
             id,
             fakename,
             status,
             responses,
-            remind,
+            reminders,
             score: compute.eligibilityScore(study.questions, responses),
           }))
         );
@@ -215,7 +215,7 @@ function Participants({ study }) {
             ))
           : FILTER_EMPTY}
       </Box>
-      {drawer.action == "screen" && 
+      {drawer.action === "screen" && 
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
@@ -235,13 +235,14 @@ function Participants({ study }) {
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Save
+            <Button colorScheme="red" mr={3} onClick={onClose}>
+              Reject
             </Button>
+            <Button colorScheme="green">Accept</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>}
-      {drawer.action == "remind" && 
+      {drawer.action === "remind" && 
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
@@ -255,16 +256,15 @@ function Participants({ study }) {
             </Flex>
           </DrawerHeader>
           <DrawerBody p="20px" bg="#f8f9fa">
-            <Remind reminder={drawer.participant.remind}/>
+            <Remind reminders={drawer.participant.reminders}/>
           </DrawerBody>
           <DrawerFooter borderTopWidth="1px">
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="red" mr={3} onClick={onClose}>
-              Reject
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Save
             </Button>
-            <Button colorScheme="green">Accept</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>}
