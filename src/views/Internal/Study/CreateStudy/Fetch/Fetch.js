@@ -34,7 +34,7 @@ function Fetch({ setTab, setStudy }) {
           const { study, error } = data;
 
           if (study) {
-            setStudy(study);
+            setStudy({ id: study.nctID, ...study });
             setTab("fields");
           } else {
             setError(error);

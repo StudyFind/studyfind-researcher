@@ -6,6 +6,7 @@ import Input from "./Input";
 import Select from "./Select";
 import Textarea from "./Textarea";
 import Message from "./Message";
+import Page from "./Page";
 
 import {
   Box,
@@ -69,4 +70,5 @@ export {
   DrawerBody,
   DrawerCloseButton,
   DrawerFooter,
+  Page,
 };

@@ -1,4 +1,4 @@
-import { firestore } from "./firebase";
+import { firestore } from "database/firebase";
 
 const map = (snapshot) => {
   const collection = [];

@@ -4,7 +4,8 @@ import styled from "styled-components";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 import { Link } from "react-router-dom";
-import { Box, Heading, Text, Button, Spinner } from "components";
+import { Box, Heading, Text, Button } from "@chakra-ui/react";
+import { Page } from "components";
 import { FaPlusCircle } from "react-icons/fa";
 
 function DashboardView({ studies, loading }) {
@@ -41,18 +42,8 @@ function DashboardView({ studies, loading }) {
     </Box>
   );
 
-  const BODY = studies.length ? GRID : NONE;
-
-  const LOAD = <Spinner />;
-
-  return <Page>{loading ? LOAD : BODY}</Page>;
+  return <Page isLoading={loading}>{studies.length ? GRID : NONE}</Page>;
 }
-
-const Page = styled.div`
-  padding: 30px;
-  height: 100%;
-  background: #f8f9fa;
-`;
 
 const Head = styled.div`
   display: flex;

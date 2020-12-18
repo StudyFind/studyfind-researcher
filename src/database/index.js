@@ -12,8 +12,6 @@ const getError = ({ code }) => ({ email: "", password: "", ...errors[code] });
 // 3. Add User Data Ref to Realtime Database
 // 4. Send Verification Email
 
-const createUserAuth = async (email, password) =>
-  auth.createUserWithEmailAndPassword(email, password);
 const deleteUserAuth = (user) => user.delete();
 
 const createCookie = () => localStorage.setItem("account-exists", true);
@@ -30,7 +28,7 @@ const sendPasswordResetEmail = async (email) => auth.sendPasswordResetEmail(emai
 const signup = (name, email, password) => {
   return auth
     .createUserWithEmailAndPassword(email, password)
-    .then((resp) => {
+    .then(async (resp) => {
       firestore.collection("researchers").doc(resp.user.uid).set({ name }).catch(console.error);
       resp.user.updateProfile({ displayName: "researcher" });
       resp.user.sendEmailVerification();
@@ -46,15 +44,9 @@ const signup = (name, email, password) => {
 const authenticateUser = async (email, password) =>
   auth.signInWithEmailAndPassword(email, password);
 
-function checkVerified(user) {
-  if (!user.emailVerified) {
-    sendVerificationEmail(user);
-    throw { code: "auth/user-not-verified" };
-  }
-}
-
 function checkUserType(user) {
   if (user.displayName !== "researcher") {
+    signout();
     throw { code: "auth/user-not-found" };
   }
 }
@@ -64,7 +56,6 @@ const signin = async (email, password) => {
     const { user } = await authenticateUser(email, password);
     createCookie();
     checkUserType(user);
-    checkVerified(user);
     return user;
   } catch (error) {
     throw getError(error);

@@ -18,41 +18,9 @@ function EditProfilePicture({ setEdit }) {
   };
 
   const handleFileUpload = () => {
-    if (!file || !name) {
-      setError("File has not been selected");
-      return;
-    }
-
-    const ext = name.split(".").reverse()[0];
-
-    if (ext !== "png" && ext !== "jpg") {
-      setError("Sorry we only support png for now");
-      return;
-    }
-
     setLoading(true);
-    console.log(user.uid);
     const ref = storage.ref(`profile/${user.uid}`);
-    const task = ref.put(file);
-
-    task.on(
-      "state_changed",
-      (snapshot) => {
-        const filesize = snapshot.totalBytes;
-        const uploaded = snapshot.bytesTransferred;
-        const percent = Math.round((100 * uploaded) / filesize);
-        setStatus(percent);
-
-        if (percent === 100) {
-          setLoading(false);
-          setEdit(false);
-        }
-      },
-      (error) => {
-        setError(error.message);
-        setLoading(false);
-      }
-    );
+    ref.put(file);
   };
 
   return (
@@ -61,11 +29,18 @@ function EditProfilePicture({ setEdit }) {
         {loading ? (
           <Progress hasStripe value={status} colorScheme="blue" />
         ) : (
-            <FormControl isInvalid={error}>
-              <FileInput type="file" accept="image/*" onChange={handleFileSelect} isInvalid={error} />
-              <FormErrorMessage>{error}</FormErrorMessage>
-            </FormControl>
-          )}
+          <FormControl isInvalid={error}>
+            <Button onClick={() => document.getElementById("selectImage").click()}>Click</Button>
+            <FileInput
+              id="selectImage"
+              type="file"
+              accept="image/*"
+              onChange={handleFileSelect}
+              isInvalid={error}
+            />
+            <FormErrorMessage>{error}</FormErrorMessage>
+          </FormControl>
+        )}
         <Buttons>
           <Button colorScheme="gray" onClick={() => setEdit(false)}>
             Cancel

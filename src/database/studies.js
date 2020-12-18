@@ -1,4 +1,4 @@
-import { auth, firestore } from "./firebase";
+import { auth, firestore } from "database/firebase";
 import axios from "axios";
 
 const map = (snapshot) => {
