@@ -4,7 +4,6 @@ import { compute } from "functions";
 import styled from "styled-components";
 
 function RemindView({ reminders,setEdit }) {
-  console.log(reminders)
   return (
     <Grid gap="15px">
       <Button colorScheme="blue" mr={3} onClick={() => setEdit(true)}>
