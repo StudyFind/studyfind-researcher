@@ -42,7 +42,7 @@ const forEachStudyParticipant = async (studyID, fn, firestore) => {
  * @param {number} offset timestamp of current offset from week
  */
 const getParticipantReminders = (p, now, offset) =>
-    p.reminders.map(r => {
+    p.reminders && p.reminders.map(r => {
         if (r.startDate > now || r.endDate < now) return undefined;
         if (!r.times.some(t => t > r.lastReminded && t <= offset)) return undefined;
         return r.text;
@@ -60,11 +60,14 @@ const getParticipantReminders = (p, now, offset) =>
 const updateParticipantRemindersTransaction = async (t, firestore, studyID, participantID, reminders, now) => {
     const participant = await t.get(firestore.collection("studies").doc(studyID).collection("participants").doc(participantID));
     const data = participant.data();
+    if (!data.reminders) data.reminders = [];
     const newReminders = data.reminders.map((r, i) => !!reminders[i] ? { ...r, lastReminded: now } : r);
+    if (!data.currentReminders) data.currentReminders = [];
+    const newCurrentReminders = data.currentReminders.concat(reminders);
 
     reminders = reminders.filter(r => !!r);
     return await t.update(firestore.collection("studies").doc(studyID).collection("participants").doc(participantID),
-        { currentReminders: data.currentReminders.concat(reminders), reminders: newReminders }
+        { currentReminders: newCurrentReminders, reminders: newReminders }
     );
 }
 
