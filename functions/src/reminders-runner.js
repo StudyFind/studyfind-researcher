@@ -15,9 +15,10 @@ const getCurrentOffset = (now) => Math.floor((now % 604800000) / 1800000) * 1800
  */
 const forEachStudy = async (fn, firestore) => {
     const studiesData = await firestore.collection("studies").get();
+    if (studiesData.empty) return [];
     const studies = [];
     studiesData.forEach(d => studies.push(d));
-    return await studies.map(fn);
+    return Promise.allSettled(studies.map(fn));
 }
 
 /**
@@ -28,9 +29,10 @@ const forEachStudy = async (fn, firestore) => {
  */
 const forEachStudyParticipant = async (studyID, fn, firestore) => {
     const participantsData = await firestore.collection("studies").doc(studyID).collection("participants").get();
+    if (participantsData.empty) return [];
     const participants = [];
     participantsData.forEach(d => participants.push(d));
-    return await participants.map(fn);
+    return Promise.allSettled(participants.map(fn));
 }
 
 /**
@@ -66,23 +68,37 @@ const updateParticipantRemindersTransaction = async (t, firestore, studyID, part
     );
 }
 
+/**
+ * Detects errors, figures out what happened and presents everything readably
+ * @param {[Promise<[Promise<any>]>]} r list of promises each containing a list of promises. Built to be used with forEachStudy and forEachParticipant return type
+ */
+const logResponse = r => {
+    r = r.filter(study => study.value.every(i => !!i.value));
+    let p = r.map(i => i.value).flat().filter(i => !!i.value);
+    logger.info(`scheduled reminders run: ${r.length} studies with ${p.length} participants have been updated`);
+
+    let errors = p.filter(i => i.status != "fulfilled").map(i => i.value);
+    if (errors.length != 0) logger.error(`scheduled reminders run: ${errors.length} errors detected: ${errors}`);
+}
+
 
 module.exports = ({ admin }) => async () => {
     const firestore = admin.firestore();
     const now = firestore.Timestamp.now();
     const offset = getCurrentOffset(now);
 
-    const resp = await forEachStudy(async study => await forEachStudyParticipant(study.id, async participant => {
+    const resp = await forEachStudy(async study => forEachStudyParticipant(study.id, async participant => {
         // for each study participant
         const data = participant.data();
         let reminders = getParticipantReminders(data, now, offset);
         if (!reminders.some(r => !!r)) return;
 
-        return await firestore.runTransaction(async t => await updateParticipantRemindersTransaction(t, firestore, study.id, participant.id, reminders, now));
+        await firestore.runTransaction(async t => updateParticipantRemindersTransaction(t, firestore, study.id, participant.id, reminders, now));
+        return true;
 
     }, firestore), firestore);
 
-    logger.info(`scheduled reminders run`)
+    logResponse(resp);
 
     return resp;
 }
