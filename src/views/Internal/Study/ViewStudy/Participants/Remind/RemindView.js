@@ -3,14 +3,14 @@ import { Tag, Button, Heading, Text, Box, Flex, Grid } from "components";
 import { compute } from "functions";
 import styled from "styled-components";
 
-function RemindView({ reminders,setEdit }) {
+function RemindView({ participant,setEdit }) {
   return (
     <Grid gap="15px">
       <Button colorScheme="blue" mr={3} onClick={() => setEdit(true)}>
         Create New
       </Button>
-      {reminders &&
-        reminders.map((reminder, index) => (
+      {participant.reminders &&
+        participant.reminders.map((reminder, index) => (
           <Box borderWidth="1px" bg="white" rounded="md" p="10px" key={index}>
             <Text fontWeight="600" color="black">
               {reminder.title}
