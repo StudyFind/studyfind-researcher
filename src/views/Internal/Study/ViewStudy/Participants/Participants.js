@@ -256,7 +256,7 @@ function Participants({ study }) {
             </Flex>
           </DrawerHeader>
           <DrawerBody p="20px" bg="#f8f9fa">
-            <Remind participant={drawer.participant}/>
+            <Remind participant={drawer.participant} study={study}/>
           </DrawerBody>
           <DrawerFooter borderTopWidth="1px">
             <Button variant="outline" mr={3} onClick={onClose}>

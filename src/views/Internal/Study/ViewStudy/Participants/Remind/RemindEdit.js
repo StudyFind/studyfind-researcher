@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import { Text, Heading, Input, Select, Button, IconButton } from "components";
 import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
-function RemindEdit({setEdit}) {
+import {auth, firestore} from "../../../../../../database/firebase";
+function RemindEdit({participant, study, setEdit}) {
     const [value, setValue] = useState("")
     const [times, setTimes] = useState([])
     const [title, setTitle] = useState("")
@@ -28,7 +29,22 @@ function RemindEdit({setEdit}) {
     };
     const handleSubmit = () => {
       const allTimes = convertToTimes();
+      const [startMonth, startDay, startYear] = startDate.split("/")
+      const thisStartDate = new Date(startYear, startMonth - 1, startDay)
+      const [endMonth, endDay, endYear] = endDate.split("/")
+      const thisEndDate = new Date(endYear, endMonth - 1, endDay)
       /* firebase connection, all information are recorded */
+      const newReminder = {
+        title: title,
+        times: allTimes,
+        startDate: thisStartDate,
+        endDate: thisEndDate,
+        lastNotified: new Date(0, 0, 0)
+      }
+      const updatedReminders = participant.reminders.concat([newReminder]);
+      firestore.collection("studies").doc(study.id).collection("participants").doc(participant.id).update({
+        reminders: updatedReminders
+      })
       setEdit(false);
     };
     const convertToTimes = () => {

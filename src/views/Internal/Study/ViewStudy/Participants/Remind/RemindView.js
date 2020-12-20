@@ -30,15 +30,22 @@ function RemindView({ participant,setEdit }) {
 }
 function startAndEndDate(reminder) {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  return `${months[reminder.startDate.toDate().getMonth() - 1]}-${reminder.startDate.toDate().getDate()}-${reminder.startDate.toDate().getFullYear()} to ${months[reminder.endDate.toDate().getMonth() - 1]}-${reminder.endDate.toDate().getDate()}-${reminder.endDate.toDate().getFullYear()}`
+  return `${months[reminder.startDate.toDate().getMonth()]}-${reminder.startDate.toDate().getDate()}-${reminder.startDate.toDate().getFullYear()} to ${months[reminder.endDate.toDate().getMonth()]}-${reminder.endDate.toDate().getDate()}-${reminder.endDate.toDate().getFullYear()}`
 }
 function checkRepeat(reminder) {
   var repeat = " "
-  var time
   const weekday = ['U', 'M', 'T', 'W', 'R', 'F', 'S']
-  for (time in reminder.times) {
-    var offset_time = convertMsToHour(reminder.times[0])
-    repeat = repeat + weekday[Math.floor(offset_time.hour/24)]
+  var weekdayBoolean = [false, false, false, false, false, false, false]
+  for (var time in reminder.times) {
+    var offset_time = convertMsToHour(reminder.times[time])
+    console.log(offset_time)
+    weekdayBoolean[Math.floor(offset_time.hour/24)] = true
+    
+  }
+  for (const i in weekdayBoolean) {
+    if (weekdayBoolean[i]) {
+      repeat = repeat + weekday[i]
+    } 
   }
   return repeat
 
