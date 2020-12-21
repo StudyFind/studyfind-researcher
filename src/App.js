@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { auth } from "database/firebase";
+import { signout } from "database";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import Loading from "./Loading";
