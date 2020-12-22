@@ -249,9 +249,6 @@ function Participants({ study }) {
           <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
             <Flex align="center">
               {drawer.participant.fakename}
-              <Text ml="8px" mr="auto" fontSize="0.9rem" fontWeight="400" color="gray.500">
-                {drawer.participant.score}% eligible
-              </Text>
               <DrawerCloseButton position="static" />
             </Flex>
           </DrawerHeader>
