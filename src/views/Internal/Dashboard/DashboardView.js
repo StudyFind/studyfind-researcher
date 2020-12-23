@@ -5,14 +5,14 @@ import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 import { Link } from "react-router-dom";
 import { Box, Heading, Text, Button } from "@chakra-ui/react";
-import { Spinner } from "components";
 import { FaPlusCircle } from "react-icons/fa";
+import { Page } from "components";
 
 function DashboardView({ studies, loading }) {
   const GRID = (
     <Box>
       <Head>
-        <Heading>Dashboard</Heading>
+        <Heading size="lg">Dashboard</Heading>
         <Link to="/create">
           <Button leftIcon={<FaPlusCircle />} colorScheme="blue">
             Create Study
@@ -42,18 +42,8 @@ function DashboardView({ studies, loading }) {
     </Box>
   );
 
-  const BODY = studies.length ? GRID : NONE;
-
-  const LOAD = <Spinner />;
-
-  return <Page>{loading ? LOAD : BODY}</Page>;
+  return <Page isLoading={loading}>{studies.length ? GRID : NONE}</Page>;
 }
-
-const Page = styled.div`
-  padding: 30px;
-  height: 100%;
-  background: #f8f9fa;
-`;
 
 const Head = styled.div`
   display: flex;

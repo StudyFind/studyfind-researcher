@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { fetchStudy } from "database/studies";
 
-import { Spinner, Message } from "components";
+import { Message, Page } from "components";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import Details from "./ViewStudy/Details/Details";
@@ -24,12 +24,6 @@ function Study() {
       .catch(setError)
       .finally(() => setLoading(false));
   }, [nctID]);
-
-  const LOAD = (
-    <PageLoader>
-      <Spinner />
-    </PageLoader>
-  );
 
   const MISSING = (
     <Message
@@ -80,7 +74,7 @@ function Study() {
     </Tabs>
   );
 
-  return <Page>{loading ? LOAD : error ? DENIED : study ? BODY : MISSING}</Page>;
+  return <Page isLoading={loading}>{error ? DENIED : study ? BODY : MISSING}</Page>;
 }
 
 const TabItem = styled(Tab)`
@@ -98,18 +92,6 @@ const TabItem = styled(Tab)`
   &:focus {
     box-shadow: none !important;
   }
-`;
-
-const Page = styled.div`
-  padding: 20px;
-  background: #f8f9fa;
-`;
-
-const PageLoader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 40px);
 `;
 
 export default Study;

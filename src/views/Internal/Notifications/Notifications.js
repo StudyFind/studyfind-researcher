@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import { Heading, Spinner, Box } from "@chakra-ui/react";
+import { Heading, Page, Box } from "@chakra-ui/react";
 import Notification from "./Notification";
 
 function Notifications() {
@@ -35,26 +34,16 @@ function Notifications() {
     },
   ];
 
-  const LOAD = <Spinner />;
-
-  const BODY = (
-    <>
+  return (
+    <Page isLoading={loading}>
       <Heading mb="25px">Notifications</Heading>
       <Box borderWidth="1px" rounded="md" bg="white">
         {notifications.map((notification, index) => (
           <Notification key={index} notification={notification} />
         ))}
       </Box>
-    </>
+    </Page>
   );
-
-  return <Page>{loading ? LOAD : BODY}</Page>;
 }
-
-const Page = styled.div`
-  padding: 30px;
-  height: 100%;
-  background: #f8f9fa;
-`;
 
 export default Notifications;
