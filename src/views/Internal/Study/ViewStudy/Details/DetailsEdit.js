@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button, Heading } from "@chakra-ui/react";
-import { Textarea } from "@chakra-ui/react";
+import { Textarea } from "components";
 import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
 
 function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, handleSubmit }) {
@@ -30,7 +30,6 @@ function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, han
         <Textarea
           label="Study Title"
           name="title"
-          type="textarea"
           value={inputs.title}
           error={errors.title}
           limit={100}
@@ -40,7 +39,6 @@ function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, han
         <Textarea
           label="Study Description"
           name="description"
-          type="textarea"
           value={inputs.description}
           error={errors.description}
           limit={500}
