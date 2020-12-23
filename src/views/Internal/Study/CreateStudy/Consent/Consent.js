@@ -1,36 +1,24 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { storage } from "database/firebase";
-
-import ConsentView from "./Consent";
+import { FileInput } from "components";
+import { Heading, Text, Button } from "@chakra-ui/react";
 
 function Consent({ study, setTab }) {
-  const [name, setName] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState("");
   const [status, setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const handleFileSelect = (e) => {
-    setName(e.target.value);
+  const handleChange = (e) => {
     setFile(e.target.files[0]);
     setError("");
   };
 
-  const handleFileUpload = () => {
-    if (!file || !name) {
+  const handleUpload = () => {
+    if (!file) {
       setError("File has not been selected");
       return;
-    }
-
-    const ext = name.split(".").reverse()[0];
-
-    if (ext !== "pdf") {
-      setError("File must be a pdf");
-      return;
-    }
-
-    if (!study.id) {
-      setError("Study ID is missing");
     }
 
     setLoading(true);
@@ -59,14 +47,41 @@ function Consent({ study, setTab }) {
   };
 
   return (
-    <ConsentView
-      loading={loading}
-      status={status}
-      error={error}
-      handleFileSelect={handleFileSelect}
-      handleFileUpload={handleFileUpload}
-    />
+    <>
+      <Heading size="lg" mb="10px">
+        Upload Consent Form
+      </Heading>
+      <Text mb="10px" color="gray.500">
+        This Consent Form will be displayed to interested participants when they decide to enroll
+        for this study. They will have to agree to the terms of this consent form before completing
+        their enrollment.
+      </Text>
+      <Inputs>
+        <FileInput
+          loading={loading}
+          status={status}
+          error={error}
+          accept="application/pdf"
+          onChange={handleChange}
+        />
+        <Button
+          colorScheme="blue"
+          onClick={handleUpload}
+          loadingText="Uploading..."
+          isLoading={loading}
+          type="submit"
+        >
+          Upload
+        </Button>
+      </Inputs>
+    </>
   );
 }
+
+const Inputs = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  width: 250px;
+`;
 
 export default Consent;
