@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Box, Flex } from "components";
+import { Box, Flex } from "@chakra-ui/react";
 
 import Sidebar from "./Sidebar";
 

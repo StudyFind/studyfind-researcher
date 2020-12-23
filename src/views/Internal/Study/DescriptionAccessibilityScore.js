@@ -1,7 +1,7 @@
 import React from "react";
 import { compute } from "functions";
 
-import { Heading, Text, Progress, Tag, Flex, Tooltip, Icon, Box } from "components";
+import { Heading, Text, Progress, Tag, Flex, Tooltip, Icon, Box } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
 
 function DescriptionAccessibilityScore({ description }) {

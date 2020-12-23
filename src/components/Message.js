@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Text, Box, Center, Flex } from "components";
+import { Heading, Text, Box, Center, Flex } from "@chakra-ui/react";
 import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 function Message({ type, title, description, children }) {

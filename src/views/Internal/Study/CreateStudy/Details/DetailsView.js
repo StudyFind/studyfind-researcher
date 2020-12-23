@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Form, Textarea, Text, Button, Heading } from "components";
+import { Text, Button, Heading } from "@chakra-ui/react";
+import { Form, Textarea } from "components";
 import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
 
 function DetailsView({ inputs, errors, handleChange, handleSubmit }) {

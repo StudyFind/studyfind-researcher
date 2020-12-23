@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Box } from "components";
+import { Heading, Box } from "@chakra-ui/react";
 
 import Activate from "./Activate";
 import Delete from "./Delete";

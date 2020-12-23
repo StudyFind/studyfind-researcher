@@ -4,7 +4,8 @@ import styled from "styled-components";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 import { Link } from "react-router-dom";
-import { Box, Heading, Text, Button, Spinner } from "components";
+import { Box, Heading, Text, Button } from "@chakra-ui/react";
+import { Spinner } from "components";
 import { FaPlusCircle } from "react-icons/fa";
 
 function DashboardView({ studies, loading }) {

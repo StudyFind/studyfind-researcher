@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import StudyCardLarge from "views/Internal/StudyCardLarge";
-import { Heading, Text, Button } from "components";
+import { Heading, Text, Button } from "@chakra-ui/react";
 
 function ReviewView({ study, handleDelete, handlePublish, deleteLoading, publishLoading }) {
   return (

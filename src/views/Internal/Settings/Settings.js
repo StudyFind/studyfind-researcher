@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Button, Spinner } from "components";
+import { Heading } from "@chakra-ui/react";
 import ChangePassword from "./ChangePassword";
 import DeleteAccount from "./DeleteAccount";
 

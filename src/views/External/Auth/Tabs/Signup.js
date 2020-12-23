@@ -3,7 +3,8 @@ import React from "react";
 import { useAuthForm } from "hooks";
 import { signup } from "database";
 import { Form, Heading, Email, Password, Button, TabLink } from "views/External/Auth/Blocks";
-import { Message, Box } from "components";
+import { Box } from "@chakra-ui/react";
+import { Message } from "components";
 
 function Login({ setTab }) {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({

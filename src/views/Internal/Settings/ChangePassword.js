@@ -3,7 +3,8 @@ import React from "react";
 import { useAuthForm } from "hooks";
 import { changePassword } from "database";
 import { Form, Heading, Password, Button } from "views/External/Auth/Blocks";
-import { Box, Message } from "components";
+import { Box } from "@chakra-ui/react";
+import { Message } from "components";
 
 function ChangePassword() {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({

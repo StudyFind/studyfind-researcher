@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Box, Heading, Message, Button, Tag, Text } from "components";
+import { Box, Heading, Message, Button, Tag, Text } from "@chakra-ui/react";
 
 function SurveyView({ questions, setEdit }) {
   const BODY = (

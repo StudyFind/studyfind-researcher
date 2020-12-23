@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Heading, Text, Button, FormErrorMessage, Box, Flex } from "components";
+import { Heading, Text, Button, FormErrorMessage, Box, Flex } from "@chakra-ui/react";
 import { resetStudy } from "database/studies";
 import { format } from "functions";
 

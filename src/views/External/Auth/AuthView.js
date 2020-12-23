@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import { Box, Center } from "components";
+import { Box, Center } from "@chakra-ui/react";
 
 import Login from "./Tabs/Login";
 import Signup from "./Tabs/Signup";

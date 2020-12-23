@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link as RouterLink } from "react-router-dom";
 import { NavHashLink as HashLink } from "react-router-hash-link";
 import $ from "jquery";
 
-import { Button, Heading } from "components";
+import { Heading } from "@chakra-ui/react";
 
 import SFLogo from "images/logo.png";
 

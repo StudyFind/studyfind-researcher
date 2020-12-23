@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Heading, Button, FormControl, FormErrorMessage, Progress } from "components";
-import { Input } from "@chakra-ui/react";
+import { Heading, Button, FormControl, FormErrorMessage, Progress } from "@chakra-ui/react";
+import { Input } from "components";
 import { storage } from "database/firebase";
 
 function ConsentEdit({ study, setEdit }) {

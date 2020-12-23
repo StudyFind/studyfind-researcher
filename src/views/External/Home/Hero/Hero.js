@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { Heading, Button, Text } from "components";
+import { Heading, Button, Text } from "@chakra-ui/react";
 
 import Background from "images/microscope.jpg";
 

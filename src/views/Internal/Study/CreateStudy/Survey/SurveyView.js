@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Text, Input, Select, Button, IconButton } from "components";
+import { Heading, Text, Button, IconButton } from "@chakra-ui/react";
+import { Input, Select } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
 function SurveyView({
