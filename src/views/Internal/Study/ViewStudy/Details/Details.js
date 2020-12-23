@@ -6,49 +6,37 @@ import DetailsEdit from "./DetailsEdit";
 
 function Details({ study, setStudy }) {
   const [edit, setEdit] = useState(false);
-  const [inputs, setInputs] = useState({ title: study.title, description: study.description });
+  const [inputs, setInputs] = useState({ title: "", description: "" });
   const [errors, setErrors] = useState({ title: "", description: "" });
+
+  const characterLimits = (min, max, name, value) => {
+    const length = value.length;
+    const invalid = length < min || length > max;
+    return invalid ? `The best ${name}s are between ${min} and ${max} characters` : "";
+  };
+
+  const check = {
+    title: (value) => characterLimits(50, 100, "title", value),
+    description: (value) => characterLimits(300, 500, "description", value),
+  };
+
+  const validate = (inp) => ({
+    title: check.title(inp.title),
+    description: check.description(inp.description),
+  });
 
   useEffect(() => {
     if (study.id) {
-      setInputs({ title: study.title || "", description: study.description || "" });
-
-      const err = {
-        title: checker("title", study.title),
-        description: checker("description", study.description),
-      };
-
+      const inp = { title: study.title || "", description: study.description || "" };
+      const err = validate(inp);
+      setInputs(inp);
       setErrors(err);
     }
   }, [study]);
 
-  const checker = (name, value) => {
-    const check = {
-      title: (value) => {
-        const MIN_LIMIT = 50;
-        const MAX_LIMIT = 100;
-
-        if (value.length < MIN_LIMIT || value.length > MAX_LIMIT) {
-          return `The best titles are between ${MIN_LIMIT} and ${MAX_LIMIT} characters`;
-        }
-      },
-
-      description: (value) => {
-        const MIN_LIMIT = 300;
-        const MAX_LIMIT = 500;
-
-        if (value.length < MIN_LIMIT || value.length > MAX_LIMIT) {
-          return `The best descriptions are between ${MIN_LIMIT} and ${MAX_LIMIT} characters`;
-        }
-      },
-    };
-
-    return check[name](value);
-  };
-
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: checker(name, value) });
+    setErrors({ ...errors, [name]: check[name](value) });
   };
 
   const handleCancel = () => {
@@ -57,12 +45,9 @@ function Details({ study, setStudy }) {
   };
 
   const handleSubmit = () => {
-    const err = {
-      title: checker("title", inputs.title),
-      description: checker("description", inputs.description),
-    };
-
+    const err = validate(inputs);
     setErrors(err);
+
     const errorExists = Object.keys(err).some((i) => err[i]);
     if (errorExists) return;
 

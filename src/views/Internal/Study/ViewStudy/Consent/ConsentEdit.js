@@ -5,33 +5,20 @@ import { Input } from "@chakra-ui/react";
 import { storage } from "database/firebase";
 
 function ConsentEdit({ study, setEdit }) {
-  const [name, setName] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState("");
   const [status, setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const handleFileSelect = (e) => {
-    setName(e.target.value);
+  const handleChange = (e) => {
     setFile(e.target.files[0]);
     setError("");
   };
 
-  const handleFileUpload = () => {
-    if (!file || !name) {
+  const handleUpload = () => {
+    if (!file) {
       setError("File has not been selected");
       return;
-    }
-
-    const ext = name.split(".").reverse()[0];
-
-    if (ext !== "pdf") {
-      setError("File must be a pdf");
-      return;
-    }
-
-    if (!study.id) {
-      setError("Study ID is missing");
     }
 
     setLoading(true);
@@ -72,13 +59,13 @@ function ConsentEdit({ study, setEdit }) {
           <Progress hasStripe value={status} colorScheme="blue" />
         ) : (
           <FormControl isInvalid={error}>
-            <FileInput type="file" onChange={handleFileSelect} isInvalid={error} />
+            <FileInput type="file" onChange={handleChange} isInvalid={error} />
             <FormErrorMessage>{error}</FormErrorMessage>
           </FormControl>
         )}
         <Button
           colorScheme="blue"
-          onClick={handleFileUpload}
+          onClick={handleUpload}
           loadingText="Uploading..."
           isLoading={loading}
           type="submit"

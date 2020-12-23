@@ -5,14 +5,12 @@ import { Button, FormControl, FormErrorMessage, Progress, Input } from "@chakra-
 
 function EditProfilePicture({ setEdit }) {
   const user = auth.currentUser;
-  const [name, setName] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState("");
   const [status, setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const handleFileSelect = (e) => {
-    setName(e.target.value);
     setFile(e.target.files[0]);
     setError("");
   };
@@ -74,9 +72,7 @@ const Inputs = styled.div`
 `;
 
 const FileInput = styled(Input)`
-  padding: 4px;
-  padding-left: 4px !important;
-  padding-right: 4px !important;
+  padding: 4px !important;
 `;
 
 export default EditProfilePicture;

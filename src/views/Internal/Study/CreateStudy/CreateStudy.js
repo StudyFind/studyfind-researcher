@@ -14,11 +14,11 @@ import Deleted from "./Success/Deleted";
 function CreateStudy() {
   const [tab, setTab] = useState("fetch");
   const [study, setStudy] = useState({});
-  const tabs = ["fetch", "fields", "survey", "consent", "review"];
+  const tabs = ["fetch", "details", "survey", "consent", "review"];
 
   const render = {
     fetch: <Fetch setTab={setTab} setStudy={setStudy} />,
-    fields: <Details setTab={setTab} study={study} setStudy={setStudy} />,
+    details: <Details setTab={setTab} study={study} setStudy={setStudy} />,
     survey: <Survey setTab={setTab} study={study} setStudy={setStudy} />,
     consent: <Consent setTab={setTab} study={study} />,
     review: <Review setTab={setTab} study={study} />,
