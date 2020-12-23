@@ -6,15 +6,15 @@ import { fetchStudy } from "database/studies";
 import { Spinner, Message } from "components";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
-import Details from "./ViewStudy/Details/Details";
-import Survey from "./ViewStudy/Survey/Survey";
-import Consent from "./ViewStudy/Consent/Consent";
-import Participants from "./ViewStudy/Participants/Participants";
-import Settings from "./ViewStudy/Settings/Settings";
+import Details from "./Details/Details";
+import Survey from "./Survey/Survey";
+import Consent from "./Consent/Consent";
+import Participants from "./Participants/Participants";
+import Settings from "./Settings/Settings";
 
 function Study() {
   const { nctID } = useParams();
-  const [study, setStudy] = useState({});
+  const [study, setStudy] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -46,8 +46,7 @@ function Study() {
       type="failure"
       title="Permission Denied!"
       description={`You do not have the authorization required to access the study
-  ${nctID}. If you require access to the study, please contact the study owner to grant you
-  priviledge access to the study.`}
+  ${nctID}. If you require access to the study, please contact the study owner to change your priviledges.`}
     />
   );
 
@@ -55,8 +54,11 @@ function Study() {
     <Tabs colorScheme="blue" h="100%" isLazy>
       <TabList>
         <TabItem>Details</TabItem>
+        <TabItem>Locations</TabItem>
         <TabItem>Survey</TabItem>
         <TabItem>Consent</TabItem>
+        <TabItem>Reminders</TabItem>
+        <TabItem>Templates</TabItem>
         <TabItem>Participants</TabItem>
         <TabItem>Settings</TabItem>
       </TabList>
@@ -65,10 +67,19 @@ function Study() {
           <Details study={study} setStudy={setStudy} />
         </TabPanel>
         <TabPanel pt="1px">
+          <div></div>
+        </TabPanel>
+        <TabPanel pt="1px">
           <Survey study={study} setStudy={setStudy} />
         </TabPanel>
         <TabPanel pt="1px">
           <Consent study={study} setStudy={setStudy} />
+        </TabPanel>
+        <TabPanel pt="1px">
+          <div></div>
+        </TabPanel>
+        <TabPanel pt="1px">
+          <div></div>
         </TabPanel>
         <TabPanel pt="1px">
           <Participants study={study} />
