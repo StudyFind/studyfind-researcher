@@ -3,9 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import StudyFindLogo from "images/logo.png";
 
-import { Box, Heading, Flex, Text, Button } from "components";
+import { Box, Heading, Flex, Text } from "components";
 
-import { FaBell, FaCalendar, FaCog, FaPoll, FaCompass, FaUserCircle } from "react-icons/fa";
+import { FaBell, FaCalendar, FaCog, FaPoll, FaUserCircle } from "react-icons/fa";
 import { Avatar, Tooltip } from "@chakra-ui/react";
 
 function Sidebar() {
