@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+import { Box, Heading, Button } from "@chakra-ui/react";
+import { FaPlusCircle } from "react-icons/fa";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
-import { Link } from "react-router-dom";
-import { Box, Heading, Text, Button } from "@chakra-ui/react";
-import { Page } from "components";
-import { FaPlusCircle } from "react-icons/fa";
-
-function DashboardView({ studies, loading }) {
-  const GRID = (
+function DashboardGrid({ studies }) {
+  return (
     <Box>
       <Head>
         <Heading size="lg">Dashboard</Heading>
@@ -26,23 +24,6 @@ function DashboardView({ studies, loading }) {
       </StudyGrid>
     </Box>
   );
-
-  const NONE = (
-    <Box w="450px">
-      <Heading fontSize="32px">Create your first study</Heading>
-      <Text color="gray.500" mt="8px">
-        You can add your study using its Clinical Trials ID and begin recruiting and managing
-        participants almost instantaneously. StudyFind automates a lot of your work for you.
-      </Text>
-      <Link to="/create">
-        <Button mt="40px" leftIcon={<FaPlusCircle />} colorScheme="blue">
-          Create Study
-        </Button>
-      </Link>
-    </Box>
-  );
-
-  return <Page isLoading={loading}>{studies.length ? GRID : NONE}</Page>;
 }
 
 const Head = styled.div`
@@ -60,4 +41,4 @@ const StudyGrid = styled.div`
   align-items: flex-start;
 `;
 
-export default DashboardView;
+export default DashboardGrid;

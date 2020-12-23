@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { fetchStudies } from "database/studies";
+import { Page } from "components";
 
-import DashboardView from "./DashboardView";
+import DashboardEmpty from "./DashboardEmpty";
+import DashboardGrid from "./DashboardGrid";
 
 function Dashboard() {
   const [studies, setStudies] = useState([]);
@@ -14,7 +16,10 @@ function Dashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  return <DashboardView studies={studies} loading={loading} />;
+  const GRID = <DashboardGrid studies={studies} />;
+  const EMPTY = <DashboardEmpty />;
+
+  return <Page isLoading={loading}>{studies.length ? GRID : EMPTY}</Page>;
 }
 
 export default Dashboard;
