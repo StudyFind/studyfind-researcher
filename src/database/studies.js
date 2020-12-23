@@ -7,16 +7,25 @@ const map = (snapshot) => {
   return collection;
 };
 
-const makeStudy = (nctID) => {
-  return auth.currentUser
-    .getIdToken(false)
-    .then((idToken) =>
-      axios.get("https://us-central1-studyfind-researcher.cloudfunctions.net/studies/makeStudy", {
-        params: { nctID, idToken },
-      })
-    )
-    .then(({ data }) => data);
-};
+const makeStudy = (nctID) =>
+  new Promise((resolve, reject) => {
+    return auth.currentUser
+      .getIdToken(false)
+      .then((idToken) =>
+        axios.get("https://us-central1-studyfind-researcher.cloudfunctions.net/studies/makeStudy", {
+          params: { nctID, idToken },
+        })
+      )
+      .then(({ data }) => {
+        const { study, error } = data;
+
+        if (study) {
+          resolve(study);
+        } else {
+          reject(error);
+        }
+      });
+  });
 
 const resetStudy = (nctID) => {
   return auth.currentUser
