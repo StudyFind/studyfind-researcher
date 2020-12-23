@@ -32,7 +32,6 @@ const deleteCookie = () => localStorage.setItem("exists", false);
 const setUserData = ({ uid }) => database.ref(`users/${uid}`).set({});
 const setUserType = (user) => user.updateProfile({ displayName: "researcher" });
 
-const sendVerificationEmail = (user) => user.sendEmailVerification();
 const sendPasswordResetEmail = async (email) => auth.sendPasswordResetEmail(email);
 
 const signup = async (email, password) => {
@@ -41,7 +40,6 @@ const signup = async (email, password) => {
     createCookie();
     setUserType(user);
     setUserData(user);
-    sendVerificationEmail(user);
     return user;
   } catch (error) {
     throw getError(error);
@@ -51,13 +49,6 @@ const signup = async (email, password) => {
 // ========================== HANDLE SIGN IN ========================== //
 const authenticateUser = async (email, password) =>
   auth.signInWithEmailAndPassword(email, password);
-
-function checkVerified(user) {
-  if (!user.emailVerified) {
-    sendVerificationEmail(user);
-    throw { code: "auth/user-not-verified" };
-  }
-}
 
 function checkUserType(user) {
   if (user.displayName !== "researcher") {
@@ -70,7 +61,6 @@ const signin = async (email, password) => {
     const { user } = await authenticateUser(email, password);
     createCookie();
     checkUserType(user);
-    checkVerified(user);
     return user;
   } catch (error) {
     throw getError(error);
@@ -113,10 +103,6 @@ const facebookAuth = async () => {
 // ========================== HANDLE SIGN OUT ========================== //
 const signout = async () => auth.signOut();
 
-// ========================== EMAIL VERIFICATION ========================== //
-
-const verifyUser = async (actionCode) => auth.applyActionCode(actionCode);
-
 // ========================== ACCOUNT DELETION ========================== //
 
 const deleteUser = async (email, password) => {
@@ -153,7 +139,6 @@ const changePassword = async (password, newPassword) => {
 
 export {
   // DATA //
-  verifyUser,
   updateUser,
   deleteUser,
   fetchData,
@@ -167,6 +152,5 @@ export {
   signin,
   signup,
   signout,
-  sendVerificationEmail,
   sendPasswordResetEmail,
 };
