@@ -4,21 +4,21 @@ import styled from "styled-components";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 import { Link } from "react-router-dom";
-import { Box, Heading, Text, Button } from "@chakra-ui/react";
-import { FaPlusCircle } from "react-icons/fa";
+import { Box, Heading, Text, Button, Flex } from "@chakra-ui/react";
 import { Page } from "components";
+import { FaPlusCircle } from "react-icons/fa";
 
 function DashboardView({ studies, loading }) {
   const GRID = (
     <Box>
-      <Head>
+      <Flex mb="25px" justify="space-between" align="center">
         <Heading size="lg">Dashboard</Heading>
         <Link to="/create">
           <Button leftIcon={<FaPlusCircle />} colorScheme="blue">
             Create Study
           </Button>
         </Link>
-      </Head>
+      </Flex>
       <StudyGrid n={studies.length}>
         {studies.map((study, index) => (
           <StudyCardSmall key={index} study={study} />
@@ -44,13 +44,6 @@ function DashboardView({ studies, loading }) {
 
   return <Page isLoading={loading}>{studies.length ? GRID : NONE}</Page>;
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-`;
 
 const StudyGrid = styled.div`
   display: grid;
