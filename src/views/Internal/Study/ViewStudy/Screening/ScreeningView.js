@@ -7,9 +7,9 @@ function SurveyView({ questions, setEdit }) {
   const BODY = (
     <>
       <Head>
-        <Heading fontSize="28px">Survey</Heading>
+        <Heading fontSize="28px">Screening</Heading>
         <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Survey
+          Edit Screening
         </Button>
       </Head>
       <Table>

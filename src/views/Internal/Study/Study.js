@@ -7,7 +7,7 @@ import { Message, Page } from "components";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import Details from "./ViewStudy/Details/Details";
-import Survey from "./ViewStudy/Survey/Survey";
+import Survey from "./ViewStudy/Screening/Screening";
 import Consent from "./ViewStudy/Consent/Consent";
 import Participants from "./ViewStudy/Participants/Participants";
 import Settings from "./ViewStudy/Settings/Settings";
@@ -49,7 +49,7 @@ function Study() {
     <Tabs colorScheme="blue" h="100%">
       <TabList>
         <TabItem>Details</TabItem>
-        <TabItem>Survey</TabItem>
+        <TabItem>Screening</TabItem>
         <TabItem>Consent</TabItem>
         <TabItem>Participants</TabItem>
         <TabItem>Settings</TabItem>

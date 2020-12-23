@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import SurveyView from "./SurveyView";
+import ScreeningView from "./ScreeningView";
 
-function Survey({ study, setStudy, setTab }) {
+function Screening({ study, setStudy, setTab }) {
   const [questions, setQuestions] = useState(study.questions || []);
 
   const createQuestion = () => {
@@ -31,7 +31,7 @@ function Survey({ study, setStudy, setTab }) {
   };
 
   return (
-    <SurveyView
+    <ScreeningView
       questions={questions}
       createQuestion={createQuestion}
       updateQuestion={updateQuestion}
@@ -42,4 +42,4 @@ function Survey({ study, setStudy, setTab }) {
   );
 }
 
-export default Survey;
+export default Screening;

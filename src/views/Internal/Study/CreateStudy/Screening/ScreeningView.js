@@ -4,7 +4,7 @@ import { Heading, Text, Button, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
-function SurveyView({
+function ScreeningView({
   questions,
   createQuestion,
   updateQuestion,
@@ -43,8 +43,8 @@ function SurveyView({
         Modifying Eligibility Criteria
       </Heading>
       <Text mb="10px" color="gray.500">
-        These exclusion and inclusion criteria will be used to automatically generate a survey for
-        interested participants to answer in their process of enrolling.
+        These exclusion and inclusion criteria will be used to automatically generate a screening
+        survey for interested participants to answer in their process of enrolling.
       </Text>
       {questions && questions.length ? (
         <Button
@@ -93,4 +93,4 @@ const Buttons = styled.div`
   justify-content: flex-end;
 `;
 
-export default SurveyView;
+export default ScreeningView;

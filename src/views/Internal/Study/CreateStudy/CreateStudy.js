@@ -6,7 +6,7 @@ import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 import Fetch from "./Fetch/Fetch";
 import Consent from "./Consent/Consent";
 import Details from "./Details/Details";
-import Survey from "./Survey/Survey";
+import Screening from "./Screening/Screening";
 import Review from "./Review/Review";
 import Published from "./Success/Published";
 import Deleted from "./Success/Deleted";
@@ -14,12 +14,12 @@ import Deleted from "./Success/Deleted";
 function CreateStudy() {
   const [tab, setTab] = useState("fetch");
   const [study, setStudy] = useState({});
-  const tabs = ["fetch", "fields", "survey", "consent", "review"];
+  const tabs = ["fetch", "fields", "screen", "consent", "review"];
 
   const render = {
     fetch: <Fetch setTab={setTab} setStudy={setStudy} />,
     fields: <Details setTab={setTab} study={study} setStudy={setStudy} />,
-    survey: <Survey setTab={setTab} study={study} setStudy={setStudy} />,
+    screen: <Screening setTab={setTab} study={study} setStudy={setStudy} />,
     consent: <Consent setTab={setTab} study={study} />,
     review: <Review setTab={setTab} study={study} />,
     published: <Published />,
