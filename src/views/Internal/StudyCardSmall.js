@@ -6,12 +6,12 @@ import { Box, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/react";
 
 function StudyCardSmall({ study }) {
   return (
-    <Card to={`/study/${study.id}`}>
+    <Link to={`/study/${study.id}`}>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
         <Text fontSize="sm" color="gray.400">
           {study.id}
         </Text>
-        <Title size="sm" mt="5px">
+        <Title size="sm" mt="6px">
           {study.title}
         </Title>
         <Conditions spacing={0} isInline mt="6px">
@@ -26,13 +26,9 @@ function StudyCardSmall({ study }) {
           {study.description}
         </Description>
       </Box>
-    </Card>
+    </Link>
   );
 }
-
-const Card = styled(Link)`
-  cursor: pointer;
-`;
 
 const Conditions = styled(Stack)`
   display: grid;
