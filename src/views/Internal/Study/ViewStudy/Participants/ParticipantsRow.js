@@ -54,9 +54,4 @@ const Row = styled.div`
   }
 `;
 
-const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 export default ParticipantRow;
