@@ -1,5 +1,6 @@
 import React from "react";
-import { Heading, Page, Box } from "@chakra-ui/react";
+import { Heading, Box } from "@chakra-ui/react";
+import { Page } from "components";
 import Notification from "./Notification";
 
 function Notifications() {
@@ -36,7 +37,9 @@ function Notifications() {
 
   return (
     <Page isLoading={loading}>
-      <Heading mb="25px">Notifications</Heading>
+      <Heading size="lg" mb="25px">
+        Notifications
+      </Heading>
       <Box borderWidth="1px" rounded="md" bg="white">
         {notifications.map((notification, index) => (
           <Notification key={index} notification={notification} />
