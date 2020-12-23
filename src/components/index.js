@@ -7,6 +7,8 @@ import Select from "./Select";
 import Textarea from "./Textarea";
 import Message from "./Message";
 import Page from "./Page";
+import FileInput from "./FileInput";
+import List from "./List";
 
 import {
   Box,
@@ -37,6 +39,7 @@ import {
 } from "@chakra-ui/react";
 
 export {
+  FileInput,
   Box,
   Flex,
   Grid,
@@ -71,4 +74,5 @@ export {
   DrawerCloseButton,
   DrawerFooter,
   Page,
+  List,
 };
