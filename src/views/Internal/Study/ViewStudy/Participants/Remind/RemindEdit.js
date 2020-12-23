@@ -3,23 +3,38 @@ import styled from "styled-components";
 import { Text, Heading, Input, Select, Button, IconButton } from "components";
 import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
 import {auth, firestore} from "../../../../../../database/firebase";
-function RemindEdit({participant, study, setEdit}) {
+function RemindEdit({
+  participant, 
+  study, 
+  setEdit, 
+  setTitle, 
+  title, 
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+  sunday,
+  setSunday,
+  monday,
+  setMonday,
+  tuesday,
+  setTuesday,
+  wednesday,
+  setWednesday,
+  thursday,
+  setThursday,
+  friday,
+  setFriday,
+  saturday,
+  setSaturday,
+  times,
+  setTimes,
+  oldReminder
+}) {
     const [value, setValue] = useState("")
-    const [times, setTimes] = useState([])
-    const [title, setTitle] = useState("")
-    const [startDate, setStartDate] = useState("")
-    const [endDate, setEndDate] = useState("")
-    const [sunday, setSunday] = useState(false)
-    const [monday, setMonday] = useState(false)
-    const [tuesday, setTuesday] = useState(false)
-    const [wednesday, setWednesday] = useState(false)
-    const [thursday, setThursday] = useState(false)
-    const [friday, setFriday] = useState(false)
-    const [saturday, setSaturday] = useState(false)
     const [titleError, setTitleError] = useState("")
     const [startEndTimeError, setStartEndTimeError] = useState("")
     const [timeError, setTimeError] = useState("")
-
     const saveTime = () => {
       var error = false
       if (value == ""){
@@ -29,8 +44,8 @@ function RemindEdit({participant, study, setEdit}) {
       const [newHour, newMin] = value.split(":");
       const newTime = ((parseInt(newHour)) * 60 + parseInt(newMin))
       times.map((time, index) => {
-        const hour = time.value.split(":")[0];
-        const min = time.value.split(":")[1];
+        const hour = time.split(":")[0];
+        const min = time.split(":")[1];
         const thisTime = ((parseInt(hour)) * 60 + parseInt(min))
         if (newTime - thisTime < 30 && newTime - thisTime > -30) {
           setTimeError("Reminder Times Need to be At Least 30 Minute Apart")
@@ -41,7 +56,7 @@ function RemindEdit({participant, study, setEdit}) {
         return
       }
       const oldtimes = [...times];
-      oldtimes[oldtimes.length] = {value}
+      oldtimes[oldtimes.length] = value
       setTimes(oldtimes)
       setValue("")
       setTimeError("")
@@ -80,7 +95,14 @@ function RemindEdit({participant, study, setEdit}) {
         setStartEndTimeError("Please Enter a End Date Later Than Start Date")
         return
       }
-      const updatedReminders = participant.reminders.concat([newReminder]);
+      var updatedReminders
+      if (oldReminder == -1) {
+        updatedReminders = participant.reminders.concat([newReminder]);
+      } else {
+        updatedReminders = participant.reminders
+        updatedReminders[oldReminder] = newReminder
+      }
+      // const updatedReminders = participant.reminders.concat([newReminder]);
       firestore.collection("studies").doc(study.id).collection("participants").doc(participant.id).update({
         reminders: updatedReminders
       })
@@ -92,8 +114,8 @@ function RemindEdit({participant, study, setEdit}) {
       for (const weekday in weekdayBoolean) {
         if (weekdayBoolean[weekday]) {
           times.map((time, index) => {
-            const hour = time.value.split(":")[0];
-            const min = time.value.split(":")[1];
+            const hour = time.split(":")[0];
+            const min = time.split(":")[1];
             const thisTime = ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000 
             allTimes.push(thisTime)
           }) 
@@ -138,7 +160,7 @@ function RemindEdit({participant, study, setEdit}) {
       <Row_align_left>
         {times.map((time,index) => (
           <Tag key={index}>
-            <TagLabel>{time.value}</TagLabel>
+            <TagLabel>{time}</TagLabel>
             <TagCloseButton onClick={()=>deleteTime(index)}/>
           </Tag>
         ))}
