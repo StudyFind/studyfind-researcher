@@ -8,7 +8,9 @@ import DeleteAccount from "./DeleteAccount";
 function Settings() {
   return (
     <Page>
-      <Heading mb="25px">Settings</Heading>
+      <Heading size="lg" mb="25px">
+        Settings
+      </Heading>
       <Body>
         <ChangePassword />
         <DeleteAccount />
