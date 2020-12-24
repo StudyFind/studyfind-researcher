@@ -109,7 +109,6 @@ function checkRepeat(reminder) {
   var weekdayBoolean = [false, false, false, false, false, false, false]
   for (var time in reminder.times) {
     var offset_time = convertMsToHour(reminder.times[time])
-    console.log(offset_time)
     weekdayBoolean[Math.floor(offset_time.hour/24)] = true
     
   }

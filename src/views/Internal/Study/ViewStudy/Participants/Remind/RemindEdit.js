@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Text, Heading, Input, Select, Button, IconButton } from "components";
 import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
 import {auth, firestore} from "../../../../../../database/firebase";
+import firebase from "firebase";
 function RemindEdit({
   participant, 
   study, 
@@ -80,9 +81,9 @@ function RemindEdit({
       }
       const allTimes = convertToTimes();
       const [startYear, startMonth, startDay] = startDate.split("-")
-      const thisStartDate = new Date(startYear, startMonth - 1, startDay)
+      const thisStartDate = firebase.firestore.Timestamp.fromDate(new Date(startYear, startMonth - 1, startDay))
       const [endYear, endMonth, endDay] = endDate.split("-")
-      const thisEndDate = new Date(endYear, endMonth - 1, endDay)
+      const thisEndDate = firebase.firestore.Timestamp.fromDate(new Date(endYear, endMonth - 1, endDay))
       /* firebase connection, all information are recorded */
       const newReminder = {
         title: title,
