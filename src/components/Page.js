@@ -3,9 +3,7 @@ import styled from "styled-components";
 import { Spinner } from "components";
 
 function Page({ children, isLoading }) {
-  const LOAD = <Spinner />;
-  const BODY = children;
-  return <Box>{isLoading ? LOAD : BODY}</Box>;
+  return <Box>{isLoading ? <Spinner /> : children}</Box>;
 }
 
 const Box = styled.div`

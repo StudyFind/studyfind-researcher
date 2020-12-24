@@ -7,7 +7,7 @@ import DeleteAccount from "./DeleteAccount";
 
 function Settings() {
   return (
-    <Page>
+    <>
       <Heading size="lg" mb="25px">
         Settings
       </Heading>
@@ -15,13 +15,9 @@ function Settings() {
         <ChangePassword />
         <DeleteAccount />
       </Body>
-    </Page>
+    </>
   );
 }
-
-const Page = styled.div`
-  padding: 30px;
-`;
 
 const Body = styled.div`
   display: flex;
