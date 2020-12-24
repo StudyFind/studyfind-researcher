@@ -35,7 +35,7 @@ function Fetch({ setTab, setStudy }) {
 
           if (study) {
             setStudy({ id: study.nctID, ...study });
-            setTab("fields");
+            setTab("details");
           } else {
             setError(error);
           }

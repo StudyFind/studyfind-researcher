@@ -59,7 +59,7 @@ function Details({ study, setStudy, setTab }) {
     if (errorExists) return;
 
     setStudy({ ...study, title: inputs.title, description: inputs.description });
-    setTab("survey");
+    setTab("screen");
   };
 
   return (
