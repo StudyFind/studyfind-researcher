@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { fetchStudy } from "database/studies";
 
-import { Message, Page } from "components";
+import { Message } from "components";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
-import Survey from "./Screening/Screening";
+import Screening from "./Screening/Screening";
 import Consent from "./Consent/Consent";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
 
-function ViewStudy() {
+function ViewStudy({ studies, loading, error }) {
   const { nctID } = useParams();
-  const [study, setStudy] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [study, setStudy] = useState();
 
   useEffect(() => {
-    fetchStudy(nctID)
-      .then(setStudy)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [nctID]);
+    if (studies) {
+      setStudy(studies.find((study) => study.id === nctID));
+    }
+  }, [studies]);
 
   const MISSING = (
     <Message
@@ -35,15 +31,15 @@ function ViewStudy() {
     />
   );
 
-  const DENIED = (
-    <Message
-      type="failure"
-      title="Permission Denied!"
-      description={`You do not have the authorization required to access the study
-  ${nctID}. If you require access to the study, please contact the study owner to grant you
-  priviledge access to the study.`}
-    />
-  );
+  // const DENIED = (
+  //   <Message
+  //     type="failure"
+  //     title="Permission Denied!"
+  //     description={`You do not have the authorization required to access the study
+  // ${nctID}. If you require access to the study, please contact the study owner to grant you
+  // priviledge access to the study.`}
+  //   />
+  // );
 
   const BODY = (
     <Tabs colorScheme="blue" h="100%">
@@ -56,10 +52,10 @@ function ViewStudy() {
       </TabList>
       <TabPanels>
         <TabPanel pt="1px">
-          <Details study={study} setStudy={setStudy} />
+          <Details study={study} />
         </TabPanel>
         <TabPanel pt="1px">
-          <Survey study={study} setStudy={setStudy} />
+          <Screening study={study} setStudy={setStudy} />
         </TabPanel>
         <TabPanel pt="1px">
           <Consent study={study} setStudy={setStudy} />
@@ -74,7 +70,7 @@ function ViewStudy() {
     </Tabs>
   );
 
-  return <Page isLoading={loading}>{error ? DENIED : study ? BODY : MISSING}</Page>;
+  return study ? BODY : MISSING;
 }
 
 const TabItem = styled(Tab)`
