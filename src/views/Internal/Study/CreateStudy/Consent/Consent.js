@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { storage } from "database/firebase";
 
-import ConsentView from "./Consent";
+import ConsentView from "./ConsentView";
 
 function Consent({ study, setTab }) {
   const [name, setName] = useState();
