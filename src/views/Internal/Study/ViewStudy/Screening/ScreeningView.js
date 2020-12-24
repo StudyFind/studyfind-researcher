@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Box, Heading, Message, Button, Tag, Text } from "@chakra-ui/react";
+import { Box, Heading, Button, Tag, Text } from "@chakra-ui/react";
+import { Message } from "components";
 
-function SurveyView({ questions, setEdit }) {
+function ScreeningView({ questions, setEdit }) {
   const BODY = (
     <>
       <Head>
@@ -78,4 +79,4 @@ const BodyCell = styled.td`
   padding: 8px 12px;
 `;
 
-export default SurveyView;
+export default ScreeningView;

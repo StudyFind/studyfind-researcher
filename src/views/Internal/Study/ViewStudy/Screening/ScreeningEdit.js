@@ -4,7 +4,7 @@ import { Heading, Button, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
-function SurveyEdit({
+function ScreeningEdit({
   original,
   questions,
   handleCancel,
@@ -97,4 +97,4 @@ const Buttons = styled.div`
   grid-gap: 10px;
 `;
 
-export default SurveyEdit;
+export default ScreeningEdit;
