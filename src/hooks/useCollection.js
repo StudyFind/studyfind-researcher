@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useCollection as useFirestoreCollection } from "react-firebase-hooks";
+import { useCollection as useFirestoreCollection } from "react-firebase-hooks/firestore";
 
 function useCollection(query, options) {
   const [collection, setCollection] = useState();
