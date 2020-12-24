@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
 import Settings from "views/Internal/Settings/Settings";
 import Dashboard from "views/Internal/Dashboard/Dashboard";
-import Study from "views/Internal/Study/Study";
+import ViewStudy from "views/Internal/Study/ViewStudy/ViewStudy";
 import Notifications from "views/Internal/Notifications/Notifications";
 
 function Internal() {
@@ -18,7 +18,7 @@ function Internal() {
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/study/:nctID" component={Study} />
+          <Route exact path="/study/:nctID" component={ViewStudy} />
           <Route exact path="/create" component={CreateStudy} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/settings" component={Settings} />

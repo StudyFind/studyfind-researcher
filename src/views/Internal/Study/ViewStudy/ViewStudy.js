@@ -6,13 +6,13 @@ import { fetchStudy } from "database/studies";
 import { Message, Page } from "components";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
-import Details from "./ViewStudy/Details/Details";
-import Survey from "./ViewStudy/Screening/Screening";
-import Consent from "./ViewStudy/Consent/Consent";
-import Participants from "./ViewStudy/Participants/Participants";
-import Settings from "./ViewStudy/Settings/Settings";
+import Details from "./Details/Details";
+import Survey from "./Screening/Screening";
+import Consent from "./Consent/Consent";
+import Participants from "./Participants/Participants";
+import Settings from "./Settings/Settings";
 
-function Study() {
+function ViewStudy() {
   const { nctID } = useParams();
   const [study, setStudy] = useState({});
   const [error, setError] = useState(null);
@@ -94,4 +94,4 @@ const TabItem = styled(Tab)`
   }
 `;
 
-export default Study;
+export default ViewStudy;
