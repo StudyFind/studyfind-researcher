@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Text, Button, IconButton } from "@chakra-ui/react";
-import { Input, Select } from "components";
+import { Heading, Text, Button } from "@chakra-ui/react";
 import { FaTrash, FaPlus } from "react-icons/fa";
+
+import Question from "./Question";
 
 function ScreeningView({
   questions,
@@ -12,31 +13,6 @@ function ScreeningView({
   deleteAllQuestions,
   handleSubmit,
 }) {
-  const questionComponents =
-    questions &&
-    questions.map((question, index) => (
-      <Row key={index}>
-        <Select
-          w="210px"
-          value={question.type}
-          onChange={(_, value) => updateQuestion(index, "type", value)}
-          options={["Inclusion", "Exclusion"]}
-        />
-        <Input
-          placeholder="Question Prompt"
-          value={question.prompt}
-          onChange={(_, value) => updateQuestion(index, "prompt", value)}
-        />
-        <IconButton
-          colorScheme=""
-          color="gray.500"
-          _hover={{ color: "red.500", bg: "red.100" }}
-          icon={<FaTrash />}
-          onClick={() => deleteQuestion(index)}
-        />
-      </Row>
-    ));
-
   return (
     <Grid>
       <Heading size="lg" mb="10px">
@@ -58,7 +34,15 @@ function ScreeningView({
         </Button>
       ) : null}
       <Questions>
-        {questionComponents}
+        {questions &&
+          questions.map((question, index) => (
+            <Question
+              key={index}
+              question={question}
+              updateQuestion={updateQuestion}
+              deleteQuestion={deleteQuestion}
+            />
+          ))}
         <Button leftIcon={<FaPlus />} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>
