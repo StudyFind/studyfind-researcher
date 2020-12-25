@@ -8,6 +8,7 @@ import { useDocument, useCollection } from "hooks";
 
 import Sidebar from "./Sidebar";
 
+import FetchStudy from "views/Internal/Study/FetchStudy/FetchStudy";
 import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
 import Settings from "views/Internal/Settings/Settings";
 import Dashboard from "views/Internal/Dashboard/Dashboard";
@@ -17,7 +18,7 @@ import Notifications from "views/Internal/Notifications/Notifications";
 function Internal() {
   const { uid } = auth.currentUser;
   const [user] = useDocument(firestore.collection("researchers").doc(uid));
-  const [studies, loading, error] = useCollection(
+  const [studies] = useCollection(
     firestore
       .collection("studies")
       .where("researcher.id", "==", uid)
@@ -25,26 +26,27 @@ function Internal() {
       .orderBy("updatedAt", "desc")
   );
 
-  console.log({ studies, loading, error });
+  const pages = [
+    { path: "/", component: <Dashboard studies={studies} /> },
+    { path: "/dashboard", component: <Dashboard studies={studies} /> },
+    { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
+    { path: "/fetch", component: <FetchStudy /> },
+    { path: "/create", component: <CreateStudy studies={studies} /> },
+    { path: "/notifications", component: <Notifications studies={studies} /> },
+    { path: "/settings", component: <Settings studies={studies} /> },
+  ];
 
   return (
     <Flex bg="#f8f9fa">
       <Sidebar />
       <Box ml="280px" w="100%" minH="100vh">
-        <Page isLoading={!studies || error || loading}>
+        <Page isLoading={!studies}>
           <Switch>
-            <Route exact path="/">
-              <Dashboard studies={studies} loading={loading} />
-            </Route>
-            <Route exact path="/dashboard">
-              <Dashboard studies={studies} loading={loading} />
-            </Route>
-            <Route exact path="/study/:nctID">
-              <ViewStudy studies={studies} />
-            </Route>
-            <Route exact path="/create" component={CreateStudy} />
-            <Route exact path="/notifications" component={Notifications} />
-            <Route exact path="/settings" component={Settings} />
+            {pages.map(({ path, component }, index) => (
+              <Route exact path={path} key={index}>
+                {component}
+              </Route>
+            ))}
             <Redirect to="/" />
           </Switch>
         </Page>
