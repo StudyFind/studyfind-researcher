@@ -247,7 +247,7 @@ function Participants({ study }) {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
-            <Flex align="center">
+            <Flex align="center" justifyContent="space-between">
               {drawer.participant.fakename}
               <DrawerCloseButton position="static" />
             </Flex>
