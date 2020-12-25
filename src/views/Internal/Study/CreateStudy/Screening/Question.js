@@ -1,12 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import { IconButton } from "@chakra-ui/react";
+import { Flex, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
 import { FaTrash } from "react-icons/fa";
 
 function Question({ question, index, updateQuestion, deleteQuestion }) {
   return (
-    <Row>
+    <Flex gridGap="10px" w="100%">
       <Select
         w="210px"
         value={question.type}
@@ -25,29 +24,8 @@ function Question({ question, index, updateQuestion, deleteQuestion }) {
         icon={<FaTrash />}
         onClick={() => deleteQuestion(index)}
       />
-    </Row>
+    </Flex>
   );
 }
-
-const Row = styled.div`
-  display: flex;
-  grid-gap: 10px;
-  width: 100%;
-`;
-
-const Grid = styled.div``;
-
-const Questions = styled.div`
-  display: grid;
-  width: 100%;
-  grid-gap: 10px;
-  padding: 10px 0;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  grid-gap: 10px;
-  justify-content: flex-end;
-`;
 
 export default Question;
