@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import { Text, Button, Heading } from "@chakra-ui/react";
+import { Text, Button, Heading, Grid, Flex } from "@chakra-ui/react";
 import { Form, Textarea } from "components";
 import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
 
@@ -16,7 +15,7 @@ function DetailsView({ inputs, errors, handleChange, handleSubmit }) {
         jargon and making it readable for the general population to improve their partipant
         recruitment
       </Text>
-      <Inputs>
+      <Grid py="10px" gap="10px">
         <Textarea
           label="Study Title"
           name="title"
@@ -38,26 +37,14 @@ function DetailsView({ inputs, errors, handleChange, handleSubmit }) {
           onChange={handleChange}
         />
         <DescriptionAccessibilityScore description={inputs.description} />
-      </Inputs>
-      <Buttons>
+      </Grid>
+      <Flex justify="flex-end">
         <Button mt="20px" ml="auto" colorScheme="blue" type="submit" style={{ textAlign: "right" }}>
           Submit
         </Button>
-      </Buttons>
+      </Flex>
     </Form>
   );
 }
-
-const Inputs = styled.div`
-  display: grid;
-  padding: 10px 0;
-  grid-gap: 10px;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  grid-gap: 10px;
-  justify-content: flex-end;
-`;
 
 export default DetailsView;
