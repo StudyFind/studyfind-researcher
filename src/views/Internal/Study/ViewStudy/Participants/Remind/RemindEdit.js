@@ -30,7 +30,8 @@ function RemindEdit({
   setSaturday,
   times,
   setTimes,
-  oldReminder
+  oldReminder,
+  setOldReminder
 }) {
     const [value, setValue] = useState("")
     const [titleError, setTitleError] = useState("")
@@ -107,6 +108,18 @@ function RemindEdit({
       firestore.collection("studies").doc(study.id).collection("participants").doc(participant.id).update({
         reminders: updatedReminders
       })
+      setTitle("");
+      setTimes([]);
+      setMonday(false);
+      setTuesday(false);
+      setWednesday(false);
+      setThursday(false);
+      setFriday(false);
+      setSaturday(false);
+      setSunday(false);
+      setOldReminder(-1);
+      setStartDate("");
+      setEndDate("");
       setEdit(false);
     };
     const convertToTimes = () => {

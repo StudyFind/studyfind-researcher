@@ -43,6 +43,7 @@ function Remind({participant, study}) {
           times={times}
           setTimes={setTimes}
           oldReminder={oldReminder}
+          setOldReminder={setOldReminder}
           />
       ) : (
         <RemindView 
