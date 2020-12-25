@@ -11,7 +11,7 @@ function Hero() {
     <Box>
       <Heading size="2xl" lineHeight="1.2">
         We help optimize your
-        <Text color="blue.500"> participant recruitment </Text>
+        <Text color="blue.500">participant recruitment</Text>
       </Heading>
       <Link to="/auth">
         <Button size="lg" colorScheme="blue">
