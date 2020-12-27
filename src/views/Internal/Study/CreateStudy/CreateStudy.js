@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 
 import Fetch from "./Fetch/Fetch";
@@ -44,18 +42,11 @@ function CreateStudy() {
   );
 
   return (
-    <Box>
+    <>
       {["published", "deleted"].includes(tab) || steps}
       {render[tab]}
-    </Box>
+    </>
   );
 }
-
-const Box = styled.div`
-  padding: 50px;
-  background: #f8f9fa;
-  width: 100%;
-  height: 100%;
-`;
 
 export default CreateStudy;
