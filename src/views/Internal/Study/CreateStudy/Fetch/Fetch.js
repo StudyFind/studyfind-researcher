@@ -30,7 +30,7 @@ function Fetch({ setTab, setStudy }) {
       makeStudy(validID)
         .then((study) => {
           setStudy({ id: validID, ...study });
-          setTab("fields");
+          setTab("details");
         })
         .catch((error) => setError(error.toString()))
         .finally(() => setLoading(false));
