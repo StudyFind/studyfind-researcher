@@ -8,7 +8,7 @@ function Screening({ study, setStudy, setTab }) {
 
   const createQuestion = () => {
     const updated = [...questions];
-    updated[updated.length] = { type: "", prompt: "" };
+    updated[updated.length] = { type: "Inclusion", prompt: "" };
     setQuestions(updated);
   };
 
