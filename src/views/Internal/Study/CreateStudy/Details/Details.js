@@ -1,47 +1,38 @@
 import React, { useState, useEffect } from "react";
-
-import DetailsView from "./DetailsView";
+import { Text, Button, Heading, Grid, Flex } from "@chakra-ui/react";
+import { Form, Textarea } from "components";
+import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
 
 function Details({ study, setStudy, setTab }) {
   const [inputs, setInputs] = useState({ title: "", description: "" });
   const [errors, setErrors] = useState({ title: "", description: "" });
 
   useEffect(() => {
-    if (study.id) {
-      setInputs({ title: study.title || "", description: study.description || "" });
+    const { id, title = "", description = "" } = study;
 
-      const err = {
-        title: checker("title", study.title),
-        description: checker("description", study.description),
-      };
-
-      setErrors(err);
+    if (id) {
+      setInputs({ title, description });
+      setErrors(() => validate(study));
     }
   }, [study]);
 
-  const checker = (name, value) => {
-    const check = {
-      title: (value) => {
-        const MIN_LIMIT = 50;
-        const MAX_LIMIT = 100;
-
-        if (value.length < MIN_LIMIT || value.length > MAX_LIMIT) {
-          return `The best titles are between ${MIN_LIMIT} and ${MAX_LIMIT} characters`;
-        }
-      },
-
-      description: (value) => {
-        const MIN_LIMIT = 300;
-        const MAX_LIMIT = 500;
-
-        if (value.length < MIN_LIMIT || value.length > MAX_LIMIT) {
-          return `The best descriptions are between ${MIN_LIMIT} and ${MAX_LIMIT} characters`;
-        }
-      },
-    };
-
-    return check[name](value);
+  const characterCheck = (name, value, min, max) => {
+    const isInvalid = value.length < min || value.length > max;
+    return isInvalid ? `The best ${name}s are between ${min} and ${max} characters` : "";
   };
+
+  const checker = (name, value) => {
+    const [min, max] = {
+      title: [50, 100],
+      description: [300, 500],
+    }[name];
+    return characterCheck(name, value, min, max);
+  };
+
+  const validate = ({ title, description }) => ({
+    title: checker("title", title),
+    description: checker("description", description),
+  });
 
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
@@ -49,26 +40,54 @@ function Details({ study, setStudy, setTab }) {
   };
 
   const handleSubmit = () => {
-    const err = {
-      title: checker("title", inputs.title),
-      description: checker("description", inputs.description),
-    };
+    const err = validate(inputs);
 
     setErrors(err);
     const errorExists = Object.keys(err).some((i) => err[i]);
     if (errorExists) return;
 
     setStudy({ ...study, title: inputs.title, description: inputs.description });
-    setTab("survey");
+    setTab("screen");
   };
 
   return (
-    <DetailsView
-      inputs={inputs}
-      errors={errors}
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-    />
+    <Form onSubmit={handleSubmit}>
+      <Heading size="lg" mb="10px">
+        Modifying Title and Description
+      </Heading>
+      <Text mb="10px" color="gray.500">
+        StudyFind strives to make research studies as accessible as possible. To achieve this, we
+        ask that researchers simplify the language used in the study description by avoiding medical
+        jargon and making it readable for the general population to improve their partipant
+        recruitment
+      </Text>
+      <Grid py="10px" gap="10px">
+        <Textarea
+          label="Study Title"
+          name="title"
+          value={inputs.title}
+          error={errors.title}
+          limit={100}
+          height="60px"
+          onChange={handleChange}
+        />
+        <Textarea
+          label="Study Description"
+          name="description"
+          value={inputs.description}
+          error={errors.description}
+          limit={500}
+          height="150px"
+          onChange={handleChange}
+        />
+        <DescriptionAccessibilityScore description={inputs.description} />
+      </Grid>
+      <Flex justify="flex-end">
+        <Button mt="20px" ml="auto" colorScheme="blue" type="submit" style={{ textAlign: "right" }}>
+          Submit
+        </Button>
+      </Flex>
+    </Form>
   );
 }
 

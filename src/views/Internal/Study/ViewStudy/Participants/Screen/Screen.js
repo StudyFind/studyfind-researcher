@@ -1,6 +1,5 @@
 import React from "react";
-import { Tag, Heading, Text, Box, Flex, Grid } from "components";
-import { compute } from "functions";
+import { Tag, Text, Box, Grid } from "@chakra-ui/react";
 
 function Screen({ questions, responses }) {
   return (

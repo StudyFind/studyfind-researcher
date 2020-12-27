@@ -10,8 +10,6 @@ import {
   Button,
   Box,
   Flex,
-  Message,
-  Spinner,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -19,7 +17,9 @@ import {
   DrawerBody,
   DrawerFooter,
   DrawerCloseButton,
-} from "components";
+} from "@chakra-ui/react";
+
+import { Message, Spinner } from "components";
 
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";

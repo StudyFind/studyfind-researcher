@@ -22,12 +22,8 @@ function Delete({ study }) {
   const handleDelete = () => {
     if (nctID === study.id) {
       setLoading(true);
-      deleteStudy(study.id)
-        .then(() => {
-          history.push("/studies");
-        })
-        .catch(console.log)
-        .finally(() => setLoading(false));
+      deleteStudy(study.id);
+      history.push("/studies");
     } else {
       setError("Entered ID does not match");
     }

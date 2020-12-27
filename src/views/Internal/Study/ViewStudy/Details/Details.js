@@ -68,7 +68,6 @@ function Details({ study, setStudy }) {
 
     const updated = { ...study, title: inputs.title, description: inputs.description };
     updateStudy(updated);
-    setStudy(updated);
     setEdit(false);
   };
 

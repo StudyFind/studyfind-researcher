@@ -1,15 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
+import { makeStudy } from "database/studies";
 import { Heading, Text, Button } from "@chakra-ui/react";
-
 import { Form, Input } from "components";
 
-function FetchStudyView({ nctID, error, loading, handleChange, handleSubmit }) {
+function Fetch({ setTab, setStudy }) {
+  const [nctID, setNctID] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const getValidID = (nctID) => {
+    const lastEight = nctID.substr(nctID.length - 8);
+    if (lastEight.length < 8) return "";
+    if (isNaN(lastEight)) return "";
+    return "NCT" + lastEight;
+  };
+
+  const handleChange = (_, value) => {
+    setNctID(value);
+    setError("");
+  };
+
+  const handleSubmit = () => {
+    const validID = getValidID(nctID);
+
+    if (validID) {
+      setLoading(true);
+      setError("");
+      makeStudy(validID)
+        .then((study) => {
+          setStudy({ id: validID, ...study });
+          setTab("fields");
+        })
+        .catch((error) => setError(error.toString()))
+        .finally(() => setLoading(false));
+    } else {
+      setError("The entered NCT ID is invalid");
+    }
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Heading size="lg" mb="10px">
-        Add Study using Clinical Trials ID
+        Fetch Study Data
       </Heading>
       <Text mb="10px" color="gray.500">
         In an effort to simplify and validate study creation, we require that your research study is
@@ -44,4 +77,4 @@ const Inputs = styled.div`
   width: 210px;
 `;
 
-export default FetchStudyView;
+export default Fetch;

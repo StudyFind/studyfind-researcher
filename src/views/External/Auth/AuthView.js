@@ -1,13 +1,12 @@
 import React from "react";
 
 import styled from "styled-components";
-import { Box, Center } from "components";
+import { Box, Center } from "@chakra-ui/react";
 
 import Login from "./Tabs/Login";
 import Signup from "./Tabs/Signup";
 import ForgotPassword from "./Tabs/ForgotPassword";
 import ResetPassword from "./Tabs/ResetPassword";
-import VerifyEmail from "./Tabs/VerifyEmail";
 
 function AuthView({ success, tab, setTab }) {
   const render = {
@@ -15,7 +14,6 @@ function AuthView({ success, tab, setTab }) {
     signup: <Signup setTab={setTab} />,
     forgotPassword: <ForgotPassword setTab={setTab} />,
     resetPassword: <ResetPassword setTab={setTab} />,
-    verifyEmail: <VerifyEmail setTab={setTab} />,
   };
 
   return (

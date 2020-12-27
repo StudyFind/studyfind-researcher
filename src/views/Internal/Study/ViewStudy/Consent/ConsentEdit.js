@@ -1,32 +1,30 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { Heading, Button, FormControl, FormErrorMessage, Progress } from "components";
-import { Input } from "@chakra-ui/react";
+import {
+  Heading,
+  Button,
+  FormControl,
+  FormErrorMessage,
+  Progress,
+  Input,
+  Flex,
+  Grid,
+} from "@chakra-ui/react";
 import { storage } from "database/firebase";
 
 function ConsentEdit({ study, setEdit }) {
-  const [name, setName] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState("");
   const [status, setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const handleFileSelect = (e) => {
-    setName(e.target.value);
     setFile(e.target.files[0]);
     setError("");
   };
 
   const handleFileUpload = () => {
-    if (!file || !name) {
+    if (!file) {
       setError("File has not been selected");
-      return;
-    }
-
-    const ext = name.split(".").reverse()[0];
-
-    if (ext !== "pdf") {
-      setError("File must be a pdf");
       return;
     }
 
@@ -61,18 +59,25 @@ function ConsentEdit({ study, setEdit }) {
 
   return (
     <div>
-      <Head>
+      <Flex justify="space-between" align="center" margin="15px 0">
         <Heading fontSize="28px">Upload Consent Form</Heading>
         <Button colorScheme="gray" onClick={() => setEdit(false)}>
           Cancel
         </Button>
-      </Head>
-      <Inputs>
+      </Flex>
+      <Grid gap="10px" w="250px">
         {loading ? (
           <Progress hasStripe value={status} colorScheme="blue" />
         ) : (
           <FormControl isInvalid={error}>
-            <FileInput type="file" onChange={handleFileSelect} isInvalid={error} />
+            <Input
+              bg="white"
+              p="4px !important"
+              type="file"
+              onChange={handleFileSelect}
+              isInvalid={error}
+              accept="application/pdf"
+            />
             <FormErrorMessage>{error}</FormErrorMessage>
           </FormControl>
         )}
@@ -85,28 +90,9 @@ function ConsentEdit({ study, setEdit }) {
         >
           Upload
         </Button>
-      </Inputs>
+      </Grid>
     </div>
   );
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
-const Inputs = styled.div`
-  display: grid;
-  grid-gap: 10px;
-  width: 250px;
-`;
-
-const FileInput = styled(Input)`
-  padding: 4px;
-  padding-left: 4px !important;
-  padding-right: 4px !important;
-`;
 
 export default ConsentEdit;

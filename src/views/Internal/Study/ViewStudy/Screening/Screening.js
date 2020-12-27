@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { updateStudy } from "database/studies";
 
-import SurveyView from "./SurveyView";
-import SurveyEdit from "./SurveyEdit";
+import ScreeningView from "./ScreeningView";
+import ScreeningEdit from "./ScreeningEdit";
 
-function Survey({ study, setStudy }) {
+function Screening({ study, setStudy }) {
   const [edit, setEdit] = useState(false);
   const [questions, setQuestions] = useState(study.questions || []);
+
+  console.log({ study });
 
   const createQuestion = () => {
     const updated = [...questions];
@@ -42,7 +44,7 @@ function Survey({ study, setStudy }) {
   };
 
   return edit ? (
-    <SurveyEdit
+    <ScreeningEdit
       original={study.questions}
       questions={questions}
       handleCancel={handleCancel}
@@ -53,8 +55,8 @@ function Survey({ study, setStudy }) {
       handleSubmit={handleSubmit}
     />
   ) : (
-    <SurveyView questions={questions} setEdit={setEdit} />
+    <ScreeningView questions={questions} setEdit={setEdit} />
   );
 }
 
-export default Survey;
+export default Screening;

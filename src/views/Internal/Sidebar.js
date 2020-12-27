@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import StudyFindLogo from "images/logo.png";
 
-import { Box, Heading, Flex, Text, Button } from "components";
+import { Box, Heading, Flex, Text } from "@chakra-ui/react";
 
 import { FaBell, FaCalendar, FaCog, FaPoll, FaCompass, FaUserCircle } from "react-icons/fa";
 import { Avatar, Tooltip } from "@chakra-ui/react";
