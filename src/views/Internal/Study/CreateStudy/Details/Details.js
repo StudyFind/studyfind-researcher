@@ -17,8 +17,8 @@ function Details({ study, setStudy, setTab }) {
   }, [study]);
 
   const characterCheck = (name, value, min, max) => {
-    const isValid = value.length < min || value.length > max;
-    return isValid ? "" : `The best ${name}s are between ${min} and ${max} characters`;
+    const isInvalid = value.length < min || value.length > max;
+    return isInvalid ? `The best ${name}s are between ${min} and ${max} characters` : "";
   };
 
   const checker = (name, value) => {
@@ -65,7 +65,6 @@ function Details({ study, setStudy, setTab }) {
         <Textarea
           label="Study Title"
           name="title"
-          type="textarea"
           value={inputs.title}
           error={errors.title}
           limit={100}
@@ -75,7 +74,6 @@ function Details({ study, setStudy, setTab }) {
         <Textarea
           label="Study Description"
           name="description"
-          type="textarea"
           value={inputs.description}
           error={errors.description}
           limit={500}
