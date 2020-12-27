@@ -7,7 +7,7 @@ function Page({ children, isLoading }) {
 }
 
 const Box = styled.div`
-  padding: 30px;
+  padding: 40px;
   height: 100%;
   background: #f8f9fa;
 `;

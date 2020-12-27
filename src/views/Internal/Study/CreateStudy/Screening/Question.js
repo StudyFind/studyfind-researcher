@@ -7,7 +7,7 @@ function Question({ question, index, updateQuestion, deleteQuestion }) {
   return (
     <Flex gridGap="10px" w="100%">
       <Select
-        w="210px"
+        w="200px"
         value={question.type}
         onChange={(_, value) => updateQuestion(index, "type", value)}
         options={["Inclusion", "Exclusion"]}
