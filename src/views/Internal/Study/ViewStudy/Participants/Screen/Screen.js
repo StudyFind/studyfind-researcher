@@ -1,18 +1,6 @@
 import React from "react";
 
-import {
-  Tag,
-  Text,
-  Box,
-  Flex,
-  Grid,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerCloseButton,
-} from "@chakra-ui/react";
+import { Tag, Text, Box, Grid } from "@chakra-ui/react";
 
 function Screen({ questions, responses }) {
   return (

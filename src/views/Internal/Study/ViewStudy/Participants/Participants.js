@@ -206,7 +206,9 @@ function Participants({ study }) {
         {drawer.action === "screen" && (
           <Screen questions={study.questions} responses={drawer.participant.responses} />
         )}
-        {drawer.action === "notes" && <Notes notes={drawer.participant.notes} />}
+        {drawer.action === "notes" && (
+          <Notes id={drawer.participant.id} notes={drawer.participant.notes} />
+        )}
       </ParticipantDrawer>
     </>
   );
