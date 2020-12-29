@@ -13,6 +13,33 @@ const updateData = (data, path, newData, create = false) => {
     data[path.shift()] = newData;
 }
 
+/**
+ * Higher-order function that supports filtering the current level of data. Returns a new
+ * function which should be called with current level of data to gain filtered data
+ * Qs? Ask Mikolaj. Want to add a filter verb? Append a function that returns true/false to the list
+ * @param {string} subject Field within current level of data to filter by
+ * @param {string} verb Conditional (eg, '<')
+ * @param {any} object Object to compare to. Should match subject field type
+ */
+const filter = (subject, verb, object) => {
+
+    const filterFactory = conditionFunction => data => {
+        let resp = {}
+        Object.keys(data).map(k => ({ id: k, data: data[k] }))
+            .filter(d => conditionFunction(d.data))
+            .forEach(d => resp[d.id] = d.data)
+        return resp
+    }
+
+    return filterFactory({
+        '<': d => d[subject] < object,
+        '>': d => d[subject] > object,
+        '==': d => d[subject] == object,
+        '<=': d => d[subject] <= object,
+        '>=': d => d[subject] >= object,
+    }[verb])
+}
+
 const mFirestore = {
     // actually present methods
     collection: jest.fn(c => {
@@ -21,7 +48,9 @@ const mFirestore = {
         isQueryingDoc = false;
         return mFirestore;
     }),
-    where: jest.fn(() => mFirestore),
+    where: jest.fn((subject, verb, object) => {
+        mFirestore.path.push(filter(subject, verb, object)) // push filter function onto path
+    }),
     select: jest.fn(() => mFirestore),
     doc: jest.fn(c => {
         mFirestore.path.push(c);
@@ -55,7 +84,7 @@ const mFirestore = {
     }),
     get: jest.fn(async () => {
         mFirestore.queries.push(mFirestore.path);
-        const data = mFirestore.path.reduce((d, p) => d[p], mFirestore.data);
+        const data = mFirestore.path.reduce((d, p) => typeof p === "function" ? p(d) : d[p], mFirestore.data); // individual path elem might be a filter function
         mFirestore.path = []
         // if querying single doc, easy peasy
         if (isQueryingDoc) {
