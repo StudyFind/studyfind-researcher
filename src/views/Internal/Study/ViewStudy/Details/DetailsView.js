@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Heading, Button } from "@chakra-ui/react";
-import StudyCardLarge from "views/Internal/Study/StudyCardLarge";
+import StudyCardLarge from "views/Internal/StudyCardLarge";
 
 function DetailsView({ study, setEdit }) {
   return (
