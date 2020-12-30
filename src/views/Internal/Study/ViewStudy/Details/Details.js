@@ -4,7 +4,7 @@ import { updateStudy } from "database/studies";
 import DetailsView from "./DetailsView";
 import DetailsEdit from "./DetailsEdit";
 
-function Details({ study, setStudy }) {
+function Details({ study }) {
   const [edit, setEdit] = useState(false);
   const [inputs, setInputs] = useState({ title: "", description: "" });
   const [errors, setErrors] = useState({ title: "", description: "" });
