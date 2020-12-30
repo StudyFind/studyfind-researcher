@@ -6,7 +6,8 @@ import { Message } from "components";
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
-import Screening from "./Screening/Screening";
+import Locations from "./Locations/Locations";
+import Screening from "./Screener/Screener";
 import Consent from "./Consent/Consent";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
@@ -31,21 +32,12 @@ function ViewStudy({ studies, loading, error }) {
     />
   );
 
-  // const DENIED = (
-  //   <Message
-  //     type="failure"
-  //     title="Permission Denied!"
-  //     description={`You do not have the authorization required to access the study
-  // ${nctID}. If you require access to the study, please contact the study owner to grant you
-  // priviledge access to the study.`}
-  //   />
-  // );
-
   const BODY = (
     <Tabs colorScheme="blue" h="100%">
       <TabList>
         <TabItem>Details</TabItem>
-        <TabItem>Screening</TabItem>
+        <TabItem>Locations</TabItem>
+        <TabItem>Screener</TabItem>
         <TabItem>Consent</TabItem>
         <TabItem>Participants</TabItem>
         <TabItem>Settings</TabItem>
@@ -53,6 +45,9 @@ function ViewStudy({ studies, loading, error }) {
       <TabPanels>
         <TabPanel pt="1px">
           <Details study={study} />
+        </TabPanel>
+        <TabPanel pt="1px">
+          <Locations study={study} setStudy={setStudy} />
         </TabPanel>
         <TabPanel pt="1px">
           <Screening study={study} setStudy={setStudy} />
