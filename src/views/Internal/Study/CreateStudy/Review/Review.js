@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 import { updateStudy, deleteStudy } from "database/studies";
-import StudyCardLarge from "views/Internal/Study/StudyCardLarge";
-import { Heading, Text, Button, Flex } from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
+import StudyCardLarge from "views/Internal/StudyCardLarge";
+import { Heading, Text, Button, Flex, useToast } from "@chakra-ui/react";
 
-function Review({ study, setTab }) {
+function Review({ study }) {
+  const toast = useToast();
+  const history = useHistory();
   const [publishLoading, setPublishLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handlePublish = () => {
     setPublishLoading(true);
     updateStudy({ ...study, published: true, activated: true })
-      .then(() => setTab("published"))
+      .then(() => {
+        toast({
+          title: "Study Published!",
+          description: `Your study was successfully published is now available for
+          participants to view and enroll`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+        history.push("/dashboard");
+      })
       .catch(console.log)
       .finally(() => setPublishLoading(false));
   };
@@ -18,7 +32,17 @@ function Review({ study, setTab }) {
   const handleDelete = () => {
     setDeleteLoading(true);
     deleteStudy(study.id)
-      .then(() => setTab("deleted"))
+      .then(() => {
+        toast({
+          title: "Study Deleted!",
+          description: `Your study was successfully deleted and will no longer be accessible through StudyFind`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+        history.push("/dashboard");
+      })
       .catch(console.log)
       .finally(() => setDeleteLoading(false));
   };
