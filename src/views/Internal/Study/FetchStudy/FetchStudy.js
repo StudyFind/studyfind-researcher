@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { makeStudy } from "database/studies";
-import { Heading, Text, Button } from "@chakra-ui/react";
+import { Grid, Heading, Text, Button } from "@chakra-ui/react";
 import { Form, Input } from "components";
 
-function Fetch({ setTab, setStudy }) {
+function Fetch() {
+  const history = useHistory();
   const [nctID, setNctID] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,10 +29,7 @@ function Fetch({ setTab, setStudy }) {
       setLoading(true);
       setError("");
       makeStudy(validID)
-        .then((study) => {
-          setStudy({ id: validID, ...study });
-          setTab("fields");
-        })
+        .then((study) => history.push(`/create/${validID}/details`))
         .catch((error) => setError(error.toString()))
         .finally(() => setLoading(false));
     } else {
@@ -49,7 +47,7 @@ function Fetch({ setTab, setStudy }) {
         registered on clinicaltrials.gov. Submitting your Clinical Trials ID below allows us to
         identify your study and add it to your StudyFind account.
       </Text>
-      <Inputs>
+      <Grid w="210px" pt="10px">
         <Input
           label="Clinical Trials ID"
           placeholder="NCT00000000"
@@ -66,15 +64,9 @@ function Fetch({ setTab, setStudy }) {
         >
           Fetch
         </Button>
-      </Inputs>
+      </Grid>
     </Form>
   );
 }
-
-const Inputs = styled.div`
-  display: grid;
-  padding-top: 10px;
-  width: 210px;
-`;
 
 export default Fetch;
