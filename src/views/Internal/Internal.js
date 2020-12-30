@@ -14,6 +14,7 @@ import Settings from "views/Internal/Settings/Settings";
 import Dashboard from "views/Internal/Dashboard/Dashboard";
 import ViewStudy from "views/Internal/Study/ViewStudy/ViewStudy";
 import Notifications from "views/Internal/Notifications/Notifications";
+import Welcome from "views/Internal/Welcome/Welcome";
 
 function Internal() {
   const { uid } = auth.currentUser;
@@ -29,9 +30,10 @@ function Internal() {
   const pages = [
     { path: "/", component: <Dashboard studies={studies} /> },
     { path: "/dashboard", component: <Dashboard studies={studies} /> },
-    { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
+    { path: "/welcome", component: <Welcome studies={studies} /> },
     { path: "/fetch", component: <FetchStudy /> },
-    { path: "/create", component: <CreateStudy studies={studies} /> },
+    { path: "/create/:nctID/:tab", component: <CreateStudy studies={studies} /> },
+    { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
     { path: "/notifications", component: <Notifications studies={studies} /> },
     { path: "/settings", component: <Settings studies={studies} /> },
   ];
