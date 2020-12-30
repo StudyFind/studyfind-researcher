@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { Box, Heading, Button, Tag, Text } from "@chakra-ui/react";
 import { Message } from "components";
 
-function ScreeningView({ questions, setEdit }) {
+function ScreenerView({ questions, setEdit }) {
   const BODY = (
     <>
       <Head>
-        <Heading fontSize="28px">Screening</Heading>
+        <Heading fontSize="28px">Screener</Heading>
         <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Screening
+          Edit Screener
         </Button>
       </Head>
       <Table>
@@ -79,4 +79,4 @@ const BodyCell = styled.td`
   padding: 8px 12px;
 `;
 
-export default ScreeningView;
+export default ScreenerView;
