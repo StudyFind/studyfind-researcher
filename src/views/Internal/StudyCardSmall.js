@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Box, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/react";
 
-function DashboardCard({ study }) {
+function StudyCardSmall({ study }) {
   return (
     <Link to={`/study/${study.id}`}>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
@@ -58,4 +58,4 @@ const Description = styled(Text)`
   -webkit-box-orient: vertical;
 `;
 
-export default DashboardCard;
+export default StudyCardSmall;
