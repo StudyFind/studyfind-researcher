@@ -12,7 +12,7 @@ function DashboardEmpty() {
         You can add your study using its Clinical Trials ID and begin recruiting and managing
         participants almost instantaneously. StudyFind automates a lot of your work for you.
       </Text>
-      <Link to="/create">
+      <Link to="/fetch">
         <Button mt="40px" leftIcon={<FaPlusCircle />} colorScheme="blue">
           Create Study
         </Button>
