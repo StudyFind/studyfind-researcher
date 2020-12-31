@@ -24,7 +24,7 @@ import {
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 import Screen from "./Screen/Screen";
-import Remind from "./Remind/Remind";
+import Remind from "./RemindNew/Remind";
 
 import { compute } from "functions";
 
@@ -215,56 +215,50 @@ function Participants({ study }) {
             ))
           : FILTER_EMPTY}
       </Box>
-      {drawer.action === "screen" && 
-      <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
-            <Flex align="center">
-              {drawer.participant.fakename}
-              <Text ml="8px" mr="auto" fontSize="0.9rem" fontWeight="400" color="gray.500">
-                {drawer.participant.score}% eligible
-              </Text>
-              <DrawerCloseButton position="static" />
-            </Flex>
-          </DrawerHeader>
-          <DrawerBody p="20px" bg="#f8f9fa">
-            <Screen responses={drawer.participant.responses} questions={study.questions} />
-          </DrawerBody>
-          <DrawerFooter borderTopWidth="1px">
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="red" mr={3} onClick={onClose}>
-              Reject
-            </Button>
-            <Button colorScheme="green">Accept</Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>}
-      {drawer.action === "remind" && 
-      <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
-            <Flex align="center" justifyContent="space-between">
-              {drawer.participant.fakename}
-              <DrawerCloseButton position="static" />
-            </Flex>
-          </DrawerHeader>
-          <DrawerBody p="20px" bg="#f8f9fa">
-            <Remind participant={drawer.participant} study={study}/>
-          </DrawerBody>
-          <DrawerFooter borderTopWidth="1px">
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Save
-            </Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>}
+      {drawer.action === "screen" && (
+        <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
+              <Flex align="center">
+                {drawer.participant.fakename}
+                <Text ml="8px" mr="auto" fontSize="0.9rem" fontWeight="400" color="gray.500">
+                  {drawer.participant.score}% eligible
+                </Text>
+                <DrawerCloseButton position="static" />
+              </Flex>
+            </DrawerHeader>
+            <DrawerBody p="20px" bg="#f8f9fa">
+              <Screen responses={drawer.participant.responses} questions={study.questions} />
+            </DrawerBody>
+            <DrawerFooter borderTopWidth="1px">
+              <Button variant="outline" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme="red" mr={3} onClick={onClose}>
+                Reject
+              </Button>
+              <Button colorScheme="green">Accept</Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      )}
+      {drawer.action === "remind" && (
+        <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
+              <Flex align="center" justifyContent="space-between">
+                {drawer.participant.fakename}
+                <DrawerCloseButton position="static" />
+              </Flex>
+            </DrawerHeader>
+            <DrawerBody p="20px" bg="#f8f9fa">
+              <Remind participant={drawer.participant} study={study} />
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      )}
     </>
   );
   return loading ? LOAD : participants.length ? LIST : EMPTY;
