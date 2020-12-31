@@ -24,7 +24,7 @@ import {
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 import Screen from "./Screen/Screen";
-import Remind from "./RemindNew/Remind";
+import Remind from "./Remind/Remind";
 
 import { compute } from "functions";
 
