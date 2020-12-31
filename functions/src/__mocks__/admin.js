@@ -23,21 +23,23 @@ const updateData = (data, path, newData, create = false) => {
  */
 const filter = (subject, verb, object) => {
 
-    const filterFactory = conditionFunction => data => {
-        let resp = {}
-        Object.keys(data).map(k => ({ id: k, data: data[k] }))
-            .filter(d => conditionFunction(d.data))
-            .forEach(d => resp[d.id] = d.data)
-        return resp
-    }
-
-    return filterFactory({
+	let conditionFunction = {
         '<': d => d[subject] < object,
         '>': d => d[subject] > object,
         '==': d => d[subject] == object,
         '<=': d => d[subject] <= object,
         '>=': d => d[subject] >= object,
-    }[verb])
+		'array-contains': d => d[subject].some(item => item == object),
+    }[verb];
+
+	return (data => {
+		// console.log(`filtering ${subject} ${verb} ${object} on:`, data)
+		let resp = {};
+		Object.keys(data).map(k => ({ id: k, data: data[k] }))
+			.filter(d => conditionFunction(d.data))
+			.forEach(d => resp[d.id] = d.data);
+		return resp;
+	})
 }
 
 const mFirestore = {
@@ -49,7 +51,8 @@ const mFirestore = {
         return mFirestore;
     }),
     where: jest.fn((subject, verb, object) => {
-        mFirestore.path.push(filter(subject, verb, object)) // push filter function onto path
+        mFirestore.path.push(filter(subject, verb, object)); // push filter function onto path
+        return mFirestore;
     }),
     select: jest.fn(() => mFirestore),
     doc: jest.fn(c => {

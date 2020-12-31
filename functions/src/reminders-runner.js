@@ -1,4 +1,5 @@
-const { logger, firestore } = require("firebase-functions");
+// functions/src/reminders-runner.js
+const { logger } = require("firebase-functions");
 
 /**
  * convert timestamp into 30-min-interval offset from beginning of week
@@ -8,100 +9,74 @@ const { logger, firestore } = require("firebase-functions");
  */
 const getCurrentOffset = (now) => Math.floor((now % 604800000) / 1800000) * 1800000;
 
-/**
- * Perform a specific async action for each study existing in firebase
- * @param {function} fn action to perform with each study. Will be passed a firestore snapshot
- * @param {firestore} firestore firestore ref
- */
-const forEachStudy = async (fn, firestore) => {
-    const studiesData = await firestore.collection("studies").get();
-    if (studiesData.empty) return [];
-    const studies = [];
-    studiesData.forEach(d => studies.push(d));
-    return Promise.allSettled(studies.map(fn));
-}
 
 /**
- * Perform a specific async action for each participant existing in a study in firebase
- * @param {string} studyID id of study to get participants from
- * @param {function} fn action to perform with each participant. Will be passed a firestore snapshot
- * @param {firestore} firestore firestore ref
- */
-const forEachStudyParticipant = async (studyID, fn, firestore) => {
-    const participantsData = await firestore.collection("studies").doc(studyID).collection("participants").get();
-    if (participantsData.empty) return [];
-    const participants = [];
-    participantsData.forEach(d => participants.push(d));
-    return Promise.allSettled(participants.map(fn));
-}
-
-/**
- * Find reminders from a participant that are pending. Return text string for those and undefined for rest
- * @param {firestore.Snapshot.data} p particant data from firestore
+ * Perform a given async action for each reminder currently pending being sent
  * @param {number} now current timestamp
- * @param {number} offset timestamp of current offset from week
- */
-const getParticipantReminders = (p, now, offset) =>
-    p.reminders && p.reminders.map(r => {
-        if (r.startDate > now || r.endDate < now) return undefined;
-        if (!r.times.some(t => t > r.lastReminded && t <= offset)) return undefined;
-        return r.text;
-    });
-
-/**
- * Transaction func that will get the current reminders and add given reminders to them safely
- * @param {firestore.Transaction} t firestore transaction object thats usually passed to the transaction func
+ * @param {function} fn action to perform with each pending reminder. Will be passed a firestore snapshot
  * @param {firestore} firestore firestore ref
- * @param {string} studyID studyId to update reminders for 
- * @param {string} participantID participantID to update reminders for 
- * @param {[string]} reminders list of reminders to update with, contains undefined for whitespace
- * @param {number} now current timestamp
  */
-const updateParticipantRemindersTransaction = async (t, firestore, studyID, participantID, reminders, now) => {
-    const participant = await t.get(firestore.collection("studies").doc(studyID).collection("participants").doc(participantID));
-    const data = participant.data();
-    if (!data.reminders) data.reminders = [];
-    const newReminders = data.reminders.map((r, i) => !!reminders[i] ? { ...r, lastReminded: now } : r);
-    if (!data.currentReminders) data.currentReminders = [];
-    const newCurrentReminders = data.currentReminders.concat(reminders);
+const forEachPendingReminder = async (now, fn, firestore) => {
+	const offset = getCurrentOffset(now)
+	const remindersData = await firestore.collection("reminders")
+		.where("times","array-contains", offset)
+		.where("startDate", "<=", now)
+		.where("endDate", ">", now)
+		.where("lastReminded", "<", now)
+		.get();
+	if (remindersData.empty) return [];
 
-    reminders = reminders.filter(r => !!r);
-    return await t.update(firestore.collection("studies").doc(studyID).collection("participants").doc(participantID),
-        { currentReminders: newCurrentReminders, reminders: newReminders }
-    );
+	const reminders = [];
+	remindersData.forEach(r => reminders.push(r))
+	return Promise.allSettled(reminders.map(fn))
 }
+
 
 /**
  * Detects errors, figures out what happened and presents everything readably
- * @param {[Promise<[Promise<any>]>]} r list of promises each containing a list of promises. Built to be used with forEachStudy and forEachParticipant return type
+ * @param {[Promise<any>]} r list of promises corresponding to each each participant-update transaction sent 
  */
 const logResponse = r => {
-    r = r.filter(study => study.value.every(i => !!i.value));
-    let p = r.map(i => i.value).flat().filter(i => !!i.value);
-    logger.info(`scheduled reminders run: ${r.length} studies with ${p.length} participants have been updated`);
+	let p = r.map(i => i.value)
+	logger.info(`scheduled reminders run: ${p.length} participants have been updated`);
 
-    let errors = p.filter(i => i.status != "fulfilled").map(i => i.value);
-    if (errors.length != 0) logger.error(`scheduled reminders run: ${errors.length} errors detected: ${errors}`);
+	let errors = r.filter(i => i.status != "fulfilled").map(i => i.value);
+	if (errors.length != 0) logger.error(`scheduled reminders run: ${errors.length} errors detected: ${errors}`);
 }
 
 
 module.exports = ({ admin }) => async () => {
     const firestore = admin.firestore();
     const now = firestore.Timestamp.now();
-    const offset = getCurrentOffset(now);
 
-    const resp = await forEachStudy(async study => forEachStudyParticipant(study.id, async participant => {
-        // for each study participant
-        const data = participant.data();
-        let reminders = getParticipantReminders(data, now, offset);
-        if (!reminders.some(r => !!r)) return;
+	// STEPS:
+	// do a query filter for all reminders that need to be sent
+	//   by time, start+endDate, lastReminded
+	// open transaction for each reminder, append to user, update reminder lastReminded
 
-        await firestore.runTransaction(async t => updateParticipantRemindersTransaction(t, firestore, study.id, participant.id, reminders, now));
-        return true;
+	const resp = await forEachPendingReminder(now, async snap => {
+		// for each pending reminder	
+		const r = snap.data();
+		return firestore.runTransaction(async t => {
+			// get referenced study participant
+			const participant = await t.get(firestore.collection("studies").doc(r.study).collection("participants").doc(r.participant));
+			if (!participant.exists) throw Exception(`Participant ${r.participant} from study ${r.study} not found`);
+			const data = participant.data();
 
-    }, firestore), firestore);
+			// update their notifications and update reminder `lastUpdated` field
+			await t.update(
+				firestore.collection("studies").doc(r.study).collection("participants").doc(r.participant),
+				{ currentReminders: data.currentReminders ? data.currentReminders.concat(r.text) : [r.text] }
+			);
+			await t.update(
+				firestore.collection("reminders").doc(snap.id),
+				{ lastReminded: now }
+			);
+			return true
+		})
+	}, firestore);
 
-    logResponse(resp);
+	logResponse(resp);
 
     return resp;
 }
