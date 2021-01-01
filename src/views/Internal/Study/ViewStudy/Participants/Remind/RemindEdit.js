@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Input, Button } from "components";
-import { Grid, Flex, Tag, TagCloseButton, TagLabel, FormLabel } from "@chakra-ui/react";
+import { Input } from "components";
+import { Grid, Flex, Tag, TagCloseButton, TagLabel, FormLabel, Button } from "@chakra-ui/react";
 
 function RemindEdit({
   inputs,
