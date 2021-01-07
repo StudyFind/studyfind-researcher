@@ -106,7 +106,6 @@ describe("reminders-runner", () => {
 		const reminders = await firestore.collection("reminders").get();
         expect(reminders.empty).toBe(false);
 		expect(reminders.length).toBe(1);
-		expect(reminders[0].data().lastReminded).toBe(1000 * 60 * 30);
     });
 
     it("respects start and end dates for reminders", async () => {
@@ -124,7 +123,6 @@ describe("reminders-runner", () => {
 
     it("doesn't add reminders if already reminded", async () => {
         firestore.data = mFirestore();
-        firestore.data.collection.reminders["0"].lastReminded = 1000 * 60 * 30; // 30 mins
         firestore.Timestamp.now.mockReturnValueOnce(1000 * 60 * 60); // 60 mins
 
         await func();
@@ -141,7 +139,6 @@ describe("reminders-runner", () => {
 			endDate: 1000 * 60 * 60 * 24 * 365,
 			study: "TEST_STUDY_ID",
 			participant: "TEST_PARTICIPANT_ID",
-			lastReminded: 0,
 		}
 		firestore.Timestamp.now.mockReturnValueOnce(1000 * 60 * 30); // 30 mins
 
@@ -182,7 +179,6 @@ const mFirestore = () => ({
                 endDate: 1000 * 60 * 60 * 24 * 365, // 1 year
                 study: "TEST_STUDY_ID",
                 participant: "TEST_PARTICIPANT_ID",
-                lastReminded: 0,
             }
         }
     }
