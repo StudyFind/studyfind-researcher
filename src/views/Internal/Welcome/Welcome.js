@@ -5,6 +5,8 @@ import WelcomeList from "./WelcomeList";
 import WelcomeEmpty from "./WelcomeEmpty";
 
 function Welcome({ studies }) {
+  studies = studies.filter((study) => !study.published);
+
   return (
     <>
       <Heading size="lg" mb="10px">
