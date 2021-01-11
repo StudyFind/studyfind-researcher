@@ -23,23 +23,23 @@ const updateData = (data, path, newData, create = false) => {
  */
 const filter = (subject, verb, object) => {
 
-	let conditionFunction = {
+    let conditionFunction = {
         '<': d => d[subject] < object,
         '>': d => d[subject] > object,
         '==': d => d[subject] == object,
         '<=': d => d[subject] <= object,
         '>=': d => d[subject] >= object,
-		'array-contains': d => d[subject].some(item => item == object),
+        'array-contains': d => d[subject].some(item => item == object),
     }[verb];
 
-	return (data => {
-		// console.log(`filtering ${subject} ${verb} ${object} on:`, data)
-		let resp = {};
-		Object.keys(data).map(k => ({ id: k, data: data[k] }))
-			.filter(d => conditionFunction(d.data))
-			.forEach(d => resp[d.id] = d.data);
-		return resp;
-	})
+    return (data => {
+        // console.log(`filtering ${subject} ${verb} ${object} on:`, data)
+        let resp = {};
+        Object.keys(data).map(k => ({ id: k, data: data[k] }))
+            .filter(d => conditionFunction(d.data))
+            .forEach(d => resp[d.id] = d.data);
+        return resp;
+    })
 }
 
 const mFirestore = {
@@ -104,7 +104,6 @@ const mFirestore = {
         snapshots.empty = snapshots.length === 0;
         return snapshots
     }),
-    Timestamp: { now: jest.fn(() => 0) },
     runTransaction: jest.fn(async (fn) => { isTransaction = true; return await fn(mFirestore) }),
 
     // useful when mocking / testing
@@ -114,6 +113,7 @@ const mFirestore = {
     reset: () => { mFirestore.data = {}; mFirestore.path = []; mFirestore.queries = []; }
 }
 
-module.exports = {
-    firestore: () => mFirestore
-}
+const firestore = () => mFirestore
+firestore.Timestamp = { now: jest.fn(() => 0) }
+
+module.exports = { firestore }

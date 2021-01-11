@@ -19,7 +19,7 @@ const getCurrentOffset = (now) => Math.floor((now % 604800000) / 1800000) * 1800
 const forEachPendingReminder = async (now, fn, firestore) => {
 	const offset = getCurrentOffset(now)
 	const remindersData = await firestore.collection("reminders")
-		.where("times","array-contains", offset)
+		.where("times", "array-contains", offset)
 		// .where("startDate", "<=", now)
 		.where("endDate", ">", now)
 		.get();
@@ -47,8 +47,8 @@ const logResponse = r => {
 
 
 module.exports = ({ admin }) => async () => {
-    const firestore = admin.firestore();
-    const now = firestore.Timestamp.now();
+	const firestore = admin.firestore();
+	const now = admin.firestore.Timestamp.now();
 
 	// STEPS:
 	// do a query filter for all reminders that need to be sent
@@ -75,5 +75,5 @@ module.exports = ({ admin }) => async () => {
 
 	logResponse(resp);
 
-    return resp;
+	return resp;
 }
