@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
-import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
+import {
+  FaClock,
+  FaCalendar,
+  FaClipboard,
+  FaStickyNote,
+  FaComment,
+} from "react-icons/fa";
 
 function ParticipantRow({ participant, handleDrawer }) {
   const statusColors = {
@@ -30,7 +36,12 @@ function ParticipantRow({ participant, handleDrawer }) {
       <Text color="gray.400">{participant.score}% eligible</Text>
       <Buttons>
         <Tooltip label="Message">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
+          <IconButton
+            color="gray.400"
+            size="sm"
+            bg="transparent"
+            icon={<FaComment />}
+          />
         </Tooltip>
         <Tooltip label="Screen">
           <IconButton
@@ -42,10 +53,20 @@ function ParticipantRow({ participant, handleDrawer }) {
           />
         </Tooltip>
         <Tooltip label="Schedule">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaCalendar />} />
+          <IconButton
+            color="gray.400"
+            size="sm"
+            bg="transparent"
+            icon={<FaCalendar />}
+          />
         </Tooltip>
         <Tooltip label="Remind">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaClock />} />
+          <IconButton
+            color="gray.400"
+            size="sm"
+            bg="transparent"
+            icon={<FaClock />}
+          />
         </Tooltip>
         <Tooltip label="Notes">
           <IconButton

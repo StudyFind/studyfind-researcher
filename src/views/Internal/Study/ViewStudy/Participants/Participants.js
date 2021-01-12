@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { fetchParticipants } from "database/participants";
+import { fetchParticipants, fetchNotes } from "database/participants";
+import { firestore } from "database/firebase";
 
 import { useDisclosure } from "@chakra-ui/react";
 import { Heading, Button, Box } from "@chakra-ui/react";
@@ -37,7 +38,9 @@ function Participants({ study }) {
   });
 
   const handleDrawer = (action, participantID) => {
-    const participant = participants.find((participant) => participant.id === participantID) || {
+    const participant = participants.find(
+      (participant) => participant.id === participantID
+    ) || {
       responses: [],
     };
     setDrawer({ action, participant });
@@ -96,7 +99,13 @@ function Participants({ study }) {
   };
 
   const sortByStatus = (participants) => {
-    const order = ["interested", "screened", "consented", "accepted", "rejected"];
+    const order = [
+      "interested",
+      "screened",
+      "consented",
+      "accepted",
+      "rejected",
+    ];
     participants.sort((a, b) => {
       const statusA = order.indexOf(a.status);
       const statusB = order.indexOf(b.status);
@@ -123,7 +132,6 @@ function Participants({ study }) {
     });
     return participants;
   };
-
   const sortByEligiblity = (participants) => {
     participants.sort((a, b) => {
       if (a.score < b.score) {
@@ -142,7 +150,9 @@ function Participants({ study }) {
   };
 
   const filterSearch = (participants) => {
-    return participants.filter((p) => p.fakename.toLowerCase().includes(search));
+    return participants.filter((p) =>
+      p.fakename.toLowerCase().includes(search)
+    );
   };
 
   const LOAD = (
@@ -198,17 +208,26 @@ function Participants({ study }) {
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participantsFiltered && participantsFiltered.length
           ? participantsFiltered.map((participant, index) => (
-              <ParticipantsRow key={index} participant={participant} handleDrawer={handleDrawer} />
+              <ParticipantsRow
+                key={index}
+                participant={participant}
+                handleDrawer={handleDrawer}
+              />
             ))
           : FILTER_EMPTY}
       </Box>
-      <ParticipantDrawer fakename={drawer.participant.fakename} onClose={onClose} isOpen={isOpen}>
+      <ParticipantDrawer
+        fakename={drawer.participant.fakename}
+        onClose={onClose}
+        isOpen={isOpen}
+      >
         {drawer.action === "screen" && (
-          <Screen questions={study.questions} responses={drawer.participant.responses} />
+          <Screen
+            questions={study.questions}
+            responses={drawer.participant.responses}
+          />
         )}
-        {drawer.action === "notes" && (
-          <Notes id={drawer.participant.id} notes={drawer.participant.notes} />
-        )}
+        {drawer.action === "notes" && <Notes id={drawer.participant.id} />}
       </ParticipantDrawer>
     </>
   );
