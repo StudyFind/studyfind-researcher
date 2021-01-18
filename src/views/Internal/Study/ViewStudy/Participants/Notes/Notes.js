@@ -19,25 +19,89 @@ function Notes({ id }) {
       .doc(id)
       .collection("notes")
   );
+  const goToEdit = (note) => {
+    setInputs({ title: note.title, body: note.body });
+    setNotesID(note.id);
+    setAdd(true);
+  };
+  const deleteNote = (note) => {
+    firestore
+      .collection("studies")
+      .doc(nctID)
+      .collection("participants")
+      .doc(id)
+      .collection("notes")
+      .doc(note.id)
+      .delete();
+  };
+  const newNote = () => {
+    setAdd(true);
+  };
+  const cancelNewNote = () => {
+    setAdd(false);
+    setNotesID("");
+    setInputs({ title: "", body: "" });
+    setErrors({ title: "", body: "" });
+  };
+  const handleNoteChange = (name, value) => {
+    setInputs({ ...inputs, [name]: value });
+    setErrors({ ...errors, [name]: !value });
+  };
+  const validateNote = ({ title, body }) => ({
+    title: !title,
+    body: !body,
+  });
+  const handleSubmit = () => {
+    const err = validateNote(inputs);
+    setErrors(err);
+    const errorExists = Object.keys(err).some((i) => err[i]);
+    if (errorExists) return;
+    if (!notesID) {
+      firestore
+        .collection("studies")
+        .doc(nctID)
+        .collection("participants")
+        .doc(id)
+        .collection("notes")
+        .add({
+          title: inputs.title,
+          body: inputs.body,
+          time: Date.now(),
+        });
+    } else {
+      firestore
+        .collection("studies")
+        .doc(nctID)
+        .collection("participants")
+        .doc(id)
+        .collection("notes")
+        .doc(notesID)
+        .update({
+          title: inputs.title,
+          body: inputs.body,
+          time: Date.now(),
+        });
+    }
+    setAdd(false);
+    setNotesID("");
+    setInputs({ title: "", body: "" });
+    setErrors({ title: "", body: "" });
+  };
+
   return add ? (
     <NotesNew
-      id={id}
-      setAdd={setAdd}
       inputs={inputs}
-      setInputs={setInputs}
       errors={errors}
-      setErrors={setErrors}
-      notesID={notesID}
-      setNotesID={setNotesID}
+      cancelNewNote={cancelNewNote}
+      handleNoteChange={handleNoteChange}
+      handleSubmit={handleSubmit}
     />
   ) : (
     <NotesList
-      id={id}
       notes={notes}
-      setAdd={setAdd}
-      inputs={inputs}
-      setInputs={setInputs}
-      setNotesID={setNotesID}
+      goToEdit={goToEdit}
+      newNote={newNote}
+      deleteNote={deleteNote}
     />
   );
 }

@@ -1,6 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { firestore } from "database/firebase";
 import {
   Text,
   Box,
@@ -10,11 +8,9 @@ import {
   Heading,
   IconButton,
 } from "@chakra-ui/react";
-import { format } from "functions";
 import { FaPencilAlt, FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 
-function NoteList({ id, notes, setAdd, inputs, setInputs, setNotesID }) {
-  const { nctID } = useParams();
+function NoteList({ notes, goToEdit, deleteNote, newNote }) {
   const timeConvention = (time) => {
     const thisDate = new Date(time);
     const months = [
@@ -39,21 +35,7 @@ function NoteList({ id, notes, setAdd, inputs, setInputs, setNotesID }) {
     const sec = thisDate.getSeconds();
     return `${month} ${date} ${year} ${hour}:${minute}:${sec}`;
   };
-  const goToEdit = (note) => {
-    setInputs({ title: note.title, body: note.body });
-    setNotesID(note.id);
-    setAdd(true);
-  };
-  const deleteNote = (note) => {
-    firestore
-      .collection("studies")
-      .doc(nctID)
-      .collection("participants")
-      .doc(id)
-      .collection("notes")
-      .doc(note.id)
-      .delete();
-  };
+
   return (
     <Grid gap="15px">
       <Flex justify="space-between" align="center">
@@ -61,7 +43,7 @@ function NoteList({ id, notes, setAdd, inputs, setInputs, setNotesID }) {
         <Button
           leftIcon={<FaPlusCircle />}
           colorScheme="blue"
-          onClick={() => setAdd(true)}
+          onClick={() => newNote()}
         >
           New Note
         </Button>
