@@ -1,43 +1,28 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { Input, Textarea } from "components";
-import { Flex, Grid, Heading, Button } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
+import { FaPlusCircle } from "react-icons/fa";
 
-function NotesNew({
-  inputs,
-  errors,
-  cancelNewNote,
-  handleNoteChange,
-  handleSubmit,
-}) {
+function NotesNew({ newNote }) {
   return (
-    <Grid gap="20px">
-      <Heading size="lg">New Note</Heading>
-      <Input
-        label="Title"
-        name="title"
-        value={inputs.title}
-        error={errors.title}
-        onChange={handleNoteChange}
-      />
-      <Textarea
-        label="Body"
-        name="body"
-        value={inputs.body}
-        error={errors.body}
-        onChange={handleNoteChange}
-        limit={400}
-        height="100px"
-      />
-      <Flex gridGap="10px" justify="flex-end">
-        <Button variant="outline" onClick={() => cancelNewNote()}>
-          Cancel
-        </Button>
-        <Button colorScheme="blue" onClick={() => handleSubmit()}>
-          Save
-        </Button>
-      </Flex>
-    </Grid>
+    <Flex
+      h="136px"
+      rounded="md"
+      borderWidth="1px"
+      borderColor="gray.300"
+      borderStyle="dashed"
+      bg="gray.100"
+      justify="center"
+      align="center"
+      cursor="pointer"
+      onClick={newNote}
+    >
+      <Heading size="md" color="gray.500">
+        <Flex justify="center" align="center" gridGap="8px">
+          <FaPlusCircle />
+          New Note
+        </Flex>
+      </Heading>
+    </Flex>
   );
 }
 

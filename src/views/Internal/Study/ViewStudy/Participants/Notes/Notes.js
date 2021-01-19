@@ -1,108 +1,103 @@
 import React, { useState } from "react";
-import { useCollection } from "hooks";
-import NotesList from "./NotesList";
-import NotesNew from "./NotesNew";
-import { firestore } from "database/firebase";
 import { useParams } from "react-router-dom";
+import { firestore } from "database/firebase";
+import { useCollection } from "hooks";
+
+import NotesItem from "./NotesItem";
+import NotesForm from "./NotesForm";
+import NotesNew from "./NotesNew";
+import NotesError from "./NotesError";
+
+import { Grid } from "@chakra-ui/react";
+import { Spinner } from "components";
 
 function Notes({ id }) {
-  const [add, setAdd] = useState(false);
   const { nctID } = useParams();
+  const [form, setForm] = useState(false);
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [errors, setErrors] = useState({ title: "", body: "" });
   const [notesID, setNotesID] = useState("");
-  const [notes] = useCollection(
-    firestore
-      .collection("studies")
-      .doc(nctID)
-      .collection("participants")
-      .doc(id)
-      .collection("notes")
-  );
-  const goToEdit = (note) => {
-    setInputs({ title: note.title, body: note.body });
+
+  const notesRef = firestore
+    .collection("studies")
+    .doc(nctID)
+    .collection("participants")
+    .doc(id)
+    .collection("notes");
+
+  const [notes, loading, error] = useCollection(notesRef);
+
+  const editNote = (note) => {
+    setForm(true);
+    setInputs(note);
     setNotesID(note.id);
-    setAdd(true);
   };
+
   const deleteNote = (note) => {
-    firestore
-      .collection("studies")
-      .doc(nctID)
-      .collection("participants")
-      .doc(id)
-      .collection("notes")
-      .doc(note.id)
-      .delete();
+    notesRef.doc(note.id).delete();
   };
+
   const newNote = () => {
-    setAdd(true);
+    setForm(true);
   };
-  const cancelNewNote = () => {
-    setAdd(false);
+
+  const handleCancel = () => {
+    setForm(false);
     setNotesID("");
     setInputs({ title: "", body: "" });
     setErrors({ title: "", body: "" });
   };
-  const handleNoteChange = (name, value) => {
+
+  const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
     setErrors({ ...errors, [name]: !value });
   };
+
   const validateNote = ({ title, body }) => ({
     title: !title,
     body: !body,
   });
+
   const handleSubmit = () => {
     const err = validateNote(inputs);
     setErrors(err);
-    const errorExists = Object.keys(err).some((i) => err[i]);
-    if (errorExists) return;
+    if (err.title || err.body) return;
+
+    const data = {
+      title: inputs.title,
+      body: inputs.body,
+      time: Date.now(),
+    };
+
     if (!notesID) {
-      firestore
-        .collection("studies")
-        .doc(nctID)
-        .collection("participants")
-        .doc(id)
-        .collection("notes")
-        .add({
-          title: inputs.title,
-          body: inputs.body,
-          time: Date.now(),
-        });
+      notesRef.add(data);
     } else {
-      firestore
-        .collection("studies")
-        .doc(nctID)
-        .collection("participants")
-        .doc(id)
-        .collection("notes")
-        .doc(notesID)
-        .update({
-          title: inputs.title,
-          body: inputs.body,
-          time: Date.now(),
-        });
+      notesRef.doc(notesID).update(data);
     }
-    setAdd(false);
-    setNotesID("");
-    setInputs({ title: "", body: "" });
-    setErrors({ title: "", body: "" });
+
+    handleCancel();
   };
 
-  return add ? (
-    <NotesNew
+  if (loading) return <Spinner />;
+  if (error) return <NotesError />;
+
+  return form ? (
+    <NotesForm
       inputs={inputs}
       errors={errors}
-      cancelNewNote={cancelNewNote}
-      handleNoteChange={handleNoteChange}
+      handleCancel={handleCancel}
+      handleChange={handleChange}
       handleSubmit={handleSubmit}
     />
   ) : (
-    <NotesList
-      notes={notes}
-      goToEdit={goToEdit}
-      newNote={newNote}
-      deleteNote={deleteNote}
-    />
+    <Grid gap="15px">
+      <NotesNew newNote={newNote} />
+      {notes && notes.length
+        ? notes.map((note, index) => (
+            <NotesItem key={index} note={note} editNote={editNote} deleteNote={deleteNote} />
+          ))
+        : null}
+    </Grid>
   );
 }
 

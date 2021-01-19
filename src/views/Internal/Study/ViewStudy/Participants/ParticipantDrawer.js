@@ -2,6 +2,8 @@ import React from "react";
 
 import {
   Flex,
+  Heading,
+  Text,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -10,16 +12,21 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 
-function ParticipantDrawer({ fakename, onClose, isOpen, children }) {
+function ParticipantDrawer({ action, fakename, onClose, isOpen, children }) {
   return (
     <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader borderBottomWidth="1px">
           <Flex align="center" justify="space-between">
-            <Flex align="center" gridGap="4px">
-              {fakename}
-            </Flex>
+            <div>
+              <Heading size="md" textTransform="capitalize">
+                {action}
+              </Heading>
+              <Text fontSize="0.9rem" fontWeight="400" color="gray.500">
+                {fakename}
+              </Text>
+            </div>
             <DrawerCloseButton position="static" />
           </Flex>
         </DrawerHeader>
