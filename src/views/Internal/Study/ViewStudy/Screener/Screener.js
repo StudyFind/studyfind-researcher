@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { updateStudy } from "database/studies";
 
-import ScreeningView from "./ScreeningView";
-import ScreeningEdit from "./ScreeningEdit";
+import ScreenerView from "./ScreenerView";
+import ScreenerEdit from "./ScreenerEdit";
 
-function Screening({ study, setStudy }) {
+function Screener({ study, setStudy }) {
   const [edit, setEdit] = useState(false);
   const [questions, setQuestions] = useState(study.questions || []);
 
@@ -44,7 +44,7 @@ function Screening({ study, setStudy }) {
   };
 
   return edit ? (
-    <ScreeningEdit
+    <ScreenerEdit
       original={study.questions}
       questions={questions}
       handleCancel={handleCancel}
@@ -55,8 +55,8 @@ function Screening({ study, setStudy }) {
       handleSubmit={handleSubmit}
     />
   ) : (
-    <ScreeningView questions={questions} setEdit={setEdit} />
+    <ScreenerView questions={questions} setEdit={setEdit} />
   );
 }
 
-export default Screening;
+export default Screener;

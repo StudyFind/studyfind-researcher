@@ -9,7 +9,7 @@ import Background from "images/microscope.jpg";
 function Hero() {
   return (
     <Box>
-      <Heading size="2xl" lineHeight="1.2">
+      <Heading size="2xl" lineHeight="1.25">
         We help optimize your
         <Text color="blue.500">participant recruitment</Text>
       </Heading>

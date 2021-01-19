@@ -1,32 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 
-import Fetch from "./Fetch/Fetch";
-import Consent from "./Consent/Consent";
 import Details from "./Details/Details";
-import Screening from "./Screening/Screening";
+import Screener from "./Screener/Screener";
+import Consent from "./Consent/Consent";
 import Review from "./Review/Review";
-import Published from "./Success/Published";
-import Deleted from "./Success/Deleted";
 
-function CreateStudy() {
-  const [tab, setTab] = useState("fetch");
-  const [study, setStudy] = useState({});
-  const tabs = ["fetch", "details", "screen", "consent", "review"];
+function CreateStudy({ studies }) {
+  const history = useHistory();
+  const { nctID, tab } = useParams();
+  const study = studies.find((study) => study.id === nctID);
+  const tabs = ["details", "screener", "consent", "review"];
+
+  const next = () => {
+    const index = tabs.indexOf(tab);
+    const nextTab = tabs[index + 1];
+    history.push(nextTab);
+  };
 
   const render = {
-    fetch: <Fetch setTab={setTab} setStudy={setStudy} />,
-    details: <Details setTab={setTab} study={study} setStudy={setStudy} />,
-    screen: <Screening setTab={setTab} study={study} setStudy={setStudy} />,
-    consent: <Consent setTab={setTab} study={study} />,
-    review: <Review setTab={setTab} study={study} />,
-    published: <Published />,
-    deleted: <Deleted />,
+    details: <Details study={study} next={next} />,
+    screener: <Screener study={study} next={next} />,
+    consent: <Consent study={study} next={next} />,
+    review: <Review study={study} next={next} />,
   };
 
   const steps = (
     <Stack spacing={2} mb="15px" isInline>
-      {tabs.map((t, i) => (
+      {["details", "screener", "consent", "review"].map((t, i) => (
         <Tag
           key={i}
           h="24px"

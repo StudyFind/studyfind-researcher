@@ -2,37 +2,29 @@ import React from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { Box, Heading, Button, Flex } from "@chakra-ui/react";
-import { FaPlusCircle } from "react-icons/fa";
+import { Heading, Button, Flex, Grid } from "@chakra-ui/react";
+import { FaPlus } from "react-icons/fa";
 
-import DashboardCard from "views/Internal/Dashboard/DashboardCard";
+import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 function DashboardGrid({ studies }) {
   return (
-    <Box>
+    <>
       <Flex mb="25px" justify="space-between" align="center">
         <Heading size="lg">Dashboard</Heading>
-        <Link to="/create">
-          <Button leftIcon={<FaPlusCircle />} colorScheme="blue">
+        <Link to="/fetch">
+          <Button leftIcon={<FaPlus />} colorScheme="blue">
             Create Study
           </Button>
         </Link>
       </Flex>
-      <StudyGrid n={studies.length}>
+      <Grid gap="25px" templateColumns="1fr 1fr" align="flex-start">
         {studies.map((study, index) => (
-          <DashboardCard key={index} study={study} />
+          <StudyCardSmall key={index} study={study} />
         ))}
-      </StudyGrid>
-    </Box>
+      </Grid>
+    </>
   );
 }
-
-const StudyGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: ${(props) => "270px".repeat(Math.floor(props.n / 2))};
-  grid-gap: 25px;
-  align-items: flex-start;
-`;
 
 export default DashboardGrid;
