@@ -12,6 +12,7 @@ function Sidebar() {
 
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
+    { name: "Studies", path: "/studies", icon: <FaThLarge /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
     { name: "Calendar", path: "/calendar", icon: <FaCalendarAlt /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
