@@ -3,9 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import StudyFindLogo from "images/logo.png";
 
-import { Box, Heading, Flex, Text } from "@chakra-ui/react";
-
-import { FaBell, FaCalendar, FaCog, FaPoll, FaCompass, FaUserCircle } from "react-icons/fa";
+import { Box, Flex, Grid, Heading, Text, Image } from "@chakra-ui/react";
+import { FaBell, FaCalendarAlt, FaCog, FaPoll, FaThLarge, FaUserCircle } from "react-icons/fa";
 import { Avatar, Tooltip } from "@chakra-ui/react";
 
 function Sidebar() {
@@ -13,32 +12,33 @@ function Sidebar() {
 
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
+    { name: "Studies", path: "/studies", icon: <FaThLarge /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Calendar", path: "/calendar", icon: <FaCalendar /> },
+    { name: "Calendar", path: "/calendar", icon: <FaCalendarAlt /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
   ];
 
   return (
-    <Fixed bg="blue.900">
+    <Flex direction="column" w="280px" h="100vh" position="fixed" bg="blue.900" zIndex="100">
       <Logo to="/#">
-        <LogoIcon src={StudyFindLogo} />
-        <LogoName fontSize="1.5rem" color="white">
+        <Image h="1.75rem" mr="10px" src={StudyFindLogo} />
+        <Heading fontSize="1.5rem" color="white">
           StudyFind
-        </LogoName>
+        </Heading>
       </Logo>
-      <Links>
+      <Grid mb="auto">
         {links.map((link, index) => (
           <NavLink key={index} to={link.path} selected={location.pathname === link.path}>
             {link.icon}
             {link.name}
           </NavLink>
         ))}
-      </Links>
+      </Grid>
       <Box p="15px">
         <Flex rounded="md" align="center">
           <Avatar name="Yohan Jhaveri" bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
-          <Info>
+          <Box>
             <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="100px">
               Yohan Jhaveri
             </Text>
@@ -47,24 +47,12 @@ function Sidebar() {
                 yohanjhaveri@gmail.com
               </Text>
             </Tooltip>
-          </Info>
+          </Box>
         </Flex>
       </Box>
-    </Fixed>
+    </Flex>
   );
 }
-
-const Fixed = styled(Box)`
-  width: 280px;
-  height: 100vh;
-  background: #2b6cb0;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-`;
-
-const Info = styled.div``;
 
 const Logo = styled(Link)`
   all: unset;
@@ -73,18 +61,6 @@ const Logo = styled(Link)`
   flex-direction: row;
   align-items: center;
   padding: 20px;
-`;
-
-const LogoIcon = styled.img`
-  height: 1.75rem;
-  margin-right: 10px;
-`;
-
-const LogoName = styled(Heading)``;
-
-const Links = styled.div`
-  display: grid;
-  margin-bottom: auto;
 `;
 
 const NavLink = styled(Link)`

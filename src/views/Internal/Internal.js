@@ -18,6 +18,7 @@ import Welcome from "views/Internal/Welcome/Welcome";
 
 function Internal() {
   const { uid } = auth.currentUser;
+
   const [user] = useDocument(firestore.collection("researchers").doc(uid));
   const [studies] = useCollection(
     firestore
@@ -39,8 +40,8 @@ function Internal() {
   ];
 
   return (
-    <Flex bg="#f8f9fa">
-      <Sidebar />
+    <Flex>
+      <Sidebar user={user} />
       <Box ml="280px" w="100%" minH="100vh">
         <Page isLoading={!studies}>
           <Switch>
