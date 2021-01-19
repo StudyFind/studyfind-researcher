@@ -14,15 +14,14 @@ function ForgotPassword({ setTab }) {
 
   if (success) {
     return (
-      <Box p="40px 30px">
-        <Message
-          type="success"
-          title="Email Sent!"
-          description="Check your email for a password reset link"
-        >
-          <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
-        </Message>
-      </Box>
+      <Message
+        type="success"
+        title="Email Sent!"
+        description="Check your email for a password reset link"
+        padding="40px 30px"
+      >
+        <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
+      </Message>
     );
   }
 
