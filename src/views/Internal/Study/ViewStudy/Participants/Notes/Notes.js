@@ -1,0 +1,104 @@
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { firestore } from "database/firebase";
+import { useCollection } from "hooks";
+
+import NotesItem from "./NotesItem";
+import NotesForm from "./NotesForm";
+import NotesNew from "./NotesNew";
+import NotesError from "./NotesError";
+
+import { Grid } from "@chakra-ui/react";
+import { Spinner } from "components";
+
+function Notes({ id }) {
+  const { nctID } = useParams();
+  const [form, setForm] = useState(false);
+  const [inputs, setInputs] = useState({ title: "", body: "" });
+  const [errors, setErrors] = useState({ title: "", body: "" });
+  const [notesID, setNotesID] = useState("");
+
+  const notesRef = firestore
+    .collection("studies")
+    .doc(nctID)
+    .collection("participants")
+    .doc(id)
+    .collection("notes");
+
+  const [notes, loading, error] = useCollection(notesRef);
+
+  const editNote = (note) => {
+    setForm(true);
+    setInputs(note);
+    setNotesID(note.id);
+  };
+
+  const deleteNote = (note) => {
+    notesRef.doc(note.id).delete();
+  };
+
+  const newNote = () => {
+    setForm(true);
+  };
+
+  const handleCancel = () => {
+    setForm(false);
+    setNotesID("");
+    setInputs({ title: "", body: "" });
+    setErrors({ title: "", body: "" });
+  };
+
+  const handleChange = (name, value) => {
+    setInputs({ ...inputs, [name]: value });
+    setErrors({ ...errors, [name]: !value });
+  };
+
+  const validateNote = ({ title, body }) => ({
+    title: !title,
+    body: !body,
+  });
+
+  const handleSubmit = () => {
+    const err = validateNote(inputs);
+    setErrors(err);
+    if (err.title || err.body) return;
+
+    const data = {
+      title: inputs.title,
+      body: inputs.body,
+      time: Date.now(),
+    };
+
+    if (!notesID) {
+      notesRef.add(data);
+    } else {
+      notesRef.doc(notesID).update(data);
+    }
+
+    handleCancel();
+  };
+
+  if (loading) return <Spinner />;
+  if (error) return <NotesError />;
+
+  return form ? (
+    <NotesForm
+      inputs={inputs}
+      errors={errors}
+      handleCancel={handleCancel}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
+  ) : (
+    <Grid gap="15px">
+      <NotesNew newNote={newNote} />
+      {notes && notes.length
+        ? notes.map((note, index) => (
+            <NotesItem key={index} note={note} editNote={editNote} deleteNote={deleteNote} />
+          ))
+        : null}
+    </Grid>
+  );
+}
+
+export default Notes;
