@@ -21,6 +21,7 @@ function RemindView({
   formatDate,
   getDaysFromOffsets,
   getTimesFromOffsets,
+  handleDelete,
 }) {
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -70,6 +71,7 @@ function RemindView({
                   size="sm"
                   color="red.500"
                   bg="red.100"
+                  onClick={() => handleDelete(index)}
                 />
               </Flex>
               <Text

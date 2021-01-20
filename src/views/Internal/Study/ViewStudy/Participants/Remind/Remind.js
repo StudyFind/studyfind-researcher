@@ -49,7 +49,9 @@ function Remind({ participant, study }) {
 
   const getTimesFromOffsets = (offsets) => {
     const allTimes = [];
-    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter((value) => value).length;
+    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter(
+      (value) => value
+    ).length;
 
     for (let i = 0; i < offsets.length / numberOfDaysSelected; i++) {
       const thisHour = convertEpochToHMS(offsets[i]).hour % 24;
@@ -95,8 +97,7 @@ function Remind({ participant, study }) {
     const month = converted.getMonth() + 1;
     const day = converted.getDate();
     const year = converted.getFullYear();
-
-    return `${year}-${month}-${day}`;
+    return month < 10 ? `${year}-0${month}-${day}` : `${year}-${month}-${day}`;
   };
 
   const goToEdit = (index) => {
@@ -240,6 +241,18 @@ function Remind({ participant, study }) {
       endDate: "",
     });
     setEdit(false);
+    setReminderIndex(-1);
+  };
+  const handleDelete = (index) => {
+    const updatedReminders = reminders.filter((_, i) => i !== index);
+    firestore
+      .collection("studies")
+      .doc(study.id)
+      .collection("participants")
+      .doc(participant.id)
+      .update({
+        reminders: updatedReminders,
+      });
   };
 
   const convertToTimes = () => {
@@ -249,7 +262,8 @@ function Remind({ participant, study }) {
       if (weekdayBoolean[weekday]) {
         inputs.times.map((time, index) => {
           const [hour, min] = time.split(":");
-          const thisTime = ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
+          const thisTime =
+            ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
           allTimes.push(thisTime);
         });
       }
@@ -276,6 +290,7 @@ function Remind({ participant, study }) {
       goToEdit={goToEdit}
       getDaysFromOffsets={getDaysFromOffsets}
       getTimesFromOffsets={getTimesFromOffsets}
+      handleDelete={handleDelete}
     />
   );
 }
