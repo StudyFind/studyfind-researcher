@@ -65,9 +65,18 @@ function RemindView({
                   bg="blue.100"
                   onClick={() => goToEdit(index)}
                 />
-                <IconButton icon={<FaTrashAlt />} size="sm" color="red.500" bg="red.100" />
+                <IconButton
+                  icon={<FaTrashAlt />}
+                  size="sm"
+                  color="red.500"
+                  bg="red.100"
+                />
               </Flex>
-              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
+              <Text
+                color="gray.500"
+                fontSize="0.9rem"
+                fontStyle="italic"
+              ></Text>
             </Flex>
           </Box>
         ))}
