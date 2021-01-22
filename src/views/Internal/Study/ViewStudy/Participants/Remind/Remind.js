@@ -101,7 +101,20 @@ function Remind({ participant, study }) {
     const month = converted.getMonth() + 1;
     const day = converted.getDate();
     const year = converted.getFullYear();
-    return month < 10 ? `${year}-0${month}-${day}` : `${year}-${month}-${day}`;
+    let returnedDate;
+    if (month < 10) {
+      if (day < 10) {
+        return `${year}-0${month}-0${day}`;
+      } else {
+        return `${year}-0${month}-${day}`;
+      }
+    } else {
+      if (day < 10) {
+        return `${year}-${month}-0${day}`;
+      } else {
+        return `${year}-${month}-${day}`;
+      }
+    }
   };
 
   const goToEdit = (reminder) => {
