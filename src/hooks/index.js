@@ -1,3 +1,3 @@
 import useAuthForm from "./useAuthForm";
-
-export { useAuthForm };
+import useCollection from "./useCollection";
+export { useAuthForm, useCollection };
