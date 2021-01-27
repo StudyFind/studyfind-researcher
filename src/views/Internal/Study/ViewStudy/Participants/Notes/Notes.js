@@ -94,7 +94,12 @@ function Notes({ id }) {
       <NotesNew newNote={newNote} />
       {notes && notes.length
         ? notes.map((note, index) => (
-            <NotesItem key={index} note={note} editNote={editNote} deleteNote={deleteNote} />
+            <NotesItem
+              key={index}
+              note={note}
+              editNote={editNote}
+              deleteNote={deleteNote}
+            />
           ))
         : null}
     </Grid>

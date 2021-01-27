@@ -58,6 +58,7 @@ function ParticipantRow({ participant, handleDrawer }) {
             size="sm"
             bg="transparent"
             icon={<FaCalendar />}
+            onClick={() => handleDrawer("schedule", participant.id)}
           />
         </Tooltip>
         <Tooltip label="Remind">
