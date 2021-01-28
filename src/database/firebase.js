@@ -7,7 +7,7 @@ const app = firebase.initializeApp({
   projectId: "studyfind-researcher",
   storageBucket: "studyfind-researcher.appspot.com",
   messagingSenderId: "434311866185",
-  appId: "1:434311866185:web:0c916f13f4841e239f1c98",
+  appId: "1:434311866185:web:6f6fa118d0b3b6959f1c98",
 });
 
 const auth = app.auth();

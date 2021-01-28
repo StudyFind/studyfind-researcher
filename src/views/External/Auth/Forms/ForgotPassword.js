@@ -3,7 +3,6 @@ import React from "react";
 import { useAuthForm } from "hooks";
 import { forgotPassword } from "database";
 import { Form, Heading, Email, Button, TabLink } from "views/External/Auth/Blocks";
-import { Box } from "@chakra-ui/react";
 import { Message } from "components";
 
 function ForgotPassword({ setTab }) {
