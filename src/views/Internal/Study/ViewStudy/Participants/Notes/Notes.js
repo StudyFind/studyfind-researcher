@@ -53,15 +53,13 @@ function Notes({ id }) {
     setErrors({ ...errors, [name]: !value });
   };
 
-  const validateNote = ({ title, body }) => ({
-    title: !title,
-    body: !body,
-  });
-
   const handleSubmit = () => {
-    const err = validateNote(inputs);
-    setErrors(err);
-    if (err.title || err.body) return;
+    setErrors({
+      title: !inputs.title,
+      body: !inputs.body,
+    });
+
+    if (!inputs.title || !inputs.body) return;
 
     const data = {
       title: inputs.title,
