@@ -53,15 +53,13 @@ function Notes({ id }) {
     setErrors({ ...errors, [name]: !value });
   };
 
-  const validateNote = ({ title, body }) => ({
-    title: !title,
-    body: !body,
-  });
-
   const handleSubmit = () => {
-    const err = validateNote(inputs);
-    setErrors(err);
-    if (err.title || err.body) return;
+    setErrors({
+      title: !inputs.title,
+      body: !inputs.body,
+    });
+
+    if (!inputs.title || !inputs.body) return;
 
     const data = {
       title: inputs.title,
@@ -94,12 +92,7 @@ function Notes({ id }) {
       <NotesNew newNote={newNote} />
       {notes && notes.length
         ? notes.map((note, index) => (
-            <NotesItem
-              key={index}
-              note={note}
-              editNote={editNote}
-              deleteNote={deleteNote}
-            />
+            <NotesItem key={index} note={note} editNote={editNote} deleteNote={deleteNote} />
           ))
         : null}
     </Grid>

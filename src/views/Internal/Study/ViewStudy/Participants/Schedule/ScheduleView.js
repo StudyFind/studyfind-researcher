@@ -1,50 +1,54 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  Heading,
-  Box,
-  Grid,
-  Flex,
-  IconButton,
-  Button,
-  Text,
-  Tag,
-  TagLabel,
-} from "@chakra-ui/react";
+import { format } from "functions";
+import { Heading, Box, Grid, Flex, IconButton, Text } from "@chakra-ui/react";
+import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
 
-import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+function ScheduleView({ schedules, setEdit, goToEdit, handleDelete }) {
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const [hours, minutes] = [date.getHours(), date.getMinutes()];
+    const formattedDate = format.date(date);
+    const formattedTime = format.time(`${hours}:${minutes}`);
+    return `${formattedDate} at ${formattedTime}`;
+  };
 
-function ScheduleView({
-  schedules,
-  setEdit,
-  goToEdit,
-  formatDate,
-  getDaysFromOffsets,
-  getTimeFromOffset,
-  handleDelete,
-}) {
   return (
     <Grid gap="15px">
-      <Button colorScheme="blue" mr={3} onClick={() => setEdit(true)}>
-        Create New Schedule
-      </Button>
+      <Flex
+        h="136px"
+        rounded="md"
+        borderWidth="1px"
+        borderColor="gray.300"
+        borderStyle="dashed"
+        bg="gray.100"
+        justify="center"
+        align="center"
+        cursor="pointer"
+        onClick={() => goToEdit()}
+      >
+        <Heading size="md" color="gray.500">
+          <Flex justify="center" align="center" gridGap="8px">
+            <FaPlusCircle />
+            Schedule Meeting
+          </Flex>
+        </Heading>
+      </Flex>
       {schedules &&
         schedules.map((schedule, index) => (
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">
-            <Heading size="md" mb="8px">
-              {schedule.name}
-            </Heading>
-            <Flex gridGap="8px" my="8px">
-              <Text fontStyle="italic" color="gray.500" fontSize="0.9rem">
-                {formatDate(schedule.date)}
-              </Text>
-              <Text fontStyle="italic" color="gray.500" fontSize="0.9rem">
-                {getTimeFromOffset(schedule.time)}
-              </Text>
-            </Flex>
-            <Text fontStyle="italic" color="gray.500" fontSize="0.9rem">
-              {schedule.link}
+            <Heading size="md">{schedule.name}</Heading>
+            <Text color="gray.500" fontSize="0.9rem" mb="8px">
+              {formatTimestamp(schedule.time)}
             </Text>
+            <ExternalLink href={schedule.link} target="_blank">
+              <Flex align="center" gridGap="4px">
+                Link to Meeting
+                <Text fontSize="0.8rem">
+                  <FaExternalLinkAlt />
+                </Text>
+              </Flex>
+            </ExternalLink>
             <Flex justify="space-between" align="center" mt="16px">
               <Flex gridGap="4px">
                 <IconButton
@@ -62,16 +66,17 @@ function ScheduleView({
                   onClick={() => handleDelete(schedule)}
                 />
               </Flex>
-              <Text
-                color="gray.500"
-                fontSize="0.9rem"
-                fontStyle="italic"
-              ></Text>
+              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
             </Flex>
           </Box>
         ))}
     </Grid>
   );
 }
+
+const ExternalLink = styled.a`
+  color: #3182ce;
+  text-decoration: underline;
+`;
 
 export default ScheduleView;
