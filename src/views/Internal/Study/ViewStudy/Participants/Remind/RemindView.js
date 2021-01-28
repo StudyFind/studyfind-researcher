@@ -11,6 +11,7 @@ import {
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
+import { FaPlusCircle } from "react-icons/fa";
 
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
@@ -27,15 +28,32 @@ function RemindView({
 
   return (
     <Grid gap="15px">
-      <Button colorScheme="blue" mr={3} onClick={() => setEdit(true)}>
-        Create New Reminder
-      </Button>
+      <Flex
+        h="136px"
+        rounded="md"
+        borderWidth="1px"
+        borderColor="gray.300"
+        borderStyle="dashed"
+        bg="gray.100"
+        justify="center"
+        align="center"
+        cursor="pointer"
+        onClick={() => setEdit(true)}
+      >
+        <Heading size="md" color="gray.500">
+          <Flex justify="center" align="center" gridGap="8px">
+            <FaPlusCircle />
+            New Reminder
+          </Flex>
+        </Heading>
+      </Flex>
       {reminders &&
         reminders.map((reminder, index) => (
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">
-            <Heading size="md" mb="8px">
-              {reminder.title}
-            </Heading>
+            <Heading size="md">{reminder.title}</Heading>
+            <Text color="gray.500" fontSize="0.9rem" mb="8px">
+              {formatDate(reminder.startDate)} to {formatDate(reminder.endDate)}
+            </Text>
             <Weekdays>
               {getDaysFromOffsets(reminder.times).map((value, index) => (
                 <Tag
@@ -54,9 +72,6 @@ function RemindView({
                 </Tag>
               ))}
             </Flex>
-            <Text fontStyle="italic" color="gray.500" fontSize="0.9rem">
-              {formatDate(reminder.startDate)} to {formatDate(reminder.endDate)}
-            </Text>
             <Flex justify="space-between" align="center" mt="16px">
               <Flex gridGap="4px">
                 <IconButton
@@ -74,11 +89,7 @@ function RemindView({
                   onClick={() => handleDelete(reminder)}
                 />
               </Flex>
-              <Text
-                color="gray.500"
-                fontSize="0.9rem"
-                fontStyle="italic"
-              ></Text>
+              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
             </Flex>
           </Box>
         ))}
