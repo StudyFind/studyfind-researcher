@@ -15,12 +15,13 @@ import {
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
 function RemindView({
-  participant,
+  reminders,
   setEdit,
   goToEdit,
   formatDate,
   getDaysFromOffsets,
   getTimesFromOffsets,
+  handleDelete,
 }) {
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -29,8 +30,8 @@ function RemindView({
       <Button colorScheme="blue" mr={3} onClick={() => setEdit(true)}>
         Create New Reminder
       </Button>
-      {participant.reminders &&
-        participant.reminders.map((reminder, index) => (
+      {reminders &&
+        reminders.map((reminder, index) => (
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">
             <Heading size="md" mb="8px">
               {reminder.title}
@@ -63,11 +64,21 @@ function RemindView({
                   size="sm"
                   color="blue.500"
                   bg="blue.100"
-                  onClick={() => goToEdit(index)}
+                  onClick={() => goToEdit(reminder)}
                 />
-                <IconButton icon={<FaTrashAlt />} size="sm" color="red.500" bg="red.100" />
+                <IconButton
+                  icon={<FaTrashAlt />}
+                  size="sm"
+                  color="red.500"
+                  bg="red.100"
+                  onClick={() => handleDelete(reminder)}
+                />
               </Flex>
-              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
+              <Text
+                color="gray.500"
+                fontSize="0.9rem"
+                fontStyle="italic"
+              ></Text>
             </Flex>
           </Box>
         ))}

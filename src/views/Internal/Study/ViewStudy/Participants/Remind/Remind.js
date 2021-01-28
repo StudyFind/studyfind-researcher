@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 import { firestore } from "database/firebase";
+import { useCollection } from "hooks";
 
 import RemindView from "./RemindView";
 import RemindEdit from "./RemindEdit";
@@ -13,16 +14,19 @@ function Remind({ participant, study }) {
     startDate: "",
     endDate: "",
   };
+  const fittedRemindersRef = firestore
+    .collection("reminders")
+    .where("participantID", "==", participant.id)
+    .where("studyID", "==", study.id);
+
+  const remindersRef = firestore.collection("reminders");
+
+  const [reminders, loading, error] = useCollection(fittedRemindersRef);
 
   const [edit, setEdit] = useState(false);
-  const [reminderIndex, setReminderIndex] = useState(-1);
-  const [reminders, setReminders] = useState([]);
   const [inputs, setInputs] = useState(defaultInputs);
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    setReminders((participant && participant.reminders) || []);
-  }, [participant.reminders]);
+  const [reminderID, setReminderID] = useState("");
 
   const convertEpochToHMS = (ms) => {
     const second = (ms / 1000) % 60;
@@ -49,7 +53,9 @@ function Remind({ participant, study }) {
 
   const getTimesFromOffsets = (offsets) => {
     const allTimes = [];
-    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter((value) => value).length;
+    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter(
+      (value) => value
+    ).length;
 
     for (let i = 0; i < offsets.length / numberOfDaysSelected; i++) {
       const thisHour = convertEpochToHMS(offsets[i]).hour % 24;
@@ -95,12 +101,23 @@ function Remind({ participant, study }) {
     const month = converted.getMonth() + 1;
     const day = converted.getDate();
     const year = converted.getFullYear();
-
-    return `${year}-${month}-${day}`;
+    let returnedDate;
+    if (month < 10) {
+      if (day < 10) {
+        return `${year}-0${month}-0${day}`;
+      } else {
+        return `${year}-0${month}-${day}`;
+      }
+    } else {
+      if (day < 10) {
+        return `${year}-${month}-0${day}`;
+      } else {
+        return `${year}-${month}-${day}`;
+      }
+    }
   };
 
-  const goToEdit = (index) => {
-    const reminder = reminders[index];
+  const goToEdit = (reminder) => {
     setInputs({
       title: reminder.title,
       weekdays: getDaysFromOffsets(reminder.times),
@@ -108,7 +125,7 @@ function Remind({ participant, study }) {
       startDate: convertDate(reminder.startDate),
       endDate: convertDate(reminder.endDate),
     });
-    setReminderIndex(index);
+    setReminderID(reminder.id);
     setEdit(true);
   };
 
@@ -149,6 +166,10 @@ function Remind({ participant, study }) {
       times.push(value);
       return { ...prevState, times, time: "" };
     });
+  };
+
+  const handleDelete = (reminder) => {
+    remindersRef.doc(reminder.id).delete();
   };
 
   const handleDeleteTime = (index) => {
@@ -208,6 +229,8 @@ function Remind({ participant, study }) {
       startDate: firestoreStartDate,
       endDate: firestoreEndDate,
       lastNotified: new Date(0, 0, 0),
+      participantID: participant.id,
+      studyID: study.id,
     };
 
     if (firestoreStartDate > firestoreEndDate) {
@@ -215,22 +238,11 @@ function Remind({ participant, study }) {
       return;
     }
 
-    let updatedReminders;
-    if (reminderIndex === -1) {
-      updatedReminders = reminders.concat([newReminder]);
+    if (!reminderID) {
+      remindersRef.add(newReminder);
     } else {
-      updatedReminders = reminders;
-      updatedReminders[reminderIndex] = newReminder;
+      remindersRef.doc(reminderID).update(newReminder);
     }
-
-    firestore
-      .collection("studies")
-      .doc(study.id)
-      .collection("participants")
-      .doc(participant.id)
-      .update({
-        reminders: updatedReminders,
-      });
 
     setInputs({
       title: "",
@@ -240,6 +252,7 @@ function Remind({ participant, study }) {
       endDate: "",
     });
     setEdit(false);
+    setReminderID("");
   };
 
   const convertToTimes = () => {
@@ -249,7 +262,8 @@ function Remind({ participant, study }) {
       if (weekdayBoolean[weekday]) {
         inputs.times.map((time, index) => {
           const [hour, min] = time.split(":");
-          const thisTime = ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
+          const thisTime =
+            ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
           allTimes.push(thisTime);
         });
       }
@@ -270,12 +284,14 @@ function Remind({ participant, study }) {
     />
   ) : (
     <RemindView
+      reminders={reminders}
       participant={participant}
       formatDate={formatDate}
       setEdit={setEdit}
       goToEdit={goToEdit}
       getDaysFromOffsets={getDaysFromOffsets}
       getTimesFromOffsets={getTimesFromOffsets}
+      handleDelete={handleDelete}
     />
   );
 }
