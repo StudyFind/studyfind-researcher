@@ -6,7 +6,7 @@ import { Box, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/react";
 
 function StudyCardSmall({ study }) {
   return (
-    <Card to={`/study/${study.id}`}>
+    <Link to={`/study/${study.id}`}>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
         <Text fontSize="sm" color="gray.400">
           {study.id}
@@ -17,22 +17,18 @@ function StudyCardSmall({ study }) {
         <Conditions spacing={0} isInline mt="6px">
           {study.conditions &&
             study.conditions.map((condition, index) => (
-              <Condition key={index} variant="solid" size="sm" colorScheme="blue">
+              <Tag key={index} variant="solid" size="sm" colorScheme="blue">
                 <TagLabel>{condition}</TagLabel>
-              </Condition>
+              </Tag>
             ))}
         </Conditions>
         <Description color="gray.500" my="10px">
           {study.description}
         </Description>
       </Box>
-    </Card>
+    </Link>
   );
 }
-
-const Card = styled(Link)`
-  cursor: pointer;
-`;
 
 const Conditions = styled(Stack)`
   display: grid;
@@ -41,8 +37,6 @@ const Conditions = styled(Stack)`
   height: 24px;
   overflow: hidden;
 `;
-
-const Condition = styled(Tag)``;
 
 const Title = styled(Heading)`
   word-break: break-word;

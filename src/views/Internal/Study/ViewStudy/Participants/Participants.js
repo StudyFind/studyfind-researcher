@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { fetchParticipants } from "database/participants";
+import { fetchParticipants, fetchNotes } from "database/participants";
+import { firestore } from "database/firebase";
 
 import { useDisclosure } from "@chakra-ui/react";
-import {
-  Text,
-  Heading,
-  Button,
-  Box,
-  Flex,
-  Message,
-  Spinner,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  DrawerCloseButton,
-} from "components";
+import { Heading, Button, Box } from "@chakra-ui/react";
+
+import { Message, Spinner } from "components";
 
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 import Screen from "./Screen/Screen";
 import Remind from "./Remind/Remind";
+import Notes from "./Notes/Notes";
+
+import ParticipantDrawer from "./ParticipantDrawer";
 
 import { compute } from "functions";
 
@@ -136,7 +127,6 @@ function Participants({ study }) {
     });
     return participants;
   };
-
   const sortByEligiblity = (participants) => {
     participants.sort((a, b) => {
       if (a.score < b.score) {
@@ -215,50 +205,18 @@ function Participants({ study }) {
             ))
           : FILTER_EMPTY}
       </Box>
-      {drawer.action === "screen" && (
-        <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
-              <Flex align="center">
-                {drawer.participant.fakename}
-                <Text ml="8px" mr="auto" fontSize="0.9rem" fontWeight="400" color="gray.500">
-                  {drawer.participant.score}% eligible
-                </Text>
-                <DrawerCloseButton position="static" />
-              </Flex>
-            </DrawerHeader>
-            <DrawerBody p="20px" bg="#f8f9fa">
-              <Screen responses={drawer.participant.responses} questions={study.questions} />
-            </DrawerBody>
-            <DrawerFooter borderTopWidth="1px">
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme="red" mr={3} onClick={onClose}>
-                Reject
-              </Button>
-              <Button colorScheme="green">Accept</Button>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      )}
-      {drawer.action === "remind" && (
-        <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerHeader borderBottomWidth="1px" textTransform="capitalize">
-              <Flex align="center" justifyContent="space-between">
-                {drawer.participant.fakename}
-                <DrawerCloseButton position="static" />
-              </Flex>
-            </DrawerHeader>
-            <DrawerBody p="20px" bg="#f8f9fa">
-              <Remind participant={drawer.participant} study={study} />
-            </DrawerBody>
-          </DrawerContent>
-        </Drawer>
-      )}
+      <ParticipantDrawer
+        action={drawer.action}
+        fakename={drawer.participant.fakename}
+        onClose={onClose}
+        isOpen={isOpen}
+      >
+        {drawer.action === "screen" && (
+          <Screen questions={study.questions} responses={drawer.participant.responses} />
+        )}
+        {drawer.action === "remind" && <Remind participant={drawer.participant} study={study} />}
+        {drawer.action === "notes" && <Notes id={drawer.participant.id} />}
+      </ParticipantDrawer>
     </>
   );
   return loading ? LOAD : participants.length ? LIST : EMPTY;

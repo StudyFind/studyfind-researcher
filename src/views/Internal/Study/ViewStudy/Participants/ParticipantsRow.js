@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Text, Button, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
-import { FaClock, FaPhone, FaFilter, FaComment } from "react-icons/fa";
+import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
+import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
 function ParticipantRow({ participant, handleDrawer }) {
   const statusColors = {
@@ -33,27 +33,30 @@ function ParticipantRow({ participant, handleDrawer }) {
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
         </Tooltip>
         <Tooltip label="Screen">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaFilter />} />
+          <IconButton
+            color="gray.400"
+            size="sm"
+            bg="transparent"
+            icon={<FaClipboard />}
+            onClick={() => handleDrawer("screen", participant.id)}
+          />
         </Tooltip>
         <Tooltip label="Schedule">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaPhone />} />
+          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaCalendar />} />
         </Tooltip>
         <Tooltip label="Remind">
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaClock />} />
         </Tooltip>
+        <Tooltip label="Notes">
+          <IconButton
+            color="gray.400"
+            size="sm"
+            bg="transparent"
+            icon={<FaStickyNote />}
+            onClick={() => handleDrawer("notes", participant.id)}
+          />
+        </Tooltip>
       </Buttons>
-      <Button size="sm" colorScheme="blue" onClick={() => handleDrawer("screen", participant.id)}>
-        Screen
-      </Button>
-      <Button size="sm" colorScheme="teal">
-        Message
-      </Button>
-      <Button size="sm" colorScheme="orange">
-        Schedule
-      </Button>
-      <Button size="sm" colorScheme="purple" onClick={() => handleDrawer("remind", participant.id)}>
-        Remind
-      </Button>
     </Row>
   );
 }
@@ -74,6 +77,7 @@ const Row = styled.div`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
+  grid-gap: 5px;
 `;
 
 export default ParticipantRow;

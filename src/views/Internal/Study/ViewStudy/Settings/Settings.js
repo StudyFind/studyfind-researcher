@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Box } from "components";
+import { Heading, Box } from "@chakra-ui/react";
 
 import Activate from "./Activate";
 import Delete from "./Delete";
-import Reset from "./Reset";
+import Update from "./Update";
 
 function Settings({ study, setStudy }) {
   return (
@@ -15,7 +15,7 @@ function Settings({ study, setStudy }) {
       </Head>
       <Box borderWidth="1px" rounded="md" bg="white">
         <Activate study={study} setStudy={setStudy} />
-        <Reset study={study} />
+        <Update study={study} />
         <Delete study={study} />
       </Box>
     </>

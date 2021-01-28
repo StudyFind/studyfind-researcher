@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { storage } from "database/firebase";
 import { useDownloadURL } from "react-firebase-hooks/storage";
-import { Heading, Button, Spinner, Box, Message } from "components";
+import { Heading, Button, Box } from "@chakra-ui/react";
+import { Message, Spinner } from "components";
 
 function ConsentViewer({ study, setEdit }) {
   const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.id}.pdf`));

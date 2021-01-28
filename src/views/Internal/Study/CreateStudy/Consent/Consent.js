@@ -1,31 +1,22 @@
 import React, { useState } from "react";
 import { storage } from "database/firebase";
+import ConsentHead from "./ConsentHead";
+import ConsentForm from "./ConsentForm";
 
-import ConsentView from "./Consent";
-
-function Consent({ study, setTab }) {
-  const [name, setName] = useState();
+function Consent({ study, next }) {
   const [file, setFile] = useState();
   const [error, setError] = useState("");
   const [status, setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const handleFileSelect = (e) => {
-    setName(e.target.value);
+  const handleSelect = (e) => {
     setFile(e.target.files[0]);
     setError("");
   };
 
-  const handleFileUpload = () => {
-    if (!file || !name) {
+  const handleUpload = () => {
+    if (!file) {
       setError("File has not been selected");
-      return;
-    }
-
-    const ext = name.split(".").reverse()[0];
-
-    if (ext !== "pdf") {
-      setError("File must be a pdf");
       return;
     }
 
@@ -48,7 +39,7 @@ function Consent({ study, setTab }) {
 
         if (percent === 100) {
           setLoading(false);
-          setTab("review");
+          next();
         }
       },
       (error) => {
@@ -59,13 +50,16 @@ function Consent({ study, setTab }) {
   };
 
   return (
-    <ConsentView
-      loading={loading}
-      status={status}
-      error={error}
-      handleFileSelect={handleFileSelect}
-      handleFileUpload={handleFileUpload}
-    />
+    <>
+      <ConsentHead />
+      <ConsentForm
+        error={error}
+        status={status}
+        loading={loading}
+        handleSelect={handleSelect}
+        handleUpload={handleUpload}
+      />
+    </>
   );
 }
 
