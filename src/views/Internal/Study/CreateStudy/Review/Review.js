@@ -12,7 +12,7 @@ function Review({ study }) {
 
   const handlePublish = () => {
     setPublishLoading(true);
-    updateStudy({ ...study, published: true, activated: true })
+    updateStudy(study.id, { ...study, published: true, activated: true })
       .then(() => {
         toast({
           title: "Study Published!",

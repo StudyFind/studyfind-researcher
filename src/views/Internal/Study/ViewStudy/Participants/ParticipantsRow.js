@@ -45,7 +45,13 @@ function ParticipantRow({ participant, handleDrawer }) {
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaCalendar />} />
         </Tooltip>
         <Tooltip label="Remind">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaClock />} />
+          <IconButton
+            color="gray.400"
+            size="sm"
+            bg="transparent"
+            icon={<FaClock />}
+            onClick={() => handleDrawer("remind", participant.id)}
+          />
         </Tooltip>
         <Tooltip label="Notes">
           <IconButton
