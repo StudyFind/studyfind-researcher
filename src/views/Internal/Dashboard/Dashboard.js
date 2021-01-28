@@ -4,7 +4,8 @@ import DashboardGrid from "views/Internal/Dashboard/DashboardGrid";
 import DashboardEmpty from "views/Internal/Dashboard/DashboardEmpty";
 
 function Dashboard({ studies }) {
-  return studies.length ? <DashboardGrid studies={studies} /> : <DashboardEmpty />;
+  const published = studies.filter((study) => study.published);
+  return published.length ? <DashboardGrid studies={published} /> : <DashboardEmpty />;
 }
 
 export default Dashboard;

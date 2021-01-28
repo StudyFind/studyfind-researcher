@@ -32,7 +32,7 @@ const resetStudy = (nctID) => {
     .then(({ data }) => data);
 };
 
-const updateStudy = (study) => firestore.collection("studies").doc(study.id).update(study);
+const updateStudy = (id, study) => firestore.collection("studies").doc(id).update(study);
 const deleteStudy = (nctID) => firestore.collection("studies").doc(nctID).delete();
 
 export { makeStudy, resetStudy, updateStudy, deleteStudy };

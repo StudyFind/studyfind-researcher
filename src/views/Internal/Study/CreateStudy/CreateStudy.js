@@ -10,8 +10,8 @@ import Review from "./Review/Review";
 function CreateStudy({ studies }) {
   const history = useHistory();
   const { nctID, tab } = useParams();
-  const study = studies.find((study) => study.id === nctID);
   const tabs = ["details", "screener", "consent", "review"];
+  const study = studies.find((study) => study.id === nctID) || {};
 
   const next = () => {
     const index = tabs.indexOf(tab);

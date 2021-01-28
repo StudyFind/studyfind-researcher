@@ -12,6 +12,7 @@ import { Message, Spinner } from "components";
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 import Screen from "./Screen/Screen";
+import Remind from "./Remind/Remind";
 import Notes from "./Notes/Notes";
 import Schedule from "./Schedule/Schedule";
 
@@ -43,6 +44,7 @@ function Participants({ study }) {
       (participant) => participant.id === participantID
     ) || {
       responses: [],
+      reminders: [],
     };
     setDrawer({ action, participant });
     onOpen();
@@ -52,11 +54,12 @@ function Participants({ study }) {
     fetchParticipants(nctID)
       .then((data) => {
         setParticipants(
-          data.map(({ id, fakename, status, responses }) => ({
+          data.map(({ id, fakename, status, responses, reminders }) => ({
             id,
             fakename,
             status,
             responses,
+            reminders,
             score: compute.eligibilityScore(study.questions, responses),
           }))
         );
@@ -229,6 +232,7 @@ function Participants({ study }) {
             responses={drawer.participant.responses}
           />
         )}
+        {drawer.action === "remind" && <Remind participant={drawer.participant} study={study} />}
         {drawer.action === "notes" && <Notes id={drawer.participant.id} />}
         {drawer.action === "schedule" && (
           <Schedule participant={drawer.participant} study={study} />
@@ -236,7 +240,6 @@ function Participants({ study }) {
       </ParticipantDrawer>
     </>
   );
-
   return loading ? LOAD : participants.length ? LIST : EMPTY;
 }
 
