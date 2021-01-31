@@ -2,11 +2,9 @@ import React from "react";
 import { Heading, Text, Switch, Badge, Box, Flex } from "@chakra-ui/react";
 import { updateStudy } from "database/studies";
 
-function Activate({ study, setStudy }) {
+function Activate({ study }) {
   const handleToggle = () => {
-    const updated = { ...study, activated: !study.activated };
-    updateStudy(updated);
-    setStudy(updated);
+    updateStudy(study.id, { activated: !study.activated });
   };
 
   return (

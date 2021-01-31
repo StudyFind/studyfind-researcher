@@ -27,6 +27,7 @@ const Head = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 15px 0;
+  height: 40px;
 `;
 
 export default Settings;

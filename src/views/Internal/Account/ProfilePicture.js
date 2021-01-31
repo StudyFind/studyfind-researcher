@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Button, Box, Flex, Skeleton, SkeletonCircle, Avatar, Input } from "@chakra-ui/react";
 
 import { storage } from "database/firebase";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 
-function ProfilePicture({ uid, name, setEdit }) {
+import {
+  Button,
+  Box,
+  Flex,
+  Skeleton,
+  SkeletonCircle,
+  Avatar,
+  Input,
+  Image,
+} from "@chakra-ui/react";
+
+function ProfilePicture({ uid, name }) {
   const SIZE = "100px";
   const ref = storage.ref(`profile/${uid}`);
-  const [value, imageLoading] = useDownloadURL(ref);
+
+  const [value, loading] = useDownloadURL(ref);
   const [file, setFile] = useState();
   const [error, setError] = useState("");
-  const [status, setStatus] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
 
   const handleFileSelect = (e) => {
     setFile(e.target.files[0]);
@@ -20,8 +30,9 @@ function ProfilePicture({ uid, name, setEdit }) {
   };
 
   const handleFileUpload = () => {
-    setLoading(true);
     ref.put(file);
+    setReload(true);
+    setReload(false);
   };
 
   const deleteProfilePicture = () => {
@@ -29,6 +40,9 @@ function ProfilePicture({ uid, name, setEdit }) {
       .delete()
       .then(() => {})
       .catch(() => {});
+
+    setReload(true);
+    setReload(false);
   };
 
   useEffect(() => {
@@ -37,7 +51,7 @@ function ProfilePicture({ uid, name, setEdit }) {
 
   return (
     <>
-      {imageLoading ? (
+      {loading ? (
         <>
           <SkeletonCircle h={SIZE} w={SIZE} />
           <Skeleton my="15px">
@@ -45,9 +59,17 @@ function ProfilePicture({ uid, name, setEdit }) {
           </Skeleton>
         </>
       ) : value ? (
-        <>
+        <Flex gridGap="16px">
+          <FileInput
+            id="selectImage"
+            type="file"
+            accept="image/*"
+            display="none"
+            onChange={handleFileSelect}
+            isInvalid={error}
+          />
           <Box h={SIZE} w={SIZE} rounded="full" overflow="hidden">
-            <img src={value} />
+            <Image h="100%" w="100%" src={value} />
           </Box>
           <Buttons my="15px">
             <Button
@@ -61,7 +83,7 @@ function ProfilePicture({ uid, name, setEdit }) {
               Remove
             </Button>
           </Buttons>
-        </>
+        </Flex>
       ) : (
         <Flex align="center" gridGap="12px">
           <FileInput
