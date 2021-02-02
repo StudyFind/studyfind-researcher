@@ -121,7 +121,7 @@ describe("make-study", () => {
 
 
 // useful getUser mock
-mGetUserResponse = async (auth, uid) => ({
+const mGetUserResponse = async (auth, uid) => ({
   uid,
   displayName: "TEST_USER",
   email: "TEST_EMAIL",
