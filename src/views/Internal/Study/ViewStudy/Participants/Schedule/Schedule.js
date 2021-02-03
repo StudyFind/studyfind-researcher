@@ -140,10 +140,10 @@ function Schedule({ participant, study }) {
     />
   ) : (
     <ScheduleView
-      schedules={schedules}
-      participant={participant}
       setEdit={setEdit}
       goToEdit={goToEdit}
+      schedules={schedules}
+      participant={participant}
       handleDelete={handleDelete}
     />
   );
