@@ -41,7 +41,7 @@ function Internal() {
     <Flex>
       <Sidebar cred={cred} user={user} />
       <Box ml="280px" w="100%" minH="100vh">
-        <Page isLoading={!studies}>
+        <Page isLoading={!(user && studies)}>
           <Switch>
             {pages.map(({ path, component }, index) => (
               <Route exact path={path} key={index}>
