@@ -102,10 +102,8 @@ describe("make-study", () => {
     mAxios.get.mockImplementationOnce(mAxiosGetStudy);
     mGetUser.mockImplementationOnce(mGetUserResponse);
     mGetFirestoreEntry.mockImplementationOnce(async ({ document }) => ({
-      data: () => ({
-        nctID: document,
-        published: false,
-      })
+      nctID: document,
+      published: false,
     }));
 
     await func(req, res);
