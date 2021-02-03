@@ -10,12 +10,10 @@ import { FaDoorOpen } from "react-icons/fa";
 
 import ProfilePicture from "./ProfilePicture";
 import { firestore } from "database/firebase";
-import { useDocument } from "hooks";
 
 function Account({ user }) {
   const { uid, displayName, email } = auth.currentUser;
   const profileRef = firestore.collection("researchers").doc(uid);
-  console.log(user);
   const originalProfileInputs = {
     name: user.name || "",
   };
