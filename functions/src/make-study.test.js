@@ -6,6 +6,7 @@ jest.mock("./firebase/get-firestore-entry");
 
 const mAxios = require("axios");
 const mGetUser = require("./firebase/get-user");
+const mGetFirestoreEntry = require("./firebase/get-firestore-entry");
 const mAddFirestoreEntry = require("./firebase/add-firestore-entry");
 
 const admin = require("firebase-admin");
@@ -47,11 +48,7 @@ describe("make-study", () => {
 
   it("creates a study on correct nctid and idtoken", async () => {
     mAxios.get.mockImplementationOnce(mAxiosGetStudy);
-    mGetUser.mockImplementationOnce(async (auth, uid) => ({
-      uid,
-      displayName: "TEST_USER",
-      email: "TEST_EMAIL",
-    }));
+    mGetUser.mockImplementationOnce(mGetUserResponse);
 
     await func(req, res);
 
@@ -71,11 +68,7 @@ describe("make-study", () => {
 
   it("generates survey from criteria", async () => {
     mAxios.get.mockImplementationOnce(mAxiosGetStudy);
-    mGetUser.mockImplementationOnce(async (auth, uid) => ({
-      uid,
-      displayName: "TEST_USER",
-      email: "TEST_EMAIL",
-    }));
+    mGetUser.mockImplementationOnce(mGetUserResponse);
 
     await func(req, res);
 
@@ -105,8 +98,32 @@ describe("make-study", () => {
     expect(mAddFirestoreEntry).toHaveBeenCalledTimes(0);
   });
 
+  it("allows study creation if already exists but not published", async () => {
+    mAxios.get.mockImplementationOnce(mAxiosGetStudy);
+    mGetUser.mockImplementationOnce(mGetUserResponse);
+    mGetFirestoreEntry.mockImplementationOnce(async ({ document }) => ({
+      nctID: document,
+      published: false,
+    }));
+
+    await func(req, res);
+
+    const resp = res.json.mock.calls[0][0];
+    expect(resp.error).toBeNull();
+    expect(mAddFirestoreEntry).toHaveBeenCalledTimes(1);
+  });
+
 });
 
+
+
+
+// useful getUser mock
+const mGetUserResponse = async (auth, uid) => ({
+  uid,
+  displayName: "TEST_USER",
+  email: "TEST_EMAIL",
+})
 
 // useful axios mock for mocking get study
 const mAxiosGetStudy = async (url) => ({
