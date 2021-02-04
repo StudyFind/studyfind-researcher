@@ -1,5 +1,4 @@
-const admin = require('./__mocks__/admin');
-
+const admin = require("./__mocks__/admin");
 const firestore = admin.firestore();
 
 const context = { admin };

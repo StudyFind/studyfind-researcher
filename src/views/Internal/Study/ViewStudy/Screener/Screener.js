@@ -8,8 +8,6 @@ function Screener({ study, setStudy }) {
   const [edit, setEdit] = useState(false);
   const [questions, setQuestions] = useState(study.questions || []);
 
-  console.log({ study });
-
   const createQuestion = () => {
     const updated = [...questions];
     updated[updated.length] = { type: "Inclusion", prompt: "" };
@@ -38,7 +36,7 @@ function Screener({ study, setStudy }) {
 
   const handleSubmit = () => {
     const updated = { ...study, questions };
-    updateStudy(updated);
+    updateStudy(study.id, updated);
     setStudy(updated);
     setEdit(false);
   };

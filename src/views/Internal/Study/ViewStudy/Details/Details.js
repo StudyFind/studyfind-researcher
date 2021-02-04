@@ -53,8 +53,8 @@ function Details({ study }) {
     const errorExists = Object.keys(err).some((i) => err[i]);
     if (errorExists) return;
 
-    const updated = { ...study, title: inputs.title, description: inputs.description };
-    updateStudy(updated);
+    const updated = { title: inputs.title, description: inputs.description };
+    updateStudy(study.id, updated);
     setEdit(false);
   };
 

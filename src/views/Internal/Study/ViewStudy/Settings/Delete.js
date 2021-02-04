@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import { Form, Input } from "components";
-import { Heading, Text, Button, Box } from "@chakra-ui/react";
+import { Heading, Text, Button, Box, useToast } from "@chakra-ui/react";
 
 import { deleteStudy } from "database/studies";
 
 function Delete({ study }) {
+  const toast = useToast();
   const [nctID, setNctID] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,8 +23,30 @@ function Delete({ study }) {
   const handleDelete = () => {
     if (nctID === study.id) {
       setLoading(true);
-      deleteStudy(study.id);
-      history.push("/studies");
+      deleteStudy(study.id)
+        .then(() => {
+          history.push("/studies");
+          toast({
+            title: "Study Deleted!",
+            description: `Your study was successfully deleted along with all information`,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .catch(() => {
+          toast({
+            title: "Connection Error",
+            description:
+              "Your study could not be deleted due to a connection error. Please check your internet connection and try again.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .finally(() => setLoading(false));
     } else {
       setError("Entered ID does not match");
     }
@@ -44,7 +67,7 @@ function Delete({ study }) {
 
       <DeleteForm onSubmit={handleDelete}>
         <Input placeholder="NCT00000000" value={nctID} error={error} onChange={handleChange} />
-        <Button type="submit" colorScheme="red" isLoading={loading} loadingText="Deleting">
+        <Button type="submit" colorScheme="red" isLoading={loading} loadingText="Deleting...">
           Delete
         </Button>
       </DeleteForm>

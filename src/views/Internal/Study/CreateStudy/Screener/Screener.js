@@ -33,7 +33,7 @@ function Screener({ study, next }) {
   };
 
   const handleSubmit = () => {
-    updateStudy({ questions });
+    updateStudy(study.id, { questions });
     next();
   };
 

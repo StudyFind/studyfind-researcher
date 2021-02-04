@@ -1,12 +1,39 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /users/{userID} {
-      allow read, write: if userID == request.auth.uid
+  	match /researchers/{userID} {
+    	allow create, get, delete, update, read, write: if true
     }
+
     match /studies/{studyID} {
       allow update, delete: if resource.data.researcher.id == request.auth.uid
       allow read: if request.auth != null
+
+      match /participants/{participantID} {
+      	allow read, update, delete: if true
+
+        match /notes/{noteID} {
+          allow read, create, update, delete: if true
+        }
+    	}
+    }
+
+    // match reminders
+    match /reminders/{reminderID} {
+    	allow read: if request.auth.uid == resource.data.participantID || request.auth.uid == getStudyData(resource.data.studyID).researcher.id
+      allow create: if request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
+      allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
+    }
+
+    match /schedule/{scheduleID} {
+    	allow read: if request.auth.uid == resource.data.participantID || request.auth.uid == getStudyData(resource.data.studyID).researcher.id
+      allow create: if request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
+      allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
+    }
+
+    // fetch a study from firestore
+    function getStudyData(studyID) {
+    	return get(/databases/$(database)/documents/studies/$(studyID)).data
     }
   }
 }

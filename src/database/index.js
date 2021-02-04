@@ -1,13 +1,14 @@
-import { auth, googleAuthProvider, facebookAuthProvider } from "./firebase";
+import { auth, firestore } from "./firebase";
 import { errors } from "./constants";
 
 const getErrorMessage = ({ code }) => ({ email: "", password: "", ...errors[code] });
 
 const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
 
-const signup = async (email, password) => {
+const signup = async (name, email, password) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
+    await firestore.collection("researchers").doc(user.uid).set({ name });
     localStorage.setItem("exists", true);
     return user;
   } catch (error) {

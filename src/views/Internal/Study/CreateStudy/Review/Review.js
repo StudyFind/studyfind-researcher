@@ -12,12 +12,12 @@ function Review({ study }) {
 
   const handlePublish = () => {
     setPublishLoading(true);
-    updateStudy({ ...study, published: true, activated: true })
+    updateStudy(study.id, { ...study, published: true, activated: true })
       .then(() => {
         toast({
           title: "Study Published!",
-          description: `Your study was successfully published is now available for
-          participants to view and enroll`,
+          description:
+            "Your study was successfully published is now available for participants to view and enroll",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -25,7 +25,17 @@ function Review({ study }) {
         });
         history.push("/dashboard");
       })
-      .catch(console.log)
+      .catch(() => {
+        toast({
+          title: "Connection Error",
+          description:
+            "Your study could not be published due to a connection error. Please check your internet connection and try again.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+      })
       .finally(() => setPublishLoading(false));
   };
 
