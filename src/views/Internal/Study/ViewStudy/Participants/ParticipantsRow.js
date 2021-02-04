@@ -32,31 +32,31 @@ function ParticipantRow({ participant, handleDrawer }) {
         <Tooltip label="Message">
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
         </Tooltip>
-        <Tooltip label="Screen">
+        <Tooltip label="Screening">
           <IconButton
             color="gray.400"
             size="sm"
             bg="transparent"
             icon={<FaClipboard />}
-            onClick={() => handleDrawer("screen", participant.id)}
+            onClick={() => handleDrawer("screening", participant.id)}
           />
         </Tooltip>
-        <Tooltip label="Schedule">
+        <Tooltip label="Meetings">
           <IconButton
             color="gray.400"
             size="sm"
             bg="transparent"
             icon={<FaCalendar />}
-            onClick={() => handleDrawer("schedule", participant.id)}
+            onClick={() => handleDrawer("meetings", participant.id)}
           />
         </Tooltip>
-        <Tooltip label="Remind">
+        <Tooltip label="Reminders">
           <IconButton
             color="gray.400"
             size="sm"
             bg="transparent"
             icon={<FaClock />}
-            onClick={() => handleDrawer("remind", participant.id)}
+            onClick={() => handleDrawer("reminders", participant.id)}
           />
         </Tooltip>
         <Tooltip label="Notes">

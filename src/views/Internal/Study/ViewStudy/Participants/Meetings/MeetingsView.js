@@ -4,7 +4,7 @@ import { format } from "functions";
 import { Heading, Box, Grid, Flex, IconButton, Text } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
 
-function ScheduleView({ schedules, setEdit, goToEdit, handleDelete }) {
+function MeetingsView({ meetings, setEdit, goToEdit, handleDelete }) {
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     const [hours, minutes] = [date.getHours(), date.getMinutes()];
@@ -30,18 +30,18 @@ function ScheduleView({ schedules, setEdit, goToEdit, handleDelete }) {
         <Heading size="md" color="gray.500">
           <Flex justify="center" align="center" gridGap="8px">
             <FaPlusCircle />
-            Schedule Meeting
+            New Meeting
           </Flex>
         </Heading>
       </Flex>
-      {schedules &&
-        schedules.map((schedule, index) => (
+      {meetings &&
+        meetings.map((meeting, index) => (
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">
-            <Heading size="md">{schedule.name}</Heading>
+            <Heading size="md">{meeting.name}</Heading>
             <Text color="gray.500" fontSize="0.9rem" mb="8px">
-              {formatTimestamp(schedule.time)}
+              {formatTimestamp(meeting.time)}
             </Text>
-            <ExternalLink href={schedule.link} target="_blank">
+            <ExternalLink href={meeting.link} target="_blank">
               <Flex align="center" gridGap="4px">
                 Link to Meeting
                 <Text fontSize="0.8rem">
@@ -56,14 +56,14 @@ function ScheduleView({ schedules, setEdit, goToEdit, handleDelete }) {
                   size="sm"
                   color="blue.500"
                   bg="blue.100"
-                  onClick={() => goToEdit(schedule)}
+                  onClick={() => goToEdit(meeting)}
                 />
                 <IconButton
                   icon={<FaTrashAlt />}
                   size="sm"
                   color="red.500"
                   bg="red.100"
-                  onClick={() => handleDelete(schedule)}
+                  onClick={() => handleDelete(meeting)}
                 />
               </Flex>
               <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
@@ -79,4 +79,4 @@ const ExternalLink = styled.a`
   text-decoration: underline;
 `;
 
-export default ScheduleView;
+export default MeetingsView;
