@@ -23,7 +23,7 @@ function Schedule({ participant, study }) {
       .collection("schedule")
       .where("participantID", "==", participant.id)
       .where("studyID", "==", study.id)
-      .orderBy("time", "desc")
+      .orderBy("time", "desc"),
   );
 
   const [edit, setEdit] = useState(false);

@@ -6,7 +6,7 @@ function useForm({ initial, checker }) {
 
   useEffect(() => {
     setErrors((prevState) => {
-      for (const name in initial) {
+      for (const name of initial) {
         prevState[name] = checker(name, initial[name]);
       }
       return prevState;
@@ -20,7 +20,7 @@ function useForm({ initial, checker }) {
 
   const validate = () => {
     const err = {};
-    for (const name in inputs) {
+    for (const name of inputs) {
       err[name] = checker(name, inputs[name]);
     }
     setErrors(err);

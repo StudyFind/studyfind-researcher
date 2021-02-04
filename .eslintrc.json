@@ -23,7 +23,7 @@
     "jest"
   ],
   "rules": {
-    "no-console": 2,
+    "no-console": 1,
     "require-atomic-updates": 1,
     "eqeqeq": 2,
     "react/prop-types": 0,

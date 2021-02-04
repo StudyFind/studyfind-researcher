@@ -8,7 +8,7 @@ const makeStudy = (nctID) =>
       .then((idToken) =>
         axios.get("https://us-central1-studyfind-researcher.cloudfunctions.net/studies/makeStudy", {
           params: { nctID, idToken },
-        })
+        }),
       )
       .then(({ data }) => {
         const { study, error } = data;
@@ -27,7 +27,7 @@ const resetStudy = (nctID) => {
     .then((idToken) =>
       axios.get("https://us-central1-studyfind-researcher.cloudfunctions.net/studies/resetStudy", {
         params: { nctID, idToken },
-      })
+      }),
     )
     .then(({ data }) => data);
 };

@@ -22,7 +22,6 @@ function RemindEdit({
   handleSubmit,
 }) {
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
-  console.log(inputs.startDate);
   return (
     <Grid gap="32px">
       <Input

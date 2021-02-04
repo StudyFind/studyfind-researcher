@@ -41,7 +41,7 @@ function Participants({ study }) {
 
   const handleDrawer = (action, participantID) => {
     const participant = participants.find(
-      (participant) => participant.id === participantID
+      (participant) => participant.id === participantID,
     ) || {
       responses: [],
       reminders: [],
@@ -61,7 +61,7 @@ function Participants({ study }) {
             responses,
             reminders,
             score: compute.eligibilityScore(study.questions, responses),
-          }))
+          })),
         );
       })
       .finally(() => setLoading(false));
@@ -155,7 +155,7 @@ function Participants({ study }) {
 
   const filterSearch = (participants) => {
     return participants.filter((p) =>
-      p.fakename.toLowerCase().includes(search)
+      p.fakename.toLowerCase().includes(search),
     );
   };
 
@@ -210,15 +210,15 @@ function Participants({ study }) {
         />
       )}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {participantsFiltered && participantsFiltered.length
-          ? participantsFiltered.map((participant, index) => (
+        {participantsFiltered && participantsFiltered.length ?
+          participantsFiltered.map((participant, index) => (
               <ParticipantsRow
                 key={index}
                 participant={participant}
                 handleDrawer={handleDrawer}
               />
-            ))
-          : FILTER_EMPTY}
+            )) :
+          FILTER_EMPTY}
       </Box>
       <ParticipantDrawer
         action={drawer.action}

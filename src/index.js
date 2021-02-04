@@ -12,5 +12,5 @@ ReactDOM.render(
       <App />
     </Router>
   </ChakraProvider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

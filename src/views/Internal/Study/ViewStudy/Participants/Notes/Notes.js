@@ -90,11 +90,11 @@ function Notes({ id }) {
   ) : (
     <Grid gap="15px">
       <NotesNew newNote={newNote} />
-      {notes && notes.length
-        ? notes.map((note, index) => (
+      {notes && notes.length ?
+        notes.map((note, index) => (
             <NotesItem key={index} note={note} editNote={editNote} deleteNote={deleteNote} />
-          ))
-        : null}
+          )) :
+        null}
     </Grid>
   );
 }

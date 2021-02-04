@@ -53,7 +53,7 @@ function Review({ study }) {
         });
         history.push("/dashboard");
       })
-      .catch(console.log)
+      .catch(console.error)
       .finally(() => setDeleteLoading(false));
   };
 

@@ -6,9 +6,7 @@ function useDocument(query, options) {
   const [snapshot, loading, error] = useFirstoreDocument(query, options);
 
   useEffect(() => {
-    console.log(snapshot);
     if (!error && !loading && snapshot) {
-      console.log(snapshot.id);
       setDocument({ id: snapshot.id, ...snapshot.data() });
     }
   }, [snapshot]);

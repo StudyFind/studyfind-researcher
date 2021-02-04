@@ -49,9 +49,9 @@ function StudyCardLarge({ study }) {
           <Criterion>
             <Box as={FaHeart} color="blue.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
-              {study.control === "Yes"
-                ? "Accepts Healthy Volunteers"
-                : "Does not accept healthy volunteers"}
+              {study.control === "Yes" ?
+                "Accepts Healthy Volunteers" :
+                "Does not accept healthy volunteers"}
             </Text>
           </Criterion>
         </Eligibility>

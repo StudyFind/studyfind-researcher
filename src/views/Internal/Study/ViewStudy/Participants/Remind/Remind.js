@@ -54,7 +54,7 @@ function Remind({ participant, study }) {
   const getTimesFromOffsets = (offsets) => {
     const allTimes = [];
     const numberOfDaysSelected = getDaysFromOffsets(offsets).filter(
-      (value) => value
+      (value) => value,
     ).length;
 
     for (let i = 0; i < offsets.length / numberOfDaysSelected; i++) {
@@ -216,11 +216,11 @@ function Remind({ participant, study }) {
     const convertedTimes = convertToTimes();
     const [startYear, startMonth, startDay] = inputs.startDate.split("-");
     const firestoreStartDate = firebase.firestore.Timestamp.fromDate(
-      new Date(startYear, startMonth - 1, startDay)
+      new Date(startYear, startMonth - 1, startDay),
     );
     const [endYear, endMonth, endDay] = inputs.endDate.split("-");
     const firestoreEndDate = firebase.firestore.Timestamp.fromDate(
-      new Date(endYear, endMonth - 1, endDay)
+      new Date(endYear, endMonth - 1, endDay),
     );
 
     const newReminder = {
@@ -256,7 +256,7 @@ function Remind({ participant, study }) {
   };
 
   const convertToTimes = () => {
-    var allTimes = [];
+    const allTimes = [];
     const weekdayBoolean = inputs.weekdays;
     for (const weekday in weekdayBoolean) {
       if (weekdayBoolean[weekday]) {

@@ -10,9 +10,8 @@ function Update({ study }) {
   const handleUpdate = () => {
     setLoading(true);
     resetStudy(study.id)
-      .then(console.log)
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setError(`Update failed: ${err}`);
       })
       .finally(() => setLoading(false));

@@ -5,8 +5,8 @@ import { Tag, Text, Box, Grid } from "@chakra-ui/react";
 function Screen({ questions, responses }) {
   return (
     <Grid gap="15px">
-      {questions && questions.length
-        ? questions.map((question, index) => (
+      {questions && questions.length ?
+        questions.map((question, index) => (
             <Box borderWidth="1px" bg="white" rounded="md" p="10px" key={index}>
               <Tag size="sm" colorScheme={question.type === "Inclusion" ? "green" : "red"}>
                 {question.type}
@@ -22,8 +22,8 @@ function Screen({ questions, responses }) {
                 )}
               </Text>
             </Box>
-          ))
-        : null}
+          )) :
+        null}
     </Grid>
   );
 }

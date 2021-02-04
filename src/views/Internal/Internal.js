@@ -22,7 +22,7 @@ function Internal() {
   const { uid } = cred;
   const [user] = useDocument(firestore.collection("researchers").doc(uid));
   const [studies] = useCollection(
-    firestore.collection("studies").where("researcher.id", "==", uid).orderBy("updatedAt", "desc")
+    firestore.collection("studies").where("researcher.id", "==", uid).orderBy("updatedAt", "desc"),
   );
 
   const pages = [
