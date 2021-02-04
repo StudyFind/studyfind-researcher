@@ -116,14 +116,12 @@ describe("make-study", () => {
 });
 
 
-
-
 // useful getUser mock
 const mGetUserResponse = async (auth, uid) => ({
   uid,
   displayName: "TEST_USER",
   email: "TEST_EMAIL",
-})
+});
 
 // useful axios mock for mocking get study
 const mAxiosGetStudy = async (url) => ({

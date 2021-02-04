@@ -19,7 +19,7 @@ module.exports = (ctx) => {
     const path = new URL("http://ha-fake-server.com" + req.url).pathname.split("/");
     const name = path[1];
 
-    if (name === "") return res.json({ error: `please specify a function to call` })
+    if (name === "") return res.json({ error: `please specify a function to call` });
     if (!funcs[name]) return res.json({ error: `function '${name}' does not exist` });
 
     logger.info(`running function '${name}' from`, req.url);

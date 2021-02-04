@@ -25,15 +25,15 @@ describe("reminders-runner", () => {
                         collection: {
                             participants: {
                                 "PARTICIPANT_ID": {
-                                    name: "TEST_NAME"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        })
-        firestore.data = data()
+                                    name: "TEST_NAME",
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        firestore.data = data();
 
         let studies = await firestore.collection("studies").get();
         expect(studies.empty).toBe(false);
@@ -55,7 +55,7 @@ describe("reminders-runner", () => {
         studies = await firestore.collection("studies").get();
         expect(studies.length).toBe(2);
 
-        let participants = await firestore.collection("studies").doc("TEST_STUDY_ID").collection("participants").get();
+        const participants = await firestore.collection("studies").doc("TEST_STUDY_ID").collection("participants").get();
         expect(participants.empty).toBe(false);
         expect(participants.length).toBe(1);
         expect(participants[0].data()).toEqual({ name: 'TEST_NAME' });
@@ -92,7 +92,7 @@ describe("reminders-runner", () => {
 
         const study = await firestore.collection("studies").doc("TEST_STUDY_ID").get();
         expect(study.exists).toBe(true);
-        const studyData = study.data()
+        const studyData = study.data();
         expect(studyData.nctID).toBe("NCT000");
 
         const participant = await firestore.collection("studies").doc("TEST_STUDY_ID")
@@ -138,7 +138,7 @@ describe("reminders-runner", () => {
             endDate: 1000 * 60 * 60 * 24 * 365,
             study: "TEST_STUDY_ID",
             participant: "TEST_PARTICIPANT_ID",
-        }
+        };
         admin.firestore.Timestamp.now.mockReturnValueOnce(1000 * 60 * 30); // 30 mins
 
         await func();
@@ -165,10 +165,10 @@ const mFirestore = () => ({
                             fakeName: "TEST_NAME",
                             status: "accepted",
                             currentReminders: [],
-                        }
-                    }
-                }
-            }
+                        },
+                    },
+                },
+            },
         },
         reminders: {
             "0": {
@@ -178,7 +178,7 @@ const mFirestore = () => ({
                 endDate: 1000 * 60 * 60 * 24 * 365, // 1 year
                 study: "TEST_STUDY_ID",
                 participant: "TEST_PARTICIPANT_ID",
-            }
-        }
-    }
-})
+            },
+        },
+    },
+});

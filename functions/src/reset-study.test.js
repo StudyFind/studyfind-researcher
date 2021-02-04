@@ -48,8 +48,8 @@ describe("update-study", () => {
     it("updates a study while persisting data", async () => {
         mAxios.get.mockImplementationOnce(mAxiosGetStudy);
         mVerifyIdToken.mockImplementationOnce(async (admin, idToken) => ({
-            uid: "TEST_UID"
-        }))
+            uid: "TEST_UID",
+        }));
         mGetUser.mockImplementationOnce(async (auth, uid) => ({
             uid,
             displayName: "TEST_USER",
@@ -57,9 +57,9 @@ describe("update-study", () => {
         }));
         mGetFirestoreEntry.mockImplementationOnce(async (firestore, collection, doc) => ({
             researcher: {
-                id: "TEST_UID"
-            }
-        }))
+                id: "TEST_UID",
+            },
+        }));
 
         await func(req, res);
 
@@ -81,8 +81,8 @@ describe("update-study", () => {
     it("disallow update from non-owning user", async () => {
         mAxios.get.mockImplementationOnce(mAxiosGetStudy);
         mVerifyIdToken.mockImplementationOnce(async (admin, idToken) => ({
-            uid: "DIFFERENT_TEST_UID"
-        }))
+            uid: "DIFFERENT_TEST_UID",
+        }));
         mGetUser.mockImplementationOnce(async (auth, uid) => ({
             uid,
             displayName: "DIFFERENT_TEST_USER",
@@ -90,8 +90,8 @@ describe("update-study", () => {
         }));
         mGetFirestoreEntry.mockImplementationOnce(async (firestore, collection, doc) => ({
             researcher: {
-                id: "TEST_UID"
-            }
+                id: "TEST_UID",
+            },
         }));
 
         await func(req, res);

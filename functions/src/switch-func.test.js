@@ -59,7 +59,7 @@ describe("switch-func", () => {
         expect(res.json).toHaveBeenCalledTimes(0);
 
         expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
-        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1]
+        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1];
         expect(retReq.url).toBe("/");
         expect(retRes).toBe(res);
     });
@@ -71,7 +71,7 @@ describe("switch-func", () => {
         expect(res.json).toHaveBeenCalledTimes(0);
 
         expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
-        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1]
+        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1];
         expect(retReq.url).toBe("/SUBROUTE");
         expect(retRes).toBe(res);
     });
@@ -83,7 +83,7 @@ describe("switch-func", () => {
         expect(res.json).toHaveBeenCalledTimes(0);
 
         expect(mSwitchList.TEST_FUNC).toHaveBeenCalledTimes(2);
-        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1]
+        const [retReq, retRes] = mSwitchList.TEST_FUNC.mock.calls[1];
         expect(retReq.url).toBe("/?param=1");
         expect(retRes).toBe(res);
     });

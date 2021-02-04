@@ -10,4 +10,4 @@ module.exports = async (auth, idToken) => {
     } catch (error) {
         throw Error(`User token '${idToken}' is not valid`);
     }
-}
+};

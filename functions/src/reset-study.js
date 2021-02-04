@@ -21,8 +21,9 @@ async function updateFirestore(firestore, nctID, study) {
 async function assertOwnership(data, study, user) {
   data.uid = study.researcher.id;
 
-  if (study.researcher.id !== user.uid)
+  if (study.researcher.id !== user.uid) {
     throw Error(`User ${user.uid} is not allowed to update this study`);
+  }
   return data;
 }
 
