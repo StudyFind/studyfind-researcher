@@ -76,7 +76,7 @@ function Meetings({ participant, study }) {
     return `${pad(hours)}${hours}:${pad(minutes)}${minutes}`;
   };
 
-  const goToEdit = (meetings) => {
+  const handleEdit = (meetings) => {
     if (meetings) {
       setInputs({
         name: meetings.name,
@@ -139,13 +139,7 @@ function Meetings({ participant, study }) {
       handleCancel={handleCancel}
     />
   ) : (
-    <MeetingsView
-      setEdit={setEdit}
-      goToEdit={goToEdit}
-      meetings={meetings}
-      participant={participant}
-      handleDelete={handleDelete}
-    />
+    <MeetingsView handleEdit={handleEdit} meetings={meetings} handleDelete={handleDelete} />
   );
 }
 

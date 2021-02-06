@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 
-import { Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import ChangePassword from "./ChangePassword";
 import DeleteAccount from "./DeleteAccount";
 
@@ -11,17 +10,12 @@ function Settings() {
       <Heading size="lg" mb="25px">
         Settings
       </Heading>
-      <Body>
+      <Flex gridGap="20px">
         <ChangePassword />
         <DeleteAccount />
-      </Body>
+      </Flex>
     </>
   );
 }
-
-const Body = styled.div`
-  display: flex;
-  grid-gap: 20px;
-`;
 
 export default Settings;

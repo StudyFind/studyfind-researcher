@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+import { firestore } from "database/firebase";
+import { useCollection } from "hooks";
+
 import { useParams } from "react-router-dom";
-import { fetchParticipants, fetchNotes } from "database/participants";
-
-import { useDisclosure } from "@chakra-ui/react";
-import { Heading, Button, Box } from "@chakra-ui/react";
-
+import { Heading, Button, Box, useDisclosure } from "@chakra-ui/react";
 import { Message, Spinner } from "components";
 
+import ParticipantDrawer from "./ParticipantDrawer";
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 import Screening from "./Screening/Screening";
@@ -15,17 +16,14 @@ import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
 import Meetings from "./Meetings/Meetings";
 
-import ParticipantDrawer from "./ParticipantDrawer";
-
-import { compute } from "functions";
-
 function Participants({ study }) {
   const { nctID } = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [drawer, setDrawer] = useState({ action: "", participant: {} });
   const [toggle, setToggle] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [participants, setParticipants] = useState([]);
+  const [participants, loading, error] = useCollection(
+    firestore.collection("studies").doc(nctID).collection("participants")
+  );
   const [participantsFiltered, setParticipantsFiltered] = useState([]);
 
   const [sort, setSort] = useState("fakename");
@@ -48,23 +46,6 @@ function Participants({ study }) {
   };
 
   useEffect(() => {
-    fetchParticipants(nctID)
-      .then((data) => {
-        setParticipants(
-          data.map(({ id, fakename, status, responses, reminders }) => ({
-            id,
-            fakename,
-            status,
-            responses,
-            reminders,
-            score: compute.eligibilityScore(study.questions, responses),
-          }))
-        );
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  useEffect(() => {
     if (!toggle) {
       setSearch("");
       setSort("fakename");
@@ -79,11 +60,13 @@ function Participants({ study }) {
   }, [toggle]);
 
   useEffect(() => {
-    const initial = [...participants];
-    const filteredSearch = filterSearch(initial);
-    const filteredStatus = filterStatus(filteredSearch);
-    const sorted = sortParticipants(filteredStatus);
-    setParticipantsFiltered(sorted);
+    if (participants) {
+      const initial = [...participants];
+      const filteredSearch = filterSearch(initial);
+      const filteredStatus = filterStatus(filteredSearch);
+      const sorted = sortParticipants(filteredStatus);
+      setParticipantsFiltered(sorted);
+    }
   }, [sort, status, search, participants]);
 
   const sortParticipants = (participants) => {
@@ -201,7 +184,12 @@ function Participants({ study }) {
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participantsFiltered && participantsFiltered.length
           ? participantsFiltered.map((participant, index) => (
-              <ParticipantsRow key={index} participant={participant} handleDrawer={handleDrawer} />
+              <ParticipantsRow
+                key={index}
+                study={study}
+                participant={participant}
+                handleDrawer={handleDrawer}
+              />
             ))
           : FILTER_EMPTY}
       </Box>
@@ -224,7 +212,7 @@ function Participants({ study }) {
       </ParticipantDrawer>
     </>
   );
-  return loading ? LOAD : participants.length ? LIST : EMPTY;
+  return loading || !participants ? LOAD : participants.length ? LIST : EMPTY;
 }
 
 const Head = styled.div`

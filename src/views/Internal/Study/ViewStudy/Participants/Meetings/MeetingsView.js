@@ -4,7 +4,7 @@ import { format } from "functions";
 import { Heading, Box, Grid, Flex, IconButton, Text } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
 
-function MeetingsView({ meetings, setEdit, goToEdit, handleDelete }) {
+function MeetingsView({ meetings, handleEdit, handleDelete }) {
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     const [hours, minutes] = [date.getHours(), date.getMinutes()];
@@ -25,7 +25,7 @@ function MeetingsView({ meetings, setEdit, goToEdit, handleDelete }) {
         justify="center"
         align="center"
         cursor="pointer"
-        onClick={() => goToEdit()}
+        onClick={() => handleEdit()}
       >
         <Heading size="md" color="gray.500">
           <Flex justify="center" align="center" gridGap="8px">
@@ -56,7 +56,7 @@ function MeetingsView({ meetings, setEdit, goToEdit, handleDelete }) {
                   size="sm"
                   color="blue.500"
                   bg="blue.100"
-                  onClick={() => goToEdit(meeting)}
+                  onClick={() => handleEdit(meeting)}
                 />
                 <IconButton
                   icon={<FaTrashAlt />}

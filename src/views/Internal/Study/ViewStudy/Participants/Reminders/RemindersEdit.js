@@ -14,7 +14,14 @@ function RemindersEdit({
   handleSubmit,
 }) {
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
-  console.log(inputs.startDate);
+
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(":");
+    const meridian = hours < 12 ? "am" : "pm";
+    const hours12 = hours % 12 || 12;
+    return `${hours12 < 10 ? "0" : ""}${hours12}:${minutes}${meridian}`;
+  };
+
   return (
     <Grid gap="32px">
       <Input
@@ -61,7 +68,7 @@ function RemindersEdit({
           {inputs.times &&
             inputs.times.map((time, index) => (
               <Tag key={index} colorScheme="blue">
-                <TagLabel>{time}</TagLabel>
+                <TagLabel>{formatTime(time)}</TagLabel>
                 <TagCloseButton onClick={() => handleDeleteTime(index)} />
               </Tag>
             ))}

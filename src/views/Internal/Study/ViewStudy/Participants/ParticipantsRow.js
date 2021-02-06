@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+
+import { compute } from "functions";
+
 import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
-function ParticipantRow({ participant, handleDrawer }) {
+function ParticipantRow({ study, participant, handleDrawer }) {
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -27,7 +30,9 @@ function ParticipantRow({ participant, handleDrawer }) {
       <Badge size="sm" colorScheme={statusColors[participant.status]}>
         {participant.status}
       </Badge>
-      <Text color="gray.400">{participant.score}% eligible</Text>
+      <Text color="gray.400">
+        {compute.eligibilityScore(study.questions, participant.responses)}% eligible
+      </Text>
       <Buttons>
         <Tooltip label="Message">
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
