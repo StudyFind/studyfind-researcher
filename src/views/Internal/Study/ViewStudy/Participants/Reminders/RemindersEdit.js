@@ -1,17 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Input } from "components";
-import {
-  Grid,
-  Flex,
-  Tag,
-  TagCloseButton,
-  TagLabel,
-  FormLabel,
-  Button,
-} from "@chakra-ui/react";
+import { Grid, Flex, Tag, TagCloseButton, TagLabel, FormLabel, Button } from "@chakra-ui/react";
 
-function RemindEdit({
+function RemindersEdit({
   inputs,
   errors,
   handleChange,
@@ -22,7 +14,14 @@ function RemindEdit({
   handleSubmit,
 }) {
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
-  console.log(inputs.startDate);
+
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(":");
+    const meridian = hours < 12 ? "am" : "pm";
+    const hours12 = hours % 12 || 12;
+    return `${hours12 < 10 ? "0" : ""}${hours12}:${minutes}${meridian}`;
+  };
+
   return (
     <Grid gap="32px">
       <Input
@@ -40,9 +39,7 @@ function RemindEdit({
               key={index}
               colorScheme={inputs.weekdays[index] ? "blue" : "gray"}
               bg={inputs.weekdays[index] ? "blue.500" : "white"}
-              borderColor={
-                inputs.weekdays[index] ? "blue.500" : "rgb(226, 232, 240)"
-              }
+              borderColor={inputs.weekdays[index] ? "blue.500" : "rgb(226, 232, 240)"}
               borderWidth="1px"
               onClick={() => handleDayToggle(index)}
               _focus={{ zIndex: 100 }}
@@ -71,7 +68,7 @@ function RemindEdit({
           {inputs.times &&
             inputs.times.map((time, index) => (
               <Tag key={index} colorScheme="blue">
-                <TagLabel>{time}</TagLabel>
+                <TagLabel>{formatTime(time)}</TagLabel>
                 <TagCloseButton onClick={() => handleDeleteTime(index)} />
               </Tag>
             ))}
@@ -124,4 +121,4 @@ const Weekdays = styled(Flex)`
   }
 `;
 
-export default RemindEdit;
+export default RemindersEdit;

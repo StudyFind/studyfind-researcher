@@ -15,7 +15,7 @@ import { FaPlusCircle } from "react-icons/fa";
 
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
-function RemindView({
+function RemindersView({
   reminders,
   setEdit,
   goToEdit,
@@ -114,4 +114,4 @@ const Weekdays = styled(Flex)`
   }
 `;
 
-export default RemindView;
+export default RemindersView;

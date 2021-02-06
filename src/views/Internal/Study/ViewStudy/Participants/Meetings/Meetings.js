@@ -4,11 +4,11 @@ import { Spinner } from "components";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 
-import ScheduleView from "./ScheduleView";
-import ScheduleEdit from "./ScheduleEdit";
-import ScheduleError from "./ScheduleError";
+import MeetingsView from "./MeetingsView";
+import MeetingsEdit from "./MeetingsEdit";
+import MeetingsError from "./MeetingsError";
 
-function Schedule({ participant, study }) {
+function Meetings({ participant, study }) {
   const defaultInputs = {
     name: "",
     link: "",
@@ -16,11 +16,11 @@ function Schedule({ participant, study }) {
     date: "",
   };
 
-  const scheduleCollectionRef = firestore.collection("schedule");
+  const meetingsCollectionRef = firestore.collection("meetings");
 
-  const [schedules, loading, error] = useCollection(
+  const [meetings, loading, error] = useCollection(
     firestore
-      .collection("schedule")
+      .collection("meetings")
       .where("participantID", "==", participant.id)
       .where("studyID", "==", study.id)
       .orderBy("time", "desc")
@@ -29,7 +29,7 @@ function Schedule({ participant, study }) {
   const [edit, setEdit] = useState(false);
   const [inputs, setInputs] = useState(defaultInputs);
   const [errors, setErrors] = useState({});
-  const [scheduleID, setScheduleID] = useState("");
+  const [meetingsID, setMeetingsID] = useState("");
 
   const checker = (name, value) => {
     if (!value) return true;
@@ -76,15 +76,15 @@ function Schedule({ participant, study }) {
     return `${pad(hours)}${hours}:${pad(minutes)}${minutes}`;
   };
 
-  const goToEdit = (schedule) => {
-    if (schedule) {
+  const handleEdit = (meetings) => {
+    if (meetings) {
       setInputs({
-        name: schedule.name,
-        link: schedule.link,
-        time: getTime(schedule.time),
-        date: getDate(schedule.time),
+        name: meetings.name,
+        link: meetings.link,
+        time: getTime(meetings.time),
+        date: getDate(meetings.time),
       });
-      setScheduleID(schedule.id);
+      setMeetingsID(meetings.id);
     }
     setEdit(true);
   };
@@ -94,15 +94,15 @@ function Schedule({ participant, study }) {
     setErrors({ ...errors, [name]: checker(name, value) });
   };
 
-  const handleDelete = (schedule) => {
-    scheduleCollectionRef.doc(schedule.id).delete();
+  const handleDelete = (meetings) => {
+    meetingsCollectionRef.doc(meetings.id).delete();
   };
 
   const handleCancel = () => {
     setInputs(defaultInputs);
     setErrors(defaultInputs);
     setEdit(false);
-    setScheduleID("");
+    setMeetingsID("");
   };
 
   const handleSubmit = () => {
@@ -118,20 +118,20 @@ function Schedule({ participant, study }) {
       studyID: study.id,
     };
 
-    if (scheduleID) {
-      scheduleCollectionRef.doc(scheduleID).update(data);
+    if (meetingsID) {
+      meetingsCollectionRef.doc(meetingsID).update(data);
     } else {
-      scheduleCollectionRef.add(data);
+      meetingsCollectionRef.add(data);
     }
 
     handleCancel();
   };
 
   if (loading) return <Spinner />;
-  if (error) return <ScheduleError />;
+  if (error) return <MeetingsError />;
 
   return edit ? (
-    <ScheduleEdit
+    <MeetingsEdit
       inputs={inputs}
       errors={errors}
       handleChange={handleChange}
@@ -139,14 +139,8 @@ function Schedule({ participant, study }) {
       handleCancel={handleCancel}
     />
   ) : (
-    <ScheduleView
-      setEdit={setEdit}
-      goToEdit={goToEdit}
-      schedules={schedules}
-      participant={participant}
-      handleDelete={handleDelete}
-    />
+    <MeetingsView handleEdit={handleEdit} meetings={meetings} handleDelete={handleDelete} />
   );
 }
 
-export default Schedule;
+export default Meetings;

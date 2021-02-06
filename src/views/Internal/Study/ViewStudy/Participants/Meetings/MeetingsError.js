@@ -1,7 +1,7 @@
 import React from "react";
 import { Message } from "components";
 
-function ScheduleError() {
+function MeetingsError() {
   return (
     <Message
       type="failure"
@@ -11,4 +11,4 @@ function ScheduleError() {
   );
 }
 
-export default ScheduleError;
+export default MeetingsError;

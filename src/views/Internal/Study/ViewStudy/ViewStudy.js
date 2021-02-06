@@ -14,11 +14,12 @@ import Settings from "./Settings/Settings";
 
 function ViewStudy({ studies, loading, error }) {
   const { nctID } = useParams();
-  const [study, setStudy] = useState();
+  const findStudy = () => studies && studies.find((study) => study.id === nctID);
+  const [study, setStudy] = useState(findStudy());
 
   useEffect(() => {
     if (studies) {
-      setStudy(studies.find((study) => study.id === nctID));
+      setStudy(findStudy());
     }
   }, [studies]);
 

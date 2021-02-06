@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { signout } from "database";
+import { signout } from "database/auth";
 import { auth } from "database/firebase";
 
 import { Heading, Button, Grid } from "@chakra-ui/react";
