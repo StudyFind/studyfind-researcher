@@ -1,4 +1,3 @@
-const getUserByToken = require("./firebase/get-user-by-token");
 const fetchStudiesByEmail = require("./utils/fetch-studies-by-email");
 const generateSurvey = require("./utils/generate-survey");
 const cleanStudy = require("./utils/clean-study");
@@ -22,21 +21,14 @@ async function writeToFirestore(firestore, nctID, study) {
   return study;
 }
 
-module.exports = ({ admin }) => async (req, res) => {
-  const { idToken } = req.query;
-
-  const auth = admin.auth();
+module.exports = async ({ admin }, { uid, email }) => {
   const firestore = admin.firestore();
-  const user = await getUserByToken(auth, idToken);
-  const studies = await fetchStudiesByEmail(user.email);
+  const studies = await fetchStudiesByEmail(email);
 
   const formatted = studies.map((study) => {
-    const { uid } = user;
     const questions = generateQuestions(study);
     return cleanStudy({ ...study, uid, questions });
   });
 
   await Promise.all(formatted.map((study) => writeToFirestore(firestore, study.nctID, study)));
-
-  res.json({ studies: formatted, error: null });
 };

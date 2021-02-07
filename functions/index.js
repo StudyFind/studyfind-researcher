@@ -9,7 +9,7 @@ const context = { admin };
 // runs when a researcher account is created
 // adds all studies on clinicaltrials.gov that contain the user's email to firestore
 const welcomeAccount = require("./src/welcome-account");
-exports.welcomeAccount = functions.https.onRequest(welcomeAccount(context));
+exports.welcomeAccount = functions.auth.user().onCreate((user) => welcomeAccount(context, user));
 
 // note that switch func contains all http functions
 const switchFunc = require("./src/switch-func");
