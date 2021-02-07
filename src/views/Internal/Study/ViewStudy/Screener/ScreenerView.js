@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Box, Heading, Button, Tag, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button, Tag, Text } from "@chakra-ui/react";
 import { Message } from "components";
 
 function ScreenerView({ questions, setEdit }) {
   const BODY = (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" m="15px 0">
         <Heading fontSize="28px">Screener</Heading>
         <Button colorScheme="blue" onClick={() => setEdit(true)}>
           Edit Screener
         </Button>
-      </Head>
+      </Flex>
       <Table>
         <thead>
           <tr>
@@ -54,13 +54,6 @@ function ScreenerView({ questions, setEdit }) {
 
   return questions.length ? BODY : EMPTY;
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
 
 const Table = styled.table`
   width: 100%;

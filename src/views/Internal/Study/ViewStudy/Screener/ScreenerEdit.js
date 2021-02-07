@@ -18,14 +18,16 @@ function ScreenerEdit({
     <Row key={index}>
       <Select
         w="210px"
+        name="type"
         value={question.type}
-        onChange={(_, value) => updateQuestion(index, "type", value)}
+        onChange={(name, value) => updateQuestion(index, name, value)}
         options={["Inclusion", "Exclusion"]}
       />
       <Input
         placeholder="Question Prompt"
+        name="prompt"
         value={question.prompt}
-        onChange={(_, value) => updateQuestion(index, "prompt", value)}
+        onChange={(name, value) => updateQuestion(index, name, value)}
       />
       <IconButton
         colorScheme=""
