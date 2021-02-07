@@ -36,7 +36,7 @@ module.exports = ({ admin }) => async (req, res) => {
     return cleanStudy({ ...study, uid, questions });
   });
 
-  await Promise.all[formatted.map((study) => writeToFirestore(firestore, study.nctID, study))];
+  await Promise.all(formatted.map((study) => writeToFirestore(firestore, study.nctID, study)));
 
   res.json({ studies: formatted, error: null });
 };
