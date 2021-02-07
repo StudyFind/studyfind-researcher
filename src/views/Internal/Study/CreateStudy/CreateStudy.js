@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 
@@ -9,14 +9,22 @@ import Review from "./Review/Review";
 
 function CreateStudy({ studies }) {
   const history = useHistory();
+  const [redirect, setRedirect] = useState();
+
   const { nctID, tab } = useParams();
   const tabs = ["details", "screener", "consent", "review"];
   const study = studies.find((study) => study.id === nctID) || {};
 
+  useEffect(() => {
+    const params = new URL(window.location).searchParams;
+    const from = params.get("from");
+    setRedirect(from === "welcome" ? "/welcome" : "/dashboard");
+  }, []);
+
   const next = () => {
     const index = tabs.indexOf(tab);
     const nextTab = tabs[index + 1];
-    history.push(nextTab);
+    history.push(index === tabs.length - 1 ? redirect : nextTab);
   };
 
   const render = {

@@ -1,32 +1,25 @@
 import React, { useState } from "react";
+import { useArray } from "hooks";
 import { updateStudy } from "database/studies";
-
 import ScreenerView from "./ScreenerView";
 import ScreenerEdit from "./ScreenerEdit";
 
-function Screener({ study, setStudy }) {
+function Screener({ study }) {
   const [edit, setEdit] = useState(false);
-  const [questions, setQuestions] = useState(study.questions || []);
+
+  const [
+    questions,
+    setQuestions,
+    { appendElement, updateElement, deleteElementByIndex, clearArray },
+  ] = useArray(study.questions);
 
   const createQuestion = () => {
-    const updated = [...questions];
-    updated[updated.length] = { type: "Inclusion", prompt: "" };
-    setQuestions(updated);
+    appendElement({ prompt: "", type: "Inclusion" });
   };
 
   const updateQuestion = (index, name, value) => {
-    const updated = [...questions];
-    updated[index] = { ...updated[index], [name]: value };
-    setQuestions(updated);
-  };
-
-  const deleteQuestion = (index) => {
-    const updated = questions.filter((_, i) => i !== index);
-    setQuestions(updated);
-  };
-
-  const deleteAllQuestions = () => {
-    setQuestions([]);
+    const updated = { ...questions[index], [name]: value };
+    updateElement(updated, index);
   };
 
   const handleCancel = () => {
@@ -35,9 +28,7 @@ function Screener({ study, setStudy }) {
   };
 
   const handleSubmit = () => {
-    const updated = { ...study, questions };
-    updateStudy(study.id, updated);
-    setStudy(updated);
+    updateStudy(study.id, { questions });
     setEdit(false);
   };
 
@@ -45,11 +36,11 @@ function Screener({ study, setStudy }) {
     <ScreenerEdit
       original={study.questions}
       questions={questions}
-      handleCancel={handleCancel}
       createQuestion={createQuestion}
       updateQuestion={updateQuestion}
-      deleteQuestion={deleteQuestion}
-      deleteAllQuestions={deleteAllQuestions}
+      deleteQuestion={deleteElementByIndex}
+      deleteAllQuestions={clearArray}
+      handleCancel={handleCancel}
       handleSubmit={handleSubmit}
     />
   ) : (

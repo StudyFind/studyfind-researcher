@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { signout } from "database/auth";
-import { auth } from "database/firebase";
+import { auth, firestore } from "database/firebase";
 
 import { Heading, Button, Grid } from "@chakra-ui/react";
 import { Input, Textarea } from "components";
 import { FaDoorOpen } from "react-icons/fa";
-
-import { firestore } from "database/firebase";
 
 function Account({ user }) {
   const { uid, email } = auth.currentUser;
@@ -23,14 +21,22 @@ function Account({ user }) {
   const [inputs, setInputs] = useState(original);
   const [errors, setErrors] = useState({ name: "" });
 
+  const difference = JSON.stringify(original) !== JSON.stringify(inputs);
+
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
   };
 
   const handleUpdate = () => {
     setErrors({ name: !inputs.name });
+
     if (!inputs.name) return;
-    researcherRef.set({ name: inputs.name, organization: inputs.organization, bio: inputs.bio });
+
+    researcherRef.set({
+      name: inputs.name,
+      organization: inputs.organization,
+      bio: inputs.bio,
+    });
   };
 
   return (
@@ -44,7 +50,7 @@ function Account({ user }) {
       <hr />
 
       <Grid gap="20px" p="20px 0" w="400px">
-        <Input value={email} label="Email" readOnly />
+        <Input label="Email" value={email} readOnly />
         <Input
           label="Name"
           name="name"
@@ -66,7 +72,7 @@ function Account({ user }) {
           onChange={handleChange}
           height="108px"
         />
-        {!(JSON.stringify(original) === JSON.stringify(inputs)) && (
+        {difference && (
           <Button colorScheme="green" onClick={handleUpdate}>
             Save Changes
           </Button>

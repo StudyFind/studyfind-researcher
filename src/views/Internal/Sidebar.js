@@ -21,7 +21,7 @@ function Sidebar({ user }) {
 
   return (
     <Flex direction="column" w="280px" h="100vh" position="fixed" bg="blue.900" zIndex="100">
-      <Logo to="/#">
+      <Logo to="/dashboard">
         <Image h="1.75rem" mr="10px" src={StudyFindLogo} />
         <Heading fontSize="1.5rem" color="white">
           StudyFind

@@ -1,37 +1,24 @@
 import React from "react";
+
+import { auth, firestore } from "database/firebase";
+import { useCollection } from "hooks";
+
 import { Heading, Box } from "@chakra-ui/react";
+import { Spinner } from "components";
 import Notification from "./Notification";
 
 function Notifications() {
-  const notifications = [
-    {
-      title: "New Participant!",
-      description:
-        "A new participant Amazing Alpaca showed interest in your study titled blah blah blah",
-      type: "interest",
-      timestamp: 1606778762,
-    },
-    {
-      title: "New Participant!",
-      description:
-        "A new participant Mindful Monkey showed interest in your study titled blah blah blah",
-      type: "message",
-      timestamp: 1606778762,
-    },
-    {
-      title: "50 participants!",
-      description: "Your study titled blah blah blah recruited 50 participants in total",
-      type: "milestone",
-      timestamp: 1606778762,
-    },
-    {
-      title: "Appointment Reminder",
-      description:
-        "This is to remind you about your call with Lazy Llama at 11:00pm on Sunday, October 31st",
-      type: "reminder",
-      timestamp: 1606778762,
-    },
-  ];
+  const { uid } = auth.currentUser;
+  const [notifications, loading, error] = useCollection(
+    firestore
+      .collection("researchers")
+      .doc(uid)
+      .collection("notifications")
+      .orderBy("timestamp", "desc")
+  );
+
+  if (loading) return <Spinner />;
+  if (error) return <div>Error :(</div>;
 
   return (
     <>
