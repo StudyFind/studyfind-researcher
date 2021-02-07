@@ -59,7 +59,7 @@ function ConsentEdit({ study, setEdit }) {
 
   return (
     <div>
-      <Flex justify="space-between" align="center" margin="15px 0">
+      <Flex justify="space-between" align="center" m="15px 0">
         <Heading fontSize="28px">Upload Consent Form</Heading>
         <Button colorScheme="gray" onClick={() => setEdit(false)}>
           Cancel

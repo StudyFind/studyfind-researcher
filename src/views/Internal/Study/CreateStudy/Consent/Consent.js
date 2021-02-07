@@ -22,6 +22,7 @@ function Consent({ study, next }) {
 
     if (!study.id) {
       setError("Study ID is missing");
+      return;
     }
 
     setLoading(true);

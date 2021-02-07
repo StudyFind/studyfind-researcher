@@ -30,7 +30,7 @@ function Delete({ study }) {
             title: "Study Deleted!",
             description: `Your study was successfully deleted along with all information`,
             status: "error",
-            duration: 5000,
+            duration: 2500,
             isClosable: true,
             position: "top",
           });
@@ -41,7 +41,7 @@ function Delete({ study }) {
             description:
               "Your study could not be deleted due to a connection error. Please check your internet connection and try again.",
             status: "error",
-            duration: 5000,
+            duration: 2500,
             isClosable: true,
             position: "top",
           });
