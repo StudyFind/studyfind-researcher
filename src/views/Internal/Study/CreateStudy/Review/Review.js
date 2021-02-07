@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { updateStudy, deleteStudy } from "database/studies";
-import { useHistory } from "react-router-dom";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 import { Heading, Text, Button, Flex, useToast } from "@chakra-ui/react";
 
-function Review({ study }) {
+function Review({ study, next }) {
   const toast = useToast();
-  const history = useHistory();
   const [publishLoading, setPublishLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
@@ -19,11 +17,11 @@ function Review({ study }) {
           description:
             "Your study was successfully published is now available for participants to view and enroll",
           status: "success",
-          duration: 5000,
+          duration: 2500,
           isClosable: true,
           position: "top",
         });
-        history.push("/dashboard");
+        next();
       })
       .catch(() => {
         toast({
@@ -31,7 +29,7 @@ function Review({ study }) {
           description:
             "Your study could not be published due to a connection error. Please check your internet connection and try again.",
           status: "error",
-          duration: 5000,
+          duration: 2500,
           isClosable: true,
           position: "top",
         });
@@ -45,15 +43,26 @@ function Review({ study }) {
       .then(() => {
         toast({
           title: "Study Deleted!",
-          description: `Your study was successfully deleted and will no longer be accessible through StudyFind`,
+          description:
+            "Your study was successfully deleted and will no longer be accessible through StudyFind",
           status: "error",
-          duration: 5000,
+          duration: 2500,
           isClosable: true,
           position: "top",
         });
-        history.push("/dashboard");
+        next();
       })
-      .catch(console.log)
+      .catch(() => {
+        toast({
+          title: "Connection Error",
+          description:
+            "Your study could not be published due to a connection error. Please check your internet connection and try again.",
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+          position: "top",
+        });
+      })
       .finally(() => setDeleteLoading(false));
   };
 
