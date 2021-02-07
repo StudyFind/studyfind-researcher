@@ -1,33 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Box } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 
 import Activate from "./Activate";
 import Delete from "./Delete";
 import Update from "./Update";
 
-function Settings({ study, setStudy }) {
+function Settings({ study }) {
   return (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" m="15px 0" height="40px">
         <Heading fontSize="28px">Settings</Heading>
-      </Head>
+      </Flex>
       <Box borderWidth="1px" rounded="md" bg="white">
-        <Activate study={study} setStudy={setStudy} />
+        <Activate study={study} />
         <Update study={study} />
         <Delete study={study} />
       </Box>
     </>
   );
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-  height: 40px;
-`;
 
 export default Settings;

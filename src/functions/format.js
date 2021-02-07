@@ -1,6 +1,6 @@
 function formatDate(value) {
   const date = new Date(value);
-  const year = parseInt(date.getYear()) + 1900;
+  const year = parseInt(date.getFullYear());
   const month = parseInt(date.getMonth());
   const day = date.getDate();
 

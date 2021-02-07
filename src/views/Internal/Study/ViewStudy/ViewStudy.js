@@ -12,7 +12,7 @@ import Consent from "./Consent/Consent";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
 
-function ViewStudy({ studies, loading, error }) {
+function ViewStudy({ studies }) {
   const { nctID } = useParams();
   const findStudy = () => studies && studies.find((study) => study.id === nctID);
   const [study, setStudy] = useState(findStudy());
@@ -48,19 +48,19 @@ function ViewStudy({ studies, loading, error }) {
           <Details study={study} />
         </TabPanel>
         <TabPanel pt="1px">
-          <Locations study={study} setStudy={setStudy} />
+          <Locations study={study} />
         </TabPanel>
         <TabPanel pt="1px">
-          <Screening study={study} setStudy={setStudy} />
+          <Screening study={study} />
         </TabPanel>
         <TabPanel pt="1px">
-          <Consent study={study} setStudy={setStudy} />
+          <Consent study={study} />
         </TabPanel>
         <TabPanel pt="1px">
           <Participants study={study} />
         </TabPanel>
         <TabPanel pt="1px">
-          <Settings study={study} setStudy={setStudy} />
+          <Settings study={study} />
         </TabPanel>
       </TabPanels>
     </Tabs>
