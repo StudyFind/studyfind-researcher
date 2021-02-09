@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import styled from "styled-components";
 import { Input } from "components";
 import { Grid, Flex, Tag, TagCloseButton, TagLabel, FormLabel, Button } from "@chakra-ui/react";
@@ -14,13 +15,6 @@ function RemindersEdit({
   handleSubmit,
 }) {
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
-
-  const formatTime = (time) => {
-    const [hours, minutes] = time.split(":");
-    const meridian = hours < 12 ? "am" : "pm";
-    const hours12 = hours % 12 || 12;
-    return `${hours12 < 10 ? "0" : ""}${hours12}:${minutes}${meridian}`;
-  };
 
   return (
     <Grid gap="32px">
@@ -64,11 +58,11 @@ function RemindersEdit({
             </Button>
           }
         />
-        <Flex gridGap="8px" mt="8px">
+        <Flex gridGap="8px" mt="8px" wrap="wrap">
           {inputs.times &&
             inputs.times.map((time, index) => (
               <Tag key={index} colorScheme="blue">
-                <TagLabel>{formatTime(time)}</TagLabel>
+                <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")}</TagLabel>
                 <TagCloseButton onClick={() => handleDeleteTime(index)} />
               </Tag>
             ))}
