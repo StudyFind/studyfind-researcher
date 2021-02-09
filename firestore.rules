@@ -2,7 +2,19 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
   	match /researchers/{userID} {
-    	allow create, get, delete, update, read, write: if true
+    	allow create, get, delete, update, read, write: if userID == request.auth.uid
+      
+      match/notifications/{notificationID} {
+      	allow read: if userID == request.auth.uid
+      }
+    }
+    
+    match /participants/{userID} {
+    	allow create, get, delete, update, read, write: if userID == request.auth.uid
+      
+      match/notifications/{notificationID} {
+      	allow read: if userID == request.auth.uid
+      }
     }
 
     match /studies/{studyID} {
@@ -25,11 +37,18 @@ service cloud.firestore {
       allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
     }
 
-    match /schedule/{scheduleID} {
+    match /meetings/{meetingsID} {
+    	allow read: if true
+      allow create: if request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
+      allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
+    }
+
+		match /schedule/{scheduleID} {
     	allow read: if request.auth.uid == resource.data.participantID || request.auth.uid == getStudyData(resource.data.studyID).researcher.id
       allow create: if request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
       allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
     }
+
 
     // fetch a study from firestore
     function getStudyData(studyID) {
