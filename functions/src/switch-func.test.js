@@ -15,7 +15,7 @@ describe("switch-func", () => {
 
     beforeEach(async () => {
         func = Func(context);
-        req = { url: "" };
+        req = { url: "", query: {} };
         res = { json: jest.fn(), status: jest.fn(), set: jest.fn() };
     });
 
