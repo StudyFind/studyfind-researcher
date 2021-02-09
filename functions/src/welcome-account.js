@@ -24,8 +24,8 @@ module.exports = ({ admin }) => async (req, res) => {
 
     const formatted = studies.map((study) => {
       const { uid } = user;
-      const questions = generateQuestions(study);
-      return cleanStudy({ ...study, uid, questions });
+      const studyWithQuestions = generateQuestions(study);
+      return cleanStudy({ ...studyWithQuestions, uid });
     });
 
     await Promise.all(
