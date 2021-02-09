@@ -46,7 +46,7 @@ function Sidebar({ user }) {
             mr="10px"
           />
           <Box>
-            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="100px">
+            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
               {user ? user.name : "Your Account"}
             </Text>
             <Text fontSize="0.9rem" color="gray.500" isTruncated maxWidth="180px">

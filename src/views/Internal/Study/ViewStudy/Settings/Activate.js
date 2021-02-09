@@ -19,8 +19,11 @@ function Activate({ study }) {
       </Flex>
       <Text color="gray.500" my="8px">
         Your study recruitment status corresponds to whether you are accepting participants into
-        your study. A status of active allows participants to enroll while a status of inactive
-        prevents participants from enrolling.
+        your study. A status of&nbsp;
+        <b>ACTIVE</b>
+        &nbsp;allows participants to enroll while a status of&nbsp;
+        <b>INACTIVE</b>
+        &nbsp;prevents participants from enrolling.
       </Text>
 
       <Switch
