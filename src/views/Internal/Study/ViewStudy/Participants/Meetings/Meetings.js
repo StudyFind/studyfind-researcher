@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import validator from "validator";
-import { Spinner } from "components";
+import { Loader } from "components";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 
@@ -127,7 +127,7 @@ function Meetings({ participant, study }) {
     handleCancel();
   };
 
-  if (loading) return <Spinner />;
+  if (loading) return <Loader />;
   if (error) return <MeetingsError />;
 
   return edit ? (

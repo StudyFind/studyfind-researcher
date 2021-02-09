@@ -6,7 +6,7 @@ import { useCollection } from "hooks";
 
 import { useParams } from "react-router-dom";
 import { Heading, Button, Box, useDisclosure } from "@chakra-ui/react";
-import { Message, Spinner } from "components";
+import { Message, Loader } from "components";
 
 import ParticipantDrawer from "./ParticipantDrawer";
 import ParticipantsFilter from "./ParticipantsFilter";
@@ -133,7 +133,7 @@ function Participants({ study }) {
 
   const LOAD = (
     <Box h="500px">
-      <Spinner />
+      <Loader />
     </Box>
   );
 
