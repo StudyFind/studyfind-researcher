@@ -30,7 +30,7 @@ const signin = async (email, password) => {
 
 const signout = async () => auth.signOut();
 
-const deleteUser = async (email, password) => {
+const deleteAccount = async (email, password) => {
   try {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
     await firestore.collection("researchers").doc(user.uid).delete();
@@ -66,7 +66,7 @@ const changePassword = async (password, newPassword) => {
 
 export {
   // DATA //
-  deleteUser,
+  deleteAccount,
   forgotPassword,
   resetPassword,
   changePassword,
