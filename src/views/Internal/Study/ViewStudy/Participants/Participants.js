@@ -140,8 +140,8 @@ function Participants({ study }) {
   const EMPTY = (
     <Box h="500px">
       <Message
-        type="failure"
-        title="No participants yet"
+        type="neutral"
+        title="Find Participants"
         description="Your study does not have any participants yet!"
       />
     </Box>
