@@ -12,6 +12,8 @@ import { Message, Loader } from "components";
 import ParticipantDrawer from "./ParticipantDrawer";
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
+
+import Status from "./Status/Status";
 import Eligibility from "./Eligibility/Eligibility";
 import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
@@ -199,6 +201,9 @@ function Participants({ study }) {
         onClose={onClose}
         isOpen={isOpen}
       >
+        {drawer.action === "status" && (
+          <Status participant={drawer.participant} onClose={onClose} />
+        )}
         {drawer.action === "eligibility" && (
           <Eligibility questions={study.questions} responses={drawer.participant.responses} />
         )}

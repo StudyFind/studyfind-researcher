@@ -25,7 +25,12 @@ function ParticipantRow({ participant, handleDrawer }) {
       <Text fontWeight="500" mr="auto">
         {participant.fakename}
       </Text>
-      <Badge size="sm" colorScheme={statusColors[participant.status]}>
+      <Badge
+        size="sm"
+        cursor="pointer"
+        colorScheme={statusColors[participant.status]}
+        onClick={() => handleDrawer("status", participant.id)}
+      >
         {participant.status}
       </Badge>
       <Text color="gray.400" w="100px" textAlign="right">
