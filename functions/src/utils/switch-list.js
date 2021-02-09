@@ -1,4 +1,5 @@
-module.exports = ({
-    makeStudy: require('../make-study'),
-    resetStudy: require('../reset-study')
-})
+module.exports = {
+  makeStudy: require("../make-study"),
+  resetStudy: require("../reset-study"),
+  welcomeAccount: require("../welcome-account"),
+};
