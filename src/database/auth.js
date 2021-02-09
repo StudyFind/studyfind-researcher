@@ -34,6 +34,7 @@ const deleteUser = async (email, password) => {
     .then(({ user }) => {
       user.delete();
       localStorage.setItem("exists", false);
+      firestore.collection("researchers").doc(user.uid).delete();
     })
     .catch(getErrorMessage);
 };
