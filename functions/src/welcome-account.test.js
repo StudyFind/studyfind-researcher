@@ -35,18 +35,61 @@ describe("welcome-account", () => {
 
         await func(req, res);
     });
+
+    it('updates firestore with all scraped studies', async () => {
+        firestore.data = mFirestore();
+        auth.data = mAuth();
+        axios.get.mockImplementationOnce(mAxiosGetStudies);
+        req.query.idToken = "TEST_USER";
+
+        await func(req, res);
+
+        const studies = await firestore.collection('studies').get();
+        expect(studies.empty).toBe(false);
+        expect(studies.length).toBe(1);
+        const study = studies[0].data();
+        expect(study.nctID).toBe("TEST_NCTID");
+        expect(study.researcher.id).toBe("TEST_USER");
+    });
+
+    it('creates studies as unpublished by default', async () => {
+        firestore.data = mFirestore();
+        auth.data = mAuth();
+        axios.get.mockImplementationOnce(mAxiosGetStudies);
+        req.query.idToken = "TEST_USER";
+
+        await func(req, res);
+
+        const studies = await firestore.collection('studies').get();
+        const study = studies[0].data();
+        expect(study.published).toBe(false);
+    });
+
+    it('returns json success and all studies list', async () => {
+        firestore.data = mFirestore();
+        auth.data = mAuth();
+        axios.get.mockImplementationOnce(mAxiosGetStudies);
+        req.query.idToken = "TEST_USER";
+
+        await func(req, res);
+
+        expect(res.json).toHaveBeenCalled();
+        const resp = res.json.mock.calls[0][0];
+        expect(resp.error).toBeNull();
+        expect(resp.studies).toHaveLength(1);
+    });
 });
 
 
 // useful general firestore mock
-mFirestore = () => ({
+const mFirestore = () => ({
     collection: {
         studies: {},
     }
 })
 
 // useful general auth mock
-mAuth = () => ({
+const mAuth = () => ({
     "TEST_USER": {
         uid: "TEST_USER",
         emai: "TEST_EMAIL",
@@ -75,7 +118,7 @@ const mAxiosGetStudies = async (url) => ({
             longDescription: "",
             maxAge: 100,
             minAge: 18.0,
-            nctID: "NCTID",
+            nctID: "TEST_NCTID",
             recruitmentStatus: "Recruiting",
             sex: "All",
             shortDescription:
