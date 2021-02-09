@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { Box, Flex, Heading, Button, Tag, Text } from "@chakra-ui/react";
 import { Message } from "components";
 
-function ScreenerView({ questions, setEdit }) {
+function EligibilityView({ questions, setEdit }) {
   const BODY = (
     <>
       <Flex justify="space-between" align="center" m="15px 0">
-        <Heading fontSize="28px">Screener</Heading>
+        <Heading fontSize="28px">Eligibility</Heading>
         <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Screener
+          Edit Eligibility
         </Button>
       </Flex>
       <Table>
@@ -72,4 +72,4 @@ const BodyCell = styled.td`
   padding: 8px 12px;
 `;
 
-export default ScreenerView;
+export default EligibilityView;
