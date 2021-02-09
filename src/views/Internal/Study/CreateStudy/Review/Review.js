@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { updateStudy, deleteStudy } from "database/studies";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
-import { Heading, Text, Button, Flex, useToast } from "@chakra-ui/react";
+import { Flex, Heading, Text, Button, Link, useToast } from "@chakra-ui/react";
 
 function Review({ study, next }) {
   const toast = useToast();
@@ -75,8 +75,11 @@ function Review({ study, next }) {
         Please check that the details of the study match what you would like to present to potential
         participants. If you would like to change the study title and description, you can edit
         these once the study is published. If you would like to change other study information,
-        please make changes to the study on clinicaltrials.gov and update the study through the
-        StudyFind study settings.
+        please make changes to the study on{" "}
+        <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
+          clinicaltrials.gov
+        </Link>{" "}
+        and update the study through the StudyFind study settings.
       </Text>
       <StudyCardLarge study={study} />
       <Flex justify="flex-end" gridGap="10px" my="15px">
