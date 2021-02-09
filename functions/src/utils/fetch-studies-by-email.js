@@ -7,7 +7,7 @@ module.exports = async (email) => {
   );
 
   if (!data || data.status === "failure") {
-    throw Error("Entered ID does not exist");
+    throw Error({ message: "Entered ID does not exist" });
   }
 
   return data.studies;

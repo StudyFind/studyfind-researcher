@@ -11,22 +11,29 @@ function generateQuestions(data) {
 }
 
 module.exports = ({ admin }) => async (req, res) => {
-  const { idToken } = req.query;
+  try {
+    const { idToken } = req.query;
 
-  const auth = admin.auth();
-  const firestore = admin.firestore();
+    const auth = admin.auth();
+    const firestore = admin.firestore();
 
-  const decodedToken = await auth.verifyIdToken(idToken);
-  const user = await auth.getUser(decodedToken.uid);
-  const studies = await fetchStudiesByEmail(user.email);
+    const decodedToken = await auth.verifyIdToken(idToken);
 
-  const formatted = studies.map((study) => {
-    const { uid } = user;
-    const questions = generateQuestions(study);
-    return cleanStudy({ ...study, uid, questions });
-  });
+    const user = await auth.getUser(decodedToken.uid);
+    const studies = await fetchStudiesByEmail(user.email);
 
-  await Promise.all(formatted.map((study) => firestore.collection("studies").doc(study.nctID).set(study)));
+    const formatted = studies.map((study) => {
+      const { uid } = user;
+      const questions = generateQuestions(study);
+      return cleanStudy({ ...study, uid, questions });
+    });
 
-  res.json({ studies: formatted, error: null });
+    await Promise.all(
+      formatted.map((study) => firestore.collection("studies").doc(study.nctID).set(study))
+    );
+
+    res.json({ studies: formatted, error: null });
+  } catch (error) {
+    res.json({ studies: null, error });
+  }
 };
