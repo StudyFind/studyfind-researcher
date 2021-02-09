@@ -22,7 +22,7 @@ function CalendarHead({ month, year, backYear, backMonth, nextYear, nextMonth })
   ];
 
   return (
-    <Flex justify="space-between" align="center" mb="10px">
+    <Flex justify="space-between" align="center">
       <Flex gridGap="8px">
         <CalendarHeadButton icon={<FaAngleDoubleLeft />} onClick={backYear} />
         <CalendarHeadButton icon={<FaAngleLeft />} onClick={backMonth} />
