@@ -1,8 +1,6 @@
-const getUserByToken = require("./firebase/get-user-by-token");
 const fetchStudiesByEmail = require("./utils/fetch-studies-by-email");
 const generateSurvey = require("./utils/generate-survey");
 const cleanStudy = require("./utils/clean-study");
-const addFirestoreEntry = require("./firebase/add-firestore-entry");
 
 function generateQuestions(data) {
   const { inclusion, exclusion } = generateSurvey(data.additionalCriteria);
@@ -12,23 +10,14 @@ function generateQuestions(data) {
   return { ...data, questions: criterionList };
 }
 
-async function writeToFirestore(firestore, nctID, study) {
-  await addFirestoreEntry({
-    firestore,
-    collection: "studies",
-    document: nctID,
-    data: study,
-  });
-  return study;
-}
-
 module.exports = ({ admin }) => async (req, res) => {
   const { idToken } = req.query;
 
   const auth = admin.auth();
   const firestore = admin.firestore();
 
-  const user = await getUserByToken(auth, idToken);
+  const decodedToken = await auth.verifyIdToken(idToken);
+  const user = await auth.getUser(decodedToken.uid);
   const studies = await fetchStudiesByEmail(user.email);
 
   const formatted = studies.map((study) => {
@@ -37,7 +26,7 @@ module.exports = ({ admin }) => async (req, res) => {
     return cleanStudy({ ...study, uid, questions });
   });
 
-  await Promise.all(formatted.map((study) => writeToFirestore(firestore, study.nctID, study)));
+  await Promise.all(formatted.map((study) => firestore.collection("studies").doc(study.nctID).set(study)));
 
   res.json({ studies: formatted, error: null });
 };
