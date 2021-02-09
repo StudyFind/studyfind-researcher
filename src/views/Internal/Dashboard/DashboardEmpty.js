@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { Box, Heading, Text, Button } from "@chakra-ui/react";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
 function DashboardEmpty() {
   return (
@@ -13,7 +13,7 @@ function DashboardEmpty() {
         participants almost instantaneously. StudyFind automates a lot of your work for you.
       </Text>
       <Link to="/fetch">
-        <Button mt="40px" leftIcon={<FaPlusCircle />} colorScheme="blue">
+        <Button mt="40px" leftIcon={<FaPlus />} colorScheme="blue">
           Create Study
         </Button>
       </Link>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStudy } from "database/studies";
-import { Grid, Heading, Text, Button } from "@chakra-ui/react";
+import { Grid, Heading, Text, Link, Button } from "@chakra-ui/react";
 import { Form, Input } from "components";
 
 function Fetch() {
@@ -29,7 +29,7 @@ function Fetch() {
       setLoading(true);
       setError("");
       makeStudy(validID)
-        .then((study) => history.push(`/create/${validID}/details`))
+        .then(() => history.push(`/create/${validID}/details`))
         .catch((error) => setError(error.toString()))
         .finally(() => setLoading(false));
     } else {
@@ -44,8 +44,12 @@ function Fetch() {
       </Heading>
       <Text mb="10px" color="gray.500">
         In an effort to simplify and validate study creation, we require that your research study is
-        registered on clinicaltrials.gov. Submitting your Clinical Trials ID below allows us to
-        identify your study and add it to your StudyFind account.
+        registered on{" "}
+        <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
+          clinicaltrials.gov
+        </Link>
+        . Submitting your Clinical Trials ID below allows us to identify your study and add it to
+        your StudyFind account.
       </Text>
       <Grid w="210px" pt="10px">
         <Input

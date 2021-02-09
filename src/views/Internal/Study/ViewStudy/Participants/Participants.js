@@ -6,7 +6,7 @@ import { useCollection } from "hooks";
 
 import { useParams } from "react-router-dom";
 import { Heading, Button, Box, useDisclosure } from "@chakra-ui/react";
-import { Message, Spinner } from "components";
+import { Message, Loader } from "components";
 
 import ParticipantDrawer from "./ParticipantDrawer";
 import ParticipantsFilter from "./ParticipantsFilter";
@@ -133,15 +133,15 @@ function Participants({ study }) {
 
   const LOAD = (
     <Box h="500px">
-      <Spinner />
+      <Loader />
     </Box>
   );
 
   const EMPTY = (
     <Box h="500px">
       <Message
-        type="failure"
-        title="No participants yet"
+        type="neutral"
+        title="Find Participants"
         description="Your study does not have any participants yet!"
       />
     </Box>

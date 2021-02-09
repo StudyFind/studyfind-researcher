@@ -25,6 +25,8 @@ function Internal() {
     firestore.collection("studies").where("researcher.id", "==", uid).orderBy("updatedAt", "desc")
   );
 
+  const isUserNew = localStorage.getItem("new") === "true";
+
   const pages = [
     { path: "/", component: <Dashboard studies={studies} /> },
     { path: "/dashboard", component: <Dashboard studies={studies} /> },
@@ -48,7 +50,7 @@ function Internal() {
                 {component}
               </Route>
             ))}
-            <Redirect to="/" />
+            <Redirect to={isUserNew ? "/welcome" : "/"} />
           </Switch>
         </Page>
       </Box>
