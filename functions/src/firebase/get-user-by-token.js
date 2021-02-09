@@ -8,7 +8,6 @@ module.exports = async (auth, idToken) => {
         const user = await getUser(auth, decodedToken.uid);
         return user;
     } catch (error) {
-        console.error(error);
         throw Error(`User token '${idToken}' is not valid`);
     }
 }
