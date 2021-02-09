@@ -14,7 +14,7 @@ function Sidebar({ user }) {
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Calendar", path: "/calendar", icon: <FaCalendarAlt /> },
+    { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
   ];
