@@ -14,7 +14,7 @@ function ConsentViewer({ study, setEdit }) {
     </Box>
   );
 
-  const FORM = value ? <PDFViewer src={value} /> : <strong>{error && error.message}</strong>;
+  const FORM = value ? <PDFViewer data={value} type="application/pdf" /> : <strong>{error && error.message}</strong>;
 
   const BODY = (
     <>
@@ -54,7 +54,7 @@ const Head = styled.div`
   margin: 15px 0;
 `;
 
-const PDFViewer = styled.iframe`
+const PDFViewer = styled.object`
   width: 100%;
   height: 100%;
 `;
