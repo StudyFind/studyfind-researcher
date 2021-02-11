@@ -4,10 +4,12 @@ import { updateStudy } from "database/studies";
 import EligibilityHead from "./EligibilityHead";
 import EligibilityGrid from "./EligibilityGrid";
 
-function Eligibility({ study, next }) {
-  const [questions, { appendElement, updateElement, deleteElementByIndex, clearArray }] = useArray(
-    study.questions
-  );
+function Eligibility({ study, next, back }) {
+  const [
+    questions,
+    _,
+    { appendElement, updateElement, deleteElementByIndex, clearArray },
+  ] = useArray(study.questions);
 
   const createQuestion = () => {
     appendElement({ prompt: "", type: "Inclusion" });
@@ -27,6 +29,7 @@ function Eligibility({ study, next }) {
     <>
       <EligibilityHead />
       <EligibilityGrid
+        back={back}
         questions={questions}
         createQuestion={createQuestion}
         updateQuestion={updateQuestion}

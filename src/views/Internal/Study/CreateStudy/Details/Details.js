@@ -3,7 +3,8 @@ import { updateStudy } from "database/studies";
 import DetailsHead from "./DetailsHead";
 import DetailsForm from "./DetailsForm";
 
-function Details({ study, next }) {
+function Details({ study, next, back }) {
+  const original = { title: study.title, description: study.description };
   const [inputs, setInputs] = useState({ title: "", description: "" });
   const [errors, setErrors] = useState({ title: "", description: "" });
 
@@ -18,7 +19,9 @@ function Details({ study, next }) {
 
   const characterCheck = (name, value, min, max) => {
     const isInvalid = value.length < min || value.length > max;
-    return isInvalid ? `The best ${name}s are between ${min} and ${max} characters` : "";
+    return isInvalid
+      ? `Please ensure that the study ${name} is between ${min} and ${max} characters`
+      : "";
   };
 
   const checker = (name, value) => {
@@ -39,6 +42,12 @@ function Details({ study, next }) {
     setErrors({ ...errors, [name]: checker(name, value) });
   };
 
+  const handleCancel = () => {
+    const err = validate(original);
+    setInputs(original);
+    setErrors(err);
+  };
+
   const handleSubmit = () => {
     const err = validate(inputs);
 
@@ -56,9 +65,12 @@ function Details({ study, next }) {
     <>
       <DetailsHead />
       <DetailsForm
+        back={back}
         inputs={inputs}
         errors={errors}
+        original={original}
         handleChange={handleChange}
+        handleCancel={handleCancel}
         handleSubmit={handleSubmit}
       />
     </>

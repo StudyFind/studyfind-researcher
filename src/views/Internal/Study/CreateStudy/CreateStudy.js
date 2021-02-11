@@ -21,6 +21,12 @@ function CreateStudy({ studies }) {
     setRedirect(from === "welcome" ? "/welcome" : "/dashboard");
   }, []);
 
+  const back = () => {
+    const index = tabs.indexOf(tab);
+    const backTab = tabs[index - 1];
+    history.push(index === 0 ? "/fetch" : backTab);
+  };
+
   const next = () => {
     const index = tabs.indexOf(tab);
     const nextTab = tabs[index + 1];
@@ -28,10 +34,10 @@ function CreateStudy({ studies }) {
   };
 
   const render = {
-    details: <Details study={study} next={next} />,
-    eligibility: <Eligibility study={study} next={next} />,
-    consent: <Consent study={study} next={next} />,
-    review: <Review study={study} next={next} />,
+    details: <Details study={study} next={next} back={back} />,
+    eligibility: <Eligibility study={study} next={next} back={back} />,
+    consent: <Consent study={study} next={next} back={back} />,
+    review: <Review study={study} next={next} back={back} />,
   };
 
   const steps = (
@@ -42,7 +48,9 @@ function CreateStudy({ studies }) {
           h="24px"
           w="24px"
           rounded="full"
-          variant={t === tab ? "solid" : "outline"}
+          cursor={i <= tabs.indexOf(tab) ? "pointer" : "not-allowed"}
+          variant={i <= tabs.indexOf(tab) ? "solid" : "outline"}
+          onClick={i <= tabs.indexOf(tab) ? () => history.push(t) : () => {}}
           colorScheme="blue"
         >
           <TagLabel>{i + 1}</TagLabel>
