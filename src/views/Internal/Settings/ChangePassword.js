@@ -1,29 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useAuthForm } from "hooks";
 import { changePassword } from "database/auth";
 
 import { Form, Heading, Password, Button } from "views/External/Auth/Blocks";
-import { Box } from "@chakra-ui/react";
-import { Message } from "components";
+import { Box, useToast } from "@chakra-ui/react";
 
 function ChangePassword() {
+  const toast = useToast();
+
   const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
     initial: { password: "", newPassword: "" },
     onSubmit: changePassword,
   });
 
-  if (success) {
-    return (
-      <Box p="40px 50px" w="350px" bg="white" borderWidth="1px" borderColor="gray" rounded="md">
-        <Message
-          type="success"
-          title="Password Changed!"
-          description="You can now use your new password to log in"
-        />
-      </Box>
-    );
-  }
+  useEffect(() => {
+    if (success) {
+      toast({
+        title: "Password Changed!",
+        description: "You can now use your new password to log in",
+        status: "success",
+        duration: 2500,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  }, [success]);
 
   return (
     <Box w="350px" bg="white" borderWidth="1px" borderColor="gray" rounded="md">
