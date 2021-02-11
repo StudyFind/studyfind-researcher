@@ -24,7 +24,7 @@ function Field({ name, value, label, height, placeholder, limit, error, onChange
         placeholder={placeholder}
         onChange={handleChange}
         style={{ minHeight: 0 }}
-        bg="white"
+        bg={error ? "red.100" : "white"}
       />
       <Bottom>
         <Error>{error}</Error>
