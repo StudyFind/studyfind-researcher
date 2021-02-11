@@ -9,9 +9,9 @@ function DetailsHead() {
       </Heading>
       <Text mb="10px" color="gray.500">
         StudyFind strives to make research studies as accessible as possible. To achieve this, we
-        ask that researchers simplify the language used in the study description by avoiding medical
-        jargon and making it readable for the general population to improve their partipant
-        recruitment
+        ask that you simplify the language used in the study title and description. This will make
+        the study more readable for the general population and will lead to improvements in
+        partipant recruitment.
       </Text>
     </>
   );
