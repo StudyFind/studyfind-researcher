@@ -14,9 +14,9 @@ function WelcomeEmpty() {
         <ExternalLink color="blue.500" href="https://clinicaltrials.gov" target="_blank">
           clinicaltrials.gov
         </ExternalLink>{" "}
-        and add your study to StudyFind using your registered study&apos;s NCT ID. In case
-        you&apos;re wondering, we require that studies are registered on clinicaltrials.gov so we
-        can verify that the study is authentic and validate the study owner.
+        and add your study to StudyFind using your registered study{"'"}s NCT ID. In case you{"'"}re
+        wondering, we require that studies are registered on clinicaltrials.gov so we can verify
+        that the study is authentic and validate the study owner.
       </Text>
       <Link to="/dashboard">
         <Button mt="20px" colorScheme="blue">
