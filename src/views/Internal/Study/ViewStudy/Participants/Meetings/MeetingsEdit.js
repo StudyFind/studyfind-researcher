@@ -3,7 +3,7 @@ import moment from "moment";
 import { Input } from "components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
 
-function ScheduleEdit({ inputs, errors, handleChange, handleCancel, handleSubmit }) {
+function MeetingsEdit({ inputs, errors, handleChange, handleCancel, handleSubmit }) {
   return (
     <Grid gap="32px">
       <Input
@@ -49,4 +49,4 @@ function ScheduleEdit({ inputs, errors, handleChange, handleCancel, handleSubmit
   );
 }
 
-export default ScheduleEdit;
+export default MeetingsEdit;

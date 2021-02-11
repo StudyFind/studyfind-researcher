@@ -6,6 +6,7 @@ function Email({ value, error, onChange }) {
     <Input
       size="lg"
       name="email"
+      type="email"
       value={value}
       error={error}
       onChange={onChange}

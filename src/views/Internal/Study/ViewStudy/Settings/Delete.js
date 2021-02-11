@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import { Form, Input } from "components";
-import { Heading, Text, Button, Box } from "@chakra-ui/react";
+import {
+  Heading,
+  Text,
+  Button,
+  Box,
+  useToast,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from "@chakra-ui/react";
 
 import { deleteStudy } from "database/studies";
 
 function Delete({ study }) {
+  const toast = useToast();
   const [nctID, setNctID] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const cancelRef = useRef();
 
   const history = useHistory();
 
@@ -19,14 +35,45 @@ function Delete({ study }) {
     setError("");
   };
 
+  const handleCancel = () => {
+    setIsOpen(false);
+    setNctID("");
+  };
+
   const handleDelete = () => {
     if (nctID === study.id) {
-      setLoading(true);
-      deleteStudy(study.id);
-      history.push("/studies");
+      setIsOpen(true);
     } else {
       setError("Entered ID does not match");
     }
+  };
+
+  const handleConfirm = () => {
+    setLoading(true);
+    deleteStudy(study.id)
+      .then(() => {
+        history.push("/studies");
+        toast({
+          title: "Study Deleted!",
+          description: `Your study was successfully deleted along with all information`,
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+          position: "top",
+        });
+      })
+      .catch(() => {
+        toast({
+          title: "Connection Error",
+          description:
+            "Your study could not be deleted due to a connection error. Please check your internet connection and try again.",
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+          position: "top",
+        });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -44,10 +91,35 @@ function Delete({ study }) {
 
       <DeleteForm onSubmit={handleDelete}>
         <Input placeholder="NCT00000000" value={nctID} error={error} onChange={handleChange} />
-        <Button type="submit" colorScheme="red" isLoading={loading} loadingText="Deleting">
+        <Button type="submit" colorScheme="red">
           Delete
         </Button>
       </DeleteForm>
+
+      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={handleCancel} size="lg">
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete Study
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Are you sure you want to delete study <b>{nctID}</b>?
+              <br />
+              This is a permanant action and cannot be undone.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button colorScheme="red" onClick={handleConfirm} ml={3} isLoading={loading}>
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Box>
   );
 }

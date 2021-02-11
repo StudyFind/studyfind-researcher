@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
@@ -24,39 +25,46 @@ function ParticipantRow({ participant, handleDrawer }) {
       <Text fontWeight="500" mr="auto">
         {participant.fakename}
       </Text>
-      <Badge size="sm" colorScheme={statusColors[participant.status]}>
+      <Badge
+        size="sm"
+        cursor="pointer"
+        colorScheme={statusColors[participant.status]}
+        onClick={() => handleDrawer("status", participant.id)}
+      >
         {participant.status}
       </Badge>
-      <Text color="gray.400">{participant.score}% eligible</Text>
+      <Text color="gray.400" w="100px" textAlign="right">
+        {participant.score}% eligible
+      </Text>
       <Buttons>
         <Tooltip label="Message">
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
         </Tooltip>
-        <Tooltip label="Screen">
+        <Tooltip label="Eligibility">
           <IconButton
             color="gray.400"
             size="sm"
             bg="transparent"
             icon={<FaClipboard />}
-            onClick={() => handleDrawer("screen", participant.id)}
+            onClick={() => handleDrawer("eligibility", participant.id)}
           />
         </Tooltip>
-        <Tooltip label="Schedule">
+        <Tooltip label="Meetings">
           <IconButton
             color="gray.400"
             size="sm"
             bg="transparent"
             icon={<FaCalendar />}
-            onClick={() => handleDrawer("schedule", participant.id)}
+            onClick={() => handleDrawer("meetings", participant.id)}
           />
         </Tooltip>
-        <Tooltip label="Remind">
+        <Tooltip label="Reminders">
           <IconButton
             color="gray.400"
             size="sm"
             bg="transparent"
             icon={<FaClock />}
-            onClick={() => handleDrawer("remind", participant.id)}
+            onClick={() => handleDrawer("reminders", participant.id)}
           />
         </Tooltip>
         <Tooltip label="Notes">

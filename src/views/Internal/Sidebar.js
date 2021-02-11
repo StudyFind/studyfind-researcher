@@ -1,13 +1,14 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+
+import { auth } from "database/firebase";
+
+import { Link, useLocation } from "react-router-dom";
+import { Box, Flex, Grid, Heading, Text, Image, Avatar, Tooltip } from "@chakra-ui/react";
+import { FaBell, FaCalendarAlt, FaCog, FaPoll, FaThLarge, FaUserCircle } from "react-icons/fa";
 import StudyFindLogo from "images/logo.png";
 
-import { Box, Flex, Grid, Heading, Text, Image } from "@chakra-ui/react";
-import { FaBell, FaCalendarAlt, FaCog, FaPoll, FaThLarge, FaUserCircle } from "react-icons/fa";
-import { Avatar, Tooltip } from "@chakra-ui/react";
-
-function Sidebar() {
+function Sidebar({ user }) {
   const location = useLocation();
 
   const links = [
@@ -20,7 +21,7 @@ function Sidebar() {
 
   return (
     <Flex direction="column" w="280px" h="100vh" position="fixed" bg="blue.900" zIndex="100">
-      <Logo to="/#">
+      <Logo to="/dashboard">
         <Image h="1.75rem" mr="10px" src={StudyFindLogo} />
         <Heading fontSize="1.5rem" color="white">
           StudyFind
@@ -36,16 +37,21 @@ function Sidebar() {
       </Grid>
       <Box p="15px">
         <Flex rounded="md" align="center">
-          <Avatar name="Yohan Jhaveri" bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
+          <Avatar
+            name={user && user.name}
+            bg="blue.500"
+            color="white"
+            h="42px"
+            w="42px"
+            mr="10px"
+          />
           <Box>
-            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="100px">
-              Yohan Jhaveri
+            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
+              {user ? user.name : "Your Account"}
             </Text>
-            <Tooltip label="yohanjhaveri@gmail.com" placement="right">
-              <Text fontSize="0.9rem" color="gray.500" isTruncated maxWidth="180px">
-                yohanjhaveri@gmail.com
-              </Text>
-            </Tooltip>
+            <Text fontSize="0.9rem" color="gray.500" isTruncated maxWidth="180px">
+              {auth.currentUser.email}
+            </Text>
           </Box>
         </Flex>
       </Box>

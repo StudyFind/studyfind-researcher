@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Heading, Text, Button, FormErrorMessage, Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Link, Button, FormErrorMessage } from "@chakra-ui/react";
 import { resetStudy } from "database/studies";
 import { format } from "functions";
 
@@ -10,11 +10,7 @@ function Update({ study }) {
   const handleUpdate = () => {
     setLoading(true);
     resetStudy(study.id)
-      .then(console.log)
-      .catch((err) => {
-        console.log(err);
-        setError(`Update failed: ${err}`);
-      })
+      .catch((err) => setError(`Update failed: ${err}`))
       .finally(() => setLoading(false));
   };
 
@@ -24,8 +20,12 @@ function Update({ study }) {
         Update Study
       </Heading>
       <Text color="gray.500" my="8px">
-        Updating the study will retrieve any new data clinicaltrials.gov and update it accordingly.
-        This action will not overwrite your edited study title, description and survey questions.
+        Updating the study will retrieve any new data from{" "}
+        <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
+          clinicaltrials.gov
+        </Link>{" "}
+        and amend the study data in StudyFind accordingly. This action will not overwrite your
+        edited study title, description and survey questions.
       </Text>
       <Flex mt="16px" mb="8px">
         <Text color="black" fontWeight="500">

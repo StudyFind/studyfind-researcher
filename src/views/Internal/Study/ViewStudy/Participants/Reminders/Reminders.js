@@ -3,10 +3,10 @@ import firebase from "firebase";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 
-import RemindView from "./RemindView";
-import RemindEdit from "./RemindEdit";
+import RemindersView from "./RemindersView";
+import RemindersEdit from "./RemindersEdit";
 
-function Remind({ participant, study }) {
+function Reminders({ participant, study }) {
   const defaultInputs = {
     title: "",
     weekdays: [false, false, false, false, false, false, false],
@@ -53,9 +53,7 @@ function Remind({ participant, study }) {
 
   const getTimesFromOffsets = (offsets) => {
     const allTimes = [];
-    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter(
-      (value) => value
-    ).length;
+    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter((value) => value).length;
 
     for (let i = 0; i < offsets.length / numberOfDaysSelected; i++) {
       const thisHour = convertEpochToHMS(offsets[i]).hour % 24;
@@ -262,8 +260,7 @@ function Remind({ participant, study }) {
       if (weekdayBoolean[weekday]) {
         inputs.times.map((time, index) => {
           const [hour, min] = time.split(":");
-          const thisTime =
-            ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
+          const thisTime = ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
           allTimes.push(thisTime);
         });
       }
@@ -272,7 +269,7 @@ function Remind({ participant, study }) {
   };
 
   return edit ? (
-    <RemindEdit
+    <RemindersEdit
       inputs={inputs}
       errors={errors}
       handleChange={handleChange}
@@ -283,7 +280,7 @@ function Remind({ participant, study }) {
       handleCancel={handleCancel}
     />
   ) : (
-    <RemindView
+    <RemindersView
       reminders={reminders}
       participant={participant}
       formatDate={formatDate}
@@ -296,4 +293,4 @@ function Remind({ participant, study }) {
   );
 }
 
-export default Remind;
+export default Reminders;

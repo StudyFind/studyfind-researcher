@@ -3,7 +3,7 @@ import { Button, Flex, Grid } from "@chakra-ui/react";
 import { FaTrash, FaPlus } from "react-icons/fa";
 import Question from "./Question";
 
-function ScreenerGrid({
+function EligibilityGrid({
   questions,
   createQuestion,
   updateQuestion,
@@ -47,4 +47,4 @@ function ScreenerGrid({
   );
 }
 
-export default ScreenerGrid;
+export default EligibilityGrid;

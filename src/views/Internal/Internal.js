@@ -15,14 +15,17 @@ import Dashboard from "views/Internal/Dashboard/Dashboard";
 import ViewStudy from "views/Internal/Study/ViewStudy/ViewStudy";
 import Notifications from "views/Internal/Notifications/Notifications";
 import Welcome from "views/Internal/Welcome/Welcome";
+import Account from "views/Internal/Account/Account";
 
 function Internal() {
-  const { uid } = auth.currentUser;
-
+  const cred = auth.currentUser;
+  const { uid } = cred;
   const [user] = useDocument(firestore.collection("researchers").doc(uid));
   const [studies] = useCollection(
     firestore.collection("studies").where("researcher.id", "==", uid).orderBy("updatedAt", "desc")
   );
+
+  const isUserNew = localStorage.getItem("new") === "true";
 
   const pages = [
     { path: "/", component: <Dashboard studies={studies} /> },
@@ -33,20 +36,21 @@ function Internal() {
     { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
     { path: "/notifications", component: <Notifications studies={studies} /> },
     { path: "/settings", component: <Settings studies={studies} /> },
+    { path: "/account", component: <Account user={user} /> },
   ];
 
   return (
     <Flex>
-      <Sidebar user={user} />
+      <Sidebar cred={cred} user={user} />
       <Box ml="280px" w="100%" minH="100vh">
-        <Page isLoading={!studies}>
+        <Page isLoading={!(user && studies)}>
           <Switch>
             {pages.map(({ path, component }, index) => (
               <Route exact path={path} key={index}>
                 {component}
               </Route>
             ))}
-            <Redirect to="/" />
+            <Redirect to={isUserNew ? "/welcome" : "/"} />
           </Switch>
         </Page>
       </Box>

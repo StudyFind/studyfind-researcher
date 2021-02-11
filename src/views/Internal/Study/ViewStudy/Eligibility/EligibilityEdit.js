@@ -4,7 +4,7 @@ import { Heading, Button, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
-function ScreenerEdit({
+function EligibilityEdit({
   original,
   questions,
   handleCancel,
@@ -18,14 +18,16 @@ function ScreenerEdit({
     <Row key={index}>
       <Select
         w="210px"
+        name="type"
         value={question.type}
-        onChange={(_, value) => updateQuestion(index, "type", value)}
+        onChange={(name, value) => updateQuestion(index, name, value)}
         options={["Inclusion", "Exclusion"]}
       />
       <Input
         placeholder="Question Prompt"
+        name="prompt"
         value={question.prompt}
-        onChange={(_, value) => updateQuestion(index, "prompt", value)}
+        onChange={(name, value) => updateQuestion(index, name, value)}
       />
       <IconButton
         colorScheme=""
@@ -40,7 +42,7 @@ function ScreenerEdit({
   return (
     <>
       <Head>
-        <Heading fontSize="28px">Edit Screening</Heading>
+        <Heading fontSize="28px">Edit Eligibility</Heading>
         <Buttons>
           <Button
             colorScheme=""
@@ -97,4 +99,4 @@ const Buttons = styled.div`
   grid-gap: 10px;
 `;
 
-export default ScreenerEdit;
+export default EligibilityEdit;

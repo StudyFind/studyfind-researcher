@@ -1,34 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { storage } from "database/firebase";
-import { Document, pdfjs } from 'react-pdf'
+import { useDownloadURL } from "react-firebase-hooks/storage";
 import { Heading, Button, Box } from "@chakra-ui/react";
-import { Message, Spinner } from "components";
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import { Message, Loader } from "components";
 
 function ConsentViewer({ study, setEdit }) {
-  const [url, setUrl] = useState('');
-
-  useEffect(() => {
-    (async () => {
-      let url = await storage.ref(`consent/${study.id}.pdf`).getDownloadURL();
-      if (!url) {
-        setUrl('');
-      }
-      setUrl(url);
-      console.log(url);
-    })()
-  }, [study]);
-
-
+  const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.id}.pdf`));
 
   const LOAD = (
     <Box h="500px" w="100%">
-      <Spinner />
+      <Loader />
     </Box>
   );
 
+  const FORM = value ? (
+    <PDFViewer data={value} type="application/pdf" />
+  ) : (
+    <strong>{error && error.message}</strong>
+  );
+
+  const BODY = (
+    <>
+      <Head>
+        <Heading fontSize="28px">Consent</Heading>
+        <Button colorScheme="blue" onClick={() => setEdit(true)}>
+          Upload New File
+        </Button>
+      </Head>
+      <Box h="500px" w="100%">
+        {FORM}
+      </Box>
+    </>
+  );
 
   const EMPTY = (
     <Box h="500px">
@@ -44,19 +48,7 @@ function ConsentViewer({ study, setEdit }) {
     </Box>
   );
 
-  return (
-    <>
-      <Head>
-        <Heading fontSize="28px">Consent</Heading>
-        <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Upload New File
-        </Button>
-      </Head>
-      <Box h="500px" w="100%">
-        <Document file={url} />
-      </Box>
-    </>
-  );
+  return loading ? LOAD : value ? BODY : EMPTY;
 }
 
 const Head = styled.div`
@@ -64,6 +56,11 @@ const Head = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 15px 0;
+`;
+
+const PDFViewer = styled.object`
+  width: 100%;
+  height: 100%;
 `;
 
 export default ConsentViewer;

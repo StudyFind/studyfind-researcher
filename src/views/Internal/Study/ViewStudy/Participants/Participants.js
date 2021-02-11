@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
-import { fetchParticipants, fetchNotes } from "database/participants";
-import { firestore } from "database/firebase";
-
-import { useDisclosure } from "@chakra-ui/react";
-import { Heading, Button, Box } from "@chakra-ui/react";
-
-import { Message, Spinner } from "components";
-
-import ParticipantsFilter from "./ParticipantsFilter";
-import ParticipantsRow from "./ParticipantsRow";
-import Screen from "./Screen/Screen";
-import Remind from "./Remind/Remind";
-import Notes from "./Notes/Notes";
-import Schedule from "./Schedule/Schedule";
-
-import ParticipantDrawer from "./ParticipantDrawer";
 
 import { compute } from "functions";
+import { firestore } from "database/firebase";
+import { useCollection } from "hooks";
+import { useParams } from "react-router-dom";
+
+import { Heading, Button, Box, useDisclosure } from "@chakra-ui/react";
+import { Message, Loader } from "components";
+
+import ParticipantDrawer from "./ParticipantDrawer";
+import ParticipantsFilter from "./ParticipantsFilter";
+import ParticipantsRow from "./ParticipantsRow";
+
+import Status from "./Status/Status";
+import Eligibility from "./Eligibility/Eligibility";
+import Reminders from "./Reminders/Reminders";
+import Notes from "./Notes/Notes";
+import Meetings from "./Meetings/Meetings";
 
 function Participants({ study }) {
   const { nctID } = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [drawer, setDrawer] = useState({ action: "", participant: {} });
   const [toggle, setToggle] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [participants, setParticipants] = useState([]);
+  const [participants, loading, error] = useCollection(
+    firestore.collection("studies").doc(nctID).collection("participants")
+  );
   const [participantsFiltered, setParticipantsFiltered] = useState([]);
 
   const [sort, setSort] = useState("fakename");
@@ -40,32 +40,13 @@ function Participants({ study }) {
   });
 
   const handleDrawer = (action, participantID) => {
-    const participant = participants.find(
-      (participant) => participant.id === participantID
-    ) || {
+    const participant = participants.find((participant) => participant.id === participantID) || {
       responses: [],
       reminders: [],
     };
     setDrawer({ action, participant });
     onOpen();
   };
-
-  useEffect(() => {
-    fetchParticipants(nctID)
-      .then((data) => {
-        setParticipants(
-          data.map(({ id, fakename, status, responses, reminders }) => ({
-            id,
-            fakename,
-            status,
-            responses,
-            reminders,
-            score: compute.eligibilityScore(study.questions, responses),
-          }))
-        );
-      })
-      .finally(() => setLoading(false));
-  }, []);
 
   useEffect(() => {
     if (!toggle) {
@@ -82,11 +63,16 @@ function Participants({ study }) {
   }, [toggle]);
 
   useEffect(() => {
-    const initial = [...participants];
-    const filteredSearch = filterSearch(initial);
-    const filteredStatus = filterStatus(filteredSearch);
-    const sorted = sortParticipants(filteredStatus);
-    setParticipantsFiltered(sorted);
+    if (participants) {
+      const initial = participants.map((p) => ({
+        ...p,
+        score: compute.eligibilityScore(study.questions, p.responses),
+      }));
+      const filteredSearch = filterSearch(initial);
+      const filteredStatus = filterStatus(filteredSearch);
+      const sorted = sortParticipants(filteredStatus);
+      setParticipantsFiltered(sorted);
+    }
   }, [sort, status, search, participants]);
 
   const sortParticipants = (participants) => {
@@ -103,13 +89,7 @@ function Participants({ study }) {
   };
 
   const sortByStatus = (participants) => {
-    const order = [
-      "interested",
-      "screened",
-      "consented",
-      "accepted",
-      "rejected",
-    ];
+    const order = ["interested", "screened", "consented", "accepted", "rejected"];
     participants.sort((a, b) => {
       const statusA = order.indexOf(a.status);
       const statusB = order.indexOf(b.status);
@@ -136,6 +116,7 @@ function Participants({ study }) {
     });
     return participants;
   };
+
   const sortByEligiblity = (participants) => {
     participants.sort((a, b) => {
       if (a.score < b.score) {
@@ -154,22 +135,20 @@ function Participants({ study }) {
   };
 
   const filterSearch = (participants) => {
-    return participants.filter((p) =>
-      p.fakename.toLowerCase().includes(search)
-    );
+    return participants.filter((p) => p.fakename.toLowerCase().includes(search));
   };
 
   const LOAD = (
     <Box h="500px">
-      <Spinner />
+      <Loader />
     </Box>
   );
 
   const EMPTY = (
     <Box h="500px">
       <Message
-        type="failure"
-        title="No participants yet"
+        type="neutral"
+        title="Find Participants"
         description="Your study does not have any participants yet!"
       />
     </Box>
@@ -212,11 +191,7 @@ function Participants({ study }) {
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participantsFiltered && participantsFiltered.length
           ? participantsFiltered.map((participant, index) => (
-              <ParticipantsRow
-                key={index}
-                participant={participant}
-                handleDrawer={handleDrawer}
-              />
+              <ParticipantsRow key={index} participant={participant} handleDrawer={handleDrawer} />
             ))
           : FILTER_EMPTY}
       </Box>
@@ -226,21 +201,23 @@ function Participants({ study }) {
         onClose={onClose}
         isOpen={isOpen}
       >
-        {drawer.action === "screen" && (
-          <Screen
-            questions={study.questions}
-            responses={drawer.participant.responses}
-          />
+        {drawer.action === "status" && (
+          <Status participant={drawer.participant} onClose={onClose} />
         )}
-        {drawer.action === "remind" && <Remind participant={drawer.participant} study={study} />}
+        {drawer.action === "eligibility" && (
+          <Eligibility questions={study.questions} responses={drawer.participant.responses} />
+        )}
+        {drawer.action === "reminders" && (
+          <Reminders participant={drawer.participant} study={study} />
+        )}
         {drawer.action === "notes" && <Notes id={drawer.participant.id} />}
-        {drawer.action === "schedule" && (
-          <Schedule participant={drawer.participant} study={study} />
+        {drawer.action === "meetings" && (
+          <Meetings participant={drawer.participant} study={study} />
         )}
       </ParticipantDrawer>
     </>
   );
-  return loading ? LOAD : participants.length ? LIST : EMPTY;
+  return loading || !participants ? LOAD : participants.length ? LIST : EMPTY;
 }
 
 const Head = styled.div`
