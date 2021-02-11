@@ -45,7 +45,7 @@ function Notification({ notification }) {
         <Flex justify="space-between" align="center">
           <Heading size="sm">{notification.title}</Heading>
           <Text fontSize="xs" color="gray.400">
-            {format.date(notification.timestamp.toDate())}
+            {format.date(notification.time.toDate())}
           </Text>
         </Flex>
         <Text fontSize="md" color="gray.500">

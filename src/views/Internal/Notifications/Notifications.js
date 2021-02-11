@@ -10,11 +10,7 @@ import Notification from "./Notification";
 function Notifications() {
   const { uid } = auth.currentUser;
   const [notifications, loading, error] = useCollection(
-    firestore
-      .collection("researchers")
-      .doc(uid)
-      .collection("notifications")
-      .orderBy("timestamp", "desc")
+    firestore.collection("researchers").doc(uid).collection("notifications").orderBy("time", "desc")
   );
 
   if (loading) return <Loader />;
