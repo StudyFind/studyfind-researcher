@@ -7,7 +7,7 @@ import { firestore } from "database/firebase";
 import { Input } from "components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
 
-function MeetingsEdit({ meeting, onClose }) {
+function MeetingsForm({ meeting, onClose }) {
   const [inputs, setInputs] = useState({
     name: meeting.name,
     link: meeting.link,
@@ -88,20 +88,6 @@ function MeetingsEdit({ meeting, onClose }) {
         onChange={handleChange}
       />
       <Input
-        label="Meeting Name"
-        name="name"
-        value={inputs.name}
-        error={errors.name}
-        onChange={handleChange}
-      />
-      <Input
-        label="Meeting Name"
-        name="name"
-        value={inputs.name}
-        error={errors.name}
-        onChange={handleChange}
-      />
-      <Input
         label="Meeting Date"
         name="date"
         type="date"
@@ -137,4 +123,4 @@ function MeetingsEdit({ meeting, onClose }) {
   );
 }
 
-export default MeetingsEdit;
+export default MeetingsForm;

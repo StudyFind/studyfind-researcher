@@ -7,7 +7,7 @@ import { useDocument } from "hooks";
 import { Flex, Text, IconButton, useDisclosure } from "@chakra-ui/react";
 import { FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
 
-import MeetingsEdit from "./MeetingsEdit.js";
+import MeetingsForm from "./MeetingsForm.js";
 import ParticipantDrawer from "views/Internal/Study/ViewStudy/Participants/ParticipantDrawer.js";
 
 function MeetingsItem({ meeting }) {
@@ -41,7 +41,7 @@ function MeetingsItem({ meeting }) {
         onClose={onClose}
         isOpen={isOpen}
       >
-        <MeetingsEdit meeting={meeting} onClose={onClose} />
+        <MeetingsForm meeting={meeting} onClose={onClose} />
       </ParticipantDrawer>
       <Text fontSize="0.9rem" color="gray.500" width="64px" textAlign="right">
         {moment(meeting.time).format("hh:mma")}
