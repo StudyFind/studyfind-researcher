@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import styled from "styled-components";
 import {
   Heading,
@@ -68,7 +69,7 @@ function RemindersView({
             <Flex gridGap="8px" my="8px">
               {getTimesFromOffsets(reminder.times).map((time, index) => (
                 <Tag key={index} colorScheme="blue">
-                  <TagLabel>{time}</TagLabel>
+                  <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")}</TagLabel>
                 </Tag>
               ))}
             </Flex>

@@ -2,26 +2,29 @@ import React from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { Box, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Tag, TagLabel, Badge } from "@chakra-ui/react";
 
 function StudyCardSmall({ study }) {
   return (
     <Link to={`/study/${study.id}`}>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
-        <Text fontSize="sm" color="gray.400">
-          {study.id}
-        </Text>
+        <Flex justify="space-between" align="center" mb="8px">
+          <Text fontSize="sm" color="gray.400">
+            {study.id}
+          </Text>
+          <Badge colorScheme="green">Published</Badge>
+        </Flex>
         <Title size="sm" mt="5px">
           {study.title}
         </Title>
-        <Conditions spacing={0} isInline mt="6px">
+        <Flex mt="6px" gridGap="4px" flexWrap="wrap" h="24px" overflow="hidden">
           {study.conditions &&
             study.conditions.map((condition, index) => (
               <Tag key={index} variant="solid" size="sm" colorScheme="blue">
                 <TagLabel>{condition}</TagLabel>
               </Tag>
             ))}
-        </Conditions>
+        </Flex>
         <Description color="gray.500" my="10px">
           {study.description}
         </Description>
@@ -29,14 +32,6 @@ function StudyCardSmall({ study }) {
     </Link>
   );
 }
-
-const Conditions = styled(Stack)`
-  display: grid;
-  grid-gap: 4px;
-  flex-wrap: wrap;
-  height: 24px;
-  overflow: hidden;
-`;
 
 const Title = styled(Heading)`
   word-break: break-word;

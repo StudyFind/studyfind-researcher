@@ -14,6 +14,7 @@ import Settings from "views/Internal/Settings/Settings";
 import Dashboard from "views/Internal/Dashboard/Dashboard";
 import ViewStudy from "views/Internal/Study/ViewStudy/ViewStudy";
 import Notifications from "views/Internal/Notifications/Notifications";
+import Schedule from "views/Internal/Schedule/Schedule";
 import Welcome from "views/Internal/Welcome/Welcome";
 import Account from "views/Internal/Account/Account";
 
@@ -32,8 +33,9 @@ function Internal() {
     { path: "/fetch", component: <FetchStudy /> },
     { path: "/create/:nctID/:tab", component: <CreateStudy studies={studies} /> },
     { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
-    { path: "/notifications", component: <Notifications studies={studies} /> },
-    { path: "/settings", component: <Settings studies={studies} /> },
+    { path: "/notifications", component: <Notifications /> },
+    { path: "/schedule", component: <Schedule studies={studies} /> },
+    { path: "/settings", component: <Settings /> },
     { path: "/account", component: <Account user={user} /> },
   ];
 
