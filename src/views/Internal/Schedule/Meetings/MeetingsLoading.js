@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Skeleton } from "@chakra-ui/react";
 
-function Loading() {
+function MeetingsLoading() {
   return (
     <Grid w="100%" gap="10px" py="10px">
       <Skeleton rounded="md" h="49px" />
@@ -12,4 +12,4 @@ function Loading() {
   );
 }
 
-export default Loading;
+export default MeetingsLoading;
