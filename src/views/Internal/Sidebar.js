@@ -5,7 +5,7 @@ import { auth } from "database/firebase";
 
 import { Link, useLocation } from "react-router-dom";
 import { Box, Flex, Grid, Heading, Text, Image, Avatar, Tooltip } from "@chakra-ui/react";
-import { FaBell, FaCalendarAlt, FaCog, FaPoll, FaThLarge, FaUserCircle } from "react-icons/fa";
+import { FaBell, FaCalendar, FaCog, FaPoll, FaThLarge, FaUserCircle } from "react-icons/fa";
 import StudyFindLogo from "images/logo.png";
 
 function Sidebar({ user }) {
@@ -14,7 +14,7 @@ function Sidebar({ user }) {
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
+    { name: "Schedule", path: "/schedule", icon: <FaCalendar /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
   ];

@@ -62,6 +62,7 @@ function MeetingsForm({ meeting, onClose }) {
       time: "",
       date: "",
     });
+    onClose();
   };
 
   const handleSubmit = () => {

@@ -4,8 +4,8 @@ import moment from "moment";
 import { firestore } from "database/firebase";
 import { useDocument } from "hooks";
 
-import { Flex, Text, IconButton, useDisclosure } from "@chakra-ui/react";
-import { FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
+import { Tooltip, Flex, Text, IconButton, useDisclosure, Icon, Box } from "@chakra-ui/react";
+import { FaInfoCircle, FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
 
 import MeetingsForm from "./MeetingsForm.js";
 import ParticipantDrawer from "views/Internal/Study/ViewStudy/Participants/ParticipantDrawer.js";
@@ -25,16 +25,15 @@ function MeetingsItem({ meeting }) {
     firestore.collection("meetings").doc(meeting.id).delete();
   };
 
+  const meetingInfo = (
+    <>
+      <Text>Study: {meeting.studyID}</Text>
+      <Text>Participant: {participant && participant.fakename}</Text>
+    </>
+  );
+
   return (
-    <Flex
-      cursor="pointer"
-      align="center"
-      gridGap="8px"
-      borderWidth="1px"
-      p="10px 12px"
-      rounded="md"
-      bg="white"
-    >
+    <Flex align="center" gridGap="8px" borderWidth="1px" p="10px 12px" rounded="md" bg="white">
       <ParticipantDrawer
         action="Meetings"
         fakename={participant && participant.fakename}
@@ -46,7 +45,12 @@ function MeetingsItem({ meeting }) {
       <Text fontSize="0.9rem" color="gray.500" width="64px" textAlign="right">
         {moment(meeting.time).format("hh:mma")}
       </Text>
-      <Text>{meeting.name}</Text>
+      <Text fontWeight="500">{meeting.name}</Text>
+      <Tooltip label={meetingInfo}>
+        <Flex align="center" color="gray.400">
+          <Icon as={FaInfoCircle} />
+        </Flex>
+      </Tooltip>
       <Flex gridGap="4px" ml="auto">
         <a href={meeting.link} target="_blank" rel="noreferrer">
           <IconButton
