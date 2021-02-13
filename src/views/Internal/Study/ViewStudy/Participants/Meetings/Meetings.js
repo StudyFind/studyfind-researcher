@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+
 import validator from "validator";
+import { auth, firestore } from "database/firebase";
 import { Loader } from "components";
-import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 
 import MeetingsView from "./MeetingsView";
@@ -115,6 +116,7 @@ function Meetings({ participant, study }) {
       time: getEpoch(inputs.date, inputs.time),
       link: inputs.link,
       participantID: participant.id,
+      researcherID: auth.currentUser.uid,
       studyID: study.id,
     };
 

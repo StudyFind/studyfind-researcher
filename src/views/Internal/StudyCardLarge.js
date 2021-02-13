@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Text, Box, Tag, TagLabel, Stack, Avatar } from "@chakra-ui/react";
+import { Heading, Text, Box, Grid, Flex, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaVenusMars, FaBirthdayCake, FaHeart } from "react-icons/fa";
 
 function StudyCardLarge({ study }) {
@@ -15,19 +15,19 @@ function StudyCardLarge({ study }) {
       <Heading size="md" mt="5px">
         {study.title}
       </Heading>
-      <Conditions spacing={1} isInline mt="6px">
+      <Flex mt="6px" gridGap="4px" flexWrap="wrap" h="24px" overflow="hidden">
         {study.conditions &&
           study.conditions.map((condition, index) => (
-            <Condition key={index} variant="solid" size="sm" colorScheme="blue">
+            <Tag key={index} variant="solid" size="sm" colorScheme="blue">
               <TagLabel>{condition}</TagLabel>
-            </Condition>
+            </Tag>
           ))}
-      </Conditions>
+      </Flex>
       <Text color="gray.500" my="15px">
         {study.description}
       </Text>
-      <Details>
-        <Eligibility>
+      <Flex justify="space-between" align="flex-end">
+        <Grid gap="10px">
           <Criterion>
             <Box as={FaVenusMars} color="blue.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
@@ -48,9 +48,17 @@ function StudyCardLarge({ study }) {
                 : "Does not accept healthy volunteers"}
             </Text>
           </Criterion>
-        </Eligibility>
+        </Grid>
         {researcher && (
-          <Researcher borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="12px">
+          <Flex
+            gridGap="10px"
+            align="flex-end"
+            borderWidth="1px"
+            rounded="md"
+            overflow="hidden"
+            bg="white"
+            p="12px"
+          >
             <Avatar color="white" bg="blue.500" name={researcher.name} />
             <Box>
               <Text>{researcher.name}</Text>
@@ -58,39 +66,17 @@ function StudyCardLarge({ study }) {
                 <a href={`mailto:${researcher.email}`}>{researcher.email}</a>
               </Text>
             </Box>
-          </Researcher>
+          </Flex>
         )}
-      </Details>
+      </Flex>
     </Box>
   );
 }
-
-const Conditions = styled(Stack)`
-  display: grid;
-`;
-
-const Condition = styled(Tag)``;
-
-const Details = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Eligibility = styled.div`
-  display: grid;
-  grid-gap: 10px;
-`;
 
 const Criterion = styled.div`
   display: flex;
   align-items: center;
   grid-gap: 10px;
-`;
-
-const Researcher = styled(Box)`
-  display: flex;
-  grid-gap: 10px;
-  align-self: flex-end;
 `;
 
 export default StudyCardLarge;
