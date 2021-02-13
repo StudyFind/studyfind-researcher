@@ -5,8 +5,6 @@ import { auth, firestore } from "database/firebase";
 import { Loader } from "components";
 import { useCollection } from "hooks";
 
-import { Spinner } from "components";
-
 import MeetingsView from "./MeetingsView";
 import MeetingsEdit from "./MeetingsEdit";
 import MeetingsError from "./MeetingsError";
