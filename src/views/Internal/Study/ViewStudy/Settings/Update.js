@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import moment from "moment";
 import { Box, Flex, Heading, Text, Link, Button, FormErrorMessage } from "@chakra-ui/react";
 import { resetStudy } from "database/studies";
-import { format } from "functions";
 
 function Update({ study }) {
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ function Update({ study }) {
           Last Updated:
         </Text>
         <Text color="gray.500" ml="4px">
-          {format.date(study.updatedAt)}
+          {moment(study.updatedAt).format("LL")}
         </Text>
       </Flex>
       <Button

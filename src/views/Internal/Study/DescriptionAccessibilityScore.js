@@ -23,7 +23,7 @@ function DescriptionAccessibilityScore({ description }) {
   const color = getColor(score);
 
   return (
-    <Box bg={`${color}.100`} p="16px 20px" rounded="md">
+    <Box borderWidth="1px" p="16px 20px" rounded="md">
       <Flex align="center">
         <Heading mr="8px" size="md">
           Description Accessibility Score
@@ -42,9 +42,9 @@ function DescriptionAccessibilityScore({ description }) {
       </Text>
       <Progress
         value={isNaN(score) ? 0 : score}
-        bg="white"
         size="md"
         mt="8px"
+        bg="gray.200"
         colorScheme={color}
       />
     </Box>
