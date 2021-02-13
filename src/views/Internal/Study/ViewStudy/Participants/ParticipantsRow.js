@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import { compute } from "functions";
-
 import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
-function ParticipantRow({ study, participant, handleDrawer }) {
+function ParticipantRow({ participant, handleDrawer }) {
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -27,23 +25,28 @@ function ParticipantRow({ study, participant, handleDrawer }) {
       <Text fontWeight="500" mr="auto">
         {participant.fakename}
       </Text>
-      <Badge size="sm" colorScheme={statusColors[participant.status]}>
+      <Badge
+        size="sm"
+        cursor="pointer"
+        colorScheme={statusColors[participant.status]}
+        onClick={() => handleDrawer("status", participant.id)}
+      >
         {participant.status}
       </Badge>
-      <Text color="gray.400">
-        {compute.eligibilityScore(study.questions, participant.responses)}% eligible
+      <Text color="gray.400" w="100px" textAlign="right">
+        {participant.score}% eligible
       </Text>
       <Buttons>
         <Tooltip label="Message">
           <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
         </Tooltip>
-        <Tooltip label="Screening">
+        <Tooltip label="Eligibility">
           <IconButton
             color="gray.400"
             size="sm"
             bg="transparent"
             icon={<FaClipboard />}
-            onClick={() => handleDrawer("screening", participant.id)}
+            onClick={() => handleDrawer("eligibility", participant.id)}
           />
         </Tooltip>
         <Tooltip label="Meetings">

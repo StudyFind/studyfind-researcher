@@ -1,13 +1,13 @@
 import React from "react";
 import { useArray } from "hooks";
 import { updateStudy } from "database/studies";
-import ScreenerHead from "./ScreenerHead";
-import ScreenerGrid from "./ScreenerGrid";
+import EligibilityHead from "./EligibilityHead";
+import EligibilityGrid from "./EligibilityGrid";
 
-function Screener({ study, next }) {
+function Eligibility({ study, next, back }) {
   const [
     questions,
-    setQuestions,
+    _,
     { appendElement, updateElement, deleteElementByIndex, clearArray },
   ] = useArray(study.questions);
 
@@ -27,8 +27,9 @@ function Screener({ study, next }) {
 
   return (
     <>
-      <ScreenerHead />
-      <ScreenerGrid
+      <EligibilityHead />
+      <EligibilityGrid
+        back={back}
         questions={questions}
         createQuestion={createQuestion}
         updateQuestion={updateQuestion}
@@ -40,4 +41,4 @@ function Screener({ study, next }) {
   );
 }
 
-export default Screener;
+export default Eligibility;

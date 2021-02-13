@@ -3,18 +3,22 @@ import styled from "styled-components";
 import { storage } from "database/firebase";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 import { Heading, Button, Box } from "@chakra-ui/react";
-import { Message, Spinner } from "components";
+import { Message, Loader } from "components";
 
 function ConsentViewer({ study, setEdit }) {
   const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.id}.pdf`));
 
   const LOAD = (
     <Box h="500px" w="100%">
-      <Spinner />
+      <Loader />
     </Box>
   );
 
-  const FORM = value ? <PDFViewer src={value} /> : <strong>{error && error.message}</strong>;
+  const FORM = value ? (
+    <PDFViewer data={value} type="application/pdf" />
+  ) : (
+    <strong>{error && error.message}</strong>
+  );
 
   const BODY = (
     <>
@@ -54,7 +58,7 @@ const Head = styled.div`
   margin: 15px 0;
 `;
 
-const PDFViewer = styled.iframe`
+const PDFViewer = styled.object`
   width: 100%;
   height: 100%;
 `;

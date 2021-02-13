@@ -10,6 +10,7 @@ const signup = async (name, email, password) => {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
     await firestore.collection("researchers").doc(user.uid).set({ name });
     localStorage.setItem("exists", true);
+    localStorage.setItem("new", true);
     return user;
   } catch (error) {
     throw getErrorMessage(error);
@@ -20,6 +21,7 @@ const signin = async (email, password) => {
   try {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
     localStorage.setItem("exists", true);
+    localStorage.setItem("new", false);
     return user;
   } catch (error) {
     throw getErrorMessage(error);
@@ -28,15 +30,16 @@ const signin = async (email, password) => {
 
 const signout = async () => auth.signOut();
 
-const deleteUser = async (email, password) => {
-  auth
-    .signInWithEmailAndPassword(email, password)
-    .then(({ user }) => {
-      user.delete();
-      localStorage.setItem("exists", false);
-      firestore.collection("researchers").doc(user.uid).delete();
-    })
-    .catch(getErrorMessage);
+const deleteAccount = async (email, password) => {
+  try {
+    const { user } = await auth.signInWithEmailAndPassword(email, password);
+    await firestore.collection("researchers").doc(user.uid).delete();
+    user.delete();
+    localStorage.setItem("exists", false);
+    localStorage.setItem("new", false);
+  } catch (error) {
+    throw getErrorMessage(error);
+  }
 };
 
 // ========================== PASSWORD UPDATES ========================== //
@@ -63,7 +66,7 @@ const changePassword = async (password, newPassword) => {
 
 export {
   // DATA //
-  deleteUser,
+  deleteAccount,
   forgotPassword,
   resetPassword,
   changePassword,

@@ -9,7 +9,7 @@ import NotesNew from "./NotesNew";
 import NotesError from "./NotesError";
 
 import { Grid } from "@chakra-ui/react";
-import { Spinner } from "components";
+import { Loader } from "components";
 
 function Notes({ id }) {
   const { nctID } = useParams();
@@ -76,7 +76,7 @@ function Notes({ id }) {
     handleCancel();
   };
 
-  if (loading) return <Spinner />;
+  if (loading) return <Loader />;
   if (error) return <NotesError />;
 
   return form ? (

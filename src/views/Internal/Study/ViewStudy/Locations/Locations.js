@@ -1,20 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import { Flex, Heading, Text, OrderedList, ListItem, Box } from "@chakra-ui/react";
 import { Message } from "components";
 
 function Locations({ study }) {
   return study && study.locations && study.locations.length ? (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Locations</Heading>
-      </Head>
-      <Flex direction="column" gridGap="10px" align="flex-start">
+      </Flex>
+      <Flex direction="column" align="flex-start">
         <OrderedList>
           {study.locations.map((location, index) => {
             const address = `${location.localLocation.trim()}, ${location.nationalLocation.trim()}`;
             return (
-              <ListItem key={index}>
+              <ListItem key={index} my="4px">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -40,13 +39,5 @@ function Locations({ study }) {
     </Box>
   );
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-  height: 40px;
-`;
 
 export default Locations;

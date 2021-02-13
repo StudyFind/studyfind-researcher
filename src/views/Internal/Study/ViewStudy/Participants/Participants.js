@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+import { compute } from "functions";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
-
 import { useParams } from "react-router-dom";
+
 import { Heading, Button, Box, useDisclosure } from "@chakra-ui/react";
-import { Message, Spinner } from "components";
+import { Message, Loader } from "components";
 
 import ParticipantDrawer from "./ParticipantDrawer";
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
-import Screening from "./Screening/Screening";
+
+import Status from "./Status/Status";
+import Eligibility from "./Eligibility/Eligibility";
 import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
 import Meetings from "./Meetings/Meetings";
@@ -61,7 +64,10 @@ function Participants({ study }) {
 
   useEffect(() => {
     if (participants) {
-      const initial = [...participants];
+      const initial = participants.map((p) => ({
+        ...p,
+        score: compute.eligibilityScore(study.questions, p.responses),
+      }));
       const filteredSearch = filterSearch(initial);
       const filteredStatus = filterStatus(filteredSearch);
       const sorted = sortParticipants(filteredStatus);
@@ -110,6 +116,7 @@ function Participants({ study }) {
     });
     return participants;
   };
+
   const sortByEligiblity = (participants) => {
     participants.sort((a, b) => {
       if (a.score < b.score) {
@@ -133,15 +140,15 @@ function Participants({ study }) {
 
   const LOAD = (
     <Box h="500px">
-      <Spinner />
+      <Loader />
     </Box>
   );
 
   const EMPTY = (
     <Box h="500px">
       <Message
-        type="failure"
-        title="No participants yet"
+        type="neutral"
+        title="Find Participants"
         description="Your study does not have any participants yet!"
       />
     </Box>
@@ -184,12 +191,7 @@ function Participants({ study }) {
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participantsFiltered && participantsFiltered.length
           ? participantsFiltered.map((participant, index) => (
-              <ParticipantsRow
-                key={index}
-                study={study}
-                participant={participant}
-                handleDrawer={handleDrawer}
-              />
+              <ParticipantsRow key={index} participant={participant} handleDrawer={handleDrawer} />
             ))
           : FILTER_EMPTY}
       </Box>
@@ -199,8 +201,11 @@ function Participants({ study }) {
         onClose={onClose}
         isOpen={isOpen}
       >
-        {drawer.action === "screening" && (
-          <Screening questions={study.questions} responses={drawer.participant.responses} />
+        {drawer.action === "status" && (
+          <Status participant={drawer.participant} onClose={onClose} />
+        )}
+        {drawer.action === "eligibility" && (
+          <Eligibility questions={study.questions} responses={drawer.participant.responses} />
         )}
         {drawer.action === "reminders" && (
           <Reminders participant={drawer.participant} study={study} />

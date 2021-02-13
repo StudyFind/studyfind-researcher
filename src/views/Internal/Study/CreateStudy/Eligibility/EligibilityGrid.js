@@ -3,7 +3,8 @@ import { Button, Flex, Grid } from "@chakra-ui/react";
 import { FaTrash, FaPlus } from "react-icons/fa";
 import Question from "./Question";
 
-function ScreenerGrid({
+function EligibilityGrid({
+  back,
   questions,
   createQuestion,
   updateQuestion,
@@ -39,12 +40,21 @@ function ScreenerGrid({
         </Button>
       </Grid>
       <Flex justify="flex-end" gridGap="10px">
+        <Button
+          colorScheme="gray"
+          color="gray.500"
+          variant="outline"
+          style={{ textAlign: "right" }}
+          onClick={back}
+        >
+          Back
+        </Button>
         <Button colorScheme="blue" onClick={handleSubmit} type="submit">
-          Submit
+          Next
         </Button>
       </Flex>
     </>
   );
 }
 
-export default ScreenerGrid;
+export default EligibilityGrid;
