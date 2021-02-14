@@ -25,8 +25,6 @@ function Notification({ notification }) {
     },
   };
 
-  console.log(notification.time);
-
   const icon = icons[notification.type];
 
   return (
