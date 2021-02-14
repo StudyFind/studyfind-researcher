@@ -7,6 +7,7 @@ import { Loader, Message } from "components";
 import Notification from "./Notification";
 
 function Notifications() {
+  const numberOfNotificationsShown = 10;
   const { uid } = auth.currentUser;
   const [notifications, setNotifications] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -23,7 +24,7 @@ function Notifications() {
         .collection("notifications")
         .orderBy("time", "desc")
         .startAfter(lastDoc)
-        .limit(10)
+        .limit(numberOfNotificationsShown)
         .get();
       const collections = [];
       const docs = [];
@@ -31,13 +32,12 @@ function Notifications() {
       setNotifications((prev) => prev.concat(collections));
       snapshot.forEach((doc) => docs.push(doc));
       setDocuments((prev) => prev.concat(docs));
-      if (collections.length < 10) {
+      if (collections.length < numberOfNotificationsShown) {
         setFetchedAll(true);
       }
     } catch (e) {
       setError(e);
     }
-
     setLoading(false);
   };
 
