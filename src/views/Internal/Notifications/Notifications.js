@@ -15,15 +15,9 @@ function Notifications() {
   const [error, setError] = useState("");
 
   const handleFetchAdditional = async () => {
-    let lastDoc;
-    if (documents.length && notifications.length) {
-      lastDoc = documents[documents.length - 1];
-    } else {
-      lastDoc = "";
-    }
+    const lastDoc = documents.length && notifications.length ? documents[documents.length - 1] : "";
     try {
-      let snapshot;
-      snapshot = await firestore
+      const snapshot = await firestore
         .collection("researchers")
         .doc(uid)
         .collection("notifications")
@@ -31,7 +25,6 @@ function Notifications() {
         .startAfter(lastDoc)
         .limit(10)
         .get();
-
       const collections = [];
       const docs = [];
       snapshot.forEach((doc) => collections.push({ id: doc.id, ...doc.data() }));
