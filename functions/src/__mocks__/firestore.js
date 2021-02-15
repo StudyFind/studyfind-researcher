@@ -1,6 +1,3 @@
-let isQueryingDoc = false;
-let isTransaction = false;
-
 const updateData = (data, path, newData, create = false) => {
     while (path.length > 1) {
         let p = path.shift();
@@ -47,7 +44,7 @@ const mFirestore = {
     collection: jest.fn(c => {
         mFirestore.path.push("collection")
         mFirestore.path.push(c);
-        isQueryingDoc = false;
+        mFirestore.isQueryingDoc = false;
         return mFirestore;
     }),
     where: jest.fn((subject, verb, object) => {
@@ -57,12 +54,13 @@ const mFirestore = {
     select: jest.fn(() => mFirestore),
     doc: jest.fn(c => {
         mFirestore.path.push(c);
-        isQueryingDoc = true;
+        mFirestore.isQueryingDoc = true;
         return mFirestore;
     }),
     set: jest.fn(async (d, transaction_d) => {
         let { queries, path, data } = mFirestore;
-        if (isTransaction) d = transaction_d;
+        if (mFirestore.isTransaction) d = transaction_d;
+        if (!mFirestore.isQueryingDoc) path.push('0'); // if setting on collection
         queries.push(path);
 
         while (path.length > 1) {
@@ -75,7 +73,7 @@ const mFirestore = {
     }),
     update: jest.fn(async (d, transaction_d) => {
         let { queries, path, data } = mFirestore;
-        if (isTransaction) d = transaction_d;
+        if (mFirestore.isTransaction) d = transaction_d;
         queries.push(path);
 
         while (path.length > 1) {
@@ -90,7 +88,7 @@ const mFirestore = {
         const data = mFirestore.path.reduce((d, p) => typeof p === "function" ? p(d) : d[p], mFirestore.data); // individual path elem might be a filter function
         mFirestore.path = []
         // if querying single doc, easy peasy
-        if (isQueryingDoc) {
+        if (mFirestore.isQueryingDoc) {
             let d = { ...data }
             delete d.collection;
             return { exists: !!d, data: () => d };
@@ -104,13 +102,15 @@ const mFirestore = {
         snapshots.empty = snapshots.length === 0;
         return snapshots
     }),
-    runTransaction: jest.fn(async (fn) => { isTransaction = true; return await fn(mFirestore) }),
+    runTransaction: jest.fn(async (fn) => { mFirestore.isTransaction = true; return await fn(mFirestore) }),
 
     // useful when mocking / testing
     data: {}, // fill this with data on every test
     path: [], // current path
     queries: [], // paths taken so far
-    reset: () => { mFirestore.data = {}; mFirestore.path = []; mFirestore.queries = []; }
+    reset: () => { mFirestore.data = {}; mFirestore.path = []; mFirestore.queries = []; },
+    isQueryingDoc: false,
+    isTransaction: false,
 }
 
 const firestore = () => mFirestore;

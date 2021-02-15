@@ -17,3 +17,9 @@ exports.studies = functions.https.onRequest(switchFunc(context));
 
 const remindersRunner = require("./src/reminders-runner.js");
 exports.remindersRunner = functions.pubsub.schedule("*/30 * * * *").onRun(remindersRunner(context));
+
+// ***** Cloud Trigger Functions ******
+
+const { onCreateStudy, onDeleteStudy } = require("./src/notification-triggers.js");
+exports.createStudyTrigger = functions.firestore.document("studies/{studyId}").onCreate(onCreateStudy(context));
+exports.deleteStudyTrigger = functions.firestore.document("studies/{studyId}").onDelete(onDeleteStudy(context));
