@@ -20,6 +20,11 @@ exports.remindersRunner = functions.pubsub.schedule("*/30 * * * *").onRun(remind
 
 // ***** Cloud Trigger Functions ******
 
-const { onCreateStudy, onDeleteStudy } = require("./src/notification-triggers.js");
-exports.createStudyTrigger = functions.firestore.document("studies/{studyId}").onCreate(onCreateStudy(context));
-exports.deleteStudyTrigger = functions.firestore.document("studies/{studyId}").onDelete(onDeleteStudy(context));
+const { onCreateStudy, onDeleteStudy, onNewParticipant } = require("./src/notification-triggers.js");
+exports.createStudyTrigger = functions.firestore.document("studies/{studyID}")
+    .onCreate(onCreateStudy(context));
+exports.deleteStudyTrigger = functions.firestore.document("studies/{studyID}")
+    .onDelete(onDeleteStudy(context));
+
+exports.newParticipantTrigger = functions.firestore.document("studies/{studyID}/participants/{participantID}")
+    .onCreate(onNewParticipant(context))

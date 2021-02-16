@@ -8,11 +8,11 @@ const Funcs = require("./notification-triggers");
 
 // describe each function individually
 
-describe("notification-triggers.onCreateStudy", () => {
+describe("notification-triggers onCreateStudy", () => {
     let func;
 
     beforeEach(async () => {
-        func = Funcs.onCreateStudy(context)
+        func = Funcs.onCreateStudy(context);
     });
 
     afterEach(() => {
@@ -24,10 +24,14 @@ describe("notification-triggers.onCreateStudy", () => {
         firestore.data = mFirestore();
         admin.firestore.Timestamp.now.mockReturnValueOnce(1000);
         const newStudy = await firestore.collection('studies').doc("TEST_STUDY").get();
+        const event = mEvent({ studyID: 'TEST_STUDY' })
 
-        await func(newStudy, null);
+        await func(newStudy, event);
 
-        expect(firestore.set).toHaveBeenCalled();
+        expect_or(
+            () => expect(firestore.add).toHaveBeenCalled(),
+            () => expect(firestore.set).toHaveBeenCalled(),
+        );
         const notifications = await firestore
             .collection('researchers').doc('TEST_RESEARCHER_ID')
             .collection('notifications').get();
@@ -41,11 +45,11 @@ describe("notification-triggers.onCreateStudy", () => {
     });
 });
 
-describe("notification-triggers.onDeleteStudy", () => {
+describe("notification-triggers onDeleteStudy", () => {
     let func;
 
     beforeEach(async () => {
-        func = Funcs.onDeleteStudy(context)
+        func = Funcs.onDeleteStudy(context);
     });
 
     afterEach(() => {
@@ -55,12 +59,15 @@ describe("notification-triggers.onDeleteStudy", () => {
 
     it("writes notification", async () => {
         firestore.data = mFirestore();
-        admin.firestore.Timestamp.now.mockReturnValueOnce(1000);
         const deletedStudy = await firestore.collection('studies').doc("TEST_STUDY").get();
+        const event = mEvent({ studyID: 'TEST_STUDY' })
 
-        await func(deletedStudy, null);
+        await func(deletedStudy, event);
 
-        expect(firestore.set).toHaveBeenCalled();
+        expect_or(
+            () => expect(firestore.set).toHaveBeenCalled(),
+            () => expect(firestore.add).toHaveBeenCalled(),
+        );
         const notifications = await firestore
             .collection('researchers').doc('TEST_RESEARCHER_ID')
             .collection('notifications').get();
@@ -68,8 +75,41 @@ describe("notification-triggers.onDeleteStudy", () => {
     });
 });
 
+describe("notification-triggers onNewParticipant", () => {
+    let func;
+
+    beforeEach(async () => {
+        func = Funcs.onNewParticipant(context);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+        firestore.reset();
+    });
+
+    it("writes notifications", async () => {
+        firestore.data = mFirestore();
+        const newParticipant = await firestore
+            .collection('studies').doc('TEST_STUDY')
+            .collection('participants').doc('TEST_PARTICIPANT_ID').get();
+        const event = mEvent({ studyID: 'TEST_STUDY', participantID: 'TEST_PARTICIPANT_ID' });
+
+        await func(newParticipant, event);
+
+        expect_or(
+            () => expect(firestore.set).toHaveBeenCalled(),
+            () => expect(firestore.add).toHaveBeenCalled(),
+        );
+        const notifications = await firestore
+            .collection('researchers').doc('TEST_RESEARCHER_ID')
+            .collection('notifications').get();
+        expect(notifications.empty).toBe(false);
+    })
+});
 
 
+
+// default firestore data mock
 const mFirestore = () => ({
     collection: {
         // studies firestore collection
@@ -78,6 +118,14 @@ const mFirestore = () => ({
                 nctID: "TEST_STUDY",
                 researcher: {
                     id: "TEST_RESEARCHER_ID",
+                },
+                collection: {
+                    "participants": {
+                        "TEST_PARTICIPANT_ID": {
+                            fakename: "TEST_FAKE_NAME",
+                            status: "accepted",
+                        }
+                    },
                 }
             }
         },
@@ -98,4 +146,21 @@ const mFirestore = () => ({
             }
         },
     }
+});
+
+const mEvent = (params = {}) => ({
+    eventId: 'TEST_EVENT_ID',
+    timestamp: "2021-02-16T16:15:13.259Z",
+    eventType: 'TEST_EVENT_TYPE',
+    params: params,
 })
+
+// jest utility func for expecting one of multiple conditions
+function expect_or(...tests) {
+    try {
+        tests.shift()();
+    } catch (e) {
+        if (tests.length) expect_or(...tests);
+        else throw e;
+    }
+}

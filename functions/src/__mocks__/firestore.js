@@ -57,10 +57,23 @@ const mFirestore = {
         mFirestore.isQueryingDoc = true;
         return mFirestore;
     }),
+    add: jest.fn(async (d, transaction_d) => {
+        let { queries, path, data } = mFirestore;
+        if (mFirestore.isTransaction) d = transaction_d;
+        path.push('0'); // add is for adding random document id
+        queries.push(path);
+
+        while (path.length > 1) {
+            let p = path.shift();
+            if (!data[p]) data[p] = {};
+            data = data[p];
+        }
+        data[path.shift()] = d;
+        path = [];
+    }),
     set: jest.fn(async (d, transaction_d) => {
         let { queries, path, data } = mFirestore;
         if (mFirestore.isTransaction) d = transaction_d;
-        if (!mFirestore.isQueryingDoc) path.push('0'); // if setting on collection
         queries.push(path);
 
         while (path.length > 1) {
