@@ -23,8 +23,8 @@ describe("notification-triggers onCreateStudy", () => {
     it("writes notification", async () => {
         firestore.data = mFirestore();
         admin.firestore.Timestamp.now.mockReturnValueOnce(1000);
-        const newStudy = await firestore.collection('studies').doc("TEST_STUDY").get();
-        const event = mEvent({ studyID: 'TEST_STUDY' })
+        const newStudy = await firestore.collection("studies").doc("TEST_STUDY").get();
+        const event = mEvent({ studyID: "TEST_STUDY" })
 
         await func(newStudy, event);
 
@@ -33,8 +33,8 @@ describe("notification-triggers onCreateStudy", () => {
             () => expect(firestore.set).toHaveBeenCalled(),
         );
         const notifications = await firestore
-            .collection('researchers').doc('TEST_RESEARCHER_ID')
-            .collection('notifications').get();
+            .collection("researchers").doc("TEST_RESEARCHER_ID")
+            .collection("notifications").get();
         expect(notifications.empty).toBe(false);
         const notification = notifications[0].data();
         expect(notification.time).toBe(1000);
@@ -59,8 +59,8 @@ describe("notification-triggers onDeleteStudy", () => {
 
     it("writes notification", async () => {
         firestore.data = mFirestore();
-        const deletedStudy = await firestore.collection('studies').doc("TEST_STUDY").get();
-        const event = mEvent({ studyID: 'TEST_STUDY' })
+        const deletedStudy = await firestore.collection("studies").doc("TEST_STUDY").get();
+        const event = mEvent({ studyID: "TEST_STUDY" })
 
         await func(deletedStudy, event);
 
@@ -69,8 +69,8 @@ describe("notification-triggers onDeleteStudy", () => {
             () => expect(firestore.add).toHaveBeenCalled(),
         );
         const notifications = await firestore
-            .collection('researchers').doc('TEST_RESEARCHER_ID')
-            .collection('notifications').get();
+            .collection("researchers").doc("TEST_RESEARCHER_ID")
+            .collection("notifications").get();
         expect(notifications.empty).toBe(false);
     });
 });
@@ -90,9 +90,9 @@ describe("notification-triggers onNewParticipant", () => {
     it("writes notifications", async () => {
         firestore.data = mFirestore();
         const newParticipant = await firestore
-            .collection('studies').doc('TEST_STUDY')
-            .collection('participants').doc('TEST_PARTICIPANT_ID').get();
-        const event = mEvent({ studyID: 'TEST_STUDY', participantID: 'TEST_PARTICIPANT_ID' });
+            .collection("studies").doc("TEST_STUDY")
+            .collection("participants").doc("TEST_PARTICIPANT_ID").get();
+        const event = mEvent({ studyID: "TEST_STUDY", participantID: "TEST_PARTICIPANT_ID" });
 
         await func(newParticipant, event);
 
@@ -101,8 +101,8 @@ describe("notification-triggers onNewParticipant", () => {
             () => expect(firestore.add).toHaveBeenCalled(),
         );
         const notifications = await firestore
-            .collection('researchers').doc('TEST_RESEARCHER_ID')
-            .collection('notifications').get();
+            .collection("researchers").doc("TEST_RESEARCHER_ID")
+            .collection("notifications").get();
         expect(notifications.empty).toBe(false);
     })
 });
@@ -149,9 +149,9 @@ const mFirestore = () => ({
 });
 
 const mEvent = (params = {}) => ({
-    eventId: 'TEST_EVENT_ID',
+    eventId: "TEST_EVENT_ID",
     timestamp: "2021-02-16T16:15:13.259Z",
-    eventType: 'TEST_EVENT_TYPE',
+    eventType: "TEST_EVENT_TYPE",
     params: params,
 })
 
