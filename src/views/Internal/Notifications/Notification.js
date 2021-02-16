@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import styled from "styled-components";
 
-import { Box, Flex, Heading, Text, Icon } from "@chakra-ui/react";
+import { Box, Flex, Tooltip, Text, Icon } from "@chakra-ui/react";
 import { FaCertificate, FaStopwatch, FaUser, FaComment } from "react-icons/fa";
 
 function Notification({ notification }) {
@@ -43,12 +43,16 @@ function Notification({ notification }) {
       </div>
       <Box width="100%" ml="4px">
         <Flex justify="space-between" align="center">
-          <Heading size="sm">{notification.title}</Heading>
-          <Text fontSize="xs" color="gray.400">
-            {moment(notification.time).format("LL")}
+          <Text size="sm" fontWeight="600">
+            {notification.title}
           </Text>
+          <Tooltip label={moment(notification.time).format("LL")}>
+            <Text cursor="pointer" fontSize="xs" color="gray.400">
+              {moment(notification.time).fromNow()}
+            </Text>
+          </Tooltip>
         </Flex>
-        <Text fontSize="md" color="gray.500">
+        <Text fontSize="sm" color="gray.500">
           {notification.description}
         </Text>
       </Box>

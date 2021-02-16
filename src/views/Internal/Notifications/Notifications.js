@@ -2,21 +2,26 @@ import React, { useState, useEffect } from "react";
 
 import { auth, firestore } from "database/firebase";
 
-import { Heading, Box, Button, Flex, Grid } from "@chakra-ui/react";
+import { Heading, Box, Text, Button, Flex } from "@chakra-ui/react";
 import { Loader, Message } from "components";
 import Notification from "./Notification";
 
 function Notifications() {
-  const numberOfNotificationsShown = 10;
   const { uid } = auth.currentUser;
   const [notifications, setNotifications] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [fetchedAll, setFetchedAll] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState("");
 
   const handleFetchAdditional = async () => {
+    const NOTIFICATIONS_PER_REQUEST = 10;
+
     const lastDoc = documents.length && notifications.length ? documents[documents.length - 1] : "";
+
+    setLoading(true);
+
     try {
       const snapshot = await firestore
         .collection("researchers")
@@ -24,28 +29,36 @@ function Notifications() {
         .collection("notifications")
         .orderBy("time", "desc")
         .startAfter(lastDoc)
-        .limit(numberOfNotificationsShown)
+        .limit(NOTIFICATIONS_PER_REQUEST)
         .get();
+
       const collections = [];
       const docs = [];
-      snapshot.forEach((doc) => collections.push({ id: doc.id, ...doc.data() }));
+
+      snapshot.forEach((doc) => {
+        docs.push(doc);
+        collections.push({ id: doc.id, ...doc.data() });
+      });
+
       setNotifications((prev) => prev.concat(collections));
-      snapshot.forEach((doc) => docs.push(doc));
       setDocuments((prev) => prev.concat(docs));
-      if (collections.length < numberOfNotificationsShown) {
+
+      if (docs.length < NOTIFICATIONS_PER_REQUEST) {
         setFetchedAll(true);
       }
     } catch (e) {
       setError(e);
     }
+
     setLoading(false);
+    setInitialLoading(false);
   };
 
   useEffect(() => {
     handleFetchAdditional();
   }, []);
 
-  if (loading) return <Loader />;
+  if (initialLoading) return <Loader />;
   if (error) return <div>Error :(</div>;
 
   return (
@@ -53,37 +66,39 @@ function Notifications() {
       <Heading size="lg" mb="25px">
         Notifications
       </Heading>
-
-      {notifications && notifications.length ? (
-        <Grid gap="20px">
-          <Box borderWidth="1px" rounded="md" bg="white">
-            {notifications.map((notification, index) => (
-              <Notification key={index} notification={notification} />
-            ))}
+      <Box>
+        {notifications && notifications.length ? (
+          <Box>
+            <Box borderWidth="1px" rounded="md" bg="white">
+              {notifications.map((notification, index) => (
+                <Notification key={index} notification={notification} />
+              ))}
+            </Box>
+            <Flex p="20px" justify="center">
+              {fetchedAll ? (
+                <Text color="gray.400">Showing all notifications</Text>
+              ) : (
+                <Button
+                  size="sm"
+                  isLoading={loading}
+                  loadingText="Loading..."
+                  onClick={handleFetchAdditional}
+                >
+                  Load more
+                </Button>
+              )}
+            </Flex>
           </Box>
-          <Flex justify="center" align="center">
-            {fetchedAll ? (
-              <></>
-            ) : (
-              <Button
-                isLoading={loading}
-                loadingText="Fetching notifications..."
-                onClick={handleFetchAdditional}
-              >
-                Load more notifications
-              </Button>
-            )}
-          </Flex>
-        </Grid>
-      ) : (
-        <Box h="500px">
-          <Message
-            type="neutral"
-            title="Nothing to show"
-            description="You do not have any notifications right now"
-          />
-        </Box>
-      )}
+        ) : (
+          <Box h="500px" borderWidth="1px" rounded="md" bg="white">
+            <Message
+              type="neutral"
+              title="Nothing to show"
+              description="You do not have any notifications right now"
+            />
+          </Box>
+        )}
+      </Box>
     </>
   );
 }
