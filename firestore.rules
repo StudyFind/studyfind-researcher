@@ -28,7 +28,7 @@ service cloud.firestore {
         // allow create by participant
 
         match /notes/{noteID} {
-          allow read, write: if resource.data.researcher.id == request.auth.uid
+          allow read, write: if getStudyData(studyID).researcher.id == request.auth.uid
         }
     	}
     }
