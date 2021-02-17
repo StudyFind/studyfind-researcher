@@ -23,12 +23,12 @@ exports.remindersRunner = functions.pubsub.schedule("*/30 * * * *").onRun(remind
 const {
     onCreateStudy, onDeleteStudy,
     onNewParticipant,
-    onCreateAccount } = require("./src/notification-triggers.js");
+    onCreateResearcherAccount } = require("./src/notification-triggers.js");
 exports.createStudyNotificationTrigger = functions.firestore.document("studies/{studyID}")
     .onCreate(onCreateStudy(context));
 exports.deleteStudyNotificationTrigger = functions.firestore.document("studies/{studyID}")
     .onDelete(onDeleteStudy(context));
 exports.newParticipantNotificationTrigger = functions.firestore.document("studies/{studyID}/participants/{participantID}")
     .onCreate(onNewParticipant(context));
-exports.newAccountNotificationTrigger = functions.auth.user()
-    .onCreate(onCreateAccount(context));
+exports.newResearcherAccountNotificationTrigger = functions.firestore.document("researchers/{researcherID}")
+    .onCreate(onCreateResearcherAccount(context));

@@ -39,6 +39,14 @@ const filter = (subject, verb, object) => {
     })
 }
 
+// utility for making firebase-like snapshots
+const makeSnapshot = (d, id) => ({
+    id,
+    exists: !!d,
+    data: () => d,
+    get: (k) => d[k],
+});
+
 const mFirestore = {
     // actually present methods
     collection: jest.fn(c => {
@@ -99,18 +107,19 @@ const mFirestore = {
     get: jest.fn(async () => {
         mFirestore.queries.push(mFirestore.path);
         const data = mFirestore.path.reduce((d, p) => typeof p === "function" ? p(d) : d[p], mFirestore.data); // individual path elem might be a filter function
-        mFirestore.path = []
+        const id = mFirestore.path[mFirestore.path.length - 1];
+        mFirestore.path = [];
         // if querying single doc, easy peasy
         if (mFirestore.isQueryingDoc) {
             let d = { ...data }
             delete d.collection;
-            return { exists: !!d, data: () => d };
+            return makeSnapshot(d, id);
         }
         // if querying collection, need to convert to array too
         let snapshots = Object.keys(data).map(k => {
             let d = { ...data[k] };
             delete d.collection;
-            return { id: k, data: () => d }
+            return makeSnapshot(d, k)
         });
         snapshots.empty = snapshots.length === 0;
         return snapshots

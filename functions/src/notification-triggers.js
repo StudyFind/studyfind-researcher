@@ -59,6 +59,10 @@ module.exports.onNewParticipant = ({ admin }) => async (snapshot, context) => {
 };
 
 
-module.exports.onCreateAccount = ({ admin }) => async (user) => {
+module.exports.onCreateResearcherAccount = ({ admin }) => async (snapshot, context) => {
+    const firestore = admin.firestore();
+    const { researcherID } = context.params;
+
+
     logger.error("onCreateAccount not implemented yet");
 };
