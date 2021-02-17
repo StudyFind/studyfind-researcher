@@ -46,14 +46,14 @@ module.exports.onNewParticipant = ({ admin }) => async (snapshot, context) => {
 
     const studySnapshot = await firestore
         .collection("studies").doc(studyID).get();
-    const study = studySnapshot.data();
-    const participant = snapshot.data();
+    const researcher = studySnapshot.get('researcher');
+    const fakeName = snapshot.get('fakeName');
     return firestore
-        .collection("researchers").doc(study.researcher.id)
+        .collection("researchers").doc(researcher.id)
         .collection("notifications").add({
             ...defaults(admin),
             title: "New Participant",
-            description: `Your study with id ${studyID} got a new participant, ${participant.fakeName}.`,
+            description: `Your study with id ${studyID} got a new participant, ${fakeName}.`,
             type: context.eventType,
         });
 };
@@ -63,6 +63,12 @@ module.exports.onCreateResearcherAccount = ({ admin }) => async (snapshot, conte
     const firestore = admin.firestore();
     const { researcherID } = context.params;
 
-
-    logger.error("onCreateAccount not implemented yet");
+    return firestore
+        .collection('researchers').doc(researcherID)
+        .collection('notifications').add({
+            ...defaults(admin),
+            title: 'Account Created',
+            description: 'This is your first notification. Your account has been created!',
+            type: context.eventType,
+        });
 };

@@ -107,7 +107,37 @@ describe("notification-triggers onNewParticipant", () => {
     })
 });
 
+describe("notification-triggers onCreateResearcherAccount", () => {
+    let func;
 
+    beforeEach(async () => {
+        func = Funcs.onCreateResearcherAccount(context);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+        firestore.reset();
+    });
+
+    it("writes notifications", async () => {
+        firestore.data = mFirestore();
+        const newResearcher = await firestore
+            .collection('researchers').doc('TEST_RESEARCHER_ID')
+            .get();
+        const event = mEvent({ researcherID: "TEST_RESEARCHER_ID" });
+
+        await func(newResearcher, event);
+
+        expect_or(
+            () => expect(firestore.set).toHaveBeenCalled(),
+            () => expect(firestore.add).toHaveBeenCalled(),
+        );
+        const notifications = await firestore
+            .collection("researchers").doc("TEST_RESEARCHER_ID")
+            .collection("notifications").get();
+        expect(notifications.empty).toBe(false);
+    });
+});
 
 // default firestore data mock
 const mFirestore = () => ({
