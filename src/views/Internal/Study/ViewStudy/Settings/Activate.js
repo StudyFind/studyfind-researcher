@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Text, Switch, Badge, Box, Flex } from "@chakra-ui/react";
+import { Heading, Text, Switch, Badge, Box, Flex, Tooltip } from "@chakra-ui/react";
 import { updateStudy } from "database/studies";
 
 function Activate({ study }) {
@@ -30,12 +30,18 @@ function Activate({ study }) {
         &nbsp;prevents participants from enrolling.
       </Text>
 
-      <Switch
-        size="lg"
-        isDisabled={!study.published}
-        isChecked={study.activated}
-        onChange={handleToggle}
-      />
+      <Tooltip
+        label={!study.published && "Your study must be published before you can activate it"}
+      >
+        <Box display="inline">
+          <Switch
+            size="lg"
+            isDisabled={!study.published}
+            isChecked={study.activated}
+            onChange={handleToggle}
+          />
+        </Box>
+      </Tooltip>
     </Box>
   );
 }
