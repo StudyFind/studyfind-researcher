@@ -1,14 +1,6 @@
 // functions/src/reminders-runner.js
 const { logger } = require("firebase-functions");
-
-/**
- * convert timestamp into 30-min-interval offset from beginning of week
- * ((now % 1000*60*60*24*7) / 1000*60*30) * 1000*60*30
- * ((now % week in milliseconds) / 30 min standard) * 30 min standard
- * @param {number} now current timestamp
- */
-const getCurrentOffset = (now) => Math.floor((now % 604800000) / 1800000) * 1800000;
-
+const getOffset = require("./utils/offset-time");
 
 /**
  * Perform a given async action for each reminder currently pending being sent
@@ -17,7 +9,7 @@ const getCurrentOffset = (now) => Math.floor((now % 604800000) / 1800000) * 1800
  * @param {firestore} firestore firestore ref
  */
 const forEachPendingReminder = async (now, fn, firestore) => {
-	const offset = getCurrentOffset(now)
+	const offset = getOffset(now);
 	const remindersData = await firestore.collection("reminders")
 		.where("times", "array-contains", offset)
 		// .where("startDate", "<=", now)
@@ -26,9 +18,9 @@ const forEachPendingReminder = async (now, fn, firestore) => {
 	if (remindersData.empty) return [];
 
 	let reminders = [];
-	remindersData.forEach(r => reminders.push(r))
-	reminders = reminders.filter(r => r.data().startDate <= now)
-	return Promise.allSettled(reminders.map(fn))
+	remindersData.forEach(r => reminders.push(r));
+	reminders = reminders.filter(r => r.data().startDate <= now);
+	return Promise.allSettled(reminders.map(fn));
 }
 
 
@@ -64,7 +56,7 @@ module.exports = ({ admin }) => async () => {
 			if (!participant.exists) throw Error(`Participant ${r.participant} from study ${r.study} not found`);
 			const data = participant.data();
 
-			// update their notifications
+			// update their reminders
 			await t.update(
 				firestore.collection("studies").doc(r.study).collection("participants").doc(r.participant),
 				{ currentReminders: data.currentReminders ? data.currentReminders.concat(r.text) : [r.text] }
