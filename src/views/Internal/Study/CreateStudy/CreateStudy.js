@@ -12,7 +12,7 @@ function CreateStudy({ studies }) {
   const [redirect, setRedirect] = useState();
 
   const { nctID, tab } = useParams();
-  const tabs = ["details", "eligibility", "consent", "review"];
+  const tabs = ["details", "eligibility", "review"];
   const study = studies.find((study) => study.id === nctID) || {};
 
   useEffect(() => {
