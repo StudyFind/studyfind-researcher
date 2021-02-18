@@ -1,4 +1,4 @@
-// functions/src/meeting-notification-runner.js
+// functions/src/meeting-runner.js
 const { logger } = require("firebase-functions");
 const getOffset = require("./utils/offset-time");
 
@@ -11,7 +11,7 @@ const getOffset = require("./utils/offset-time");
 const forEachScheduledMeeting = async (now, fn, firestore) => {
 	const offset = getOffset(now);
 	const meetingsData = await firestore.collection('meetings')
-		.where("time", "=", offset)
+		.where("time", "==", offset)
 		.get();
 	if (meetingsData.empty) return [];
 
@@ -53,7 +53,7 @@ module.exports = ({ admin }) => async () => {
 
 		// get referenced study researcher id
 		const studySnap = await firestore.collection("studies").doc(m.studyID).get();
-		if (!study.exists)
+		if (!studySnap.exists)
 			throw Error(`Study ${m.studyID} referenced does not exist`);
 		const researcher = studySnap.get('researcher');
 

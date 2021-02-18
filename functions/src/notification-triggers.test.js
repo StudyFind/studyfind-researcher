@@ -5,7 +5,6 @@ const context = { admin };
 const Funcs = require("./notification-triggers");
 
 
-
 // describe each function individually
 
 describe("notification-triggers onCreateStudy", () => {
@@ -183,7 +182,7 @@ const mEvent = (params = {}) => ({
     timestamp: "2021-02-16T16:15:13.259Z",
     eventType: "TEST_EVENT_TYPE",
     params: params,
-})
+});
 
 // jest utility func for expecting one of multiple conditions
 function expect_or(...tests) {

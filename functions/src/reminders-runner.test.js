@@ -93,7 +93,7 @@ describe("reminders-runner", () => {
         const study = await firestore.collection("studies").doc("TEST_STUDY_ID").get();
         expect(study.exists).toBe(true);
         const studyData = study.data()
-        expect(studyData.nctID).toBe("NCT000");
+        expect(studyData.nctID).toBe("TEST_STUDY_ID");
 
         const participant = await firestore.collection("studies").doc("TEST_STUDY_ID")
             .collection("participants").doc("TEST_PARTICIPANT_ID").get();
@@ -158,7 +158,7 @@ const mFirestore = () => ({
     collection: {
         studies: {
             "TEST_STUDY_ID": {
-                nctID: "NCT000",
+                nctID: "TEST_STUDY_ID",
                 collection: {
                     participants: {
                         "TEST_PARTICIPANT_ID": {

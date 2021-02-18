@@ -28,6 +28,9 @@ const filter = (subject, verb, object) => {
         '>=': d => d[subject] >= object,
         'array-contains': d => d[subject].some(item => item == object),
     }[verb];
+    if (conditionFunction == undefined) {
+        throw new Error(`"${verb}" is not a valid condition`)
+    }
 
     return (data => {
         // console.log(`filtering ${subject} ${verb} ${object} on:`, data)
