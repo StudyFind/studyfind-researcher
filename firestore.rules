@@ -40,8 +40,8 @@ service cloud.firestore {
       allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
     }
 
-    match /meetings/{meetingsID} {
-    	allow read: if true
+    match /meetings/{meetingID} {
+    	allow read: if request.auth.uid == resource.data.participantID || request.auth.uid == resource.data.researcherID
       allow create: if request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
       allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
     }
