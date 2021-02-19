@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useAuthForm } from "hooks";
 import { signup } from "database/auth";
@@ -28,7 +28,7 @@ function Login({ setTab }) {
         description: (
           <>
             Click{" "}
-            <a href="" onClick={handleRedirect}>
+            <a onClick={handleRedirect}>
               <Text display="inline" fontWeight="700" textDecoration="underline">
                 here
               </Text>
