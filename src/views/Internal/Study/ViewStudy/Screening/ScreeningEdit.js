@@ -4,7 +4,7 @@ import { Heading, Button, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
 
-function EligibilityEdit({
+function ScreeningEdit({
   original,
   questions,
   handleCancel,
@@ -42,7 +42,7 @@ function EligibilityEdit({
   return (
     <>
       <Head>
-        <Heading fontSize="28px">Edit Eligibility</Heading>
+        <Heading fontSize="28px">Edit Screening</Heading>
         <Buttons>
           <Button
             colorScheme=""
@@ -99,4 +99,4 @@ const Buttons = styled.div`
   grid-gap: 10px;
 `;
 
-export default EligibilityEdit;
+export default ScreeningEdit;

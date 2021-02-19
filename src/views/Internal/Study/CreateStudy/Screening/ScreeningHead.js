@@ -1,7 +1,7 @@
 import React from "react";
 import { Heading, Text } from "@chakra-ui/react";
 
-function EligibilityHead() {
+function ScreeningHead() {
   return (
     <>
       <Heading size="lg" mb="10px">
@@ -18,4 +18,4 @@ function EligibilityHead() {
   );
 }
 
-export default EligibilityHead;
+export default ScreeningHead;
