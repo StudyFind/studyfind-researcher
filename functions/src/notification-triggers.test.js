@@ -121,7 +121,7 @@ describe("notification-triggers onCreateResearcherAccount", () => {
     it("writes notifications", async () => {
         firestore.data = mFirestore();
         const newResearcher = await firestore
-            .collection('researchers').doc('TEST_RESEARCHER_ID')
+            .collection("researchers").doc("TEST_RESEARCHER_ID")
             .get();
         const event = mEvent({ researcherID: "TEST_RESEARCHER_ID" });
 

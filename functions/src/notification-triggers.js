@@ -46,8 +46,8 @@ module.exports.onNewParticipant = ({ admin }) => async (snapshot, context) => {
 
     const studySnapshot = await firestore
         .collection("studies").doc(studyID).get();
-    const researcher = studySnapshot.get('researcher');
-    const fakeName = snapshot.get('fakeName');
+    const researcher = studySnapshot.get("researcher");
+    const fakeName = snapshot.get("fakeName");
     return firestore
         .collection("researchers").doc(researcher.id)
         .collection("notifications").add({
@@ -64,11 +64,11 @@ module.exports.onCreateResearcherAccount = ({ admin }) => async (snapshot, conte
     const { researcherID } = context.params;
 
     return firestore
-        .collection('researchers').doc(researcherID)
-        .collection('notifications').add({
+        .collection("researchers").doc(researcherID)
+        .collection("notifications").add({
             ...defaults(admin),
-            title: 'Account Created',
-            description: 'This is your first notification. Your account has been created!',
+            title: "Account Created",
+            description: "This is your first notification. Your account has been created!",
             type: context.eventType,
         });
 };

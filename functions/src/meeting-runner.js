@@ -10,7 +10,7 @@ const getOffset = require("./utils/offset-time");
  */
 const forEachScheduledMeeting = async (now, fn, firestore) => {
 	const offset = getOffset(now);
-	const meetingsData = await firestore.collection('meetings')
+	const meetingsData = await firestore.collection("meetings")
 		.where("time", "==", offset)
 		.get();
 	if (meetingsData.empty) return [];
@@ -44,9 +44,9 @@ module.exports = ({ admin }) => async () => {
 		// build notification
 		const m = snap.data();
 		const notification = {
-			title: 'Meeting Happening Now!',
-			description: 'You have a pending meeting',
-			type: 'Meeting',
+			title: "Meeting Happening Now!",
+			description: "You have a pending meeting",
+			type: "Meeting",
 			time: now,
 			read: false,
 		}
@@ -55,11 +55,11 @@ module.exports = ({ admin }) => async () => {
 		const studySnap = await firestore.collection("studies").doc(m.studyID).get();
 		if (!studySnap.exists)
 			throw Error(`Study ${m.studyID} referenced does not exist`);
-		const researcher = studySnap.get('researcher');
+		const researcher = studySnap.get("researcher");
 
 		// update researcher / participant notifications
-		firestore.collection("researchers").doc(researcher.id).collection('notifications').add(notification);
-		firestore.collection('participants').doc(m.participantID).collection('notifications').add(notification);
+		firestore.collection("researchers").doc(researcher.id).collection("notifications").add(notification);
+		firestore.collection("participants").doc(m.participantID).collection("notifications").add(notification);
 
 		return true;
 	}, firestore);

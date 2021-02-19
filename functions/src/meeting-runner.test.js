@@ -24,6 +24,10 @@ describe("meeting-runner", () => {
 
         expect(firestore.collection).toHaveBeenCalled();
         expect(firestore.get).toHaveBeenCalled();
+        expect_or(
+            () => expect(firestore.set).toHaveBeenCalled(),
+            () => expect(firestore.add).toHaveBeenCalled(),
+        );
     });
 
     it("creates a researcher notification", async () => {
@@ -56,7 +60,12 @@ describe("meeting-runner", () => {
 
         await func();
 
-        expect(firestore.add).toHaveBeenCalled();
+        const snap = await firestore
+            .collection("participants").doc("TEST_PARTICIPANT_ID")
+            .collection("notifications").get();
+        expect(snap.empty).toBe(false);
+        const notification = snap[0].data();
+        expect(notification.time).toBe(1000*60*35); // preserve time
     });
 
 });
@@ -88,3 +97,14 @@ const mFirestore = () => ({
         }
     }
 });
+
+
+// jest utility func for expecting one of multiple conditions
+function expect_or(...tests) {
+    try {
+        tests.shift()();
+    } catch (e) {
+        if (tests.length) expect_or(...tests);
+        else throw e;
+    }
+};
