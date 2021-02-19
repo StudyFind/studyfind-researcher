@@ -1,19 +1,19 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-  	match /researchers/{userID} {
-    	allow read, write: if userID == request.auth.uid
+  	match /researchers/{researcherID} {
+    	allow read, write: if researcherID == request.auth.uid
 
       match /notifications/{notificationID} {
-      	allow read: if userID == request.auth.uid
+      	allow read: if researcherID == request.auth.uid
       }
     }
 
-    match /researchers/{userID} {
-    	allow read, write: if userID == request.auth.uid
+    match /participants/{participantID} {
+    	allow read, write: if participantID == request.auth.uid
 
       match /notifications/{notificationID} {
-      	allow read: if userID == request.auth.uid
+      	allow read: if participantID == request.auth.uid
       }
     }
 
