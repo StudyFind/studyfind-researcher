@@ -15,8 +15,12 @@ exports.studies = functions.https.onRequest(switchFunc(context));
 // ***** Cron Functions *****
 // note, these will not work in emulator. Automatic testing is paramount
 
-const remindersRunner = require("./src/reminders-runner.js");
-exports.remindersRunner = functions.pubsub.schedule("*/30 * * * *").onRun(remindersRunner(context));
+const remindersRunner = require("./src/reminders-runner.js")(context);
+const meetingRunner = require("./src/meeting-runner")(context);
+exports.remindersRunner = functions.pubsub.schedule("*/30 * * * *").onRun(async () => await Promise.allSettled([
+    remindersRunner(),
+    meetingRunner(),
+]));
 
 // ***** Cloud Trigger Functions ******
 
