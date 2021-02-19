@@ -9,7 +9,7 @@ import StudyCardSmall from "views/Internal/StudyCardSmall";
 function DashboardGrid({ studies }) {
   return (
     <>
-      <Flex mb="25px" justify="space-between" align="center">
+      <Flex justify="space-between" align="center" mb="25px">
         <Heading size="lg">Dashboard</Heading>
         <Link to="/fetch">
           <Button leftIcon={<FaPlus />} colorScheme="blue">

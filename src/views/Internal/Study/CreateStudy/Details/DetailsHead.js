@@ -5,7 +5,7 @@ function DetailsHead() {
   return (
     <>
       <Heading size="lg" mb="10px">
-        Modifying Title and Description
+        Title and Description
       </Heading>
       <Text mb="10px" color="gray.500">
         StudyFind strives to make research studies as accessible as possible. To achieve this, we

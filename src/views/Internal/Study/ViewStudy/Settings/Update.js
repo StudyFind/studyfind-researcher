@@ -24,8 +24,8 @@ function Update({ study }) {
         <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
           clinicaltrials.gov
         </Link>{" "}
-        and amend the study data in StudyFind accordingly. This action will not overwrite your
-        edited study title, description and survey questions.
+        since the study was last updated and update the study in StudyFind accordingly. This action
+        will not overwrite your edited study title, description and screening survey questions.
       </Text>
       <Flex mt="16px" mb="8px">
         <Text color="black" fontWeight="500">

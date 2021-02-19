@@ -13,8 +13,8 @@ function WelcomeList({ studies }) {
           clinicaltrials.gov
         </Link>{" "}
         that match the email associated with your StudyFind account. Please accept or remove them
-        based on whether you want to add them to your StudyFind account. You can always add studies
-        to your account in the future using their NCT ID.
+        based on whether you want them to be added to your StudyFind account. You can always add
+        studies to your account in the future using their NCT ID.
       </Text>
       <List>
         {studies.map((study, index) => (
