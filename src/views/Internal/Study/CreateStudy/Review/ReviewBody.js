@@ -1,25 +1,15 @@
 import React, { useRef, useState } from "react";
 import { updateStudy, deleteStudy } from "database/studies";
-import StudyCardLarge from "views/Internal/StudyCardLarge";
 
-import {
-  Flex,
-  Button,
-  useToast,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-} from "@chakra-ui/react";
+import { Confirm } from "components";
+import { Flex, Button, useToast } from "@chakra-ui/react";
+import StudyCardLarge from "views/Internal/StudyCardLarge";
 
 function ReviewBody({ study, next }) {
   const toast = useToast();
   const [publishLoading, setPublishLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const cancelRef = useRef();
+  const [open, setOpen] = useState(false);
 
   const handlePublishNow = () => {
     setPublishLoading(true);
@@ -50,13 +40,11 @@ function ReviewBody({ study, next }) {
       .finally(() => setPublishLoading(false));
   };
 
-  const handleConfirm = () => {};
-
   const handlePublishLater = () => {
     toast({
       title: "Study Created!",
       description:
-        "Your study was created but is yet to be published for participants to view and enroll. Please make all necessary changes to the study before publishing, as the study title, description, and eligibility cannot be changed after the study is published.",
+        "Your study was created but is yet to be published for participants to view and enroll. Please make all necessary changes to the study before publishing, as the study title, description, and screening survey cannot be changed after the study is published.",
       status: "info",
       duration: 2500,
       isClosable: true,
@@ -111,54 +99,35 @@ function ReviewBody({ study, next }) {
           colorScheme="blue"
           onClick={handlePublishLater}
           isDisabled={deleteLoading || publishLoading}
-          isLoading={publishLoading}
           loadingText="Publishing"
         >
           Publish Later
         </Button>
         <Button
           colorScheme="green"
-          onClick={() => setIsOpen(true)}
+          onClick={() => setOpen(true)}
           isDisabled={deleteLoading || publishLoading}
-          isLoading={publishLoading}
-          loadingText="Publishing"
         >
           Publish Now
         </Button>
       </Flex>
-
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={() => setIsOpen(false)}
-        size="lg"
+      <Confirm
+        title="Publish Study"
+        buttonText="Publish"
+        loading={publishLoading}
+        loadingText="Publishing"
+        color="green"
+        open={open}
+        setOpen={setOpen}
+        handleConfirm={handlePublishNow}
       >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Publish Study
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              Are you sure you want to publish study <b>{study.id}</b>?
-              <br />
-              <br />
-              You cannot edit the study title, description and eligibility criteria once it is
-              published. If you would like to publish the study in the future, you may select
-              <b> Publish Later </b> instead.
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
-                Cancel
-              </Button>
-              <Button colorScheme="green" onClick={handleConfirm} ml={3} isLoading={publishLoading}>
-                Publish
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+        Are you sure you want to publish study <b>{study.id}</b>?
+        <br />
+        <br />
+        Once the study is published, you will not be able to edit the study title, description, and
+        screening survey. If you would like to publish the study in the future, you may want to
+        select <b>Publish Later</b> instead.
+      </Confirm>
     </>
   );
 }
