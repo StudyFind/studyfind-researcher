@@ -9,9 +9,11 @@ function DetailsView({ study, setEdit }) {
     <>
       <Head>
         <Heading fontSize="28px">Details</Heading>
-        <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Details
-        </Button>
+        {!study.published && (
+          <Button colorScheme="blue" onClick={() => setEdit(true)}>
+            Edit Details
+          </Button>
+        )}
       </Head>
       <StudyCardLarge study={study} />
     </>

@@ -4,14 +4,16 @@ import styled from "styled-components";
 import { Box, Flex, Heading, Button, Tag, Text } from "@chakra-ui/react";
 import { Message } from "components";
 
-function EligibilityView({ questions, setEdit }) {
+function EligibilityView({ study, setEdit }) {
   const BODY = (
     <>
       <Flex justify="space-between" align="center" m="15px 0">
         <Heading fontSize="28px">Eligibility</Heading>
-        <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Eligibility
-        </Button>
+        {!study.published && (
+          <Button colorScheme="blue" onClick={() => setEdit(true)}>
+            Edit Eligibility
+          </Button>
+        )}
       </Flex>
       <Table>
         <thead>
@@ -21,18 +23,19 @@ function EligibilityView({ questions, setEdit }) {
           </tr>
         </thead>
         <tbody>
-          {questions.map((question, index) => (
-            <tr key={index}>
-              <BodyCell nowrap>
-                <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
-                  {question.type}
-                </Tag>
-              </BodyCell>
-              <BodyCell nowrap>
-                <Text color="gray.600">{question.prompt}</Text>
-              </BodyCell>
-            </tr>
-          ))}
+          {study.questions &&
+            study.questions.map((question, index) => (
+              <tr key={index}>
+                <BodyCell nowrap>
+                  <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
+                    {question.type}
+                  </Tag>
+                </BodyCell>
+                <BodyCell nowrap>
+                  <Text color="gray.600">{question.prompt}</Text>
+                </BodyCell>
+              </tr>
+            ))}
         </tbody>
       </Table>
     </>
@@ -52,7 +55,7 @@ function EligibilityView({ questions, setEdit }) {
     </Box>
   );
 
-  return questions.length ? BODY : EMPTY;
+  return study.questions.length ? BODY : EMPTY;
 }
 
 const Table = styled.table`

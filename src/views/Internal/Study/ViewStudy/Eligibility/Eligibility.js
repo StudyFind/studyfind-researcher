@@ -44,7 +44,7 @@ function Eligibility({ study }) {
       handleSubmit={handleSubmit}
     />
   ) : (
-    <EligibilityView questions={questions} setEdit={setEdit} />
+    <EligibilityView study={study} setEdit={setEdit} />
   );
 }
 
