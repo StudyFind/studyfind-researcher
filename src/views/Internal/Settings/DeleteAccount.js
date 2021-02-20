@@ -18,7 +18,8 @@ function ChangePassword() {
     if (success) {
       toast({
         title: "Account Deleted",
-        description: "Your account has been deleted along with all associated information ",
+        description:
+          "Your account has been deleted along with all your user data and research studies.",
         status: "error",
         duration: 2500,
         isClosable: true,
