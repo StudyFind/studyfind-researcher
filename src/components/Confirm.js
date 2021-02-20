@@ -10,7 +10,17 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 
-function Confirm({ title, children, color, loading, open, setOpen, handleConfirm, handleCancel }) {
+function Confirm({
+  title,
+  children,
+  color,
+  buttonText,
+  loading,
+  loadingText,
+  open,
+  setOpen,
+  handleConfirm,
+}) {
   const cancelRef = useRef();
 
   return (
@@ -29,11 +39,17 @@ function Confirm({ title, children, color, loading, open, setOpen, handleConfirm
           <AlertDialogBody>{children}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={() => setOpen(false)}>
+            <Button ref={cancelRef} onClick={() => setOpen(false)} color="gray.500">
               Cancel
             </Button>
-            <Button colorScheme={color} onClick={handleConfirm} ml={3} isLoading={loading}>
-              Publish
+            <Button
+              colorScheme={color}
+              onClick={handleConfirm}
+              ml={3}
+              isLoading={loading}
+              loadingText={loadingText}
+            >
+              {buttonText}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
