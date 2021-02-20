@@ -15,6 +15,7 @@ import Settings from "./Settings/Settings";
 function ViewStudy({ studies }) {
   const { nctID } = useParams();
   const findStudy = () => studies && studies.find((study) => study.id === nctID);
+
   const [study, setStudy] = useState(findStudy());
 
   useEffect(() => {
@@ -22,16 +23,6 @@ function ViewStudy({ studies }) {
       setStudy(findStudy());
     }
   }, [studies]);
-
-  const MISSING = (
-    <Message
-      type="failure"
-      title="Study not found!"
-      description={`The study ${nctID} could not be found in the StudyFind database. Please
-  ensure that it has been successfully created by following all directions in the study
-  creation process.`}
-    />
-  );
 
   const BODY = (
     <Tabs colorScheme="blue" h="100%">
@@ -64,6 +55,16 @@ function ViewStudy({ studies }) {
         </TabPanel>
       </TabPanels>
     </Tabs>
+  );
+
+  const MISSING = (
+    <Message
+      type="failure"
+      title="Study not found!"
+      description={`The study ${nctID} could not be found in the StudyFind database. Please
+  ensure that it has been successfully created by following all directions in the study
+  creation process.`}
+    />
   );
 
   return study ? BODY : MISSING;
