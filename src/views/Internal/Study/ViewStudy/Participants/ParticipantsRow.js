@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
+import { Text, Avatar, Badge, IconButton, Tooltip, useDisclosure } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
-function ParticipantRow({ participant, handleDrawer }) {
+import ParticipantDrawer from "./ParticipantDrawer";
+
+import Status from "./Status/Status";
+import Screening from "./Screening/Screening";
+import Reminders from "./Reminders/Reminders";
+import Notes from "./Notes/Notes";
+import Meetings from "./Meetings/Meetings";
+
+function ParticipantRow({ study, participant }) {
   const statusColors = {
     interested: "gray",
     screened: "purple",
     consented: "cyan",
     accepted: "green",
     rejected: "red",
+  };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [action, setAction] = useState({ action: "", participant: {} });
+
+  const handleCancel = () => {
+    setAction("");
+    onOpen();
+  };
+
+  const handleAction = (a) => {
+    setAction(a);
+    onOpen();
   };
 
   return (
@@ -29,7 +50,7 @@ function ParticipantRow({ participant, handleDrawer }) {
         size="sm"
         cursor="pointer"
         colorScheme={statusColors[participant.status]}
-        onClick={() => handleDrawer("status", participant.id)}
+        onClick={() => handleAction("status", participant.id)}
       >
         {participant.status}
       </Badge>
@@ -46,7 +67,7 @@ function ParticipantRow({ participant, handleDrawer }) {
             size="sm"
             bg="transparent"
             icon={<FaClipboard />}
-            onClick={() => handleDrawer("eligibility", participant.id)}
+            onClick={() => handleAction("eligibility", participant.id)}
           />
         </Tooltip>
         <Tooltip label="Meetings">
@@ -55,7 +76,7 @@ function ParticipantRow({ participant, handleDrawer }) {
             size="sm"
             bg="transparent"
             icon={<FaCalendar />}
-            onClick={() => handleDrawer("meetings", participant.id)}
+            onClick={() => handleAction("meetings", participant.id)}
           />
         </Tooltip>
         <Tooltip label="Reminders">
@@ -64,7 +85,7 @@ function ParticipantRow({ participant, handleDrawer }) {
             size="sm"
             bg="transparent"
             icon={<FaClock />}
-            onClick={() => handleDrawer("reminders", participant.id)}
+            onClick={() => handleAction("reminders", participant.id)}
           />
         </Tooltip>
         <Tooltip label="Notes">
@@ -73,10 +94,24 @@ function ParticipantRow({ participant, handleDrawer }) {
             size="sm"
             bg="transparent"
             icon={<FaStickyNote />}
-            onClick={() => handleDrawer("notes", participant.id)}
+            onClick={() => handleAction("notes", participant.id)}
           />
         </Tooltip>
       </Buttons>
+      <ParticipantDrawer
+        action={action}
+        fakename={participant.fakename}
+        onClose={handleCancel}
+        isOpen={isOpen}
+      >
+        {action === "status" && <Status participant={participant} onClose={onClose} />}
+        {action === "screening" && (
+          <Screening questions={study.questions} responses={participant.responses} />
+        )}
+        {action === "reminders" && <Reminders participant={participant} study={study} />}
+        {action === "notes" && <Notes id={participant.id} />}
+        {action === "meetings" && <Meetings participant={participant} study={study} />}
+      </ParticipantDrawer>
     </Row>
   );
 }
