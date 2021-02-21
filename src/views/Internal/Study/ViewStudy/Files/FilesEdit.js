@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { storage } from "database/firebase";
 
-function ConsentEdit({ study, setEdit }) {
+function FilesEdit({ study, setEdit }) {
   const [file, setFile] = useState();
   const [error, setError] = useState("");
   const [status, setStatus] = useState(0);
@@ -95,4 +95,4 @@ function ConsentEdit({ study, setEdit }) {
   );
 }
 
-export default ConsentEdit;
+export default FilesEdit;
