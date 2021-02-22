@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Text, Avatar, Badge, IconButton, Tooltip, useDisclosure } from "@chakra-ui/react";
+import { Text, Avatar, Badge, useDisclosure } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
 import ParticipantDrawer from "./ParticipantDrawer";
+import ParticipantActionButton from "./ParticipantActionButton";
 
 import Status from "./Status/Status";
 import Screening from "./Screening/Screening";
@@ -12,7 +13,7 @@ import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
 import Meetings from "./Meetings/Meetings";
 
-function ParticipantRow({ study, participant }) {
+function ParticipantsRow({ study, participant }) {
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -22,11 +23,11 @@ function ParticipantRow({ study, participant }) {
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [action, setAction] = useState({ action: "", participant: {} });
+  const [action, setAction] = useState("");
 
   const handleCancel = () => {
     setAction("");
-    onOpen();
+    onClose();
   };
 
   const handleAction = (a) => {
@@ -58,45 +59,19 @@ function ParticipantRow({ study, participant }) {
         {participant.score}% eligible
       </Text>
       <Buttons>
-        <Tooltip label="Message">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
-        </Tooltip>
-        <Tooltip label="Eligibility">
-          <IconButton
-            color="gray.400"
-            size="sm"
-            bg="transparent"
-            icon={<FaClipboard />}
-            onClick={() => handleAction("eligibility", participant.id)}
-          />
-        </Tooltip>
-        <Tooltip label="Meetings">
-          <IconButton
-            color="gray.400"
-            size="sm"
-            bg="transparent"
-            icon={<FaCalendar />}
-            onClick={() => handleAction("meetings", participant.id)}
-          />
-        </Tooltip>
-        <Tooltip label="Reminders">
-          <IconButton
-            color="gray.400"
-            size="sm"
-            bg="transparent"
-            icon={<FaClock />}
-            onClick={() => handleAction("reminders", participant.id)}
-          />
-        </Tooltip>
-        <Tooltip label="Notes">
-          <IconButton
-            color="gray.400"
-            size="sm"
-            bg="transparent"
-            icon={<FaStickyNote />}
-            onClick={() => handleAction("notes", participant.id)}
-          />
-        </Tooltip>
+        <ParticipantActionButton name="message" icon={<FaComment />} handleAction={handleAction} />
+        <ParticipantActionButton
+          name="screening"
+          icon={<FaClipboard />}
+          handleAction={handleAction}
+        />
+        <ParticipantActionButton
+          name="meetings"
+          icon={<FaCalendar />}
+          handleAction={handleAction}
+        />
+        <ParticipantActionButton name="reminders" icon={<FaClock />} handleAction={handleAction} />
+        <ParticipantActionButton name="notes" icon={<FaStickyNote />} handleAction={handleAction} />
       </Buttons>
       <ParticipantDrawer
         action={action}
@@ -135,4 +110,4 @@ const Buttons = styled.div`
   grid-gap: 5px;
 `;
 
-export default ParticipantRow;
+export default ParticipantsRow;
