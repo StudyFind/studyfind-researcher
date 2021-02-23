@@ -31,7 +31,7 @@ function DescriptionAccessibilityScore({ description }) {
         <Tag variant="solid" mr="8px" fontWeight="500" colorScheme={color}>
           {isNaN(score) ? 0 : score}%
         </Tag>
-        <Tooltip label="This score is derived from the Flesch–Kincaid readability index">
+        <Tooltip label="This score is derived from the Flesch–Kincaid Readability Index. To improve your accessibility score, please use shorter sentences and words with fewer syllables.">
           <Flex align="center">
             <Icon color="gray.500" as={FaInfoCircle} />
           </Flex>
