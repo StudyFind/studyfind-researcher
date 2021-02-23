@@ -18,7 +18,7 @@ describe("meeting-runner", () => {
 
     it("calls all proper functions", async () => {
         firestore.data = mFirestore();
-        admin.firestore.Timestamp.now.mockReturnValueOnce(1000 * 60 * 30);
+        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30);
 
         await func();
 
@@ -32,7 +32,7 @@ describe("meeting-runner", () => {
 
     it("creates a researcher notification", async () => {
         firestore.data = mFirestore();
-        admin.firestore.Timestamp.now.mockReturnValueOnce(1000 * 60 * 30);
+        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30);
 
         await func();
 
@@ -44,7 +44,7 @@ describe("meeting-runner", () => {
 
     it("creates a participant notification", async () => {
         firestore.data = mFirestore();
-        admin.firestore.Timestamp.now.mockReturnValueOnce(1000 * 60 * 30);
+        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30);
 
         await func();
 
@@ -56,7 +56,7 @@ describe("meeting-runner", () => {
 
     it("notifies for all meetings in past 30 minutes", async () => {
         firestore.data = mFirestore();
-        admin.firestore.Timestamp.now.mockReturnValueOnce(1000 * 60 * 35); // 35 minutes
+        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 35); // 35 minutes
 
         await func();
 
@@ -107,4 +107,4 @@ function expect_or(...tests) {
         if (tests.length) expect_or(...tests);
         else throw e;
     }
-};
+}

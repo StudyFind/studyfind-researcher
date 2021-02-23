@@ -21,7 +21,7 @@ describe("notification-triggers onCreateStudy", () => {
 
     it("writes notification", async () => {
         firestore.data = mFirestore();
-        admin.firestore.Timestamp.now.mockReturnValueOnce(1000);
+        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000);
         const newStudy = await firestore.collection("studies").doc("TEST_STUDY").get();
         const event = mEvent({ studyID: "TEST_STUDY" })
 

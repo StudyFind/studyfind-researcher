@@ -1,15 +1,6 @@
 // src/notification-triggers.js
 const { logger } = require("firebase-functions");
-
-
-// default notification values (useful cuz writes `time`, `read`)
-const defaults = (admin) => ({
-    title: "DEFAULT TITLE",
-    description: "DEFAULT DESCRIPTION",
-    type: "Error",
-    time: admin.firestore.Timestamp.now(),
-    read: false,
-});
+const defaults = require("./utils/make-notification");
 
 
 module.exports.onCreateStudy = ({ admin }) => async (snapshot, context) => {

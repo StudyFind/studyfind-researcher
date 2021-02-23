@@ -1,6 +1,7 @@
 // functions/src/meeting-runner.js
 const { logger } = require("firebase-functions");
 const getOffset = require("./utils/offset-time");
+const defaults = require("./utils/make-notification");
 
 /**
  * Perform a given async action for each meeting scheduled for now
@@ -35,7 +36,7 @@ const logResponse = r => {
 
 module.exports = ({ admin }) => async () => {
 	const firestore = admin.firestore();
-	const now = admin.firestore.Timestamp.now();
+	const now = Date.now();
 
 	// note: reminders runner has similar structure
 	// more comments there
@@ -44,11 +45,11 @@ module.exports = ({ admin }) => async () => {
 		// build notification
 		const m = snap.data();
 		const notification = {
+			...defaults(),
 			title: "Meeting Happening Now!",
 			description: "You have a pending meeting",
 			type: "Meeting",
 			time: now,
-			read: false,
 		}
 
 		// get referenced study researcher id
