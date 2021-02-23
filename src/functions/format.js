@@ -1,3 +1,18 @@
+// import moment from "moment";
+
+// function formatDate(date) {
+//   const isYesterday = moment(date) === moment().add(-1, "days");
+//   const isToday = moment(date) === moment();
+//   const isTomorrow = moment(date) === moment().add(-1, "days");
+
+//   if (isYesterday) return "Yesterday";
+//   if (isToday) return "Today";
+//   if (isTomorrow) return "Tomorrow";
+//   return moment(date).format("LL");
+// }
+
+// export default { date: formatDate };
+
 function formatDate(value) {
   const date = new Date(value);
   const year = parseInt(date.getFullYear());
