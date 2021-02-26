@@ -1,40 +1,17 @@
-// import moment from "moment";
+import moment from "moment";
 
-// function formatDate(date) {
-//   const isYesterday = moment(date) === moment().add(-1, "days");
-//   const isToday = moment(date) === moment();
-//   const isTomorrow = moment(date) === moment().add(-1, "days");
+function formatDate(date) {
+  const format = (m) => m.format("YYYY-MM-DD");
 
-//   if (isYesterday) return "Yesterday";
-//   if (isToday) return "Today";
-//   if (isTomorrow) return "Tomorrow";
-//   return moment(date).format("LL");
-// }
+  const day = format(moment(date));
+  const today = format(moment());
+  const tomorrow = format(moment().add(1, "days"));
+  const yesterday = format(moment().add(-1, "days"));
 
-// export default { date: formatDate };
-
-function formatDate(value) {
-  const date = new Date(value);
-  const year = parseInt(date.getFullYear());
-  const month = parseInt(date.getMonth());
-  const day = date.getDate();
-
-  const MONTHS = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  return `${MONTHS[month]} ${day}, ${year}`;
+  if (day === today) return "Today";
+  if (day === tomorrow) return "Tomorrow";
+  if (day === yesterday) return "Yesterday";
+  return moment(date).format("LL");
 }
 
 function formatTime(value) {
