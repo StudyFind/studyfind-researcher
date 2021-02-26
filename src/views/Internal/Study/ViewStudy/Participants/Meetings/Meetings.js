@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 import validator from "validator";
 import { auth, firestore } from "database/firebase";
-import { Loader } from "components";
 import { useCollection } from "hooks";
+
+import { Loader } from "components";
 
 import MeetingsView from "./MeetingsView";
 import MeetingsEdit from "./MeetingsEdit";
