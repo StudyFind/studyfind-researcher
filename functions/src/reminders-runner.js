@@ -17,7 +17,7 @@ const forEachPendingReminder = async (now, fn, firestore) => {
 		.get();
 	if (remindersData.empty) return [];
 
-	let reminders = [];
+	const reminders = [];
 	remindersData.forEach(r => reminders.push(r));
 	reminders = reminders.filter(r => r.data().startDate <= now);
 	return Promise.allSettled(reminders.map(fn));
@@ -31,7 +31,7 @@ const forEachPendingReminder = async (now, fn, firestore) => {
 const logResponse = r => {
 	logger.info(`scheduled reminders run: ${r.length} participants have been updated`);
 
-	let errors = r.filter(i => i.status !== "fulfilled").map(i => i.reason);
+	const errors = r.filter(i => i.status !== "fulfilled").map(i => i.reason);
 	if (errors.length === 0) return
 
 	console.error(`${r.length} scheduled reminders run with ${errors.length} errors detected:\n${errors.map(r => r.stack).join("\n")}`);

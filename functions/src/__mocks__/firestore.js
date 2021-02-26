@@ -1,6 +1,6 @@
 const updateData = (data, path, newData, create = false) => {
     while (path.length > 1) {
-        let p = path.shift();
+        const p = path.shift();
         if (!data[p]) {
             if (!create) throw TypeError(`Cannot read property '${p}' of ${data}`);
             else data[p] = {}
@@ -20,7 +20,7 @@ const updateData = (data, path, newData, create = false) => {
  */
 const filter = (subject, verb, object) => {
 
-    let conditionFunction = {
+    const conditionFunction = {
         '<': d => d[subject] < object,
         '>': d => d[subject] > object,
         '==': d => d[subject] == object,
@@ -34,7 +34,7 @@ const filter = (subject, verb, object) => {
 
     return (data => {
         // console.log(`filtering ${subject} ${verb} ${object} on:`, data)
-        let resp = {};
+        const resp = {};
         Object.keys(data).map(k => ({ id: k, data: data[k] }))
             .filter(d => conditionFunction(d.data))
             .forEach(d => resp[d.id] = d.data);
@@ -69,13 +69,13 @@ const mFirestore = {
         return mFirestore;
     }),
     add: jest.fn(async (d, transaction_d) => {
-        let { queries, path, data } = mFirestore;
+        const { queries, path, data } = mFirestore;
         if (mFirestore.isTransaction) d = transaction_d;
         path.push('0'); // add is for adding random document id
         queries.push(path);
 
         while (path.length > 1) {
-            let p = path.shift();
+            const p = path.shift();
             if (!data[p]) data[p] = {};
             data = data[p];
         }
@@ -83,12 +83,12 @@ const mFirestore = {
         path = [];
     }),
     set: jest.fn(async (d, transaction_d) => {
-        let { queries, path, data } = mFirestore;
+        const { queries, path, data } = mFirestore;
         if (mFirestore.isTransaction) d = transaction_d;
         queries.push(path);
 
         while (path.length > 1) {
-            let p = path.shift();
+            const p = path.shift();
             if (!data[p]) data[p] = {};
             data = data[p];
         }
@@ -96,14 +96,14 @@ const mFirestore = {
         path = [];
     }),
     update: jest.fn(async (d, transaction_d) => {
-        let { queries, path, data } = mFirestore;
+        const { queries, path, data } = mFirestore;
         if (mFirestore.isTransaction) d = transaction_d;
         queries.push(path);
 
         while (path.length > 1) {
             data = data[path.shift()];
         }
-        let p = path.shift();
+        const p = path.shift();
         data[p] = { ...data[p], ...d };
         path = [];
     }),
@@ -114,13 +114,13 @@ const mFirestore = {
         mFirestore.path = [];
         // if querying single doc, easy peasy
         if (mFirestore.isQueryingDoc) {
-            let d = { ...data }
+            const d = { ...data }
             delete d.collection;
             return makeSnapshot(d, id);
         }
         // if querying collection, need to convert to array too
-        let snapshots = Object.keys(data).map(k => {
-            let d = { ...data[k] };
+        const snapshots = Object.keys(data).map(k => {
+            const d = { ...data[k] };
             delete d.collection;
             return makeSnapshot(d, k)
         });

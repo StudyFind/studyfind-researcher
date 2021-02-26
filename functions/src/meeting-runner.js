@@ -16,7 +16,7 @@ const forEachScheduledMeeting = async (now, fn, firestore) => {
 		.get();
 	if (meetingsData.empty) return [];
 
-	let meetings = [];
+	const meetings = [];
 	meetingsData.forEach(m => meetings.push(m));
 	return Promise.allSettled(meetings.map(fn));
 }
@@ -29,7 +29,7 @@ const logResponse = r => {
 	if (r.length <= 0) return;
 	logger.info(`scheduled meetings notification run: ${r.length} meetings notified`);
 
-	let errors = r.filter(i => i.status !== "fulfilled").map(i => i.reason);
+	const errors = r.filter(i => i.status !== "fulfilled").map(i => i.reason);
 	if (errors.length <= 0) return;
 	console.error(`${r.length} meeting notifications run with ${errors.length} errors detected:\n${errors.map(r => r.stack).join("\n")}`);
 }
