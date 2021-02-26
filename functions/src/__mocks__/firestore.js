@@ -1,15 +1,3 @@
-const updateData = (data, path, newData, create = false) => {
-    while (path.length > 1) {
-        const p = path.shift();
-        if (!data[p]) {
-            if (!create) throw TypeError(`Cannot read property '${p}' of ${data}`);
-            else data[p] = {}
-        }
-        data = data[p];
-    }
-    data[path.shift()] = newData;
-}
-
 /**
  * Higher-order function that supports filtering the current level of data. Returns a new
  * function which should be called with current level of data to gain filtered data
@@ -69,7 +57,7 @@ const mFirestore = {
         return mFirestore;
     }),
     add: jest.fn(async (d, transaction_d) => {
-        const { queries, path, data } = mFirestore;
+        let { queries, path, data } = mFirestore;
         if (mFirestore.isTransaction) d = transaction_d;
         path.push('0'); // add is for adding random document id
         queries.push(path);
@@ -83,7 +71,7 @@ const mFirestore = {
         path = [];
     }),
     set: jest.fn(async (d, transaction_d) => {
-        const { queries, path, data } = mFirestore;
+        let { queries, path, data } = mFirestore;
         if (mFirestore.isTransaction) d = transaction_d;
         queries.push(path);
 
@@ -96,7 +84,7 @@ const mFirestore = {
         path = [];
     }),
     update: jest.fn(async (d, transaction_d) => {
-        const { queries, path, data } = mFirestore;
+        let { queries, path, data } = mFirestore;
         if (mFirestore.isTransaction) d = transaction_d;
         queries.push(path);
 

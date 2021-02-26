@@ -17,7 +17,7 @@ const forEachPendingReminder = async (now, fn, firestore) => {
 		.get();
 	if (remindersData.empty) return [];
 
-	const reminders = [];
+	let reminders = [];
 	remindersData.forEach(r => reminders.push(r));
 	reminders = reminders.filter(r => r.data().startDate <= now);
 	return Promise.allSettled(reminders.map(fn));
