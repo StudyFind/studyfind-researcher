@@ -1,5 +1,6 @@
 import { auth, firestore } from "./firebase";
 import errors from "./errors";
+import moment from "moment-timezone";
 
 const getErrorMessage = ({ code }) => ({ email: "", password: "", ...errors[code] });
 
@@ -8,7 +9,10 @@ const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
 const signup = async (name, email, password) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await firestore.collection("researchers").doc(user.uid).set({ name });
+    await firestore.collection("researchers").doc(user.uid).set({
+      name,
+      timezone: moment.tz.guess(),
+    });
     localStorage.setItem("exists", true);
     localStorage.setItem("new", true);
     return user;
