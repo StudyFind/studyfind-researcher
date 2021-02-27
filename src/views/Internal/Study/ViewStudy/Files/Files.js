@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import FilesViewer from "./FilesView";
 import FilesEdit from "./FilesEdit";
 import { storage } from "database/firebase";
@@ -9,7 +8,7 @@ function Files({ study }) {
   const [files, setFiles] = useState([]);
 
   const getFiles = async () => {
-    const { items } = await storage.ref(`file/NCT04655001`).listAll();
+    const { items } = await storage.ref(`file/${study.id}`).listAll();
 
     const tempFiles = await Promise.all(
       items.map(async (ref) => {
@@ -20,6 +19,13 @@ function Files({ study }) {
 
     setFiles(tempFiles);
   };
+  const deleteFile = (fileName) => {
+    var desertRef = storage.ref(`file/${study.id}/${fileName}`);
+    desertRef
+      .delete()
+      .then(() => {})
+      .catch((error) => {});
+  };
 
   useEffect(() => {
     getFiles();
@@ -28,7 +34,7 @@ function Files({ study }) {
   return edit ? (
     <FilesEdit study={study} setEdit={setEdit} />
   ) : (
-    <FilesViewer study={study} setEdit={setEdit} files={files} />
+    <FilesViewer study={study} setEdit={setEdit} files={files} deleteFile={deleteFile} />
   );
 }
 
