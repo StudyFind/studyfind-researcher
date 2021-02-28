@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
 
 import {
+  Box,
+  Flex,
+  Text,
+  Heading,
   Button,
   AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
 } from "@chakra-ui/react";
@@ -32,26 +33,27 @@ function Confirm({
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {title}
-          </AlertDialogHeader>
+          <Box p="20px" w="100%">
+            <Heading mb="10px" fontSize="lg" fontWeight="bold">
+              {title}
+            </Heading>
 
-          <AlertDialogBody>{children}</AlertDialogBody>
+            <Text color="gray.500">{children}</Text>
 
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={() => setOpen(false)} color="gray.500">
-              Cancel
-            </Button>
-            <Button
-              colorScheme={color}
-              onClick={handleConfirm}
-              ml={3}
-              isLoading={loading}
-              loadingText={loadingText}
-            >
-              {buttonText}
-            </Button>
-          </AlertDialogFooter>
+            <Flex mt="20px" gridGap="15px" justify="flex-end">
+              <Button ref={cancelRef} onClick={() => setOpen(false)} color="gray.500">
+                Cancel
+              </Button>
+              <Button
+                colorScheme={color}
+                onClick={handleConfirm}
+                isLoading={loading}
+                loadingText={loadingText}
+              >
+                {buttonText}
+              </Button>
+            </Flex>
+          </Box>
         </AlertDialogContent>
       </AlertDialogOverlay>
     </AlertDialog>
