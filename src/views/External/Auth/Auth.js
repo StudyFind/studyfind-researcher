@@ -10,7 +10,6 @@ function Auth() {
     const url = new URL(window.location.href);
     const mode = url.searchParams.get("mode");
     const accountExists = localStorage.getItem("exists") === "true";
-
     return mode || (accountExists ? "login" : "signup");
   };
 

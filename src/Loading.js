@@ -22,6 +22,7 @@ const Image = styled.img`
       transform: rotate(360deg);
     }
   }
+
   @keyframes rotate-center {
     0% {
       -webkit-transform: rotate(0);

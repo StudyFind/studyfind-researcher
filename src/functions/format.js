@@ -1,6 +1,6 @@
 import moment from "moment";
 
-function formatDate(date) {
+function date(date) {
   const format = (m) => m.format("YYYY-MM-DD");
 
   const day = format(moment(date));
@@ -14,13 +14,8 @@ function formatDate(date) {
   return moment(date).format("LL");
 }
 
-function formatTime(value) {
-  const [hours, minutes] = value.split(":");
-  const hours12 = hours % 12 || 12;
-  const hoursPad = hours < 10 ? "0" : "";
-  const minutesPad = minutes < 10 ? "0" : "";
-  const meridian = hours < 12 ? "am" : "pm";
-  return `${hoursPad}${hours12}:${minutesPad}${minutes}${meridian}`;
+function time(value) {
+  return moment(value, "HH:mm").format("hh:mma");
 }
 
-export default { date: formatDate, time: formatTime };
+export default { date, time };

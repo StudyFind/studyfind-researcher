@@ -1,5 +1,5 @@
 import { auth, firestore } from "./firebase";
-import { errors } from "constants";
+import errors from "constants/errors";
 import moment from "moment-timezone";
 
 const getErrorMessage = ({ code }) => ({ email: "", password: "", ...errors[code] });

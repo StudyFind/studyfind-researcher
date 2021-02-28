@@ -176,7 +176,7 @@ function Reminders({ participant, study }) {
       times: convertedTimes,
       startDate: inputs.startDate,
       endDate: inputs.endDate,
-      lastNotified: new Date(0, 0, 0),
+      lastNotified: moment().valueOf(),
       participantID: participant.id,
       studyID: study.id,
     };
