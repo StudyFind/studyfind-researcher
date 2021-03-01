@@ -10,11 +10,9 @@ import { Input, Textarea, Select } from "components";
 import { FaDoorOpen } from "react-icons/fa";
 
 function Account({ user }) {
-  const { uid } = auth.currentUser;
-
   const original = {
-    timezone: user.timezone || "",
     bio: user.bio || "",
+    timezone: user.timezone || "",
     organization: user.organization || "",
   };
 
@@ -31,7 +29,7 @@ function Account({ user }) {
   };
 
   const handleUpdate = () => {
-    firestore.collection("researchers").doc(uid).update({
+    firestore.collection("researchers").doc(user.id).update({
       timezone: inputs.timezone,
       organization: inputs.organization,
       bio: inputs.bio,

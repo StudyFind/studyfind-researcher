@@ -39,10 +39,8 @@ function Fetch() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Heading size="lg" mb="10px">
-        Fetch Study Data
-      </Heading>
-      <Text mb="10px" color="gray.500">
+      <Heading size="lg">Fetch Study Data</Heading>
+      <Text mt="8px" mb="10px" color="gray.500">
         In an effort to simplify study creation and verify study owners, we require that your study
         is registered on{" "}
         <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
