@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Text, Flex, FormControl, Textarea, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import { Text, Flex, Textarea, FormLabel, FormControl, FormErrorMessage } from "@chakra-ui/react";
 
 function Field({ name, value, label, height, placeholder, limit, error, onChange }) {
   const [count, setCount] = useState();
@@ -22,6 +22,7 @@ function Field({ name, value, label, height, placeholder, limit, error, onChange
         value={value}
         maxLength={limit}
         placeholder={placeholder}
+        _placeholder={error && { color: "gray.500" }}
         onChange={handleChange}
         style={{ minHeight: 0 }}
         bg={error ? "red.100" : "white"}
