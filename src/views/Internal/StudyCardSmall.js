@@ -12,7 +12,9 @@ function StudyCardSmall({ study }) {
           <Text fontSize="sm" color="gray.400">
             {study.id}
           </Text>
-          <Badge colorScheme="green">Published</Badge>
+          <Badge colorScheme={study.published ? "green" : "red"}>
+            {study.published ? "Published" : "Unpublished"}
+          </Badge>
         </Flex>
         <Title size="sm" mt="5px">
           {study.title}
