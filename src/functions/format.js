@@ -15,7 +15,7 @@ function date(date) {
 }
 
 function time(value) {
-  return moment(value, "HH:mm").format("hh:mma");
+  return moment(value, "HH:mm").format("h:mma");
 }
 
 export default { date, time };
