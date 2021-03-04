@@ -42,6 +42,7 @@ function Field({
           pr={rightWidth || "1rem"}
           value={value}
           placeholder={placeholder}
+          _placeholder={error && { color: "gray.500" }}
           onChange={handleChange}
           bg={error ? "red.100" : "white"}
           {...rest}

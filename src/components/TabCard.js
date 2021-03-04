@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function Card({ tabs, current, hideTabs, handleSelect, children, ...rest }) {
+function TabCard({ tabs, current, hideTabs, handleSelect, children, ...rest }) {
   if (!(tabs && tabs.length)) {
     return <Box {...rest}>{children}</Box>;
   }
@@ -70,4 +70,4 @@ const Tab = styled.div`
   `}
 `;
 
-export default Card;
+export default TabCard;

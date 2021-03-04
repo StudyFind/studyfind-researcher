@@ -30,6 +30,7 @@ function Field({
         bg="white"
         textTransform="capitalize"
       >
+        <option value=""></option>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}

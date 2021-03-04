@@ -1,22 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { Flex } from "@chakra-ui/react";
 import Logo from "images/logo.png";
 
 function Loading() {
   return (
-    <PageLoader>
+    <Flex h="100vh" w="100vw" justify="center" align="center">
       <Image src={Logo} />
-    </PageLoader>
+    </Flex>
   );
 }
-
-const PageLoader = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const Image = styled.img`
   @-webkit-keyframes rotate-center {
@@ -29,6 +22,7 @@ const Image = styled.img`
       transform: rotate(360deg);
     }
   }
+
   @keyframes rotate-center {
     0% {
       -webkit-transform: rotate(0);

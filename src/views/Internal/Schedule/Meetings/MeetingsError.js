@@ -2,7 +2,7 @@ import React from "react";
 import { Flex } from "@chakra-ui/react";
 import { Message } from "components";
 
-function Error() {
+function MeetingsError() {
   return (
     <Flex borderWidth="1px" p="40px 30px" m="20px 0" rounded="md" bg="white">
       <Message
@@ -14,4 +14,4 @@ function Error() {
   );
 }
 
-export default Error;
+export default MeetingsError;

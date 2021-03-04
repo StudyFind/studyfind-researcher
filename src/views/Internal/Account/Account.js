@@ -1,39 +1,36 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import lodash from "lodash";
+import moment from "moment-timezone";
 
 import { signout } from "database/auth";
 import { auth, firestore } from "database/firebase";
 
-import { Heading, Button, Grid } from "@chakra-ui/react";
-import { Input, Textarea } from "components";
+import { Heading, Button, Grid, Flex } from "@chakra-ui/react";
+import { Input, Textarea, Select } from "components";
 import { FaDoorOpen } from "react-icons/fa";
 
 function Account({ user }) {
-  const { uid, email } = auth.currentUser;
-  const researcherRef = firestore.collection("researchers").doc(uid);
-
   const original = {
-    name: user.name || "",
     bio: user.bio || "",
+    timezone: user.timezone || "",
     organization: user.organization || "",
   };
 
   const [inputs, setInputs] = useState(original);
-  const [errors, setErrors] = useState({ name: "" });
-
-  const difference = JSON.stringify(original) !== JSON.stringify(inputs);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
+    if (name === "timezone") setErrors({ timezone: !value });
+  };
+
+  const handleCancel = () => {
+    setInputs(original);
   };
 
   const handleUpdate = () => {
-    setErrors({ name: !inputs.name });
-
-    if (!inputs.name) return;
-
-    researcherRef.set({
-      name: inputs.name,
+    firestore.collection("researchers").doc(user.id).update({
+      timezone: inputs.timezone,
       organization: inputs.organization,
       bio: inputs.bio,
     });
@@ -41,21 +38,21 @@ function Account({ user }) {
 
   return (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" mb="25px">
         <Heading size="lg">Account</Heading>
         <Button colorScheme="red" onClick={signout} leftIcon={<FaDoorOpen />}>
           Sign out
         </Button>
-      </Head>
+      </Flex>
       <hr />
 
-      <Grid gap="20px" p="20px 0" w="400px">
-        <Input label="Email" value={email} readOnly />
-        <Input
-          label="Name"
-          name="name"
-          value={inputs.name}
-          error={errors.name}
+      <Grid gap="25px" p="25px 0" w="400px">
+        <Select
+          label="Timezone"
+          name="timezone"
+          value={inputs.timezone}
+          error={errors.timezone}
+          options={moment.tz.zonesForCountry("US")}
           onChange={handleChange}
         />
         <Input
@@ -68,25 +65,22 @@ function Account({ user }) {
           label="Bio"
           name="bio"
           value={inputs.bio}
-          error={errors.bio}
           onChange={handleChange}
           height="108px"
         />
-        {difference && (
-          <Button colorScheme="green" onClick={handleUpdate}>
-            Save Changes
-          </Button>
+        {!lodash.isEqual(original, inputs) && (
+          <Flex gridGap="10px" justify="flex-end">
+            <Button color="gray.500" onClick={handleCancel}>
+              Cancel
+            </Button>
+            <Button colorScheme="green" onClick={handleUpdate}>
+              Save Changes
+            </Button>
+          </Flex>
         )}
       </Grid>
     </>
   );
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-`;
 
 export default Account;
