@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { auth } from "database/firebase";
 
 import { Link, useLocation } from "react-router-dom";
-import { Box, Flex, Grid, Heading, Text, Image, Avatar, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
 import {
   FaBell,
   FaCalendar,

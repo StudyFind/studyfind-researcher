@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 
 import { compute } from "functions";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 import { useParams } from "react-router-dom";
 
-import { Heading, Button, Box, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { Message, Loader } from "components";
 
 import ParticipantsFilter from "./ParticipantsFilter";
@@ -120,38 +119,32 @@ function Participants({ study }) {
     return participants.filter((p) => p.fakename.toLowerCase().includes(search));
   };
 
-  const LOAD = (
-    <Box h="500px">
-      <Loader />
-    </Box>
-  );
+  if (loading) {
+    return (
+      <Box h="500px">
+        <Loader />
+      </Box>
+    );
+  }
 
-  const EMPTY = (
-    <Box h="500px">
-      <Message
-        type="neutral"
-        title="Find Participants"
-        description="Your study does not have any participants yet!"
-      />
-    </Box>
-  );
+  if (!participants || !participants.length) {
+    return (
+      <Box h="500px">
+        <Message
+          type="neutral"
+          title="Find Participants"
+          description="Your study does not have any participants yet!"
+        />
+      </Box>
+    );
+  }
 
-  const FILTER_EMPTY = (
-    <Box h="500px">
-      <Message
-        type="failure"
-        title="Empty Filter Results"
-        description="Your filters matched no participants"
-      />
-    </Box>
-  );
-
-  const LIST = (
+  return (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" my="15px">
         <Heading fontSize="28px">Participants</Heading>
         {toggle ? (
-          <Button colorScheme="gray" onClick={() => setToggle(false)}>
+          <Button color="gray.500" onClick={() => setToggle(false)}>
             Clear Filters
           </Button>
         ) : (
@@ -159,7 +152,7 @@ function Participants({ study }) {
             Filter Participants
           </Button>
         )}
-      </Head>
+      </Flex>
       {toggle && (
         <ParticipantsFilter
           search={search}
@@ -171,22 +164,22 @@ function Participants({ study }) {
         />
       )}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {participantsFiltered && participantsFiltered.length
-          ? participantsFiltered.map((participant, index) => (
-              <ParticipantsRow key={index} study={study} participant={participant} />
-            ))
-          : FILTER_EMPTY}
+        {participantsFiltered && participantsFiltered.length ? (
+          participantsFiltered.map((participant, index) => (
+            <ParticipantsRow key={index} study={study} participant={participant} />
+          ))
+        ) : (
+          <Box h="500px">
+            <Message
+              type="failure"
+              title="Empty Filter Results"
+              description="Your filters matched no participants"
+            />
+          </Box>
+        )}
       </Box>
     </>
   );
-  return loading || !participants ? LOAD : participants.length ? LIST : EMPTY;
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
 
 export default Participants;

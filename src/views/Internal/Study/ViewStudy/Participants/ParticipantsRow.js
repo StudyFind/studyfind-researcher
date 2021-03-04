@@ -9,9 +9,9 @@ import ParticipantActionButton from "./ParticipantActionButton";
 
 import Status from "./Status/Status";
 import Screening from "./Screening/Screening";
+import Meetings from "./Meetings/Meetings";
 import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
-import Meetings from "./Meetings/Meetings";
 
 function ParticipantsRow({ study, participant }) {
   const statusColors = {
@@ -83,9 +83,9 @@ function ParticipantsRow({ study, participant }) {
         {action === "screening" && (
           <Screening questions={study.questions} responses={participant.responses} />
         )}
+        {action === "meetings" && <Meetings participant={participant} study={study} />}
         {action === "reminders" && <Reminders participant={participant} study={study} />}
         {action === "notes" && <Notes id={participant.id} />}
-        {action === "meetings" && <Meetings participant={participant} study={study} />}
       </ParticipantDrawer>
     </Row>
   );
