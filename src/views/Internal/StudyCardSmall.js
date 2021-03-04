@@ -6,8 +6,8 @@ import { Box, Flex, Heading, Text, Tag, TagLabel, Badge } from "@chakra-ui/react
 
 function StudyCardSmall({ study }) {
   return (
-    <Link to={`/study/${study.id}`}>
-      <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
+    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" w="100%" h="270px">
+      <Card to={`/study/${study.id}`}>
         <Flex justify="space-between" align="center" mb="8px">
           <Text fontSize="sm" color="gray.400">
             {study.id}
@@ -30,8 +30,8 @@ function StudyCardSmall({ study }) {
         <Description color="gray.500" my="10px">
           {study.description}
         </Description>
-      </Box>
-    </Link>
+      </Card>
+    </Box>
   );
 }
 
@@ -53,6 +53,11 @@ const Description = styled(Text)`
   max-height: 100%; /* fallback */
   -webkit-line-clamp: 5; /* number of lines to show */
   -webkit-box-orient: vertical;
+`;
+
+const Card = styled(Link)`
+  padding: 20px;
+  display: block;
 `;
 
 export default StudyCardSmall;
