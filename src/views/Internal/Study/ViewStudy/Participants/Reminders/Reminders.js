@@ -117,9 +117,15 @@ function Reminders({ participant, study }) {
       }
     }
 
+    if (inputs.times.includes(value)) {
+      setErrors({ ...errors, time: "Time has been already added" });
+      return;
+    }
+
     setInputs((prevState) => {
       const times = prevState.times;
       times.push(value);
+      times.sort();
       return { ...prevState, times, time: "" };
     });
   };
