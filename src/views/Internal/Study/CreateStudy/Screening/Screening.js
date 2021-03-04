@@ -7,7 +7,7 @@ import ScreeningGrid from "./ScreeningGrid";
 function Screening({ study, next, back }) {
   const [
     questions,
-    _,
+    setQuestions,
     { appendElement, updateElement, deleteElementByIndex, clearArray },
   ] = useArray(study.questions);
 
@@ -30,7 +30,9 @@ function Screening({ study, next, back }) {
       <ScreeningHead />
       <ScreeningGrid
         back={back}
+        original={study.questions}
         questions={questions}
+        setQuestions={setQuestions}
         createQuestion={createQuestion}
         updateQuestion={updateQuestion}
         deleteQuestion={deleteElementByIndex}

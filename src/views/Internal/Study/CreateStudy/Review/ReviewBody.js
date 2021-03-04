@@ -5,7 +5,7 @@ import { Confirm } from "components";
 import { Flex, Button, useToast } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
-function ReviewBody({ study, next }) {
+function ReviewBody({ study, next, back }) {
   const toast = useToast();
   const [publishLoading, setPublishLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -86,14 +86,8 @@ function ReviewBody({ study, next }) {
     <>
       <StudyCardLarge study={study} />
       <Flex justify="flex-end" gridGap="10px" my="15px">
-        <Button
-          colorScheme="red"
-          onClick={handleDelete}
-          isDisabled={deleteLoading || publishLoading}
-          isLoading={deleteLoading}
-          loadingText="Deleting"
-        >
-          Delete
+        <Button color="gray.500" variant="outline" onClick={back}>
+          Back
         </Button>
         <Button
           colorScheme="blue"
@@ -101,14 +95,7 @@ function ReviewBody({ study, next }) {
           isDisabled={deleteLoading || publishLoading}
           loadingText="Publishing"
         >
-          Publish Later
-        </Button>
-        <Button
-          colorScheme="green"
-          onClick={() => setOpen(true)}
-          isDisabled={deleteLoading || publishLoading}
-        >
-          Publish Now
+          Confirm
         </Button>
       </Flex>
       <Confirm

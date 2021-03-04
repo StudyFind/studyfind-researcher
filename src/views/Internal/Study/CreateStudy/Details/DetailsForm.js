@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { updateStudy } from "database/studies";
 import { Form, Textarea } from "components";
 import { Button, Grid, Flex } from "@chakra-ui/react";
-import { FaUndo } from "react-icons/fa";
+import { FaEraser, FaUndo } from "react-icons/fa";
 import lodash from "lodash";
 
 function DetailsForm({ study, next, back }) {
@@ -12,6 +12,13 @@ function DetailsForm({ study, next, back }) {
   const { title, description } = study;
   const original = { title, description };
   const isDifferent = !lodash.isEqual(original, inputs);
+
+  const clearInputs = () => {
+    if (study.id) {
+      setInputs({ title: "", description: "" });
+      setErrors({ title: "", description: "" });
+    }
+  };
 
   const resetInputs = () => {
     if (study.id) {
@@ -49,10 +56,6 @@ function DetailsForm({ study, next, back }) {
     setErrors({ ...errors, [name]: checker(name, value) });
   };
 
-  const handleCancel = () => {
-    resetInputs();
-  };
-
   const handleSubmit = () => {
     const { title, description } = inputs;
     const err = validate({ title, description });
@@ -62,17 +65,45 @@ function DetailsForm({ study, next, back }) {
       return;
     }
 
-    updateStudy(study.id, { title, description });
+    if (isDifferent) {
+      updateStudy(study.id, { title, description });
+    }
+
     next();
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      {isDifferent && (
-        <Button leftIcon={<FaUndo />} colorScheme="gray" color="gray.500" onClick={handleCancel}>
-          Undo Changes
-        </Button>
-      )}
+      <Flex gridGap="10px">
+        {isDifferent && (
+          <Button
+            size="sm"
+            leftIcon={<FaUndo />}
+            color="gray.500"
+            bg="gray.100"
+            borderWidth="1px"
+            borderColor="gray.500"
+            _hover={{ bg: "gray.200" }}
+            onClick={resetInputs}
+          >
+            Undo Changes
+          </Button>
+        )}
+        {(inputs.title || inputs.description) && (
+          <Button
+            size="sm"
+            leftIcon={<FaEraser />}
+            color="purple.500"
+            bg="purple.100"
+            borderWidth="1px"
+            borderColor="purple.500"
+            _hover={{ bg: "purple.200" }}
+            onClick={clearInputs}
+          >
+            Clear Text
+          </Button>
+        )}
+      </Flex>
       <Grid py="10px" gap="10px">
         <Textarea
           label="Study Title"
@@ -80,7 +111,7 @@ function DetailsForm({ study, next, back }) {
           value={inputs.title}
           error={errors.title}
           limit={100}
-          height="60px"
+          height="50px"
           onChange={handleChange}
         />
         <Textarea
@@ -89,12 +120,12 @@ function DetailsForm({ study, next, back }) {
           value={inputs.description}
           error={errors.description}
           limit={500}
-          height="150px"
+          height="128px"
           onChange={handleChange}
         />
       </Grid>
       <Flex justify="flex-end" mt="20px" gridGap="10px">
-        <Button colorScheme="gray" color="gray.500" variant="outline" onClick={back}>
+        <Button color="gray.500" variant="outline" onClick={back}>
           Back
         </Button>
         <Button colorScheme="blue" type="submit">
