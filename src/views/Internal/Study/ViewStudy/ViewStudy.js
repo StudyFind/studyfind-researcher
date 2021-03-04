@@ -7,7 +7,7 @@ import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
 import Locations from "./Locations/Locations";
-import Eligibility from "./Eligibility/Eligibility";
+import Screening from "./Screening/Screening";
 import Consent from "./Consent/Consent";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
@@ -15,6 +15,7 @@ import Settings from "./Settings/Settings";
 function ViewStudy({ studies }) {
   const { nctID } = useParams();
   const findStudy = () => studies && studies.find((study) => study.id === nctID);
+
   const [study, setStudy] = useState(findStudy());
 
   useEffect(() => {
@@ -23,22 +24,12 @@ function ViewStudy({ studies }) {
     }
   }, [studies]);
 
-  const MISSING = (
-    <Message
-      type="failure"
-      title="Study not found!"
-      description={`The study ${nctID} could not be found in the StudyFind database. Please
-  ensure that it has been successfully created by following all directions in the study
-  creation process.`}
-    />
-  );
-
   const BODY = (
     <Tabs colorScheme="blue" h="100%">
       <TabList>
         <TabItem>Details</TabItem>
         <TabItem>Locations</TabItem>
-        <TabItem>Eligibility</TabItem>
+        <TabItem>Screening</TabItem>
         <TabItem>Consent</TabItem>
         <TabItem>Participants</TabItem>
         <TabItem>Settings</TabItem>
@@ -51,7 +42,7 @@ function ViewStudy({ studies }) {
           <Locations study={study} />
         </TabPanel>
         <TabPanel pt="1px">
-          <Eligibility study={study} />
+          <Screening study={study} />
         </TabPanel>
         <TabPanel pt="1px">
           <Consent study={study} />
@@ -64,6 +55,16 @@ function ViewStudy({ studies }) {
         </TabPanel>
       </TabPanels>
     </Tabs>
+  );
+
+  const MISSING = (
+    <Message
+      type="failure"
+      title="Study not found!"
+      description={`The study ${nctID} could not be found in the StudyFind database. Please
+  ensure that it has been successfully created by following all directions in the study
+  creation process.`}
+    />
   );
 
   return study ? BODY : MISSING;

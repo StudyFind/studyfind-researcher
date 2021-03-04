@@ -18,16 +18,16 @@ function Activate({ study }) {
         </Badge>
       </Flex>
       <Text color="gray.500" my="8px">
-        Your study recruitment status allows you to pause participant recruitment for your research
-        study. A status of&nbsp;
+        Your study recruitment status corresponds to whether you are currently accepting
+        participants into your study. A status of&nbsp;
         <Text display="inline" fontWeight="700">
           active
         </Text>
-        &nbsp;allows participants to enroll while a status of&nbsp;
+        &nbsp;allows participants to enroll, while a status of&nbsp;
         <Text display="inline" fontWeight="700">
           inactive
         </Text>
-        &nbsp;prevents participants from enrolling.
+        &nbsp;hides the study from potential participants.
       </Text>
 
       <Tooltip

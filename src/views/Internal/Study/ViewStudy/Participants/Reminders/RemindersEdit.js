@@ -80,6 +80,7 @@ function RemindersEdit({
         <Input
           label="End Date"
           name="endDate"
+          min={inputs.startDate}
           value={inputs.endDate}
           error={errors.endDate}
           onChange={handleChange}

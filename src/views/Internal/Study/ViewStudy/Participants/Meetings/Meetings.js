@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 import validator from "validator";
 import { auth, firestore } from "database/firebase";
-import { Loader } from "components";
 import { useCollection } from "hooks";
+
+import { Loader } from "components";
 
 import MeetingsView from "./MeetingsView";
 import MeetingsEdit from "./MeetingsEdit";
@@ -38,6 +39,8 @@ function Meetings({ participant, study }) {
     switch (name) {
       case "date":
         return value < Date.now() && "Date must be in the future";
+      case "time":
+        return value.split(":")[1] % 30 !== 0 && "Time must be divisible by 30 minutes";
       case "link":
         return (
           (!validator.isURL(value) || value.substring(0, 8) !== "https://") && "Link is invalid"

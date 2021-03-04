@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Heading, Text, Link } from "@chakra-ui/react";
 
 function ReviewHead() {

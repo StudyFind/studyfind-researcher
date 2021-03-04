@@ -7,6 +7,7 @@ import { auth, firestore } from "database/firebase";
 import { useDocument, useCollection } from "hooks";
 
 import Sidebar from "./Sidebar";
+import Verification from "./Verification/Verification";
 
 import FetchStudy from "views/Internal/Study/FetchStudy/FetchStudy";
 import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
@@ -33,7 +34,7 @@ function Internal() {
     { path: "/fetch", component: <FetchStudy /> },
     { path: "/create/:nctID/:tab", component: <CreateStudy studies={studies} /> },
     { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
-    { path: "/notifications", component: <Notifications /> },
+    { path: "/notifications", component: <Notifications user={user} /> },
     { path: "/schedule", component: <Schedule studies={studies} /> },
     { path: "/settings", component: <Settings /> },
     { path: "/account", component: <Account user={user} /> },
@@ -42,7 +43,13 @@ function Internal() {
   return (
     <Flex>
       <Sidebar cred={cred} user={user} />
-      <Box ml="280px" w="100%" minH="100vh">
+      <Box
+        ml="280px"
+        w="100%"
+        minH={cred.emailVerified ? "100vh" : "calc(100vh - 56px)"}
+        mt={cred.emailVerified ? "" : "40px"}
+      >
+        {cred.emailVerified || <Verification email={cred.email} />}
         <Page isLoading={!(user && studies)}>
           <Switch>
             {pages.map(({ path, component }, index) => (

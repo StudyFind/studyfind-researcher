@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useArray } from "hooks";
 import { updateStudy } from "database/studies";
-import EligibilityView from "./EligibilityView";
-import EligibilityEdit from "./EligibilityEdit";
+import ScreeningView from "./ScreeningView";
+import ScreeningEdit from "./ScreeningEdit";
 
-function Eligibility({ study }) {
+function Screening({ study }) {
   const [edit, setEdit] = useState(false);
 
   const [
@@ -33,7 +33,7 @@ function Eligibility({ study }) {
   };
 
   return edit ? (
-    <EligibilityEdit
+    <ScreeningEdit
       original={study.questions}
       questions={questions}
       createQuestion={createQuestion}
@@ -44,8 +44,8 @@ function Eligibility({ study }) {
       handleSubmit={handleSubmit}
     />
   ) : (
-    <EligibilityView study={study} setEdit={setEdit} />
+    <ScreeningView questions={questions} setEdit={setEdit} />
   );
 }
 
-export default Eligibility;
+export default Screening;

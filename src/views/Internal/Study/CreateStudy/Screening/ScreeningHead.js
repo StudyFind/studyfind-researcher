@@ -1,11 +1,11 @@
 import React from "react";
 import { Heading, Text } from "@chakra-ui/react";
 
-function EligibilityHead() {
+function ScreeningHead() {
   return (
     <>
       <Heading size="lg" mb="10px">
-        Modifying Eligibility Criteria
+        Screening Survey
       </Heading>
       <Text mb="10px" color="gray.500">
         It is important that you modify these inclusion and exclusion criteria into{" "}
@@ -19,4 +19,4 @@ function EligibilityHead() {
   );
 }
 
-export default EligibilityHead;
+export default ScreeningHead;

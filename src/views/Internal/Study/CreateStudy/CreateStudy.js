@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
-import Eligibility from "./Eligibility/Eligibility";
+import Screening from "./Screening/Screening";
 import Consent from "./Consent/Consent";
 import Review from "./Review/Review";
 
@@ -35,7 +35,7 @@ function CreateStudy({ studies }) {
 
   const render = {
     details: <Details study={study} next={next} back={back} />,
-    eligibility: <Eligibility study={study} next={next} back={back} />,
+    screening: <Screening study={study} next={next} back={back} />,
     consent: <Consent study={study} next={next} back={back} />,
     review: <Review study={study} next={next} back={back} />,
   };
@@ -61,7 +61,7 @@ function CreateStudy({ studies }) {
 
   return (
     <>
-      {["published", "deleted"].includes(tab) || steps}
+      {steps}
       {render[tab]}
     </>
   );

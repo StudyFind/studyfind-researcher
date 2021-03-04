@@ -1,10 +1,10 @@
 import React from "react";
 import { useArray } from "hooks";
 import { updateStudy } from "database/studies";
-import EligibilityHead from "./EligibilityHead";
-import EligibilityGrid from "./EligibilityGrid";
+import ScreeningHead from "./ScreeningHead";
+import ScreeningGrid from "./ScreeningGrid";
 
-function Eligibility({ study, next, back }) {
+function Screening({ study, next, back }) {
   const [
     questions,
     _,
@@ -27,8 +27,8 @@ function Eligibility({ study, next, back }) {
 
   return (
     <>
-      <EligibilityHead />
-      <EligibilityGrid
+      <ScreeningHead />
+      <ScreeningGrid
         back={back}
         questions={questions}
         createQuestion={createQuestion}
@@ -41,4 +41,4 @@ function Eligibility({ study, next, back }) {
   );
 }
 
-export default Eligibility;
+export default Screening;

@@ -1,8 +1,8 @@
 import { auth, firestore } from "./firebase";
 import axios from "axios";
 
-const FLASK_API_URL = "https://us-central1-studyfind-researcher.cloudfunctions.net";
-const STUDY_API_URL = `${FLASK_API_URL}/studies`;
+const CLOUD_API_URL = "https://us-central1-studyfind-researcher.cloudfunctions.net";
+const STUDY_API_URL = `${CLOUD_API_URL}/studies`;
 
 const studyFunc = (params, endpoint) =>
   new Promise((resolve, reject) =>

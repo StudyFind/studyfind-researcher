@@ -1,28 +1,18 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 
 import { compute } from "functions";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 import { useParams } from "react-router-dom";
 
-import { Heading, Button, Box, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { Message, Loader } from "components";
 
-import ParticipantDrawer from "./ParticipantDrawer";
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 
-import Status from "./Status/Status";
-import Eligibility from "./Eligibility/Eligibility";
-import Reminders from "./Reminders/Reminders";
-import Notes from "./Notes/Notes";
-import Meetings from "./Meetings/Meetings";
-
 function Participants({ study }) {
   const { nctID } = useParams();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [drawer, setDrawer] = useState({ action: "", participant: {} });
   const [toggle, setToggle] = useState(false);
   const [participants, loading, error] = useCollection(
     firestore.collection("studies").doc(nctID).collection("participants")
@@ -38,15 +28,6 @@ function Participants({ study }) {
     accepted: true,
     rejected: true,
   });
-
-  const handleDrawer = (action, participantID) => {
-    const participant = participants.find((participant) => participant.id === participantID) || {
-      responses: [],
-      reminders: [],
-    };
-    setDrawer({ action, participant });
-    onOpen();
-  };
 
   useEffect(() => {
     if (!toggle) {
@@ -138,38 +119,32 @@ function Participants({ study }) {
     return participants.filter((p) => p.fakename.toLowerCase().includes(search));
   };
 
-  const LOAD = (
-    <Box h="500px">
-      <Loader />
-    </Box>
-  );
+  if (loading) {
+    return (
+      <Box h="500px">
+        <Loader />
+      </Box>
+    );
+  }
 
-  const EMPTY = (
-    <Box h="500px">
-      <Message
-        type="neutral"
-        title="Find Participants"
-        description="Your study does not have any participants yet!"
-      />
-    </Box>
-  );
+  if (!participants || !participants.length) {
+    return (
+      <Box h="500px">
+        <Message
+          type="neutral"
+          title="Find Participants"
+          description="Your study does not have any participants yet!"
+        />
+      </Box>
+    );
+  }
 
-  const FILTER_EMPTY = (
-    <Box h="500px">
-      <Message
-        type="failure"
-        title="Empty Filter Results"
-        description="Your filters matched no participants"
-      />
-    </Box>
-  );
-
-  const LIST = (
+  return (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" my="15px">
         <Heading fontSize="28px">Participants</Heading>
         {toggle ? (
-          <Button colorScheme="gray" onClick={() => setToggle(false)}>
+          <Button color="gray.500" onClick={() => setToggle(false)}>
             Clear Filters
           </Button>
         ) : (
@@ -177,7 +152,7 @@ function Participants({ study }) {
             Filter Participants
           </Button>
         )}
-      </Head>
+      </Flex>
       {toggle && (
         <ParticipantsFilter
           search={search}
@@ -189,42 +164,22 @@ function Participants({ study }) {
         />
       )}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {participantsFiltered && participantsFiltered.length
-          ? participantsFiltered.map((participant, index) => (
-              <ParticipantsRow key={index} participant={participant} handleDrawer={handleDrawer} />
-            ))
-          : FILTER_EMPTY}
+        {participantsFiltered && participantsFiltered.length ? (
+          participantsFiltered.map((participant, index) => (
+            <ParticipantsRow key={index} study={study} participant={participant} />
+          ))
+        ) : (
+          <Box h="500px">
+            <Message
+              type="failure"
+              title="Empty Filter Results"
+              description="Your filters matched no participants"
+            />
+          </Box>
+        )}
       </Box>
-      <ParticipantDrawer
-        action={drawer.action}
-        fakename={drawer.participant.fakename}
-        onClose={onClose}
-        isOpen={isOpen}
-      >
-        {drawer.action === "status" && (
-          <Status participant={drawer.participant} onClose={onClose} />
-        )}
-        {drawer.action === "eligibility" && (
-          <Eligibility questions={study.questions} responses={drawer.participant.responses} />
-        )}
-        {drawer.action === "reminders" && (
-          <Reminders participant={drawer.participant} study={study} />
-        )}
-        {drawer.action === "notes" && <Notes id={drawer.participant.id} />}
-        {drawer.action === "meetings" && (
-          <Meetings participant={drawer.participant} study={study} />
-        )}
-      </ParticipantDrawer>
     </>
   );
-  return loading || !participants ? LOAD : participants.length ? LIST : EMPTY;
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
 
 export default Participants;
