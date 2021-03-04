@@ -4,7 +4,6 @@ import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
 import Screening from "./Screening/Screening";
-import Consent from "./Consent/Consent";
 import Review from "./Review/Review";
 
 function CreateStudy({ studies }) {
@@ -12,7 +11,7 @@ function CreateStudy({ studies }) {
   const [redirect, setRedirect] = useState();
 
   const { nctID, tab } = useParams();
-  const tabs = ["details", "eligibility", "review"];
+  const tabs = ["details", "screening", "review"];
   const study = studies.find((study) => study.id === nctID) || {};
 
   useEffect(() => {
@@ -36,7 +35,6 @@ function CreateStudy({ studies }) {
   const render = {
     details: <Details study={study} next={next} back={back} />,
     screening: <Screening study={study} next={next} back={back} />,
-    consent: <Consent study={study} next={next} back={back} />,
     review: <Review study={study} next={next} back={back} />,
   };
 
