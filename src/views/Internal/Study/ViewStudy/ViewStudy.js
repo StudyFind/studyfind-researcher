@@ -7,8 +7,8 @@ import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
 import Locations from "./Locations/Locations";
+import Files from "./Files/Files";
 import Screening from "./Screening/Screening";
-import Consent from "./Consent/Consent";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
 
@@ -30,7 +30,7 @@ function ViewStudy({ studies }) {
         <TabItem>Details</TabItem>
         <TabItem>Locations</TabItem>
         <TabItem>Screening</TabItem>
-        <TabItem>Consent</TabItem>
+        <TabItem>Files</TabItem>
         <TabItem>Participants</TabItem>
         <TabItem>Settings</TabItem>
       </TabList>
@@ -45,7 +45,7 @@ function ViewStudy({ studies }) {
           <Screening study={study} />
         </TabPanel>
         <TabPanel pt="1px">
-          <Consent study={study} />
+          <Files />
         </TabPanel>
         <TabPanel pt="1px">
           <Participants study={study} />
