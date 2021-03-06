@@ -1,17 +1,7 @@
 import React from "react";
 import moment from "moment";
 import styled from "styled-components";
-import {
-  Heading,
-  Box,
-  Grid,
-  Flex,
-  IconButton,
-  Button,
-  Text,
-  Tag,
-  TagLabel,
-} from "@chakra-ui/react";
+import { Heading, Box, Grid, Flex, IconButton, Text, Tag, TagLabel } from "@chakra-ui/react";
 import { FaPlusCircle } from "react-icons/fa";
 
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
@@ -20,7 +10,6 @@ function RemindersView({
   reminders,
   setEdit,
   goToEdit,
-  formatDate,
   getDaysFromOffsets,
   getTimesFromOffsets,
   handleDelete,
@@ -53,7 +42,7 @@ function RemindersView({
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">
             <Heading size="md">{reminder.title}</Heading>
             <Text color="gray.500" fontSize="0.9rem" mb="8px">
-              {formatDate(reminder.startDate)} to {formatDate(reminder.endDate)}
+              {moment(reminder.startDate).format("LL")} to {moment(reminder.endDate).format("LL")}
             </Text>
             <Weekdays>
               {getDaysFromOffsets(reminder.times).map((value, index) => (

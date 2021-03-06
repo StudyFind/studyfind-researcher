@@ -8,38 +8,30 @@ import WelcomeList from "./WelcomeList";
 import WelcomeEmpty from "./WelcomeEmpty";
 
 function Welcome({ studies }) {
-  studies = studies.filter((study) => !study.published);
+  const unpublished = studies.filter((study) => !study.published);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const isUserNew = localStorage.getItem("new") === "true";
-
-    if (isUserNew) {
-      welcomeAccount()
-        .then(() => localStorage.setItem("new", "false"))
-        .catch((err) => setError(err))
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
+    welcomeAccount()
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
   }, []);
+
+  const render = () => {
+    if (loading) return <WelcomeLoading />;
+    if (error) return <div>Error: {error}</div>;
+    if (studies.length) return <WelcomeList studies={unpublished} />;
+    return <WelcomeEmpty />;
+  };
 
   return (
     <>
       <Heading size="lg" mb="10px">
         Welcome to StudyFind!
       </Heading>
-      {loading ? (
-        <WelcomeLoading />
-      ) : error ? (
-        <div>Error: {error}</div>
-      ) : studies.length ? (
-        <WelcomeList studies={studies} />
-      ) : (
-        <WelcomeEmpty />
-      )}
+      {render()}
     </>
   );
 }

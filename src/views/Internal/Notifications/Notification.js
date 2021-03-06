@@ -1,7 +1,6 @@
 import React from "react";
-import moment from "moment";
 import styled from "styled-components";
-
+import { format } from "functions";
 import { Box, Flex, Heading, Text, Icon } from "@chakra-ui/react";
 import { FaCertificate, FaStopwatch, FaUser, FaComment } from "react-icons/fa";
 
@@ -47,7 +46,7 @@ function Notification({ notification }) {
         <Flex justify="space-between" align="center">
           <Heading size="sm">{notification.title}</Heading>
           <Text fontSize="xs" color="gray.400">
-            {moment(notification.time).format("LL")}
+            {format.date(notification.time)}
           </Text>
         </Flex>
         <Text fontSize="md" color="gray.500">

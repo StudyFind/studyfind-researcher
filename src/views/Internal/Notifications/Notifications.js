@@ -7,10 +7,13 @@ import { Heading, Box } from "@chakra-ui/react";
 import { Loader, Message } from "components";
 import Notification from "./Notification";
 
-function Notifications() {
-  const { uid } = auth.currentUser;
+function Notifications({ user }) {
   const [notifications, loading, error] = useCollection(
-    firestore.collection("researchers").doc(uid).collection("notifications").orderBy("time", "desc")
+    firestore
+      .collection("researchers")
+      .doc(user.id)
+      .collection("notifications")
+      .orderBy("time", "desc")
   );
 
   if (loading) return <Loader />;
