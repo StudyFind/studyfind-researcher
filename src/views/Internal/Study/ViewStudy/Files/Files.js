@@ -1,45 +1,47 @@
 import React, { useState, useEffect } from "react";
-import FilesViewer from "./FilesView";
-import FilesEdit from "./FilesEdit";
-import { storage } from "database/firebase";
-import { useToast } from "@chakra-ui/react";
 
-function Files({ study }) {
+import { storage } from "database/firebase";
+import { format } from "functions";
+import { useParams } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
+import { Loader } from "components";
+
+import FilesGrid from "./FilesGrid";
+import FilesEdit from "./FilesEdit";
+
+function Files() {
+  const toast = useToast();
+  const { nctID } = useParams();
+
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState([]);
-  const toast = useToast();
+  const [loading, setLoading] = useState(true);
 
   const getFiles = async () => {
-    const { items } = await storage.ref(`file/${study.id}`).listAll();
+    const { items } = await storage.ref(`study/${nctID}`).listAll();
 
     const tempFiles = await Promise.all(
       items.map(async (ref) => {
+        const meta = await ref.getMetadata();
         const url = await ref.getDownloadURL();
-        return { name: ref.name, link: url };
+        return { name: ref.name, link: url, date: format.date(meta.timeCreated) };
       })
     );
 
     setFiles(tempFiles);
   };
-  const deleteFile = (fileName) => {
-    var desertRef = storage.ref(`file/${study.id}/${fileName}`);
-    desertRef
+
+  const handleDelete = (name) => {
+    storage
+      .ref(`study/${nctID}/${name}`)
       .delete()
       .then(() => {
-        toast({
-          title: "Study Deleted!",
-          description: `Your study was successfully deleted along with all information`,
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
+        getFiles();
       })
-      .catch(() => {
+      .catch((error) => {
         toast({
-          title: "Connection Error",
-          description:
-            "Your study could not be deleted due to a connection error. Please check your internet connection and try again.",
+          title: "Connection Error!",
+          description: "We could not delete your file as there was a connection error",
           status: "error",
           duration: 2500,
           isClosable: true,
@@ -48,14 +50,22 @@ function Files({ study }) {
       });
   };
 
+  const initialLoad = async () => {
+    setLoading(true);
+    await getFiles();
+    setLoading(false);
+  };
+
   useEffect(() => {
-    getFiles();
+    initialLoad();
   }, []);
 
+  if (loading) return <Loader height="500px" />;
+
   return edit ? (
-    <FilesEdit study={study} setEdit={setEdit} />
+    <FilesEdit nctID={nctID} setEdit={setEdit} getFiles={getFiles} />
   ) : (
-    <FilesViewer study={study} setEdit={setEdit} files={files} deleteFile={deleteFile} />
+    <FilesGrid nctID={nctID} setEdit={setEdit} files={files} handleDelete={handleDelete} />
   );
 }
 
