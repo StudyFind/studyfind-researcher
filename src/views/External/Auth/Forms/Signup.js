@@ -6,7 +6,7 @@ import { signup } from "database/auth";
 import { Form, Heading, Name, Email, Password, Button, TabLink } from "views/External/Auth/Blocks";
 import { Message } from "components";
 
-function Login({ setTab }) {
+function Signup({ setTab }) {
   const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
     initial: { name: "", email: "", password: "" },
     onSubmit: signup,
@@ -37,4 +37,4 @@ function Login({ setTab }) {
   );
 }
 
-export default Login;
+export default Signup;

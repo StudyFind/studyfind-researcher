@@ -18,7 +18,7 @@ function ForgotPassword({ setTab }) {
         type="success"
         title="Email Sent!"
         description="Check your email for a password reset link"
-        padding="40px 30px"
+        padding="40px 60px"
       >
         <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
       </Message>

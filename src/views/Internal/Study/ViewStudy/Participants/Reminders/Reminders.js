@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
-import firebase from "firebase";
+import React, { useState } from "react";
+import moment from "moment";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 
+import { Loader } from "components";
+
 import RemindersView from "./RemindersView";
 import RemindersEdit from "./RemindersEdit";
+import RemindersError from "./RemindersError";
 
 function Reminders({ participant, study }) {
   const defaultInputs = {
@@ -70,58 +73,13 @@ function Reminders({ participant, study }) {
     return allTimes;
   };
 
-  const formatDate = (date) => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    const converted = date.toDate();
-    const month = converted.getMonth();
-    const day = converted.getDate();
-    const year = converted.getFullYear();
-
-    return `${months[month]} ${day}, ${year}`;
-  };
-
-  const convertDate = (date) => {
-    const converted = date.toDate();
-    const month = converted.getMonth() + 1;
-    const day = converted.getDate();
-    const year = converted.getFullYear();
-    let returnedDate;
-    if (month < 10) {
-      if (day < 10) {
-        return `${year}-0${month}-0${day}`;
-      } else {
-        return `${year}-0${month}-${day}`;
-      }
-    } else {
-      if (day < 10) {
-        return `${year}-${month}-0${day}`;
-      } else {
-        return `${year}-${month}-${day}`;
-      }
-    }
-  };
-
   const goToEdit = (reminder) => {
     setInputs({
       title: reminder.title,
       weekdays: getDaysFromOffsets(reminder.times),
       times: getTimesFromOffsets(reminder.times),
-      startDate: convertDate(reminder.startDate),
-      endDate: convertDate(reminder.endDate),
+      startDate: moment(reminder.startDate).format("YYYY-MM-DD"),
+      endDate: moment(reminder.endDate).format("YYYY-MM-DD"),
     });
     setReminderID(reminder.id);
     setEdit(true);
@@ -159,9 +117,15 @@ function Reminders({ participant, study }) {
       }
     }
 
+    if (inputs.times.includes(value)) {
+      setErrors({ ...errors, time: "Time has been already added" });
+      return;
+    }
+
     setInputs((prevState) => {
       const times = prevState.times;
       times.push(value);
+      times.sort();
       return { ...prevState, times, time: "" };
     });
   };
@@ -212,26 +176,18 @@ function Reminders({ participant, study }) {
     }
 
     const convertedTimes = convertToTimes();
-    const [startYear, startMonth, startDay] = inputs.startDate.split("-");
-    const firestoreStartDate = firebase.firestore.Timestamp.fromDate(
-      new Date(startYear, startMonth - 1, startDay)
-    );
-    const [endYear, endMonth, endDay] = inputs.endDate.split("-");
-    const firestoreEndDate = firebase.firestore.Timestamp.fromDate(
-      new Date(endYear, endMonth - 1, endDay)
-    );
 
     const newReminder = {
       title: inputs.title,
       times: convertedTimes,
-      startDate: firestoreStartDate,
-      endDate: firestoreEndDate,
-      lastNotified: new Date(0, 0, 0),
+      startDate: inputs.startDate,
+      endDate: inputs.endDate,
+      lastNotified: moment().valueOf(),
       participantID: participant.id,
       studyID: study.id,
     };
 
-    if (firestoreStartDate > firestoreEndDate) {
+    if (moment(inputs.startDate).isAfter(inputs.endDate, "day")) {
       setErrors({ ...errors, endDate: "End date must be after start date" });
       return;
     }
@@ -268,6 +224,9 @@ function Reminders({ participant, study }) {
     return allTimes;
   };
 
+  if (loading) return <Loader />;
+  if (error) return <RemindersError />;
+
   return edit ? (
     <RemindersEdit
       inputs={inputs}
@@ -283,7 +242,6 @@ function Reminders({ participant, study }) {
     <RemindersView
       reminders={reminders}
       participant={participant}
-      formatDate={formatDate}
       setEdit={setEdit}
       goToEdit={goToEdit}
       getDaysFromOffsets={getDaysFromOffsets}

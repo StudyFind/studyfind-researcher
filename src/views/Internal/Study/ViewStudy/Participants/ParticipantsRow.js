@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
+import { Text, Avatar, Badge, useDisclosure } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
-function ParticipantRow({ participant, handleDrawer }) {
+import ParticipantDrawer from "./ParticipantDrawer";
+import ParticipantActionButton from "./ParticipantActionButton";
+
+import Status from "./Status/Status";
+import Screening from "./Screening/Screening";
+import Meetings from "./Meetings/Meetings";
+import Reminders from "./Reminders/Reminders";
+import Notes from "./Notes/Notes";
+
+function ParticipantsRow({ study, participant }) {
   const statusColors = {
     interested: "gray",
     screened: "purple",
     consented: "cyan",
     accepted: "green",
     rejected: "red",
+  };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [action, setAction] = useState("");
+
+  const handleCancel = () => {
+    setAction("");
+    onClose();
+  };
+
+  const handleAction = (a) => {
+    setAction(a);
+    onOpen();
   };
 
   return (
@@ -29,7 +51,7 @@ function ParticipantRow({ participant, handleDrawer }) {
         size="sm"
         cursor="pointer"
         colorScheme={statusColors[participant.status]}
-        onClick={() => handleDrawer("status", participant.id)}
+        onClick={() => handleAction("status", participant.id)}
       >
         {participant.status}
       </Badge>
@@ -37,46 +59,34 @@ function ParticipantRow({ participant, handleDrawer }) {
         {participant.score}% eligible
       </Text>
       <Buttons>
-        <Tooltip label="Message">
-          <IconButton color="gray.400" size="sm" bg="transparent" icon={<FaComment />} />
-        </Tooltip>
-        <Tooltip label="Eligibility">
-          <IconButton
-            color="gray.400"
-            size="sm"
-            bg="transparent"
-            icon={<FaClipboard />}
-            onClick={() => handleDrawer("eligibility", participant.id)}
-          />
-        </Tooltip>
-        <Tooltip label="Meetings">
-          <IconButton
-            color="gray.400"
-            size="sm"
-            bg="transparent"
-            icon={<FaCalendar />}
-            onClick={() => handleDrawer("meetings", participant.id)}
-          />
-        </Tooltip>
-        <Tooltip label="Reminders">
-          <IconButton
-            color="gray.400"
-            size="sm"
-            bg="transparent"
-            icon={<FaClock />}
-            onClick={() => handleDrawer("reminders", participant.id)}
-          />
-        </Tooltip>
-        <Tooltip label="Notes">
-          <IconButton
-            color="gray.400"
-            size="sm"
-            bg="transparent"
-            icon={<FaStickyNote />}
-            onClick={() => handleDrawer("notes", participant.id)}
-          />
-        </Tooltip>
+        <ParticipantActionButton name="message" icon={<FaComment />} handleAction={handleAction} />
+        <ParticipantActionButton
+          name="screening"
+          icon={<FaClipboard />}
+          handleAction={handleAction}
+        />
+        <ParticipantActionButton
+          name="meetings"
+          icon={<FaCalendar />}
+          handleAction={handleAction}
+        />
+        <ParticipantActionButton name="reminders" icon={<FaClock />} handleAction={handleAction} />
+        <ParticipantActionButton name="notes" icon={<FaStickyNote />} handleAction={handleAction} />
       </Buttons>
+      <ParticipantDrawer
+        action={action}
+        fakename={participant.fakename}
+        onClose={handleCancel}
+        isOpen={isOpen}
+      >
+        {action === "status" && <Status participant={participant} onClose={onClose} />}
+        {action === "screening" && (
+          <Screening questions={study.questions} responses={participant.responses} />
+        )}
+        {action === "meetings" && <Meetings participant={participant} study={study} />}
+        {action === "reminders" && <Reminders participant={participant} study={study} />}
+        {action === "notes" && <Notes id={participant.id} />}
+      </ParticipantDrawer>
     </Row>
   );
 }
@@ -100,4 +110,4 @@ const Buttons = styled.div`
   grid-gap: 5px;
 `;
 
-export default ParticipantRow;
+export default ParticipantsRow;

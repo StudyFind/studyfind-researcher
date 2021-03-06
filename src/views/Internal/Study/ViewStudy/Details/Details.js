@@ -20,7 +20,9 @@ function Details({ study }) {
 
   const characterCheck = (name, value, min, max) => {
     const isInvalid = value.length < min || value.length > max;
-    return isInvalid ? `The best ${name}s are between ${min} and ${max} characters` : "";
+    return isInvalid
+      ? `Please ensure that the study ${name} is between ${min} and ${max} characters`
+      : "";
   };
 
   const checker = (name, value) => {

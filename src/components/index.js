@@ -1,5 +1,4 @@
 export { default as TabCard } from "./TabCard";
-export { default as Card } from "./Card";
 export { default as Form } from "./Form";
 export { default as Loader } from "./Loader";
 export { default as Modal } from "./Modal";
@@ -10,3 +9,4 @@ export { default as Message } from "./Message";
 export { default as Page } from "./Page";
 export { default as FileInput } from "./FileInput";
 export { default as List } from "./List";
+export { default as Confirm } from "./Confirm";

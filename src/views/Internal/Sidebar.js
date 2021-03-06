@@ -4,8 +4,17 @@ import styled from "styled-components";
 import { auth } from "database/firebase";
 
 import { Link, useLocation } from "react-router-dom";
-import { Box, Flex, Grid, Heading, Text, Image, Avatar, Tooltip } from "@chakra-ui/react";
-import { FaBell, FaCalendar, FaCog, FaPoll, FaThLarge, FaUserCircle } from "react-icons/fa";
+import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
+import {
+  FaBell,
+  FaCalendar,
+  FaCog,
+  FaPoll,
+  FaThLarge,
+  FaCommentAlt,
+  FaUserCircle,
+  FaQuestionCircle,
+} from "react-icons/fa";
 import StudyFindLogo from "images/logo.png";
 
 function Sidebar({ user }) {
@@ -17,6 +26,8 @@ function Sidebar({ user }) {
     { name: "Schedule", path: "/schedule", icon: <FaCalendar /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
+    { name: "Feedback", path: "/feedback", icon: <FaCommentAlt /> },
+    { name: "FAQ", path: "/faq", icon: <FaQuestionCircle /> },
   ];
 
   return (
@@ -69,7 +80,7 @@ const Logo = styled(Link)`
 `;
 
 const NavLink = styled(Link)`
-  padding: 25px 20px;
+  padding: 20px;
   display: flex;
   grid-gap: 12px;
   align-items: center;

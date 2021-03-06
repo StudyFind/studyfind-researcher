@@ -2,7 +2,7 @@ import React from "react";
 
 import { Tag, Text, Box, Grid } from "@chakra-ui/react";
 
-function Screen({ questions, responses }) {
+function Screening({ questions, responses }) {
   return (
     <Grid gap="15px">
       {questions && questions.length
@@ -28,4 +28,4 @@ function Screen({ questions, responses }) {
   );
 }
 
-export default Screen;
+export default Screening;

@@ -15,8 +15,8 @@ function WelcomeEmpty() {
           clinicaltrials.gov
         </ExternalLink>{" "}
         and add your study to StudyFind using your registered study&apos;s NCT ID. In case
-        you&apos;re wondering, we require that studies are registered on clinicaltrials.gov so we
-        can verify that the study is authentic and validate the study owner.
+        you&apos;re wondering, we require that studies are registered on clinicaltrials.gov in an
+        effort to simplify study creation and verify study owners.
       </Text>
       <Link to="/dashboard">
         <Button mt="20px" colorScheme="blue">
