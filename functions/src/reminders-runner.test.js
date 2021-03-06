@@ -38,8 +38,8 @@ describe("reminders-runner", () => {
         let studies = await firestore.collection("studies").get();
         expect(studies.empty).toBe(false);
         expect(studies.length).toBe(1);
-        expect(studies[0].id).toBe('TEST_STUDY_ID');
-        expect(studies[0].data().title).toEqual('TEST_TITLE');
+        expect(studies[0].id).toBe("TEST_STUDY_ID");
+        expect(studies[0].data().title).toEqual("TEST_TITLE");
         expect(firestore.data).toEqual(data());
         expect(firestore.path).toEqual([]);
         expect(firestore.queries).toEqual([["collection", "studies"]]);
@@ -58,7 +58,7 @@ describe("reminders-runner", () => {
         let participants = await firestore.collection("studies").doc("TEST_STUDY_ID").collection("participants").get();
         expect(participants.empty).toBe(false);
         expect(participants.length).toBe(1);
-        expect(participants[0].data()).toEqual({ name: 'TEST_NAME' });
+        expect(participants[0].data()).toEqual({ name: "TEST_NAME" });
 
         await firestore.collection("studies").doc("TEST_STUDY_ID_2").update({ title: "TEST_TITLE_2_REVISED" });
         study = await firestore.collection("studies").doc("TEST_STUDY_ID_2").get();
@@ -93,7 +93,7 @@ describe("reminders-runner", () => {
         const study = await firestore.collection("studies").doc("TEST_STUDY_ID").get();
         expect(study.exists).toBe(true);
         const studyData = study.data()
-        expect(studyData.nctID).toBe("NCT000");
+        expect(studyData.nctID).toBe("TEST_STUDY_ID");
 
         const participant = await firestore.collection("studies").doc("TEST_STUDY_ID")
             .collection("participants").doc("TEST_PARTICIPANT_ID").get();
@@ -158,7 +158,7 @@ const mFirestore = () => ({
     collection: {
         studies: {
             "TEST_STUDY_ID": {
-                nctID: "NCT000",
+                nctID: "TEST_STUDY_ID",
                 collection: {
                     participants: {
                         "TEST_PARTICIPANT_ID": {
