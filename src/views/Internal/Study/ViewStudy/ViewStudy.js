@@ -54,7 +54,7 @@ function ViewStudy({ studies }) {
           <Eligibility study={study} />
         </TabPanel>
         <TabPanel pt="1px">
-          <Files study={study} />
+          <Files />
         </TabPanel>
         <TabPanel pt="1px">
           <Participants study={study} />
