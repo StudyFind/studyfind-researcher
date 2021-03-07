@@ -6,6 +6,12 @@ service cloud.firestore {
 
       match /notifications/{notificationID} {
       	allow read: if researcherID == request.auth.uid
+        allow update: if researcherID == request.auth.uid
+        	&& resource.data.title == request.resource.data.title
+          && resource.data.description == request.resource.data.description
+          && resource.data.time == request.resource.data.time
+          && resource.data.type == request.resource.data.type
+          && resource.data.read == false && request.resource.data.read == true
       }
     }
 
@@ -14,6 +20,12 @@ service cloud.firestore {
 
       match /notifications/{notificationID} {
       	allow read: if participantID == request.auth.uid
+        allow update: if participantID == request.auth.uid
+        	&& resource.data.title == request.resource.data.title
+          && resource.data.description == request.resource.data.description
+          && resource.data.time == request.resource.data.time
+          && resource.data.type == request.resource.data.type
+          && resource.data.read == false && request.resource.data.read == true
       }
     }
 
@@ -23,7 +35,7 @@ service cloud.firestore {
       // allow read if custom claim is participant
 
       match /participants/{participantID} {
-        allow create: if participantID == request.auth.uid
+        allow create, read: if participantID == request.auth.uid
         allow read, update, delete: if getStudyData(studyID).researcher.id == request.auth.uid
         // allow create by participant
 
@@ -41,13 +53,13 @@ service cloud.firestore {
     }
 
     match /meetings/{meetingID} {
-    	allow read: if request.auth.uid == resource.data.participantID || request.auth.uid == resource.data.researcherID
+    	allow read: if request.auth.uid == resource.data.participantID || request.auth.uid == getStudyData(resource.data.studyID).researcher.id || request.auth.uid == resource.data.researcherID
       allow create: if request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
       allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
     }
 
     match /feedback/{feedbackID} {
-    	allow write: if request.auth.uid != null
+    	allow write: if request.auth != null
     }
 
     // fetch a study from firestore

@@ -60,7 +60,7 @@ function Sidebar({ user }) {
             <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
               {user ? user.name : "Your Account"}
             </Text>
-            <Text fontSize="0.9rem" color="gray.500" isTruncated maxWidth="180px">
+            <Text fontSize="0.9rem" color="gray.400" isTruncated maxWidth="180px">
               {auth.currentUser.email}
             </Text>
           </Box>
