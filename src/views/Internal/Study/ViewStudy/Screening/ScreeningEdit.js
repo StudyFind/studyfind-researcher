@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { Heading, Button, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
 import { FaTrash, FaPlus } from "react-icons/fa";
+import { ReactSortable } from "react-sortablejs";
+import { SortableContainer, SortableElement } from "react-sortable-hoc";
+import { SortableHandle } from "react-sortable-hoc";
+import { AiOutlineDrag } from "react-icons/ai";
 
 function ScreeningEdit({
   original,
@@ -13,20 +17,25 @@ function ScreeningEdit({
   deleteQuestion,
   deleteAllQuestions,
   handleSubmit,
+  setQuestions,
 }) {
-  const questionComponents = questions.map((question, index) => (
+  const DragHandle = SortableHandle(() => (
+    <IconButton colorScheme="" color="gray.500" icon={<AiOutlineDrag />} />
+  ));
+  const SortableItem = SortableElement(({ value, index }) => (
     <Row key={index}>
+      <DragHandle />
       <Select
         w="210px"
         name="type"
-        value={question.type}
+        value={value.type}
         onChange={(name, value) => updateQuestion(index, name, value)}
         options={["Inclusion", "Exclusion"]}
       />
       <Input
         placeholder="Question Prompt"
         name="prompt"
-        value={question.prompt}
+        value={value.prompt}
         onChange={(name, value) => updateQuestion(index, name, value)}
       />
       <IconButton
@@ -38,6 +47,23 @@ function ScreeningEdit({
       />
     </Row>
   ));
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    let newArray = [...questions];
+    const removed = newArray.splice(oldIndex, 1);
+    newArray.splice(newIndex, 0, removed[0]);
+    setQuestions(newArray);
+  };
+  const SortableList = SortableContainer(({ items }) => {
+    return (
+      <ul>
+        {items.map((value, index) => (
+          <>
+            <SortableItem key={index} index={index} value={value} />
+          </>
+        ))}
+      </ul>
+    );
+  });
 
   return (
     <>
@@ -66,7 +92,8 @@ function ScreeningEdit({
         </Buttons>
       </Head>
       <Questions>
-        {questionComponents}
+        {/* {questionComponents} */}
+        <SortableList items={questions} useDragHandle onSortEnd={onSortEnd} />;
         <Button leftIcon={<FaPlus />} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>
