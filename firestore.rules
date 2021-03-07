@@ -46,6 +46,9 @@ service cloud.firestore {
       allow update, delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id
     }
 
+    match /feedback/{feedbackID} {
+    	allow write: if request.auth.uid != null
+    }
 
     // fetch a study from firestore
     function getStudyData(studyID) {
