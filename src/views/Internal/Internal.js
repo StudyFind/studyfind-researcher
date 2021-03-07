@@ -18,6 +18,7 @@ import Notifications from "views/Internal/Notifications/Notifications";
 import Schedule from "views/Internal/Schedule/Schedule";
 import Welcome from "views/Internal/Welcome/Welcome";
 import Account from "views/Internal/Account/Account";
+import Feedback from "views/Internal/Feedback/Feedback";
 
 function Internal() {
   const cred = auth.currentUser;
@@ -38,6 +39,7 @@ function Internal() {
     { path: "/schedule", component: <Schedule studies={studies} /> },
     { path: "/settings", component: <Settings /> },
     { path: "/account", component: <Account user={user} /> },
+    { path: "/feedback", component: <Feedback /> },
   ];
 
   return (
