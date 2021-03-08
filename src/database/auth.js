@@ -1,6 +1,9 @@
 import { auth, firestore } from "./firebase";
+import axios from "axios";
 import errors from "./errors";
 import moment from "moment-timezone";
+
+const CLOUD_API_URL = "https://us-central1-studyfind-researcher.cloudfunctions.net";
 
 const getErrorMessage = ({ code }) => ({ email: "", password: "", ...errors[code] });
 
@@ -9,11 +12,17 @@ const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
 const signup = async (name, email, password) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
+
+    const idToken = auth.currentUser.getIdToken(false);
+    await axios.get(`${CLOUD_API_URL}/setResearcherClaim`, { params: { idToken } });
+
     await user.sendEmailVerification();
-    await firestore.collection("researchers").doc(user.uid).set({
-      name,
-      timezone: moment.tz.guess(),
-    });
+
+    await firestore
+      .collection("researchers")
+      .doc(user.uid)
+      .set({ name, timezone: moment.tz.guess() });
+
     localStorage.setItem("exists", true);
     return user;
   } catch (error) {
