@@ -5,6 +5,8 @@ admin.initializeApp();
 const context = { admin };
 
 // ***** Http Functions *****
+const setResearcherClaim = require("./src/set-researcher-claim");
+exports.setResearcherClaim = functions.https.onRequest(setResearcherClaim(context));
 
 // note that switch func contains all http functions
 const switchFunc = require("./src/switch-func");
@@ -17,22 +19,27 @@ exports.studies = functions.https.onRequest(switchFunc(context));
 
 const remindersRunner = require("./src/reminders-runner.js")(context);
 const meetingRunner = require("./src/meeting-runner")(context);
-exports.remindersRunner = functions.pubsub.schedule("*/30 * * * *").onRun(async () => await Promise.allSettled([
-    remindersRunner(),
-    meetingRunner(),
-]));
+exports.remindersRunner = functions.pubsub
+  .schedule("*/30 * * * *")
+  .onRun(async () => await Promise.allSettled([remindersRunner(), meetingRunner()]));
 
 // ***** Cloud Trigger Functions ******
 
 const {
-    onCreateStudy, onDeleteStudy,
-    onNewParticipant,
-    onCreateResearcherAccount } = require("./src/notification-triggers.js");
-exports.createStudyNotificationTrigger = functions.firestore.document("studies/{studyID}")
-    .onCreate(onCreateStudy(context));
-exports.deleteStudyNotificationTrigger = functions.firestore.document("studies/{studyID}")
-    .onDelete(onDeleteStudy(context));
-exports.newParticipantNotificationTrigger = functions.firestore.document("studies/{studyID}/participants/{participantID}")
-    .onCreate(onNewParticipant(context));
-exports.newResearcherAccountNotificationTrigger = functions.firestore.document("researchers/{researcherID}")
-    .onCreate(onCreateResearcherAccount(context));
+  onCreateStudy,
+  onDeleteStudy,
+  onNewParticipant,
+  onCreateResearcherAccount,
+} = require("./src/notification-triggers.js");
+exports.createStudyNotificationTrigger = functions.firestore
+  .document("studies/{studyID}")
+  .onCreate(onCreateStudy(context));
+exports.deleteStudyNotificationTrigger = functions.firestore
+  .document("studies/{studyID}")
+  .onDelete(onDeleteStudy(context));
+exports.newParticipantNotificationTrigger = functions.firestore
+  .document("studies/{studyID}/participants/{participantID}")
+  .onCreate(onNewParticipant(context));
+exports.newResearcherAccountNotificationTrigger = functions.firestore
+  .document("researchers/{researcherID}")
+  .onCreate(onCreateResearcherAccount(context));
