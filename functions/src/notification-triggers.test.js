@@ -1,5 +1,6 @@
 const admin = require("./__mocks__/admin");
 const firestore = admin.firestore();
+const auth = admin.auth();
 
 const context = { admin };
 const Funcs = require("./notification-triggers");

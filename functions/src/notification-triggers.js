@@ -1,12 +1,17 @@
 // src/notification-triggers.js
 const { logger } = require("firebase-functions");
 const defaults = require("./utils/make-notification");
+const sendEmail = require("./firebase/send-email");
 
 
 module.exports.onCreateStudy = ({ admin }) => async (snapshot, context) => {
     const firestore = admin.firestore();
     const study = snapshot.data();
 
+    await sendEmail(firestore, admin.auth(), study.researcher.id, {
+        subject: "New Study Created",
+        html: `A new study with id "${study.nctID}" has been created.`,
+    });
     return firestore
         .collection("researchers").doc(study.researcher.id)
         .collection("notifications").add({
