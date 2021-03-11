@@ -245,7 +245,7 @@ const mAuth = () => ({
         email: "TEST_RESEARCHER_EMAIL",
     },
     "TEST_PARTICIPANT_ID": {
-        email: "TEST_PARTICIPANT_ID",
+        email: "TEST_PARTICIPANT_EMAIL",
     }
 });
 

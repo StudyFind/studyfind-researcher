@@ -2,6 +2,7 @@
 const { logger } = require("firebase-functions");
 const getOffset = require("./utils/offset-time");
 const defaults = require("./utils/make-notification");
+const sendEmail = require("./firebase/send-email");
 
 /**
  * Perform a given async action for each meeting scheduled for now
@@ -36,6 +37,7 @@ const logResponse = r => {
 
 module.exports = ({ admin }) => async () => {
 	const firestore = admin.firestore();
+	const auth = admin.auth();
 	const now = Date.now();
 
 	// note: reminders runner has similar structure
@@ -51,6 +53,10 @@ module.exports = ({ admin }) => async () => {
 			type: "Meeting",
 			time: now,
 		}
+		const email = {
+			subject: notification.title,
+			html: `<p>${notification.description}</p>`
+		}
 
 		// get referenced study researcher id
 		const studySnap = await firestore.collection("studies").doc(m.studyID).get();
@@ -58,11 +64,14 @@ module.exports = ({ admin }) => async () => {
 			throw Error(`Study ${m.studyID} referenced does not exist`);
 		const researcher = studySnap.get("researcher");
 
-		// update researcher / participant notifications
-		firestore.collection("researchers").doc(researcher.id).collection("notifications").add(notification);
-		firestore.collection("participants").doc(m.participantID).collection("notifications").add(notification);
-
-		return true;
+		return Promise.all([
+			// update researcher / participant notifications
+			firestore.collection("researchers").doc(researcher.id).collection("notifications").add(notification),
+			firestore.collection("participants").doc(m.participantID).collection("notifications").add(notification),
+			// send emails to both researcher and participant
+			sendEmail(firestore, auth, researcher.id, email),
+			sendEmail(firestore, auth, m.participantID, email, false),
+		])
 	}, firestore);
 
 	logResponse(resp);

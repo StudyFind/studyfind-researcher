@@ -1,5 +1,6 @@
 const admin = require("./__mocks__/admin");
 const firestore = admin.firestore();
+const auth = admin.auth();
 
 const context = { admin };
 const Func = require("./meeting-runner");
@@ -14,11 +15,13 @@ describe("meeting-runner", () => {
     afterEach(() => {
         jest.clearAllMocks();
         firestore.reset();
+        auth.reset();
     });
 
     it("calls all proper functions", async () => {
         firestore.data = mFirestore();
-        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30);
+        auth.data = mAuth();
+        jest.spyOn(global.Date, "now").mockReturnValueOnce(1000 * 60 * 30);
 
         await func();
 
@@ -32,7 +35,8 @@ describe("meeting-runner", () => {
 
     it("creates a researcher notification", async () => {
         firestore.data = mFirestore();
-        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30);
+        auth.data = mAuth();
+        jest.spyOn(global.Date, "now").mockReturnValueOnce(1000 * 60 * 30);
 
         await func();
 
@@ -44,7 +48,8 @@ describe("meeting-runner", () => {
 
     it("creates a participant notification", async () => {
         firestore.data = mFirestore();
-        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30);
+        auth.data = mAuth();
+        jest.spyOn(global.Date, "now").mockReturnValueOnce(1000 * 60 * 30);
 
         await func();
 
@@ -54,9 +59,23 @@ describe("meeting-runner", () => {
         expect(snap.empty).toBe(false);
     });
 
+    it("creates an email to both participant and researcher", async () => {
+        firestore.data = mFirestore();
+        auth.data = mAuth();
+        jest.spyOn(global.Date, "now").mockReturnValueOnce(1000 * 60 * 30);
+
+        await func();
+
+        const snap = await firestore.collection("mail").get();
+        expect(snap.empty).toBe(false);
+        expect(snap.length).toBe(2);
+        // TODO: Add actual checking of both emails
+    });
+
     it("notifies for all meetings in past 30 minutes", async () => {
         firestore.data = mFirestore();
-        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 35); // 35 minutes
+        auth.data = mAuth();
+        jest.spyOn(global.Date, "now").mockReturnValueOnce(1000 * 60 * 35); // 35 minutes
 
         await func();
 
@@ -95,6 +114,15 @@ const mFirestore = () => ({
                 time: 1000 * 60 * 30, // 30 mins
             }
         }
+    }
+});
+
+const mAuth = () => ({
+    "TEST_RESEARCHER_ID": {
+        email: "TEST_RESEARCHER_EMAIL",
+    },
+    "TEST_PARTICIPANT_ID": {
+        email: "TEST_PARTICIPANT_EMAIL",
     }
 });
 
