@@ -13,11 +13,11 @@ const defaultMessageObject = {
  * @param {bool} isResearcher Whether user is a researcher or not (need to check their settings)
  * @returns Promise of firestore mail insert
  */
-module.exports = async (firestore, auth, uid, messageObject=defaultMessageObject, isResearcher=True) => {
+module.exports = async (firestore, auth, uid, messageObject=defaultMessageObject, isResearcher=true) => {
     const [user, userData] = await Promise.all([
         auth.getUser(uid)
             .then(u => {
-                if (!u.email) throw TypeError(`'${u.email}' for user ${uid} is not a valid email`);
+                if (!u.email) throw TypeError(`no email exists for user ${uid}`);
                 return u
             }),
         firestore.collection(isResearcher ? 'researchers' : 'participants').doc(uid).get()
