@@ -69,7 +69,15 @@ describe("meeting-runner", () => {
         const snap = await firestore.collection("mail").get();
         expect(snap.empty).toBe(false);
         expect(snap.length).toBe(2);
-        // TODO: Add actual checking of both emails
+        const [a, b] = [snap[0].data(), snap[1].data()];
+        expect_or(
+            () => expect(a.to).toBe("TEST_RESEARCHER_EMAIL"),
+            () => expect(b.to).toBe("TEST_RESEARCHER_EMAIL")
+        );
+        expect_or(
+            () => expect(a.to).toBe("TEST_PARTICIPANT_EMAIL"),
+            () => expect(b.to).toBe("TEST_PARTICIPANT_EMAIL")
+        )
     });
 
     it("notifies for all meetings in past 30 minutes", async () => {
