@@ -39,6 +39,7 @@ function useArray(initial) {
     setArray((prevState) => {
       const before = prevState.slice(0, index);
       const after = prevState.slice(index + 1);
+      console.log({ before, after });
       return before.concat(after);
     });
   };

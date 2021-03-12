@@ -42,6 +42,7 @@ function Screening({ study }) {
       deleteAllQuestions={clearArray}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
+      setQuestions={setQuestions}
     />
   ) : (
     <ScreeningView questions={questions} setEdit={setEdit} />
