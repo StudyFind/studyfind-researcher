@@ -1,8 +1,6 @@
 import React from "react";
 import lodash from "lodash";
-import styled from "styled-components";
-
-import { Flex, Grid, Heading, Button, Icon, IconButton } from "@chakra-ui/react";
+import { Flex, Grid, Heading, Button, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
 import { SortableContainer, SortableElement, SortableHandle } from "react-sortable-hoc";
 import { FaTrash, FaPlus, FaBars } from "react-icons/fa";
@@ -75,9 +73,9 @@ function ScreeningEdit({
 
   return (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" my="15px">
         <Heading fontSize="28px">Edit Screening</Heading>
-        <Buttons>
+        <Flex gridGap="10px">
           <Button
             colorScheme=""
             color="gray.500"
@@ -97,9 +95,9 @@ function ScreeningEdit({
               Save Changes
             </Button>
           ) : null}
-        </Buttons>
-      </Head>
-      <Questions>
+        </Flex>
+      </Flex>
+      <Grid w="100%" gap="10px" py="10px">
         <SortableList
           items={questions}
           useDragHandle
@@ -110,33 +108,9 @@ function ScreeningEdit({
         <Button leftIcon={<FaPlus />} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>
-      </Questions>
+      </Grid>
     </>
   );
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
-const Row = styled.div`
-  display: flex;
-  grid-gap: 10px;
-  width: 100%;
-`;
-
-const Questions = styled.div`
-  display: grid;
-  width: 100%;
-  grid-gap: 10px;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  grid-gap: 10px;
-`;
 
 export default ScreeningEdit;
