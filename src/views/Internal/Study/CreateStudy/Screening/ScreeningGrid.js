@@ -1,9 +1,56 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Flex, Grid, Icon, IconButton } from "@chakra-ui/react";
-import { FaTrash, FaPlus, FaBars } from "react-icons/fa";
-import { Input, Select } from "components";
 import { SortableContainer, SortableElement, SortableHandle } from "react-sortable-hoc";
+import { Button, Flex, Grid, Icon, IconButton } from "@chakra-ui/react";
+import { Input, Select } from "components";
+import { FaTrash, FaPlus, FaBars } from "react-icons/fa";
+
+const DragHandle = SortableHandle(() => (
+  <Flex cursor="row-resize" h="40px" w="40px" justify="center" align="center">
+    <Icon color="gray.500" as={FaBars} />
+  </Flex>
+));
+
+const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion }) => (
+  <Row>
+    <DragHandle />
+    <Select
+      w="210px"
+      name="type"
+      value={value.type}
+      onChange={(name, value) => updateQuestion(i, name, value)}
+      options={["Inclusion", "Exclusion"]}
+    />
+    <Input
+      placeholder="Question Prompt"
+      name="prompt"
+      value={value.prompt}
+      onChange={(name, value) => updateQuestion(i, name, value)}
+    />
+    <IconButton
+      colorScheme=""
+      color="gray.500"
+      _hover={{ color: "red.500", bg: "red.100" }}
+      icon={<FaTrash />}
+      onClick={() => deleteQuestion(i)}
+    />
+  </Row>
+));
+
+const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
+  <Grid gap="10px">
+    {items.map((value, index) => (
+      <SortableItem
+        key={index}
+        index={index}
+        i={index}
+        value={value}
+        updateQuestion={updateQuestion}
+        deleteQuestion={deleteQuestion}
+      />
+    ))}
+  </Grid>
+));
 
 function ScreeningGrid({
   back,
@@ -64,52 +111,7 @@ function ScreeningGrid({
     </>
   );
 }
-const DragHandle = SortableHandle(() => (
-  <Flex cursor="row-resize" h="40px" w="40px" justify="center" align="center">
-    <Icon color="gray.500" as={FaBars} />
-  </Flex>
-));
 
-const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion }) => (
-  <Row>
-    <DragHandle />
-    <Select
-      w="210px"
-      name="type"
-      value={value.type}
-      onChange={(name, value) => updateQuestion(i, name, value)}
-      options={["Inclusion", "Exclusion"]}
-    />
-    <Input
-      placeholder="Question Prompt"
-      name="prompt"
-      value={value.prompt}
-      onChange={(name, value) => updateQuestion(i, name, value)}
-    />
-    <IconButton
-      colorScheme=""
-      color="gray.500"
-      _hover={{ color: "red.500", bg: "red.100" }}
-      icon={<FaTrash />}
-      onClick={() => deleteQuestion(i)}
-    />
-  </Row>
-));
-
-const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
-  <Grid gap="10px">
-    {items.map((value, index) => (
-      <SortableItem
-        key={index}
-        index={index}
-        i={index}
-        value={value}
-        updateQuestion={updateQuestion}
-        deleteQuestion={deleteQuestion}
-      />
-    ))}
-  </Grid>
-));
 const Row = styled.div`
   display: flex;
   grid-gap: 10px;
@@ -119,5 +121,6 @@ const Questions = styled.div`
   display: grid;
   width: 100%;
   grid-gap: 10px;
+  margin: 10px 0;
 `;
 export default ScreeningGrid;
