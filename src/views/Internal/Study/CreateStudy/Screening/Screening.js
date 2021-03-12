@@ -38,6 +38,7 @@ function Screening({ study, next, back }) {
         deleteQuestion={deleteElementByIndex}
         deleteAllQuestions={clearArray}
         handleSubmit={handleSubmit}
+        setQuestions={setQuestions}
       />
     </>
   );

@@ -1,18 +1,3 @@
-let isQueryingDoc = false;
-let isTransaction = false;
-
-const updateData = (data, path, newData, create = false) => {
-    while (path.length > 1) {
-        let p = path.shift();
-        if (!data[p]) {
-            if (!create) throw TypeError(`Cannot read property '${p}' of ${data}`);
-            else data[p] = {}
-        }
-        data = data[p];
-    }
-    data[path.shift()] = newData;
-}
-
 /**
  * Higher-order function that supports filtering the current level of data. Returns a new
  * function which should be called with current level of data to gain filtered data
@@ -23,7 +8,7 @@ const updateData = (data, path, newData, create = false) => {
  */
 const filter = (subject, verb, object) => {
 
-    let conditionFunction = {
+    const conditionFunction = {
         '<': d => d[subject] < object,
         '>': d => d[subject] > object,
         '==': d => d[subject] == object,
@@ -31,10 +16,13 @@ const filter = (subject, verb, object) => {
         '>=': d => d[subject] >= object,
         'array-contains': d => d[subject].some(item => item == object),
     }[verb];
+    if (conditionFunction == undefined) {
+        throw new Error(`"${verb}" is not a valid condition`)
+    }
 
     return (data => {
         // console.log(`filtering ${subject} ${verb} ${object} on:`, data)
-        let resp = {};
+        const resp = {};
         Object.keys(data).map(k => ({ id: k, data: data[k] }))
             .filter(d => conditionFunction(d.data))
             .forEach(d => resp[d.id] = d.data);
@@ -42,12 +30,20 @@ const filter = (subject, verb, object) => {
     })
 }
 
+// utility for making firebase-like snapshots
+const makeSnapshot = (d, id) => ({
+    id,
+    exists: !!d,
+    data: () => d,
+    get: (k) => d[k],
+});
+
 const mFirestore = {
     // actually present methods
     collection: jest.fn(c => {
         mFirestore.path.push("collection")
         mFirestore.path.push(c);
-        isQueryingDoc = false;
+        mFirestore.isQueryingDoc = false;
         return mFirestore;
     }),
     where: jest.fn((subject, verb, object) => {
@@ -57,16 +53,30 @@ const mFirestore = {
     select: jest.fn(() => mFirestore),
     doc: jest.fn(c => {
         mFirestore.path.push(c);
-        isQueryingDoc = true;
+        mFirestore.isQueryingDoc = true;
         return mFirestore;
     }),
-    set: jest.fn(async (d, transaction_d) => {
+    add: jest.fn(async (d, transaction_d) => {
         let { queries, path, data } = mFirestore;
-        if (isTransaction) d = transaction_d;
+        if (mFirestore.isTransaction) d = transaction_d;
+        path.push('0'); // add is for adding random document id
         queries.push(path);
 
         while (path.length > 1) {
-            let p = path.shift();
+            const p = path.shift();
+            if (!data[p]) data[p] = {};
+            data = data[p];
+        }
+        data[path.shift()] = d;
+        path = [];
+    }),
+    set: jest.fn(async (d, transaction_d) => {
+        let { queries, path, data } = mFirestore;
+        if (mFirestore.isTransaction) d = transaction_d;
+        queries.push(path);
+
+        while (path.length > 1) {
+            const p = path.shift();
             if (!data[p]) data[p] = {};
             data = data[p];
         }
@@ -75,42 +85,45 @@ const mFirestore = {
     }),
     update: jest.fn(async (d, transaction_d) => {
         let { queries, path, data } = mFirestore;
-        if (isTransaction) d = transaction_d;
+        if (mFirestore.isTransaction) d = transaction_d;
         queries.push(path);
 
         while (path.length > 1) {
             data = data[path.shift()];
         }
-        let p = path.shift();
+        const p = path.shift();
         data[p] = { ...data[p], ...d };
         path = [];
     }),
     get: jest.fn(async () => {
         mFirestore.queries.push(mFirestore.path);
         const data = mFirestore.path.reduce((d, p) => typeof p === "function" ? p(d) : d[p], mFirestore.data); // individual path elem might be a filter function
-        mFirestore.path = []
+        const id = mFirestore.path[mFirestore.path.length - 1];
+        mFirestore.path = [];
         // if querying single doc, easy peasy
-        if (isQueryingDoc) {
-            let d = { ...data }
+        if (mFirestore.isQueryingDoc) {
+            const d = { ...data }
             delete d.collection;
-            return { exists: !!d, data: () => d };
+            return makeSnapshot(d, id);
         }
         // if querying collection, need to convert to array too
-        let snapshots = Object.keys(data).map(k => {
-            let d = { ...data[k] };
+        const snapshots = Object.keys(data).map(k => {
+            const d = { ...data[k] };
             delete d.collection;
-            return { id: k, data: () => d }
+            return makeSnapshot(d, k)
         });
         snapshots.empty = snapshots.length === 0;
         return snapshots
     }),
-    runTransaction: jest.fn(async (fn) => { isTransaction = true; return await fn(mFirestore) }),
+    runTransaction: jest.fn(async (fn) => { mFirestore.isTransaction = true; return await fn(mFirestore) }),
 
     // useful when mocking / testing
     data: {}, // fill this with data on every test
     path: [], // current path
     queries: [], // paths taken so far
-    reset: () => { mFirestore.data = {}; mFirestore.path = []; mFirestore.queries = []; }
+    reset: () => { mFirestore.data = {}; mFirestore.path = []; mFirestore.queries = []; },
+    isQueryingDoc: false,
+    isTransaction: false,
 }
 
 const firestore = () => mFirestore;

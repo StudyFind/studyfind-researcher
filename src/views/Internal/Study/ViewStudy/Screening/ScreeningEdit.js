@@ -1,8 +1,11 @@
 import React from "react";
+import lodash from "lodash";
 import styled from "styled-components";
-import { Heading, Button, IconButton } from "@chakra-ui/react";
+
+import { Flex, Grid, Heading, Button, Icon, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
-import { FaTrash, FaPlus } from "react-icons/fa";
+import { SortableContainer, SortableElement, SortableHandle } from "react-sortable-hoc";
+import { FaTrash, FaPlus, FaBars } from "react-icons/fa";
 
 function ScreeningEdit({
   original,
@@ -13,31 +16,14 @@ function ScreeningEdit({
   deleteQuestion,
   deleteAllQuestions,
   handleSubmit,
+  setQuestions,
 }) {
-  const questionComponents = questions.map((question, index) => (
-    <Row key={index}>
-      <Select
-        w="210px"
-        name="type"
-        value={question.type}
-        onChange={(name, value) => updateQuestion(index, name, value)}
-        options={["Inclusion", "Exclusion"]}
-      />
-      <Input
-        placeholder="Question Prompt"
-        name="prompt"
-        value={question.prompt}
-        onChange={(name, value) => updateQuestion(index, name, value)}
-      />
-      <IconButton
-        colorScheme=""
-        color="gray.500"
-        _hover={{ color: "red.500", bg: "red.100" }}
-        icon={<FaTrash />}
-        onClick={() => deleteQuestion(index)}
-      />
-    </Row>
-  ));
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    const newArray = [...questions];
+    const removed = newArray.splice(oldIndex, 1);
+    newArray.splice(newIndex, 0, removed[0]);
+    setQuestions(newArray);
+  };
 
   return (
     <>
@@ -58,7 +44,7 @@ function ScreeningEdit({
               Delete All
             </Button>
           ) : null}
-          {JSON.stringify(questions) !== JSON.stringify(original) ? (
+          {!lodash.isEqual(questions, original) ? (
             <Button colorScheme="green" onClick={handleSubmit}>
               Save Changes
             </Button>
@@ -66,7 +52,13 @@ function ScreeningEdit({
         </Buttons>
       </Head>
       <Questions>
-        {questionComponents}
+        <SortableList
+          items={questions}
+          useDragHandle
+          onSortEnd={onSortEnd}
+          updateQuestion={updateQuestion}
+          deleteQuestion={deleteQuestion}
+        />
         <Button leftIcon={<FaPlus />} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>
@@ -98,5 +90,52 @@ const Buttons = styled.div`
   display: flex;
   grid-gap: 10px;
 `;
+
+const DragHandle = SortableHandle(() => (
+  <Flex cursor="row-resize" h="40px" w="40px" justify="center" align="center">
+    <Icon color="gray.500" as={FaBars} />
+  </Flex>
+));
+
+const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion }) => (
+  <Row>
+    <DragHandle />
+    <Select
+      w="210px"
+      name="type"
+      value={value.type}
+      onChange={(name, value) => updateQuestion(i, name, value)}
+      options={["Inclusion", "Exclusion"]}
+    />
+    <Input
+      placeholder="Question Prompt"
+      name="prompt"
+      value={value.prompt}
+      onChange={(name, value) => updateQuestion(i, name, value)}
+    />
+    <IconButton
+      colorScheme=""
+      color="gray.500"
+      _hover={{ color: "red.500", bg: "red.100" }}
+      icon={<FaTrash />}
+      onClick={() => deleteQuestion(i)}
+    />
+  </Row>
+));
+
+const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
+  <Grid gap="10px">
+    {items.map((value, index) => (
+      <SortableItem
+        key={index}
+        index={index}
+        i={index}
+        value={value}
+        updateQuestion={updateQuestion}
+        deleteQuestion={deleteQuestion}
+      />
+    ))}
+  </Grid>
+));
 
 export default ScreeningEdit;

@@ -1,8 +1,57 @@
 import React from "react";
 import lodash from "lodash";
-import { Button, Flex, Grid } from "@chakra-ui/react";
-import { FaTrash, FaPlus, FaUndo } from "react-icons/fa";
-import Question from "./Question";
+import { Button, Flex, Grid, IconButton } from "@chakra-ui/react";
+import { Input, Select } from "components";
+import { FaTrash, FaPlus, FaUndo, FaBars } from "react-icons/fa";
+import { SortableContainer, SortableElement, SortableHandle } from "react-sortable-hoc";
+
+const DragHandle = SortableHandle(() => (
+  <Flex cursor="row-resize" h="40px" w="40px" color="gray.500" justify="center" align="center">
+    <FaBars />
+  </Flex>
+));
+
+const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion }) => (
+  <Flex gridGap="10px" w="100%">
+    {console.log(i)}
+    <DragHandle />
+    <Select
+      w="210px"
+      name="type"
+      value={value.type}
+      onChange={(name, value) => updateQuestion(i, name, value)}
+      options={["Inclusion", "Exclusion"]}
+    />
+    <Input
+      placeholder="Question Prompt"
+      name="prompt"
+      value={value.prompt}
+      onChange={(name, value) => updateQuestion(i, name, value)}
+    />
+    <IconButton
+      colorScheme=""
+      color="gray.500"
+      _hover={{ color: "red.500", bg: "red.100" }}
+      icon={<FaTrash />}
+      onClick={() => deleteQuestion(i)}
+    />
+  </Flex>
+));
+
+const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
+  <Grid gap="10px">
+    {items.map((value, index) => (
+      <SortableItem
+        key={index}
+        index={index}
+        i={index}
+        value={value}
+        updateQuestion={updateQuestion}
+        deleteQuestion={deleteQuestion}
+      />
+    ))}
+  </Grid>
+));
 
 function ScreeningGrid({
   back,
@@ -15,6 +64,13 @@ function ScreeningGrid({
   deleteAllQuestions,
   handleSubmit,
 }) {
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    const newArray = [...questions];
+    const removed = newArray.splice(oldIndex, 1);
+    newArray.splice(newIndex, 0, removed[0]);
+    setQuestions(newArray);
+  };
+
   return (
     <>
       <Flex gridGap="10px">
@@ -48,15 +104,13 @@ function ScreeningGrid({
         )}
       </Flex>
       <Grid w="100%" gap="10px" py="10px">
-        {questions.map((question, index) => (
-          <Question
-            key={index}
-            index={index}
-            question={question}
-            updateQuestion={updateQuestion}
-            deleteQuestion={deleteQuestion}
-          />
-        ))}
+        <SortableList
+          items={questions}
+          useDragHandle
+          onSortEnd={onSortEnd}
+          updateQuestion={updateQuestion}
+          deleteQuestion={deleteQuestion}
+        />
         <Button leftIcon={<FaPlus />} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>

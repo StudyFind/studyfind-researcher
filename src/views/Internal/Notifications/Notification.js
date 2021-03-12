@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import moment from "moment";
 import styled from "styled-components";
-import { format } from "functions";
-import { Box, Flex, Heading, Text, Icon } from "@chakra-ui/react";
+
+import { auth, firestore } from "database/firebase";
+
+import { Box, Flex, Tooltip, Text, Icon } from "@chakra-ui/react";
 import { FaCertificate, FaStopwatch, FaUser, FaComment } from "react-icons/fa";
 
 function Notification({ notification }) {
+  const [read] = useState(notification.read);
+
+  useEffect(() => {
+    if (!read) {
+      firestore
+        .collection("researchers")
+        .doc(auth.currentUser.uid)
+        .collection("notifications")
+        .doc(notification.id)
+        .update({ read: true });
+    }
+  }, []);
+
   const icons = {
     milestone: {
       name: FaCertificate,
@@ -24,32 +40,32 @@ function Notification({ notification }) {
     },
   };
 
-  console.log(notification.time);
-
   const icon = icons[notification.type];
 
   return (
-    <Row>
-      <div>
-        <Flex
-          w="40px"
-          h="40px"
-          rounded="full"
-          bg={`${icon.color}.100`}
-          justify="center"
-          align="center"
-        >
-          <Icon w="16px" h="16px" color={`${icon.color}.300`} as={icon.name} />
-        </Flex>
-      </div>
+    <Row bg={read ? "white" : "blue.50"}>
+      <Flex
+        w="40px"
+        h="40px"
+        rounded="full"
+        bg={`${icon.color}.100`}
+        justify="center"
+        align="center"
+      >
+        <Icon w="16px" h="16px" color={`${icon.color}.300`} as={icon.name} />
+      </Flex>
       <Box width="100%" ml="4px">
         <Flex justify="space-between" align="center">
-          <Heading size="sm">{notification.title}</Heading>
-          <Text fontSize="xs" color="gray.400">
-            {format.date(notification.time)}
+          <Text size="sm" fontWeight="600">
+            {notification.title}
           </Text>
+          <Tooltip label={moment(notification.time).format("LL")}>
+            <Text cursor="pointer" fontSize="xs" color="gray.400">
+              {moment(notification.time).fromNow()}
+            </Text>
+          </Tooltip>
         </Flex>
-        <Text fontSize="md" color="gray.500">
+        <Text fontSize="sm" color="gray.500">
           {notification.description}
         </Text>
       </Box>
@@ -57,16 +73,23 @@ function Notification({ notification }) {
   );
 }
 
-const Row = styled.div`
+const Row = styled(Box)`
   display: flex;
   align-items: center;
   grid-gap: 10px;
   padding: 15px;
 
+  &:first-child {
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+  }
+
   border-bottom: 1px solid #f1f2f3;
 
   &:last-child {
     border-bottom: none;
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
   }
 `;
 
