@@ -59,7 +59,8 @@ const mFirestore = {
     add: jest.fn(async (d, transaction_d) => {
         let { queries, path, data } = mFirestore;
         if (mFirestore.isTransaction) d = transaction_d;
-        path.push('0'); // add is for adding random document id
+        const id = Math.floor(Math.random() * 10000)
+        path.push(id); // add is for adding random document id
         queries.push(path);
 
         while (path.length > 1) {
