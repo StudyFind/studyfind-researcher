@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useArray } from "hooks";
 import { updateStudy } from "database/studies";
+
 import ScreeningView from "./ScreeningView";
 import ScreeningEdit from "./ScreeningEdit";
 
@@ -11,56 +12,59 @@ function Screening({ study }) {
     questions,
     setQuestions,
     { appendElement, updateElement, deleteElementByIndex, clearArray },
-  ] = useArray(study.questions);
+  ] = useArray(
+    study.questions.map((question) => ({ value: question, error: { type: false, prompt: false } }))
+  );
 
-  const [errors, setErrors] = useState(new Array(questions.length).fill(false));
   const createQuestion = () => {
-    appendElement({ prompt: "", type: "Inclusion" });
-    let newErrors = errors;
-    newErrors.push(true);
-    setErrors(newErrors);
+    appendElement({
+      value: { prompt: "", type: "Inclusion" },
+      error: { type: false, prompt: false },
+    });
   };
 
   const updateQuestion = (index, name, value) => {
-    const updated = { ...questions[index], [name]: value };
-    updateElement(updated, index);
-    if (name === "prompt" && !value) {
-      let newErrors = errors;
-      newErrors[index] = true;
-      setErrors(newErrors);
-    }
-    if (name === "prompt" && value) {
-      let newErrors = errors;
-      newErrors[index] = false;
-      setErrors(newErrors);
-    }
+    updateElement(
+      {
+        value: { ...questions[index].value, [name]: value },
+        error: { ...questions[index].error, [name]: !value },
+      },
+      index
+    );
   };
 
   const handleCancel = () => {
-    setQuestions(study.questions);
-    setErrors(new Array(questions.length).fill(false));
+    setQuestions(
+      study.questions.map((question) => ({
+        value: question,
+        error: { type: false, prompt: false },
+      }))
+    );
     setEdit(false);
   };
 
   const handleSubmit = () => {
-    let flag = 0;
-    errors.forEach((error) => {
-      if (error) {
-        flag = 1;
-      }
+    const updated = questions.map(({ value }) => {
+      return { value, error: { type: !value.type, prompt: !value.prompt } };
     });
-    if (flag) {
+
+    const valid = updated.reduce((overall, { value }) => {
+      return overall && !!value.type && !!value.prompt;
+    });
+
+    setQuestions(updated);
+
+    if (!valid) {
+      console.log("returned");
       return;
     }
-    updateStudy(study.id, { questions });
+
+    updateStudy(study.id, { questions: questions.map((q) => q.value) });
     setEdit(false);
   };
 
   const deleteQuestion = (index) => {
     deleteElementByIndex(index);
-    let newErrors = errors;
-    newErrors.splice(index, 1);
-    setErrors(newErrors);
   };
 
   return edit ? (
@@ -74,11 +78,9 @@ function Screening({ study }) {
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
       setQuestions={setQuestions}
-      errors={errors}
-      setErrors={setErrors}
     />
   ) : (
-    <ScreeningView questions={questions} setEdit={setEdit} />
+    <ScreeningView questions={questions.map((q) => q.value)} setEdit={setEdit} />
   );
 }
 

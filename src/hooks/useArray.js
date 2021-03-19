@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import lodash from "lodash";
 
 function useArray(initial) {
   const [array, setArray] = useState(initial || []);
 
   useEffect(() => {
     setArray(initial || []);
-  }, [initial]);
+  }, []);
 
   const prependElement = (value) => {
     setArray((prevState) => {
@@ -39,14 +40,13 @@ function useArray(initial) {
     setArray((prevState) => {
       const before = prevState.slice(0, index);
       const after = prevState.slice(index + 1);
-      console.log({ before, after });
       return before.concat(after);
     });
   };
 
   const deleteElementByValue = (value) => {
     setArray((prevState) => {
-      return prevState.filter((element) => JSON.stringify(value) !== JSON.stringify(element));
+      return prevState.filter((element) => !lodash.isEqual(value, element));
     });
   };
 

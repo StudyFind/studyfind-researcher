@@ -18,17 +18,12 @@ function ScreeningEdit({
   handleSubmit,
   setQuestions,
   errors,
-  setErrors,
 }) {
   const onSortEnd = ({ oldIndex, newIndex }) => {
     const newArray = [...questions];
     const removed = newArray.splice(oldIndex, 1);
     newArray.splice(newIndex, 0, removed[0]);
     setQuestions(newArray);
-    const newErrors = [...errors];
-    const removedError = newErrors.splice(oldIndex, 1);
-    newErrors.splice(newIndex, 0, removedError[0]);
-    setErrors(newErrors);
   };
 
   return (
@@ -111,6 +106,7 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
       w="210px"
       name="type"
       value={value.type}
+      error={error.type}
       onChange={(name, value) => updateQuestion(i, name, value)}
       options={["Inclusion", "Exclusion"]}
     />
@@ -118,10 +114,9 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
       placeholder="Question Prompt"
       name="prompt"
       value={value.prompt}
-      error={error}
+      error={error.prompt}
       onChange={(name, value) => updateQuestion(i, name, value)}
     />
-    {console.log(error)}
     <IconButton
       colorScheme=""
       color="gray.500"
@@ -134,13 +129,13 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
 
 const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion, errors }) => (
   <Grid gap="10px">
-    {items.map((value, index) => (
+    {items.map((item, index) => (
       <SortableItem
         key={index}
         index={index}
         i={index}
-        value={value}
-        error={errors[index]}
+        value={item.value}
+        error={item.error}
         updateQuestion={updateQuestion}
         deleteQuestion={deleteQuestion}
       />
