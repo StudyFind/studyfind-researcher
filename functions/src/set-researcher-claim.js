@@ -1,4 +1,5 @@
 const getUserByToken = require("./firebase/get-user-by-token");
+const functions = require("firebase-functions");
 
 module.exports = ({ admin }) => async (req, res) => {
   try {
@@ -11,6 +12,8 @@ module.exports = ({ admin }) => async (req, res) => {
 
     return res.json({ message: "researcher claim successfully set" });
   } catch (error) {
-    return { error };
+    const errorMessage = `researcher claim could not be set: ${error}`;
+    functions.logger.error(errorMessage);
+    return res.json({ error: errorMessage });
   }
 };
