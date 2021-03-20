@@ -55,7 +55,6 @@ function Screening({ study }) {
     setQuestions(updated);
 
     if (!valid) {
-      console.log("returned");
       return;
     }
 
