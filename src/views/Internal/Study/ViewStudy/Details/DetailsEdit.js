@@ -1,5 +1,7 @@
 import React from "react";
+import lodash from "lodash";
 import styled from "styled-components";
+
 import { Button, Heading } from "@chakra-ui/react";
 import { Textarea } from "components";
 import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
@@ -19,7 +21,7 @@ function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, han
           >
             Cancel
           </Button>
-          {JSON.stringify(inputs) !== JSON.stringify(original) ? (
+          {!lodash.isEqual(inputs, original) ? (
             <Button colorScheme="green" onClick={handleSubmit}>
               Save Changes
             </Button>
