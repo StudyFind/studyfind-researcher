@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import lodash from "lodash";
 
 function useArray(initial) {
   const [array, setArray] = useState(initial || []);
@@ -46,7 +47,7 @@ function useArray(initial) {
 
   const deleteElementByValue = (value) => {
     setArray((prevState) => {
-      return prevState.filter((element) => JSON.stringify(value) !== JSON.stringify(element));
+      return prevState.filter((element) => !lodash.isEqual(value, element));
     });
   };
 
