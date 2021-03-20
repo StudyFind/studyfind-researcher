@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
+import { Message } from "components";
 
 import Details from "./Details/Details";
 import Screening from "./Screening/Screening";
@@ -12,12 +13,13 @@ function CreateStudy({ studies }) {
 
   const { nctID, tab } = useParams();
   const tabs = ["details", "screening", "review"];
-  const study = studies.find((study) => study.id === nctID) || {};
+  const study = studies.find((study) => study.id === nctID);
 
   useEffect(() => {
+    if (study && study.published) history.push("/"); // redirect to main page to prevent changes being made to published study (since researcher are not allowed to change study details and screening)
     const params = new URL(window.location).searchParams;
     const from = params.get("from");
-    setRedirect(from === "welcome" ? "/welcome" : "/dashboard");
+    setRedirect(from === "welcome" ? "/welcome" : `/study/${nctID}`);
   }, []);
 
   const back = () => {
@@ -57,12 +59,24 @@ function CreateStudy({ studies }) {
     </Stack>
   );
 
-  return (
+  const BODY = (
     <>
       {steps}
       {render[tab]}
     </>
   );
+
+  const MISSING = (
+    <Message
+      type="failure"
+      title="Study not found!"
+      description={`The study ${nctID} could not be found in the StudyFind database. Please
+  ensure that it has been successfully created by following all directions in the study
+  creation process.`}
+    />
+  );
+
+  return study ? BODY : MISSING;
 }
 
 export default CreateStudy;
