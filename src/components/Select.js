@@ -1,4 +1,6 @@
 import React from "react";
+import lodash from "lodash";
+
 import { FormControl, Select, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 
 function Field({
@@ -37,7 +39,7 @@ function Field({
           </option>
         ))}
       </Select>
-      {error && <FormErrorMessage>{error}</FormErrorMessage>}
+      {error && lodash.isString(error) && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
 }
