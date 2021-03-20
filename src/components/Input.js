@@ -1,4 +1,6 @@
 import React from "react";
+import lodash from "lodash";
+
 import {
   FormControl,
   Input,
@@ -53,7 +55,7 @@ function Field({
           </InputRightElement>
         )}
       </InputGroup>
-      {error && <FormErrorMessage>{error}</FormErrorMessage>}
+      {error && lodash.isString(error) && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
 }

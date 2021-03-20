@@ -4,14 +4,16 @@ import styled from "styled-components";
 import { Box, Flex, Heading, Button, Tag, Text } from "@chakra-ui/react";
 import { Message } from "components";
 
-function ScreeningView({ questions, setEdit }) {
+function ScreeningView({ study, setEdit }) {
   const BODY = (
     <>
-      <Flex justify="space-between" align="center" m="15px 0">
+      <Flex justify="space-between" align="center" m="15px 0" h="40px">
         <Heading fontSize="28px">Screening</Heading>
-        <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Screening
-        </Button>
+        {!study.published && (
+          <Button colorScheme="blue" onClick={() => setEdit(true)}>
+            Edit Screening
+          </Button>
+        )}
       </Flex>
       <Table>
         <thead>
@@ -21,18 +23,21 @@ function ScreeningView({ questions, setEdit }) {
           </tr>
         </thead>
         <tbody>
-          {questions.map((question, index) => (
-            <tr key={index}>
-              <BodyCell nowrap>
-                <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
-                  {question.type}
-                </Tag>
-              </BodyCell>
-              <BodyCell nowrap>
-                <Text color="gray.600">{question.prompt}</Text>
-              </BodyCell>
-            </tr>
-          ))}
+          {study &&
+            study.questions &&
+            study.questions.length &&
+            study.questions.map((question, index) => (
+              <tr key={index}>
+                <BodyCell nowrap>
+                  <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
+                    {question.type}
+                  </Tag>
+                </BodyCell>
+                <BodyCell nowrap>
+                  <Text color="gray.600">{question.prompt}</Text>
+                </BodyCell>
+              </tr>
+            ))}
         </tbody>
       </Table>
     </>
@@ -52,7 +57,7 @@ function ScreeningView({ questions, setEdit }) {
     </Box>
   );
 
-  return questions.length ? BODY : EMPTY;
+  return study && study.questions && study.questions.length ? BODY : EMPTY;
 }
 
 const Table = styled.table`

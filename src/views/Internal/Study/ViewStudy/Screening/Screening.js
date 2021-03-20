@@ -55,7 +55,6 @@ function Screening({ study }) {
     setQuestions(updated);
 
     if (!valid) {
-      console.log("returned");
       return;
     }
 
@@ -80,7 +79,7 @@ function Screening({ study }) {
       setQuestions={setQuestions}
     />
   ) : (
-    <ScreeningView questions={questions.map((q) => q.value)} setEdit={setEdit} />
+    <ScreeningView study={study} setEdit={setEdit} />
   );
 }
 

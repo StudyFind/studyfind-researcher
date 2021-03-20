@@ -29,7 +29,7 @@ function WelcomeStudy({ study }) {
         toast({
           title: "Connection Error",
           description:
-            "Your study could not be deleted due to a connection error. Please check your internet connection and try again.",
+            "Your study could not be deleted due to a connection error. Please try again later.",
           status: "error",
           duration: 2500,
           isClosable: true,

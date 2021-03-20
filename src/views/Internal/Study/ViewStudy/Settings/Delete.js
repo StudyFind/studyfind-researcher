@@ -55,7 +55,7 @@ function Delete({ study }) {
         history.push("/studies");
         toast({
           title: "Study Deleted!",
-          description: `Your study was successfully deleted along with all information`,
+          description: `Your study was successfully deleted along with all associated data`,
           status: "error",
           duration: 2500,
           isClosable: true,
@@ -66,7 +66,7 @@ function Delete({ study }) {
         toast({
           title: "Connection Error",
           description:
-            "Your study could not be deleted due to a connection error. Please check your internet connection and try again.",
+            "Your study could not be deleted due to a connection error. Please try again later.",
           status: "error",
           duration: 2500,
           isClosable: true,

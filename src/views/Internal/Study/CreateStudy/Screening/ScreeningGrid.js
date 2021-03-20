@@ -1,18 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-import { SortableContainer, SortableElement, SortableHandle } from "react-sortable-hoc";
-import { Button, Flex, Grid, Icon, IconButton } from "@chakra-ui/react";
+import lodash from "lodash";
+import { Button, Flex, Grid, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
-import { FaTrash, FaPlus, FaBars } from "react-icons/fa";
+import { FaTrash, FaPlus, FaUndo, FaBars } from "react-icons/fa";
+import { SortableContainer, SortableElement, SortableHandle } from "react-sortable-hoc";
 
 const DragHandle = SortableHandle(() => (
-  <Flex cursor="row-resize" h="40px" w="40px" justify="center" align="center">
-    <Icon color="gray.500" as={FaBars} />
+  <Flex cursor="row-resize" h="40px" w="40px" color="gray.500" justify="center" align="center">
+    <FaBars />
   </Flex>
 ));
 
 const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion, error }) => (
-  <Row>
+  <Flex gridGap="10px" w="100%">
     <DragHandle />
     <Select
       w="210px"
@@ -36,7 +36,7 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
       icon={<FaTrash />}
       onClick={() => deleteQuestion(i)}
     />
-  </Row>
+  </Flex>
 ));
 
 const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
@@ -57,13 +57,14 @@ const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion 
 
 function ScreeningGrid({
   back,
+  original,
   questions,
+  setQuestions,
   createQuestion,
   updateQuestion,
   deleteQuestion,
   deleteAllQuestions,
   handleSubmit,
-  setQuestions,
 }) {
   const onSortEnd = ({ oldIndex, newIndex }) => {
     const newArray = [...questions];
@@ -74,18 +75,37 @@ function ScreeningGrid({
 
   return (
     <>
-      {questions.length ? (
-        <Button
-          leftIcon={<FaTrash />}
-          colorScheme=""
-          color="red.500"
-          _hover={{ bg: "red.100" }}
-          onClick={deleteAllQuestions}
-        >
-          Delete All
-        </Button>
-      ) : null}
-      <Questions>
+      <Flex gridGap="10px">
+        {!lodash.isEqual(original, questions) && (
+          <Button
+            size="sm"
+            leftIcon={<FaUndo />}
+            color="gray.500"
+            bg="gray.100"
+            borderWidth="1px"
+            borderColor="gray.500"
+            _hover={{ bg: "gray.200" }}
+            onClick={() => setQuestions(original)}
+          >
+            Undo Changes
+          </Button>
+        )}
+        {!!questions.length && (
+          <Button
+            size="sm"
+            leftIcon={<FaTrash />}
+            color="red.500"
+            bg="red.100"
+            borderWidth="1px"
+            borderColor="red.500"
+            _hover={{ bg: "red.200" }}
+            onClick={deleteAllQuestions}
+          >
+            Delete All
+          </Button>
+        )}
+      </Flex>
+      <Grid w="100%" gap="10px" py="10px">
         <SortableList
           items={questions}
           useDragHandle
@@ -96,15 +116,9 @@ function ScreeningGrid({
         <Button leftIcon={<FaPlus />} color="gray.500" onClick={createQuestion}>
           Add Question
         </Button>
-      </Questions>
+      </Grid>
       <Flex justify="flex-end" gridGap="10px">
-        <Button
-          colorScheme="gray"
-          color="gray.500"
-          variant="outline"
-          style={{ textAlign: "right" }}
-          onClick={back}
-        >
+        <Button color="gray.500" variant="outline" onClick={back}>
           Back
         </Button>
         <Button colorScheme="blue" onClick={handleSubmit} type="submit">
@@ -115,15 +129,4 @@ function ScreeningGrid({
   );
 }
 
-const Row = styled.div`
-  display: flex;
-  grid-gap: 10px;
-  width: 100%;
-`;
-const Questions = styled.div`
-  display: grid;
-  width: 100%;
-  grid-gap: 10px;
-  margin: 10px 0;
-`;
 export default ScreeningGrid;

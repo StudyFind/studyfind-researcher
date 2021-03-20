@@ -26,20 +26,20 @@ const validate = {
   },
 
   email: (email) => {
-    if (!email) return " ";
+    if (!email) return true;
     if (!validator.isEmail(email)) return "Email is invalid";
-    return "";
+    return false;
   },
 
   password: (password) => {
     const checkCase = password !== password.toLowerCase();
     const checkSize = password.length > 7;
 
-    if (!password) return " ";
+    if (!password) return true;
     if (!checkCase && !checkSize) return "Password must have 8 characters and one capital letter";
     if (!checkCase) return "Password must have a capital letter";
     if (!checkSize) return "Password must have 8 characters";
-    return "";
+    return false;
   },
 
   default: (i) => !i,

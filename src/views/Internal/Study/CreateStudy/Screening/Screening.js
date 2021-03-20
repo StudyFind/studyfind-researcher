@@ -55,13 +55,14 @@ function Screening({ study, next, back }) {
       <ScreeningHead />
       <ScreeningGrid
         back={back}
+        original={study.questions}
         questions={questions}
+        setQuestions={setQuestions}
         createQuestion={createQuestion}
         updateQuestion={updateQuestion}
         deleteQuestion={deleteElementByIndex}
         deleteAllQuestions={clearArray}
         handleSubmit={handleSubmit}
-        setQuestions={setQuestions}
       />
     </>
   );
