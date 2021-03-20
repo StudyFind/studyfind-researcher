@@ -11,13 +11,14 @@ const DragHandle = SortableHandle(() => (
   </Flex>
 ));
 
-const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion }) => (
+const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion, error }) => (
   <Row>
     <DragHandle />
     <Select
       w="210px"
       name="type"
       value={value.type}
+      error={error.type}
       onChange={(name, value) => updateQuestion(i, name, value)}
       options={["Inclusion", "Exclusion"]}
     />
@@ -25,6 +26,7 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
       placeholder="Question Prompt"
       name="prompt"
       value={value.prompt}
+      error={error.prompt}
       onChange={(name, value) => updateQuestion(i, name, value)}
     />
     <IconButton
@@ -39,12 +41,13 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
 
 const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
   <Grid gap="10px">
-    {items.map((value, index) => (
+    {items.map((item, index) => (
       <SortableItem
         key={index}
         index={index}
         i={index}
-        value={value}
+        value={item.value}
+        error={item.error}
         updateQuestion={updateQuestion}
         deleteQuestion={deleteQuestion}
       />
