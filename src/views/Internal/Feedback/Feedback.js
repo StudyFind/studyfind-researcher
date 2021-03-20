@@ -75,7 +75,7 @@ function Feedback() {
         <Heading size="lg" mb="8px">
           Feedback
         </Heading>
-        <Text w="400px">
+        <Text w="400px" color="gray.500">
           Here is your opportunity to give us feedback about our software. Please elaborate on your
           experiences including which feature of the software you may be referring to. Thank you!
         </Text>

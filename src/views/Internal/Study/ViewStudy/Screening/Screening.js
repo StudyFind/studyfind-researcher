@@ -80,7 +80,7 @@ function Screening({ study }) {
       setQuestions={setQuestions}
     />
   ) : (
-    <ScreeningView questions={questions.map((q) => q.value)} setEdit={setEdit} />
+    <ScreeningView study={study} setEdit={setEdit} />
   );
 }
 

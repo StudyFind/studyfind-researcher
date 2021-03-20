@@ -1,28 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-
-import { Heading, Button } from "@chakra-ui/react";
+import { Heading, Button, Flex } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
 function DetailsView({ study, setEdit }) {
   return (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Details</Heading>
-        <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Edit Details
-        </Button>
-      </Head>
+        {!study.published && (
+          <Button colorScheme="blue" onClick={() => setEdit(true)}>
+            Edit Details
+          </Button>
+        )}
+      </Flex>
       <StudyCardLarge study={study} />
     </>
   );
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
 
 export default DetailsView;
