@@ -60,7 +60,7 @@ function Notification({ notification }) {
             {notification.title}
           </Text>
           <Tooltip label={moment(notification.time).format("LL")}>
-            <Text cursor="pointer" fontSize="xs" color="gray.400">
+            <Text cursor="pointer" fontSize="12px" color="gray.400">
               {moment(notification.time).fromNow()}
             </Text>
           </Tooltip>

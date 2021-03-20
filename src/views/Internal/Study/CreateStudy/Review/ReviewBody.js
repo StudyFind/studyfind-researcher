@@ -1,90 +1,95 @@
 import React, { useState } from "react";
 import { updateStudy, deleteStudy } from "database/studies";
+import toasts from "./../toasts";
 
 import { Flex, Button, useToast } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
-function ReviewBody({ study, next }) {
+import ReviewConfirmDelete from "./ReviewConfirmDelete";
+import ReviewConfirmPublish from "./ReviewConfirmPublish";
+
+function ReviewBody({ study, next, back }) {
   const toast = useToast();
-  const [publishLoading, setPublishLoading] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [loadingPublish, setLoadingPublish] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [confirmPublish, setConfirmPublish] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const openPublishModal = () => setConfirmPublish(true);
+  const openDeleteModal = () => setConfirmDelete(true);
 
   const handlePublish = () => {
-    setPublishLoading(true);
-    updateStudy(study.id, { published: true, activated: true })
+    setLoadingPublish(true);
+    updateStudy(study.id, { ...study, published: true, activated: true })
       .then(() => {
-        toast({
-          title: "Study Published!",
-          description:
-            "Your study was successfully published is now available for participants to view and enroll",
-          status: "success",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
+        toast(toasts.publishSuccess);
         next();
       })
-      .catch(() => {
-        toast({
-          title: "Connection Error",
-          description:
-            "Your study could not be published due to a connection error. Please check your internet connection and try again.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
-      })
-      .finally(() => setPublishLoading(false));
+      .catch(() => toast(toasts.publishFailure))
+      .finally(() => setLoadingPublish(false));
   };
 
   const handleDelete = () => {
-    setDeleteLoading(true);
+    setLoadingDelete(true);
     deleteStudy(study.id)
       .then(() => {
-        toast({
-          title: "Study Deleted!",
-          description:
-            "Your study was successfully deleted and will no longer be accessible through StudyFind",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
+        toast(toasts.deleteSuccess);
         next();
       })
-      .catch(() => {
-        toast({
-          title: "Connection Error",
-          description:
-            "Your study could not be published due to a connection error. Please check your internet connection and try again.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
-      })
-      .finally(() => setDeleteLoading(false));
+      .catch(() => toast(toasts.deleteFailure))
+      .finally(() => setLoadingDelete(false));
+  };
+
+  const handleSaveProgress = () => {
+    toast(toasts.savedProgress);
+    next();
   };
 
   return (
     <>
+      {confirmPublish && (
+        <ReviewConfirmPublish
+          nctID={study.id}
+          loadingPublish={loadingPublish}
+          confirmPublish={confirmPublish}
+          setConfirmPublish={setConfirmPublish}
+          handlePublish={handlePublish}
+        />
+      )}
+      {confirmDelete && (
+        <ReviewConfirmDelete
+          nctID={study.id}
+          loadingDelete={loadingDelete}
+          confirmDelete={confirmDelete}
+          setConfirmDelete={setConfirmDelete}
+          handleDelete={handleDelete}
+        />
+      )}
       <StudyCardLarge study={study} />
       <Flex justify="flex-end" gridGap="10px" my="15px">
+        <Button color="gray.500" variant="outline" onClick={back}>
+          Back
+        </Button>
         <Button
           colorScheme="red"
-          onClick={handleDelete}
-          isDisabled={deleteLoading || publishLoading}
-          isLoading={deleteLoading}
+          onClick={openDeleteModal}
+          isDisabled={loadingDelete || loadingPublish}
           loadingText="Deleting"
         >
           Delete
         </Button>
         <Button
+          colorScheme="blue"
+          onClick={handleSaveProgress}
+          isDisabled={loadingDelete || loadingPublish}
+          loadingText="Saving"
+        >
+          Save Progress
+        </Button>
+        <Button
           colorScheme="green"
-          onClick={handlePublish}
-          isDisabled={deleteLoading || publishLoading}
-          isLoading={publishLoading}
+          onClick={openPublishModal}
+          isDisabled={loadingDelete || loadingPublish}
           loadingText="Publishing"
         >
           Publish

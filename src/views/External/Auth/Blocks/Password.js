@@ -17,7 +17,7 @@ function Password({ name, placeholder, value, error, onChange }) {
       type={show ? "text" : "password"}
       rightWidth="5rem"
       right={
-        <Button size="sm" onClick={handleToggle}>
+        <Button color="gray.500" size="sm" onClick={handleToggle}>
           {show ? "Hide" : "Show"}
         </Button>
       }
