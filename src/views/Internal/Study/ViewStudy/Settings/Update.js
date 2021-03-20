@@ -25,7 +25,7 @@ function Update({ study }) {
           clinicaltrials.gov
         </Link>{" "}
         since the study was last updated and update the study in StudyFind accordingly. This action
-        will not overwrite your edited study title, description and screening survey questions.
+        will not overwrite your changes to the study details and screening survey.
       </Text>
       <Flex mt="16px" mb="8px">
         <Text color="black" fontWeight="500">
