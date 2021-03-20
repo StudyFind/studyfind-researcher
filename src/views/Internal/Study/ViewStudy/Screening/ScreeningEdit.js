@@ -13,7 +13,6 @@ const DragHandle = SortableHandle(() => (
 
 const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion }) => (
   <Flex gridGap="10px" w="100%">
-    {console.log(i)}
     <DragHandle />
     <Select
       w="210px"

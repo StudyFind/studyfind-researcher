@@ -45,7 +45,7 @@ function Screening({ study }) {
       setQuestions={setQuestions}
     />
   ) : (
-    <ScreeningView questions={questions} setEdit={setEdit} />
+    <ScreeningView study={study} setEdit={setEdit} />
   );
 }
 
