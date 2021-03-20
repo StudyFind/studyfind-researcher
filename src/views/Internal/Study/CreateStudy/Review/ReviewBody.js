@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { updateStudy, deleteStudy } from "database/studies";
 import toasts from "./../toasts";
 
@@ -10,6 +11,8 @@ import ReviewConfirmPublish from "./ReviewConfirmPublish";
 
 function ReviewBody({ study, next, back }) {
   const toast = useToast();
+  const history = useHistory();
+
   const [loadingPublish, setLoadingPublish] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [confirmPublish, setConfirmPublish] = useState(false);
@@ -22,8 +25,8 @@ function ReviewBody({ study, next, back }) {
     setLoadingPublish(true);
     updateStudy(study.id, { ...study, published: true, activated: true })
       .then(() => {
-        toast(toasts.publishSuccess);
         next();
+        toast(toasts.publishSuccess);
       })
       .catch(() => toast(toasts.publishFailure))
       .finally(() => setLoadingPublish(false));
@@ -33,8 +36,8 @@ function ReviewBody({ study, next, back }) {
     setLoadingDelete(true);
     deleteStudy(study.id)
       .then(() => {
+        history.push("/dashboard");
         toast(toasts.deleteSuccess);
-        next();
       })
       .catch(() => toast(toasts.deleteFailure))
       .finally(() => setLoadingDelete(false));
