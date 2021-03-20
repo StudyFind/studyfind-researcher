@@ -1,120 +1,100 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { updateStudy, deleteStudy } from "database/studies";
+import toasts from "./../toasts";
 
-import { Confirm } from "components";
 import { Flex, Button, useToast } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
+import ReviewConfirmDelete from "./ReviewConfirmDelete";
+import ReviewConfirmPublish from "./ReviewConfirmPublish";
+
 function ReviewBody({ study, next, back }) {
   const toast = useToast();
-  const [publishLoading, setPublishLoading] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [loadingPublish, setLoadingPublish] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [confirmPublish, setConfirmPublish] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
-  const handlePublishNow = () => {
-    setPublishLoading(true);
+  const openPublishModal = () => setConfirmPublish(true);
+  const openDeleteModal = () => setConfirmDelete(true);
+
+  const handlePublish = () => {
+    setLoadingPublish(true);
     updateStudy(study.id, { ...study, published: true, activated: true })
       .then(() => {
-        toast({
-          title: "Study Published!",
-          description:
-            "Your study was successfully published is now available for participants to view and enroll",
-          status: "success",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
+        toast(toasts.publishSuccess);
         next();
       })
-      .catch(() => {
-        toast({
-          title: "Connection Error",
-          description:
-            "Your study could not be published due to a connection error. Please check your internet connection and try again.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
-      })
-      .finally(() => setPublishLoading(false));
-  };
-
-  const handlePublishLater = () => {
-    toast({
-      title: "Study Created!",
-      description:
-        "Your study was created but is yet to be published for participants to view and enroll. Please make all necessary changes to the study before publishing, as the study title, description, and screening survey cannot be changed after the study is published.",
-      status: "info",
-      duration: 2500,
-      isClosable: true,
-      position: "top",
-    });
-    next();
+      .catch(() => toast(toasts.publishFailure))
+      .finally(() => setLoadingPublish(false));
   };
 
   const handleDelete = () => {
-    setDeleteLoading(true);
+    setLoadingDelete(true);
     deleteStudy(study.id)
       .then(() => {
-        toast({
-          title: "Study Deleted!",
-          description:
-            "Your study was successfully deleted and will no longer be accessible through StudyFind",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
+        toast(toasts.deleteSuccess);
         next();
       })
-      .catch(() => {
-        toast({
-          title: "Connection Error",
-          description:
-            "Your study could not be published due to a connection error. Please check your internet connection and try again.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
-      })
-      .finally(() => setDeleteLoading(false));
+      .catch(() => toast(toasts.deleteFailure))
+      .finally(() => setLoadingDelete(false));
+  };
+
+  const handleSaveProgress = () => {
+    toast(toasts.savedProgress);
+    next();
   };
 
   return (
     <>
+      {confirmPublish && (
+        <ReviewConfirmPublish
+          nctID={study.id}
+          loadingPublish={loadingPublish}
+          confirmPublish={confirmPublish}
+          setConfirmPublish={setConfirmPublish}
+          handlePublish={handlePublish}
+        />
+      )}
+      {confirmDelete && (
+        <ReviewConfirmDelete
+          nctID={study.id}
+          loadingDelete={loadingDelete}
+          confirmDelete={confirmDelete}
+          setConfirmDelete={setConfirmDelete}
+          handleDelete={handleDelete}
+        />
+      )}
       <StudyCardLarge study={study} />
       <Flex justify="flex-end" gridGap="10px" my="15px">
         <Button color="gray.500" variant="outline" onClick={back}>
           Back
         </Button>
         <Button
+          colorScheme="red"
+          onClick={openDeleteModal}
+          isDisabled={loadingDelete || loadingPublish}
+          loadingText="Deleting"
+        >
+          Delete
+        </Button>
+        <Button
           colorScheme="blue"
-          onClick={handlePublishLater}
-          isDisabled={deleteLoading || publishLoading}
+          onClick={handleSaveProgress}
+          isDisabled={loadingDelete || loadingPublish}
+          loadingText="Saving"
+        >
+          Save Progress
+        </Button>
+        <Button
+          colorScheme="green"
+          onClick={openPublishModal}
+          isDisabled={loadingDelete || loadingPublish}
           loadingText="Publishing"
         >
-          Confirm
+          Publish
         </Button>
       </Flex>
-      <Confirm
-        title="Publish Study"
-        buttonText="Publish"
-        loading={publishLoading}
-        loadingText="Publishing"
-        color="green"
-        open={open}
-        setOpen={setOpen}
-        handleConfirm={handlePublishNow}
-      >
-        Are you sure you want to publish study <b>{study.id}</b>?
-        <br />
-        <br />
-        Once the study is published, you will not be able to edit the study title, description, and
-        screening survey. If you would like to publish the study in the future, you may want to
-        select <b>Publish Later</b> instead.
-      </Confirm>
     </>
   );
 }
