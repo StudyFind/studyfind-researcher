@@ -25,7 +25,7 @@ function Confirm({
   return (
     <AlertDialog
       isOpen={open}
-      onClose={() => setOpen(false)}
+      onClose={() => !loading && setOpen(false)}
       size="lg"
       motionPreset="scale"
       isCentered
