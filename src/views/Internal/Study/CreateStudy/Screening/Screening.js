@@ -6,7 +6,6 @@ import ScreeningHead from "./ScreeningHead";
 import ScreeningGrid from "./ScreeningGrid";
 
 function Screening({ study, next, back }) {
-  const original = study.questions;
   const mapQuestions = (questions) =>
     questions.map((q) => ({ value: q, error: { type: false, prompt: false } }));
 
@@ -56,7 +55,7 @@ function Screening({ study, next, back }) {
       <ScreeningHead />
       <ScreeningGrid
         back={back}
-        original={original}
+        original={study.questions}
         questions={questions}
         setQuestions={setQuestions}
         mapQuestions={mapQuestions}
