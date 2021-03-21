@@ -28,11 +28,10 @@ function Share({ study }) {
         {success ? (
           <Button
             color="green.500"
-            bg="green.50"
-            variant="outline"
+            bg="green.100"
             leftIcon={<FaCheckCircle />}
             onClick={handleCopyLink}
-            _hover={{ bg: "green.50" }}
+            _hover={{ bg: "green.100" }}
           >
             Copied!
           </Button>
@@ -41,11 +40,6 @@ function Share({ study }) {
             Copy Link
           </Button>
         )}
-        <a href={link} target="_blank" rel="noreferrer">
-          <Button colorScheme="blue" leftIcon={<FaExternalLinkAlt />}>
-            Open Link
-          </Button>
-        </a>
       </Flex>
     </Box>
   );
