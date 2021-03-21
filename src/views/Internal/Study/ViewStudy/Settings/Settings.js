@@ -17,7 +17,7 @@ function Settings({ study }) {
         {study.published ? (
           <>
             <Activate study={study} />
-            <Share study={study} />
+            {study.activated && <Share study={study} />}
           </>
         ) : (
           <Publish study={study} />
