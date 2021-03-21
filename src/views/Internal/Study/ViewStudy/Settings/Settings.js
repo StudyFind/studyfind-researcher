@@ -1,6 +1,4 @@
 import React from "react";
-import styled from "styled-components";
-
 import { Box, Flex, Heading } from "@chakra-ui/react";
 
 import Publish from "./Publish";
