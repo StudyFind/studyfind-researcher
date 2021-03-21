@@ -60,6 +60,7 @@ function ScreeningGrid({
   original,
   questions,
   setQuestions,
+  mapQuestions,
   createQuestion,
   updateQuestion,
   deleteQuestion,
@@ -76,7 +77,10 @@ function ScreeningGrid({
   return (
     <>
       <Flex gridGap="10px">
-        {!lodash.isEqual(original, questions) && (
+        {!lodash.isEqual(
+          original,
+          questions.map((q) => q.value)
+        ) && (
           <Button
             size="sm"
             leftIcon={<FaUndo />}
@@ -85,7 +89,7 @@ function ScreeningGrid({
             borderWidth="1px"
             borderColor="gray.500"
             _hover={{ bg: "gray.200" }}
-            onClick={() => setQuestions(original)}
+            onClick={() => setQuestions(mapQuestions(original))}
           >
             Undo Changes
           </Button>

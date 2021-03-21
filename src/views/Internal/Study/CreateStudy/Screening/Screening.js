@@ -6,13 +6,15 @@ import ScreeningHead from "./ScreeningHead";
 import ScreeningGrid from "./ScreeningGrid";
 
 function Screening({ study, next, back }) {
+  const original = study.questions;
+  const mapQuestions = (questions) =>
+    questions.map((q) => ({ value: q, error: { type: false, prompt: false } }));
+
   const [
     questions,
     setQuestions,
     { appendElement, updateElement, deleteElementByIndex, clearArray },
-  ] = useArray(
-    study.questions.map((question) => ({ value: question, error: { type: false, prompt: false } }))
-  );
+  ] = useArray(mapQuestions(study.questions));
 
   const createQuestion = () => {
     appendElement({
@@ -54,9 +56,10 @@ function Screening({ study, next, back }) {
       <ScreeningHead />
       <ScreeningGrid
         back={back}
-        original={study.questions}
+        original={original}
         questions={questions}
         setQuestions={setQuestions}
+        mapQuestions={mapQuestions}
         createQuestion={createQuestion}
         updateQuestion={updateQuestion}
         deleteQuestion={deleteElementByIndex}
