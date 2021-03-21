@@ -44,17 +44,16 @@ function Screening({ study }) {
   };
 
   const handleSubmit = () => {
-    const updated = questions.map(({ value }) => {
-      return { value, error: { type: !value.type, prompt: !value.prompt } };
-    });
+    const updated = questions.map(({ value }) => ({
+      value,
+      error: { type: !value.type, prompt: !value.prompt },
+    }));
 
-    const valid = updated.reduce((overall, { value }) => {
-      return overall && !!value.type && !!value.prompt;
-    });
+    const errors = updated.map((q) => [q.error.type, q.error.prompt]).flat();
+    const invalid = errors.reduce((overall, next) => overall || next);
 
-    setQuestions(updated);
-
-    if (!valid) {
+    if (invalid) {
+      setQuestions(updated);
       return;
     }
 

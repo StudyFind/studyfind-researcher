@@ -29,7 +29,7 @@ function Field({
         value={value}
         placeholder={placeholder}
         onChange={handleChange}
-        bg="white"
+        bg={error ? "red.100" : "white"}
         textTransform="capitalize"
       >
         <option value=""></option>
