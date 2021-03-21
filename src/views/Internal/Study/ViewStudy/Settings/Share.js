@@ -27,16 +27,17 @@ function Share({ study }) {
       <Flex gridGap="10px" mt="20px">
         {success ? (
           <Button
+            variant="outline"
             color="green.500"
-            bg="green.100"
+            bg="green.50"
             leftIcon={<FaCheckCircle />}
             onClick={handleCopyLink}
-            _hover={{ bg: "green.100" }}
+            _hover={{ bg: "green.50" }}
           >
             Copied!
           </Button>
         ) : (
-          <Button color="gray.500" variant="outline" leftIcon={<FaCopy />} onClick={handleCopyLink}>
+          <Button variant="outline" color="gray.500" leftIcon={<FaCopy />} onClick={handleCopyLink}>
             Copy Link
           </Button>
         )}
