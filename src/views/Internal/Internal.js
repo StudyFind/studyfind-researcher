@@ -23,11 +23,11 @@ import Feedback from "views/Internal/Feedback/Feedback";
 function Internal() {
   const cred = auth.currentUser;
 
-  const [user] = useDocument(firestore.collection("researchers").doc(user.uid));
+  const [user] = useDocument(firestore.collection("researchers").doc(cred.uid));
   const [studies] = useCollection(
     firestore
       .collection("studies")
-      .where("researcher.id", "==", user.uid)
+      .where("researcher.id", "==", cred.uid)
       .orderBy("updatedAt", "desc")
   );
 

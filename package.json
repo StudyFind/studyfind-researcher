@@ -10,6 +10,7 @@
     "array-move": "^3.0.1",
     "axios": "^0.21.0",
     "firebase": "^7.22.1",
+    "firebase-functions": "^3.13.2",
     "flesch": "^1.0.5",
     "framer-motion": "^2.9.5-rc.0",
     "jquery": "^3.5.1",
