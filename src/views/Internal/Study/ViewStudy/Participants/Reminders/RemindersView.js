@@ -84,6 +84,7 @@ function RemindersView({
                   size="sm"
                   color="blue.500"
                   bg="blue.100"
+                  _hover={{ bg: "blue.200" }}
                   onClick={() => goToEdit(reminder)}
                 />
                 <IconButton
@@ -91,6 +92,7 @@ function RemindersView({
                   size="sm"
                   color="red.500"
                   bg="red.100"
+                  _hover={{ bg: "red.200" }}
                   onClick={() => handleDelete(reminder)}
                 />
               </Flex>
