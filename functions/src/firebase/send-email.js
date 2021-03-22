@@ -14,6 +14,9 @@ const defaultMessageObject = {
  * @returns Promise of firestore mail insert
  */
 module.exports = async (firestore, auth, uid, messageObject=defaultMessageObject, isResearcher=true) => {
+    // add unsubscribe message
+    messageObject.html += '<h6><a href="https://studyfind.org/settings">Click here to change your email preferences and unsubscribe</a><h6>';
+
     const [user, userData] = await Promise.all([
         auth.getUser(uid)
             .then(u => {
