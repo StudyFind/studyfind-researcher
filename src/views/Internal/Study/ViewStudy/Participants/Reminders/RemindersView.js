@@ -102,7 +102,8 @@ function RemindersView({
                     fontWeight="600"
                     rounded="md"
                     color="green.500"
-                    bg="green.100"
+                    borderWidth="1px"
+                    borderColor="green.300"
                     align="center"
                     px="12px"
                     h="32px"
@@ -120,7 +121,8 @@ function RemindersView({
                     fontWeight="600"
                     rounded="md"
                     color="gray.500"
-                    bg="gray.100"
+                    borderWidth="1px"
+                    borderColor="gray.300"
                     align="center"
                     px="12px"
                     h="32px"
@@ -131,12 +133,6 @@ function RemindersView({
                   </Flex>
                 </Tooltip>
               )}
-              {/* <Button size="sm" color="gray.500" leftIcon={<FaExclamationCircle />}>
-                PENDING
-              </Button>
-              <Button size="sm" color="green.500" leftIcon={<FaExclamationCircle />}>
-                CONFIRMED
-              </Button> */}
             </Flex>
           </Box>
         ))}
