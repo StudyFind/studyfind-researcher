@@ -1,10 +1,25 @@
 import React from "react";
 import moment from "moment";
 import styled from "styled-components";
-import { Heading, Box, Grid, Flex, IconButton, Text, Tag, TagLabel } from "@chakra-ui/react";
-import { FaPlusCircle } from "react-icons/fa";
+import {
+  Heading,
+  Box,
+  Grid,
+  Flex,
+  Tooltip,
+  IconButton,
+  Text,
+  Tag,
+  TagLabel,
+} from "@chakra-ui/react";
 
-import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import {
+  FaPencilAlt,
+  FaTrashAlt,
+  FaCheckCircle,
+  FaPlusCircle,
+  FaExclamationCircle,
+} from "react-icons/fa";
 
 function RemindersView({
   reminders,
@@ -69,6 +84,7 @@ function RemindersView({
                   size="sm"
                   color="blue.500"
                   bg="blue.100"
+                  _hover={{ bg: "blue.200" }}
                   onClick={() => goToEdit(reminder)}
                 />
                 <IconButton
@@ -76,10 +92,49 @@ function RemindersView({
                   size="sm"
                   color="red.500"
                   bg="red.100"
+                  _hover={{ bg: "red.200" }}
                   onClick={() => handleDelete(reminder)}
                 />
               </Flex>
-              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
+              {reminder.confirmedByParticipant ? (
+                <Tooltip label="Participant has confirmed">
+                  <Flex
+                    cursor="default"
+                    fontSize="14px"
+                    fontWeight="600"
+                    rounded="md"
+                    color="green.500"
+                    borderWidth="1px"
+                    borderColor="green.300"
+                    align="center"
+                    px="12px"
+                    h="32px"
+                    gridGap="8px"
+                  >
+                    <FaCheckCircle />
+                    Confirmed
+                  </Flex>
+                </Tooltip>
+              ) : (
+                <Tooltip label="Waiting for participant to confirm">
+                  <Flex
+                    cursor="default"
+                    fontSize="14px"
+                    fontWeight="600"
+                    rounded="md"
+                    color="gray.500"
+                    borderWidth="1px"
+                    borderColor="gray.300"
+                    align="center"
+                    px="12px"
+                    h="32px"
+                    gridGap="8px"
+                  >
+                    <FaExclamationCircle />
+                    Pending
+                  </Flex>
+                </Tooltip>
+              )}
             </Flex>
           </Box>
         ))}

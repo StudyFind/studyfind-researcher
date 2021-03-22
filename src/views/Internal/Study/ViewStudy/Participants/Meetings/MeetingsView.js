@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { format } from "functions";
-import { Heading, Box, Grid, Flex, IconButton, Text } from "@chakra-ui/react";
-import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
+import { Heading, Box, Grid, Flex, Tooltip, IconButton, Text } from "@chakra-ui/react";
+import {
+  FaPencilAlt,
+  FaTrashAlt,
+  FaExternalLinkAlt,
+  FaPlusCircle,
+  FaCheckCircle,
+  FaExclamationCircle,
+} from "react-icons/fa";
 
 function MeetingsView({ meetings, handleEdit, handleDelete }) {
   const formatTimestamp = (timestamp) => {
@@ -56,6 +63,7 @@ function MeetingsView({ meetings, handleEdit, handleDelete }) {
                   size="sm"
                   color="blue.500"
                   bg="blue.100"
+                  _hover={{ bg: "blue.200" }}
                   onClick={() => handleEdit(meeting)}
                 />
                 <IconButton
@@ -63,10 +71,49 @@ function MeetingsView({ meetings, handleEdit, handleDelete }) {
                   size="sm"
                   color="red.500"
                   bg="red.100"
+                  _hover={{ bg: "red.200" }}
                   onClick={() => handleDelete(meeting)}
                 />
               </Flex>
-              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
+              {meeting.confirmedByParticipant ? (
+                <Tooltip label="Participant has confirmed">
+                  <Flex
+                    cursor="default"
+                    fontSize="14px"
+                    fontWeight="600"
+                    rounded="md"
+                    color="green.500"
+                    borderWidth="1px"
+                    borderColor="green.300"
+                    align="center"
+                    px="12px"
+                    h="32px"
+                    gridGap="8px"
+                  >
+                    <FaCheckCircle />
+                    Confirmed
+                  </Flex>
+                </Tooltip>
+              ) : (
+                <Tooltip label="Waiting for participant to confirm">
+                  <Flex
+                    cursor="default"
+                    fontSize="14px"
+                    fontWeight="600"
+                    rounded="md"
+                    color="gray.500"
+                    borderWidth="1px"
+                    borderColor="gray.300"
+                    align="center"
+                    px="12px"
+                    h="32px"
+                    gridGap="8px"
+                  >
+                    <FaExclamationCircle />
+                    Pending
+                  </Flex>
+                </Tooltip>
+              )}
             </Flex>
           </Box>
         ))}

@@ -33,6 +33,7 @@ function MeetingsItem({ meeting }) {
 
   const meetingInfo = (
     <>
+      <Text>Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}</Text>
       <Text>Study: {meeting.studyID}</Text>
       <Text>Participant: {participant && participant.fakename}</Text>
     </>
@@ -74,13 +75,15 @@ function MeetingsItem({ meeting }) {
       </Tooltip>
       <Flex gridGap="4px" ml="auto">
         <a href={meeting.link} target="_blank" rel="noreferrer">
-          <IconButton
-            icon={<FaPhone />}
-            size="sm"
-            color="green.500"
-            bg="green.100"
-            _hover={{ bg: "green.200" }}
-          />
+          <Tooltip label={meeting.confirmedByParticipant ? "Confirmed" : "Pending"}>
+            <IconButton
+              icon={<FaPhone />}
+              size="sm"
+              color={meeting.confirmedByParticipant ? "green.500" : "gray.500"}
+              bg={meeting.confirmedByParticipant ? "green.100" : "gray.100"}
+              _hover={{ bg: meeting.confirmedByParticipant ? "green.200" : "gray.200" }}
+            />
+          </Tooltip>
         </a>
         <IconButton
           icon={<FaPencilAlt />}
