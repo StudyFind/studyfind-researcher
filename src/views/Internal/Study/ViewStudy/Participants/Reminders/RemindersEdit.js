@@ -32,6 +32,7 @@ function RemindersEdit({
             <Button
               key={index}
               colorScheme={inputs.weekdays[index] ? "blue" : "gray"}
+              color={inputs.weekdays[index] ? "white" : "gray.500"}
               bg={inputs.weekdays[index] ? "blue.500" : "white"}
               borderColor={inputs.weekdays[index] ? "blue.500" : "rgb(226, 232, 240)"}
               borderWidth="1px"
@@ -88,7 +89,7 @@ function RemindersEdit({
         />
       </Flex>
       <Flex justify="flex-end" gridGap="8px">
-        <Button variant="outline" onClick={handleCancel}>
+        <Button variant="outline" color="gray.500" onClick={handleCancel}>
           Cancel
         </Button>
         <Button colorScheme="blue" onClick={handleSubmit}>

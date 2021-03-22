@@ -38,7 +38,7 @@ function MeetingsEdit({ inputs, errors, handleChange, handleCancel, handleSubmit
         onChange={handleChange}
       />
       <Flex justify="flex-end" gridGap="8px">
-        <Button variant="outline" onClick={handleCancel}>
+        <Button variant="outline" color="gray.500" onClick={handleCancel}>
           Cancel
         </Button>
         <Button colorScheme="blue" onClick={handleSubmit}>

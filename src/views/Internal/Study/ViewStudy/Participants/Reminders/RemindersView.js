@@ -1,10 +1,25 @@
 import React from "react";
 import moment from "moment";
 import styled from "styled-components";
-import { Heading, Box, Grid, Flex, IconButton, Text, Tag, TagLabel } from "@chakra-ui/react";
-import { FaPlusCircle } from "react-icons/fa";
+import {
+  Heading,
+  Box,
+  Grid,
+  Flex,
+  Tooltip,
+  IconButton,
+  Text,
+  Tag,
+  TagLabel,
+} from "@chakra-ui/react";
 
-import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import {
+  FaPencilAlt,
+  FaTrashAlt,
+  FaCheckCircle,
+  FaPlusCircle,
+  FaExclamationCircle,
+} from "react-icons/fa";
 
 function RemindersView({
   reminders,
@@ -79,7 +94,49 @@ function RemindersView({
                   onClick={() => handleDelete(reminder)}
                 />
               </Flex>
-              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
+              {reminder.confirmedByParticipant ? (
+                <Tooltip label="Participant has confirmed">
+                  <Flex
+                    cursor="default"
+                    fontSize="14px"
+                    fontWeight="600"
+                    rounded="md"
+                    color="green.500"
+                    bg="green.100"
+                    align="center"
+                    px="12px"
+                    h="32px"
+                    gridGap="8px"
+                  >
+                    <FaCheckCircle />
+                    Confirmed
+                  </Flex>
+                </Tooltip>
+              ) : (
+                <Tooltip label="Waiting for participant to confirm">
+                  <Flex
+                    cursor="default"
+                    fontSize="14px"
+                    fontWeight="600"
+                    rounded="md"
+                    color="gray.500"
+                    bg="gray.100"
+                    align="center"
+                    px="12px"
+                    h="32px"
+                    gridGap="8px"
+                  >
+                    <FaExclamationCircle />
+                    Pending
+                  </Flex>
+                </Tooltip>
+              )}
+              {/* <Button size="sm" color="gray.500" leftIcon={<FaExclamationCircle />}>
+                PENDING
+              </Button>
+              <Button size="sm" color="green.500" leftIcon={<FaExclamationCircle />}>
+                CONFIRMED
+              </Button> */}
             </Flex>
           </Box>
         ))}

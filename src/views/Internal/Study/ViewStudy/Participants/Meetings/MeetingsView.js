@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { format } from "functions";
-import { Heading, Box, Grid, Flex, IconButton, Text } from "@chakra-ui/react";
-import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
+import { Heading, Box, Grid, Flex, Tooltip, IconButton, Text } from "@chakra-ui/react";
+import {
+  FaPencilAlt,
+  FaTrashAlt,
+  FaExternalLinkAlt,
+  FaPlusCircle,
+  FaCheckCircle,
+  FaExclamationCircle,
+} from "react-icons/fa";
 
 function MeetingsView({ meetings, handleEdit, handleDelete }) {
   const formatTimestamp = (timestamp) => {
@@ -66,7 +73,43 @@ function MeetingsView({ meetings, handleEdit, handleDelete }) {
                   onClick={() => handleDelete(meeting)}
                 />
               </Flex>
-              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
+              {meeting.confirmedByParticipant ? (
+                <Tooltip label="Participant has confirmed">
+                  <Flex
+                    cursor="default"
+                    fontSize="14px"
+                    fontWeight="600"
+                    rounded="md"
+                    color="green.500"
+                    bg="green.100"
+                    align="center"
+                    px="12px"
+                    h="32px"
+                    gridGap="8px"
+                  >
+                    <FaCheckCircle />
+                    Confirmed
+                  </Flex>
+                </Tooltip>
+              ) : (
+                <Tooltip label="Waiting for participant to confirm">
+                  <Flex
+                    cursor="default"
+                    fontSize="14px"
+                    fontWeight="600"
+                    rounded="md"
+                    color="gray.500"
+                    bg="gray.100"
+                    align="center"
+                    px="12px"
+                    h="32px"
+                    gridGap="8px"
+                  >
+                    <FaExclamationCircle />
+                    Pending
+                  </Flex>
+                </Tooltip>
+              )}
             </Flex>
           </Box>
         ))}
