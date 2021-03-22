@@ -40,7 +40,7 @@ function Notification({ notification }) {
     },
   };
 
-  const icon = icons[notification.type];
+  const icon = icons[notification.type] || { color: "gray", name: FaUser };
 
   return (
     <Row bg={read ? "white" : "blue.50"}>
