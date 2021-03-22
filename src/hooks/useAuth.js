@@ -8,21 +8,17 @@ function useAuth() {
   const [researcher, setResearcher] = useState(null);
 
   const handleResearcherCheck = async () => {
-    await cred.reload();
-    const { claims } = await cred.getIdTokenResult();
-    console.log(claims);
+    const { claims } = await cred.getIdTokenResult(true);
     setResearcher(claims.researcher);
   };
 
   useEffect(() => {
     if (cred) {
       handleResearcherCheck();
-    } else {
-      setResearcher(false);
     }
   }, [cred]);
 
-  return [cred, researcher, loading || researcher === null];
+  return [cred, researcher, loading || (cred && researcher === null)];
 }
 
 export default useAuth;
