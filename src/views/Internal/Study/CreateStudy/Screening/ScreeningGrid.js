@@ -11,14 +11,14 @@ const DragHandle = SortableHandle(() => (
   </Flex>
 ));
 
-const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion }) => (
+const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion, error }) => (
   <Flex gridGap="10px" w="100%">
-    {console.log(i)}
     <DragHandle />
     <Select
       w="210px"
       name="type"
       value={value.type}
+      error={error.type}
       onChange={(name, value) => updateQuestion(i, name, value)}
       options={["Inclusion", "Exclusion"]}
     />
@@ -26,6 +26,7 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
       placeholder="Question Prompt"
       name="prompt"
       value={value.prompt}
+      error={error.prompt}
       onChange={(name, value) => updateQuestion(i, name, value)}
     />
     <IconButton
@@ -40,12 +41,13 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
 
 const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
   <Grid gap="10px">
-    {items.map((value, index) => (
+    {items.map((item, index) => (
       <SortableItem
         key={index}
         index={index}
         i={index}
-        value={value}
+        value={item.value}
+        error={item.error}
         updateQuestion={updateQuestion}
         deleteQuestion={deleteQuestion}
       />
@@ -58,6 +60,7 @@ function ScreeningGrid({
   original,
   questions,
   setQuestions,
+  mapQuestions,
   createQuestion,
   updateQuestion,
   deleteQuestion,
@@ -74,7 +77,10 @@ function ScreeningGrid({
   return (
     <>
       <Flex gridGap="10px">
-        {!lodash.isEqual(original, questions) && (
+        {!lodash.isEqual(
+          original,
+          questions.map((q) => q.value)
+        ) && (
           <Button
             size="sm"
             leftIcon={<FaUndo />}
@@ -83,7 +89,7 @@ function ScreeningGrid({
             borderWidth="1px"
             borderColor="gray.500"
             _hover={{ bg: "gray.200" }}
-            onClick={() => setQuestions(original)}
+            onClick={() => setQuestions(mapQuestions(original))}
           >
             Undo Changes
           </Button>

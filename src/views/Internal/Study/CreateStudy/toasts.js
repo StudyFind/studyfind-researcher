@@ -42,7 +42,7 @@ const toasts = {
   savedProgress: {
     title: "Study Progress Saved!",
     description:
-      "Your study along with any changes you made have been saved and it can be published or deleted from the study settings tab.",
+      "Your study along with any changes you made have been saved and can be published or deleted from the study settings tab.",
     status: "info",
     duration: 5000,
     isClosable: true,

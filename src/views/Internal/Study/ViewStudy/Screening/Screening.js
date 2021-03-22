@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useArray } from "hooks";
 import { updateStudy } from "database/studies";
+
 import ScreeningView from "./ScreeningView";
 import ScreeningEdit from "./ScreeningEdit";
 
@@ -10,25 +11,53 @@ function Screening({ study }) {
   const [
     questions,
     setQuestions,
-    { appendElement, updateElement, deleteElementByIndex, clearArray },
-  ] = useArray(study.questions);
+    { appendElement, updateElement, deleteElement, clearArray },
+  ] = useArray(
+    study.questions.map((question) => ({ value: question, error: { type: false, prompt: false } }))
+  );
 
   const createQuestion = () => {
-    appendElement({ prompt: "", type: "Inclusion" });
+    appendElement({
+      value: { prompt: "", type: "Inclusion" },
+      error: { type: false, prompt: false },
+    });
   };
 
   const updateQuestion = (index, name, value) => {
-    const updated = { ...questions[index], [name]: value };
-    updateElement(updated, index);
+    updateElement(
+      {
+        value: { ...questions[index].value, [name]: value },
+        error: { ...questions[index].error, [name]: !value },
+      },
+      index
+    );
   };
 
   const handleCancel = () => {
-    setQuestions(study.questions);
+    setQuestions(
+      study.questions.map((question) => ({
+        value: question,
+        error: { type: false, prompt: false },
+      }))
+    );
     setEdit(false);
   };
 
   const handleSubmit = () => {
-    updateStudy(study.id, { questions });
+    const updated = questions.map(({ value }) => ({
+      value,
+      error: { type: !value.type, prompt: !value.prompt },
+    }));
+
+    const errors = updated.map((q) => [q.error.type, q.error.prompt]).flat();
+    const invalid = errors.reduce((overall, next) => overall || next);
+
+    if (invalid) {
+      setQuestions(updated);
+      return;
+    }
+
+    updateStudy(study.id, { questions: questions.map((q) => q.value) });
     setEdit(false);
   };
 
@@ -38,7 +67,7 @@ function Screening({ study }) {
       questions={questions}
       createQuestion={createQuestion}
       updateQuestion={updateQuestion}
-      deleteQuestion={deleteElementByIndex}
+      deleteQuestion={deleteElement}
       deleteAllQuestions={clearArray}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}

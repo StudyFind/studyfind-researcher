@@ -24,7 +24,7 @@ function Update({ study }) {
         <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
           clinicaltrials.gov
         </Link>{" "}
-        update its field accordingly. <br />
+        and update its information accordingly. <br />
         This action will not overwrite your edited study details and screening survey.
       </Text>
       <Flex mt="16px" mb="8px">
