@@ -13,7 +13,8 @@ const signup = async (name, email, password) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
-    const idToken = auth.currentUser.getIdToken(false);
+    const idToken = await auth.currentUser.getIdToken(false);
+
     await axios.get(`${CLOUD_API_URL}/setResearcherClaim`, { params: { idToken } });
 
     await user.sendEmailVerification();

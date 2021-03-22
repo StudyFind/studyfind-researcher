@@ -7,8 +7,9 @@ module.exports = ({ admin }) => async (req, res) => {
     if (!idToken) return res.json({ error: "parameter idToken needs to be defined" });
 
     const auth = admin.auth();
-    const { uid } = getUserByToken(auth, idToken);
-    auth.setCustomUserClaims(uid, { researcher: true });
+
+    const { uid } = await getUserByToken(auth, idToken);
+    await auth.setCustomUserClaims(uid, { researcher: true });
 
     return res.json({ message: "researcher claim successfully set" });
   } catch (error) {

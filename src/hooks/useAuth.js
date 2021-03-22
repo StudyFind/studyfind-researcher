@@ -9,7 +9,8 @@ function useAuth() {
 
   const handleResearcherCheck = async () => {
     const { claims } = await cred.getIdTokenResult();
-    setResearcher(claims.participant);
+    console.log(claims);
+    setResearcher(claims.researcher);
   };
 
   useEffect(() => {
