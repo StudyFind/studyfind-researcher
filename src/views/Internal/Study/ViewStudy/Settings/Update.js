@@ -20,12 +20,12 @@ function Update({ study }) {
         Update Study
       </Heading>
       <Text color="gray.500" my="8px">
-        Updating the study will retrieve any new data from{" "}
+        Updating your study will retrieve any new data from{" "}
         <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
           clinicaltrials.gov
         </Link>{" "}
-        since the study was last updated and update the study in StudyFind accordingly. This action
-        will not overwrite your changes to the study details and screening survey.
+        and update its information accordingly. <br />
+        This action will not overwrite your edited study details and screening survey.
       </Text>
       <Flex mt="16px" mb="8px">
         <Text color="black" fontWeight="500">
