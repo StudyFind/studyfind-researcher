@@ -12,7 +12,7 @@ function Screening({ study, next, back }) {
   const [
     questions,
     setQuestions,
-    { appendElement, updateElement, deleteElementByIndex, clearArray },
+    { appendElement, updateElement, deleteElement, clearArray },
   ] = useArray(mapQuestions(study.questions));
 
   const createQuestion = () => {
@@ -61,7 +61,7 @@ function Screening({ study, next, back }) {
         mapQuestions={mapQuestions}
         createQuestion={createQuestion}
         updateQuestion={updateQuestion}
-        deleteQuestion={deleteElementByIndex}
+        deleteQuestion={deleteElement}
         deleteAllQuestions={clearArray}
         handleSubmit={handleSubmit}
       />

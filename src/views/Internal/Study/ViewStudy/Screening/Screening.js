@@ -11,7 +11,7 @@ function Screening({ study }) {
   const [
     questions,
     setQuestions,
-    { appendElement, updateElement, deleteElementByIndex, clearArray },
+    { appendElement, updateElement, deleteElement, clearArray },
   ] = useArray(
     study.questions.map((question) => ({ value: question, error: { type: false, prompt: false } }))
   );
@@ -61,17 +61,13 @@ function Screening({ study }) {
     setEdit(false);
   };
 
-  const deleteQuestion = (index) => {
-    deleteElementByIndex(index);
-  };
-
   return edit ? (
     <ScreeningEdit
       original={study.questions}
       questions={questions}
       createQuestion={createQuestion}
       updateQuestion={updateQuestion}
-      deleteQuestion={deleteQuestion}
+      deleteQuestion={deleteElement}
       deleteAllQuestions={clearArray}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
