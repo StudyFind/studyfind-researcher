@@ -37,7 +37,7 @@ function Internal() {
     { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
     { path: "/notifications", component: <Notifications user={user} /> },
     { path: "/schedule", component: <Schedule studies={studies} /> },
-    { path: "/settings", component: <Settings /> },
+    { path: "/settings", component: <Settings user={user}/> },
     { path: "/account", component: <Account user={user} /> },
     { path: "/feedback", component: <Feedback /> },
   ];
