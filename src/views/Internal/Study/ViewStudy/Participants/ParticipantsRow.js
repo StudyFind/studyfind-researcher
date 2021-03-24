@@ -79,7 +79,9 @@ function ParticipantsRow({ study, participant }) {
         onClose={handleCancel}
         isOpen={isOpen}
       >
-        {action === "status" && <Status participant={participant} onClose={onClose} />}
+        {action === "status" && (
+          <Status participant={participant} onClose={onClose} study={study} />
+        )}
         {action === "screening" && (
           <Screening questions={study.questions} responses={participant.responses} />
         )}
