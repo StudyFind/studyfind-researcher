@@ -14,14 +14,6 @@ import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
 
 function ParticipantsRow({ study, participant }) {
-  const statusColors = {
-    interested: "gray",
-    screened: "purple",
-    consented: "cyan",
-    accepted: "green",
-    rejected: "red",
-  };
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [action, setAction] = useState("");
 
@@ -29,7 +21,9 @@ function ParticipantsRow({ study, participant }) {
     setAction("");
     onClose();
   };
-
+  const getColor = (status) => {
+    return study.allStatuses.find((o) => o.name === status).color;
+  };
   const handleAction = (a) => {
     setAction(a);
     onOpen();
@@ -50,7 +44,7 @@ function ParticipantsRow({ study, participant }) {
       <Badge
         size="sm"
         cursor="pointer"
-        colorScheme={statusColors[participant.status]}
+        colorScheme={getColor(participant.status)}
         onClick={() => handleAction("status", participant.id)}
       >
         {participant.status}

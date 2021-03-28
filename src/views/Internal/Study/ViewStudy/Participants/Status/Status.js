@@ -28,6 +28,14 @@ function Status({ participant, onClose, study }) {
   //   rejected: "red",
   // };
 
+  const colorDic = {
+    "#808080": "gray",
+    "#800080": "purple",
+    "#00ffff": "cyan",
+    "#008000": "green",
+    "#ff0000": "red",
+  };
+
   const handleCancel = () => {
     setStatus(participant.status);
     onClose();
@@ -73,6 +81,15 @@ function Status({ participant, onClose, study }) {
       index
     );
   };
+  const updateAllColorStatuses = (index, color) => {
+    updateElement(
+      {
+        value: { ...allStatuses[index].value, color: colorDic[color.hex] },
+        error: { ...allStatuses[index].error, color: !color.hex },
+      },
+      index
+    );
+  };
 
   const handleAllStatusesCancel = () => {
     setAllStatuses(
@@ -85,6 +102,7 @@ function Status({ participant, onClose, study }) {
     <StatusEdit
       study={study}
       updateAllStatuses={updateAllStatuses}
+      updateAllColorStatuses={updateAllColorStatuses}
       allStatuses={allStatuses}
       deleteStatus={deleteElement}
       handleAllStatusesCancel={handleAllStatusesCancel}

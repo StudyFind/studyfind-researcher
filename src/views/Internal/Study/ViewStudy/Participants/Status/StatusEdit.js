@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { Flex, Grid, Heading, Button, Icon, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
 import { FaTrash, FaPlus, FaBars } from "react-icons/fa";
+import { CirclePicker } from "react-color";
 function StatusEdit({
   study,
   updateAllStatuses,
+  updateAllColorStatuses,
   allStatuses,
   deleteStatus,
   handleAllStatusesCancel,
   handleAllStatusesSubmit,
 }) {
+  const defaultColors = ["#808080", "#800080", "#00FFFF", "#008000", "#FF0000"];
   return (
     <>
       {allStatuses.map((thisStatus, index) => (
@@ -21,6 +24,14 @@ function StatusEdit({
               value={thisStatus.value.name}
               // error={error.prompt}
               onChange={(name, value) => updateAllStatuses(index, name, value)}
+            />
+            <CirclePicker
+              color={thisStatus.value.color}
+              name="color"
+              colors={defaultColors}
+              circleSize={20}
+              circleSpacing={8}
+              onChangeComplete={(color) => updateAllColorStatuses(index, color)}
             />
             <IconButton
               colorScheme=""
