@@ -12,6 +12,7 @@ import Screening from "./Screening/Screening";
 import Meetings from "./Meetings/Meetings";
 import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
+import Messages from "./Messages/Messages";
 
 function ParticipantsRow({ study, participant }) {
   const statusColors = {
@@ -59,7 +60,11 @@ function ParticipantsRow({ study, participant }) {
         {participant.score}% eligible
       </Text>
       <Buttons>
-        <ParticipantActionButton name="message" icon={<FaComment />} handleAction={handleAction} />
+        <ParticipantActionButton
+          name="message"
+          icon={<FaComment />}
+          handleAction={handleAction}
+        />
         <ParticipantActionButton
           name="screening"
           icon={<FaClipboard />}
@@ -80,6 +85,7 @@ function ParticipantsRow({ study, participant }) {
         isOpen={isOpen}
       >
         {action === "status" && <Status participant={participant} onClose={onClose} />}
+        {action === "message" && <Messages participant={participant} />}
         {action === "screening" && (
           <Screening questions={study.questions} responses={participant.responses} />
         )}
