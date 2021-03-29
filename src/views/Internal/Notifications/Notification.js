@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import styled from "styled-components";
 
 import { auth, firestore } from "database/firebase";
 
@@ -40,10 +39,10 @@ function Notification({ notification }) {
     },
   };
 
-  const icon = icons[notification.type];
+  const icon = icons[notification.type] || icons["interest"];
 
   return (
-    <Row bg={read ? "white" : "blue.50"}>
+    <Flex align="center" w="100%" p="12px" gridGap="10px" bg={read ? "white" : "blue.50"}>
       <Flex
         w="40px"
         h="40px"
@@ -69,28 +68,8 @@ function Notification({ notification }) {
           {notification.description}
         </Text>
       </Box>
-    </Row>
+    </Flex>
   );
 }
-
-const Row = styled(Box)`
-  display: flex;
-  align-items: center;
-  grid-gap: 10px;
-  padding: 15px;
-
-  &:first-child {
-    border-top-left-radius: 0.375rem;
-    border-top-right-radius: 0.375rem;
-  }
-
-  border-bottom: 1px solid #f1f2f3;
-
-  &:last-child {
-    border-bottom: none;
-    border-bottom-left-radius: 0.375rem;
-    border-bottom-right-radius: 0.375rem;
-  }
-`;
 
 export default Notification;
