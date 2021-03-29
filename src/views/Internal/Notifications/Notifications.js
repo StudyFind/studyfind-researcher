@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { auth, firestore } from "database/firebase";
 
 import { Heading, Box, Text, Button, Flex } from "@chakra-ui/react";
-import { Loader, Message } from "components";
+import { Loader, Message, List } from "components";
 import Notification from "./Notification";
 
 function Notifications() {
@@ -69,11 +69,13 @@ function Notifications() {
       <Box>
         {notifications && notifications.length ? (
           <Box>
-            <Box borderWidth="1px" rounded="md" bg="white">
+            <List borderWidth="1px" rounded="md" bg="white">
               {notifications.map((notification, index) => (
-                <Notification key={index} notification={notification} />
+                <List.Row key={index}>
+                  <Notification notification={notification} />
+                </List.Row>
               ))}
-            </Box>
+            </List>
             <Flex p="20px" justify="center">
               {fetchedAll ? (
                 <Text color="gray.400">Showing all notifications</Text>
