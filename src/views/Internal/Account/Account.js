@@ -17,11 +17,9 @@ function Account({ user }) {
   };
 
   const [inputs, setInputs] = useState(original);
-  const [errors, setErrors] = useState({});
 
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
-    if (name === "timezone") setErrors({ timezone: !value });
   };
 
   const handleCancel = () => {
@@ -51,7 +49,6 @@ function Account({ user }) {
           label="Timezone"
           name="timezone"
           value={inputs.timezone}
-          error={errors.timezone}
           options={moment.tz.zonesForCountry("US")}
           onChange={handleChange}
         />
