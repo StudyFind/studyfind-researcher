@@ -33,9 +33,8 @@ function FilesEdit({ nctID, setEdit, getFiles }) {
     setErrors({ name: "", file: "" });
   };
 
-  const handleSelect = (e) => {
-    const uploadedFile = e.target.files[0];
-    setInputs({ name: uploadedFile.name, file: uploadedFile });
+  const handleSelect = (file) => {
+    setInputs({ name: file.name, file });
     setErrors({ name: "", file: "" });
   };
 
