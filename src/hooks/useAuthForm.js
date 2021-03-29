@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validate } from "functions";
+import validator from "validator";
 
 function useAuthForm({ initial, onSubmit }) {
   const [inputs, setInputs] = useState(initial);
@@ -7,36 +7,60 @@ function useAuthForm({ initial, onSubmit }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState();
 
-  const handleChange = (name, value) => {
-    setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: validate.input(name, value) });
+  const checker = (name, value) => {
+    if (!value) return true;
+
+    if (name === "email") {
+      if (!validator.isEmail(value)) return "Email is invalid";
+    }
+
+    if (name === "password") {
+      const checkCase = value !== value.toLowerCase();
+      const checkSize = value.length > 7;
+
+      if (!value) return true;
+      if (!checkSize) return "Password must have at least 8 characters";
+      if (!checkCase) return "Password must have a capital letter";
+    }
+
+    return false;
   };
 
-  const handleSubmit = (...params) =>
-    new Promise((resolve, reject) => {
-      const err = validate.all(inputs);
+  const validate = (inputs) => {
+    const err = {};
+
+    for (const name in inputs) {
+      err[name] = checker(name, inputs[name]);
+    }
+
+    return err;
+  };
+
+  const handleChange = (name, value) => {
+    setInputs({ ...inputs, [name]: value });
+    setErrors({ ...errors, [name]: checker(name, value) });
+  };
+
+  const handleSubmit = async (...params) => {
+    const err = validate(inputs);
+
+    if (err.email || err.password) {
       setErrors(err);
+      return;
+    }
 
-      if (Object.keys(err).some((v) => err[v])) {
-        reject(err);
-        return;
-      }
+    setLoading(true);
 
-      setLoading(true);
-      onSubmit(...params)
-        .then((data) => {
-          setSuccess(true);
-          resolve(data);
-        })
-        .catch((err) => {
-          setSuccess(false);
-          setErrors(err);
-          reject(err);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    });
+    try {
+      await onSubmit(...params);
+      setSuccess(true);
+    } catch (err) {
+      setErrors(err);
+      setSuccess(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return { inputs, errors, loading, success, handleChange, handleSubmit };
 }
