@@ -19,8 +19,6 @@ function Feedback() {
     setErrors((prev) => ({ ...prev, [name]: !value }));
   };
 
-  console.log(moment().valueOf());
-
   const handleSubmit = () => {
     const err = {
       title: !inputs.title,
