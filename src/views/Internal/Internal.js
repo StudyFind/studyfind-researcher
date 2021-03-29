@@ -9,14 +9,14 @@ import { useDocument, useCollection } from "hooks";
 import Sidebar from "./Sidebar";
 import Verification from "./Verification/Verification";
 
+import Welcome from "views/Internal/Welcome/Welcome";
+import Dashboard from "views/Internal/Dashboard/Dashboard";
 import FetchStudy from "views/Internal/Study/FetchStudy/FetchStudy";
 import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
-import Settings from "views/Internal/Settings/Settings";
-import Dashboard from "views/Internal/Dashboard/Dashboard";
 import ViewStudy from "views/Internal/Study/ViewStudy/ViewStudy";
 import Notifications from "views/Internal/Notifications/Notifications";
 import Schedule from "views/Internal/Schedule/Schedule";
-import Welcome from "views/Internal/Welcome/Welcome";
+import Settings from "views/Internal/Settings/Settings";
 import Account from "views/Internal/Account/Account";
 import Feedback from "views/Internal/Feedback/Feedback";
 

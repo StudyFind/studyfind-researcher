@@ -10,7 +10,6 @@ import {
   FaCalendar,
   FaCog,
   FaPoll,
-  FaThLarge,
   FaCommentAlt,
   FaUserCircle,
   FaQuestionCircle,

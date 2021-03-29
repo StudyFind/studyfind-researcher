@@ -25,8 +25,7 @@ function Field({
   ...rest
 }) {
   const handleChange = (e) => {
-    const value = e.target.value;
-    onChange(name, value);
+    onChange(name, e.target.value);
   };
 
   return (
@@ -42,11 +41,11 @@ function Field({
           w="100%"
           pl={leftWidth || "1rem"}
           pr={rightWidth || "1rem"}
-          value={value}
+          bg={error ? "red.100" : "white"}
           placeholder={placeholder}
           _placeholder={error && { color: "gray.500" }}
+          value={value}
           onChange={handleChange}
-          bg={error ? "red.100" : "white"}
           {...rest}
         />
         {right && (
