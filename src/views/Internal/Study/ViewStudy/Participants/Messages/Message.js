@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { auth } from "database/firebase";
+import { auth, firestore } from "database/firebase";
 
 import { Text, Box } from "@chakra-ui/react";
 
 function Message({ message }) {
+  // const handleRead = () => {
+  //   if (auth.currentUser.uid !== message.user) {
+  //     firestore
+  //       .collection("studies")
+  //       .doc(???)
+  //       .collection("participants")
+  //       .doc(???)
+  //       .collection("messages")
+  //       .doc(???)
+  //       .update()
+  //   }
+  // }
+  //
+  // useEffect(() => {
+  //   handleRead()
+  // }, [])
+
   return (
     <Box>
       <Text

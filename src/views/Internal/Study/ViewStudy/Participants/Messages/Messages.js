@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useCollection } from "hooks";
 import { useParams } from "react-router-dom";
 import { auth, firestore } from "database/firebase";
 
-import { Box, Text, Input, Grid, Flex, Badge, Radio, RadioGroup, Button } from "@chakra-ui/react";
+import { Text, Input, Flex, Button } from "@chakra-ui/react";
 import Message from "./Message";
 import { Loader } from "components";
 
@@ -15,12 +15,10 @@ function Messages({ participant }) {
   const [fetchedAll, setFetchedAll] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const messagesEndRef = useRef(null);
   const { nctID } = useParams();
 
   const handleFetchInitial = async () => {
     const MESSAGES_PER_REQUEST = 10;
-    const lastDoc = documents.length && messages.length ? documents[documents.length - 1] : "";
     setLoading(true);
 
     try {
@@ -50,6 +48,7 @@ function Messages({ participant }) {
   };
 
   const handleFetchAdditional = async () => {
+    if (fetchedAll) return;
     const MESSAGES_PER_REQUEST = 10;
     const lastDoc = documents.length && messages.length ? documents[documents.length - 1] : "";
     setLoading(true);
@@ -119,17 +118,8 @@ function Messages({ participant }) {
     setInput("");
   };
 
-  const scrollToBottom = () => {
-    messagesEndRef.current && messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-  };
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages]);
-
   useEffect(() => {
     handleFetchInitial()
-    scrollToBottom()
   }, []);
 
   if (loading) return <Loader />;
@@ -137,6 +127,20 @@ function Messages({ participant }) {
 
   return (
     <>
+      <Flex p="20px" justify="center">
+        {fetchedAll ? (
+          <Text color="gray.400">Showing all messages</Text>
+        ) : (
+          <Button
+            size="sm"
+            isLoading={loading}
+            loadingText="Loading..."
+            onClick={handleFetchAdditional}
+          >
+            Load more
+          </Button>
+        )}
+      </Flex>
       {messages && messages.map((message, index) => (
         <Message key={index} message={message} />
       )).reverse()}
@@ -154,7 +158,6 @@ function Messages({ participant }) {
           Send
         </Button>
       </Flex>
-      <div ref={messagesEndRef} />
     </>
   );
 }
