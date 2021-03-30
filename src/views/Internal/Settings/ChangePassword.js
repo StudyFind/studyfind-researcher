@@ -28,7 +28,7 @@ function ChangePassword() {
   }, [success]);
 
   return (
-    <Box w="350px" bg="white" borderWidth="1px" borderColor="gray" rounded="md">
+    <Box w="350px" bg="white" borderWidth="1px" rounded="md">
       <AuthForm onSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
         <AuthHeading>Change Password</AuthHeading>
         <AuthPassword

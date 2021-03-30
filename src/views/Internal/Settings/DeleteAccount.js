@@ -35,7 +35,7 @@ function ChangePassword() {
   }, [success]);
 
   return (
-    <Box w="350px" bg="white" borderWidth="1px" borderColor="gray" rounded="md">
+    <Box w="350px" bg="white" borderWidth="1px" rounded="md">
       <AuthForm onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
         <AuthHeading color="red.500">Delete Account</AuthHeading>
         <AuthEmail value={inputs.email} error={errors.email} onChange={handleChange} />
