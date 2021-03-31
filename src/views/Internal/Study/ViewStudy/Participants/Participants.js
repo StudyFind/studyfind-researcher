@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-
+import { useArray } from "hooks";
 import { compute } from "functions";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 import { useParams } from "react-router-dom";
+import { updateStudy } from "database/studies";
 
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { Message, Loader } from "components";
@@ -21,28 +22,41 @@ function Participants({ study }) {
 
   const [sort, setSort] = useState("fakename");
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState({
-    interested: true,
-    screened: true,
-    consented: true,
-    accepted: true,
-    rejected: true,
-  });
 
+  if (!study.allStatuses) {
+    updateStudy(study.id, {
+      allStatuses: [
+        { name: "interested", color: "gray" },
+        { name: "screened", color: "purple" },
+        { name: "consented", color: "cyan" },
+        { name: "accepted", color: "green" },
+        { name: "rejected", color: "red" },
+      ],
+    });
+  }
+  const [status, setStatus, { appendElement, updateElement, deleteElement, clearArray }] = useArray(
+    study.allStatuses
+      ? study.allStatuses.map((status) => ({
+          name: status.name,
+          checked: true,
+        }))
+      : {}
+  );
+  console.log(status);
   useEffect(() => {
     if (!toggle) {
       setSearch("");
       setSort("fakename");
-      setStatus({
-        interested: true,
-        screened: true,
-        consented: true,
-        accepted: true,
-        rejected: true,
-      });
+      setStatus(
+        study.allStatuses
+          ? study.allStatuses.map((status) => ({
+              name: status.name,
+              checked: true,
+            }))
+          : {}
+      );
     }
   }, [toggle]);
-
   useEffect(() => {
     if (participants) {
       const initial = participants.map((p) => ({
@@ -110,9 +124,8 @@ function Participants({ study }) {
     });
     return participants;
   };
-
   const filterStatus = (participants) => {
-    return participants.filter((p) => status[p.status]);
+    return participants.filter((p) => status.find((value) => p.status === value.name).checked);
   };
 
   const filterSearch = (participants) => {
@@ -161,6 +174,7 @@ function Participants({ study }) {
           setStatus={setStatus}
           sort={sort}
           setSort={setSort}
+          updateStatus={updateElement}
         />
       )}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">

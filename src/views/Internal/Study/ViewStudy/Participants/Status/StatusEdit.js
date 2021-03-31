@@ -11,6 +11,7 @@ function StatusEdit({
   deleteStatus,
   handleAllStatusesCancel,
   handleAllStatusesSubmit,
+  createStatus,
 }) {
   const defaultColors = ["#808080", "#800080", "#00FFFF", "#008000", "#FF0000"];
   return (
@@ -22,7 +23,7 @@ function StatusEdit({
               placeholder="Status"
               name="name"
               value={thisStatus.value.name}
-              // error={error.prompt}
+              error={thisStatus.error.name}
               onChange={(name, value) => updateAllStatuses(index, name, value)}
             />
             <CirclePicker
@@ -43,6 +44,9 @@ function StatusEdit({
           </Flex>
         </>
       ))}
+      <Button leftIcon={<FaPlus />} color="gray.500" onClick={createStatus}>
+        Add Question
+      </Button>
       <Flex gridGap="10px" py="20px" justify="flex-end">
         <Button variant="outline" onClick={handleAllStatusesCancel}>
           Cancel
