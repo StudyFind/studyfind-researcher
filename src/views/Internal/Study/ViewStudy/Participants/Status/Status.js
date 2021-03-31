@@ -27,7 +27,12 @@ function Status({ participant, onClose, study }) {
   //   accepted: "green",
   //   rejected: "red",
   // };
-
+  const createStatus = () => {
+    appendElement({
+      value: { name: "", color: "gray" },
+      error: { name: false, color: false },
+    });
+  };
   const colorDic = {
     "#808080": "gray",
     "#800080": "purple",
@@ -107,6 +112,7 @@ function Status({ participant, onClose, study }) {
       deleteStatus={deleteElement}
       handleAllStatusesCancel={handleAllStatusesCancel}
       handleAllStatusesSubmit={handleAllStatusesSubmit}
+      createStatus={createStatus}
     />
   ) : (
     <StatusView
