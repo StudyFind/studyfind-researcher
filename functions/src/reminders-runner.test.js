@@ -16,7 +16,7 @@ describe("reminders-runner", () => {
         firestore.reset();
     });
 
-    test.skip("firestore mock works correctly", async () => {
+    test("firestore mock works correctly", async () => {
         const data = () => ({
             collection: {
                 studies: {
@@ -71,7 +71,7 @@ describe("reminders-runner", () => {
         // });
     });
 
-    it.skip("calls all proper functions (base case)", async () => {
+    it("calls all proper functions (base case)", async () => {
         firestore.data = mFirestore();
         jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30);
 
@@ -84,7 +84,7 @@ describe("reminders-runner", () => {
         expect(firestore.set).not.toHaveBeenCalled();
     });
 
-    it.skip("adds correct reminders to participant", async () => {
+    it("adds correct reminders to participant", async () => {
         firestore.data = mFirestore();
         jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30);
 
@@ -107,7 +107,7 @@ describe("reminders-runner", () => {
         expect(reminders.length).toBe(1);
     });
 
-    it.skip("respects start and end dates for reminders", async () => {
+    it("respects start and end dates for reminders", async () => {
         firestore.data = mFirestore();
         firestore.data.collection.reminders["0"].startDate = 1000 * 60 * 60 * 24;
 
@@ -120,7 +120,7 @@ describe("reminders-runner", () => {
         expect(firestore.update).not.toHaveBeenCalled();
     });
 
-    it.skip("doesn't add reminders if already reminded", async () => {
+    it("doesn't add reminders if already reminded", async () => {
         firestore.data = mFirestore();
         jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 60); // 60 mins
 
@@ -129,7 +129,7 @@ describe("reminders-runner", () => {
         expect(firestore.update).not.toHaveBeenCalled();
     });
 
-    it.skip("filters out from multiple reminders", async () => {
+    it("filters out from multiple reminders", async () => {
         firestore.data = mFirestore();
         firestore.data.collection.reminders["1"] = {
             title: "TEST_REMINDER_2",
@@ -153,8 +153,8 @@ describe("reminders-runner", () => {
 
     it("translates timezones for users in other timezones", async () => {
         firestore.data = mFirestore();
-        firestore.data.collection.participants["TEST_PARTICIPANT_ID"].timezone = "EST"; // +4 hours
-        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30 + 1000 * 60 * 60 * 4); // 30 mins + 4 hours
+        firestore.data.collection.participants["TEST_PARTICIPANT_ID"].timezone = "EST"; // + 5 hours
+        jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000 * 60 * 30 + 1000 * 60 * 60 * 5); // 30 mins + 5 hours
 
         await func();
 

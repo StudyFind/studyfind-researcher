@@ -5,12 +5,12 @@ const moment = require('moment');
 require('moment-timezone');
 
 
-const forEachTimezoneOffset = async(now, fn) => {
+const forEachTimezone = async(now, fn) => {
 	const HOUR = 3600000; // in milliseconds: mill * seconds * minutes == 1000 * 60 * 60 == 
 	const offsets = Array.from(
-		Array.from(Array(24).keys()).map(t => (HOUR * t-12))
+		Array.from(Array(24).keys()).map(t => HOUR * (t-12))
 	);
-	return Promise.allSettled(offset.map(o => fn(o+now)));
+	return Promise.allSettled(offsets.map(o => fn(now+o, o)));
 }
 
 /**
@@ -21,35 +21,32 @@ const forEachTimezoneOffset = async(now, fn) => {
  * @param {function} fn action to perform with each pending reminder. Will be passed a firestore snapshot
  * @param {firestore} firestore firestore ref
  */
-const forEachPendingReminder = async (now, fn, firestore) => {
-	const HOUR = 3600000; // in milliseconds: mill * seconds * minutes == 1000 * 60 * 60 == 
-	const offsetTimes = Array.from(
-		Array.from(Array(24).keys()).map(t => getOffset(HOUR * (t-12) + now))
-	);
-	return Promise.allSettled(offsetTimes.map(async (t, i) => {
-		// for each timezone offset
-		const offsetWeek = t;
+const forEachPendingReminder = async (globalTime, fn, firestore) => {
+	// for each timezone offset...
+	return forEachTimezone(globalTime, async(timezoneTime, timezoneOffset) => {
+
+		// find all planned reminders
 		const remindersData = await firestore.collection("reminders")
-			.where("times", "array-contains", offsetWeek)
-			.where("endDate", ">", t)
+			.where("times", "array-contains", getOffset(timezoneTime))
+			.where("endDate", ">", timezoneTime)
 			.get();
 		let reminders = [];
 		remindersData.forEach(r => reminders.push(r));
-		reminders = reminders.filter(r => r.data().startDate <= t); // filter if haven't started yet
+		reminders = reminders.filter(r => r.data().startDate <= timezoneTime); // filter if haven't started yet
 		if (reminders.length === 0) return [];
-		// check all reminders
+		// for each planned reminder...
 		return Promise.allSettled(reminders.map(async r => {
-			console.log(r.data())
+			// get participant timezone
 			const participantData = await firestore
 				.collection("participants").doc(r.get('participantID'))
 				.get();
-			const timezone = participantData.get('timezone');
-			const offset = moment().tz(timezone).utcOffset() * 60 * 1000; // convert minutes to milliseconds
-			console.log(t)
-			if (offset + offsetWeek !== t) return null;
+			const participantTimezone = participantData.get('timezone');
+			const participantOffset = moment().tz(participantTimezone).utcOffset() * 60 * 1000; // convert minutes to milliseconds
+			if (participantOffset !== timezoneOffset) return null;
 			return fn(r);
 		}));
-	}));
+
+	});
 }
 
 
@@ -98,7 +95,7 @@ module.exports = ({ admin }) => async () => {
 		})
 	}, firestore);
 
-	logResponse(resp);
+	// logResponse(resp);
 
 	return resp;
 }
