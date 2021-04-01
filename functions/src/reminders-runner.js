@@ -46,7 +46,9 @@ const forEachPendingReminder = async (globalTime, fn, firestore) => {
 			return fn(r);
 		}));
 
-	});
+	})
+		.then(resp => resp.map(r => r.value).flat());
+
 }
 
 
@@ -95,7 +97,7 @@ module.exports = ({ admin }) => async () => {
 		})
 	}, firestore);
 
-	// logResponse(resp);
+	logResponse(resp);
 
 	return resp;
 }
