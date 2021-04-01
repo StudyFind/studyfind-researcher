@@ -5,6 +5,12 @@ const moment = require('moment');
 require('moment-timezone');
 
 
+/**
+ * Perform a given async action for each timezone (all 24).
+ * @param {number} now current timestamp
+ * @param {function} fn action to perform for each timezone time. Will be passed timezone time and offset
+ * @returns {[Promise<any>]} list of promises corresponding to action taken for each timezone
+ */
 const forEachTimezone = async(now, fn) => {
 	const HOUR = 3600000; // in milliseconds: mill * seconds * minutes == 1000 * 60 * 60 == 
 	const offsets = Array.from(
@@ -20,6 +26,7 @@ const forEachTimezone = async(now, fn) => {
  * @param {number} now current timestamp
  * @param {function} fn action to perform with each pending reminder. Will be passed a firestore snapshot
  * @param {firestore} firestore firestore ref
+ * @returns {[Promise<any>]} list of promises corresponding to the action taken for each reminder
  */
 const forEachPendingReminder = async (globalTime, fn, firestore) => {
 	// for each timezone offset...
