@@ -4,8 +4,7 @@ service cloud.firestore {
   	match /researchers/{researcherID} {
     	allow read, delete: if researcherID == request.auth.uid
       allow create: if researcherID == request.auth.uid && request.resource.data.name
-      allow update: if researcherID == request.auth.uid
-        && resource.data.name == request.resource.data.name
+      allow update: if researcherID == request.auth.uid && request.resource.data.name == resource.data.name
 
       match /notifications/{notificationID} {
       	allow read: if researcherID == request.auth.uid
@@ -21,8 +20,7 @@ service cloud.firestore {
     match /participants/{participantID} {
     	allow read, delete: if participantID == request.auth.uid
       allow create: if participantID == request.auth.uid && request.resource.data.name
-      allow update: if participantID == request.auth.uid
-        && resource.data.name == request.resource.data.name
+      allow update: if participantID == request.auth.uid && request.resource.data.name == resource.data.name
 
 
       match /notifications/{notificationID} {
