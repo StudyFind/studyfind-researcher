@@ -9,10 +9,6 @@ function Field({ name, value, label, placeholder, limit, error, onChange, ...res
     setCount(value ? value.length : 0);
   }, [value]);
 
-  const handleChange = (e) => {
-    onChange(name, e.target.value);
-  };
-
   return (
     <FormControl isInvalid={error}>
       <FormLabel>{label}</FormLabel>
@@ -22,7 +18,7 @@ function Field({ name, value, label, placeholder, limit, error, onChange, ...res
         placeholder={placeholder}
         _placeholder={error && { color: "gray.500" }}
         value={value}
-        onChange={handleChange}
+        onChange={(e) => onChange(name, e.target.value)}
         maxLength={limit}
         {...rest}
       />

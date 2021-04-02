@@ -24,10 +24,6 @@ function Field({
   onChange,
   ...rest
 }) {
-  const handleChange = (e) => {
-    onChange(name, e.target.value);
-  };
-
   return (
     <FormControl isInvalid={error}>
       {label && <FormLabel>{label}</FormLabel>}
@@ -45,7 +41,7 @@ function Field({
           placeholder={placeholder}
           _placeholder={error && { color: "gray.500" }}
           value={value}
-          onChange={handleChange}
+          onChange={(e) => onChange(name, e.target.value)}
           {...rest}
         />
         {right && (
