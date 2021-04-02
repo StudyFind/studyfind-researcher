@@ -4,11 +4,11 @@ import { useCollection } from "hooks";
 import { useParams } from "react-router-dom";
 import { auth, firestore } from "database/firebase";
 
-import { Text, Input, Flex, Button, Box } from "@chakra-ui/react";
+import { Text, Input, Flex, Button, Box, Grid } from "@chakra-ui/react";
 import Message from "./Message";
 import { Loader } from "components";
 
-import messageData from "./messageData"
+import messageData from "./messageData";
 
 function Messages({ participant }) {
   const [input, setInput] = useState("");
@@ -19,7 +19,9 @@ function Messages({ participant }) {
   const [error, setError] = useState("");
   const { nctID } = useParams();
 
-  const handleFetchInitial = () => {setMessages(messageData)}
+  const handleFetchInitial = () => {
+    setMessages(messageData);
+  };
 
   // const handleFetchInitial = async () => {
   //   const MESSAGES_PER_REQUEST = 10;
@@ -103,7 +105,7 @@ function Messages({ participant }) {
   // );
 
   const handleChange = (event) => {
-    setInput(event.target.value)
+    setInput(event.target.value);
   };
 
   const handleSubmit = () => {
@@ -123,34 +125,45 @@ function Messages({ participant }) {
   };
 
   useEffect(() => {
-    handleFetchInitial()
+    handleFetchInitial();
   }, []);
 
   if (loading) return <Loader />;
-  if (error) return <Text>Error: {JSON.stringify(error)}</Text>
+  if (error) return <Text>Error: {JSON.stringify(error)}</Text>;
 
   return (
-    <>
-      <Box bg="white" rounded="md" roundedBottom="0" p="4px" h="520px" borderWidth="1px" borderBottomWidth="0" overflowY="scroll">
-        <Flex p="20px" justify="center">
-          {fetchedAll ? (
-            <Text color="gray.400">Showing all messages</Text>
-          ) : (
-            <Button
-              size="sm"
-              colorScheme="blue"
-              textColor="white"
-              isLoading={loading}
-              loadingText="Loading..."
-              onClick={handleFetchAdditional}
-            >
-              Load more
-            </Button>
-          )}
+    <Box>
+      <Box overflowY="scroll">
+        <Flex
+          direction="column"
+          bg="white"
+          rounded="md"
+          roundedBottom="0"
+          p="4px"
+          h="92%"
+          borderWidth="1px"
+          borderBottomWidth="0"
+          justifyContent="flex-end"
+        >
+          <Flex p="20px" justify="center">
+            {fetchedAll ? (
+              <Text color="gray.400">Showing all messages</Text>
+            ) : (
+              <Button
+                size="sm"
+                colorScheme="blue"
+                textColor="white"
+                isLoading={loading}
+                loadingText="Loading..."
+                onClick={handleFetchAdditional}
+              >
+                Load more
+              </Button>
+            )}
+          </Flex>
+          {messages &&
+            messages.map((message, index) => <Message key={index} message={message} />).reverse()}
         </Flex>
-        {messages && messages.map((message, index) => (
-          <Message key={index} message={message} />
-        )).reverse()}
       </Box>
       <Flex>
         <Input
@@ -165,11 +178,12 @@ function Messages({ participant }) {
           roundedBottomRight="md"
           colorScheme="blue"
           borderRadius="0"
-          onClick={() => handleSubmit()}>
+          onClick={() => handleSubmit()}
+        >
           Send
         </Button>
       </Flex>
-    </>
+    </Box>
   );
 }
 
