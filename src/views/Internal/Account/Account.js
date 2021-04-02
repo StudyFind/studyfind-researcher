@@ -3,7 +3,7 @@ import lodash from "lodash";
 import moment from "moment-timezone";
 
 import { signout } from "database/auth";
-import { auth, firestore } from "database/firebase";
+import { firestore } from "database/firebase";
 
 import { Heading, Button, Grid, Flex } from "@chakra-ui/react";
 import { Input, Textarea, Select } from "components";
@@ -19,7 +19,7 @@ function Account({ user }) {
   const [inputs, setInputs] = useState(original);
 
   const handleChange = (name, value) => {
-    setInputs({ ...inputs, [name]: value });
+    setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCancel = () => {
