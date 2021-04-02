@@ -5,23 +5,19 @@ import { Flex } from "@chakra-ui/react";
 
 function CalendarBody({ month, year, today, date, setDate }) {
   const render = () => {
-    const monthString = (month < 9 ? "0" : "") + (month + 1);
-    const selected = moment(`${year}-${monthString}`, "YYYY-MM");
-    const firstWeekday = selected.startOf("month").format("d");
+    const selected = moment(`${year}-${month + 1}`, "YYYY-M");
+    const firstWeekday = selected.startOf("month").format("d") - 1;
     const daysInMonth = selected.daysInMonth();
-    const weeks = [];
 
-    let count = 0;
-    while (count - firstWeekday + 1 <= daysInMonth) {
-      const days = [];
-
-      for (let i = 0; i < 7; i++) {
+    return [0, 1, 2, 3, 4].map((week) => {
+      const days = [0, 1, 2, 3, 4, 5, 6].map((weekday) => {
+        const count = week * 7 + weekday;
         const currentDay = count - firstWeekday + 1;
         const currentDate = moment([year, month, currentDay]).format("YYYY-MM-DD");
         const isValid = currentDay <= daysInMonth && count >= firstWeekday;
 
-        days.push(
-          <TableBodyCell key={i} today={false} onClick={() => isValid && setDate(currentDate)}>
+        return (
+          <TableBodyCell key={weekday} onClick={() => isValid && setDate(currentDate)}>
             <Day cursor={isValid && "pointer"} justify="center" align="center">
               <Selected
                 justify="center"
@@ -35,14 +31,10 @@ function CalendarBody({ month, year, today, date, setDate }) {
             </Day>
           </TableBodyCell>
         );
+      });
 
-        count++;
-      }
-
-      weeks.push(<tr key={count}>{days}</tr>);
-    }
-
-    return weeks;
+      return <tr key={week}>{days}</tr>;
+    });
   };
 
   return (
@@ -58,7 +50,7 @@ function CalendarBody({ month, year, today, date, setDate }) {
           <TableHeadCell>Sun</TableHeadCell>
         </tr>
       </thead>
-      <tbody>{render()}</tbody>
+      {render()}
     </Table>
   );
 }
