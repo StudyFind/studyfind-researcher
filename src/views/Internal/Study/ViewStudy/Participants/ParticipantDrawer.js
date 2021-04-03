@@ -30,7 +30,7 @@ function ParticipantDrawer({ action, fakename, onClose, isOpen, children }) {
             <DrawerCloseButton position="static" />
           </Flex>
         </DrawerHeader>
-        <DrawerBody p="25px" bg="#f8f9fa">
+        <DrawerBody p="0" bg="#f8f9fa">
           {children}
         </DrawerBody>
       </DrawerContent>

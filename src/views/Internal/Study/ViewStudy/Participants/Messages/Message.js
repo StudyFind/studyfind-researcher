@@ -1,77 +1,35 @@
-import React, { useEffect } from "react";
-
-import { auth, firestore } from "database/firebase";
+import React from "react";
+import moment from "moment";
 
 import { Text, Box, Flex } from "@chakra-ui/react";
+import { FaCircle } from "react-icons/fa";
 
-function makeDateText(date) {
-  const seconds = Date.now();
-  const curDate = new Date(seconds);
-
-  const yesterday = new Date(curDate);
-  yesterday.setDate(yesterday.getDate() - 1);
-  yesterday.setHours(0);
-  yesterday.setMinutes(0);
-  yesterday.setSeconds(0);
-
-  const timeDiff = curDate.getTime() - date.getTime();
-
-  if (timeDiff > 172800000) {
-    return new Intl.DateTimeFormat("en-US").format(date);
-  } else if (curDate.getDate() != date.getDate() && date.getTime() > yesterday.getTime()) {
-    return "Yesterday";
-  } else if (curDate.getDate() === date.getDate()) {
-    return new Intl.DateTimeFormat("en-US", { timeStyle: "short" }).format(date);
-  } else {
-    return new Intl.DateTimeFormat("en-US").format(date);
-  }
-}
-
-function Message({ message }) {
-  // const handleRead = () => {
-  //   if (auth.currentUser.uid !== message.user) {
-  //     firestore
-  //       .collection("studies")
-  //       .doc(???)
-  //       .collection("participants")
-  //       .doc(???)
-  //       .collection("messages")
-  //       .doc(???)
-  //       .update()
-  //   }
-  // }
-  //
-  // useEffect(() => {
-  //   handleRead()
-  // }, [])
-
-  const isUser = auth.currentUser.uid === message.user;
-
+function Message({ message, isUser }) {
   return (
-    <Box w="fit-content" ml={isUser ? "auto" : 0} mr={isUser ? 0 : "auto"}>
-      <Flex>
-        <Text
-          p="5px 9px"
-          rounded="md"
-          maxW="280px"
-          color={isUser ? "black" : "black"}
-          bg={isUser ? "blue.100" : "gray.100"}
-        >
-          {message.text}
-        </Text>
-        <Text fontSize="xs" m="auto 0" p="0 4px" order={isUser ? 1 : -1} width="70px">
-          {makeDateText(new Date(message.time * 1000))}
+    <Box maxW="300px" alignSelf={isUser ? "flex-end" : "flex-start"}>
+      <Text
+        p="5px 10px"
+        rounded="md"
+        color={isUser ? "white" : "gray.700"}
+        bg={isUser ? "blue.500" : "gray.200"}
+      >
+        {message.text}
+      </Text>
+      <Flex p="4px" align="center" gridGap="4px" justify={`flex-${isUser ? "end" : "start"}`}>
+        {isUser && (
+          <>
+            <Text fontSize="xs" color="gray.500" fontWeight="500">
+              {message.read ? "Read" : "Sent"}
+            </Text>
+            <Text fontSize="4px" color="gray.500" fontWeight="500">
+              <FaCircle />
+            </Text>
+          </>
+        )}
+        <Text fontSize="xs" color="gray.500" fontWeight="500">
+          {moment(message.time).fromNow()}
         </Text>
       </Flex>
-      <Text
-        w="30px"
-        pb="7px"
-        fontSize="xs"
-        ml={isUser ? "3px" : "auto"}
-        mr={isUser ? "auto" : "3px"}
-      >
-        {message.read ? "Read" : "Sent"}
-      </Text>
     </Box>
   );
 }
