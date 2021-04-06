@@ -1,17 +1,79 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import lodash from "lodash";
-import styled from "styled-components";
 
-import { Button, Heading } from "@chakra-ui/react";
+import { updateStudy } from "database/studies";
+
+import { Grid, Flex, Button, Heading } from "@chakra-ui/react";
 import { Textarea } from "components";
+
 import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
 
-function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, handleSubmit }) {
+function DetailsEdit({ study, setEdit }) {
+  const [inputs, setInputs] = useState({ title: "", description: "" });
+  const [errors, setErrors] = useState({ title: "", description: "" });
+
+  const { title, description } = study;
+  const original = { title, description };
+  const isDifferent = !lodash.isEqual(original, inputs);
+
+  const resetInputs = () => {
+    if (study.id) {
+      setInputs(original);
+      setErrors(validate(original));
+    }
+  };
+
+  useEffect(() => {
+    resetInputs();
+  }, [study]);
+
+  const characterCheck = (name, value, min, max) => {
+    const isInvalid = value.length < min || value.length > max;
+    return isInvalid
+      ? `Please ensure that the study ${name} is between ${min} and ${max} characters`
+      : "";
+  };
+
+  const checker = (name, value) => {
+    const [min, max] = {
+      title: [50, 100],
+      description: [300, 500],
+    }[name];
+    return characterCheck(name, value, min, max);
+  };
+
+  const validate = ({ title, description }) => ({
+    title: checker("title", title),
+    description: checker("description", description),
+  });
+
+  const handleChange = (name, value) => {
+    setInputs({ ...inputs, [name]: value });
+    setErrors({ ...errors, [name]: checker(name, value) });
+  };
+
+  const handleCancel = () => {
+    setInputs({ title: study.title, description: study.description });
+    setEdit(false);
+  };
+
+  const handleSubmit = () => {
+    const err = validate(inputs);
+
+    setErrors(err);
+    const errorExists = Object.keys(err).some((i) => err[i]);
+    if (errorExists) return;
+
+    const updated = { title: inputs.title, description: inputs.description };
+    updateStudy(study.id, updated);
+    setEdit(false);
+  };
+
   return (
     <>
-      <Head>
+      <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Edit Details</Heading>
-        <Buttons>
+        <Flex justify="flex-end" gridGap="10px">
           <Button
             colorScheme=""
             color="gray.500"
@@ -21,14 +83,14 @@ function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, han
           >
             Cancel
           </Button>
-          {!lodash.isEqual(inputs, original) ? (
+          {isDifferent && (
             <Button colorScheme="green" onClick={handleSubmit}>
               Save Changes
             </Button>
-          ) : null}
-        </Buttons>
-      </Head>
-      <Inputs>
+          )}
+        </Flex>
+      </Flex>
+      <Grid gap="10px" pt="10px">
         <Textarea
           label="Study Title"
           name="title"
@@ -48,28 +110,9 @@ function DetailsEdit({ original, inputs, errors, handleChange, handleCancel, han
           onChange={handleChange}
         />
         <DescriptionAccessibilityScore description={inputs.description} />
-      </Inputs>
+      </Grid>
     </>
   );
 }
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
-const Inputs = styled.div`
-  display: grid;
-  padding-top: 10px;
-  grid-gap: 10px;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  grid-gap: 10px;
-  justify-content: flex-end;
-`;
 
 export default DetailsEdit;
