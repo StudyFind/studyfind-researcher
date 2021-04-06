@@ -12,9 +12,14 @@ function FilesGrid({ files, setEdit, handleDelete }) {
 
   return (
     <>
-      <Flex justify="space-between" align="center" m="15px 0">
+      <Flex justify="space-between" align="center" my="15px">
         <Heading fontSize="28px">Files</Heading>
-        <Tooltip label={files.length >= FILE_LIMIT && `You can upload up to ${FILE_LIMIT} files`}>
+        <Tooltip
+          label={
+            files.length >= FILE_LIMIT &&
+            `You can upload up to ${FILE_LIMIT} files`
+          }
+        >
           <Box>
             <Button
               colorScheme="blue"
