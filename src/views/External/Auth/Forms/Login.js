@@ -21,10 +21,20 @@ function Login({ setTab }) {
   return (
     <AuthForm onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
       <AuthHeading>Welcome Back!</AuthHeading>
-      <AuthEmail value={inputs.email} error={errors.email} onChange={handleChange} />
-      <AuthPassword value={inputs.password} error={errors.password} onChange={handleChange} />
+      <AuthEmail
+        value={inputs.email}
+        error={errors.email}
+        onChange={handleChange}
+      />
+      <AuthPassword
+        value={inputs.password}
+        error={errors.password}
+        onChange={handleChange}
+      />
       <AuthButton loading={loading}>Login</AuthButton>
-      <AuthTabLink onClick={() => setTab("forgotPassword")}>Forgot Password?</AuthTabLink>
+      <AuthTabLink onClick={() => setTab("forgotPassword")}>
+        Forgot Password?
+      </AuthTabLink>
     </AuthForm>
   );
 }

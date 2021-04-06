@@ -14,7 +14,7 @@ import ParticipantsRow from "./ParticipantsRow";
 function Participants({ study }) {
   const { nctID } = useParams();
   const [toggle, setToggle] = useState(false);
-  const [participants, loading, error] = useCollection(
+  const [participants, loading] = useCollection(
     firestore.collection("studies").doc(nctID).collection("participants")
   );
   const [participantsFiltered, setParticipantsFiltered] = useState([]);
@@ -70,7 +70,13 @@ function Participants({ study }) {
   };
 
   const sortByStatus = (participants) => {
-    const order = ["interested", "screened", "consented", "accepted", "rejected"];
+    const order = [
+      "interested",
+      "screened",
+      "consented",
+      "accepted",
+      "rejected",
+    ];
     participants.sort((a, b) => {
       const statusA = order.indexOf(a.status);
       const statusB = order.indexOf(b.status);
@@ -116,7 +122,9 @@ function Participants({ study }) {
   };
 
   const filterSearch = (participants) => {
-    return participants.filter((p) => p.fakename.toLowerCase().includes(search));
+    return participants.filter((p) =>
+      p.fakename.toLowerCase().includes(search)
+    );
   };
 
   if (loading) {
@@ -131,7 +139,6 @@ function Participants({ study }) {
     return (
       <Box h="500px">
         <Message
-          type="neutral"
           title="Find Participants"
           description="Your study does not have any participants yet!"
         />
@@ -166,12 +173,16 @@ function Participants({ study }) {
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {participantsFiltered && participantsFiltered.length ? (
           participantsFiltered.map((participant, index) => (
-            <ParticipantsRow key={index} study={study} participant={participant} />
+            <ParticipantsRow
+              key={index}
+              study={study}
+              participant={participant}
+            />
           ))
         ) : (
           <Box h="500px">
             <Message
-              type="failure"
+              status="failure"
               title="Empty Filter Results"
               description="Your filters matched no participants"
             />

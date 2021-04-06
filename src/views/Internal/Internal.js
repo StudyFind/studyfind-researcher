@@ -16,16 +16,19 @@ import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
 import ViewStudy from "views/Internal/Study/ViewStudy/ViewStudy";
 import Notifications from "views/Internal/Notifications/Notifications";
 import Schedule from "views/Internal/Schedule/Schedule";
-import Settings from "views/Internal/Settings/Settings";
 import Account from "views/Internal/Account/Account";
 import Feedback from "views/Internal/Feedback/Feedback";
 
 function Internal() {
+  // TODO: Add failure state here if loading user or studies returns and error
   const cred = auth.currentUser;
   const { uid } = cred;
   const [user] = useDocument(firestore.collection("researchers").doc(uid));
   const [studies] = useCollection(
-    firestore.collection("studies").where("researcher.id", "==", uid).orderBy("updatedAt", "desc")
+    firestore
+      .collection("studies")
+      .where("researcher.id", "==", uid)
+      .orderBy("updatedAt", "desc")
   );
 
   const pages = [
@@ -33,11 +36,13 @@ function Internal() {
     { path: "/dashboard", component: <Dashboard studies={studies} /> },
     { path: "/welcome", component: <Welcome studies={studies} /> },
     { path: "/fetch", component: <FetchStudy /> },
-    { path: "/create/:nctID/:tab", component: <CreateStudy studies={studies} /> },
+    {
+      path: "/create/:nctID/:tab",
+      component: <CreateStudy studies={studies} />,
+    },
     { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
     { path: "/notifications", component: <Notifications user={user} /> },
     { path: "/schedule", component: <Schedule studies={studies} /> },
-    { path: "/settings", component: <Settings /> },
     { path: "/account", component: <Account user={user} /> },
     { path: "/feedback", component: <Feedback /> },
   ];
