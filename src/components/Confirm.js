@@ -15,20 +15,21 @@ function Confirm({
   title,
   children,
   color,
-  buttonText,
+  button,
   loading,
-  loadingText,
   open,
   setOpen,
   handleConfirm,
 }) {
+  const handleClose = () => !loading && setOpen(false);
+
   return (
     <AlertDialog
-      isOpen={open}
-      onClose={() => !loading && setOpen(false)}
       size="lg"
       motionPreset="scale"
       isCentered
+      isOpen={open}
+      onClose={handleClose}
     >
       <AlertDialogOverlay bg="rgb(0, 0, 0, 0.75)">
         <AlertDialogContent>
@@ -36,25 +37,23 @@ function Confirm({
             <Heading fontSize="lg" mb="8px">
               {title}
             </Heading>
-
             <Text color="gray.500">{children}</Text>
-
             <Flex mt="24px" gridGap="10px" justify="flex-end">
               <Button
                 variant="outline"
                 color="gray.500"
                 isDisabled={loading}
-                onClick={() => setOpen(false)}
+                onClick={handleClose}
               >
                 Cancel
               </Button>
               <Button
                 colorScheme={color}
                 isLoading={loading}
-                loadingText={loadingText}
+                loadingText={button}
                 onClick={handleConfirm}
               >
-                {buttonText}
+                {button}
               </Button>
             </Flex>
           </Box>

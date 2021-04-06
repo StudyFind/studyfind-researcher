@@ -1,10 +1,10 @@
-export { default as Form } from "./Form";
-export { default as Loader } from "./Loader";
-export { default as Input } from "./Input";
-export { default as Select } from "./Select";
-export { default as Textarea } from "./Textarea";
-export { default as Message } from "./Message";
 export { default as Page } from "./Page";
-export { default as FileInput } from "./FileInput";
+export { default as Form } from "./Form";
 export { default as List } from "./List";
+export { default as Input } from "./Input";
+export { default as Loader } from "./Loader";
+export { default as Select } from "./Select";
+export { default as Message } from "./Message";
 export { default as Confirm } from "./Confirm";
+export { default as Textarea } from "./Textarea";
+export { default as FileInput } from "./FileInput";

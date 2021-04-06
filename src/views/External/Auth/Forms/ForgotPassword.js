@@ -14,7 +14,14 @@ import {
 import { Message } from "components";
 
 function ForgotPassword({ setTab }) {
-  const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
+  const {
+    inputs,
+    errors,
+    success,
+    loading,
+    handleChange,
+    handleSubmit,
+  } = useAuthForm({
     initial: { email: "" },
     onSubmit: forgotPassword,
   });
@@ -22,12 +29,12 @@ function ForgotPassword({ setTab }) {
   if (success) {
     return (
       <Message
-        type="success"
+        status="success"
         title="Email Sent!"
         description="Check your email for a password reset link"
         padding="40px 60px"
       >
-        <AuthTabLink onClick={() => setTab("login")}> Back to login </AuthTabLink>
+        <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
       </Message>
     );
   }
@@ -35,7 +42,11 @@ function ForgotPassword({ setTab }) {
   return (
     <AuthForm onSubmit={() => handleSubmit(inputs.email)}>
       <AuthHeading>Forgot Password</AuthHeading>
-      <AuthEmail value={inputs.email} error={errors.email} onChange={handleChange} />
+      <AuthEmail
+        value={inputs.email}
+        error={errors.email}
+        onChange={handleChange}
+      />
       <AuthButton loading={loading}>Request Password Reset Email</AuthButton>
       <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
     </AuthForm>

@@ -11,13 +11,12 @@ function ReviewConfirmPublish({
   return (
     <Confirm
       title="Confirm Publish Study"
-      buttonText="Publish"
+      button="Publish"
       color="green"
       open={confirmPublish}
       setOpen={setConfirmPublish}
       handleConfirm={handlePublish}
       loading={loadingPublish}
-      loadingText="Publishing"
     >
       Publishing a study allows participants to enroll but prevents you from making changes to the
       study details and screening survey. <br /> Are you sure you want to publish study{" "}
