@@ -1,38 +1,79 @@
-import React, { useState } from "react";
-import lodash from "lodash";
-import moment from "moment-timezone";
-
+import React, { useState, useEffect } from "react";
 import { signout } from "database/auth";
-import { firestore } from "database/firebase";
 
-import { Heading, Button, Grid, Flex } from "@chakra-ui/react";
-import { Input, Textarea, Select } from "components";
-import { FaDoorOpen } from "react-icons/fa";
+import { Flex, Grid, Heading, Button, Divider } from "@chakra-ui/react";
+import {
+  FaDoorOpen,
+  FaUser,
+  FaMapMarkedAlt,
+  FaBell,
+  FaCalendarCheck,
+  FaComment,
+  FaShieldAlt,
+} from "react-icons/fa";
+
+import Profile from "./Profile/Profile";
+import Timezone from "./Timezone/Timezone";
+import Notifications from "./Notifications/Notifications";
+import Security from "./Security/Security";
+
+import AccountTab from "./AccountTab";
 
 function Account({ user }) {
-  const original = {
-    bio: user.bio || "",
-    timezone: user.timezone || "",
-    organization: user.organization || "",
+  const tabs = [
+    {
+      text: "profile",
+      icon: <FaUser />,
+      content: <Profile user={user} />,
+    },
+    {
+      text: "timezone",
+      icon: <FaMapMarkedAlt />,
+      content: <Timezone user={user} />,
+    },
+    {
+      text: "calendar",
+      icon: <FaCalendarCheck />,
+      content: <div />,
+    },
+    {
+      text: "templates",
+      icon: <FaComment />,
+      content: <div />,
+    },
+    {
+      text: "notifications",
+      icon: <FaBell />,
+      content: <Notifications user={user} />,
+    },
+    {
+      text: "security",
+      icon: <FaShieldAlt />,
+      content: <Security />,
+    },
+  ];
+
+  const [selected, setSelected] = useState(0);
+  const size = tabs.length;
+
+  const handleKeyDown = (e) => {
+    if (document.activeElement.className.split(" ").includes("tab")) {
+      if (e.keyCode === 40 || e.keyCode === 39) {
+        e.preventDefault();
+        setSelected(selected === size - 1 ? 0 : selected + 1);
+      }
+
+      if (e.keyCode === 38 || e.keyCode === 37) {
+        e.preventDefault();
+        setSelected(selected === 0 ? size - 1 : selected - 1);
+      }
+    }
   };
 
-  const [inputs, setInputs] = useState(original);
-
-  const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleCancel = () => {
-    setInputs(original);
-  };
-
-  const handleUpdate = () => {
-    firestore.collection("researchers").doc(user.id).update({
-      timezone: inputs.timezone,
-      organization: inputs.organization,
-      bio: inputs.bio,
-    });
-  };
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown, false);
+    return () => document.removeEventListener("keydown", handleKeyDown, false);
+  }, [handleKeyDown]);
 
   return (
     <>
@@ -42,40 +83,24 @@ function Account({ user }) {
           Sign out
         </Button>
       </Flex>
-      <hr />
-
-      <Grid gap="25px" p="25px 0" w="400px">
-        <Select
-          label="Timezone"
-          name="timezone"
-          value={inputs.timezone}
-          options={moment.tz.zonesForCountry("US")}
-          onChange={handleChange}
-        />
-        <Input
-          label="Organization"
-          name="organization"
-          value={inputs.organization}
-          onChange={handleChange}
-        />
-        <Textarea
-          label="Bio"
-          name="bio"
-          value={inputs.bio}
-          onChange={handleChange}
-          height="108px"
-        />
-        {!lodash.isEqual(original, inputs) && (
-          <Flex gridGap="10px" justify="flex-end">
-            <Button color="gray.500" onClick={handleCancel}>
-              Cancel
-            </Button>
-            <Button colorScheme="green" onClick={handleUpdate}>
-              Save Changes
-            </Button>
-          </Flex>
-        )}
-      </Grid>
+      <Divider />
+      <Flex gridGap="50px">
+        <Grid gap="10px" maxH="0" w="180px" my="30px">
+          {tabs.map((t, i) => (
+            <AccountTab
+              key={i}
+              text={t.text}
+              icon={t.icon}
+              onClick={() => setSelected(i)}
+              isSelected={selected === i}
+              setSelected={setSelected}
+            />
+          ))}
+        </Grid>
+        <Grid gap="30px" py="30px" w="360px">
+          {tabs[selected].content}
+        </Grid>
+      </Flex>
     </>
   );
 }
