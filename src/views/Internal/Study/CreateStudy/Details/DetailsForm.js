@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import lodash from "lodash";
+
 import { updateStudy } from "database/studies";
+
 import { Form, Textarea } from "components";
 import { Button, Grid, Flex } from "@chakra-ui/react";
 import { FaEraser, FaUndo } from "react-icons/fa";
-import lodash from "lodash";
 
 function DetailsForm({ study, next, back }) {
   const [inputs, setInputs] = useState({ title: "", description: "" });

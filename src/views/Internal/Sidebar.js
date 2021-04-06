@@ -4,11 +4,18 @@ import styled from "styled-components";
 import { auth } from "database/firebase";
 
 import { Link, useLocation } from "react-router-dom";
-import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  Text,
+  Image,
+  Avatar,
+} from "@chakra-ui/react";
 import {
   FaBell,
-  FaCalendar,
-  FaCog,
+  FaCalendarAlt,
   FaPoll,
   FaCommentAlt,
   FaUserCircle,
@@ -22,16 +29,22 @@ function Sidebar({ user }) {
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Schedule", path: "/schedule", icon: <FaCalendar /> },
-    { name: "Settings", path: "/settings", icon: <FaCog /> },
+    { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
     { name: "Feedback", path: "/feedback", icon: <FaCommentAlt /> },
     { name: "FAQ", path: "/faq", icon: <FaQuestionCircle /> },
   ];
 
   return (
-    <Flex direction="column" w="280px" h="100vh" position="fixed" bg="blue.900" zIndex="100">
-      <Logo to="/dashboard">
+    <Flex
+      direction="column"
+      w="280px"
+      h="100vh"
+      position="fixed"
+      bg="blue.900"
+      zIndex="100"
+    >
+      <Logo to="/">
         <Image h="1.75rem" mr="10px" src={StudyFindLogo} />
         <Heading fontSize="1.5rem" color="white">
           StudyFind
@@ -39,7 +52,11 @@ function Sidebar({ user }) {
       </Logo>
       <Grid mb="auto">
         {links.map((link, index) => (
-          <NavLink key={index} to={link.path} selected={location.pathname === link.path}>
+          <NavLink
+            key={index}
+            to={link.path}
+            selected={location.pathname === link.path}
+          >
             {link.icon}
             {link.name}
           </NavLink>
@@ -56,10 +73,21 @@ function Sidebar({ user }) {
             mr="10px"
           />
           <Box>
-            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
+            <Text
+              fontSize="0.9rem"
+              color="white"
+              fontWeight="500"
+              isTruncated
+              maxWidth="180px"
+            >
               {user ? user.name : "Your Account"}
             </Text>
-            <Text fontSize="0.9rem" color="gray.400" isTruncated maxWidth="180px">
+            <Text
+              fontSize="0.9rem"
+              color="gray.400"
+              isTruncated
+              maxWidth="180px"
+            >
               {auth.currentUser.email}
             </Text>
           </Box>

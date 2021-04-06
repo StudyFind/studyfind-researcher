@@ -18,7 +18,10 @@ function Notifications() {
   const handleFetchAdditional = async () => {
     const NOTIFICATIONS_PER_REQUEST = 10;
 
-    const lastDoc = documents.length && notifications.length ? documents[documents.length - 1] : "";
+    const lastDoc =
+      documents.length && notifications.length
+        ? documents[documents.length - 1]
+        : "";
 
     setLoading(true);
 
@@ -94,7 +97,6 @@ function Notifications() {
         ) : (
           <Box h="500px" borderWidth="1px" rounded="md" bg="white">
             <Message
-              type="neutral"
               title="Nothing to show"
               description="You do not have any notifications right now"
             />
