@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from "react";
 
-import { Text, Flex, Textarea, FormLabel, FormControl, FormErrorMessage } from "@chakra-ui/react";
+import {
+  Text,
+  Flex,
+  Textarea,
+  FormLabel,
+  FormControl,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 
-function Field({ name, value, label, placeholder, limit, error, onChange, ...rest }) {
+function Field({
+  name,
+  value,
+  label,
+  placeholder,
+  limit,
+  error,
+  onChange,
+  ...rest
+}) {
   const [count, setCount] = useState();
 
   useEffect(() => {
     setCount(value ? value.length : 0);
   }, [value]);
+
+  const handleChange = (e) => onChange(name, e.target.value);
 
   return (
     <FormControl isInvalid={error}>
@@ -18,7 +36,7 @@ function Field({ name, value, label, placeholder, limit, error, onChange, ...res
         placeholder={placeholder}
         _placeholder={error && { color: "gray.500" }}
         value={value}
-        onChange={(e) => onChange(name, e.target.value)}
+        onChange={handleChange}
         maxLength={limit}
         {...rest}
       />

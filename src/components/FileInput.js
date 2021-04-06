@@ -1,9 +1,16 @@
 import React from "react";
 import lodash from "lodash";
 
-import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import {
+  Input,
+  FormLabel,
+  FormControl,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 
 function FileInput({ label, error, accept, onChange }) {
+  const handleChange = (e) => onChange(e.target.files[0]);
+
   return (
     <FormControl isInvalid={error}>
       {label && <FormLabel>{label}</FormLabel>}
@@ -13,9 +20,11 @@ function FileInput({ label, error, accept, onChange }) {
         bg={error ? "red.100" : "white"}
         isInvalid={error}
         accept={accept}
-        onChange={(e) => onChange(e.target.files[0])}
+        onChange={handleChange}
       />
-      {error && lodash.isString(error) && <FormErrorMessage>{error}</FormErrorMessage>}
+      {error && lodash.isString(error) && (
+        <FormErrorMessage>{error}</FormErrorMessage>
+      )}
     </FormControl>
   );
 }
