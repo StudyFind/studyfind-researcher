@@ -1,14 +1,11 @@
 import React from "react";
 
-import { auth } from "database/firebase";
 import { Link } from "react-router-dom";
 import { Alert, AlertIcon, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import DashboardButton from "./DashboardButton";
 
-function DashboardEmpty() {
-  const verified = auth.currentUser.emailVerified;
-
+function DashboardEmpty({ verified }) {
   return (
     <Flex h="100%" direction="column">
       <Box w="500px">

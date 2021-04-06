@@ -1,14 +1,11 @@
 import React from "react";
 
-import { auth } from "database/firebase";
 import { Heading, Flex, Grid } from "@chakra-ui/react";
 
 import DashboardButton from "./DashboardButton";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
-function DashboardGrid({ studies }) {
-  const verified = auth.currentUser.emailVerified;
-
+function DashboardGrid({ verified, studies }) {
   return (
     <>
       <Flex justify="space-between" align="center" mb="25px">
