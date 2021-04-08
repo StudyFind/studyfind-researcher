@@ -7,9 +7,10 @@ import { Box, Center, Switch, FormLabel, useToast } from "@chakra-ui/react";
 
 function TimezoneDetection({ user }) {
     const toast = useToast();
+    let isDetect = user.detectTimezone ?? true
 
     const toggleTimezoneDetection = () => {
-        const target = (!user.detectTimezone ?? false);
+        const target = !isDetect;
         return firestore
             .collection("researchers").doc(user.id)
             .update({
@@ -17,9 +18,9 @@ function TimezoneDetection({ user }) {
             })
             .then(() => toast({
                 title: `Timezone Detection ${target ? 'activated' : 'stopped'}`,
-                description: `We will ${target ? 'begin' : 'now stop'} automatically changing your timezone as we detect shifts in your location.`,
+                description: `We will now ${target ? 'begin' : 'stop'} automatically changing your timezone`,
                 status: "success",
-                duration: 2500,
+                duration: 5000,
                 isClosable: true,
                 position: "top",
             }))
@@ -42,12 +43,12 @@ function TimezoneDetection({ user }) {
                 <Heading>Automatic Timezone Detection</Heading>
                 <Center>
                     <Switch id="email-notifications" size="lg"
-                        isChecked={user.detectTimezone ?? true}
+                        isChecked={isDetect}
                         onChange={toggleTimezoneDetection}
                     >Detect Timezone Automatically</Switch>
                 </Center>
                 <FormLabel htmlFor="email-notifications">
-                    Disable to prevent StudyFind from automatically changing your set timezone
+                    Disable to prevent StudyFind from automatically changing your set timezone as we detect shifts in your location
                 </FormLabel>
             </Form>
         </Box>
