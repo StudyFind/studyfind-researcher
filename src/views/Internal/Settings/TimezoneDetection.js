@@ -5,28 +5,28 @@ import { firestore } from "database/firebase";
 import { Form, Heading } from "views/External/Auth/Blocks";
 import { Box, Center, Switch, FormLabel, useToast } from "@chakra-ui/react";
 
-function ChangeEmailNotification({ user }) {
+function TimezoneDetection({ user }) {
     const toast = useToast();
 
-    const toggleEmailNotification = () => {
-        const target = (!user.emailNotification ?? false)
+    const toggleTimezoneDetection = () => {
+        const target = (!user.detectTimezone ?? false);
         return firestore
             .collection("researchers").doc(user.id)
             .update({
-                emailNotification: target,
+                detectTimezone: target,
             })
             .then(() => toast({
-                title: `Email ${target ? 'S' : 'Uns'}ubscribed`,
-                description: `You will ${target ? 'now' : 'no longer'} recieve emails for important notifications`,
+                title: `Timezone Detection ${target ? 'activated' : 'stopped'}`,
+                description: `We will ${target ? 'begin' : 'now stop'} automatically changing your timezone as we detect shifts in your location.`,
                 status: "success",
                 duration: 2500,
                 isClosable: true,
                 position: "top",
             }))
-            .catch((err) => {
+            .catch(err => {
                 console.error(err);
                 toast({
-                    title: `Failed to ${target ? 'S': 'Uns'}ubscribe`,
+                    title: `Failed to toggle timezone detection`,
                     description: `Action has failed: ${err}`,
                     status: "error",
                     duration: 5000,
@@ -39,19 +39,20 @@ function ChangeEmailNotification({ user }) {
     return (
         <Box w="350px" bg="white" borderWidth="1px" borderColor="gray" rounded="md">
             <Form>
-                <Heading>Email Alerts</Heading>
+                <Heading>Automatic Timezone Detection</Heading>
                 <Center>
                     <Switch id="email-notifications" size="lg"
-                        isChecked={user.emailNotification ?? true}
-                        onChange={toggleEmailNotification}
-                    >Email Notifications</Switch>
+                        isChecked={user.detectTimezone ?? true}
+                        onChange={toggleTimezoneDetection}
+                    >Detect Timezone Automatically</Switch>
                 </Center>
                 <FormLabel htmlFor="email-notifications">
-                    Enable email alerts to recieve important notifications directly into your email inbox.
+                    Disable to prevent StudyFind from automatically changing your set timezone
                 </FormLabel>
             </Form>
         </Box>
-    );
+    )
+
 }
 
-export default ChangeEmailNotification;
+export default TimezoneDetection
