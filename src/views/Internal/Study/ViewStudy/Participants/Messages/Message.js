@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
 
-import { Text, Box, Flex } from "@chakra-ui/react";
+import { auth } from "database/firebase";
+
+import { Flex, Text, Box } from "@chakra-ui/react";
 import { FaCircle } from "react-icons/fa";
 
-function Message({ message, isUser }) {
+function Message({ message, messagesRef, isUser }) {
+  useEffect(() => {
+    if (!isUser) {
+      messagesRef.doc(message.id).update({ read: true });
+    }
+  }, []);
+
   return (
     <Box maxW="300px" alignSelf={isUser ? "flex-end" : "flex-start"}>
       <Text
