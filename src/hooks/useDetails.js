@@ -3,6 +3,7 @@ import { updateStudy } from "database/studies";
 import lodash from "lodash";
 
 function useDetails(initial) {
+  const study = {};
   const [inputs, setInputs] = useState(initial);
   const [errors, setErrors] = useState(validate(initial));
 
