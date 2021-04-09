@@ -1,21 +1,24 @@
 import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Text, Flex, Icon } from "@chakra-ui/react";
+import { FaExclamationCircle } from "react-icons/fa";
 
 function Disclaimer() {
   return (
     <Flex justify="center" mb="auto">
-      <Box
-        color="yellow.600"
-        bg="yellow.100"
-        p="5px 10px"
+      <Text
+        color="red.500"
+        bg="red.100"
+        p="10px 15px"
         rounded="md"
-        fontSize="xs"
+        fontSize="sm"
         fontWeight="500"
-        w="60%"
+        w="70%"
+        textAlign="center"
       >
-        Messages are currently not end-to-end encrypted. Please avoid sharing personal health
-        information through this chat.
-      </Box>
+        <Icon as={FaExclamationCircle} mr="5px" mb="3px" fontSize="12px" />
+        Messages are not end-to-end encrypted. Please avoid sharing personal health information
+        through this chat.
+      </Text>
     </Flex>
   );
 }

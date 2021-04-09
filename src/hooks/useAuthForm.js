@@ -35,6 +35,9 @@ function useAuthForm({ initial, onSubmit }) {
         })
         .finally(() => {
           setLoading(false);
+          if (document.activeElement) {
+            document.activeElement.blur();
+          }
         });
     });
 
