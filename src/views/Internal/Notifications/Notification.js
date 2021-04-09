@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import styled from "styled-components";
 
 import { auth, firestore } from "database/firebase";
 
@@ -9,6 +8,21 @@ import { FaCertificate, FaStopwatch, FaUser, FaComment } from "react-icons/fa";
 
 function Notification({ notification }) {
   const [read] = useState(notification.read);
+  /* ^^
+    done to save original value of notification.read when the component first rendered
+
+    the purpose is to save the original read state of the notification even though read
+    is changed from false to true in the useEffect below
+
+    the notification prop is attached to a firebase realtime listener hook which will change
+    the value of notification.read as soon as its updated
+
+    this update would change the blue "unread" background to the white "background" almost
+    immediately without conveying to the user that this is a new notification
+
+    the blue background would've disappeared the next time the component is loaded as the
+    original notification.read value would be true when the component first renders
+  */
 
   useEffect(() => {
     if (!read) {
@@ -40,17 +54,17 @@ function Notification({ notification }) {
     },
   };
 
-  const icon = icons[notification.type];
+  const icon = icons[notification.type] || icons["interest"];
 
   return (
-    <Row bg={read ? "white" : "blue.50"}>
+    <Flex align="center" w="100%" p="12px" gridGap="10px" bg={read ? "white" : "blue.50"}>
       <Flex
         w="40px"
         h="40px"
-        rounded="full"
         bg={`${icon.color}.100`}
         justify="center"
         align="center"
+        rounded="full"
       >
         <Icon w="16px" h="16px" color={`${icon.color}.300`} as={icon.name} />
       </Flex>
@@ -69,28 +83,8 @@ function Notification({ notification }) {
           {notification.description}
         </Text>
       </Box>
-    </Row>
+    </Flex>
   );
 }
-
-const Row = styled(Box)`
-  display: flex;
-  align-items: center;
-  grid-gap: 10px;
-  padding: 15px;
-
-  &:first-child {
-    border-top-left-radius: 0.375rem;
-    border-top-right-radius: 0.375rem;
-  }
-
-  border-bottom: 1px solid #f1f2f3;
-
-  &:last-child {
-    border-bottom: none;
-    border-bottom-left-radius: 0.375rem;
-    border-bottom-right-radius: 0.375rem;
-  }
-`;
 
 export default Notification;

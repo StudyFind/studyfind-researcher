@@ -2,12 +2,12 @@ import React from "react";
 import lodash from "lodash";
 
 import {
-  FormControl,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
   FormLabel,
+  FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react";
 
@@ -24,17 +24,20 @@ function Field({
   onChange,
   ...rest
 }) {
-  const handleChange = (e) => {
-    const value = e.target.value;
-    onChange(name, value);
-  };
+  const handleChange = (e) => onChange(name, e.target.value);
 
   return (
     <FormControl isInvalid={error}>
       {label && <FormLabel>{label}</FormLabel>}
       <InputGroup>
         {left && (
-          <InputLeftElement w={leftWidth} display="flex" alignItems="center" p="0px" h="100%">
+          <InputLeftElement
+            display="flex"
+            alignItems="center"
+            w={leftWidth}
+            p="0px"
+            h="100%"
+          >
             {left}
           </InputLeftElement>
         )}
@@ -42,20 +45,28 @@ function Field({
           w="100%"
           pl={leftWidth || "1rem"}
           pr={rightWidth || "1rem"}
-          value={value}
+          bg={error ? "red.100" : "white"}
           placeholder={placeholder}
           _placeholder={error && { color: "gray.500" }}
+          value={value}
           onChange={handleChange}
-          bg={error ? "red.100" : "white"}
           {...rest}
         />
         {right && (
-          <InputRightElement w={rightWidth} display="flex" alignItems="center" p="0px" h="100%">
+          <InputRightElement
+            display="flex"
+            alignItems="center"
+            w={rightWidth}
+            p="0px"
+            h="100%"
+          >
             {right}
           </InputRightElement>
         )}
       </InputGroup>
-      {error && lodash.isString(error) && <FormErrorMessage>{error}</FormErrorMessage>}
+      {error && lodash.isString(error) && (
+        <FormErrorMessage>{error}</FormErrorMessage>
+      )}
     </FormControl>
   );
 }

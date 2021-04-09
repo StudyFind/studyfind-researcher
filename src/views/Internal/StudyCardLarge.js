@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 
 import { Heading, Text, Box, Grid, Flex, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaVenusMars, FaBirthdayCake, FaHeart } from "react-icons/fa";
@@ -28,26 +27,26 @@ function StudyCardLarge({ study }) {
       </Text>
       <Flex justify="space-between" align="flex-end">
         <Grid gap="10px">
-          <Criterion>
+          <Flex align="center" gridGap="10px">
             <Box as={FaVenusMars} color="blue.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
               {study.sex || "All"}
             </Text>
-          </Criterion>
-          <Criterion>
+          </Flex>
+          <Flex align="center" gridGap="10px">
             <Box as={FaBirthdayCake} color="blue.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
               {study.age || "All"} years
             </Text>
-          </Criterion>
-          <Criterion>
+          </Flex>
+          <Flex align="center" gridGap="10px">
             <Box as={FaHeart} color="blue.500" size="16px" />
             <Text fontWeight="500" fontSize="sm">
               {study.control === "Yes"
                 ? "Accepts Healthy Volunteers"
                 : "Does not accept healthy volunteers"}
             </Text>
-          </Criterion>
+          </Flex>
         </Grid>
         {researcher && (
           <Flex
@@ -72,11 +71,5 @@ function StudyCardLarge({ study }) {
     </Box>
   );
 }
-
-const Criterion = styled.div`
-  display: flex;
-  align-items: center;
-  grid-gap: 10px;
-`;
 
 export default StudyCardLarge;

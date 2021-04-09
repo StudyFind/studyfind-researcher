@@ -1,9 +1,14 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { Input, Textarea } from "components";
 import { Flex, Grid, Button } from "@chakra-ui/react";
 
-function NotesForm({ inputs, errors, handleCancel, handleChange, handleSubmit }) {
+function NotesForm({
+  inputs,
+  errors,
+  handleCancel,
+  handleChange,
+  handleSubmit,
+}) {
   return (
     <Grid gap="20px">
       <Input

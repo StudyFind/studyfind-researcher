@@ -4,10 +4,10 @@ import { storage } from "database/firebase";
 import { format } from "functions";
 import { useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
-import { Loader } from "components";
 
 import FilesGrid from "./FilesGrid";
 import FilesEdit from "./FilesEdit";
+import FilesLoading from "./FilesLoading";
 
 function Files() {
   const toast = useToast();
@@ -24,7 +24,11 @@ function Files() {
       items.map(async (ref) => {
         const meta = await ref.getMetadata();
         const url = await ref.getDownloadURL();
-        return { name: ref.name, link: url, date: format.date(meta.timeCreated) };
+        return {
+          name: ref.name,
+          link: url,
+          date: format.date(meta.timeCreated),
+        };
       })
     );
 
@@ -41,7 +45,8 @@ function Files() {
       .catch((error) => {
         toast({
           title: "Connection Error!",
-          description: "We could not delete your file as there was a connection error",
+          description:
+            "We could not delete your file as there was a connection error",
           status: "error",
           duration: 2500,
           isClosable: true,
@@ -60,12 +65,17 @@ function Files() {
     initialLoad();
   }, []);
 
-  if (loading) return <Loader height="500px" />;
+  if (loading) return <FilesLoading />;
 
   return edit ? (
     <FilesEdit nctID={nctID} setEdit={setEdit} getFiles={getFiles} />
   ) : (
-    <FilesGrid nctID={nctID} setEdit={setEdit} files={files} handleDelete={handleDelete} />
+    <FilesGrid
+      nctID={nctID}
+      setEdit={setEdit}
+      files={files}
+      handleDelete={handleDelete}
+    />
   );
 }
 

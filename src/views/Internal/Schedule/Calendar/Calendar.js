@@ -43,7 +43,7 @@ function Calendar({ date, setDate, today }) {
   };
 
   return (
-    <Grid gap="8px" w="300px">
+    <Grid gap="8px" w="300px" h="320px">
       <CalendarHead
         month={month}
         year={year}

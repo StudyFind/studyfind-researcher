@@ -7,13 +7,11 @@ import { Message } from "components";
 function ScreeningView({ study, setEdit }) {
   const BODY = (
     <>
-      <Flex justify="space-between" align="center" m="15px 0" h="40px">
+      <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Screening</Heading>
-        {!study.published && (
-          <Button colorScheme="blue" onClick={() => setEdit(true)}>
-            Edit Screening
-          </Button>
-        )}
+        <Button colorScheme="blue" onClick={() => setEdit(true)}>
+          Edit Screening
+        </Button>
       </Flex>
       <Table>
         <thead>
@@ -29,7 +27,11 @@ function ScreeningView({ study, setEdit }) {
             study.questions.map((question, index) => (
               <tr key={index}>
                 <BodyCell nowrap>
-                  <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
+                  <Tag
+                    colorScheme={
+                      question.type === "Inclusion" ? "green" : "red"
+                    }
+                  >
                     {question.type}
                   </Tag>
                 </BodyCell>
@@ -46,7 +48,6 @@ function ScreeningView({ study, setEdit }) {
   const EMPTY = (
     <Box h="500px">
       <Message
-        type="neutral"
         title="Create screening survey"
         description="The screening survey allows you to screen participants using your inclusion and exclusion eligibility criteria"
       >

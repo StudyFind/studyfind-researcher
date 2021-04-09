@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { auth, firestore } from "database/firebase";
 
 import { Heading, Box, Text, Button, Flex } from "@chakra-ui/react";
-import { Loader, Message } from "components";
+import { Loader, Message, List } from "components";
 import Notification from "./Notification";
 
 function Notifications() {
@@ -18,7 +18,10 @@ function Notifications() {
   const handleFetchAdditional = async () => {
     const NOTIFICATIONS_PER_REQUEST = 10;
 
-    const lastDoc = documents.length && notifications.length ? documents[documents.length - 1] : "";
+    const lastDoc =
+      documents.length && notifications.length
+        ? documents[documents.length - 1]
+        : "";
 
     setLoading(true);
 
@@ -69,11 +72,13 @@ function Notifications() {
       <Box>
         {notifications && notifications.length ? (
           <Box>
-            <Box borderWidth="1px" rounded="md" bg="white">
+            <List borderWidth="1px" rounded="md" bg="white">
               {notifications.map((notification, index) => (
-                <Notification key={index} notification={notification} />
+                <List.Row key={index}>
+                  <Notification notification={notification} />
+                </List.Row>
               ))}
-            </Box>
+            </List>
             <Flex p="20px" justify="center">
               {fetchedAll ? (
                 <Text color="gray.400">Showing all notifications</Text>
@@ -92,7 +97,6 @@ function Notifications() {
         ) : (
           <Box h="500px" borderWidth="1px" rounded="md" bg="white">
             <Message
-              type="neutral"
               title="Nothing to show"
               description="You do not have any notifications right now"
             />

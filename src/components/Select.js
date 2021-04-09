@@ -1,7 +1,12 @@
 import React from "react";
 import lodash from "lodash";
 
-import { FormControl, Select, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import {
+  Select,
+  FormLabel,
+  FormControl,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 
 function Field({
   name,
@@ -9,37 +14,31 @@ function Field({
   label,
   placeholder,
   error,
-  left,
-  leftWidth,
-  right,
-  rightWidth,
   options,
   onChange,
   ...rest
 }) {
-  const handleChange = (e) => {
-    const value = e.target.value;
-    onChange(name, value);
-  };
+  const handleChange = (e) => onChange(name, e.target.value);
 
   return (
     <FormControl isInvalid={error} {...rest}>
       {label && <FormLabel>{label}</FormLabel>}
       <Select
-        value={value}
-        placeholder={placeholder}
-        onChange={handleChange}
         bg={error ? "red.100" : "white"}
         textTransform="capitalize"
+        placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
       >
-        <option value=""></option>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}
           </option>
         ))}
       </Select>
-      {error && lodash.isString(error) && <FormErrorMessage>{error}</FormErrorMessage>}
+      {error && lodash.isString(error) && (
+        <FormErrorMessage>{error}</FormErrorMessage>
+      )}
     </FormControl>
   );
 }

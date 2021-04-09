@@ -4,7 +4,14 @@ import moment from "moment";
 import { firestore } from "database/firebase";
 import { useDocument } from "hooks";
 
-import { Tooltip, Flex, Text, IconButton, useDisclosure, Icon, Box } from "@chakra-ui/react";
+import {
+  Tooltip,
+  Flex,
+  Text,
+  IconButton,
+  useDisclosure,
+  Icon,
+} from "@chakra-ui/react";
 import { FaInfoCircle, FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
 import { Confirm } from "components";
 
@@ -15,7 +22,7 @@ function MeetingsItem({ meeting }) {
   const [open, setOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [participant, loading, error] = useDocument(
+  const [participant, loading] = useDocument(
     firestore
       .collection("studies")
       .doc(meeting.studyID)
@@ -33,14 +40,23 @@ function MeetingsItem({ meeting }) {
 
   const meetingInfo = (
     <>
-      <Text>Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}</Text>
+      <Text>
+        Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
+      </Text>
       <Text>Study: {meeting.studyID}</Text>
       <Text>Participant: {participant && participant.fakename}</Text>
     </>
   );
 
   return (
-    <Flex align="center" gridGap="8px" borderWidth="1px" p="10px 12px" rounded="md" bg="white">
+    <Flex
+      align="center"
+      gridGap="8px"
+      borderWidth="1px"
+      p="10px 12px"
+      rounded="md"
+      bg="white"
+    >
       {open && (
         <Confirm
           title="Delete Meeting"
@@ -52,8 +68,8 @@ function MeetingsItem({ meeting }) {
           setOpen={setOpen}
           handleConfirm={handleConfirm}
         >
-          The respective participant will be notified of this deletion. Are you sure you want to
-          delete this meeting?
+          The respective participant will be notified of this deletion. Are you
+          sure you want to delete this meeting?
         </Confirm>
       )}
       <ParticipantDrawer
@@ -74,14 +90,18 @@ function MeetingsItem({ meeting }) {
         </Flex>
       </Tooltip>
       <Flex gridGap="4px" ml="auto">
-        <a href={meeting.link} target="_blank" rel="noreferrer">
-          <Tooltip label={meeting.confirmedByParticipant ? "Confirmed" : "Pending"}>
+        <a href={meeting.link} target="_blank" rel="noopener noreferrer">
+          <Tooltip
+            label={meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
+          >
             <IconButton
               icon={<FaPhone />}
               size="sm"
               color={meeting.confirmedByParticipant ? "green.500" : "gray.500"}
               bg={meeting.confirmedByParticipant ? "green.100" : "gray.100"}
-              _hover={{ bg: meeting.confirmedByParticipant ? "green.200" : "gray.200" }}
+              _hover={{
+                bg: meeting.confirmedByParticipant ? "green.200" : "gray.200",
+              }}
             />
           </Tooltip>
         </a>

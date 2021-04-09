@@ -1,74 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { updateStudy } from "database/studies";
+import React, { useState } from "react";
 
 import DetailsView from "./DetailsView";
 import DetailsEdit from "./DetailsEdit";
 
 function Details({ study }) {
   const [edit, setEdit] = useState(false);
-  const [inputs, setInputs] = useState({ title: "", description: "" });
-  const [errors, setErrors] = useState({ title: "", description: "" });
-
-  useEffect(() => {
-    const { id, title = "", description = "" } = study;
-
-    if (id) {
-      setInputs({ title, description });
-      setErrors(() => validate(study));
-    }
-  }, [study]);
-
-  const characterCheck = (name, value, min, max) => {
-    const isInvalid = value.length < min || value.length > max;
-    return isInvalid
-      ? `Please ensure that the study ${name} is between ${min} and ${max} characters`
-      : "";
-  };
-
-  const checker = (name, value) => {
-    const [min, max] = {
-      title: [50, 100],
-      description: [300, 500],
-    }[name];
-    return characterCheck(name, value, min, max);
-  };
-
-  const validate = ({ title, description }) => ({
-    title: checker("title", title),
-    description: checker("description", description),
-  });
-
-  const handleChange = (name, value) => {
-    setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: checker(name, value) });
-  };
-
-  const handleCancel = () => {
-    setInputs({ title: study.title, description: study.description });
-    setEdit(false);
-  };
-
-  const handleSubmit = () => {
-    const err = validate(inputs);
-
-    setErrors(err);
-    const errorExists = Object.keys(err).some((i) => err[i]);
-    if (errorExists) return;
-
-    const updated = { title: inputs.title, description: inputs.description };
-    updateStudy(study.id, updated);
-    setEdit(false);
-  };
 
   return edit ? (
-    <DetailsEdit
-      original={{ title: study.title, description: study.description }}
-      inputs={inputs}
-      errors={errors}
-      handleChange={handleChange}
-      handleCancel={handleCancel}
-      handleSubmit={handleSubmit}
-    />
+    <DetailsEdit study={study} setEdit={setEdit} />
   ) : (
     <DetailsView study={study} setEdit={setEdit} />
   );

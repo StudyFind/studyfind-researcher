@@ -8,6 +8,8 @@ function MeetingsLoading() {
       <Skeleton rounded="md" h="49px" />
       <Skeleton rounded="md" h="49px" />
       <Skeleton rounded="md" h="49px" />
+      <Skeleton rounded="md" h="49px" />
+      <Skeleton rounded="md" h="49px" />
     </Grid>
   );
 }

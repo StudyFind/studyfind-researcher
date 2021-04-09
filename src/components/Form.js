@@ -1,6 +1,6 @@
 import React from "react";
 
-function Form({ children, spacing, onSubmit, ...props }) {
+function Form({ children, onSubmit, ...rest }) {
   const handleEnter = (event) => {
     event.preventDefault();
 
@@ -12,7 +12,7 @@ function Form({ children, spacing, onSubmit, ...props }) {
   };
 
   return (
-    <form onSubmit={handleEnter} {...props}>
+    <form onSubmit={handleEnter} {...rest}>
       {children}
     </form>
   );

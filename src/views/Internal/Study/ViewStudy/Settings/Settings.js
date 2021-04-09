@@ -10,7 +10,7 @@ import Update from "./Update";
 function Settings({ study }) {
   return (
     <>
-      <Flex justify="space-between" align="center" m="15px 0" height="40px">
+      <Flex justify="space-between" align="center" my="15px" height="40px">
         <Heading fontSize="28px">Settings</Heading>
       </Flex>
       <Box borderWidth="1px" rounded="md" bg="white">
