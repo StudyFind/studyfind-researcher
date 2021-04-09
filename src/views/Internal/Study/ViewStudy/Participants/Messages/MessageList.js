@@ -44,12 +44,18 @@ function MessageList({ autoscroll, messagesRef }, ref) {
           const documents = transformData(snapshot);
           return handleLive(prev, documents);
         });
-        setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
-        setLoading(false);
+
+        if (!lastDoc) {
+          setLoading(false);
+        }
+
+        autoscroll();
 
         if (snapshot.docs.length < MESSAGES_PER_REQUEST) {
           setFetchedAll(true);
         }
+
+        setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
       });
   }, []);
 
