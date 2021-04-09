@@ -17,7 +17,7 @@ function Messages({ participant }) {
     .collection("messages");
 
   const autoscroll = () => {
-    dummy.current.scrollIntoView();
+    dummy.current && dummy.current.scrollIntoView();
   };
 
   return (
