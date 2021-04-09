@@ -1,25 +1,17 @@
 import React, { useState } from "react";
 import moment from "moment";
 
-import { useParams } from "react-router-dom";
-import { auth, firestore } from "database/firebase";
+import { auth } from "database/firebase";
 
-import { Flex, Button, Input } from "@chakra-ui/react";
-import { Form } from "components";
+import { Flex, IconButton } from "@chakra-ui/react";
+import { Form, Input } from "components";
+import { FaPaperPlane } from "react-icons/fa";
 
-function MessageInput({ participant, dummyRef }) {
-  const { nctID } = useParams();
+function MessageInput({ autoscroll, messagesRef }) {
   const [message, setMessage] = useState("");
 
-  const messagesRef = firestore
-    .collection("studies")
-    .doc(nctID)
-    .collection("participants")
-    .doc(participant.id)
-    .collection("messages");
-
-  const handleChange = (e) => {
-    setMessage(e.target.value);
+  const handleChange = (_, value) => {
+    setMessage(value);
   };
 
   const handleSubmit = () => {
@@ -36,23 +28,36 @@ function MessageInput({ participant, dummyRef }) {
 
     setMessage("");
     messagesRef.add(data).then(() => {
-      dummyRef.current.scrollIntoView();
+      autoscroll();
     });
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Flex position="fixed" bottom="0" width="100%" p="20px" pt="0px" bg="#f8f9fa">
+      <Flex
+        width="100%"
+        bg="white"
+        position="fixed"
+        bottom="0"
+        borderTopWidth="1px"
+        p="10px"
+        gridGap="10px"
+      >
         <Input
           value={message}
           onChange={handleChange}
           placeholder="Type your message here..."
-          borderRightRadius="0px"
-          bg="white"
+          border="none"
+          outline="none"
+          autocomplete="off"
         />
-        <Button variant="outline" color="gray.500" borderLeftRadius="0" borderLeft="none">
-          Send
-        </Button>
+        <IconButton
+          color="gray.500"
+          bg="white"
+          icon={<FaPaperPlane />}
+          _hover={{ color: "white", bg: "green.500" }}
+          _active={{ color: "white", bg: "green.600" }}
+        />
       </Flex>
     </Form>
   );

@@ -7,9 +7,7 @@ import { HiOutlineCheckCircle, HiCheckCircle } from "react-icons/hi";
 
 function Message({ message, messagesRef, isUser }) {
   useEffect(() => {
-    if (!isUser) {
-      messagesRef.doc(message.id).update({ read: true });
-    }
+    if (!isUser) messagesRef.doc(message.id).update({ read: true });
   }, []);
 
   return (
@@ -24,10 +22,10 @@ function Message({ message, messagesRef, isUser }) {
         >
           {message.text}
         </Text>
-        <Meta pt="4px" align="center" gridGap="2px" justify={`flex-${isUser ? "end" : "start"}`}>
+        <Meta pt="4px" align="center" gridGap="4px" justify={`flex-${isUser ? "end" : "start"}`}>
           {isUser && (
             <Icon
-              fontSize="14px"
+              fontSize="12px"
               color={message.read ? "green.500" : "gray.500"}
               as={message.read ? HiCheckCircle : HiOutlineCheckCircle}
             />
