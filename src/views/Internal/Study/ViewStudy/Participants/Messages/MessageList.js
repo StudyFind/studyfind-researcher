@@ -72,12 +72,13 @@ function MessageList({ autoscroll, messagesRef }, ref) {
           return handleAdditional(prev, documents);
         });
         setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
-        setAdditionalLoading(false);
 
         if (snapshot.docs.length < MESSAGES_PER_REQUEST) {
           setFetchedAll(true);
         }
-      });
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setAdditionalLoading(false));
   };
 
   useEffect(() => {
