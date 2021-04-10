@@ -45,7 +45,7 @@ function useAuthForm({ initial, onSubmit }) {
     const err = validate(inputs);
 
     if (Object.keys(err).some((v) => err[v])) {
-      reject(err);
+      setErrors(err);
       return;
     }
 
