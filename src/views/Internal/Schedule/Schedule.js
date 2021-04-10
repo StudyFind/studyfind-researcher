@@ -10,13 +10,13 @@ function Schedule() {
   const [date, setDate] = useState(today);
 
   return (
-    <Grid gap="50px" templateColumns="300px 1fr">
-      <Calendar today={today} date={date} setDate={setDate} />
+    <Grid gap="50px" templateColumns="1fr 300px">
       <Box>
         <Heading size="lg">Meetings</Heading>
         <Text color="gray.500">{format.date(date)}</Text>
         <Meetings date={date} />
       </Box>
+      <Calendar today={today} date={date} setDate={setDate} />
     </Grid>
   );
 }

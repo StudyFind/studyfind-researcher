@@ -7,7 +7,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 function FileCard({ file, handleDelete }) {
   return (
     <Box borderRadius="6px" borderWidth="1px">
-      <a href={file.link} target="_blank" rel="noreferrer">
+      <a href={file.link} target="_blank" rel="noopener noreferrer">
         <Flex
           justify="center"
           align="center"
@@ -20,10 +20,15 @@ function FileCard({ file, handleDelete }) {
         </Flex>
       </a>
       <Divider />
-      <Box p="15px" bg="gray.50" borderBottomLeftRadius="6px" borderBottomRightRadius="6px">
+      <Box
+        p="15px"
+        bg="gray.50"
+        borderBottomLeftRadius="6px"
+        borderBottomRightRadius="6px"
+      >
         <Tooltip label={file.name}>
           <Name color="gray.600" fontSize="14px" fontWeight="500">
-            <a href={file.link} target="_blank" rel="noreferrer">
+            <a href={file.link} target="_blank" rel="noopener noreferrer">
               {file.name}
             </a>
           </Name>
@@ -46,7 +51,7 @@ function FileCard({ file, handleDelete }) {
               </Box>
             </Tooltip>
             <Tooltip label="Open File">
-              <a href={file.link} target="_blank" rel="noreferrer">
+              <a href={file.link} target="_blank" rel="noopener noreferrer">
                 <Box>
                   <Icon
                     as={ExternalLinkIcon}

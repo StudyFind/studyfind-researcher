@@ -10,16 +10,18 @@ function FilesEdit({ nctID, setEdit, getFiles }) {
   const [loading, setLoading] = useState(false);
 
   const validate = (name, value) => {
-    switch (name) {
-      case "name":
-        if (value === "") return "File name cannot be empty";
-        if (value.includes("/")) return "File name cannot contain '/'";
-        return "";
+    if (!value) return true;
 
-      case "file":
-        if (value === null) return "File has not been selected";
-        return "";
+    if (name === "name") {
+      if (value === "") return "File name cannot be empty";
+      if (value.includes("/")) return "File name cannot contain '/'";
     }
+
+    if (name === "file") {
+      if (value === null) return "File has not been selected";
+    }
+
+    return false;
   };
 
   const handleChange = (name, value) => {
@@ -33,9 +35,8 @@ function FilesEdit({ nctID, setEdit, getFiles }) {
     setErrors({ name: "", file: "" });
   };
 
-  const handleSelect = (e) => {
-    const uploadedFile = e.target.files[0];
-    setInputs({ name: uploadedFile.name, file: uploadedFile });
+  const handleSelect = (file) => {
+    setInputs({ name: file.name, file });
     setErrors({ name: "", file: "" });
   };
 
@@ -76,8 +77,8 @@ function FilesEdit({ nctID, setEdit, getFiles }) {
   };
 
   return (
-    <div>
-      <Flex justify="space-between" align="center" m="15px 0">
+    <>
+      <Flex justify="space-between" align="center" my="15px">
         <Heading fontSize="28px">Upload File</Heading>
       </Flex>
       <Grid gap="16px" w="300px">
@@ -117,7 +118,7 @@ function FilesEdit({ nctID, setEdit, getFiles }) {
           </Button>
         </Flex>
       </Grid>
-    </div>
+    </>
   );
 }
 

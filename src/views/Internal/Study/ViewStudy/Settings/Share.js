@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Flex, Heading, Text, Link, Button } from "@chakra-ui/react";
-import { FaExternalLinkAlt, FaCopy, FaCheckCircle } from "react-icons/fa";
+import { FaCopy, FaCheckCircle } from "react-icons/fa";
 
 function Share({ study }) {
   const link = `https://studyfind.org/study/${study.nctID}`;
@@ -17,8 +17,7 @@ function Share({ study }) {
       </Heading>
       <Box my="8px">
         <Text color="gray.500">
-          You can share this study link with participants so they can find your study after signing
-          in:
+          You can share this link with participants so they can find your study after signing in:
         </Text>
         <Link color="blue.500" href={link} target="_blank" rel="noreferrer">
           {link}

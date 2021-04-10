@@ -16,7 +16,7 @@
   "plugins": ["react", "react-hooks", "jest"],
   "rules": {
     "react/prop-types": 0,
-    "no-unused-vars": 0
+    "no-unused-vars": 1
   },
   "settings": {
     "react": {

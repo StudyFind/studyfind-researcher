@@ -19,8 +19,6 @@ function Feedback() {
     setErrors((prev) => ({ ...prev, [name]: !value }));
   };
 
-  console.log(moment().valueOf());
-
   const handleSubmit = () => {
     const err = {
       title: !inputs.title,
@@ -59,7 +57,7 @@ function Feedback() {
         toast({
           title: "Connection Error!",
           description:
-            "Your feedback could not be sent because of a connection error. Please check your internet connection and try again.",
+            "Your feedback could not be sent because of a connection error. Please try again later.",
           status: "error",
           duration: 5000,
           isClosable: true,

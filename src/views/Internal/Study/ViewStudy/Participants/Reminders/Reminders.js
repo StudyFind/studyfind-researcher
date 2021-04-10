@@ -56,7 +56,9 @@ function Reminders({ participant, study }) {
 
   const getTimesFromOffsets = (offsets) => {
     const allTimes = [];
-    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter((value) => value).length;
+    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter(
+      (value) => value
+    ).length;
 
     for (let i = 0; i < offsets.length / numberOfDaysSelected; i++) {
       const thisHour = convertEpochToHMS(offsets[i]).hour % 24;
@@ -214,9 +216,10 @@ function Reminders({ participant, study }) {
     const weekdayBoolean = inputs.weekdays;
     for (const weekday in weekdayBoolean) {
       if (weekdayBoolean[weekday]) {
-        inputs.times.map((time, index) => {
+        inputs.times.forEach((time) => {
           const [hour, min] = time.split(":");
-          const thisTime = ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
+          const thisTime =
+            ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
           allTimes.push(thisTime);
         });
       }

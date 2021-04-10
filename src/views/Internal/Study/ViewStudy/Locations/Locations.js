@@ -1,5 +1,12 @@
 import React from "react";
-import { Flex, Heading, Text, OrderedList, ListItem, Box } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Text,
+  OrderedList,
+  ListItem,
+  Box,
+} from "@chakra-ui/react";
 import { Message } from "components";
 
 function Locations({ study }) {
@@ -32,7 +39,7 @@ function Locations({ study }) {
   ) : (
     <Box h="500px">
       <Message
-        type="failure"
+        status="failure"
         title="No locations"
         description="Your study does not have any locations listed!"
       />

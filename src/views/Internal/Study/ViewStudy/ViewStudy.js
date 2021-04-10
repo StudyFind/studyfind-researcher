@@ -14,7 +14,8 @@ import Settings from "./Settings/Settings";
 
 function ViewStudy({ studies }) {
   const { nctID } = useParams();
-  const findStudy = () => studies && studies.find((study) => study.id === nctID);
+  const findStudy = () =>
+    studies && studies.find((study) => study.id === nctID);
 
   const [study, setStudy] = useState(findStudy());
 
@@ -59,7 +60,7 @@ function ViewStudy({ studies }) {
 
   const MISSING = (
     <Message
-      type="failure"
+      status="failure"
       title="Study not found!"
       description={`The study ${nctID} could not be found in the StudyFind database. Please
   ensure that it has been successfully created by following all directions in the study

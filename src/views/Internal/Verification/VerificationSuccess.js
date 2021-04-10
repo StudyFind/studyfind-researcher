@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Flex, Text, Alert, AlertIcon, Button } from "@chakra-ui/react";
+import { Text, Alert, AlertIcon } from "@chakra-ui/react";
 
 function VerificationSuccess({ email }) {
   return (

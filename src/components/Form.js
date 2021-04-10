@@ -1,13 +1,13 @@
 import React from "react";
 
-function Form({ children, spacing, onSubmit, ...props }) {
+function Form({ children, onSubmit, ...rest }) {
   const handleEnter = (event) => {
     event.preventDefault();
     onSubmit();
   };
 
   return (
-    <form onSubmit={handleEnter} {...props}>
+    <form onSubmit={handleEnter} {...rest}>
       {children}
     </form>
   );
