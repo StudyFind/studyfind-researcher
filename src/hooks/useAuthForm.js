@@ -14,7 +14,7 @@ function useAuthForm({ initial, onSubmit }) {
       if (!validator.isEmail(value)) return "Email is invalid";
     }
 
-    if (name === "password") {
+    if (name === "password" || name === "newPassword") {
       const checkCase = value !== value.toLowerCase();
       const checkSize = value.length > 7;
 
@@ -44,7 +44,7 @@ function useAuthForm({ initial, onSubmit }) {
   const handleSubmit = async (...params) => {
     const err = validate(inputs);
 
-    if (err.email || err.password) {
+    if (Object.keys(err).some((v) => err[v])) {
       setErrors(err);
       return;
     }
@@ -59,6 +59,9 @@ function useAuthForm({ initial, onSubmit }) {
       setSuccess(false);
     } finally {
       setLoading(false);
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
     }
   };
 

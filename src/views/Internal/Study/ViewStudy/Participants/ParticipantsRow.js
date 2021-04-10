@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Text, Avatar, Badge, useDisclosure } from "@chakra-ui/react";
+import { Box, Text, Avatar, Badge, useDisclosure } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
 import ParticipantDrawer from "./ParticipantDrawer";
@@ -12,6 +12,7 @@ import Screening from "./Screening/Screening";
 import Meetings from "./Meetings/Meetings";
 import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
+import Messages from "./Messages/Messages";
 
 function ParticipantsRow({ study, participant }) {
   const statusColors = {
@@ -59,7 +60,7 @@ function ParticipantsRow({ study, participant }) {
         {participant.score}% eligible
       </Text>
       <Buttons>
-        <ParticipantActionButton name="message" icon={<FaComment />} handleAction={handleAction} />
+        <ParticipantActionButton name="messages" icon={<FaComment />} handleAction={handleAction} />
         <ParticipantActionButton
           name="screening"
           icon={<FaClipboard />}
@@ -79,13 +80,32 @@ function ParticipantsRow({ study, participant }) {
         onClose={handleCancel}
         isOpen={isOpen}
       >
-        {action === "status" && <Status participant={participant} onClose={onClose} />}
-        {action === "screening" && (
-          <Screening questions={study.questions} responses={participant.responses} />
+        {action === "status" && (
+          <Box p="25px">
+            <Status participant={participant} onClose={onClose} />
+          </Box>
         )}
-        {action === "meetings" && <Meetings participant={participant} study={study} />}
-        {action === "reminders" && <Reminders participant={participant} study={study} />}
-        {action === "notes" && <Notes id={participant.id} />}
+        {action === "messages" && <Messages participant={participant} />}
+        {action === "screening" && (
+          <Box p="25px">
+            <Screening questions={study.questions} responses={participant.responses} />
+          </Box>
+        )}
+        {action === "meetings" && (
+          <Box p="25px">
+            <Meetings participant={participant} study={study} />
+          </Box>
+        )}
+        {action === "reminders" && (
+          <Box p="25px">
+            <Reminders participant={participant} study={study} />
+          </Box>
+        )}
+        {action === "notes" && (
+          <Box p="25px">
+            <Notes id={participant.id} />
+          </Box>
+        )}
       </ParticipantDrawer>
     </Row>
   );
