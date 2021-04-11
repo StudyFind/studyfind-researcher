@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { StudiesContext } from "context";
 import { useParams, useHistory } from "react-router-dom";
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 import { Message } from "components";
@@ -7,13 +8,14 @@ import Details from "./Details/Details";
 import Screening from "./Screening/Screening";
 import Review from "./Review/Review";
 
-function CreateStudy({ studies }) {
+function CreateStudy() {
+  const studies = useContext(StudiesContext);
+  const study = studies.find((study) => study.id === nctID);
   const history = useHistory();
   const [redirect, setRedirect] = useState();
 
   const { nctID, tab } = useParams();
   const tabs = ["details", "screening", "review"];
-  const study = studies.find((study) => study.id === nctID);
 
   useEffect(() => {
     if (study && study.published) history.push("/"); // redirect to main page to prevent changes being made to published study (since researcher are not allowed to change study details and screening)
