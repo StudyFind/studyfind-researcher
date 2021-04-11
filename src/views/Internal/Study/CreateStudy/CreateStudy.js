@@ -10,11 +10,11 @@ import Review from "./Review/Review";
 
 function CreateStudy() {
   const studies = useContext(StudiesContext);
+  const { nctID, tab } = useParams();
   const study = studies.find((study) => study.id === nctID);
   const history = useHistory();
   const [redirect, setRedirect] = useState();
 
-  const { nctID, tab } = useParams();
   const tabs = ["details", "screening", "review"];
 
   useEffect(() => {
