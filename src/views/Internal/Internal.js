@@ -22,9 +22,8 @@ import Feedback from "views/Internal/Feedback/Feedback";
 import { UserContext, StudiesContext } from "context";
 
 function Internal() {
-  // TODO: Add failure state here if loading user or studies returns and error
-  const cred = auth.currentUser;
-  const { uid } = cred;
+  const { uid, email, emailVerified } = auth.currentUser;
+
   const [user] = useDocument(firestore.collection("researchers").doc(uid));
   const [studies] = useCollection(
     firestore
@@ -50,14 +49,14 @@ function Internal() {
     <Flex>
       <UserContext.Provider value={user}>
         <StudiesContext.Provider value={studies}>
-          <Sidebar cred={cred} user={user} />
+          <Sidebar user={user} />
           <Box
             ml="280px"
             w="100%"
-            minH={cred.emailVerified ? "100vh" : "calc(100vh - 56px)"}
-            mt={cred.emailVerified ? "" : "40px"}
+            minH={emailVerified ? "100vh" : "calc(100vh - 56px)"}
+            mt={emailVerified ? "" : "40px"}
           >
-            {cred.emailVerified || <Verification email={cred.email} />}
+            {emailVerified || <Verification email={email} />}
             <Page isLoading={!(user && studies)}>
               <Switch>
                 {pages.map(({ path, component }, index) => (
