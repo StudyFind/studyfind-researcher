@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "context";
 import { signout } from "database/auth";
 
 import { Flex, Grid, Heading, Button, Divider } from "@chakra-ui/react";
@@ -19,35 +20,36 @@ import Security from "./Security/Security";
 
 import AccountTab from "./AccountTab";
 
-function Account({ user }) {
+function Account() {
+  const user = useContext(UserContext);
   const tabs = [
     {
-      text: "profile",
+      name: "profile",
       icon: <FaUser />,
       content: <Profile user={user} />,
     },
     {
-      text: "timezone",
+      name: "timezone",
       icon: <FaMapMarkedAlt />,
       content: <Timezone user={user} />,
     },
     {
-      text: "calendar",
+      name: "calendar",
       icon: <FaCalendarCheck />,
       content: <div />,
     },
     {
-      text: "templates",
+      name: "templates",
       icon: <FaComment />,
       content: <div />,
     },
     {
-      text: "notifications",
+      name: "notifications",
       icon: <FaBell />,
       content: <Notifications user={user} />,
     },
     {
-      text: "security",
+      name: "security",
       icon: <FaShieldAlt />,
       content: <Security />,
     },
@@ -89,7 +91,7 @@ function Account({ user }) {
           {tabs.map((t, i) => (
             <AccountTab
               key={i}
-              text={t.text}
+              name={t.name}
               icon={t.icon}
               onClick={() => setSelected(i)}
               isSelected={selected === i}

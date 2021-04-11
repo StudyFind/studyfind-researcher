@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { StudiesContext } from "context";
+
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
@@ -12,7 +14,8 @@ import Screening from "./Screening/Screening";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
 
-function ViewStudy({ studies }) {
+function ViewStudy() {
+  const studies = useContext(StudiesContext);
   const { nctID } = useParams();
   const findStudy = () =>
     studies && studies.find((study) => study.id === nctID);

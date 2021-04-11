@@ -1,13 +1,12 @@
 import React from "react";
-import styled from "styled-components";
 import { firestore } from "database/firebase";
 import { useHistory } from "react-router-dom";
-import { Flex, Heading, Text, Button, useToast } from "@chakra-ui/react";
+import { Flex, Text, Button, useToast } from "@chakra-ui/react";
 import { FaBan, FaCheck } from "react-icons/fa";
 
 function WelcomeStudy({ study }) {
-  const toast = useToast();
   const history = useHistory();
+  const toast = useToast();
 
   const handleRemove = () => {
     firestore
@@ -43,14 +42,20 @@ function WelcomeStudy({ study }) {
   };
 
   return (
-    <>
-      <Text fontSize="sm" fontWeight="500" color="gray.500" mx="8px">
+    <Flex p="10px" align="center" w="100%">
+      <Text
+        fontSize="sm"
+        fontWeight="500"
+        color="gray.500"
+        mx="8px"
+        minW="100px"
+      >
         {study.id}
       </Text>
-      <Title fontSize="md" fontWeight="600" mr="auto">
+      <Text fontSize="md" fontWeight="600" noOfLines={1}>
         {study.title}
-      </Title>
-      <Flex minW="240px" justify="flex-end" gridGap="8px">
+      </Text>
+      <Flex minW="240px" justify="flex-end" gridGap="8px" ml="auto">
         <Button
           leftIcon={<FaBan />}
           colorScheme=""
@@ -61,22 +66,16 @@ function WelcomeStudy({ study }) {
         >
           Remove
         </Button>
-        <Button leftIcon={<FaCheck />} colorScheme="green" onClick={handleAccept}>
+        <Button
+          leftIcon={<FaCheck />}
+          colorScheme="green"
+          onClick={handleAccept}
+        >
           Accept
         </Button>
       </Flex>
-    </>
+    </Flex>
   );
 }
-
-const Title = styled(Heading)`
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  max-height: 100%; /* fallback */
-  -webkit-line-clamp: 1; /* number of lines to show */
-  -webkit-box-orient: vertical;
-`;
 
 export default WelcomeStudy;

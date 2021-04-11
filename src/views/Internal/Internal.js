@@ -19,6 +19,8 @@ import Schedule from "views/Internal/Schedule/Schedule";
 import Account from "views/Internal/Account/Account";
 import Feedback from "views/Internal/Feedback/Feedback";
 
+import { UserContext, StudiesContext } from "context";
+
 function Internal() {
   // TODO: Add failure state here if loading user or studies returns and error
   const cred = auth.currentUser;
@@ -32,42 +34,43 @@ function Internal() {
   );
 
   const pages = [
-    { path: "/", component: <Dashboard studies={studies} /> },
-    { path: "/dashboard", component: <Dashboard studies={studies} /> },
-    { path: "/welcome", component: <Welcome studies={studies} /> },
+    { path: "/", component: <Dashboard /> },
+    { path: "/dashboard", component: <Dashboard /> },
+    { path: "/welcome", component: <Welcome /> },
     { path: "/fetch", component: <FetchStudy /> },
-    {
-      path: "/create/:nctID/:tab",
-      component: <CreateStudy studies={studies} />,
-    },
-    { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
-    { path: "/notifications", component: <Notifications user={user} /> },
-    { path: "/schedule", component: <Schedule studies={studies} /> },
-    { path: "/account", component: <Account user={user} /> },
+    { path: "/create/:nctID/:tab", component: <CreateStudy /> },
+    { path: "/study/:nctID", component: <ViewStudy /> },
+    { path: "/notifications", component: <Notifications /> },
+    { path: "/schedule", component: <Schedule /> },
+    { path: "/account", component: <Account /> },
     { path: "/feedback", component: <Feedback /> },
   ];
 
   return (
     <Flex>
-      <Sidebar cred={cred} user={user} />
-      <Box
-        ml="280px"
-        w="100%"
-        minH={cred.emailVerified ? "100vh" : "calc(100vh - 56px)"}
-        mt={cred.emailVerified ? "" : "40px"}
-      >
-        {cred.emailVerified || <Verification email={cred.email} />}
-        <Page isLoading={!(user && studies)}>
-          <Switch>
-            {pages.map(({ path, component }, index) => (
-              <Route exact path={path} key={index}>
-                {component}
-              </Route>
-            ))}
-            <Redirect to="/" />
-          </Switch>
-        </Page>
-      </Box>
+      <UserContext.Provider value={user}>
+        <StudiesContext.Provider value={studies}>
+          <Sidebar cred={cred} user={user} />
+          <Box
+            ml="280px"
+            w="100%"
+            minH={cred.emailVerified ? "100vh" : "calc(100vh - 56px)"}
+            mt={cred.emailVerified ? "" : "40px"}
+          >
+            {cred.emailVerified || <Verification email={cred.email} />}
+            <Page isLoading={!(user && studies)}>
+              <Switch>
+                {pages.map(({ path, component }, index) => (
+                  <Route exact path={path} key={index}>
+                    {component}
+                  </Route>
+                ))}
+                <Redirect to="/" />
+              </Switch>
+            </Page>
+          </Box>
+        </StudiesContext.Provider>
+      </UserContext.Provider>
     </Flex>
   );
 }

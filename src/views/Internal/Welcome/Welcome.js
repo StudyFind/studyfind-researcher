@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { StudiesContext } from "context";
 
 import { welcomeAccount } from "database/studies";
 import { Heading } from "@chakra-ui/react";
@@ -7,7 +8,8 @@ import WelcomeLoading from "./WelcomeLoading";
 import WelcomeList from "./WelcomeList";
 import WelcomeEmpty from "./WelcomeEmpty";
 
-function Welcome({ studies }) {
+function Welcome() {
+  const studies = useContext(StudiesContext);
   const unpublished = studies.filter((study) => !study.published);
 
   const [loading, setLoading] = useState(true);

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Button, Text } from "@chakra-ui/react";
 
-function AccountTab({ icon, text, isSelected, onClick }) {
+function AccountTab({ icon, name, isSelected, onClick }) {
   const ref = useRef();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function AccountTab({ icon, text, isSelected, onClick }) {
       onClick={onClick}
       onKeyPress={onClick}
     >
-      <Text ml="8px">{text}</Text>
+      <Text ml="8px">{name}</Text>
     </Button>
   );
 }

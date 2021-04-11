@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { StudiesContext } from "context";
 
 import { auth } from "database/firebase";
 
 import DashboardGrid from "views/Internal/Dashboard/DashboardGrid";
 import DashboardEmpty from "views/Internal/Dashboard/DashboardEmpty";
 
-function Dashboard({ studies }) {
+function Dashboard() {
+  const studies = useContext(StudiesContext);
   const verified = auth.currentUser.emailVerified;
 
   return studies && studies.length ? (
