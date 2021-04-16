@@ -22,8 +22,9 @@ import Feedback from "views/Internal/Feedback/Feedback";
 import { UserContext, StudiesContext } from "context";
 
 function Internal() {
-  const { uid, email, emailVerified } = auth.currentUser;
-
+  // TODO: Add failure state here if loading user or studies returns and error
+  const cred = auth.currentUser;
+  const { uid } = cred;
   const [user] = useDocument(firestore.collection("researchers").doc(uid));
   const [studies] = useCollection(
     firestore
@@ -32,38 +33,30 @@ function Internal() {
       .orderBy("updatedAt", "desc")
   );
 
-  const pages = [
-    { path: "/", component: <Dashboard /> },
-    { path: "/dashboard", component: <Dashboard /> },
-    { path: "/welcome", component: <Welcome /> },
-    { path: "/fetch", component: <FetchStudy /> },
-    { path: "/create/:nctID/:tab", component: <CreateStudy /> },
-    { path: "/study/:nctID", component: <ViewStudy /> },
-    { path: "/notifications", component: <Notifications /> },
-    { path: "/schedule", component: <Schedule /> },
-    { path: "/account", component: <Account /> },
-    { path: "/feedback", component: <Feedback /> },
-  ];
-
   return (
     <Flex>
       <UserContext.Provider value={user}>
         <StudiesContext.Provider value={studies}>
-          <Sidebar user={user} />
+          <Sidebar cred={cred} user={user} />
           <Box
             ml="280px"
             w="100%"
-            minH={emailVerified ? "100vh" : "calc(100vh - 56px)"}
-            mt={emailVerified ? "" : "40px"}
+            minH={cred.emailVerified ? "100vh" : "calc(100vh - 56px)"}
+            mt={cred.emailVerified ? "" : "40px"}
           >
-            {emailVerified || <Verification email={email} />}
+            {cred.emailVerified || <Verification email={cred.email} />}
             <Page isLoading={!(user && studies)}>
               <Switch>
-                {pages.map(({ path, component }, index) => (
-                  <Route exact path={path} key={index}>
-                    {component}
-                  </Route>
-                ))}
+                <Route exact path="/" component={Dashboard} />
+                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/welcome" component={Welcome} />
+                <Route path="/fetch" component={FetchStudy} />
+                <Route path="/create/:nctID/:tab" component={CreateStudy} />
+                <Route path="/study/:nctID/:tab" component={ViewStudy} />
+                <Route path="/notifications" component={Notifications} />
+                <Route path="/schedule" component={Schedule} />
+                <Route path="/account" component={Account} />
+                <Route path="/feedback" component={Feedback} />
                 <Redirect to="/" />
               </Switch>
             </Page>

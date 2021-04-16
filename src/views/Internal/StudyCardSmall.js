@@ -1,12 +1,30 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { Box, Flex, Heading, Text, Tag, TagLabel, Badge } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Tag,
+  TagLabel,
+  Badge,
+} from "@chakra-ui/react";
 
 function StudyCardSmall({ study }) {
   return (
-    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" w="100%" h="270px">
-      <Link style={{ padding: "20px", display: "block" }} to={`/study/${study.id}`}>
+    <Box
+      borderWidth="1px"
+      rounded="md"
+      overflow="hidden"
+      bg="white"
+      w="100%"
+      h="270px"
+    >
+      <Link
+        style={{ padding: "20px", display: "block" }}
+        to={`/study/${study.id}/details`}
+      >
         <Flex justify="space-between" align="center" mb="8px">
           <Text fontSize="sm" color="gray.400">
             {study.id}

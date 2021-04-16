@@ -3,15 +3,9 @@ import moment from "moment";
 
 import { firestore } from "database/firebase";
 import { useDocument } from "hooks";
+import { useHistory, useLocation } from "react-router-dom";
 
-import {
-  Tooltip,
-  Flex,
-  Text,
-  IconButton,
-  useDisclosure,
-  Icon,
-} from "@chakra-ui/react";
+import { Box, Tooltip, Flex, Text, IconButton, Icon } from "@chakra-ui/react";
 import { FaInfoCircle, FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
 import { Confirm } from "components";
 
@@ -20,7 +14,19 @@ import ParticipantDrawer from "views/Internal/Study/ViewStudy/Participants/Parti
 
 function MeetingsItem({ meeting }) {
   const [open, setOpen] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const location = useLocation();
+  const history = useHistory();
+  const meetingID = new URLSearchParams(location.search).get("meetingID");
+  const isOpen = meeting.id === meetingID;
+
+  const handleClose = () => {
+    history.push(`/schedule`);
+  };
+
+  const handleOpen = () => {
+    history.push(`/schedule?meetingID=${meeting.id}`);
+  };
 
   const [participant, loading] = useDocument(
     firestore
@@ -75,10 +81,12 @@ function MeetingsItem({ meeting }) {
       <ParticipantDrawer
         action="Meetings"
         fakename={participant && participant.fakename}
-        onClose={onClose}
+        onClose={handleClose}
         isOpen={isOpen}
       >
-        <MeetingsForm meeting={meeting} onClose={onClose} />
+        <Box p="25px">
+          <MeetingsForm meeting={meeting} onClose={handleClose} />
+        </Box>
       </ParticipantDrawer>
       <Text fontSize="0.9rem" color="gray.500" width="64px" textAlign="right">
         {moment(meeting.time).format("hh:mma")}
@@ -111,7 +119,7 @@ function MeetingsItem({ meeting }) {
           color="blue.500"
           bg="blue.100"
           _hover={{ bg: "blue.200" }}
-          onClick={onOpen}
+          onClick={handleOpen}
         />
         <IconButton
           icon={<FaTrashAlt />}
