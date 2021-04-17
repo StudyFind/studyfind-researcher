@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useTabs } from "hooks";
 import { StudiesContext } from "context";
 
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 import { Message } from "components";
-import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
 import Locations from "./Locations/Locations";
@@ -17,47 +18,33 @@ import Settings from "./Settings/Settings";
 function ViewStudy() {
   const studies = useContext(StudiesContext);
   const { nctID } = useParams();
-  const findStudy = () =>
-    studies && studies.find((study) => study.id === nctID);
+  const [study, setStudy] = useState();
 
-  const [study, setStudy] = useState(findStudy());
+  const tabs = [
+    { name: "details", content: <Details study={study} /> },
+    { name: "locations", content: <Locations study={study} /> },
+    { name: "screening", content: <Screening study={study} /> },
+    { name: "files", content: <Files /> },
+    { name: "participants", content: <Participants study={study} /> },
+    { name: "settings", content: <Settings study={study} /> },
+  ];
+
+  const [tabIndex, setTabIndex] = useTabs(tabs);
 
   useEffect(() => {
-    if (studies) {
-      setStudy(findStudy());
-    }
+    setStudy(studies.find((study) => study.id === nctID));
   }, [studies]);
 
   const BODY = (
     <Tabs colorScheme="blue" h="100%">
       <TabList>
-        <TabItem>Details</TabItem>
-        <TabItem>Locations</TabItem>
-        <TabItem>Screening</TabItem>
-        <TabItem>Files</TabItem>
-        <TabItem>Participants</TabItem>
-        <TabItem>Settings</TabItem>
+        {tabs.map((t, i) => (
+          <TabItem key={i} className="tab" onClick={() => setTabIndex(i)}>
+            {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+          </TabItem>
+        ))}
       </TabList>
-      <TabPanels>
-        <TabPanel pt="1px">
-          <Details study={study} />
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Locations study={study} />
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Screening study={study} />
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Files />
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Participants study={study} />
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Settings study={study} />
-        </TabPanel>
-      </TabPanels>
+      <TabPanels>{tabs[tabIndex].content}</TabPanels>
     </Tabs>
   );
 

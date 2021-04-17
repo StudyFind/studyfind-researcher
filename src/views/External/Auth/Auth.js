@@ -6,10 +6,8 @@ import Form from "./Form";
 
 function Auth() {
   const [tab, setTab] = useState(() => {
-    const url = new URL(window.location.href);
-    const mode = url.searchParams.get("mode");
     const accountExists = localStorage.getItem("exists") === "true";
-    return mode || (accountExists ? "login" : "signup");
+    return accountExists ? "login" : "signup";
   });
 
   return (
