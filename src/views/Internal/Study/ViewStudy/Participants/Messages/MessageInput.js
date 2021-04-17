@@ -49,9 +49,10 @@ function MessageInput({ autoscroll, messagesRef }) {
           placeholder="Type your message here..."
           border="none"
           outline="none"
-          autocomplete="off"
+          autoComplete="off"
         />
         <IconButton
+          type="submit"
           color="gray.500"
           bg="white"
           icon={<FaPaperPlane />}
