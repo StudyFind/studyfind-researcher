@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+
+import { useRealtimePagination } from "hooks";
 
 import { auth, firestore } from "database/firebase";
 
@@ -8,60 +10,24 @@ import Notification from "./Notification";
 
 function Notifications() {
   const { uid } = auth.currentUser;
-  const [notifications, setNotifications] = useState([]);
-  const [documents, setDocuments] = useState([]);
-  const [fetchedAll, setFetchedAll] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [initialLoading, setInitialLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  const handleFetchAdditional = async () => {
-    const NOTIFICATIONS_PER_REQUEST = 10;
+  const NOTIFICATIONS_PER_REQUEST = 2;
+  const notificationsRef = firestore
+    .collection("researchers")
+    .doc(uid)
+    .collection("notifications")
+    .orderBy("time", "desc");
 
-    const lastDoc =
-      documents.length && notifications.length
-        ? documents[documents.length - 1]
-        : "";
+  const [
+    notifications,
+    loading,
+    error,
+    handleFetchAdditional,
+    additionalLoading,
+    fetchedAll,
+  ] = useRealtimePagination(notificationsRef, NOTIFICATIONS_PER_REQUEST);
 
-    setLoading(true);
-
-    try {
-      const snapshot = await firestore
-        .collection("researchers")
-        .doc(uid)
-        .collection("notifications")
-        .orderBy("time", "desc")
-        .startAfter(lastDoc)
-        .limit(NOTIFICATIONS_PER_REQUEST)
-        .get();
-
-      const collections = [];
-      const docs = [];
-
-      snapshot.forEach((doc) => {
-        docs.push(doc);
-        collections.push({ id: doc.id, ...doc.data() });
-      });
-
-      setNotifications((prev) => prev.concat(collections));
-      setDocuments((prev) => prev.concat(docs));
-
-      if (docs.length < NOTIFICATIONS_PER_REQUEST) {
-        setFetchedAll(true);
-      }
-    } catch (e) {
-      setError(e);
-    }
-
-    setLoading(false);
-    setInitialLoading(false);
-  };
-
-  useEffect(() => {
-    handleFetchAdditional();
-  }, []);
-
-  if (initialLoading) return <Loader />;
+  if (loading) return <Loader />;
   if (error) return <div>Error :(</div>;
 
   return (
@@ -85,7 +51,7 @@ function Notifications() {
               ) : (
                 <Button
                   size="sm"
-                  isLoading={loading}
+                  isLoading={additionalLoading}
                   loadingText="Loading..."
                   onClick={handleFetchAdditional}
                 >

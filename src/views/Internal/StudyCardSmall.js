@@ -13,18 +13,8 @@ import {
 
 function StudyCardSmall({ study }) {
   return (
-    <Box
-      borderWidth="1px"
-      rounded="md"
-      overflow="hidden"
-      bg="white"
-      w="100%"
-      h="270px"
-    >
-      <Link
-        style={{ padding: "20px", display: "block" }}
-        to={`/study/${study.id}/details`}
-      >
+    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" w="100%" h="270px">
+      <Link style={{ padding: "20px", display: "block" }} to={`/study/${study.id}/details`}>
         <Flex justify="space-between" align="center" mb="8px">
           <Text fontSize="sm" color="gray.400">
             {study.id}
