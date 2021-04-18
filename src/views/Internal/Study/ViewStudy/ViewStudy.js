@@ -36,7 +36,7 @@ function ViewStudy() {
   }, [studies]);
 
   const BODY = (
-    <Tabs colorScheme="blue" h="100%">
+    <Tabs colorScheme="blue" h="100%" index={tabIndex}>
       <TabList>
         {tabs.map((t, i) => (
           <TabItem key={i} className="tab" onClick={() => setTabIndex(i)}>
