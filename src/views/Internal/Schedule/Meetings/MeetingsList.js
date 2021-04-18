@@ -4,7 +4,7 @@ import { Grid } from "@chakra-ui/react";
 
 import MeetingsItem from "./MeetingsItem";
 
-function MeetingsList({ meetings, handleMeetingSelect }) {
+function MeetingsList({ meetings }) {
   return (
     <Grid gridGap="10px" py="10px">
       {meetings.map((meeting, index) => (

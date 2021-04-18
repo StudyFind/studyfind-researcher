@@ -1,7 +1,15 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { Box, Flex, Heading, Text, Tag, TagLabel, Badge } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Tag,
+  TagLabel,
+  Badge,
+} from "@chakra-ui/react";
 
 function StudyCardSmall({ study }) {
   return (

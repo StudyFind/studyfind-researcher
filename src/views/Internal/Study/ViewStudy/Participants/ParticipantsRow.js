@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import { Box, Text, Avatar, Badge, useDisclosure } from "@chakra-ui/react";
-import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
+import { useParams, useHistory, useLocation } from "react-router-dom";
+import { Box, Text, Avatar, Badge } from "@chakra-ui/react";
+import {
+  FaClock,
+  FaCalendar,
+  FaClipboard,
+  FaStickyNote,
+  FaComment,
+} from "react-icons/fa";
 
 import ParticipantDrawer from "./ParticipantDrawer";
 import ParticipantActionButton from "./ParticipantActionButton";
@@ -23,17 +30,26 @@ function ParticipantsRow({ study, participant }) {
     rejected: "red",
   };
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [action, setAction] = useState("");
+  const location = useLocation();
+  const history = useHistory();
 
-  const handleCancel = () => {
-    setAction("");
-    onClose();
+  const action = new URLSearchParams(location.search).get("action");
+  const participantID = new URLSearchParams(location.search).get(
+    "participantID"
+  );
+
+  const { nctID } = useParams();
+
+  const isOpen = action && participant.id === participantID;
+
+  const handleClose = () => {
+    history.push(`/study/${nctID}/participants`);
   };
 
-  const handleAction = (a) => {
-    setAction(a);
-    onOpen();
+  const handleOpen = (action) => {
+    history.push(
+      `/study/${nctID}/participants?participantID=${participant.id}&action=${action}`
+    );
   };
 
   return (
@@ -52,7 +68,7 @@ function ParticipantsRow({ study, participant }) {
         size="sm"
         cursor="pointer"
         colorScheme={statusColors[participant.status]}
-        onClick={() => handleAction("status", participant.id)}
+        onClick={() => handleOpen("status")}
       >
         {participant.status}
       </Badge>
@@ -60,35 +76,50 @@ function ParticipantsRow({ study, participant }) {
         {participant.score}% eligible
       </Text>
       <Buttons>
-        <ParticipantActionButton name="messages" icon={<FaComment />} handleAction={handleAction} />
+        <ParticipantActionButton
+          name="messages"
+          icon={<FaComment />}
+          onClick={() => handleOpen("messages")}
+        />
         <ParticipantActionButton
           name="screening"
           icon={<FaClipboard />}
-          handleAction={handleAction}
+          onClick={() => handleOpen("screening")}
         />
         <ParticipantActionButton
           name="meetings"
           icon={<FaCalendar />}
-          handleAction={handleAction}
+          onClick={() => handleOpen("meetings")}
         />
-        <ParticipantActionButton name="reminders" icon={<FaClock />} handleAction={handleAction} />
-        <ParticipantActionButton name="notes" icon={<FaStickyNote />} handleAction={handleAction} />
+        <ParticipantActionButton
+          name="reminders"
+          icon={<FaClock />}
+          onClick={() => handleOpen("reminders")}
+        />
+        <ParticipantActionButton
+          name="notes"
+          icon={<FaStickyNote />}
+          onClick={() => handleOpen("notes")}
+        />
       </Buttons>
       <ParticipantDrawer
         action={action}
         fakename={participant.fakename}
-        onClose={handleCancel}
         isOpen={isOpen}
+        onClose={handleClose}
       >
         {action === "status" && (
           <Box p="25px">
-            <Status participant={participant} onClose={onClose} />
+            <Status participant={participant} handleClose={handleClose} />
           </Box>
         )}
         {action === "messages" && <Messages participant={participant} />}
         {action === "screening" && (
           <Box p="25px">
-            <Screening questions={study.questions} responses={participant.responses} />
+            <Screening
+              questions={study.questions}
+              responses={participant.responses}
+            />
           </Box>
         )}
         {action === "meetings" && (

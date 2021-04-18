@@ -18,7 +18,7 @@ import Settings from "./Settings/Settings";
 function ViewStudy() {
   const studies = useContext(StudiesContext);
   const { nctID } = useParams();
-  const [study, setStudy] = useState();
+  const [study, setStudy] = useState(studies.find((study) => study.id === nctID));
 
   const tabs = [
     { name: "details", content: <Details study={study} /> },
