@@ -3,7 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
   	match /researchers/{researcherID} {
     	allow read, delete: if researcherID == request.auth.uid
-      allow create: if researcherID == request.auth.uid && request.resource.data.name
+      allow create: if researcherID == request.auth.uid && request.resource.data.name != null
       allow update: if researcherID == request.auth.uid && request.resource.data.name == resource.data.name
 
       match /notifications/{notificationID} {
@@ -19,7 +19,7 @@ service cloud.firestore {
 
     match /participants/{participantID} {
     	allow read, delete: if participantID == request.auth.uid
-      allow create: if participantID == request.auth.uid && request.resource.data.name
+      allow create: if participantID == request.auth.uid && request.resource.data.name != null
       allow update: if participantID == request.auth.uid && request.resource.data.name == resource.data.name
 
 
@@ -37,6 +37,10 @@ service cloud.firestore {
     match /studies/{studyID} {
       allow read, update, delete: if resource.data.researcher.id == request.auth.uid
       allow read: if request.auth != null
+
+      match /surveys/{surveyID} {
+        	allow read, write: if true
+      }
       // allow read if custom claim is participant
 
       match /participants/{participantID} {
@@ -47,14 +51,15 @@ service cloud.firestore {
 
         // allow create by participant
 
+
         match /notes/{noteID} {
           allow read, write: if getStudyData(studyID).researcher.id == request.auth.uid
         }
 
         match /messages/{messageID} {
           allow read: if getStudyData(studyID).researcher.id == request.auth.uid || participantID == request.auth.uid
-          allow create: if request.resource.data.user == request.auth.uid
-          allow update: if resource.data.user != request.auth.uid // can update each others' reads
+          allow create: if request.resource.data.user == request.auth.uid && (getStudyData(studyID).researcher.id == request.auth.uid || participantID == request.auth.uid)
+          allow update: if resource.data.user != request.auth.uid && (getStudyData(studyID).researcher.id == request.auth.uid || participantID == request.auth.uid) // can update each others' reads
             && resource.data.user == request.resource.data.user
             && resource.data.time == request.resource.data.time
             && resource.data.text == request.resource.data.text
@@ -88,20 +93,19 @@ service cloud.firestore {
     match /meetings/{meetingID} {
     	allow read: if request.auth.uid == resource.data.participantID || request.auth.uid == getStudyData(resource.data.studyID).researcher.id || request.auth.uid == resource.data.researcherID
 
-      allow update: if request.auth.uid == resource.data.participantID
+      allow update: if (request.auth.uid == resource.data.participantID
           && resource.data.name == request.resource.data.name
           && resource.data.link == request.resource.data.link
           && resource.data.time == request.resource.data.time
           && resource.data.participantID == request.resource.data.participantID
           && resource.data.researcherID == request.resource.data.researcherID
           && resource.data.studyID == request.resource.data.studyID
-          && resource.data.confirmedByParticipant == false && request.resource.data.confirmedByParticipant == true
-
-      allow update: if request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
+          && resource.data.confirmedByParticipant == false && request.resource.data.confirmedByParticipant == true)
+					|| (request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
           && resource.data.participantID == request.resource.data.participantID
           && resource.data.researcherID == request.resource.data.researcherID
           && resource.data.studyID == request.resource.data.studyID
-          && resource.data.confirmedByParticipant == request.resource.data.confirmedByParticipant
+          && resource.data.confirmedByParticipant == request.resource.data.confirmedByParticipant)
 
       allow create: if request.auth.uid == getStudyData(request.resource.data.studyID).researcher.id
       allow delete: if request.auth.uid == getStudyData(resource.data.studyID).researcher.id

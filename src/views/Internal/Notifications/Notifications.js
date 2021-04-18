@@ -11,7 +11,7 @@ import Notification from "./Notification";
 function Notifications() {
   const { uid } = auth.currentUser;
 
-  const NOTIFICATIONS_PER_REQUEST = 2;
+  const NOTIFICATIONS_PER_REQUEST = 10;
   const notificationsRef = firestore
     .collection("researchers")
     .doc(uid)
@@ -50,10 +50,12 @@ function Notifications() {
                 <Text color="gray.400">Showing all notifications</Text>
               ) : (
                 <Button
-                  size="sm"
-                  isLoading={additionalLoading}
-                  loadingText="Loading..."
                   onClick={handleFetchAdditional}
+                  isLoading={additionalLoading}
+                  variant="outline"
+                  color="gray.500"
+                  bg="white"
+                  size="sm"
                 >
                   Load more
                 </Button>
