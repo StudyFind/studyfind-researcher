@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
+import { useTabs } from "hooks";
 import { UserContext } from "context";
 import { signout } from "database/auth";
 
@@ -55,27 +56,7 @@ function Account() {
     },
   ];
 
-  const [selected, setSelected] = useState(0);
-  const size = tabs.length;
-
-  const handleKeyDown = (e) => {
-    if (document.activeElement.className.split(" ").includes("tab")) {
-      if (e.keyCode === 40 || e.keyCode === 39) {
-        e.preventDefault();
-        setSelected(selected === size - 1 ? 0 : selected + 1);
-      }
-
-      if (e.keyCode === 38 || e.keyCode === 37) {
-        e.preventDefault();
-        setSelected(selected === 0 ? size - 1 : selected - 1);
-      }
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown, false);
-    return () => document.removeEventListener("keydown", handleKeyDown, false);
-  }, [handleKeyDown]);
+  const [tabIndex, setTabIndex] = useTabs(tabs);
 
   return (
     <>
@@ -93,14 +74,13 @@ function Account() {
               key={i}
               name={t.name}
               icon={t.icon}
-              onClick={() => setSelected(i)}
-              isSelected={selected === i}
-              setSelected={setSelected}
+              onClick={() => setTabIndex(i)}
+              isSelected={tabIndex === i}
             />
           ))}
         </Grid>
         <Grid gap="30px" py="30px" w="360px">
-          {tabs[selected].content}
+          {tabs[tabIndex].content}
         </Grid>
       </Flex>
     </>

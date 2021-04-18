@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useTabs } from "hooks";
 import { StudiesContext } from "context";
 
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 import { Message } from "components";
-import { Link } from "react-router-dom";
 import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
@@ -17,10 +17,8 @@ import Settings from "./Settings/Settings";
 
 function ViewStudy() {
   const studies = useContext(StudiesContext);
-  const { nctID, tab } = useParams();
-
-  const [study, setStudy] = useState({});
-  const [tabIndex, setTabIndex] = useState(0);
+  const { nctID } = useParams();
+  const [study, setStudy] = useState();
 
   const tabs = [
     { name: "details", content: <Details study={study} /> },
@@ -30,27 +28,22 @@ function ViewStudy() {
     { name: "participants", content: <Participants study={study} /> },
     { name: "settings", content: <Settings study={study} /> },
   ];
+  
+  const [tabIndex, setTabIndex] = useTabs(tabs);
 
   useEffect(() => {
     setStudy(studies.find((study) => study.id === nctID));
   }, [studies]);
 
-  useEffect(() => {
-    setTabIndex(tabs.findIndex((t) => tab === t.name));
-  }, [tab]);
-
   const BODY = (
     <Tabs colorScheme="blue" h="100%" index={tabIndex}>
       <TabList>
-        {tabs.map((t, i) => (
-          <Link key={i} to={`/study/${nctID}/${t.name}`}>
-            <TabItem>
-              {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
-            </TabItem>
-          </Link>
+          <TabItem key={i} className="tab" onClick={() => setTabIndex(i)}>
+            {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+          </TabItem>
         ))}
       </TabList>
-      <TabPanels pt="1px">{tabs[tabIndex].content}</TabPanels>
+      <TabPanels>{tabs[tabIndex].content}</TabPanels>
     </Tabs>
   );
 

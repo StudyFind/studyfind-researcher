@@ -1,18 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import { auth } from "database/firebase";
-
 import { Link, useLocation } from "react-router-dom";
-import {
-  Box,
-  Flex,
-  Grid,
-  Heading,
-  Text,
-  Image,
-  Avatar,
-} from "@chakra-ui/react";
+
+import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
+
 import {
   FaBell,
   FaCalendarAlt,
@@ -21,29 +13,23 @@ import {
   FaUserCircle,
   FaQuestionCircle,
 } from "react-icons/fa";
+
 import StudyFindLogo from "images/logo.png";
 
-function Sidebar({ user }) {
+function Sidebar({ name, email }) {
   const location = useLocation();
 
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
     { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
-    { name: "Account", path: "/account", icon: <FaUserCircle /> },
+    { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },
     { name: "Feedback", path: "/feedback", icon: <FaCommentAlt /> },
     { name: "FAQ", path: "/faq", icon: <FaQuestionCircle /> },
   ];
 
   return (
-    <Flex
-      direction="column"
-      w="280px"
-      h="100vh"
-      position="fixed"
-      bg="blue.900"
-      zIndex="100"
-    >
+    <Flex direction="column" w="280px" h="100vh" position="fixed" bg="blue.900" zIndex="100">
       <Logo to="/">
         <Image h="1.75rem" mr="10px" src={StudyFindLogo} />
         <Heading fontSize="1.5rem" color="white">
@@ -52,11 +38,7 @@ function Sidebar({ user }) {
       </Logo>
       <Grid mb="auto">
         {links.map((link, index) => (
-          <NavLink
-            key={index}
-            to={link.path}
-            selected={location.pathname === link.path}
-          >
+          <NavLink key={index} to={link.path} selected={location.pathname === link.path}>
             {link.icon}
             {link.name}
           </NavLink>
@@ -64,31 +46,13 @@ function Sidebar({ user }) {
       </Grid>
       <Box p="15px">
         <Flex rounded="md" align="center">
-          <Avatar
-            name={user && user.name}
-            bg="blue.500"
-            color="white"
-            h="42px"
-            w="42px"
-            mr="10px"
-          />
+          <Avatar name={name} bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
           <Box>
-            <Text
-              fontSize="0.9rem"
-              color="white"
-              fontWeight="500"
-              isTruncated
-              maxWidth="180px"
-            >
-              {user ? user.name : "Your Account"}
+            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
+              {name || "Your Account"}
             </Text>
-            <Text
-              fontSize="0.9rem"
-              color="gray.400"
-              isTruncated
-              maxWidth="180px"
-            >
-              {auth.currentUser.email}
+            <Text fontSize="0.9rem" color="gray.400" isTruncated maxWidth="180px">
+              {email}
             </Text>
           </Box>
         </Flex>

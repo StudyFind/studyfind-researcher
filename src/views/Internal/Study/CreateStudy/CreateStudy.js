@@ -21,7 +21,7 @@ function CreateStudy() {
     if (study && study.published) history.push("/"); // redirect to main page to prevent changes being made to published study (since researcher are not allowed to change study details and screening)
     const params = new URL(window.location).searchParams;
     const from = params.get("from");
-    setRedirect(from === "welcome" ? "/welcome" : `/study/${nctID}`);
+    setRedirect(from === "welcome" ? "/welcome" : `/study/${nctID}/details`);
   }, []);
 
   const back = () => {
