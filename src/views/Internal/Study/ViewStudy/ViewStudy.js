@@ -18,7 +18,7 @@ import Settings from "./Settings/Settings";
 function ViewStudy() {
   const studies = useContext(StudiesContext);
   const { nctID } = useParams();
-  const [study, setStudy] = useState();
+  const [study, setStudy] = useState(studies.find((study) => study.id === nctID));
 
   const tabs = [
     { name: "details", content: <Details study={study} /> },
@@ -28,7 +28,7 @@ function ViewStudy() {
     { name: "participants", content: <Participants study={study} /> },
     { name: "settings", content: <Settings study={study} /> },
   ];
-  
+
   const [tabIndex, setTabIndex] = useTabs(tabs);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ function ViewStudy() {
   const BODY = (
     <Tabs colorScheme="blue" h="100%" index={tabIndex}>
       <TabList>
+        {tabs.map((t, i) => (
           <TabItem key={i} className="tab" onClick={() => setTabIndex(i)}>
             {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
           </TabItem>
