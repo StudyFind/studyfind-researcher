@@ -17,28 +17,24 @@ function useRealtimePagination(ref, limit) {
   //  <- new            old->
   //  0 1 2 3 4 5 6 7 8 9 ...
 
-  const handleLive = (prev, next) => {
-    const match = prev.findIndex((d) => d.id === next[next.length - 1].id);
-    return next.concat(prev.slice(match + 1));
-  };
-
   useEffect(() => {
     ref.limit(limit).onSnapshot((snapshot) => {
+      const count = snapshot.docs.length;
+
       setDocuments((prev) => {
         const next = transformData(snapshot);
-        console.table(next.map(({ text, time }) => ({ text, time })));
-        return handleLive(prev, next);
+        const match = prev.findIndex((d) => d.id === next[count - 1].id);
+        return next.concat(prev.slice(match + 1));
       });
 
       if (!lastDoc) {
         setLoading(false);
+        setLastDoc(snapshot.docs[count - 1]);
       }
 
-      if (snapshot.docs.length < limit) {
+      if (count < limit) {
         setFetchedAll(true);
       }
-
-      setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
     });
   }, []);
 
@@ -49,17 +45,18 @@ function useRealtimePagination(ref, limit) {
       .startAfter(lastDoc)
       .get()
       .then((snapshot) => {
+        const count = snapshot.docs.length;
+
         setDocuments((prev) => {
           const next = transformData(snapshot);
-          console.table(next.map(({ text, time }) => ({ text, time })));
           return prev.concat(next);
         });
 
-        setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
-
-        if (snapshot.docs.length < limit) {
+        if (count < limit) {
           setFetchedAll(true);
         }
+
+        setLastDoc(snapshot.docs[count - 1]);
       })
       .catch((err) => setError(err.message))
       .finally(() => setAdditionalLoading(false));

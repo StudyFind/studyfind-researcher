@@ -23,7 +23,7 @@ function MessageList({ autoscroll, messagesRef }, ref) {
 
   useEffect(() => {
     !loading && autoscroll();
-  }, [messages, loading]);
+  }, [loading]);
 
   if (loading) return <Loader />;
   if (error) return <Text>Error: {JSON.stringify(error)}</Text>;
@@ -49,15 +49,15 @@ function MessageList({ autoscroll, messagesRef }, ref) {
       <Flex direction="column" overflowY="scroll" gridGap="8px" p="20px">
         {messages &&
           messages
-            .reverse()
-            .map((message, i) => (
+            .map((message) => (
               <Message
-                key={i}
+                key={message.id}
                 message={message}
                 messagesRef={messagesRef}
                 isUser={message.user === auth.currentUser.uid}
               />
-            ))}
+            ))
+            .reverse()}
         <Box mt="60px" ref={ref} />
       </Flex>
     </>
