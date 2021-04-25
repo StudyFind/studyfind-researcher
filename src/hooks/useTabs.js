@@ -10,7 +10,7 @@ function useTabs(tabs) {
   const handleKeyDown = (e) => {
     const reroute = (index) => {
       e.preventDefault();
-      history.push(tabs[index].name);
+      history.push(tabs[index]?.name);
     };
 
     if (document.activeElement.classList.contains("tab")) {
@@ -23,6 +23,10 @@ function useTabs(tabs) {
   useEffect(() => {
     setTabIndex(tabs.findIndex((t) => tab === t.name));
   }, [tab]);
+
+  useEffect(() => {
+    history.push(tabs[tabIndex]?.name);
+  }, [tabIndex]);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown, false);

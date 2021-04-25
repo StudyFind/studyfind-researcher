@@ -80,7 +80,7 @@ function Account() {
           ))}
         </Grid>
         <Grid gap="30px" py="30px" w="360px">
-          {tabs[tabIndex].content}
+          {tabs[tabIndex]?.content}
         </Grid>
       </Flex>
     </>

@@ -44,7 +44,7 @@ function ViewStudy() {
           </TabItem>
         ))}
       </TabList>
-      <TabPanels>{tabs[tabIndex].content}</TabPanels>
+      <TabPanels>{tabs[tabIndex]?.content}</TabPanels>
     </Tabs>
   );
 
