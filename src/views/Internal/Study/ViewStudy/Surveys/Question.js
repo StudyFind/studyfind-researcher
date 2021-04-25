@@ -9,7 +9,7 @@ function Question({ question }) {
       <Box bg="gray.300" rounded="md" display="flex">
         <Form>
           <Input placeholder="prompt"></Input>
-          <Select>Question Type:</Select>
+          <Select placeholder="Question Type">Question Type:</Select>
         </Form>
       </Box>
     );

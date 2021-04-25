@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { firestore } from "database/firebase";
 import { auth } from "database/firebase";
 import { useParams } from "react-router-dom";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import Loader from "components/Loader";
 
 import Survey from "./Survey";
@@ -33,7 +33,14 @@ function Surveys({ study }) {
     return <Loader></Loader>;
   }
   return surveys.length > 0 ? (
-    surveys.map((survey) => <Survey surveyInfo={survey} />)
+    <Box>
+      {surveys.map((survey) => (
+        <Survey surveyInfo={survey} />
+      ))}
+      <Button w="90%" bg="green.300" color="white" m="6px">
+        Add Survey
+      </Button>
+    </Box>
   ) : (
     <Text>Please add a survey!</Text>
   );
