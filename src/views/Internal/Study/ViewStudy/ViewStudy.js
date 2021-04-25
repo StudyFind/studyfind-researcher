@@ -14,6 +14,7 @@ import Files from "./Files/Files";
 import Screening from "./Screening/Screening";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
+import Surveys from "./Surveys/Surveys";
 
 function ViewStudy() {
   const studies = useContext(StudiesContext);
@@ -24,6 +25,7 @@ function ViewStudy() {
     { name: "details", content: <Details study={study} /> },
     { name: "locations", content: <Locations study={study} /> },
     { name: "screening", content: <Screening study={study} /> },
+    { name: "surveys", content: <Surveys study={study} /> },
     { name: "files", content: <Files /> },
     { name: "participants", content: <Participants study={study} /> },
     { name: "settings", content: <Settings study={study} /> },
