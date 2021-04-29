@@ -9,8 +9,8 @@ import {
   FaUser,
   FaMapMarkedAlt,
   FaBell,
-  FaCalendarCheck,
-  FaComment,
+  // FaCalendarCheck,
+  // FaComment,
   FaShieldAlt,
 } from "react-icons/fa";
 
@@ -34,16 +34,16 @@ function Account() {
       icon: <FaMapMarkedAlt />,
       content: <Timezone user={user} />,
     },
-    {
-      name: "calendar",
-      icon: <FaCalendarCheck />,
-      content: <div />,
-    },
-    {
-      name: "templates",
-      icon: <FaComment />,
-      content: <div />,
-    },
+    // {
+    //   name: "calendar",
+    //   icon: <FaCalendarCheck />,
+    //   content: <div />,
+    // },
+    // {
+    //   name: "templates",
+    //   icon: <FaComment />,
+    //   content: <div />,
+    // },
     {
       name: "notifications",
       icon: <FaBell />,
