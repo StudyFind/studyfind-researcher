@@ -18,7 +18,7 @@ function useRealtimePagination(ref, limit) {
   //  0 1 2 3 4 5 6 7 8 9 ...
 
   useEffect(() => {
-    ref.limit(limit).onSnapshot((snapshot) => {
+    const unsubscribe = ref.limit(limit).onSnapshot((snapshot) => {
       const count = snapshot.docs.length;
 
       setDocuments((prev) => {
@@ -36,6 +36,8 @@ function useRealtimePagination(ref, limit) {
         setFetchedAll(true);
       }
     });
+
+    return () => unsubscribe();
   }, []);
 
   const handleFetchAdditional = () => {
