@@ -10,15 +10,15 @@ import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
 import Locations from "./Locations/Locations";
-import Files from "./Files/Files";
 import Screening from "./Screening/Screening";
+import Files from "./Files/Files";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
 
 function ViewStudy() {
   const studies = useContext(StudiesContext);
-  const { nctID } = useParams();
-  const [study, setStudy] = useState(studies.find((study) => study.id === nctID));
+  const { studyID } = useParams();
+  const [study, setStudy] = useState(studies.find((study) => study.id === studyID));
 
   const tabs = [
     { name: "details", content: <Details study={study} /> },
@@ -32,7 +32,7 @@ function ViewStudy() {
   const [tabIndex, setTabIndex] = useTabs(tabs);
 
   useEffect(() => {
-    setStudy(studies.find((study) => study.id === nctID));
+    setStudy(studies.find((study) => study.id === studyID));
   }, [studies]);
 
   const BODY = (
@@ -52,7 +52,7 @@ function ViewStudy() {
     <Message
       status="failure"
       title="Study not found!"
-      description={`The study ${nctID} could not be found in the StudyFind database. Please
+      description={`The study ${studyID} could not be found in the StudyFind database. Please
   ensure that it has been successfully created by following all directions in the study
   creation process.`}
     />

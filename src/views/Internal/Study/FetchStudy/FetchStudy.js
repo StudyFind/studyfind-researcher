@@ -15,8 +15,8 @@ function Fetch() {
     setError("");
   };
 
-  const getValidID = (nctID) => {
-    const lastEight = nctID.substr(nctID.length - 8);
+  const getValidID = (studyID) => {
+    const lastEight = studyID.substr(studyID.length - 8);
     if (lastEight.length < 8) return "";
     if (isNaN(lastEight)) return "";
     return "NCT" + lastEight;

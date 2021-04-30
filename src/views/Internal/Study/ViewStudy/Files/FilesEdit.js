@@ -3,7 +3,7 @@ import { Heading, Button, Flex, Grid, Progress } from "@chakra-ui/react";
 import { Input, FileInput } from "components";
 import { storage } from "database/firebase";
 
-function FilesEdit({ nctID, setEdit, getFiles }) {
+function FilesEdit({ studyID, setEdit, getFiles }) {
   const [inputs, setInputs] = useState({ name: "", file: null });
   const [errors, setErrors] = useState({ name: "", file: "" });
   const [status, setStatus] = useState(0);
@@ -53,7 +53,7 @@ function FilesEdit({ nctID, setEdit, getFiles }) {
 
     setLoading(true);
 
-    const ref = storage.ref(`study/${nctID}/${inputs.name}`);
+    const ref = storage.ref(`study/${studyID}/${inputs.name}`);
     const task = ref.put(inputs.file);
 
     task.on(
@@ -78,7 +78,7 @@ function FilesEdit({ nctID, setEdit, getFiles }) {
 
   return (
     <>
-      <Flex justify="space-between" align="center" my="15px">
+      <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Upload File</Heading>
       </Flex>
       <Grid gap="16px" w="300px">

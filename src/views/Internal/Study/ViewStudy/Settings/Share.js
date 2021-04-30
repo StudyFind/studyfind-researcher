@@ -3,11 +3,11 @@ import { Box, Flex, Heading, Text, Link, Button } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 
 function Share({ study }) {
-  const link = `https://studyfind.org/study/${study.nctID}`;
+  const link = `https://studyfind.org/study/${study.id}`;
   const [success, setSuccess] = useState(false);
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(link).then(setSuccess(true));
+    navigator.clipboard.writeText(link).then(() => setSuccess(true));
   };
 
   return (

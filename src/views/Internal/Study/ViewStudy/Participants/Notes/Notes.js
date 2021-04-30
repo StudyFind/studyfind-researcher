@@ -12,7 +12,7 @@ import { Grid } from "@chakra-ui/react";
 import { Loader } from "components";
 
 function Notes({ id }) {
-  const { nctID } = useParams();
+  const { studyID } = useParams();
   const [form, setForm] = useState(false);
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [errors, setErrors] = useState({ title: "", body: "" });
@@ -20,7 +20,7 @@ function Notes({ id }) {
 
   const notesRef = firestore
     .collection("studies")
-    .doc(nctID)
+    .doc(studyID)
     .collection("participants")
     .doc(id)
     .collection("notes");

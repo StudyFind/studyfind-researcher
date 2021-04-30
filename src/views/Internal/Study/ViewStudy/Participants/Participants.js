@@ -12,14 +12,14 @@ import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 
 function Participants({ study }) {
-  const { nctID } = useParams();
+  const { studyID } = useParams();
   const [toggle, setToggle] = useState(false);
   const [participants, loading] = useCollection(
-    firestore.collection("studies").doc(nctID).collection("participants")
+    firestore.collection("studies").doc(studyID).collection("participants")
   );
   const [participantsFiltered, setParticipantsFiltered] = useState([]);
 
-  const [sort, setSort] = useState("fakename");
+  const [sort, setSort] = useState("eligibility");
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState({
     interested: true,
@@ -57,16 +57,9 @@ function Participants({ study }) {
   }, [sort, status, search, participants]);
 
   const sortParticipants = (participants) => {
-    switch (sort) {
-      case "fakename":
-        return sortByFakename(participants);
-      case "status":
-        return sortByStatus(participants);
-      case "eligibility":
-        return sortByEligiblity(participants);
-      default:
-        return participants;
-    }
+    if (sort === "eligibility") return sortByEligiblity(participants);
+    if (sort === "status") return sortByStatus(participants);
+    return participants;
   };
 
   const sortByStatus = (participants) => {

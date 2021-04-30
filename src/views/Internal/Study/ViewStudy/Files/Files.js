@@ -11,14 +11,14 @@ import FilesLoading from "./FilesLoading";
 
 function Files() {
   const toast = useToast();
-  const { nctID } = useParams();
+  const { studyID } = useParams();
 
   const [edit, setEdit] = useState(false);
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getFiles = async () => {
-    const { items } = await storage.ref(`study/${nctID}`).listAll();
+    const { items } = await storage.ref(`study/${studyID}`).listAll();
 
     const tempFiles = await Promise.all(
       items.map(async (ref) => {
@@ -37,16 +37,15 @@ function Files() {
 
   const handleDelete = (name) => {
     storage
-      .ref(`study/${nctID}/${name}`)
+      .ref(`study/${studyID}/${name}`)
       .delete()
       .then(() => {
         getFiles();
       })
-      .catch((error) => {
+      .catch(() => {
         toast({
           title: "Connection Error!",
-          description:
-            "We could not delete your file as there was a connection error",
+          description: "We could not delete your file as there was a connection error",
           status: "error",
           duration: 2500,
           isClosable: true,
@@ -68,14 +67,9 @@ function Files() {
   if (loading) return <FilesLoading />;
 
   return edit ? (
-    <FilesEdit nctID={nctID} setEdit={setEdit} getFiles={getFiles} />
+    <FilesEdit studyID={studyID} setEdit={setEdit} getFiles={getFiles} />
   ) : (
-    <FilesGrid
-      nctID={nctID}
-      setEdit={setEdit}
-      files={files}
-      handleDelete={handleDelete}
-    />
+    <FilesGrid studyID={studyID} setEdit={setEdit} files={files} handleDelete={handleDelete} />
   );
 }
 
