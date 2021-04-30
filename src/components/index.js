@@ -5,6 +5,5 @@ export { default as Input } from "./Input";
 export { default as Loader } from "./Loader";
 export { default as Select } from "./Select";
 export { default as Message } from "./Message";
-export { default as Confirm } from "./Confirm";
 export { default as Textarea } from "./Textarea";
 export { default as FileInput } from "./FileInput";

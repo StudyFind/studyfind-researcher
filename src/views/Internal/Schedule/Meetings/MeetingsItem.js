@@ -1,32 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import moment from "moment";
 
 import { firestore } from "database/firebase";
-import { useDocument } from "hooks";
+import { useDocument, useConfirm } from "hooks";
 import { useHistory, useLocation } from "react-router-dom";
 
 import { Box, Tooltip, Flex, Text, IconButton, Icon } from "@chakra-ui/react";
 import { FaInfoCircle, FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
-import { Confirm } from "components";
 
 import MeetingsForm from "./MeetingsForm.js";
 import ParticipantDrawer from "views/Internal/Study/ViewStudy/Participants/ParticipantDrawer.js";
 
 function MeetingsItem({ meeting }) {
-  const [open, setOpen] = useState(false);
-
-  const location = useLocation();
+  const confirm = useConfirm();
   const history = useHistory();
+  const location = useLocation();
   const meetingID = new URLSearchParams(location.search).get("meetingID");
   const isOpen = meeting.id === meetingID;
 
-  const handleClose = () => {
-    history.push(`/schedule`);
-  };
-
-  const handleOpen = () => {
-    history.push(`/schedule?meetingID=${meeting.id}`);
-  };
+  const handleClose = () => history.push(`/schedule`);
+  const handleOpen = () => history.push(`/schedule?meetingID=${meeting.id}`);
 
   const [participant, loading] = useDocument(
     firestore
@@ -37,7 +30,15 @@ function MeetingsItem({ meeting }) {
   );
 
   const handleDelete = () => {
-    setOpen(true);
+    confirm({
+      title: "Delete Meeting",
+      description:
+        "The respective participant will be notified of this deletion. Are you sure you want to delete this meeting?",
+      color: "red",
+      button: "Delete",
+      loading,
+      handleConfirm,
+    });
   };
 
   const handleConfirm = () => {
@@ -46,38 +47,14 @@ function MeetingsItem({ meeting }) {
 
   const meetingInfo = (
     <>
-      <Text>
-        Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
-      </Text>
+      <Text>Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}</Text>
       <Text>Study: {meeting.studyID}</Text>
       <Text>Participant: {participant && participant.fakename}</Text>
     </>
   );
 
   return (
-    <Flex
-      align="center"
-      gridGap="8px"
-      borderWidth="1px"
-      p="10px 12px"
-      rounded="md"
-      bg="white"
-    >
-      {open && (
-        <Confirm
-          title="Delete Meeting"
-          color="red"
-          buttonText="Delete"
-          loading={loading}
-          loadingText="Deleting"
-          open={open}
-          setOpen={setOpen}
-          handleConfirm={handleConfirm}
-        >
-          The respective participant will be notified of this deletion. Are you
-          sure you want to delete this meeting?
-        </Confirm>
-      )}
+    <Flex align="center" gridGap="8px" borderWidth="1px" p="10px 12px" rounded="md" bg="white">
       <ParticipantDrawer
         action="Meetings"
         fakename={participant && participant.fakename}
@@ -99,19 +76,27 @@ function MeetingsItem({ meeting }) {
       </Tooltip>
       <Flex gridGap="4px" ml="auto">
         <a href={meeting.link} target="_blank" rel="noopener noreferrer">
-          <Tooltip
-            label={meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
-          >
-            <IconButton
-              icon={<FaPhone />}
-              size="sm"
-              color={meeting.confirmedByParticipant ? "green.500" : "gray.500"}
-              bg={meeting.confirmedByParticipant ? "green.100" : "gray.100"}
-              _hover={{
-                bg: meeting.confirmedByParticipant ? "green.200" : "gray.200",
-              }}
-            />
-          </Tooltip>
+          {meeting.confirmedByParticipant ? (
+            <Tooltip label="Confirmed">
+              <IconButton
+                icon={<FaPhone />}
+                size="sm"
+                color="green.500"
+                bg="green.100"
+                _hover={{ bg: "green.200" }}
+              />
+            </Tooltip>
+          ) : (
+            <Tooltip label="Pending">
+              <IconButton
+                icon={<FaPhone />}
+                size="sm"
+                color="gray.500"
+                bg="gray.100"
+                _hover={{ bg: "gray.200" }}
+              />
+            </Tooltip>
+          )}
         </a>
         <IconButton
           icon={<FaPencilAlt />}

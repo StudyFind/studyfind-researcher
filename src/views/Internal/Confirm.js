@@ -11,40 +11,18 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 
-function Confirm({
-  title,
-  children,
-  color,
-  button,
-  loading,
-  open,
-  setOpen,
-  handleConfirm,
-}) {
-  const handleClose = () => !loading && setOpen(false);
-
+function Confirm({ title, description, color, button, loading, handleClose, handleConfirm }) {
   return (
-    <AlertDialog
-      size="lg"
-      motionPreset="scale"
-      isCentered
-      isOpen={open}
-      onClose={handleClose}
-    >
+    <AlertDialog size="lg" motionPreset="scale" isCentered isOpen={true} onClose={handleClose}>
       <AlertDialogOverlay bg="rgb(0, 0, 0, 0.75)">
         <AlertDialogContent>
           <Box p="20px" w="100%">
             <Heading fontSize="lg" mb="8px">
               {title}
             </Heading>
-            <Text color="gray.500">{children}</Text>
+            <Text color="gray.500">{description}</Text>
             <Flex mt="24px" gridGap="10px" justify="flex-end">
-              <Button
-                variant="outline"
-                color="gray.500"
-                isDisabled={loading}
-                onClick={handleClose}
-              >
+              <Button variant="outline" color="gray.500" isDisabled={loading} onClick={handleClose}>
                 Cancel
               </Button>
               <Button
