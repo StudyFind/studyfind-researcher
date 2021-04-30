@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import lodash from "lodash";
+import { toasts } from "templates";
 import { useTabs } from "hooks";
 import { UserContext } from "context";
 import { signout } from "database/auth";
@@ -14,6 +15,7 @@ import Notifications from "./Notifications/Notifications";
 import Security from "./Security/Security";
 
 import AccountTab from "./AccountTab";
+import AccountButtons from "./AccountButtons";
 
 function Account() {
   const toast = useToast();
@@ -71,20 +73,8 @@ function Account() {
       .collection("researchers")
       .doc(user.id)
       .update(inputs)
-      .then(() =>
-        toast({
-          title: "Your profile information was successfully updated!",
-          status: "success",
-          duration: 2500,
-        })
-      )
-      .catch(() =>
-        toast({
-          title: "Your profile information could not be updated. Please try again later!",
-          status: "error",
-          duration: 2500,
-        })
-      )
+      .then(() => toast(toasts.updatedAccount))
+      .catch(() => toast(toasts.connectionError))
       .finally(() => setLoading(false));
   };
 
@@ -126,9 +116,7 @@ function Account() {
   const [tabIndex, setTabIndex] = useTabs(tabs);
 
   useEffect(() => {
-    if (!loading) {
-      handleCancel();
-    }
+    !loading && handleCancel();
   }, [tabIndex, loading]);
 
   return (
@@ -155,24 +143,11 @@ function Account() {
         <Grid gap="30px" py="30px" w="360px">
           {tabs[tabIndex]?.content}
           {isDifferent && (
-            <Flex gridGap="10px" justify="flex-end">
-              <Button
-                variant="outline"
-                color="gray.500"
-                isDisabled={loading}
-                onClick={handleCancel}
-              >
-                Cancel
-              </Button>
-              <Button
-                colorScheme="green"
-                loadingText="Save Changes"
-                isLoading={loading}
-                onClick={handleUpdate}
-              >
-                Save Changes
-              </Button>
-            </Flex>
+            <AccountButtons
+              loading={loading}
+              handleCancel={handleCancel}
+              handleUpdate={handleUpdate}
+            />
           )}
         </Grid>
       </Flex>
