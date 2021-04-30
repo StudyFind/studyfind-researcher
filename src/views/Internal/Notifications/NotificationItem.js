@@ -40,7 +40,7 @@ function Notification({ notification }) {
   }, []);
 
   const getTemplate = (type, meta) => {
-    const generateTemplate = notifications[type] || notifications["default"];
+    const generateTemplate = notifications[type] || notifications["defaultTemplate"];
     return generateTemplate(meta);
   };
 
