@@ -3,22 +3,16 @@ import React, { useEffect } from "react";
 import { useAuthForm } from "hooks";
 import { changePassword } from "database/auth";
 
-import { Grid, Heading, Text, Button, useToast } from "@chakra-ui/react";
+import { Grid, Button, useToast } from "@chakra-ui/react";
 import { Form } from "components";
 
 import PasswordInput from "./PasswordInput";
+import AccountHeader from "../AccountHeader";
 
 function ChangePassword() {
   const toast = useToast();
 
-  const {
-    inputs,
-    errors,
-    success,
-    loading,
-    handleChange,
-    handleSubmit,
-  } = useAuthForm({
+  const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
     initial: { password: "", newPassword: "" },
     onSubmit: changePassword,
   });
@@ -38,13 +32,11 @@ function ChangePassword() {
 
   return (
     <>
-      <Grid gap="5px">
-        <Heading size="md">Change Password</Heading>
-        <Text color="gray.500">
-          We recommend that using a long password that is unique to your
-          StudyFind account
-        </Text>
-      </Grid>
+      <AccountHeader
+        title="Change Password"
+        description="We recommend using a long password that is unique to your
+        StudyFind account"
+      />
       <Form onSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
         <Grid gap="15px">
           <PasswordInput

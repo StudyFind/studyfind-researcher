@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import lodash from "lodash";
 import { useTabs } from "hooks";
 import { UserContext } from "context";
 import { signout } from "database/auth";
+import { firestore } from "database/firebase";
 
-import { Flex, Grid, Heading, Button, Divider } from "@chakra-ui/react";
+import { Flex, Grid, Heading, Button, Divider, useToast } from "@chakra-ui/react";
 import { FaDoorOpen, FaUser, FaMapMarkedAlt, FaBell, FaShieldAlt } from "react-icons/fa";
 
 import Profile from "./Profile/Profile";
@@ -14,22 +16,105 @@ import Security from "./Security/Security";
 import AccountTab from "./AccountTab";
 
 function Account() {
+  const toast = useToast();
   const user = useContext(UserContext);
+  const [inputs, setInputs] = useState(user);
+  const [loading, setLoading] = useState(false);
+
+  const isDifferent = !lodash.isEqual(user, inputs);
+
+  const handleChange = (name, value) => {
+    setInputs((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePreferences = (name, value) => {
+    setInputs((prev) => ({
+      ...prev,
+      preferences: {
+        ...prev.preferences,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleNotifications = (name, value) => {
+    setInputs((prev) => ({
+      ...prev,
+      notifications: {
+        ...prev.notifications,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleCategories = (name, value) => {
+    setInputs((prev) => ({
+      ...prev,
+      notifications: {
+        ...prev.notifications,
+        categories: {
+          ...prev.notifications?.categories,
+          [name]: value,
+        },
+      },
+    }));
+  };
+
+  const handleCancel = () => {
+    setInputs(user);
+  };
+
+  const handleUpdate = () => {
+    setLoading(true);
+
+    firestore
+      .collection("researchers")
+      .doc(user.id)
+      .update(inputs)
+      .then(() =>
+        toast({
+          title: "Your profile information was successfully updated!",
+          status: "success",
+          duration: 2500,
+        })
+      )
+      .catch(() =>
+        toast({
+          title: "Your profile information could not be updated. Please try again later!",
+          status: "error",
+          duration: 2500,
+        })
+      )
+      .finally(() => setLoading(false));
+  };
+
   const tabs = [
     {
       name: "profile",
       icon: <FaUser />,
-      content: <Profile user={user} />,
+      content: <Profile inputs={inputs} handleChange={handleChange} />,
     },
     {
       name: "timezone",
       icon: <FaMapMarkedAlt />,
-      content: <Timezone user={user} />,
+      content: (
+        <Timezone
+          inputs={inputs}
+          handleChange={handleChange}
+          handlePreferences={handlePreferences}
+        />
+      ),
     },
     {
       name: "notifications",
       icon: <FaBell />,
-      content: <Notifications user={user} />,
+      content: (
+        <Notifications
+          inputs={inputs}
+          handleNotifications={handleNotifications}
+          handleCategory={handleCategories}
+        />
+      ),
     },
     {
       name: "security",
@@ -39,6 +124,12 @@ function Account() {
   ];
 
   const [tabIndex, setTabIndex] = useTabs(tabs);
+
+  useEffect(() => {
+    if (!loading) {
+      handleCancel();
+    }
+  }, [tabIndex, loading]);
 
   return (
     <>
@@ -63,6 +154,26 @@ function Account() {
         </Grid>
         <Grid gap="30px" py="30px" w="360px">
           {tabs[tabIndex]?.content}
+          {isDifferent && (
+            <Flex gridGap="10px" justify="flex-end">
+              <Button
+                variant="outline"
+                color="gray.500"
+                onClick={handleCancel}
+                isDisabled={loading}
+              >
+                Cancel
+              </Button>
+              <Button
+                colorScheme="green"
+                onClick={handleUpdate}
+                isLoading={loading}
+                loadingText="Save Changes"
+              >
+                Save Changes
+              </Button>
+            </Flex>
+          )}
         </Grid>
       </Flex>
     </>
