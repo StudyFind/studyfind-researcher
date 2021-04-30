@@ -4,15 +4,7 @@ import { UserContext } from "context";
 import { signout } from "database/auth";
 
 import { Flex, Grid, Heading, Button, Divider } from "@chakra-ui/react";
-import {
-  FaDoorOpen,
-  FaUser,
-  FaMapMarkedAlt,
-  FaBell,
-  // FaCalendarCheck,
-  // FaComment,
-  FaShieldAlt,
-} from "react-icons/fa";
+import { FaDoorOpen, FaUser, FaMapMarkedAlt, FaBell, FaShieldAlt } from "react-icons/fa";
 
 import Profile from "./Profile/Profile";
 import Timezone from "./Timezone/Timezone";
@@ -34,16 +26,6 @@ function Account() {
       icon: <FaMapMarkedAlt />,
       content: <Timezone user={user} />,
     },
-    // {
-    //   name: "calendar",
-    //   icon: <FaCalendarCheck />,
-    //   content: <div />,
-    // },
-    // {
-    //   name: "templates",
-    //   icon: <FaComment />,
-    //   content: <div />,
-    // },
     {
       name: "notifications",
       icon: <FaBell />,
@@ -74,8 +56,8 @@ function Account() {
               key={i}
               name={t.name}
               icon={t.icon}
+              selected={tabIndex === i}
               onClick={() => setTabIndex(i)}
-              isSelected={tabIndex === i}
             />
           ))}
         </Grid>
