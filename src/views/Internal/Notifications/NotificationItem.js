@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
 import moment from "moment";
 
 import { UserContext } from "context";
@@ -50,8 +51,8 @@ function Notification({ notification }) {
   const localTime = moment.utc(time).tz(timezone);
 
   return (
-    <Link to={link}>
-      <Flex align="center" w="100%" p="12px" gridGap="10px" bg={read ? "white" : "blue.50"}>
+    <NotificationLink to={link}>
+      <Flex align="center" p="12px" gridGap="10px" bg={read ? "white" : "blue.50"}>
         <Flex w="40px" h="40px" bg={`${color}.100`} justify="center" align="center" rounded="full">
           <Icon w="16px" h="16px" color={`${color}.300`} as={icon} />
         </Flex>
@@ -71,8 +72,13 @@ function Notification({ notification }) {
           </Text>
         </Box>
       </Flex>
-    </Link>
+    </NotificationLink>
   );
 }
+
+const NotificationLink = styled(Link)`
+  display: block;
+  width: 100%;
+`;
 
 export default Notification;

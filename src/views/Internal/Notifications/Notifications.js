@@ -3,7 +3,7 @@ import React from "react";
 import { auth, firestore } from "database/firebase";
 import { useRealtimePagination } from "hooks";
 
-import { Heading, Box } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 import { Loader } from "components";
 
 import NotificationList from "./NotificationList";
