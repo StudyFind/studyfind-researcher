@@ -21,7 +21,7 @@ import { deleteStudy } from "database/studies";
 
 function Delete({ study }) {
   const toast = useToast();
-  const [nctID, setNctID] = useState("");
+  const [studyID, setNctID] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +41,7 @@ function Delete({ study }) {
   };
 
   const handleDelete = () => {
-    if (nctID === study.id) {
+    if (studyID === study.id) {
       setIsOpen(true);
     } else {
       setError("Entered ID does not match");
@@ -90,7 +90,7 @@ function Delete({ study }) {
       </Text>
 
       <DeleteForm onSubmit={handleDelete}>
-        <Input placeholder="NCT00000000" value={nctID} error={error} onChange={handleChange} />
+        <Input placeholder="NCT00000000" value={studyID} error={error} onChange={handleChange} />
         <Button type="submit" colorScheme="red">
           Delete
         </Button>
@@ -104,7 +104,7 @@ function Delete({ study }) {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure you want to delete study <b>{nctID}</b>?
+              Are you sure you want to delete study <b>{studyID}</b>?
               <br />
               This is a permanant action and cannot be undone.
             </AlertDialogBody>
