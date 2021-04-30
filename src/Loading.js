@@ -12,6 +12,8 @@ function Loading() {
 }
 
 const Image = styled.img`
+  width: 50px;
+
   @-webkit-keyframes rotate-center {
     0% {
       -webkit-transform: rotate(0);
@@ -34,7 +36,6 @@ const Image = styled.img`
     }
   }
 
-  width: 50px;
   -webkit-animation: rotate-center 1s ease-in-out infinite both;
   animation: rotate-center 1s ease-in-out infinite both;
 `;

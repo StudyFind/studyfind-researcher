@@ -1,11 +1,6 @@
 import React from "react";
-
 import { Heading, Text, Box, Center, Flex } from "@chakra-ui/react";
-import {
-  FaTimesCircle,
-  FaCheckCircle,
-  FaExclamationCircle,
-} from "react-icons/fa";
+import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 function Message({ status, title, description, children, ...rest }) {
   const statuses = {
@@ -17,14 +12,7 @@ function Message({ status, title, description, children, ...rest }) {
   const { icon, color } = statuses[status] || statuses["neutral"];
 
   return (
-    <Flex
-      direction="column"
-      justify="center"
-      align="center"
-      h="100%"
-      w="100%"
-      {...rest}
-    >
+    <Flex direction="column" justify="center" align="center" h="100%" w="100%" {...rest}>
       <Center maxW="400px">
         <Flex direction="column" align="center" textAlign="center">
           <Box as={icon} size="48px" color={`${color}.400`} />

@@ -31,13 +31,7 @@ function Field({
       {label && <FormLabel>{label}</FormLabel>}
       <InputGroup>
         {left && (
-          <InputLeftElement
-            display="flex"
-            alignItems="center"
-            w={leftWidth}
-            p="0px"
-            h="100%"
-          >
+          <InputLeftElement display="flex" alignItems="center" w={leftWidth} p="0px" h="100%">
             {left}
           </InputLeftElement>
         )}
@@ -53,20 +47,12 @@ function Field({
           {...rest}
         />
         {right && (
-          <InputRightElement
-            display="flex"
-            alignItems="center"
-            w={rightWidth}
-            p="0px"
-            h="100%"
-          >
+          <InputRightElement display="flex" alignItems="center" w={rightWidth} p="0px" h="100%">
             {right}
           </InputRightElement>
         )}
       </InputGroup>
-      {error && lodash.isString(error) && (
-        <FormErrorMessage>{error}</FormErrorMessage>
-      )}
+      {error && lodash.isString(error) && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
 }
