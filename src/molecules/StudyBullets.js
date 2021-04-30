@@ -8,8 +8,8 @@ import StudyBullet from "./StudyBullet";
 function StudyBullets({ sex, age, control }) {
   return (
     <Grid gap="10px">
-      <StudyBullet icon={FaVenusMars} label="sex" value={sex} defaultValue="All sexes" />
-      <StudyBullet icon={FaBirthdayCake} value={`${age} years`} defaultValue="All ages" />
+      <StudyBullet icon={FaVenusMars} label="sex" value={sex || "All sexes"} />
+      <StudyBullet icon={FaBirthdayCake} value={age ? `${age} years` : "All ages"} />
       <StudyBullet
         icon={FaHeart}
         value={
