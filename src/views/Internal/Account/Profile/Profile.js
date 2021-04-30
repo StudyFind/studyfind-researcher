@@ -8,12 +8,10 @@ import AccountHeader from "../AccountHeader";
 function Profile({ inputs, handleChange }) {
   return (
     <>
-      <Grid gap="5px">
-        <AccountHeader
-          title="Profile"
-          description="The profile section contains information like your organization and background"
-        />
-      </Grid>
+      <AccountHeader
+        title="Profile"
+        description="The profile section contains information like your organization and background"
+      />
       <Grid gap="25px">
         <Input
           label="Organization"

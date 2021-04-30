@@ -13,7 +13,7 @@ function DeleteAccount() {
   const toast = useToast();
 
   const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
-    initial: { password: "", newPassword: "" },
+    initial: { email: "", password: "" },
     onSubmit: deleteAccount,
   });
 
