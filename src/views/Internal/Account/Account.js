@@ -112,7 +112,7 @@ function Account() {
         <Notifications
           inputs={inputs}
           handleNotifications={handleNotifications}
-          handleCategory={handleCategories}
+          handleCategories={handleCategories}
         />
       ),
     },
@@ -159,16 +159,16 @@ function Account() {
               <Button
                 variant="outline"
                 color="gray.500"
-                onClick={handleCancel}
                 isDisabled={loading}
+                onClick={handleCancel}
               >
                 Cancel
               </Button>
               <Button
                 colorScheme="green"
-                onClick={handleUpdate}
-                isLoading={loading}
                 loadingText="Save Changes"
+                isLoading={loading}
+                onClick={handleUpdate}
               >
                 Save Changes
               </Button>
