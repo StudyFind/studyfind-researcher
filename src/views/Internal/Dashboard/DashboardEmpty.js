@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link } from "components";
 import { Alert, AlertIcon, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import DashboardButton from "./DashboardButton";
@@ -18,7 +18,7 @@ function DashboardEmpty({ verified }) {
       </Box>
       {verified && (
         <Box mt="auto">
-          <Link to="/welcome">
+          <Link to="/welcome" isWrapper>
             <Alert status="info" rounded="md" color="blue.500" mt="auto">
               <AlertIcon />
               Click here to automatically fetch all your studies from clinicaltrials.gov and add

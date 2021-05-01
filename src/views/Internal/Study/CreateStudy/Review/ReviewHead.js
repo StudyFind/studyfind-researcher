@@ -1,5 +1,6 @@
 import React from "react";
-import { Heading, Text, Link } from "@chakra-ui/react";
+import { Link } from "components";
+import { Heading, Text } from "@chakra-ui/react";
 
 function ReviewHead() {
   return (
@@ -11,11 +12,8 @@ function ReviewHead() {
         Please check that the details of the study match what you would like to present to potential
         participants. You cannot change the study title, description and eligibility criteria once
         the study is published. If you would like to make changes to other study information, you
-        can update the study on{" "}
-        <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
-          clinicaltrials.gov
-        </Link>{" "}
-        and update the study through the StudyFind study settings.
+        can update the study on <Link to="https://clinicaltrials.gov">clinicaltrials.gov</Link> and
+        update the study through the StudyFind study settings.
       </Text>
     </>
   );

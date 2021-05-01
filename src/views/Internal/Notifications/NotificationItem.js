@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import moment from "moment";
 
-import { UserContext } from "context";
 import { auth, firestore } from "database/firebase";
 import { notifications } from "templates";
 
-import { Link } from "react-router-dom";
-import { Box, Flex, Tooltip, Text, Icon } from "@chakra-ui/react";
+import { Link } from "components";
+import { Box, Flex, Text } from "@chakra-ui/react";
+
+import NotificationIcon from "./NotificationIcon";
+import NotificationTime from "./NotificationTime";
 
 function Notification({ notification }) {
   const [read] = useState(notification.read);
-  const { timezone } = useContext(UserContext);
   /*
     ^^^^^
     done to save original value of notification.read when the component first rendered
@@ -48,24 +48,16 @@ function Notification({ notification }) {
   const { type, meta, time } = notification;
   const { title, description, color, icon, link } = getTemplate(type, meta);
 
-  const localTime = moment.utc(time).tz(timezone);
-
   return (
     <NotificationLink to={link}>
       <Flex align="center" p="12px" gridGap="10px" bg={read ? "white" : "blue.50"}>
-        <Flex w="40px" h="40px" bg={`${color}.100`} justify="center" align="center" rounded="full">
-          <Icon w="16px" h="16px" color={`${color}.300`} as={icon} />
-        </Flex>
+        <NotificationIcon icon={icon} color={color} />
         <Box width="100%" ml="4px">
           <Flex justify="space-between" align="center">
             <Text size="sm" fontWeight="600">
               {title}
             </Text>
-            <Tooltip label={localTime.format("LL (h:mma)")}>
-              <Text cursor="pointer" fontSize="12px" color="gray.400">
-                {localTime.fromNow()}
-              </Text>
-            </Tooltip>
+            <NotificationTime time={time} />
           </Flex>
           <Text fontSize="sm" color="gray.500">
             {description}

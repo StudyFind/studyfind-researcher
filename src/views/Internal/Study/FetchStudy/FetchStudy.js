@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+
 import { useHistory } from "react-router-dom";
 import { makeStudy } from "database/studies";
-import { Grid, Heading, Text, Link, Button } from "@chakra-ui/react";
-import { Form, Input } from "components";
+
+import { Grid, Heading, Text, Button } from "@chakra-ui/react";
+import { Link, Form, Input } from "components";
 
 function Fetch() {
   const history = useHistory();
@@ -42,10 +44,7 @@ function Fetch() {
       <Heading size="lg">Fetch Study Data</Heading>
       <Text mt="8px" mb="10px" color="gray.500">
         In an effort to simplify study creation and verify study owners, we require that your study
-        is registered on{" "}
-        <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
-          clinicaltrials.gov
-        </Link>
+        is registered on <Link to="https://clinicaltrials.gov">clinicaltrials.gov</Link>
         .
         <br />
         Please submit your study&apos;s <b>Clinical Trials ID</b> to help us identify your research

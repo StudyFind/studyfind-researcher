@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Box, Flex, Heading, Text, Link, Button } from "@chakra-ui/react";
+
+import { Link } from "components";
+import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 
 function Share({ study }) {
-  const link = `https://studyfind.org/study/${study.id}`;
+  const link = `https://participant.studyfind.org/study/${study.id}`;
   const [success, setSuccess] = useState(false);
 
   const handleCopyLink = () => {
@@ -19,9 +21,7 @@ function Share({ study }) {
         <Text color="gray.500">
           You can share this link with participants so they can find your study after signing in:
         </Text>
-        <Link color="blue.500" href={link} target="_blank" rel="noreferrer">
-          {link}
-        </Link>
+        <Link to={link}>{link}</Link>
       </Box>
       <Flex gridGap="10px" mt="20px">
         {success ? (

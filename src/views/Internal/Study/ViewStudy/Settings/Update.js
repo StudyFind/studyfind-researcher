@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+
 import { format } from "functions";
-import { Box, Flex, Heading, Text, Link, Button, FormErrorMessage } from "@chakra-ui/react";
 import { resetStudy } from "database/studies";
+
+import { Link } from "components";
+import { Box, Flex, Heading, Text, Button, FormErrorMessage } from "@chakra-ui/react";
 
 function Update({ study }) {
   const [loading, setLoading] = useState(false);
@@ -21,10 +24,8 @@ function Update({ study }) {
       </Heading>
       <Text color="gray.500" my="8px">
         Updating your study will retrieve any new data from{" "}
-        <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
-          clinicaltrials.gov
-        </Link>{" "}
-        and update its information accordingly. <br />
+        <Link to="https://clinicaltrials.gov">clinicaltrials.gov</Link> and update its information
+        accordingly. <br />
         This action will not overwrite your edited study details and screening survey.
       </Text>
       <Flex mt="16px" mb="8px">
