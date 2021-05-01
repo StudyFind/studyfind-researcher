@@ -1,4 +1,11 @@
-import { FaUser, FaUsers, FaCalendar, FaClipboard, FaQuestionCircle } from "react-icons/fa";
+import {
+  FaUser,
+  FaUsers,
+  FaCalendar,
+  FaClipboard,
+  FaQuestionCircle,
+  FaTimesCircle,
+} from "react-icons/fa";
 
 const createAccount = () => ({
   title: "Welcome to StudyFind",
@@ -43,10 +50,10 @@ const upcomingMeeting = ({ studyID, participantID, participantName }) => ({
 
 const defaultTemplate = () => ({
   title: "Default Notification",
-  description: `This is a notification template that's being used because the notification.type is invalid.`,
-  link: "",
-  color: "purple",
-  icon: FaQuestionCircle,
+  description: `This is a notification template that's being used because the notification type attribute is invalid.`,
+  link: "/notifications",
+  color: "red",
+  icon: FaTimesCircle,
 });
 
 export default {
