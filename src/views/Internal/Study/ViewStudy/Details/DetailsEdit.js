@@ -6,7 +6,7 @@ import { updateStudy } from "database/studies";
 import { Grid, Flex, Button, Heading } from "@chakra-ui/react";
 import { Textarea } from "components";
 
-import DescriptionAccessibilityScore from "views/Internal/Study/DescriptionAccessibilityScore";
+import DescriptionAccessibilityScore from "molecules/DescriptionAccessibilityScore";
 
 function DetailsEdit({ study, setEdit }) {
   const [inputs, setInputs] = useState({ title: "", description: "" });
