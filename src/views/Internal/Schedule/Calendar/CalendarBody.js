@@ -9,32 +9,32 @@ function CalendarBody({ month, year, today, date, setDate }) {
     const firstWeekday = selected.startOf("month").format("d") - 1;
     const daysInMonth = selected.daysInMonth();
 
-    return [0, 1, 2, 3, 4].map((week) => {
-      const days = [0, 1, 2, 3, 4, 5, 6].map((weekday) => {
-        const count = week * 7 + weekday;
-        const currentDay = count - firstWeekday + 1;
-        const currentDate = moment([year, month, currentDay]).format("YYYY-MM-DD");
-        const isValid = currentDay <= daysInMonth && count >= firstWeekday;
+    return [0, 1, 2, 3, 4].map((week) => (
+      <tr key={week}>
+        {[0, 1, 2, 3, 4, 5, 6].map((weekday) => {
+          const count = week * 7 + weekday;
+          const currentDay = count - firstWeekday + 1;
+          const currentDate = moment([year, month, currentDay]).format("YYYY-MM-DD");
+          const isValid = currentDay <= daysInMonth && count >= firstWeekday;
 
-        return (
-          <TableBodyCell key={weekday} onClick={() => isValid && setDate(currentDate)}>
-            <Day cursor={isValid && "pointer"} justify="center" align="center">
-              <Selected
-                justify="center"
-                align="center"
-                rounded="full"
-                today={today === currentDate}
-                selected={date === currentDate}
-              >
-                {isValid ? currentDay : ""}
-              </Selected>
-            </Day>
-          </TableBodyCell>
-        );
-      });
-
-      return <tr key={week}>{days}</tr>;
-    });
+          return (
+            <TableBodyCell key={weekday} onClick={() => isValid && setDate(currentDate)}>
+              <Day cursor={isValid && "pointer"} justify="center" align="center">
+                <Selected
+                  justify="center"
+                  align="center"
+                  rounded="full"
+                  today={today === currentDate}
+                  selected={date === currentDate}
+                >
+                  {isValid ? currentDay : ""}
+                </Selected>
+              </Day>
+            </TableBodyCell>
+          );
+        })}
+      </tr>
+    ));
   };
 
   return (
@@ -83,24 +83,22 @@ const Selected = styled(Flex)`
   width: 80%;
 
   ${(props) =>
-    props.today
-      ? `
+    props.today &&
+    `
     font-weight: 500;
     color: rgb(49, 130, 206);
     border: 2px solid rgb(49, 130, 206);
     border-radius: 1000px;
-  `
-      : undefined}
+  `}
 
   ${(props) =>
-    props.selected
-      ? `
+    props.selected &&
+    `
     font-weight: 500;
     color: white;
     background: rgb(49, 130, 206);
     border-radius: 1000px;
-  `
-      : undefined}
+  `}
 `;
 
 export default CalendarBody;
