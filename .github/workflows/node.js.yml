@@ -44,4 +44,4 @@ jobs:
         uses: actions/setup-node@v1
       - run: yarn
       - name: Lint src
-        run: yarn run-script lint
+        run: yarn lint
