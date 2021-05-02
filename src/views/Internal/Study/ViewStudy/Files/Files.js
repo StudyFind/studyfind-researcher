@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { storage } from "database/firebase";
-import { format } from "functions";
+import { datetime } from "functions";
 import { useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
@@ -27,7 +27,7 @@ function Files() {
         return {
           name: ref.name,
           link: url,
-          date: format.date(meta.timeCreated),
+          date: datetime.getFriendlyDate(meta.timeCreated),
         };
       })
     );

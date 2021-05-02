@@ -19,17 +19,14 @@ date => YYYY-MM-DD format                    Example: "2021-04-30"
 */
 
 const getNow = () => {
-  // returns present unix timestamp in given timezone
   return moment().valueOf();
 };
 
 const getNowUTC = () => {
-  // returns present unix timestamp in utc
   return moment().utc().valueOf();
 };
 
 const getToday = () => {
-  // returns present unix timestamp in utc
   return moment().format("YYYY-MM-DD");
 };
 

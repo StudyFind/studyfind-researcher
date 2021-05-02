@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { format } from "functions";
+import { datetime } from "functions";
 import { resetStudy } from "database/studies";
 
 import { Link } from "components";
@@ -33,7 +33,7 @@ function Update({ study }) {
           Last Updated:
         </Text>
         <Text color="gray.500" ml="4px">
-          {format.date(study.updatedAt)}
+          {datetime.getFriendlyDate(study.updatedAt)}
         </Text>
       </Flex>
       <Button
