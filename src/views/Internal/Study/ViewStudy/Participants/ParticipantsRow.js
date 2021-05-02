@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 import { useParams, useHistory, useLocation } from "react-router-dom";
+import { ActionButton } from "components";
 import { Box, Text, Avatar, Badge } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
 import ParticipantDrawer from "./ParticipantDrawer";
-import ParticipantActionButton from "./ParticipantActionButton";
 
 import Status from "./Status/Status";
 import Screening from "./Screening/Screening";
@@ -66,31 +66,19 @@ function ParticipantsRow({ study, participant }) {
         {participant.score}% eligible
       </Text>
       <Buttons>
-        <ParticipantActionButton
-          name="messages"
-          icon={<FaComment />}
-          onClick={() => handleOpen("messages")}
-        />
-        <ParticipantActionButton
-          name="screening"
+        <ActionButton hint="Messages" icon={<FaComment />} onClick={() => handleOpen("messages")} />
+        <ActionButton
+          hint="Screening"
           icon={<FaClipboard />}
           onClick={() => handleOpen("screening")}
         />
-        <ParticipantActionButton
-          name="meetings"
+        <ActionButton
+          hint="Meetings"
           icon={<FaCalendar />}
           onClick={() => handleOpen("meetings")}
         />
-        <ParticipantActionButton
-          name="reminders"
-          icon={<FaClock />}
-          onClick={() => handleOpen("reminders")}
-        />
-        <ParticipantActionButton
-          name="notes"
-          icon={<FaStickyNote />}
-          onClick={() => handleOpen("notes")}
-        />
+        <ActionButton hint="Reminders" icon={<FaClock />} onClick={() => handleOpen("reminders")} />
+        <ActionButton hint="Notes" icon={<FaStickyNote />} onClick={() => handleOpen("notes")} />
       </Buttons>
       <ParticipantDrawer
         action={action}
