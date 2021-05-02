@@ -20,7 +20,7 @@ function StudyCardLarge({ study }) {
         {study.description}
       </Text>
       <Flex justify="space-between" align="flex-end">
-        <StudyBullets />
+        <StudyBullets age={study.age} sex={study.sex} control={study.control} />
         <StudyResearcher researcher={study.researcher} />
       </Flex>
     </Box>
