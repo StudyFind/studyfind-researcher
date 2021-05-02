@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import moment from "moment";
 import validator from "validator";
 
-import { convert } from "functions";
+import { datetime } from "functions";
 import { auth, firestore } from "database/firebase";
-import { UserContext } from "context";
 
 import { Input } from "components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
@@ -13,7 +12,6 @@ import { Grid, Flex, Button } from "@chakra-ui/react";
 function MeetingsEdit({ meeting, handleCancel }) {
   const location = useLocation();
   const { studyID } = useParams();
-  const { timezone } = useContext(UserContext);
   const participantID = new URLSearchParams(location.search).get("participantID");
 
   const initial = { name: "", link: "", time: "", date: "" };
@@ -25,8 +23,8 @@ function MeetingsEdit({ meeting, handleCancel }) {
       setInputs({
         name: meeting.name,
         link: meeting.link,
-        time: convert.timestampToTime(meeting.time, timezone),
-        date: convert.timestampToDate(meeting.time, timezone),
+        time: datetime.get24HourTime(meeting.time),
+        date: datetime.getStandardDate(meeting.time),
       });
     }
   }, [meeting]);
@@ -73,7 +71,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
     const data = {
       name: inputs.name,
       link: inputs.link,
-      time: convert.datetimeToTimestamp(inputs.date, inputs.time),
+      time: datetime.getTimestampFromDatetime(inputs.date, inputs.time),
       researcherID: auth.currentUser.uid,
       participantID,
       studyID,

@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
-
-import { UserContext } from "context";
 
 import { Grid } from "@chakra-ui/react";
 
@@ -11,10 +9,9 @@ import CalendarBody from "./CalendarBody";
 function Calendar({ date, setDate, today }) {
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
-  const { timezone } = useContext(UserContext);
 
   useEffect(() => {
-    const now = moment().utc().tz(timezone);
+    const now = moment();
     setMonth(now.month());
     setYear(now.year());
   }, []);

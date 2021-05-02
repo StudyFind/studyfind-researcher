@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import { eon } from "functions";
-import { UserContext } from "context";
+import { datetime } from "functions";
 
 import { Tooltip, Text } from "@chakra-ui/react";
 
 function NotificationTime({ time }) {
-  const { timezone } = useContext(UserContext);
-
-  const displayDate = eon.getFriendlyDate(time, timezone);
-  const displayTime = eon.get12HourTime(time, timezone);
-  const relativeTime = eon.getRelativeTime(time, timezone);
+  const displayTime = datetime.get12HourTime(time);
+  const displayDate = datetime.getFriendlyDate(time);
+  const relativeTime = datetime.getRelativeTime(time);
 
   return (
     <Tooltip label={`${displayDate} at ${displayTime}`}>

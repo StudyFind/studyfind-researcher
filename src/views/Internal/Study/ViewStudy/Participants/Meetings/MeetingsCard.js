@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
 import { useConfirm } from "hooks";
-import { convert } from "functions";
+import { datetime } from "functions";
 import { firestore } from "database/firebase";
-import { UserContext } from "context";
 
 import { Box, Flex, Heading, Text, useToast } from "@chakra-ui/react";
 
@@ -13,19 +12,8 @@ import MeetingsButtons from "./MeetingsButtons";
 function MeetingsCard({ meeting, handleEdit }) {
   const toast = useToast();
   const confirm = useConfirm();
-  const { timezone } = useContext(UserContext);
 
   const [loading, setLoading] = useState(false);
-
-  const formatTimestamp = (timestamp) => {
-    const formattedDate = convert.timestampToDate(timestamp, timezone);
-    const formattedTime = convert.timestampToTime(timestamp, timezone);
-    return `${formattedDate} at ${formattedTime}`;
-  };
-
-  const handleJoin = () => {
-    window.open(meeting.link, "_blank");
-  };
 
   const handleConfirm = () => {
     setLoading(true);
@@ -48,16 +36,23 @@ function MeetingsCard({ meeting, handleEdit }) {
     });
   };
 
+  console.log(meeting.time);
+
+  const displayDate = datetime.getFriendlyDate(meeting.time);
+  const displayTime = datetime.get12HourTime(meeting.time);
+
+  console.log(displayDate, displayTime);
+
   return (
     <Box borderWidth="1px" bg="white" rounded="md" p="15px">
       <Heading size="md">{meeting.name}</Heading>
       <Text color="gray.500" fontSize="0.9rem" mb="8px">
-        {formatTimestamp(meeting.time)}
+        {displayDate} at {displayTime}
       </Text>
       <Flex justify="space-between" align="center" mt="16px">
         <MeetingsButtons
           confirmed={meeting.confirmedByParticipant}
-          handleJoin={handleJoin}
+          link={meeting.link}
           handleEdit={() => handleEdit(meeting)}
           handleDelete={handleDelete}
         />
