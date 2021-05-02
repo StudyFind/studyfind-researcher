@@ -78,19 +78,6 @@ function Participants({ study }) {
     return participants;
   };
 
-  const sortByFakename = (participants) => {
-    participants.sort((a, b) => {
-      if (a.fakename > b.fakename) {
-        return 1;
-      } else if (a.fakename < b.fakename) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    return participants;
-  };
-
   const sortByEligiblity = (participants) => {
     participants.sort((a, b) => {
       if (a.score < b.score) {

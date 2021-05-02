@@ -3,13 +3,7 @@ import styled from "styled-components";
 
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { Box, Text, Avatar, Badge } from "@chakra-ui/react";
-import {
-  FaClock,
-  FaCalendar,
-  FaClipboard,
-  FaStickyNote,
-  FaComment,
-} from "react-icons/fa";
+import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
 import ParticipantDrawer from "./ParticipantDrawer";
 import ParticipantActionButton from "./ParticipantActionButton";
@@ -34,22 +28,18 @@ function ParticipantsRow({ study, participant }) {
   const history = useHistory();
 
   const action = new URLSearchParams(location.search).get("action");
-  const participantID = new URLSearchParams(location.search).get(
-    "participantID"
-  );
+  const participantID = new URLSearchParams(location.search).get("participantID");
 
-  const { nctID } = useParams();
+  const { studyID } = useParams();
 
   const isOpen = action && participant.id === participantID;
 
   const handleClose = () => {
-    history.push(`/study/${nctID}/participants`);
+    history.push(`/study/${studyID}/participants`);
   };
 
   const handleOpen = (action) => {
-    history.push(
-      `/study/${nctID}/participants?participantID=${participant.id}&action=${action}`
-    );
+    history.push(`/study/${studyID}/participants?participantID=${participant.id}&action=${action}`);
   };
 
   return (
@@ -105,6 +95,7 @@ function ParticipantsRow({ study, participant }) {
       <ParticipantDrawer
         action={action}
         fakename={participant.fakename}
+        timezone={participant.timezone}
         isOpen={isOpen}
         onClose={handleClose}
       >
@@ -116,10 +107,7 @@ function ParticipantsRow({ study, participant }) {
         {action === "messages" && <Messages participant={participant} />}
         {action === "screening" && (
           <Box p="25px">
-            <Screening
-              questions={study.questions}
-              responses={participant.responses}
-            />
+            <Screening questions={study.questions} responses={participant.responses} />
           </Box>
         )}
         {action === "meetings" && (

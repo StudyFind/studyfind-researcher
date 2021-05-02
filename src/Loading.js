@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Image } from "@chakra-ui/react";
 import Logo from "images/logo.png";
 
 function Loading() {
   return (
     <Flex h="100vh" w="100vw" justify="center" align="center">
-      <Image src={Logo} />
+      <Spinner src={Logo} />
     </Flex>
   );
 }
 
-const Image = styled.img`
+const Spinner = styled(Image)`
   width: 50px;
 
   @-webkit-keyframes rotate-center {

@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import {
   Flex,
@@ -12,7 +13,7 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 
-function ParticipantDrawer({ action, fakename, onClose, isOpen, children }) {
+function ParticipantDrawer({ action, fakename, timezone, onClose, isOpen, children }) {
   return (
     <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
@@ -24,7 +25,7 @@ function ParticipantDrawer({ action, fakename, onClose, isOpen, children }) {
                 {action}
               </Heading>
               <Text fontSize="0.9rem" fontWeight="400" color="gray.500">
-                {fakename}
+                {fakename} ({moment.tz(timezone).zoneAbbr()})
               </Text>
             </div>
             <DrawerCloseButton position="static" />
