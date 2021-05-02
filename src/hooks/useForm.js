@@ -1,26 +1,42 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "@chakra-ui/react";
+import { toasts } from "templates";
+import lodash from "lodash";
 
-function useForm({ initial, validate, submit }) {
+function useForm({ initial, check, submit }) {
   const toast = useToast();
+  const names = Object.keys(initial);
 
-  const [inputs, setInputs] = useState({});
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
+  const validate = () => {
+    const error = {};
 
-  const triggerErrorToast = () => {
-    toast({
-      title: "Connection Error!",
-      description:
-        "Your action could not be completed because of a connection error. Please try again later.",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-      position: "top",
+    names.forEach((name) => {
+      const value = initial[name];
+      error[name] = check(name, value);
     });
+
+    return error;
   };
 
-  const check = (name, value) => validate({ [name]: value })[name];
+  const [inputs, setInputs] = useState(initial);
+  const [errors, setErrors] = useState(validate(initial));
+  const [loading, setLoading] = useState(false);
+
+  const isDifferent = !lodash.isEqual(initial, inputs);
+
+  const triggerErrorToast = () => {
+    toast(toasts.connectionError);
+  };
+
+  const getEmpty = () => {
+    const empty = {};
+
+    names.forEach((name) => {
+      empty[name] = "";
+    });
+
+    return empty;
+  };
 
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
@@ -29,10 +45,14 @@ function useForm({ initial, validate, submit }) {
 
   const handleReset = () => {
     const error = validate(initial);
-    const empty = Object.keys(initial).every((k) => !initial[k]);
-
     setInputs(initial);
-    !empty && setErrors(error);
+    setErrors(error);
+  };
+
+  const handleClear = () => {
+    const empty = getEmpty(initial);
+    setInputs(empty);
+    setErrors(empty);
   };
 
   const handleSubmit = () => {
@@ -45,17 +65,26 @@ function useForm({ initial, validate, submit }) {
       return;
     }
 
-    return submit(inputs)
-      .then(() => handleReset())
-      .catch(() => triggerErrorToast())
-      .finally(() => setLoading(false));
+    if (isDifferent) {
+      return submit(inputs)
+        .then(() => handleReset())
+        .catch(() => triggerErrorToast())
+        .finally(() => setLoading(false));
+    }
   };
 
-  useEffect(() => {
-    handleReset();
-  }, []);
-
-  return { inputs, errors, loading, setInputs, setErrors, handleChange, handleReset, handleSubmit };
+  return {
+    inputs,
+    errors,
+    loading,
+    setInputs,
+    setErrors,
+    handleChange,
+    handleClear,
+    handleReset,
+    handleSubmit,
+    isDifferent,
+  };
 }
 
 export default useForm;
