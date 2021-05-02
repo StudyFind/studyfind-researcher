@@ -24,14 +24,10 @@ function ScreeningView({ study, setEdit }) {
           {study &&
             study.questions &&
             study.questions.length &&
-            study.questions.map((question, index) => (
-              <tr key={index}>
+            study.questions.map((question, i) => (
+              <tr key={i}>
                 <BodyCell nowrap>
-                  <Tag
-                    colorScheme={
-                      question.type === "Inclusion" ? "green" : "red"
-                    }
-                  >
+                  <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
                     {question.type}
                   </Tag>
                 </BodyCell>

@@ -39,8 +39,8 @@ function Status({ participant, handleClose }) {
   return (
     <RadioGroup value={status} onChange={setStatus}>
       <Grid gap="20px" bg="white" rounded="md" borderWidth="1px" p="20px">
-        {["interested", "screened", "consented", "accepted", "rejected"].map((status, index) => (
-          <Radio key={index} value={status}>
+        {["interested", "screened", "consented", "accepted", "rejected"].map((status, i) => (
+          <Radio key={i} value={status}>
             <Flex align="center">
               <Badge colorScheme={statusColors[status]}>{status}</Badge>
             </Flex>

@@ -7,8 +7,8 @@ import MeetingsItem from "./MeetingsItem";
 function MeetingsList({ meetings }) {
   return (
     <Grid gridGap="10px" py="10px">
-      {meetings.map((meeting, index) => (
-        <MeetingsItem key={index} meeting={meeting} />
+      {meetings.map((meeting) => (
+        <MeetingsItem key={meeting.id} meeting={meeting} />
       ))}
     </Grid>
   );

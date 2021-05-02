@@ -41,11 +41,11 @@ const SortableItem = SortableElement(({ value, i, updateQuestion, deleteQuestion
 
 const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
   <Grid gap="10px">
-    {items.map((item, index) => (
+    {items.map((item, i) => (
       <SortableItem
-        key={index}
-        index={index}
-        i={index}
+        key={i}
+        index={i}
+        i={i}
         value={item.value}
         error={item.error}
         updateQuestion={updateQuestion}

@@ -16,8 +16,8 @@ function Field({ name, value, label, placeholder, error, options, onChange, ...r
         value={value}
         onChange={handleChange}
       >
-        {options.map((option, index) => (
-          <option key={index} value={option}>
+        {options.map((option, i) => (
+          <option key={i} value={option}>
             {option}
           </option>
         ))}

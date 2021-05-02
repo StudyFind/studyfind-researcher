@@ -15,8 +15,8 @@ function WelcomeList({ studies }) {
         in the future using their NCT ID.
       </Text>
       <List>
-        {studies.map((study, index) => (
-          <List.Row key={index}>
+        {studies.map((study) => (
+          <List.Row key={study.id}>
             <WelcomeStudy study={study} />
           </List.Row>
         ))}

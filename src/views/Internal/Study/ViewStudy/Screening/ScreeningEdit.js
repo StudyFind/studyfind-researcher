@@ -4,20 +4,9 @@ import lodash from "lodash";
 import { useArray } from "hooks";
 import { updateStudy } from "database/studies";
 
-import {
-  Flex,
-  Grid,
-  Heading,
-  Button,
-  Icon,
-  IconButton,
-} from "@chakra-ui/react";
+import { Flex, Grid, Heading, Button, Icon, IconButton } from "@chakra-ui/react";
 import { Input, Select } from "components";
-import {
-  SortableContainer,
-  SortableElement,
-  SortableHandle,
-} from "react-sortable-hoc";
+import { SortableContainer, SortableElement, SortableHandle } from "react-sortable-hoc";
 import { FaTrash, FaPlus, FaBars } from "react-icons/fa";
 
 function ScreeningEdit({ study, setEdit }) {
@@ -138,52 +127,48 @@ const DragHandle = SortableHandle(() => (
   </Flex>
 ));
 
-const SortableItem = SortableElement(
-  ({ value, error, i, updateQuestion, deleteQuestion }) => (
-    <Flex gridGap="10px" w="100%">
-      <DragHandle />
-      <Select
-        w="210px"
-        name="type"
-        value={value.type}
-        error={error.type}
-        onChange={(name, value) => updateQuestion(i, name, value)}
-        options={["Inclusion", "Exclusion"]}
-      />
-      <Input
-        placeholder="Question Prompt"
-        name="prompt"
-        value={value.prompt}
-        error={error.prompt}
-        onChange={(name, value) => updateQuestion(i, name, value)}
-      />
-      <IconButton
-        colorScheme=""
-        color="gray.500"
-        _hover={{ color: "red.500", bg: "red.100" }}
-        icon={<FaTrash />}
-        onClick={() => deleteQuestion(i)}
-      />
-    </Flex>
-  )
-);
+const SortableItem = SortableElement(({ value, error, i, updateQuestion, deleteQuestion }) => (
+  <Flex gridGap="10px" w="100%">
+    <DragHandle />
+    <Select
+      w="210px"
+      name="type"
+      value={value.type}
+      error={error.type}
+      onChange={(name, value) => updateQuestion(i, name, value)}
+      options={["Inclusion", "Exclusion"]}
+    />
+    <Input
+      placeholder="Question Prompt"
+      name="prompt"
+      value={value.prompt}
+      error={error.prompt}
+      onChange={(name, value) => updateQuestion(i, name, value)}
+    />
+    <IconButton
+      colorScheme=""
+      color="gray.500"
+      _hover={{ color: "red.500", bg: "red.100" }}
+      icon={<FaTrash />}
+      onClick={() => deleteQuestion(i)}
+    />
+  </Flex>
+));
 
-const SortableList = SortableContainer(
-  ({ items, updateQuestion, deleteQuestion }) => (
-    <Grid gap="10px">
-      {items.map((item, index) => (
-        <SortableItem
-          key={index}
-          index={index}
-          i={index}
-          value={item.value}
-          error={item.error}
-          updateQuestion={updateQuestion}
-          deleteQuestion={deleteQuestion}
-        />
-      ))}
-    </Grid>
-  )
-);
+const SortableList = SortableContainer(({ items, updateQuestion, deleteQuestion }) => (
+  <Grid gap="10px">
+    {items.map((item, i) => (
+      <SortableItem
+        key={i}
+        index={i}
+        i={i}
+        value={item.value}
+        error={item.error}
+        updateQuestion={updateQuestion}
+        deleteQuestion={deleteQuestion}
+      />
+    ))}
+  </Grid>
+));
 
 export default ScreeningEdit;

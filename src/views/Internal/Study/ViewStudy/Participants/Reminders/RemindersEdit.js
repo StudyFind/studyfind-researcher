@@ -28,15 +28,15 @@ function RemindersEdit({
       <div>
         <FormLabel>Reminder Weekdays</FormLabel>
         <Weekdays>
-          {weekdayAcronyms.map((value, index) => (
+          {weekdayAcronyms.map((value, i) => (
             <Button
-              key={index}
-              colorScheme={inputs.weekdays[index] ? "blue" : "gray"}
-              color={inputs.weekdays[index] ? "white" : "gray.500"}
-              bg={inputs.weekdays[index] ? "blue.500" : "white"}
-              borderColor={inputs.weekdays[index] ? "blue.500" : "rgb(226, 232, 240)"}
+              key={i}
+              colorScheme={inputs.weekdays[i] ? "blue" : "gray"}
+              color={inputs.weekdays[i] ? "white" : "gray.500"}
+              bg={inputs.weekdays[i] ? "blue.500" : "white"}
+              borderColor={inputs.weekdays[i] ? "blue.500" : "rgb(226, 232, 240)"}
               borderWidth="1px"
-              onClick={() => handleDayToggle(index)}
+              onClick={() => handleDayToggle(i)}
               _focus={{ zIndex: 100 }}
             >
               {value}
@@ -61,10 +61,10 @@ function RemindersEdit({
         />
         <Flex gridGap="8px" mt="8px" wrap="wrap">
           {inputs.times &&
-            inputs.times.map((time, index) => (
-              <Tag key={index} colorScheme="blue">
+            inputs.times.map((time, i) => (
+              <Tag key={i} colorScheme="blue">
                 <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")}</TagLabel>
-                <TagCloseButton onClick={() => handleDeleteTime(index)} />
+                <TagCloseButton onClick={() => handleDeleteTime(i)} />
               </Tag>
             ))}
         </Flex>

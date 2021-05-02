@@ -10,7 +10,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import NotificationIcon from "./NotificationIcon";
 import NotificationTime from "./NotificationTime";
 
-function Notification({ notification }) {
+function NotificationItem({ notification }) {
   const [read] = useState(notification.read);
   /*
     ^^^^^
@@ -73,4 +73,4 @@ const NotificationLink = styled(Link)`
   width: 100%;
 `;
 
-export default Notification;
+export default NotificationItem;

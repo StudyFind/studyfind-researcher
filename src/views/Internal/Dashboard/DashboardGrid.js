@@ -14,8 +14,8 @@ function DashboardGrid({ verified, studies }) {
         <DashboardButton verified={verified} />
       </Flex>
       <Grid gap="25px" templateColumns="1fr 1fr" align="flex-start">
-        {studies.map((study, i) => (
-          <StudyCardSmall key={i} study={study} />
+        {studies.map((study) => (
+          <StudyCardSmall key={study.id} study={study} />
         ))}
       </Grid>
     </>

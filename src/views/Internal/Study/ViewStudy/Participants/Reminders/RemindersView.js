@@ -53,26 +53,26 @@ function RemindersView({
         </Heading>
       </Flex>
       {reminders &&
-        reminders.map((reminder, index) => (
-          <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">
+        reminders.map((reminder) => (
+          <Box key={reminder.id} borderWidth="1px" bg="white" rounded="md" p="15px">
             <Heading size="md">{reminder.title}</Heading>
             <Text color="gray.500" fontSize="0.9rem" mb="8px">
               {moment(reminder.startDate).format("LL")} to {moment(reminder.endDate).format("LL")}
             </Text>
             <Weekdays>
-              {getDaysFromOffsets(reminder.times).map((value, index) => (
+              {getDaysFromOffsets(reminder.times).map((value, i) => (
                 <Tag
-                  key={index}
+                  key={i}
                   color={value ? "white" : "gray.500"}
                   bg={value ? "blue.500" : "gray.100"}
                 >
-                  {weekdayAcronyms[index]}
+                  {weekdayAcronyms[i]}
                 </Tag>
               ))}
             </Weekdays>
             <Flex gridGap="8px" my="8px">
-              {getTimesFromOffsets(reminder.times).map((time, index) => (
-                <Tag key={index} colorScheme="blue">
+              {getTimesFromOffsets(reminder.times).map((time) => (
+                <Tag key={time.id} colorScheme="blue">
                   <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")}</TagLabel>
                 </Tag>
               ))}

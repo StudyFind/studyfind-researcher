@@ -9,8 +9,8 @@ function MeetingsView({ meetings, handleEdit }) {
   return (
     <Grid gap="15px">
       <NewCardButton onClick={() => handleEdit()}>New Meeting</NewCardButton>
-      {meetings?.map((meeting, i) => (
-        <MeetingsCard key={i} meeting={meeting} handleEdit={handleEdit} />
+      {meetings?.map((meeting) => (
+        <MeetingsCard key={meeting.id} meeting={meeting} handleEdit={handleEdit} />
       ))}
     </Grid>
   );

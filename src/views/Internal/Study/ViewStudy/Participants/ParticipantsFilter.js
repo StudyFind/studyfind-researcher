@@ -22,9 +22,9 @@ function ParticipantsFilter({ sort, setSort, status, setStatus, search, setSearc
       <div>
         <FormLabel>Status</FormLabel>
         <Stack spacing={0}>
-          {["interested", "screened", "consented", "rejected", "accepted"].map((name, index) => (
+          {["interested", "screened", "consented", "rejected", "accepted"].map((name, i) => (
             <Checkbox
-              key={index}
+              key={i}
               isChecked={status[name]}
               onChange={(e) => setStatus({ ...status, [name]: e.target.checked })}
               textTransform="capitalize"

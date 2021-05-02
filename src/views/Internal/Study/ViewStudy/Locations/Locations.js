@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Flex,
-  Heading,
-  Text,
-  OrderedList,
-  ListItem,
-  Box,
-} from "@chakra-ui/react";
+import { Flex, Heading, Text, OrderedList, ListItem, Box } from "@chakra-ui/react";
 import { Message } from "components";
 
 function Locations({ study }) {
@@ -17,10 +10,10 @@ function Locations({ study }) {
       </Flex>
       <Flex direction="column" align="flex-start">
         <OrderedList>
-          {study.locations.map((location, index) => {
+          {study.locations.map((location, i) => {
             const address = `${location.localLocation.trim()}, ${location.nationalLocation.trim()}`;
             return (
-              <ListItem key={index} my="4px">
+              <ListItem key={i} my="4px">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"

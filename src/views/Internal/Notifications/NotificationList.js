@@ -9,8 +9,8 @@ function NotificationList({ notifications, fetchedAll, additionalLoading, handle
   return (
     <>
       <List borderWidth="1px" rounded="md" bg="white">
-        {notifications.map((notification, i) => (
-          <List.Row key={i}>
+        {notifications.map((notification) => (
+          <List.Row key={notification.id}>
             <NotificationItem notification={notification} />
           </List.Row>
         ))}
