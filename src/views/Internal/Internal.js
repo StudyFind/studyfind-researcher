@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection } from "hooks";
+import { useDocument, useCollection, useTimezone } from "hooks";
 import { UserContext, StudiesContext, ConfirmContext } from "context";
 
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -23,11 +23,6 @@ import Feedback from "views/Internal/Feedback/Feedback";
 
 function Internal() {
   const { uid, email, emailVerified } = auth.currentUser;
-  const [confirm, setConfirm] = useState(null);
-
-  const handleClose = () => {
-    setConfirm(null);
-  };
 
   const userRef = firestore.collection("researchers").doc(uid);
   const studiesRef = firestore
@@ -37,6 +32,14 @@ function Internal() {
 
   const [user] = useDocument(userRef);
   const [studies] = useCollection(studiesRef);
+
+  useTimezone(user);
+
+  const [confirm, setConfirm] = useState(null);
+
+  const handleClose = () => {
+    setConfirm(null);
+  };
 
   return (
     <Flex>
