@@ -18,11 +18,12 @@ import {
 import StudyFindLogo from "images/logo.png";
 
 function Sidebar({ name, email }) {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   const isSelected = (path) => {
-    const getPrimary = (p) => p.split("/")[1];
-    return getPrimary(path) === getPrimary(location.pathname);
+    const pagename = path.split("/")[1];
+    const truename = pathname.split("/")[1];
+    return pagename === truename;
   };
 
   const links = [
