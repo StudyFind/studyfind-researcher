@@ -3,8 +3,8 @@ import lodash from "lodash";
 
 import { updateStudy } from "database/studies";
 
-import { Grid, Flex, Button, Heading } from "@chakra-ui/react";
 import { Textarea } from "components";
+import { Flex, Grid, Heading, Button } from "@chakra-ui/react";
 
 import DescriptionAccessibilityScore from "molecules/DescriptionAccessibilityScore";
 
@@ -29,12 +29,11 @@ function DetailsEdit({ study, setEdit }) {
 
   const characterCheck = (name, value, min, max) => {
     const isInvalid = value.length < min || value.length > max;
-    return isInvalid
-      ? `Please ensure that the study ${name} is between ${min} and ${max} characters`
-      : "";
+    const errorMessage = `Please ensure that the study ${name} is between ${min} and ${max} characters`;
+    return isInvalid ? errorMessage : "";
   };
 
-  const checker = (name, value) => {
+  const check = (name, value) => {
     const [min, max] = {
       title: [50, 100],
       description: [300, 500],
@@ -43,29 +42,33 @@ function DetailsEdit({ study, setEdit }) {
   };
 
   const validate = ({ title, description }) => ({
-    title: checker("title", title),
-    description: checker("description", description),
+    title: check("title", title),
+    description: check("description", description),
   });
 
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: checker(name, value) });
+    setErrors({ ...errors, [name]: check(name, value) });
   };
 
   const handleCancel = () => {
-    setInputs({ title: study.title, description: study.description });
+    resetInputs();
     setEdit(false);
   };
 
   const handleSubmit = () => {
-    const err = validate(inputs);
+    const error = validate(inputs);
+    const valid = Object.values(error).every((v) => !v);
 
-    setErrors(err);
-    const errorExists = Object.keys(err).some((i) => err[i]);
-    if (errorExists) return;
+    if (!valid) {
+      setErrors(error);
+      return;
+    }
 
-    const updated = { title: inputs.title, description: inputs.description };
-    updateStudy(study.id, updated);
+    if (isDifferent) {
+      updateStudy(study.id, inputs);
+    }
+
     setEdit(false);
   };
 
@@ -74,13 +77,7 @@ function DetailsEdit({ study, setEdit }) {
       <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Edit Details</Heading>
         <Flex justify="flex-end" gridGap="10px">
-          <Button
-            colorScheme=""
-            color="gray.500"
-            bg="gray.200"
-            _hover={{ bg: "gray.300" }}
-            onClick={handleCancel}
-          >
+          <Button colorScheme="gray" color="gray.500" onClick={handleCancel}>
             Cancel
           </Button>
           {isDifferent && (

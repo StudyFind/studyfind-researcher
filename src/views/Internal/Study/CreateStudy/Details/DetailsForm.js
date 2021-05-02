@@ -4,7 +4,7 @@ import lodash from "lodash";
 import { updateStudy } from "database/studies";
 
 import { Form, Textarea } from "components";
-import { Button, Grid, Flex } from "@chakra-ui/react";
+import { Flex, Grid, Button } from "@chakra-ui/react";
 import { FaEraser, FaUndo } from "react-icons/fa";
 
 function DetailsForm({ study, next, back }) {
@@ -14,6 +14,7 @@ function DetailsForm({ study, next, back }) {
   const { title, description } = study;
   const original = { title, description };
   const isDifferent = !lodash.isEqual(original, inputs);
+  const isInputNotEmpty = !Object.values(inputs).every((v) => !v);
 
   const clearInputs = () => {
     if (study.id) {
@@ -33,42 +34,48 @@ function DetailsForm({ study, next, back }) {
     resetInputs();
   }, [study]);
 
-  const characterCheck = (name, value, min, max) => {
-    const isInvalid = value.length < min || value.length > max;
-    return isInvalid
-      ? `Please ensure that the study ${name} is between ${min} and ${max} characters`
-      : "";
-  };
+  const check = (name, value) => {
+    if (!value) {
+      return true;
+    }
 
-  const checker = (name, value) => {
     const [min, max] = {
       title: [50, 100],
       description: [300, 500],
     }[name];
-    return characterCheck(name, value, min, max);
+
+    const length = value.length;
+    const meetsMinLength = length >= min;
+    const meetsMaxLength = length <= max;
+
+    if (meetsMinLength && meetsMaxLength) {
+      return false;
+    }
+
+    return `Please ensure that the study ${name} is between ${min} and ${max} characters`;
   };
 
   const validate = ({ title, description }) => ({
-    title: checker("title", title),
-    description: checker("description", description),
+    title: check("title", title),
+    description: check("description", description),
   });
 
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: checker(name, value) });
+    setErrors({ ...errors, [name]: check(name, value) });
   };
 
   const handleSubmit = () => {
-    const { title, description } = inputs;
-    const err = validate({ title, description });
+    const error = validate(inputs);
+    const valid = Object.values(error).every((v) => !v);
 
-    if (err.title || err.description) {
-      setErrors(err);
+    if (!valid) {
+      setErrors(error);
       return;
     }
 
     if (isDifferent) {
-      updateStudy(study.id, { title, description });
+      updateStudy(study.id, inputs);
     }
 
     next();
@@ -91,7 +98,7 @@ function DetailsForm({ study, next, back }) {
             Undo Changes
           </Button>
         )}
-        {(inputs.title || inputs.description) && (
+        {isInputNotEmpty && (
           <Button
             size="sm"
             leftIcon={<FaEraser />}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
+
 import { useTabs } from "hooks";
 import { StudiesContext } from "context";
-
-import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 import { Message } from "components";

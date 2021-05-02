@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StudiesContext } from "context";
+
 import { useParams, useHistory } from "react-router-dom";
+import { StudiesContext } from "context";
+
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 import { Message } from "components";
 

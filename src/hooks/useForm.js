@@ -37,7 +37,7 @@ function useForm({ initial, validate, submit }) {
 
   const handleSubmit = () => {
     const error = validate(inputs);
-    const valid = Object.keys(error).every((k) => !error[k]);
+    const valid = Object.values(error).every((v) => !v);
 
     if (!valid) {
       setErrors(error);

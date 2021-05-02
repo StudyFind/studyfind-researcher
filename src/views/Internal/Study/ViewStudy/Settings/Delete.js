@@ -1,48 +1,36 @@
-import React, { useState, useRef } from "react";
-import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-
-import { Form, Input } from "components";
-import {
-  Heading,
-  Text,
-  Button,
-  Box,
-  useToast,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
 
 import { deleteStudy } from "database/studies";
+import { useHistory } from "react-router-dom";
+import { useConfirm } from "hooks";
+
+import { Form, Input } from "components";
+import { Box, Grid, Heading, Text, Button, useToast } from "@chakra-ui/react";
 
 function Delete({ study }) {
   const toast = useToast();
-  const [studyID, setNctID] = useState("");
+  const confirm = useConfirm();
+  const [nctID, setNctID] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const cancelRef = useRef();
-
   const history = useHistory();
 
-  const handleChange = (name, value) => {
+  const handleChange = (_, value) => {
     setNctID(value);
     setError("");
   };
 
-  const handleCancel = () => {
-    setIsOpen(false);
-    setNctID("");
-  };
-
   const handleDelete = () => {
-    if (studyID === study.id) {
-      setIsOpen(true);
+    if (nctID === study.id) {
+      confirm({
+        title: "Delete Study",
+        description: `This is a permanant action and cannot be undone. Are you sure you want to delete study with study number ${nctID}?`,
+        color: "red",
+        button: "Delete",
+        loading,
+        handleConfirm,
+      });
     } else {
       setError("Entered ID does not match");
     }
@@ -89,46 +77,16 @@ function Delete({ study }) {
         Please type <strong>{study.id}</strong> to confirm:
       </Text>
 
-      <DeleteForm onSubmit={handleDelete}>
-        <Input placeholder="NCT00000000" value={studyID} error={error} onChange={handleChange} />
-        <Button type="submit" colorScheme="red">
-          Delete
-        </Button>
-      </DeleteForm>
-
-      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={handleCancel} size="lg">
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Study
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              Are you sure you want to delete study <b>{studyID}</b>?
-              <br />
-              This is a permanant action and cannot be undone.
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={handleCancel}>
-                Cancel
-              </Button>
-              <Button colorScheme="red" onClick={handleConfirm} ml={3} isLoading={loading}>
-                Delete
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+      <Form onSubmit={handleDelete}>
+        <Grid gap="10px" w="210px">
+          <Input placeholder="NCT00000000" value={nctID} error={error} onChange={handleChange} />
+          <Button type="submit" colorScheme="red">
+            Delete
+          </Button>
+        </Grid>
+      </Form>
     </Box>
   );
 }
-
-const DeleteForm = styled(Form)`
-  display: grid;
-  grid-gap: 10px;
-  width: 100%;
-  width: 210px;
-`;
 
 export default Delete;

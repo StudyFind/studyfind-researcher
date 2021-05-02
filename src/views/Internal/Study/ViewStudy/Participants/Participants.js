@@ -143,19 +143,9 @@ function Participants({ study }) {
         />
       )}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {participantsFiltered && participantsFiltered.length ? (
-          participantsFiltered.map((participant, index) => (
-            <ParticipantsRow key={index} study={study} participant={participant} />
-          ))
-        ) : (
-          <Box h="500px">
-            <Message
-              status="failure"
-              title="Empty Filter Results"
-              description="Your filters matched no participants"
-            />
-          </Box>
-        )}
+        {participantsFiltered?.map((participant) => (
+          <ParticipantsRow key={participant.id} study={study} participant={participant} />
+        ))}
       </Box>
     </>
   );

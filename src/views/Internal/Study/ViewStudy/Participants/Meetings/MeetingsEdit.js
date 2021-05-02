@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
 import moment from "moment";
 import validator from "validator";
 
 import { datetime } from "functions";
 import { auth, firestore } from "database/firebase";
+import { useParams, useLocation } from "react-router-dom";
 
 import { Input } from "components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
@@ -61,7 +61,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
 
   const handleSubmit = () => {
     const error = validate(inputs);
-    const valid = Object.keys(error).every((k) => !error[k]);
+    const valid = Object.values(error).every((v) => !v);
 
     if (!valid) {
       setErrors(error);
