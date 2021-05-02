@@ -9,11 +9,13 @@ function Schedule() {
   const today = moment().format("YYYY-MM-DD");
   const [date, setDate] = useState(today);
 
+  const displayDate = datetime.getFriendlyDate(date);
+
   return (
     <Grid gap="50px" templateColumns="1fr 300px">
       <Box>
         <Heading size="lg">Meetings</Heading>
-        <Text color="gray.500">{datetime.getFriendlyDate(date)}</Text>
+        <Text color="gray.500">{displayDate}</Text>
         <Meetings date={date} />
       </Box>
       <Calendar today={today} date={date} setDate={setDate} />
