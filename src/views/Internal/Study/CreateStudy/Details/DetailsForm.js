@@ -12,6 +12,7 @@ function DetailsForm({ study, next, back }) {
   const {
     inputs,
     errors,
+    loading,
     handleChange,
     handleSubmit,
     handleClear,
@@ -45,7 +46,7 @@ function DetailsForm({ study, next, back }) {
         <Button color="gray.500" variant="outline" onClick={back}>
           Back
         </Button>
-        <Button type="submit" colorScheme="blue" onClick={handleSubmitModified}>
+        <Button type="submit" colorScheme="blue" onClick={handleSubmitModified} isLoading={loading}>
           Next
         </Button>
       </Flex>

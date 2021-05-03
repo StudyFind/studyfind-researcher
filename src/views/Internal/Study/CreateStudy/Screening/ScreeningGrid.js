@@ -11,6 +11,7 @@ function ScreeningGrid({
   back,
   values,
   errors,
+  loading,
   original,
   createQuestion,
   updateQuestion,
@@ -51,7 +52,7 @@ function ScreeningGrid({
         <Button color="gray.500" variant="outline" onClick={back}>
           Back
         </Button>
-        <Button colorScheme="blue" onClick={handleSubmit} type="submit">
+        <Button colorScheme="blue" onClick={handleSubmit} type="submit" isLoading={loading}>
           Next
         </Button>
       </Flex>

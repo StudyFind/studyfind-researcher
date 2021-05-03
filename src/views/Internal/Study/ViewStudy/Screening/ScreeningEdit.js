@@ -31,6 +31,8 @@ function ScreeningEdit({ study, setEdit }) {
     setEdit(false);
   };
 
+  const isDifferent = !lodash.isEqual(values, study.questions);
+
   return (
     <>
       <Flex justify="space-between" align="center" my="15px">
@@ -39,12 +41,12 @@ function ScreeningEdit({ study, setEdit }) {
           <Button colorScheme="gray" color="gray.500" onClick={handleCancel}>
             Cancel
           </Button>
-          {values?.length ? (
+          {values?.length && (
             <Button colorScheme="red" onClick={clearQuestions}>
               Delete All
             </Button>
-          ) : null}
-          {!lodash.isEqual(values, study.questions) && (
+          )}
+          {isDifferent && (
             <Button colorScheme="green" onClick={handleSubmitModified} isLoading={loading}>
               Save Changes
             </Button>

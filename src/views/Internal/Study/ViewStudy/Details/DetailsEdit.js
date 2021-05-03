@@ -6,9 +6,15 @@ import { Flex, Heading, Button } from "@chakra-ui/react";
 import DetailsInputs from "molecules/DetailsInputs";
 
 function DetailsEdit({ study, setEdit }) {
-  const { inputs, errors, handleChange, handleSubmit, handleReset, isDifferent } = useDetails(
-    study
-  );
+  const {
+    inputs,
+    errors,
+    loading,
+    handleChange,
+    handleSubmit,
+    handleReset,
+    isDifferent,
+  } = useDetails(study);
 
   const handleSubmitModified = () => {
     handleSubmit().then(() => setEdit(false));
@@ -28,7 +34,7 @@ function DetailsEdit({ study, setEdit }) {
             Cancel
           </Button>
           {isDifferent && (
-            <Button colorScheme="green" onClick={handleSubmitModified}>
+            <Button colorScheme="green" onClick={handleSubmitModified} isLoading={loading}>
               Save Changes
             </Button>
           )}

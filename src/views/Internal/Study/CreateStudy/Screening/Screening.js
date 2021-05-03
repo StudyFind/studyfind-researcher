@@ -7,6 +7,7 @@ function Screening({ study, next, back }) {
   const {
     values,
     errors,
+    loading,
     createQuestion,
     updateQuestion,
     deleteQuestion,
@@ -27,6 +28,7 @@ function Screening({ study, next, back }) {
         back={back}
         values={values}
         errors={errors}
+        loading={loading}
         original={study.questions}
         createQuestion={createQuestion}
         updateQuestion={updateQuestion}
