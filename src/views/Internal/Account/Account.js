@@ -113,7 +113,7 @@ function Account() {
     },
   ];
 
-  const [tabIndex, setTabIndex] = useTabs(tabs);
+  const [tabIndex, setTabIndex] = useTabs("/account", tabs);
 
   useEffect(() => {
     !loading && handleCancel();

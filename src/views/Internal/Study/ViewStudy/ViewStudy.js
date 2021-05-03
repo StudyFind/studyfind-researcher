@@ -29,7 +29,7 @@ function ViewStudy() {
     { name: "settings", content: <Settings study={study} /> },
   ];
 
-  const [tabIndex, setTabIndex] = useTabs(tabs);
+  const [tabIndex, setTabIndex] = useTabs(`/study/${studyID}`, tabs);
 
   useEffect(() => {
     setStudy(studies.find((study) => study.id === studyID));

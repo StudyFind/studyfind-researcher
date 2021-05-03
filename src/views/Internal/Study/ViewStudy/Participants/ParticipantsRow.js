@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+
 import { ActionButton } from "components";
 import { Box, Text, Avatar, Badge } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
@@ -24,13 +25,9 @@ function ParticipantsRow({ study, participant }) {
     rejected: "red",
   };
 
-  const location = useLocation();
   const history = useHistory();
 
-  const action = new URLSearchParams(location.search).get("action");
-  const participantID = new URLSearchParams(location.search).get("participantID");
-
-  const { studyID } = useParams();
+  const { studyID, action, participantID } = useParams();
 
   const isOpen = action && participant.id === participantID;
 
@@ -39,7 +36,7 @@ function ParticipantsRow({ study, participant }) {
   };
 
   const handleOpen = (action) => {
-    history.push(`/study/${studyID}/participants?participantID=${participant.id}&action=${action}`);
+    history.push(`/study/${studyID}/participants/${action}/${participant.id}`);
   };
 
   return (

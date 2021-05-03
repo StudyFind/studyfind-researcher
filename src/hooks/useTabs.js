@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
-function useTabs(tabs) {
+function useTabs(root, tabs) {
   const { tab } = useParams();
   const history = useHistory();
 
@@ -25,7 +25,26 @@ function useTabs(tabs) {
   }, [tab]);
 
   useEffect(() => {
-    history.push(tabs[tabIndex]?.name);
+    const url = history.location.pathname;
+    const rootPath = url.slice(0, root.length);
+    const restPath = url.slice(2 + root.length + tab.length);
+    const tabName = tabs[tabIndex]?.name;
+
+    if (root !== rootPath) {
+      console.error("Root path does not match url path");
+      return;
+    }
+
+    if (tabName === undefined) {
+      console.error("Tabs name is invalid");
+      return;
+    }
+
+    if (restPath) {
+      history.push(`${root}/${tabName}/${restPath}`);
+    } else {
+      history.push(`${root}/${tabName}`);
+    }
   }, [tabIndex]);
 
   useEffect(() => {
