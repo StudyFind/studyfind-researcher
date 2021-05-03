@@ -7,11 +7,11 @@ function useForm({ initial, check, submit }) {
   const toast = useToast();
   const names = Object.keys(initial);
 
-  const validate = () => {
+  const validate = (values) => {
     const error = {};
 
     names.forEach((name) => {
-      const value = initial[name];
+      const value = values[name];
       error[name] = check(name, value);
     });
 
@@ -55,23 +55,28 @@ function useForm({ initial, check, submit }) {
     setErrors(empty);
   };
 
-  const handleSubmit = () => {
-    const error = validate(inputs);
-    const valid = Object.values(error).every((v) => !v);
+  const handleSubmit = () =>
+    new Promise((resolve, reject) => {
+      const error = validate(inputs);
+      const valid = Object.values(error).every((v) => !v);
 
-    if (!valid) {
-      setErrors(error);
-      setLoading(false);
-      return;
-    }
+      if (!valid) {
+        setErrors(error);
+        setLoading(false);
+        reject();
+        return;
+      }
 
-    if (isDifferent) {
-      return submit(inputs)
-        .then(() => handleReset())
-        .catch(() => triggerErrorToast())
-        .finally(() => setLoading(false));
-    }
-  };
+      if (isDifferent) {
+        return submit(inputs)
+          .then(() => resolve())
+          .catch(() => {
+            triggerErrorToast();
+            reject();
+          })
+          .finally(() => setLoading(false));
+      }
+    });
 
   return {
     inputs,

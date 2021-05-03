@@ -11,8 +11,7 @@ function DetailsEdit({ study, setEdit }) {
   );
 
   const handleSubmitModified = () => {
-    handleSubmit();
-    setEdit(false);
+    handleSubmit().then(() => setEdit(false));
   };
 
   const handleResetModified = () => {

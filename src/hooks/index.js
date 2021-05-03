@@ -9,3 +9,4 @@ export { default as useCollection } from "./useCollection";
 export { default as useRealtimePagination } from "./useRealtimePagination";
 
 export { default as useDetails } from "./useDetails";
+export { default as useScreening } from "./useScreening";

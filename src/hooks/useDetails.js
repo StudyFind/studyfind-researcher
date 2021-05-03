@@ -12,7 +12,7 @@ function useDetails({ id, title, description }) {
       description: [300, 500],
     }[name];
 
-    if (value.length < min && value.length > max) {
+    if (value.length < min || value.length > max) {
       return `Please ensure that the study ${name} is between ${min} and ${max} characters`;
     }
   };
