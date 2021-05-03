@@ -13,9 +13,12 @@ function Feedback() {
   const toast = useToast();
 
   const { inputs, errors, loading, handleChange, handleSubmit } = useForm({
-    initial: { title: "", body: "" },
+    initial: {
+      title: "",
+      body: "",
+    },
 
-    validate: ({ title, body }) => ({ title: !title, body: !body }),
+    check: (value) => !value,
 
     submit: ({ title, body }) => {
       const email = auth.currentUser.email;
