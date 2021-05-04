@@ -10,3 +10,4 @@ export { default as Textarea } from "./Textarea";
 export { default as FileInput } from "./FileInput";
 export { default as EditorButton } from "./EditorButton";
 export { default as ActionButton } from "./ActionButton";
+export { default as ClipboardButton } from "./ClipboardButton";

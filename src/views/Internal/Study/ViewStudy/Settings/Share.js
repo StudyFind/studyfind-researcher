@@ -1,16 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Link } from "components";
-import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
-import { FaCopy, FaCheckCircle } from "react-icons/fa";
+import { Link, ClipboardButton } from "components";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 function Share({ study }) {
   const link = `https://participant.studyfind.org/study/${study.id}`;
-  const [success, setSuccess] = useState(false);
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(link).then(() => setSuccess(true));
-  };
 
   return (
     <Box p="20px">
@@ -24,22 +18,9 @@ function Share({ study }) {
         <Link to={link}>{link}</Link>
       </Box>
       <Flex gridGap="10px" mt="20px">
-        {success ? (
-          <Button
-            variant="outline"
-            color="green.500"
-            bg="green.50"
-            _hover={{ bg: "green.50" }}
-            leftIcon={<FaCheckCircle />}
-            onClick={handleCopyLink}
-          >
-            Copied!
-          </Button>
-        ) : (
-          <Button variant="outline" color="gray.500" leftIcon={<FaCopy />} onClick={handleCopyLink}>
-            Copy Link
-          </Button>
-        )}
+        <ClipboardButton link={link} copiedText="Copied!">
+          Copy Link
+        </ClipboardButton>
       </Flex>
     </Box>
   );
