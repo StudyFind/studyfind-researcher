@@ -123,7 +123,7 @@ function Participants({ study }) {
       <Flex justify="space-between" align="center" my="15px">
         <Heading fontSize="28px">Participants</Heading>
         {toggle ? (
-          <Button color="gray.500" onClick={() => setToggle(false)}>
+          <Button variant="outline" color="gray.500" onClick={() => setToggle(false)}>
             Clear Filters
           </Button>
         ) : (
