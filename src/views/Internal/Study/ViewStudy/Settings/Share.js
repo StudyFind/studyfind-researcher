@@ -13,7 +13,7 @@ function Share({ study }) {
   };
 
   return (
-    <Box p="20px" borderBottom="1px solid #f1f2f3">
+    <Box p="20px">
       <Heading mb="8px" size="md">
         Share Study
       </Heading>
