@@ -3,7 +3,7 @@ import { firestore } from "database/firebase";
 
 import moment from "moment";
 
-function useTimezone(user) {
+function useDetectTimezone(user) {
   useEffect(() => {
     if (user) {
       const timezone = user.timezone;
@@ -16,7 +16,6 @@ function useTimezone(user) {
 
         if (guessed !== timezone) {
           firestore.collection("researchers").doc(user.id).update({ timezone: guessed });
-
           moment.tz.setDefault(guessed);
         }
       }
@@ -24,4 +23,4 @@ function useTimezone(user) {
   }, [user]);
 }
 
-export default useTimezone;
+export default useDetectTimezone;

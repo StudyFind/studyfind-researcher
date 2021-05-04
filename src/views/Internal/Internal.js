@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection, useTimezone, useNotificationToast } from "hooks";
+import { useDocument, useCollection, useDetectTimezone, useNotificationToast } from "hooks";
 import { UserContext, StudiesContext, ConfirmContext } from "context";
 
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -25,16 +25,25 @@ function Internal() {
   const { uid, email, emailVerified } = auth.currentUser;
 
   const userRef = firestore.collection("researchers").doc(uid);
+
   const studiesRef = firestore
     .collection("studies")
     .where("researcher.id", "==", uid)
     .orderBy("updatedAt", "desc");
 
+  const notificationsRef = firestore
+    .collection("researchers")
+    .doc(auth.currentUser.uid)
+    .collection("notifications")
+    .orderBy("time", "desc")
+    .limit(10);
+
   const [user] = useDocument(userRef);
   const [studies] = useCollection(studiesRef);
+  const [notifications] = useCollection(notificationsRef);
 
-  useTimezone(user);
-  useNotificationToast();
+  useDetectTimezone(user);
+  useNotificationToast(notifications);
 
   const [confirm, setConfirm] = useState(null);
 
