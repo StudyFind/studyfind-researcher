@@ -29,9 +29,9 @@ function Share({ study }) {
             variant="outline"
             color="green.500"
             bg="green.50"
+            _hover={{ bg: "green.50" }}
             leftIcon={<FaCheckCircle />}
             onClick={handleCopyLink}
-            _hover={{ bg: "green.50" }}
           >
             Copied!
           </Button>
