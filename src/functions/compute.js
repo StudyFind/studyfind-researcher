@@ -18,7 +18,9 @@ const compute = {
     const syllablesList = wordList.map((word) => syllable(word));
     const syllables = words ? syllablesList.reduce((a, b) => a + b) : 0;
 
-    let score = flesch({ sentence: sentences, word: words, syllable: syllables });
+    const BIAS = 20;
+
+    let score = BIAS + flesch({ sentence: sentences, word: words, syllable: syllables });
     if (score > 100) score = 100;
     if (score < 0) score = 0;
 
