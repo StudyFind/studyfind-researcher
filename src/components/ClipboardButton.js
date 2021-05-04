@@ -13,9 +13,10 @@ function ClipboardButton({ children, link, copiedText }) {
   return success ? (
     <Button
       variant="outline"
-      color="green.500"
-      bg="green.50"
-      _hover={{ bg: "green.50" }}
+      colorScheme="green"
+      bg="green.100"
+      borderColor="green.200"
+      _hover={{ bg: "green.100" }}
       leftIcon={<FaCheckCircle />}
       onClick={handleCopyLink}
     >

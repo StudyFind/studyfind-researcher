@@ -2,15 +2,20 @@ import React from "react";
 import { Button } from "@chakra-ui/react";
 
 function EditorButton({ children, icon, color, onClick }) {
+  const colorText = `${color}.500`;
+  const colorBack = `${color}.100`;
+  const colorHover = `${color}.200`;
+  const colorBorder = `${color}.500`;
+
   return (
     <Button
       size="sm"
       leftIcon={icon}
-      bg={`${color}.100`}
-      color={`${color}.500`}
+      bg={colorBack}
+      color={colorText}
       borderWidth="1px"
-      borderColor={`${color}.500`}
-      _hover={{ bg: `${color}.200` }}
+      borderColor={colorBorder}
+      _hover={{ bg: colorHover }}
       onClick={onClick}
     >
       {children}

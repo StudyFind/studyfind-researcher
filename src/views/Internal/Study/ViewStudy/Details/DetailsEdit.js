@@ -30,7 +30,7 @@ function DetailsEdit({ study, setEdit }) {
       <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Edit Details</Heading>
         <Flex justify="flex-end" gridGap="10px">
-          <Button colorScheme="gray" color="gray.500" onClick={handleResetModified}>
+          <Button variant="outline" color="gray.500" onClick={handleResetModified}>
             Cancel
           </Button>
           {isDifferent && (

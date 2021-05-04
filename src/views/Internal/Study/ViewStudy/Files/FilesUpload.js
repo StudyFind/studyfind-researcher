@@ -104,7 +104,7 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
           </>
         )}
         <Flex gridGap="10px" justify="flex-end">
-          <Button color="gray.500" onClick={handleCancel} isDisabled={loading}>
+          <Button variant="outline" color="gray.500" onClick={handleCancel} isDisabled={loading}>
             Cancel
           </Button>
           <Button

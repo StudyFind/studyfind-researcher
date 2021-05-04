@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
 import FilesGrid from "./FilesGrid";
-import FilesEdit from "./FilesEdit";
+import FilesUpload from "./FilesUpload";
 import FilesLoading from "./FilesLoading";
 
 function Files() {
@@ -67,7 +67,7 @@ function Files() {
   if (loading) return <FilesLoading />;
 
   return edit ? (
-    <FilesEdit studyID={studyID} setEdit={setEdit} getFiles={getFiles} />
+    <FilesUpload studyID={studyID} setEdit={setEdit} getFiles={getFiles} />
   ) : (
     <FilesGrid studyID={studyID} setEdit={setEdit} files={files} handleDelete={handleDelete} />
   );

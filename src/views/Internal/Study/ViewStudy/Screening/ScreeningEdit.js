@@ -38,7 +38,7 @@ function ScreeningEdit({ study, setEdit }) {
       <Flex justify="space-between" align="center" my="15px">
         <Heading fontSize="28px">Edit Screening</Heading>
         <Flex gridGap="10px">
-          <Button colorScheme="gray" color="gray.500" onClick={handleCancel}>
+          <Button variant="outline" color="gray.500" onClick={handleCancel}>
             Cancel
           </Button>
           {values?.length && (
