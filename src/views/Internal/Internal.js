@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection, useTimezone } from "hooks";
+import { useDocument, useCollection, useTimezone, useNotificationToast } from "hooks";
 import { UserContext, StudiesContext, ConfirmContext } from "context";
 
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -34,6 +34,7 @@ function Internal() {
   const [studies] = useCollection(studiesRef);
 
   useTimezone(user);
+  useNotificationToast();
 
   const [confirm, setConfirm] = useState(null);
 
@@ -62,7 +63,10 @@ function Internal() {
                   <Route path="/welcome" component={Welcome} />
                   <Route path="/fetch" component={FetchStudy} />
                   <Route path="/create/:studyID/:tab" component={CreateStudy} />
-                  <Route path="/study/:studyID/:tab" component={ViewStudy} />
+                  <Route
+                    path="/study/:studyID/:tab/:action?/:participantID?"
+                    component={ViewStudy}
+                  />
                   <Route path="/notifications" component={Notifications} />
                   <Route path="/schedule" component={Schedule} />
                   <Route path="/account/:tab" component={Account} />
