@@ -10,19 +10,23 @@ function ClipboardButton({ children, link, copiedText }) {
     navigator.clipboard.writeText(link).then(() => setSuccess(true));
   };
 
-  return success ? (
-    <Button
-      variant="outline"
-      colorScheme="green"
-      bg="green.100"
-      borderColor="green.200"
-      _hover={{ bg: "green.100" }}
-      leftIcon={<FaCheckCircle />}
-      onClick={handleCopyLink}
-    >
-      {copiedText || "Copied!"}
-    </Button>
-  ) : (
+  if (success) {
+    return (
+      <Button
+        variant="outline"
+        colorScheme="green"
+        bg="green.100"
+        borderColor="green.200"
+        _hover={{ bg: "green.100" }}
+        leftIcon={<FaCheckCircle />}
+        onClick={handleCopyLink}
+      >
+        {copiedText || "Copied!"}
+      </Button>
+    );
+  }
+
+  return (
     <Button variant="outline" color="gray.500" leftIcon={<FaCopy />} onClick={handleCopyLink}>
       {children || "Copy Link"}
     </Button>

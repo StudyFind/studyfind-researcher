@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
 
-function EditorButton({ children, icon, color, onClick }) {
+function EditorButton({ children, icon, color = "gray", onClick }) {
   const colorText = `${color}.500`;
   const colorBack = `${color}.100`;
   const colorHover = `${color}.200`;
