@@ -1,42 +1,24 @@
 import React from "react";
 
-import { Flex, Tooltip } from "@chakra-ui/react";
-import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import { ConfirmationStatus } from "components";
 
 function MeetingsStatus({ confirmed }) {
-  const { color, hint, text, icon } = confirmed
+  const { status, hint, text } = confirmed
     ? {
-        color: "green",
-        hint: "Participant by confirmed",
+        status: "success",
+        hint: "Confirmed by participant",
         text: "Confirmed",
-        icon: <FaCheckCircle />,
       }
     : {
-        color: "gray",
-        hint: "Participant confirmation pending",
+        status: "neutral",
+        hint: "Waiting for participant to confirm",
         text: "Pending",
-        icon: <FaExclamationCircle />,
       };
 
   return (
-    <Tooltip label={hint}>
-      <Flex
-        px="12px"
-        h="32px"
-        align="center"
-        gridGap="8px"
-        cursor="default"
-        fontSize="14px"
-        fontWeight="600"
-        rounded="md"
-        color={`${color}.500`}
-        borderColor={`${color}.300`}
-        borderWidth="1px"
-      >
-        {icon}
-        {text}
-      </Flex>
-    </Tooltip>
+    <ConfirmationStatus status={status} hint={hint}>
+      {text}
+    </ConfirmationStatus>
   );
 }
 

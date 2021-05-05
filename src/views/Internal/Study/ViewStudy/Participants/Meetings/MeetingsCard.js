@@ -36,12 +36,8 @@ function MeetingsCard({ meeting, handleEdit }) {
     });
   };
 
-  console.log(meeting.time);
-
   const displayDate = datetime.getFriendlyDate(meeting.time);
   const displayTime = datetime.get12HourTime(meeting.time);
-
-  console.log(displayDate, displayTime);
 
   return (
     <Box borderWidth="1px" bg="white" rounded="md" p="15px">
