@@ -53,7 +53,7 @@ const getFriendlyDate = (timestamp) => {
   if (standardDate === tomorrow) return "Tomorrow";
   if (standardDate === yesterday) return "Yesterday";
 
-  return moment(timestamp).format("LL");
+  return moment(timestamp).format("MMMM DD, YYYY");
 };
 
 const get12HourTime = (timestamp) => {
