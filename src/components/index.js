@@ -8,6 +8,7 @@ export { default as Select } from "./Select";
 export { default as Message } from "./Message";
 export { default as Textarea } from "./Textarea";
 export { default as FileInput } from "./FileInput";
-export { default as EditorButton } from "./EditorButton";
 export { default as ActionButton } from "./ActionButton";
+export { default as EditorButton } from "./EditorButton";
 export { default as ClipboardButton } from "./ClipboardButton";
+export { default as ConfirmationStatus } from "./ConfirmationStatus";
