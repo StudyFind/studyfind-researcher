@@ -13,39 +13,31 @@ function Surveys({ study }) {
   const [editing, setEditing] = useState(false);
 
   const { nctID } = useParams();
-  console.log(nctID);
 
   const surveyRef = firestore.collection("studies").doc(nctID).collection("surveys");
-  function addSurvey(id, editStatus) {
-    if (!id) {
-      const joined = surveys.concat({
-        questions: null,
-        title: null,
-        editStatus: true,
-      });
-      setSurveys(() => {
-        return joined;
-      });
-    }
-    console.log(surveys);
+  function addSurvey() {
+    const joined = surveys.concat({
+      questions: null,
+      title: null,
+      editStatus: true,
+    });
+    setSurveys(() => {
+      return joined;
+    });
   }
   useEffect(() => {
     setLoading(true);
     surveyRef.get().then((query) => {
       query.forEach((doc) => {
         if (doc.exists) {
-          // console.log(doc.id);
           const data = doc.data();
           data.id = doc.id;
-          console.log(data);
           setSurveys((oldSurveys) => [...oldSurveys, data]);
-          // console.log(surveys);
         }
       });
       setLoading(false);
     });
   }, []);
-  console.log(typeof surveys);
   if (loading) {
     return <Loader></Loader>;
   }
@@ -59,12 +51,12 @@ function Surveys({ study }) {
           key={i}
         />
       ))}
-      <Button w="90%" bg="green.300" color="white" m="6px" onClick={() => addSurvey(null, true)}>
+      <Button w="90%" bg="green.300" color="white" m="6px" onClick={() => addSurvey()}>
         Add Survey
       </Button>
     </Box>
   ) : (
-    <Button w="90%" bg="green.300" color="white" m="6px" onClick={() => addSurvey(null, true)}>
+    <Button w="90%" bg="green.300" color="white" m="6px" onClick={() => addSurvey()}>
       Add Survey
     </Button>
   );

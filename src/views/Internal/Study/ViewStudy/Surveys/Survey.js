@@ -5,21 +5,29 @@ import { Box, Button, Text, Flex, Form, Input, Grid, Select } from "@chakra-ui/r
 import Question from "./Question";
 
 function Survey({ surveyInfo, edit, path }) {
+  const blankQuestion = { prompt: " ", type: "multiple choice" };
+
   const [editing, setEditing] = useState(edit);
-  const [title, setTitle] = useState(surveyInfo.title);
-  const [questions, setQuestions] = useState(surveyInfo.questions);
-  const blankQuestion = { prompt: " ", type: " " };
+  const [title, setTitle] = useState(surveyInfo.title ? surveyInfo.title : " ");
+  const [questions, setQuestions] = useState(
+    surveyInfo.questions ? surveyInfo.questions : [blankQuestion]
+  );
   const addQuestion = function () {
     setQuestions([...questions, { ...blankQuestion }]);
   };
 
   const submitChanges = function () {
-    const surveyRef = path.doc(surveyInfo.id);
     const surveyOut = {
       title: title,
       questions: questions,
     };
-    surveyRef.set(surveyOut);
+    if (surveyInfo.id) {
+      const surveyRef = path.doc(surveyInfo.id);
+      surveyRef.set(surveyOut);
+    } else {
+      path.add(surveyOut);
+    }
+
     setEditing(false);
   };
 
@@ -30,7 +38,9 @@ function Survey({ surveyInfo, edit, path }) {
   };
 
   const handleQuestionChange = (e) => {
+    console.log(questions);
     const updatedQuestions = [...questions];
+    console.log(updatedQuestions);
     updatedQuestions[e.target.id][e.target.dataset.field] = e.target.value;
     setQuestions(updatedQuestions);
   };
@@ -39,13 +49,30 @@ function Survey({ surveyInfo, edit, path }) {
     setTitle(e.target.value);
   };
 
+  const addOption = function (i) {
+    const updatedQuestions = [...questions];
+
+    if (updatedQuestions[i].options) {
+      updatedQuestions[i].options = [...updatedQuestions[i].options, " "];
+    } else {
+      updatedQuestions[i].options = [" "];
+    }
+    setQuestions(updatedQuestions);
+  };
+
+  const handleOptionChange = (e) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[e.target.dataset.question][e.target.dataset.field][e.target.dataset.index] =
+      e.target.value;
+    setQuestions(updatedQuestions);
+  };
+
   if (editing) {
-    questions && setQuestions(blankQuestion);
-    console.log(questions);
     return (
       <Box bg="gray.200" p="6px" rounded="md" w="90%" m="6px">
         <Input
           variant="unstyled"
+          bg="white"
           placeholder="title.."
           value={title}
           mr="auto"
@@ -92,6 +119,26 @@ function Survey({ surveyInfo, edit, path }) {
                 <option value="short response">Short Response</option>
                 <option value="long response">Long Response</option>
               </Select>
+              {(question.type === "multiple choice" || question.type === "checkbox") &&
+                (question.options ? (
+                  <Box>
+                    {question.options.map((option, optionIdx) => {
+                      return (
+                        <Input
+                          onChange={handleOptionChange}
+                          data-field="options"
+                          data-question={i}
+                          data-index={optionIdx}
+                          key={optionIdx}
+                          value={question.options[optionIdx]}
+                        ></Input>
+                      );
+                    })}
+                    <Button onClick={() => addOption(i)}>Add Answer Choice</Button>
+                  </Box>
+                ) : (
+                  <Button onClick={() => addOption(i)}>Add Answer Choice</Button>
+                ))}
             </Box>
           );
         })}
