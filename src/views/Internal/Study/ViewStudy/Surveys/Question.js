@@ -3,37 +3,20 @@ import { Box, Text, Button, Input, Select } from "@chakra-ui/react";
 import { Form } from "components";
 
 function Question({ question }) {
-  const [editing, setEditing] = useState(false);
-  if (editing) {
+  if (!question) {
     return (
-      <Box bg="gray.300" rounded="md" display="flex">
-        <Form>
-          <Input placeholder="prompt"></Input>
-          <Select placeholder="Question Type">Question Type:</Select>
-        </Form>
+      <Box>
+        <Input label="prompt" placeholder="prompt"></Input>
+        <Select label="type">
+          <option value="multiple choice">Multiple Choice</option>
+          <option value="checkbox">Checkbox</option>
+          <option value="short response">Short Response</option>
+          <option value="long response">Long Response</option>
+        </Select>
+        if
       </Box>
     );
   }
-  return (
-    <Box bg="gray.300" rounded="md" p="6px" m="6px">
-      <Box display="flex" flexWrap="wrap">
-        <Text>{question.prompt}</Text>
-        <Text ml="auto" pr="10px">
-          {question.type}
-        </Text>
-        <Button bg="blue.500" color="white" onClick={() => setEditing(true)}>
-          Edit Question
-        </Button>
-      </Box>
-      {question.options && (
-        <Text flexBasis="100%" flexWrap="wrap">
-          {question.options.map((option) => {
-            return <Text>{option}</Text>;
-          })}
-        </Text>
-      )}
-    </Box>
-  );
 }
 
 export default Question;
