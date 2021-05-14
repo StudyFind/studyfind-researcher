@@ -67,32 +67,52 @@ function Survey({ surveyInfo, edit, path }) {
     setQuestions(updatedQuestions);
   };
 
+  const deleteOption = (e) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[e.target.dataset.question][e.target.dataset.field].splice(
+      e.target.dataset.index,
+      1
+    );
+    setQuestions(updatedQuestions);
+  };
+
+  const cancelEditing = function () {
+    setEditing(false);
+  };
+
   if (editing) {
     return (
-      <Box bg="gray.200" p="6px" rounded="md" w="90%" m="6px">
+      <Box bg="white" p="6px" rounded="md" w="90%" m="6px" border="1px solid rgb(241, 242, 243)">
         <Input
-          variant="unstyled"
+          overflow="auto"
+          variant="flushed"
           bg="white"
           placeholder="title.."
           value={title}
           mr="auto"
           ml="auto"
+          w="60%"
+          display="block"
+          alignSelf="center"
           textAlign="center"
           fontSize="large"
-          minW="0px"
-          maxW="30%"
           onChange={handleTitleChange}
         ></Input>
         {questions.map((question, i) => {
           const promptId = "prompt" + i;
           const typeId = "type" + i;
           return (
-            <Box rounded="md" bg="white" m="6px" p="6px" key={i}>
-              <Flex>
-                <Text>Prompt:</Text>
-                <Button onClick={() => deleteQuestion(i)}>Delete Question</Button>
+            <Box rounded="md" bg="white" m="6px" p="6px" key={i} border="2px solid gainsboro">
+              <Flex display="flex">
+                <Text mt="auto" fontWeight="500">
+                  Prompt:
+                </Text>
+                <Button ml="auto" colorScheme="red" mb="6px" onClick={() => deleteQuestion(i)}>
+                  Delete Question
+                </Button>
               </Flex>
               <Input
+                overflow="auto"
                 label="prompt"
                 placeholder="prompt"
                 value={question.prompt}
@@ -104,7 +124,7 @@ function Survey({ surveyInfo, edit, path }) {
                 data-field="prompt"
                 data-id={i}
               ></Input>
-              <Text>Type:</Text>
+              <Text fontWeight="500">Type:</Text>
               <Select
                 label="type"
                 value={question.type}
@@ -122,65 +142,127 @@ function Survey({ surveyInfo, edit, path }) {
               {(question.type === "multiple choice" || question.type === "checkbox") &&
                 (question.options ? (
                   <Box>
+                    <Text fontWeight="500">Answer Choices:</Text>
                     {question.options.map((option, optionIdx) => {
                       return (
-                        <Input
-                          onChange={handleOptionChange}
-                          data-field="options"
-                          data-question={i}
-                          data-index={optionIdx}
-                          key={optionIdx}
-                          value={question.options[optionIdx]}
-                        ></Input>
+                        <Flex key={optionIdx}>
+                          <Input
+                            size="sm"
+                            m="3px"
+                            rounded="md"
+                            onChange={handleOptionChange}
+                            data-field="options"
+                            data-question={i}
+                            data-index={optionIdx}
+                            key={optionIdx}
+                            value={question.options[optionIdx]}
+                            overflow="auto"
+                          ></Input>
+                          <Button
+                            size="sm"
+                            fontWeight="500"
+                            // colorScheme="red"
+                            m="3px"
+                            onClick={deleteOption}
+                            data-field="options"
+                            data-question={i}
+                            data-index={optionIdx}
+                          >
+                            X
+                          </Button>
+                        </Flex>
                       );
                     })}
-                    <Button onClick={() => addOption(i)}>Add Answer Choice</Button>
+                    <Button
+                      display="block"
+                      colorScheme="green"
+                      bg="green.300"
+                      size="sm"
+                      ml="3px"
+                      mt="3px"
+                      mr="auto"
+                      onClick={() => addOption(i)}
+                    >
+                      Add Answer Choice
+                    </Button>
                   </Box>
                 ) : (
-                  <Button onClick={() => addOption(i)}>Add Answer Choice</Button>
+                  <>
+                    <Text fontWeight="500">Answer Choices:</Text>
+                    <Button
+                      display="block"
+                      colorScheme="green"
+                      bg="green.300"
+                      size="sm"
+                      ml="3px"
+                      mt="3px"
+                      mr="auto"
+                      onClick={() => addOption(i)}
+                    >
+                      Add Answer Choice
+                    </Button>
+                  </>
                 ))}
             </Box>
           );
         })}
-        <Button onClick={() => addQuestion()}>Add Question</Button>
-        <Button onClick={() => submitChanges()}>Submit</Button>
+        <Button ml="auto" mr="auto" display="block" onClick={() => addQuestion()}>
+          Add Question
+        </Button>
+        <Flex>
+          <Button
+            m="3px"
+            colorScheme="red"
+            ml="auto"
+            display="block"
+            onClick={() => cancelEditing()}
+          >
+            Cancel
+          </Button>
+          <Button
+            m="3px"
+            colorScheme="green"
+            bg="green.300"
+            alignSelf="end"
+            onClick={() => submitChanges()}
+          >
+            Submit
+          </Button>
+        </Flex>
       </Box>
     );
-    //  else {
-    //   return (
-    //     <Box bg="gray.200" p="6px" rounded="md" w="90%" m="6px">
-    //       <Input
-    //         variant="unstyled"
-    //         placeholder="Title"
-    //         mr="auto"
-    //         ml="auto"
-    //         textAlign="center"
-    //         fontSize="large"
-    //         minW="0px"
-    //         maxW="30%"
-    //       ></Input>
-    //       <Box>
-    //         <Input label="prompt" placeholder="Prompt"></Input>
-    //         <Select label="type">
-    //           <option value="multiple choice">Multiple Choice</option>
-    //           <option value="checkbox">Checkbox</option>
-    //           <option value="short response">Short Response</option>
-    //           <option value="long response">Long Response</option>
-    //         </Select>
-    //       </Box>
-    //     </Box>
-    //   );
-    // }
   }
   return (
-    <Box w="90%" bg="gray.200" p="6px" m="6px" rounded="md" display="flex">
-      <Text fontSize="large" m="auto, 0" h="auto">
+    <Box
+      w="90%"
+      border="1px solid rgb(241, 242, 243)"
+      bg="white"
+      p="6px"
+      m="6px"
+      rounded="md"
+      display="flex"
+    >
+      <Text fontSize="large" mt="auto" mb="auto" h="5%" lineHeight="100%" fontWeight="500">
         {surveyInfo.title}
       </Text>
-      <Button color="white" bg="blue.500" ml="auto" mr="6px" onClick={() => setEditing(true)}>
+      <Button
+        alignSelf="end"
+        color="white"
+        bg="blue.500"
+        ml="auto"
+        mr="6px"
+        onClick={() => setEditing(true)}
+      >
         Preview
       </Button>
-      <Button color="white" bg="blue.500" ml="auto" mr="6px" onClick={() => setEditing(true)}>
+      <Button
+        alignSelf="end"
+        color="white"
+        bg="blue.500"
+        ml="6px"
+        mr="6px"
+        onClick={() => setEditing(true)}
+      >
         Edit
       </Button>
     </Box>

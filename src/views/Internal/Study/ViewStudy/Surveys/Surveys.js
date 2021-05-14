@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { firestore } from "database/firebase";
 import { auth } from "database/firebase";
 import { useParams } from "react-router-dom";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
 import Loader from "components/Loader";
 
 import Survey from "./Survey";
@@ -43,6 +43,9 @@ function Surveys({ study }) {
   }
   return surveys.length > 0 ? (
     <Box>
+      <Heading as="h2" fontSize="28px" mt="15px" mb="15px">
+        Surveys
+      </Heading>
       {surveys.map((survey, i) => (
         <Survey
           surveyInfo={survey}
@@ -51,12 +54,26 @@ function Surveys({ study }) {
           key={i}
         />
       ))}
-      <Button w="90%" bg="green.300" color="white" m="6px" onClick={() => addSurvey()}>
+      <Button
+        colorScheme="green"
+        w="90%"
+        bg="green.300"
+        color="white"
+        m="6px"
+        onClick={() => addSurvey()}
+      >
         Add Survey
       </Button>
     </Box>
   ) : (
-    <Button w="90%" bg="green.300" color="white" m="6px" onClick={() => addSurvey()}>
+    <Button
+      colorScheme="green"
+      w="90%"
+      bg="green.300"
+      color="white"
+      m="6px"
+      onClick={() => addSurvey()}
+    >
       Add Survey
     </Button>
   );
