@@ -1,6 +1,6 @@
 import React from "react";
 import { Heading, Button, Flex } from "@chakra-ui/react";
-import StudyCardLarge from "views/Internal/StudyCardLarge";
+import StudyCardLarge from "molecules/StudyCardLarge";
 
 function DetailsView({ study, setEdit }) {
   return (

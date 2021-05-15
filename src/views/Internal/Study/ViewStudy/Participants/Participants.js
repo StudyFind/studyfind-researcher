@@ -12,14 +12,14 @@ import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";
 
 function Participants({ study }) {
-  const { nctID } = useParams();
+  const { studyID } = useParams();
   const [toggle, setToggle] = useState(false);
   const [participants, loading] = useCollection(
-    firestore.collection("studies").doc(nctID).collection("participants")
+    firestore.collection("studies").doc(studyID).collection("participants")
   );
   const [participantsFiltered, setParticipantsFiltered] = useState([]);
 
-  const [sort, setSort] = useState("fakename");
+  const [sort, setSort] = useState("eligibility");
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState({
     interested: true,
@@ -57,16 +57,9 @@ function Participants({ study }) {
   }, [sort, status, search, participants]);
 
   const sortParticipants = (participants) => {
-    switch (sort) {
-      case "fakename":
-        return sortByFakename(participants);
-      case "status":
-        return sortByStatus(participants);
-      case "eligibility":
-        return sortByEligiblity(participants);
-      default:
-        return participants;
-    }
+    if (sort === "eligibility") return sortByEligiblity(participants);
+    if (sort === "status") return sortByStatus(participants);
+    return participants;
   };
 
   const sortByStatus = (participants) => {
@@ -77,19 +70,6 @@ function Participants({ study }) {
       if (statusA > statusB) {
         return 1;
       } else if (statusA < statusB) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    return participants;
-  };
-
-  const sortByFakename = (participants) => {
-    participants.sort((a, b) => {
-      if (a.fakename > b.fakename) {
-        return 1;
-      } else if (a.fakename < b.fakename) {
         return -1;
       } else {
         return 0;
@@ -143,7 +123,7 @@ function Participants({ study }) {
       <Flex justify="space-between" align="center" my="15px">
         <Heading fontSize="28px">Participants</Heading>
         {toggle ? (
-          <Button color="gray.500" onClick={() => setToggle(false)}>
+          <Button variant="outline" color="gray.500" onClick={() => setToggle(false)}>
             Clear Filters
           </Button>
         ) : (
@@ -163,19 +143,9 @@ function Participants({ study }) {
         />
       )}
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {participantsFiltered && participantsFiltered.length ? (
-          participantsFiltered.map((participant, index) => (
-            <ParticipantsRow key={index} study={study} participant={participant} />
-          ))
-        ) : (
-          <Box h="500px">
-            <Message
-              status="failure"
-              title="Empty Filter Results"
-              description="Your filters matched no participants"
-            />
-          </Box>
-        )}
+        {participantsFiltered?.map((participant) => (
+          <ParticipantsRow key={participant.id} study={study} participant={participant} />
+        ))}
       </Box>
     </>
   );

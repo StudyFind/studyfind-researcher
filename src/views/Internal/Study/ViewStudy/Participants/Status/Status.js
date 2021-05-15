@@ -6,7 +6,7 @@ import { firestore } from "database/firebase";
 import { Grid, Flex, Badge, Radio, RadioGroup, Button } from "@chakra-ui/react";
 
 function Status({ participant, handleClose }) {
-  const { nctID } = useParams();
+  const { studyID } = useParams();
   const [status, setStatus] = useState(participant.status);
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +27,7 @@ function Status({ participant, handleClose }) {
     setLoading(true);
     firestore
       .collection("studies")
-      .doc(nctID)
+      .doc(studyID)
       .collection("participants")
       .doc(participant.id)
       .update({ status })
@@ -39,15 +39,13 @@ function Status({ participant, handleClose }) {
   return (
     <RadioGroup value={status} onChange={setStatus}>
       <Grid gap="20px" bg="white" rounded="md" borderWidth="1px" p="20px">
-        {["interested", "screened", "consented", "accepted", "rejected"].map(
-          (status, index) => (
-            <Radio key={index} value={status}>
-              <Flex align="center">
-                <Badge colorScheme={statusColors[status]}>{status}</Badge>
-              </Flex>
-            </Radio>
-          )
-        )}
+        {["interested", "screened", "consented", "accepted", "rejected"].map((status, i) => (
+          <Radio key={i} value={status}>
+            <Flex align="center">
+              <Badge colorScheme={statusColors[status]}>{status}</Badge>
+            </Flex>
+          </Radio>
+        ))}
       </Grid>
       <Flex gridGap="10px" py="20px" justify="flex-end">
         <Button variant="outline" onClick={() => handleCancel()}>

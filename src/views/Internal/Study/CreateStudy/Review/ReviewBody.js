@@ -1,73 +1,111 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useConfirm } from "hooks";
 import { updateStudy, deleteStudy } from "database/studies";
-import toasts from "./../toasts";
 
 import { Flex, Button, useToast } from "@chakra-ui/react";
-import StudyCardLarge from "views/Internal/StudyCardLarge";
-
-import ReviewConfirmDelete from "./ReviewConfirmDelete";
-import ReviewConfirmPublish from "./ReviewConfirmPublish";
+import StudyCardLarge from "molecules/StudyCardLarge";
 
 function ReviewBody({ study, next, back }) {
   const toast = useToast();
-  const history = useHistory();
+  const confirm = useConfirm();
 
-  const [loadingPublish, setLoadingPublish] = useState(false);
-  const [loadingDelete, setLoadingDelete] = useState(false);
-  const [confirmPublish, setConfirmPublish] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const openPublishModal = () => setConfirmPublish(true);
-  const openDeleteModal = () => setConfirmDelete(true);
+  const openPublishModal = () => {
+    confirm({
+      title: "Confirm Publish Study",
+      description: `Publishing this study makes it visible to participants who can sign up for your study. Are you sure you want to publish this study (${study.id})?`,
+      button: "Publish",
+      color: "green",
+      loading,
+      handleConfirm: handleDelete,
+    });
+  };
+
+  const openDeleteModal = () => {
+    confirm({
+      title: "Confirm Delete Study",
+      description: `Deleting this study removes it from your account and you will not be able to recover any changes made to the study. Are you sure you want to delete this study (${study.id})?`,
+      button: "Delete",
+      color: "red",
+      loading,
+      handleConfirm: handlePublish,
+    });
+  };
+
+  const triggerPublishSuccessToast = () => {
+    toast({
+      title: "Study Published!",
+      description: `Your study was successfully published is now available for participants to view and enroll.`,
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+  };
+
+  const triggerDeleteSuccessToast = () => {
+    toast({
+      title: "Study Deleted!",
+      description: `Your study was successfully deleted and will no longer be accessible through StudyFind`,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+  };
+
+  const triggerSaveProgressToast = () => {
+    toast({
+      title: "Study Progress Saved!",
+      description: `Your study along with any changes you made have been saved and can be published or deleted from the study settings tab.`,
+      status: "info",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+  };
+
+  const triggerErrorToast = () => {
+    toast({
+      title: "Connection Error",
+      description: `Your action could not be completed due to a connection error. Please try again later.`,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+  };
 
   const handlePublish = () => {
-    setLoadingPublish(true);
+    setLoading(true);
     updateStudy(study.id, { ...study, published: true, activated: true })
       .then(() => {
         next();
-        toast(toasts.publishSuccess);
+        triggerPublishSuccessToast();
       })
-      .catch(() => toast(toasts.publishFailure))
-      .finally(() => setLoadingPublish(false));
+      .catch(() => triggerErrorToast())
+      .finally(() => setLoading(false));
   };
 
   const handleDelete = () => {
-    setLoadingDelete(true);
+    setLoading(true);
     deleteStudy(study.id)
       .then(() => {
-        history.push("/dashboard");
-        toast(toasts.deleteSuccess);
+        next();
+        triggerDeleteSuccessToast();
       })
-      .catch(() => toast(toasts.deleteFailure))
-      .finally(() => setLoadingDelete(false));
+      .catch(() => triggerErrorToast())
+      .finally(() => setLoading(false));
   };
 
   const handleSaveProgress = () => {
-    toast(toasts.savedProgress);
+    triggerSaveProgressToast();
     next();
   };
 
   return (
     <>
-      {confirmPublish && (
-        <ReviewConfirmPublish
-          nctID={study.id}
-          loadingPublish={loadingPublish}
-          confirmPublish={confirmPublish}
-          setConfirmPublish={setConfirmPublish}
-          handlePublish={handlePublish}
-        />
-      )}
-      {confirmDelete && (
-        <ReviewConfirmDelete
-          nctID={study.id}
-          loadingDelete={loadingDelete}
-          confirmDelete={confirmDelete}
-          setConfirmDelete={setConfirmDelete}
-          handleDelete={handleDelete}
-        />
-      )}
       <StudyCardLarge study={study} />
       <Flex justify="flex-end" gridGap="10px" my="15px">
         <Button color="gray.500" variant="outline" onClick={back}>
@@ -76,7 +114,7 @@ function ReviewBody({ study, next, back }) {
         <Button
           colorScheme="red"
           onClick={openDeleteModal}
-          isDisabled={loadingDelete || loadingPublish}
+          isDisabled={loading}
           loadingText="Deleting"
         >
           Delete
@@ -84,7 +122,7 @@ function ReviewBody({ study, next, back }) {
         <Button
           colorScheme="blue"
           onClick={handleSaveProgress}
-          isDisabled={loadingDelete || loadingPublish}
+          isDisabled={loading}
           loadingText="Saving"
         >
           Save Progress
@@ -92,7 +130,7 @@ function ReviewBody({ study, next, back }) {
         <Button
           colorScheme="green"
           onClick={openPublishModal}
-          isDisabled={loadingDelete || loadingPublish}
+          isDisabled={loading}
           loadingText="Publishing"
         >
           Publish

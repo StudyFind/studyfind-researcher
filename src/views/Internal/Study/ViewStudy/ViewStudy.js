@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
+
 import { useTabs } from "hooks";
 import { StudiesContext } from "context";
-
-import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 import { Message } from "components";
@@ -10,16 +10,16 @@ import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
 import Locations from "./Locations/Locations";
-import Files from "./Files/Files";
 import Screening from "./Screening/Screening";
+import Files from "./Files/Files";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
 import Surveys from "./Surveys/Surveys";
 
 function ViewStudy() {
   const studies = useContext(StudiesContext);
-  const { nctID } = useParams();
-  const [study, setStudy] = useState(studies.find((study) => study.id === nctID));
+  const { studyID } = useParams();
+  const [study, setStudy] = useState(studies.find((study) => study.id === studyID));
 
   const tabs = [
     { name: "details", content: <Details study={study} /> },
@@ -31,10 +31,10 @@ function ViewStudy() {
     { name: "settings", content: <Settings study={study} /> },
   ];
 
-  const [tabIndex, setTabIndex] = useTabs(tabs);
+  const [tabIndex, setTabIndex] = useTabs(`/study/${studyID}`, tabs);
 
   useEffect(() => {
-    setStudy(studies.find((study) => study.id === nctID));
+    setStudy(studies.find((study) => study.id === studyID));
   }, [studies]);
 
   const BODY = (
@@ -46,7 +46,7 @@ function ViewStudy() {
           </TabItem>
         ))}
       </TabList>
-      <TabPanels>{tabs[tabIndex].content}</TabPanels>
+      <TabPanels>{tabs[tabIndex]?.content}</TabPanels>
     </Tabs>
   );
 
@@ -54,7 +54,7 @@ function ViewStudy() {
     <Message
       status="failure"
       title="Study not found!"
-      description={`The study ${nctID} could not be found in the StudyFind database. Please
+      description={`The study ${studyID} could not be found in the StudyFind database. Please
   ensure that it has been successfully created by following all directions in the study
   creation process.`}
     />

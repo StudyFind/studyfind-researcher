@@ -11,10 +11,6 @@ function List({ children }) {
 }
 
 List.Row = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  grid-gap: 10px;
   border-bottom: 1px solid #f1f2f3;
   &:last-child {
     border-bottom: none;

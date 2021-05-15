@@ -15,10 +15,10 @@ const studyFunc = (params, endpoint) =>
   );
 
 const welcomeAccount = () => studyFunc({}, "welcomeAccount");
-const makeStudy = (nctID) => studyFunc({ nctID }, "makeStudy");
-const resetStudy = (nctID) => studyFunc({ nctID }, "resetStudy");
+const makeStudy = (studyID) => studyFunc({ studyID }, "makeStudy");
+const resetStudy = (studyID) => studyFunc({ studyID }, "resetStudy");
 
 const updateStudy = (id, study) => firestore.collection("studies").doc(id).update(study);
-const deleteStudy = (nctID) => firestore.collection("studies").doc(nctID).delete();
+const deleteStudy = (studyID) => firestore.collection("studies").doc(studyID).delete();
 
 export { welcomeAccount, makeStudy, resetStudy, updateStudy, deleteStudy };

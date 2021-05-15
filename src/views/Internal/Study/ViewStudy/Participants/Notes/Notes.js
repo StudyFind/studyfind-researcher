@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { useParams } from "react-router-dom";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
@@ -12,7 +13,7 @@ import { Grid } from "@chakra-ui/react";
 import { Loader } from "components";
 
 function Notes({ id }) {
-  const { nctID } = useParams();
+  const { studyID } = useParams();
   const [form, setForm] = useState(false);
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [errors, setErrors] = useState({ title: "", body: "" });
@@ -20,7 +21,7 @@ function Notes({ id }) {
 
   const notesRef = firestore
     .collection("studies")
-    .doc(nctID)
+    .doc(studyID)
     .collection("participants")
     .doc(id)
     .collection("notes");
@@ -91,8 +92,8 @@ function Notes({ id }) {
     <Grid gap="15px">
       <NotesNew newNote={newNote} />
       {notes && notes.length
-        ? notes.map((note, index) => (
-            <NotesItem key={index} note={note} editNote={editNote} deleteNote={deleteNote} />
+        ? notes.map((note) => (
+            <NotesItem key={note.id} note={note} editNote={editNote} deleteNote={deleteNote} />
           ))
         : null}
     </Grid>

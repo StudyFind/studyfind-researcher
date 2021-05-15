@@ -3,23 +3,17 @@ import React, { useEffect } from "react";
 import { useAuthForm } from "hooks";
 import { deleteAccount } from "database/auth";
 
-import { Grid, Heading, Text, Button, useToast } from "@chakra-ui/react";
+import { Grid, Button, useToast } from "@chakra-ui/react";
 import { Form, Input } from "components";
 
 import PasswordInput from "./PasswordInput";
+import AccountHeader from "../AccountHeader";
 
 function DeleteAccount() {
   const toast = useToast();
 
-  const {
-    inputs,
-    errors,
-    success,
-    loading,
-    handleChange,
-    handleSubmit,
-  } = useAuthForm({
-    initial: { password: "", newPassword: "" },
+  const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
+    initial: { email: "", password: "" },
     onSubmit: deleteAccount,
   });
 
@@ -39,13 +33,11 @@ function DeleteAccount() {
 
   return (
     <>
-      <Grid gap="5px">
-        <Heading size="md">Delete Account</Heading>
-        <Text color="gray.500">
-          Deleting your account is a permenant action which will delete all your
-          user information and research studies
-        </Text>
-      </Grid>
+      <AccountHeader
+        title="Delete Account"
+        description="Deleting your account is a permenant action which will delete all your
+        user information and research studies"
+      />
       <Form onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
         <Grid gap="15px">
           <Input

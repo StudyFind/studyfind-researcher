@@ -5,10 +5,9 @@ import Tabs from "./Tabs";
 import Form from "./Form";
 
 function Auth() {
-  const [tab, setTab] = useState(() => {
-    const accountExists = localStorage.getItem("exists") === "true";
-    return accountExists ? "login" : "signup";
-  });
+  const exists = localStorage.getItem("exists");
+  const defaultTab = exists === "true" ? "login" : "signup";
+  const [tab, setTab] = useState(defaultTab);
 
   return (
     <Flex justify="center" align="center" h="100vh">

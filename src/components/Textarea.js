@@ -1,24 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import {
-  Text,
-  Flex,
-  Textarea,
-  FormLabel,
-  FormControl,
-  FormErrorMessage,
-} from "@chakra-ui/react";
+import { Text, Flex, Textarea, FormLabel, FormControl, FormErrorMessage } from "@chakra-ui/react";
 
-function Field({
-  name,
-  value,
-  label,
-  placeholder,
-  limit,
-  error,
-  onChange,
-  ...rest
-}) {
+function Field({ name, value, label, placeholder, limit, error, onChange, ...rest }) {
   const [count, setCount] = useState();
 
   useEffect(() => {

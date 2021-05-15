@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
+import { Link } from "components";
 import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
 
 import {
@@ -17,7 +18,13 @@ import {
 import StudyFindLogo from "images/logo.png";
 
 function Sidebar({ name, email }) {
-  const location = useLocation();
+  const { pathname } = useLocation();
+
+  const isSelected = (path) => {
+    const pagename = path.split("/")[1];
+    const truename = pathname.split("/")[1];
+    return pagename === truename;
+  };
 
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
@@ -30,15 +37,15 @@ function Sidebar({ name, email }) {
 
   return (
     <Flex direction="column" w="280px" h="100vh" position="fixed" bg="blue.900" zIndex="100">
-      <Logo to="/">
+      <LogoLink to="/" isWrapper>
         <Image h="1.75rem" mr="10px" src={StudyFindLogo} />
         <Heading fontSize="1.5rem" color="white">
           StudyFind
         </Heading>
-      </Logo>
+      </LogoLink>
       <Grid mb="auto">
-        {links.map((link, index) => (
-          <NavLink key={index} to={link.path} selected={location.pathname === link.path}>
+        {links.map((link, i) => (
+          <NavLink key={i} to={link.path} selected={isSelected(link.path)} isWrapper>
             {link.icon}
             {link.name}
           </NavLink>
@@ -49,7 +56,7 @@ function Sidebar({ name, email }) {
           <Avatar name={name} bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
           <Box>
             <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
-              {name || "Your Account"}
+              {name}
             </Text>
             <Text fontSize="0.9rem" color="gray.400" isTruncated maxWidth="180px">
               {email}
@@ -61,7 +68,7 @@ function Sidebar({ name, email }) {
   );
 }
 
-const Logo = styled(Link)`
+const LogoLink = styled(Link)`
   all: unset;
   cursor: pointer;
   display: flex;

@@ -1,11 +1,11 @@
 import flesch from "flesch";
-import syllable from "syllable";
+import findSyllables from "syllable";
 
 const compute = {
   readabilityIndex: (text) => {
     // https://en.wikipedia.org/wiki/Automated_readability_index
     // https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch%E2%80%93Kincaid_grade_level
-    const sentences = text.split(".").length;
+    const sentence = text.split(".").length;
 
     const wordList = text
       .toLowerCase()
@@ -13,12 +13,14 @@ const compute = {
       .split(/\r?\n| /) // splits text at newlines and spaces
       .map((word) => word.trim()) // removes whitespace from each word
       .filter((word) => word); // removes empty strings
-    const words = wordList.length;
+    const word = wordList.length;
 
-    const syllablesList = wordList.map((word) => syllable(word));
-    const syllables = words ? syllablesList.reduce((a, b) => a + b) : 0;
+    const syllablesList = wordList.map((word) => findSyllables(word));
+    const syllable = word ? syllablesList.reduce((a, b) => a + b) : 0;
 
-    let score = flesch({ sentence: sentences, word: words, syllable: syllables });
+    const BIAS = 20;
+
+    let score = BIAS + flesch({ sentence, word, syllable });
     if (score > 100) score = 100;
     if (score < 0) score = 0;
 

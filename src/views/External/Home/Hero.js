@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Link } from "react-router-dom";
+import { Link } from "components";
 import { Heading, Button, Text } from "@chakra-ui/react";
 
 import Background from "images/microscope.jpg";
@@ -13,7 +13,7 @@ function Hero() {
         We help optimize your
         <Text color="blue.500">participant recruitment</Text>
       </Heading>
-      <Link to="/auth">
+      <Link to="/auth" isWrapper>
         <Button size="lg" colorScheme="blue">
           Start Now
         </Button>

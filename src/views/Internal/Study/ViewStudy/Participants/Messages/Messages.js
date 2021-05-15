@@ -8,10 +8,10 @@ import MessageInput from "./MessageInput";
 
 function Messages({ participant }) {
   const dummy = useRef();
-  const { nctID } = useParams();
+  const { studyID } = useParams();
   const messagesRef = firestore
     .collection("studies")
-    .doc(nctID)
+    .doc(studyID)
     .collection("participants")
     .doc(participant.id)
     .collection("messages");

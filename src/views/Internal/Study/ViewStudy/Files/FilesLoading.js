@@ -4,7 +4,7 @@ import { Flex, Grid, Skeleton, Heading } from "@chakra-ui/react";
 function FilesLoading() {
   return (
     <>
-      <Flex justify="space-between" align="center" my="15px">
+      <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Files</Heading>
       </Flex>
       <Grid gap="20px" templateColumns="1fr 1fr 1fr 1fr">

@@ -1,18 +1,13 @@
 import React from "react";
 
-import { format } from "functions";
+import { datetime } from "functions";
 
 import { Text, Box, Flex, Heading, IconButton } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
 function NotesItem({ note, editNote, deleteNote }) {
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const [hours, minutes] = [date.getHours(), date.getMinutes()];
-    const formattedDate = format.date(date);
-    const formattedTime = format.time(`${hours}:${minutes}`);
-    return `${formattedDate} at ${formattedTime}`;
-  };
+  const displayDate = datetime.getFriendlyDate(note.time);
+  const displayTime = datetime.get12HourTime(note.time);
 
   return (
     <Box borderWidth="1px" bg="white" rounded="md" p="15px">
@@ -39,7 +34,7 @@ function NotesItem({ note, editNote, deleteNote }) {
           />
         </Flex>
         <Text color="gray.500" fontSize="0.9rem">
-          {formatTimestamp(note.time)}
+          {displayDate} at {displayTime}
         </Text>
       </Flex>
     </Box>

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { format } from "functions";
-import { Box, Flex, Heading, Text, Link, Button, FormErrorMessage } from "@chakra-ui/react";
+
+import { datetime } from "functions";
 import { resetStudy } from "database/studies";
+
+import { Link } from "components";
+import { Box, Flex, Heading, Text, Button, FormErrorMessage } from "@chakra-ui/react";
 
 function Update({ study }) {
   const [loading, setLoading] = useState(false);
@@ -15,16 +18,14 @@ function Update({ study }) {
   };
 
   return (
-    <Box p="20px" borderBottom="1px solid #f1f2f3">
+    <Box p="20px">
       <Heading mb="8px" size="md">
         Update Study
       </Heading>
       <Text color="gray.500" my="8px">
         Updating your study will retrieve any new data from{" "}
-        <Link color="blue.500" href="https://clinicaltrials.gov" target="_blank">
-          clinicaltrials.gov
-        </Link>{" "}
-        and update its information accordingly. <br />
+        <Link to="https://clinicaltrials.gov">clinicaltrials.gov</Link> and update its information
+        accordingly. <br />
         This action will not overwrite your edited study details and screening survey.
       </Text>
       <Flex mt="16px" mb="8px">
@@ -32,7 +33,7 @@ function Update({ study }) {
           Last Updated:
         </Text>
         <Text color="gray.500" ml="4px">
-          {format.date(study.updatedAt)}
+          {datetime.getFriendlyDate(study.updatedAt)}
         </Text>
       </Flex>
       <Button

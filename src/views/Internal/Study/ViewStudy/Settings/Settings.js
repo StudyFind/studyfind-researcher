@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { List } from "components";
+import { Flex, Heading } from "@chakra-ui/react";
 
 import Publish from "./Publish";
 import Activate from "./Activate";
@@ -8,23 +9,39 @@ import Delete from "./Delete";
 import Update from "./Update";
 
 function Settings({ study }) {
+  const settings = [
+    {
+      condition: study.published,
+      component: <Activate study={study} />,
+    },
+    {
+      condition: study.activated,
+      component: <Share study={study} />,
+    },
+    {
+      condition: !study.published,
+      component: <Publish study={study} />,
+    },
+    {
+      condition: true,
+      component: <Update study={study} />,
+    },
+    {
+      condition: true,
+      component: <Delete study={study} />,
+    },
+  ];
+
   return (
     <>
       <Flex justify="space-between" align="center" my="15px" height="40px">
         <Heading fontSize="28px">Settings</Heading>
       </Flex>
-      <Box borderWidth="1px" rounded="md" bg="white">
-        {study.published ? (
-          <>
-            <Activate study={study} />
-            {study.activated && <Share study={study} />}
-          </>
-        ) : (
-          <Publish study={study} />
-        )}
-        <Update study={study} />
-        <Delete study={study} />
-      </Box>
+      <List>
+        {settings.map(({ condition, component }, i) => {
+          return condition && <List.Row key={i}>{component}</List.Row>;
+        })}
+      </List>
     </>
   );
 }

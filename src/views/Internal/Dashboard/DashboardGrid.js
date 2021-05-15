@@ -2,8 +2,9 @@ import React from "react";
 
 import { Heading, Flex, Grid } from "@chakra-ui/react";
 
+import StudyCardSmall from "molecules/StudyCardSmall";
+
 import DashboardButton from "./DashboardButton";
-import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 function DashboardGrid({ verified, studies }) {
   return (
@@ -13,8 +14,8 @@ function DashboardGrid({ verified, studies }) {
         <DashboardButton verified={verified} />
       </Flex>
       <Grid gap="25px" templateColumns="1fr 1fr" align="flex-start">
-        {studies.map((study, index) => (
-          <StudyCardSmall key={index} study={study} />
+        {studies.map((study) => (
+          <StudyCardSmall key={study.id} study={study} />
         ))}
       </Grid>
     </>

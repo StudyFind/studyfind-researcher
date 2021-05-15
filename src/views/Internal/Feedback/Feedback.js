@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import moment from "moment";
 
+import { useForm } from "hooks";
+import { toasts } from "templates";
 import { auth, firestore } from "database/firebase";
 
 import { Form, Input, Textarea } from "components";
@@ -10,62 +12,25 @@ import { FaPaperPlane } from "react-icons/fa";
 function Feedback() {
   const toast = useToast();
 
-  const [inputs, setInputs] = useState({ title: "", body: "" });
-  const [errors, setErrors] = useState({ title: false, body: false });
-  const [loading, setLoading] = useState(false);
+  const { inputs, errors, loading, handleChange, handleSubmit } = useForm({
+    initial: {
+      title: "",
+      body: "",
+    },
 
-  const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: !value }));
-  };
+    check: (value) => !value,
 
-  const handleSubmit = () => {
-    const err = {
-      title: !inputs.title,
-      body: !inputs.body,
-    };
+    submit: ({ title, body }) => {
+      const email = auth.currentUser.email;
+      const time = moment().utc().valueOf();
+      const side = "researcher";
 
-    if (err.title || err.body) {
-      setErrors(err);
-      return;
-    }
-
-    setLoading(true);
-
-    firestore
-      .collection("feedback")
-      .add({
-        title: inputs.title,
-        body: inputs.body,
-        email: auth.currentUser.email,
-        timestamp: moment().valueOf(),
-      })
-      .then(() => {
-        setInputs({ title: "", body: "" });
-        setErrors({ title: false, body: false });
-        toast({
-          title: "Thank you for your feedback!",
-          description:
-            "Your feedback was successfully sent and we will be reviewing it carefully. Thank you for taking the time to help make StudyFind work better :)",
-          status: "info",
-          duration: 5000,
-          isClosable: true,
-          position: "top",
-        });
-      })
-      .catch(() => {
-        toast({
-          title: "Connection Error!",
-          description:
-            "Your feedback could not be sent because of a connection error. Please try again later.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "top",
-        });
-      })
-      .finally(() => setLoading(false));
-  };
+      return firestore
+        .collection("feedback")
+        .add({ title, body, email, time, side })
+        .then(() => toast(toasts.providedFeedback));
+    },
+  });
 
   return (
     <Grid gap="20px">
@@ -97,7 +62,6 @@ function Feedback() {
           />
           <Flex justify="flex-end">
             <Button
-              type="submit"
               colorScheme="blue"
               rightIcon={<FaPaperPlane />}
               isLoading={loading}

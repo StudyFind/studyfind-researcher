@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StudiesContext } from "context";
+
 import { useParams, useHistory } from "react-router-dom";
+import { StudiesContext } from "context";
+
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 import { Message } from "components";
 
@@ -10,8 +12,8 @@ import Review from "./Review/Review";
 
 function CreateStudy() {
   const studies = useContext(StudiesContext);
-  const { nctID, tab } = useParams();
-  const study = studies.find((study) => study.id === nctID);
+  const { studyID, tab } = useParams();
+  const study = studies.find((study) => study.id === studyID);
   const history = useHistory();
   const [redirect, setRedirect] = useState();
 
@@ -21,7 +23,7 @@ function CreateStudy() {
     if (study && study.published) history.push("/"); // redirect to main page to prevent changes being made to published study (since researcher are not allowed to change study details and screening)
     const params = new URL(window.location).searchParams;
     const from = params.get("from");
-    setRedirect(from === "welcome" ? "/welcome" : `/study/${nctID}/details`);
+    setRedirect(from === "welcome" ? "/welcome" : `/study/${studyID}/details`);
   }, []);
 
   const back = () => {
@@ -72,7 +74,7 @@ function CreateStudy() {
     <Message
       status="failure"
       title="Study not found!"
-      description={`The study ${nctID} could not be found in the StudyFind database. Please
+      description={`The study ${studyID} could not be found in the StudyFind database. Please
   ensure that it has been successfully created by following all directions in the study
   creation process.`}
     />

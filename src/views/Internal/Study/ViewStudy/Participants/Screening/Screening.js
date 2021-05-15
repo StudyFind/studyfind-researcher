@@ -6,8 +6,8 @@ function Screening({ questions, responses }) {
   return (
     <Grid gap="15px">
       {questions && questions.length
-        ? questions.map((question, index) => (
-            <Box borderWidth="1px" bg="white" rounded="md" p="10px" key={index}>
+        ? questions.map((question, i) => (
+            <Box borderWidth="1px" bg="white" rounded="md" p="10px" key={i}>
               <Tag size="sm" colorScheme={question.type === "Inclusion" ? "green" : "red"}>
                 {question.type}
               </Tag>
@@ -15,7 +15,7 @@ function Screening({ questions, responses }) {
                 {question.prompt}
               </Text>
               <Text color="gray.600">
-                {(responses && responses.length && responses[index]) || (
+                {(responses && responses.length && responses[i]) || (
                   <Text fontStyle="italic" color="gray.400">
                     no response
                   </Text>

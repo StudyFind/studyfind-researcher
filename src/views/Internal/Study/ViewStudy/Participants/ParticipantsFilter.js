@@ -3,14 +3,7 @@ import styled from "styled-components";
 import { Input, Select } from "components";
 import { Checkbox, FormLabel, Stack } from "@chakra-ui/react";
 
-function ParticipantsFilter({
-  sort,
-  setSort,
-  status,
-  setStatus,
-  search,
-  setSearch,
-}) {
+function ParticipantsFilter({ sort, setSort, status, setStatus, search, setSearch }) {
   return (
     <Filters>
       <Inputs>
@@ -18,7 +11,7 @@ function ParticipantsFilter({
           label="Sort by"
           value={sort}
           onChange={(_, value) => setSort(value)}
-          options={["fakename", "eligibility", "status"]}
+          options={["eligibility", "status"]}
         />
         <Input
           label="Search Participant"
@@ -29,20 +22,16 @@ function ParticipantsFilter({
       <div>
         <FormLabel>Status</FormLabel>
         <Stack spacing={0}>
-          {["interested", "screened", "consented", "rejected", "accepted"].map(
-            (name, index) => (
-              <Checkbox
-                key={index}
-                isChecked={status[name]}
-                onChange={(e) =>
-                  setStatus({ ...status, [name]: e.target.checked })
-                }
-                textTransform="capitalize"
-              >
-                {name}
-              </Checkbox>
-            )
-          )}
+          {["interested", "screened", "consented", "rejected", "accepted"].map((name, i) => (
+            <Checkbox
+              key={i}
+              isChecked={status[name]}
+              onChange={(e) => setStatus({ ...status, [name]: e.target.checked })}
+              textTransform="capitalize"
+            >
+              {name}
+            </Checkbox>
+          ))}
         </Stack>
       </div>
     </Filters>

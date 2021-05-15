@@ -4,7 +4,6 @@ import moment from "moment";
 import validator from "validator";
 
 function useMeeting(meeting) {
-  const [exists, setExists] = useState(false);
   const [inputs, setInputs] = useState({ name: "", date: "", time: "", link: "" });
   const [errors, setErrors] = useState({ name: "", date: "", time: "", link: "" });
 
@@ -15,7 +14,6 @@ function useMeeting(meeting) {
     const initial = { name, date, time, link };
 
     if (meeting) {
-      setExists(true);
       setInputs(initial);
       setErrors(validate(initial));
     }
@@ -77,7 +75,7 @@ function useMeeting(meeting) {
       time: convertDatetimeToTimestamp(date, time),
     };
 
-    exists
+    meeting
       ? await firestore.collection("meetings").doc(meeting.id).update(payload)
       : await firestore.collection("meetings").add(payload);
   };
