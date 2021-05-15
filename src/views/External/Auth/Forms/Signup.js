@@ -42,7 +42,6 @@ function Signup({ setTab }) {
       <AuthEmail value={inputs.email} error={errors.email} onChange={handleChange} />
       <AuthPassword value={inputs.password} error={errors.password} onChange={handleChange} />
       <AuthButton loading={loading}>Sign up</AuthButton>
-      <AuthTabLink onClick={() => setTab("login")}>Have an account?</AuthTabLink>
       <Text color="gray.500" fontSize="xs" textAlign="center">
         By creating an account, you agree to our{" "}
         <Link

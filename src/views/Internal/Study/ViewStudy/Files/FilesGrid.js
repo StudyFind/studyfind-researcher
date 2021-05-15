@@ -8,7 +8,9 @@ import FilesEmpty from "./FilesEmpty";
 function FilesGrid({ files, setEdit, handleDelete }) {
   const FILE_LIMIT = 8;
 
-  if (files && files.length === 0) return <FilesEmpty setEdit={setEdit} />;
+  if (files && files.length === 0) {
+    return <FilesEmpty setEdit={setEdit} />;
+  }
 
   return (
     <>

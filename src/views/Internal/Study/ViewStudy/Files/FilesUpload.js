@@ -10,8 +10,6 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
   const [loading, setLoading] = useState(false);
 
   const validate = (name, value) => {
-    if (!value) return true;
-
     if (name === "name") {
       if (value === "") return "File name cannot be empty";
       if (value.includes("/")) return "File name cannot contain '/'";

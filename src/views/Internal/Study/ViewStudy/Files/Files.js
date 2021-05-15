@@ -64,7 +64,9 @@ function Files() {
     initialLoad();
   }, []);
 
-  if (loading) return <FilesLoading />;
+  if (loading) {
+    return <FilesLoading />;
+  }
 
   return edit ? (
     <FilesUpload studyID={studyID} setEdit={setEdit} getFiles={getFiles} />
