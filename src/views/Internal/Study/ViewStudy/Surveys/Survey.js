@@ -8,7 +8,7 @@ function Survey({ surveyInfo, edit, path }) {
   const blankQuestion = { prompt: " ", type: "multiple choice" };
 
   const [editing, setEditing] = useState(edit);
-  const [title, setTitle] = useState(surveyInfo.title ? surveyInfo.title : " ");
+  const [title, setTitle] = useState(surveyInfo.title ? surveyInfo.title : "");
   const [questions, setQuestions] = useState(
     surveyInfo.questions ? surveyInfo.questions : [blankQuestion]
   );
