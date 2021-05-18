@@ -44,7 +44,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
   const checker = (name, value) => {
     if (!value) return true;
 
-    if (name === "date" && value < Date.now()) {
+    if (name === "date" && value < datetime.getToday()) {
       return "Date must be in the future";
     }
 

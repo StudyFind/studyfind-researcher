@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
-import { firestore } from "database/firebase";
+
 import moment from "moment";
 import validator from "validator";
+
+import { datetime } from "functions";
+import { firestore } from "database/firebase";
 
 function useMeeting(meeting) {
   const [inputs, setInputs] = useState({ name: "", date: "", time: "", link: "" });
@@ -31,7 +34,7 @@ function useMeeting(meeting) {
   const checker = (name, value) => {
     if (!value) return true;
 
-    if (name === "date" && value < Date.now()) {
+    if (name === "date" && value < datetime.getToday()) {
       return "Date must be in the future";
     }
 
@@ -58,7 +61,7 @@ function useMeeting(meeting) {
     return moment(timestamp).format("h:mma");
   };
 
-  const handleSubmit = async ({ name, date, time, link }) => {
+  const handleSubmit = ({ name, date, time, link }) => {
     const err = validate({ name, date, time, link });
 
     if (err.name || err.date || err.time || err.link) {
@@ -76,18 +79,18 @@ function useMeeting(meeting) {
     };
 
     meeting
-      ? await firestore.collection("meetings").doc(meeting.id).update(payload)
-      : await firestore.collection("meetings").add(payload);
+      ? firestore.collection("meetings").doc(meeting.id).update(payload)
+      : firestore.collection("meetings").add(payload);
   };
 
-  const handleDelete = async () => {
-    await firestore.collection("meetings").doc(meeting.id).delete();
+  const handleDelete = () => {
+    firestore.collection("meetings").doc(meeting.id).delete();
   };
 
   const handleCancel = handleInitial;
 
   const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setInputs((prev) => ({ ...prev, [name]: name === "link" }));
     setErrors((prev) => ({ ...prev, [name]: validate(name, value) }));
   };
 
