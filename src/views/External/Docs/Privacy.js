@@ -14,19 +14,20 @@ function Privacy() {
 
       <Box my="20px" fontSize="0.8rem">
         <Text>
-          Thank you for choosing to be part of our community at StudyFind, Inc ("Company", "we",
-          "us", "our"). We are committed to protecting your personal information and your right to
-          privacy. If you have any questions or concerns about this privacy notice, or our practices
-          with regards to your personal information, please contact us at studyfindcom@gmail.org.
+          Thank you for choosing to be part of our community at StudyFind, Inc ({'"'}Company{'"'},{" "}
+          {'"'}we{'"'},{'"'}us{'"'}, {'"'}our{'"'}). We are committed to protecting your personal
+          information and your right to privacy. If you have any questions or concerns about this
+          privacy notice, or our practices with regards to your personal information, please contact
+          us at studyfindcom@gmail.org.
         </Text>
         <Text>
-          When you use any of our services (the "Services", which include all of our software), we
-          appreciate that you are trusting us with your personal information. We take your privacy
-          very seriously. In this privacy notice, we seek to explain to you in the clearest way
-          possible what information we collect, how we use it and what rights you have in relation
-          to it. We hope you review this privacy notice carefully, as it is important. If there are
-          any terms in this privacy notice that you do not agree with, please discontinue use of our
-          Services immediately.
+          When you use any of our services (the {'"'}Services{'"'}, which include all of our
+          software), we appreciate that you are trusting us with your personal information. We take
+          your privacy very seriously. In this privacy notice, we seek to explain to you in the
+          clearest way possible what information we collect, how we use it and what rights you have
+          in relation to it. We hope you review this privacy notice carefully, as it is important.
+          If there are any terms in this privacy notice that you do not agree with, please
+          discontinue use of our Services immediately.
         </Text>
         <Text>
           This privacy notice applies to all information collected through our Services (which, as
@@ -54,7 +55,7 @@ function Privacy() {
           Social Media Login Data. We may provide you with the option to register with us using your
           existing social media account details, like your Facebook, Twitter, or other social media
           account. If you choose to register in this way, we will collect the information described
-          in the section called "HOW DO WE HANDLE YOUR SOCIAL LOGINS?" below.
+          in the section called {'"'}HOW DO WE HANDLE YOUR SOCIAL LOGINS?{'"'} below.
         </Text>
         <Text>
           All personal information that you provide to us must be true, complete, and accurate, and
