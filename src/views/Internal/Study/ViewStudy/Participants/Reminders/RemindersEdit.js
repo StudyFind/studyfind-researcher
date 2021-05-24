@@ -3,7 +3,7 @@ import moment from "moment";
 import styled from "styled-components";
 
 import { datetime, helpers } from "functions";
-import { firestore } from "database/firebase";
+import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 
 import { Input } from "components";
@@ -107,8 +107,10 @@ function RemindersEdit({ reminder }) {
       times: helpers.convertWeekdaysAndTimesToOffsets(weekdays, times),
       startDate,
       endDate,
-      studyID,
+      researcherID: auth.currentUser.uid,
       participantID,
+      studyID,
+      confirmedByParticipant: false,
     };
 
     reminder

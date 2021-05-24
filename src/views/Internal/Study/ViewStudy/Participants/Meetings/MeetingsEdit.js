@@ -75,6 +75,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
       researcherID: auth.currentUser.uid,
       participantID,
       studyID,
+      confirmedByParticipant: false,
     };
 
     meeting
