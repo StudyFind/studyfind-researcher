@@ -1,4 +1,4 @@
-import { auth, firestore } from "../firebase";
+import { auth, firestore } from "database/firebase";
 import axios from "axios";
 
 const CLOUD_API_URL = "https://us-central1-studyfind-researcher.cloudfunctions.net";
