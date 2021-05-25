@@ -5,9 +5,18 @@ import { FaExclamationCircle, FaTimesCircle, FaCheckCircle } from "react-icons/f
 
 function ConfirmationStatus({ children, status, hint }) {
   const statuses = {
-    success: { icon: <FaCheckCircle />, color: "green" },
-    neutral: { icon: <FaExclamationCircle />, color: "gray" },
-    error: { icon: <FaTimesCircle />, color: "red" },
+    success: {
+      icon: <FaCheckCircle />,
+      color: "green",
+    },
+    neutral: {
+      icon: <FaExclamationCircle />,
+      color: "gray",
+    },
+    error: {
+      icon: <FaTimesCircle />,
+      color: "red",
+    },
   };
 
   const { icon, color } = statuses[status] || statuses["neutral"];

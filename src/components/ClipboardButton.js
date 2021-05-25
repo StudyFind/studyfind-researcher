@@ -3,8 +3,8 @@ import React from "react";
 import { Button, useClipboard } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 
-function ClipboardButton({ children, link, copiedText }) {
-  const { hasCopied, onCopy } = useClipboard(link);
+function ClipboardButton({ children, text, copiedText }) {
+  const { hasCopied, onCopy } = useClipboard(text);
 
   if (hasCopied) {
     return (
@@ -17,14 +17,14 @@ function ClipboardButton({ children, link, copiedText }) {
         leftIcon={<FaCheckCircle />}
         onClick={onCopy}
       >
-        {copiedText || "Copied!"}
+        {copiedText || children}
       </Button>
     );
   }
 
   return (
     <Button variant="outline" color="gray.500" leftIcon={<FaCopy />} onClick={onCopy}>
-      {children || "Copy"}
+      {children}
     </Button>
   );
 }
