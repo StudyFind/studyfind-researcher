@@ -3,7 +3,7 @@ import lodash from "lodash";
 
 import { Select, FormLabel, FormControl, FormErrorMessage } from "@chakra-ui/react";
 
-function Field({ name, value, label, placeholder, error, options, onChange, ...rest }) {
+function Field({ name, value, label, placeholder, error, options, isDisabled, onChange, ...rest }) {
   const handleChange = (e) => onChange(name, e.target.value);
 
   return (
@@ -13,6 +13,7 @@ function Field({ name, value, label, placeholder, error, options, onChange, ...r
         bg={error ? "red.100" : "white"}
         textTransform="capitalize"
         placeholder={placeholder}
+        isDisabled={isDisabled}
         value={value}
         onChange={handleChange}
       >
