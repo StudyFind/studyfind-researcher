@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Button } from "@chakra-ui/react";
+import { Button, useClipboard } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 
 function ClipboardButton({ children, link, copiedText }) {
-  const [success, setSuccess] = useState(false);
+  const { hasCopied, onCopy } = useClipboard(link);
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(link).then(() => setSuccess(true));
-  };
-
-  if (success) {
+  if (hasCopied) {
     return (
       <Button
         variant="outline"
@@ -19,7 +15,7 @@ function ClipboardButton({ children, link, copiedText }) {
         borderColor="green.200"
         _hover={{ bg: "green.100" }}
         leftIcon={<FaCheckCircle />}
-        onClick={handleCopyLink}
+        onClick={onCopy}
       >
         {copiedText || "Copied!"}
       </Button>
@@ -27,8 +23,8 @@ function ClipboardButton({ children, link, copiedText }) {
   }
 
   return (
-    <Button variant="outline" color="gray.500" leftIcon={<FaCopy />} onClick={handleCopyLink}>
-      {children || "Copy Link"}
+    <Button variant="outline" color="gray.500" leftIcon={<FaCopy />} onClick={onCopy}>
+      {children || "Copy"}
     </Button>
   );
 }
