@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Box,
@@ -11,7 +11,17 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 
-function Confirm({ title, description, color, button, loading, handleClose, handleConfirm }) {
+function Confirm({ title, description, color, button, handleClose, handleConfirm }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    handleConfirm().finally(() => {
+      handleClose();
+      setLoading(false);
+    });
+  };
+
   return (
     <AlertDialog size="lg" motionPreset="scale" isCentered isOpen={true} onClose={handleClose}>
       <AlertDialogOverlay bg="rgb(0, 0, 0, 0.75)">
@@ -29,7 +39,7 @@ function Confirm({ title, description, color, button, loading, handleClose, hand
                 colorScheme={color}
                 isLoading={loading}
                 loadingText={button}
-                onClick={handleConfirm}
+                onClick={handleSubmit}
               >
                 {button}
               </Button>

@@ -12,7 +12,6 @@ function Delete({ study }) {
   const confirm = useConfirm();
   const [nctID, setNctID] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
 
@@ -28,7 +27,6 @@ function Delete({ study }) {
         description: `This is a permanant action and cannot be undone. Are you sure you want to delete study with study number ${nctID}?`,
         color: "red",
         button: "Delete",
-        loading,
         handleConfirm,
       });
     } else {
@@ -37,8 +35,7 @@ function Delete({ study }) {
   };
 
   const handleConfirm = () => {
-    setLoading(true);
-    deleteStudy(study.id)
+    return deleteStudy(study.id)
       .then(() => {
         history.push("/studies");
         toast({
@@ -60,8 +57,7 @@ function Delete({ study }) {
           isClosable: true,
           position: "top",
         });
-      })
-      .finally(() => setLoading(false));
+      });
   };
 
   return (
