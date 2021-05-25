@@ -18,7 +18,7 @@ function ReviewBody({ study, next, back }) {
       button: "Publish",
       color: "green",
       loading,
-      handleConfirm: handleDelete,
+      handleConfirm: handlePublish,
     });
   };
 
@@ -29,7 +29,7 @@ function ReviewBody({ study, next, back }) {
       button: "Delete",
       color: "red",
       loading,
-      handleConfirm: handlePublish,
+      handleConfirm: handleDelete,
     });
   };
 

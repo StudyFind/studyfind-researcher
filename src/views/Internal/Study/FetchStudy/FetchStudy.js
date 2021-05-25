@@ -36,7 +36,7 @@ function FetchStudy() {
     setError("");
     makeStudy(validID)
       .then(() => history.push(`/create/${validID}/details`))
-      .catch((error) => setError(error.toString()))
+      .catch((error) => setError(error))
       .finally(() => setLoading(false));
   };
 

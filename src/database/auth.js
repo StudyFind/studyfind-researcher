@@ -21,7 +21,28 @@ const signup = async (name, email, password) => {
 
     Promise.all([
       await user.sendEmailVerification(),
-      await firestore.collection("researchers").doc(user.uid).set({ name, timezone }),
+      await firestore
+        .collection("researchers")
+        .doc(user.uid)
+        .set({
+          name,
+          timezone,
+          organization: "",
+          background: "",
+          preferences: {
+            autodetectTimezone: true,
+          },
+          notifications: {
+            email: false,
+            phone: false,
+            categories: {
+              account: true,
+              studies: true,
+              participants: true,
+              meetings: true,
+            },
+          },
+        }),
     ]);
 
     setLocalUserExists();
