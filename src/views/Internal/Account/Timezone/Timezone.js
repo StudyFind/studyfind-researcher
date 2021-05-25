@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment-timezone";
 
-import { Grid } from "@chakra-ui/react";
+import { Box, Grid, Tooltip } from "@chakra-ui/react";
 import { Select } from "components";
 
 import AccountHeader from "../AccountHeader";
@@ -22,13 +22,23 @@ function Timezone({ inputs, handleChange, handlePreferences }) {
           value={inputs.preferences.autodetectTimezone}
           onChange={handlePreferences}
         />
-        <Select
-          label="Timezone Location"
-          name="timezone"
-          options={moment.tz.zonesForCountry("US")}
-          value={inputs.timezone}
-          onChange={handleChange}
-        />
+        <Tooltip
+          label={
+            inputs.preferences.autodetectTimezone &&
+            "Disable Auto Detect Timezone by unchecking the box above to manually enter your preferred timezone"
+          }
+        >
+          <Box>
+            <Select
+              label="Timezone Location"
+              name="timezone"
+              options={moment.tz.zonesForCountry("US")}
+              value={inputs.timezone}
+              onChange={handleChange}
+              isDisabled={inputs.preferences.autodetectTimezone}
+            />
+          </Box>
+        </Tooltip>
       </Grid>
     </>
   );
