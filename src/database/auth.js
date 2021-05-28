@@ -20,10 +20,10 @@ const signup = async (name, email, password) => {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
     const timezone = moment.tz.guess();
 
-    Promise.all([
-      await setResearcherClaim(),
-      await user.sendEmailVerification(),
-      await firestore
+    await Promise.all([
+      setResearcherClaim(),
+      user.sendEmailVerification(),
+      firestore
         .collection("researchers")
         .doc(user.uid)
         .set({
@@ -32,16 +32,19 @@ const signup = async (name, email, password) => {
           organization: "",
           background: "",
           preferences: {
-            autodetectTimezone: true,
-          },
-          notifications: {
-            email: false,
-            phone: false,
-            categories: {
-              account: true,
-              studies: true,
-              participants: true,
-              meetings: true,
+            timezone: {
+              autodetect: true,
+            },
+            notifications: {
+              email: false,
+              phone: false,
+              categories: {
+                account: true,
+                studies: true,
+                participants: true,
+                meetings: true,
+                messages: true,
+              },
             },
           },
         }),
