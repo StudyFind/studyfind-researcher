@@ -4,7 +4,7 @@ import { Box, Button, Text, Flex, Form, Input, Grid, Select } from "@chakra-ui/r
 
 import Question from "./Question";
 
-function Survey({ surveyInfo, edit, path }) {
+function Survey({ surveyInfo, edit, surveysRef }) {
   const blankQuestion = { prompt: " ", type: "multiple choice" };
 
   const [editing, setEditing] = useState(edit);
@@ -22,10 +22,10 @@ function Survey({ surveyInfo, edit, path }) {
       questions: questions,
     };
     if (surveyInfo.id) {
-      const surveyRef = path.doc(surveyInfo.id);
+      const surveyRef = surveysRef.doc(surveyInfo.id);
       surveyRef.set(surveyOut);
     } else {
-      path.add(surveyOut);
+      surveysRef.add(surveyOut);
     }
 
     setEditing(false);
