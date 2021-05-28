@@ -1,6 +1,7 @@
 import { auth, firestore } from "database/firebase";
 import errors from "database/errors";
 import moment from "moment-timezone";
+import { setResearcherClaim } from "./cloud";
 
 const getErrorMessage = ({ code }) => {
   return { email: "", password: "", ...errors[code] };
@@ -20,6 +21,7 @@ const signup = async (name, email, password) => {
     const timezone = moment.tz.guess();
 
     Promise.all([
+      await setResearcherClaim(),
       await user.sendEmailVerification(),
       await firestore
         .collection("researchers")

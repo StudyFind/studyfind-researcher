@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StudiesContext } from "context";
 
+import { auth } from "database/firebase";
+import { useHistory } from "react-router";
 import { welcomeAccount } from "database/studies";
 import { Heading } from "@chakra-ui/react";
 
@@ -9,6 +11,7 @@ import WelcomeList from "./WelcomeList";
 import WelcomeEmpty from "./WelcomeEmpty";
 
 function Welcome() {
+  const history = useHistory();
   const studies = useContext(StudiesContext);
   const unpublished = studies.filter((study) => !study.published);
 
@@ -16,6 +19,11 @@ function Welcome() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!auth.currentUser.emailVerified) {
+      history.push("/");
+      return;
+    }
+
     welcomeAccount()
       .catch((err) => setError(err))
       .finally(() => setLoading(false));

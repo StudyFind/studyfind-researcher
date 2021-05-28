@@ -10,7 +10,7 @@ function DashboardButton({ verified }) {
       label={!verified && "You must verify your email before you can create any studies"}
       placement="bottom"
     >
-      <Box>
+      <Box width="fit-content">
         <Link to="/fetch" isWrapper>
           <Button isDisabled={!verified} leftIcon={<FaPlus />} colorScheme="blue">
             Create Study

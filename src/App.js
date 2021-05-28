@@ -9,6 +9,10 @@ import Internal from "views/Internal/Internal";
 
 function App() {
   const [cred, loading] = useAuthState(auth);
+
+  if (auth.currentUser)
+    auth.currentUser.getIdTokenResult(true).then(console.log).catch(console.log);
+
   return loading ? <Loading /> : cred ? <Internal /> : <External />;
 }
 
