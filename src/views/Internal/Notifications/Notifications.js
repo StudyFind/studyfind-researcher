@@ -19,14 +19,8 @@ function Notifications() {
     .collection("notifications")
     .orderBy("time", "desc");
 
-  const [
-    notifications,
-    loading,
-    error,
-    handleFetchAdditional,
-    additionalLoading,
-    fetchedAll,
-  ] = useRealtimePagination(notificationsRef, NOTIFICATIONS_PER_REQUEST);
+  const [notifications, loading, error, handleFetchAdditional, additionalLoading, fetchedAll] =
+    useRealtimePagination(notificationsRef, NOTIFICATIONS_PER_REQUEST);
 
   if (loading) return <Loader />;
   if (error) return <div>Error :(</div>;

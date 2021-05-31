@@ -1,6 +1,6 @@
 import React from "react";
 
-import { List } from "components";
+import { List, ListRow } from "components";
 
 import NotificationItem from "./NotificationItem";
 import NotificationLoadMore from "./NotificationLoadMore";
@@ -10,9 +10,9 @@ function NotificationList({ notifications, fetchedAll, additionalLoading, handle
     <>
       <List borderWidth="1px" rounded="md" bg="white">
         {notifications.map((notification) => (
-          <List.Row key={notification.id}>
+          <ListRow key={notification.id}>
             <NotificationItem notification={notification} />
-          </List.Row>
+          </ListRow>
         ))}
       </List>
       <NotificationLoadMore

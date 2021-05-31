@@ -1,9 +1,9 @@
 import React from "react";
-import { Input } from "components";
+import { TextInput } from "components";
 
 function AuthName({ value, error, onChange }) {
   return (
-    <Input
+    <TextInput
       size="lg"
       name="name"
       value={value}

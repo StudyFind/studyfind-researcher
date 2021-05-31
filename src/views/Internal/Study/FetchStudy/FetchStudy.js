@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 import { useHistory } from "react-router-dom";
-import { makeStudy } from "database/studies";
+import { createStudy } from "database/cloud";
 
 import { Grid, Heading, Text, Button } from "@chakra-ui/react";
-import { Link, Form, Input } from "components";
+import { Link, Form, TextInput } from "components";
 
 function FetchStudy() {
   const history = useHistory();
@@ -34,7 +34,7 @@ function FetchStudy() {
 
     setLoading(true);
     setError("");
-    makeStudy(validID)
+    createStudy({ nctID: validID })
       .then(() => history.push(`/create/${validID}/details`))
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
@@ -51,7 +51,7 @@ function FetchStudy() {
         study and add it to your StudyFind account.
       </Text>
       <Grid w="210px" pt="10px" gap="10px">
-        <Input
+        <TextInput
           label="Clinical Trials ID"
           placeholder="NCT00000000"
           value={nctID}

@@ -6,7 +6,7 @@ import { datetime, helpers } from "functions";
 import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 
-import { Input } from "components";
+import { TextInput } from "components";
 import { Grid, Flex, Tag, TagCloseButton, TagLabel, FormLabel, Button } from "@chakra-ui/react";
 
 function RemindersEdit({ reminder }) {
@@ -129,7 +129,7 @@ function RemindersEdit({ reminder }) {
 
   return (
     <Grid gap="32px">
-      <Input
+      <TextInput
         label="Reminder Title"
         name="title"
         value={inputs.title}
@@ -156,7 +156,7 @@ function RemindersEdit({ reminder }) {
         </Weekdays>
       </div>
       <Grid>
-        <Input
+        <TextInput
           label="Reminder Times"
           name="time"
           value={inputs.time}
@@ -181,7 +181,7 @@ function RemindersEdit({ reminder }) {
         </Flex>
       </Grid>
       <Flex gridGap="16px">
-        <Input
+        <TextInput
           label="Start Date"
           name="startDate"
           value={inputs.startDate}
@@ -189,7 +189,7 @@ function RemindersEdit({ reminder }) {
           onChange={handleChange}
           type="Date"
         />
-        <Input
+        <TextInput
           label="End Date"
           name="endDate"
           min={inputs.startDate}

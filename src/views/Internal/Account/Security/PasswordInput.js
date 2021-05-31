@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 import { Button } from "@chakra-ui/react";
-import { Input } from "components";
+import { TextInput } from "components";
 
 function PasswordInput({ name, value, label, error, onChange }) {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow((prev) => !prev);
 
   return (
-    <Input
+    <TextInput
       name={name}
       type={show ? "text" : "password"}
       value={value}

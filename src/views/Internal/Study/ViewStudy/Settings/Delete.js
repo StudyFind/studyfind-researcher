@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { deleteStudy } from "database/studies";
+import { firestore } from "database/firebase";
 import { useHistory } from "react-router-dom";
 import { useConfirm } from "hooks";
 
-import { Form, Input } from "components";
+import { Form, TextInput } from "components";
 import { Box, Grid, Heading, Text, Button, useToast } from "@chakra-ui/react";
 
 function Delete({ study }) {
@@ -35,7 +35,10 @@ function Delete({ study }) {
   };
 
   const handleConfirm = () => {
-    return deleteStudy(study.id)
+    return firestore
+      .collection("studies")
+      .doc(study.id)
+      .delete()
       .then(() => {
         history.push("/studies");
         toast({
@@ -75,7 +78,12 @@ function Delete({ study }) {
 
       <Form onSubmit={handleDelete}>
         <Grid gap="10px" w="210px">
-          <Input placeholder="NCT00000000" value={nctID} error={error} onChange={handleChange} />
+          <TextInput
+            placeholder="NCT00000000"
+            value={nctID}
+            error={error}
+            onChange={handleChange}
+          />
           <Button type="submit" colorScheme="red">
             Delete
           </Button>

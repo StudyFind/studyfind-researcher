@@ -1,9 +1,21 @@
 import React from "react";
-import { Label, Error } from "./helpers";
 import { Select, FormControl } from "@chakra-ui/react";
+import { Label, Error } from "./helpers";
 
-function SelectInput({ name, value, label, placeholder, error, options, onChange, ...rest }) {
-  const handleChange = (e) => onChange(name, e.target.value);
+export const SelectInput = ({
+  name,
+  value,
+  error,
+  label,
+  placeholder,
+  options,
+  onChange,
+  isDisabled,
+  ...rest
+}) => {
+  const handleChange = (e) => {
+    onChange(name, e.target.value);
+  };
 
   return (
     <FormControl isInvalid={!!error}>
@@ -12,20 +24,18 @@ function SelectInput({ name, value, label, placeholder, error, options, onChange
         bg={error ? "red.100" : "white"}
         textTransform="capitalize"
         placeholder={placeholder}
-        _placeholder={{ color: error && "gray.500" }}
+        isDisabled={isDisabled}
         value={value}
         onChange={handleChange}
         {...rest}
       >
         {options.map((option, i) => (
-          <option key={i} value={option}>
-            {option}
+          <option key={i} value={option.value}>
+            {option.label}
           </option>
         ))}
       </Select>
       <Error error={error} />
     </FormControl>
   );
-}
-
-export default SelectInput;
+};

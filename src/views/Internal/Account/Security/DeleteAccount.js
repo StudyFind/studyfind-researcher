@@ -4,7 +4,7 @@ import { useAuthForm } from "hooks";
 import { deleteAccount } from "database/auth";
 
 import { Grid, Button, useToast } from "@chakra-ui/react";
-import { Form, Input } from "components";
+import { Form, TextInput } from "components";
 
 import PasswordInput from "./PasswordInput";
 import AccountHeader from "../AccountHeader";
@@ -40,7 +40,7 @@ function DeleteAccount() {
       />
       <Form onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
         <Grid gap="15px">
-          <Input
+          <TextInput
             name="email"
             label="Email"
             value={inputs.email}

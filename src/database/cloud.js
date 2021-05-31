@@ -1,10 +1,6 @@
 import { functions } from "database/firebase";
 
-const generateFunction = (code) => {
-  return functions.httpsCallable(code);
-};
-
-export const createStudyCloud = generateFunction("createStudy");
-export const updateStudyCloud = generateFunction("updateStudy");
-export const welcomeAccountCloud = generateFunction("welcomeAccount");
-export const setResearcherClaim = generateFunction("setResearcherClaim");
+export const createStudy = functions.httpsCallable("createStudy");
+export const updateStudy = functions.httpsCallable("updateStudy");
+export const welcomeAccount = functions.httpsCallable("welcomeAccount");
+export const setResearcherClaim = functions.httpsCallable("setResearcherClaim");

@@ -3,7 +3,7 @@ import { StudiesContext } from "context";
 
 import { auth } from "database/firebase";
 import { useHistory } from "react-router";
-import { welcomeAccount } from "database/studies";
+import { welcomeAccount } from "database/cloud";
 import { Heading } from "@chakra-ui/react";
 
 import WelcomeLoading from "./WelcomeLoading";

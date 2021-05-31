@@ -13,7 +13,7 @@ function Notifications({ inputs, handleNotifications, handleCategories }) {
       <Grid gap="10px">
         <AccountHeader
           title="Notification"
-          description="Select what notifications you want to recieve and where you want to recieve them"
+          description="SelectInput what notifications you want to recieve and where you want to recieve them"
         />
         <Grid gap="4px">
           <AccountToggle

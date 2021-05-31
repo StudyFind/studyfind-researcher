@@ -1,7 +1,8 @@
 import { auth, firestore } from "database/firebase";
+import { setResearcherClaim } from "database/cloud";
+
 import errors from "database/errors";
 import moment from "moment-timezone";
-import { setResearcherClaim } from "./cloud";
 
 const getErrorMessage = ({ code }) => {
   return { email: "", password: "", ...errors[code] };
@@ -51,7 +52,6 @@ const signup = async (name, email, password) => {
     ]);
 
     setLocalUserExists();
-    return user;
   } catch (error) {
     throw getErrorMessage(error);
   }
@@ -59,9 +59,8 @@ const signup = async (name, email, password) => {
 
 const signin = async (email, password) => {
   try {
-    const { user } = await auth.signInWithEmailAndPassword(email, password);
+    await auth.signInWithEmailAndPassword(email, password);
     setLocalUserExists();
-    return user;
   } catch (error) {
     throw getErrorMessage(error);
   }
@@ -82,30 +81,29 @@ const deleteAccount = async (email, password) => {
   }
 };
 
+// ========================== PASSWORD UPDATES ========================== //
+
 const forgotPassword = async (email) => {
   return auth.sendPasswordResetEmail(email);
-};
-
-const resetPassword = async (actionCode, password) => {
-  try {
-    const [email] = Promise.all([
-      await auth.verifyPasswordResetCode(actionCode),
-      await auth.confirmPasswordReset(actionCode, password),
-    ]);
-    return signin(email, password);
-  } catch (error) {
-    throw getErrorMessage(error);
-  }
 };
 
 const changePassword = async (password, newPassword) => {
   try {
     const { email } = await auth.currentUser;
     const { user } = await auth.signInWithEmailAndPassword(email, password);
-    return user.updatePassword(newPassword);
+    await user.updatePassword(newPassword);
   } catch (error) {
     throw getErrorMessage(error);
   }
 };
 
-export { signin, signup, signout, deleteAccount, forgotPassword, resetPassword, changePassword };
+export {
+  // DATA //
+  deleteAccount,
+  forgotPassword,
+  changePassword,
+  // AUTH //
+  signin,
+  signup,
+  signout,
+};

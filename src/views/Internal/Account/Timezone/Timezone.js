@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment-timezone";
 
 import { Box, Grid, Tooltip } from "@chakra-ui/react";
-import { Select } from "components";
+import { SelectInput } from "components";
 
 import AccountHeader from "../AccountHeader";
 import AccountCheckbox from "../AccountCheckbox";
@@ -29,7 +29,7 @@ function Timezone({ inputs, handleChange, handlePreferences }) {
           }
         >
           <Box>
-            <Select
+            <SelectInput
               label="Timezone Location"
               name="timezone"
               options={moment.tz.zonesForCountry("US")}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { datetime } from "functions";
-import { resetStudy } from "database/studies";
+import { updateStudy } from "database/cloud";
 
 import { Link } from "components";
 import { Box, Flex, Heading, Text, Button, FormErrorMessage } from "@chakra-ui/react";
@@ -12,7 +12,7 @@ function Update({ study }) {
 
   const handleUpdate = () => {
     setLoading(true);
-    resetStudy(study.id)
+    updateStudy(study.id)
       .catch((err) => setError(`Update failed: ${err}`))
       .finally(() => setLoading(false));
   };

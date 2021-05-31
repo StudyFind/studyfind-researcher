@@ -1,2 +1,2 @@
-export { default as Error } from "./Error";
-export { default as Label } from "./Label";
+export { Error } from "./Error";
+export { Label } from "./Label";

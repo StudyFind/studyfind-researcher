@@ -1,25 +1,24 @@
 import React from "react";
-
-import { Flex, Tooltip } from "@chakra-ui/react";
+import { Icon, Flex, Tooltip } from "@chakra-ui/react";
 import { FaExclamationCircle, FaTimesCircle, FaCheckCircle } from "react-icons/fa";
 
-function ConfirmationStatus({ children, status, hint }) {
+export const ConfirmationStatus = ({ children, status, hint }) => {
   const statuses = {
     success: {
-      icon: <FaCheckCircle />,
+      icon: FaCheckCircle,
       color: "green",
     },
     neutral: {
-      icon: <FaExclamationCircle />,
+      icon: FaExclamationCircle,
       color: "gray",
     },
-    error: {
-      icon: <FaTimesCircle />,
+    failure: {
+      icon: FaTimesCircle,
       color: "red",
     },
   };
 
-  const { icon, color } = statuses[status] || statuses["neutral"];
+  const { icon, color } = statuses[status];
 
   return (
     <Tooltip label={hint}>
@@ -36,11 +35,9 @@ function ConfirmationStatus({ children, status, hint }) {
         borderColor={`${color}.300`}
         borderWidth="1px"
       >
-        {icon}
+        <Icon as={icon} />
         {children}
       </Flex>
     </Tooltip>
   );
-}
-
-export default ConfirmationStatus;
+};

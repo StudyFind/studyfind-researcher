@@ -1,24 +1,18 @@
 import React from "react";
-import { Input, Textarea } from "components";
+import { TextInput, TextareaInput } from "components";
 import { Flex, Grid, Button } from "@chakra-ui/react";
 
-function NotesForm({
-  inputs,
-  errors,
-  handleCancel,
-  handleChange,
-  handleSubmit,
-}) {
+function NotesForm({ inputs, errors, handleCancel, handleChange, handleSubmit }) {
   return (
     <Grid gap="20px">
-      <Input
+      <TextInput
         label="Title"
         name="title"
         value={inputs.title}
         error={errors.title}
         onChange={handleChange}
       />
-      <Textarea
+      <TextareaInput
         label="Body"
         name="body"
         value={inputs.body}

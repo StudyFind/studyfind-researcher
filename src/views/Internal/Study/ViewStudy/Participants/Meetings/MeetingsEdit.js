@@ -6,7 +6,7 @@ import { datetime } from "functions";
 import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 
-import { Input } from "components";
+import { TextInput } from "components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
 
 function MeetingsEdit({ meeting, handleCancel }) {
@@ -87,14 +87,14 @@ function MeetingsEdit({ meeting, handleCancel }) {
 
   return (
     <Grid gap="32px">
-      <Input
+      <TextInput
         label="Meeting Name"
         name="name"
         value={inputs.name}
         error={errors.name}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Date"
         name="date"
         type="date"
@@ -103,7 +103,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
         error={errors.date}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Time"
         name="time"
         type="time"
@@ -111,7 +111,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
         error={errors.time}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Link"
         name="link"
         value={inputs.link}

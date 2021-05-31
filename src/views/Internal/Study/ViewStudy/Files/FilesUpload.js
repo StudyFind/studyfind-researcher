@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Heading, Button, Flex, Grid, Progress } from "@chakra-ui/react";
-import { Input, FileInput } from "components";
+import { TextInput, FileInput } from "components";
 import { storage } from "database/firebase";
 
 function FilesEdit({ studyID, setEdit, getFiles }) {
@@ -92,7 +92,7 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
               onChange={handleSelect}
               accept="application/pdf"
             />
-            <Input
+            <TextInput
               label="Name"
               name="name"
               value={inputs.name}

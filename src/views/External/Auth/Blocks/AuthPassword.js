@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "components";
+import { TextInput } from "components";
 import { Button } from "@chakra-ui/react";
 
 function AuthPassword({ name, placeholder, value, error, onChange }) {
@@ -7,7 +7,7 @@ function AuthPassword({ name, placeholder, value, error, onChange }) {
   const handleToggle = () => setShow((show) => !show);
 
   return (
-    <Input
+    <TextInput
       size="lg"
       name={name || "password"}
       value={value}

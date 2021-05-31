@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useConfirm } from "hooks";
-import { updateStudy, deleteStudy } from "database/studies";
+import { firestore } from "database/firebase";
 
 import { Flex, Button, useToast } from "@chakra-ui/react";
 import StudyCardLarge from "molecules/StudyCardLarge";
@@ -79,7 +79,10 @@ function ReviewBody({ study, next, back }) {
 
   const handlePublish = () => {
     setLoading(true);
-    updateStudy(study.id, { ...study, published: true, activated: true })
+    firestore
+      .collection("studies")
+      .doc(study.id)
+      .update({ published: true, activated: true })
       .then(() => {
         next();
         triggerPublishSuccessToast();
@@ -90,7 +93,10 @@ function ReviewBody({ study, next, back }) {
 
   const handleDelete = () => {
     setLoading(true);
-    deleteStudy(study.id)
+    firestore
+      .collection("studies")
+      .doc(study.id)
+      .delete()
       .then(() => {
         next();
         triggerDeleteSuccessToast();

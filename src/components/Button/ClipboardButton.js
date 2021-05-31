@@ -1,9 +1,8 @@
 import React from "react";
-
 import { Button, useClipboard } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 
-function ClipboardButton({ children, text, copiedText }) {
+export const ClipboardButton = ({ children, text, copiedText }) => {
   const { hasCopied, onCopy } = useClipboard(text);
 
   if (hasCopied) {
@@ -27,6 +26,6 @@ function ClipboardButton({ children, text, copiedText }) {
       {children}
     </Button>
   );
-}
+};
 
 export default ClipboardButton;

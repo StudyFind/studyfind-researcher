@@ -1,14 +1,26 @@
-export { default as Page } from "./Page";
-export { default as Link } from "./Link";
-export { default as Form } from "./Form";
-export { default as List } from "./List";
-export { default as Input } from "./Input";
-export { default as Loader } from "./Loader";
-export { default as Select } from "./Select";
-export { default as Message } from "./Message";
-export { default as Textarea } from "./Textarea";
-export { default as FileInput } from "./FileInput";
-export { default as ActionButton } from "./ActionButton";
-export { default as EditorButton } from "./EditorButton";
-export { default as ClipboardButton } from "./ClipboardButton";
-export { default as ConfirmationStatus } from "./ConfirmationStatus";
+export { List } from "./List";
+export { Page } from "./Page";
+export { Form } from "./Form";
+export { Link } from "./Link";
+export { Hint } from "./Hint";
+export { Loader } from "./Loader";
+export { Message } from "./Message";
+export { ConfirmationStatus } from "./ConfirmationStatus";
+
+// INPUTS
+export { TextInput } from "./Inputs/TextInput";
+export { LinkInput } from "./Inputs/LinkInput";
+export { FileInput } from "./Inputs/FileInput";
+export { DateInput } from "./Inputs/DateInput";
+export { PhoneInput } from "./Inputs/PhoneInput";
+export { EmailInput } from "./Inputs/EmailInput";
+export { RadioInput } from "./Inputs/RadioInput";
+export { SelectInput } from "./Inputs/SelectInput";
+export { PasswordInput } from "./Inputs/PasswordInput";
+export { TextareaInput } from "./Inputs/TextareaInput";
+export { MultiselectInput } from "./Inputs/MultiselectInput";
+
+// BUTTONS
+export { ActionButton } from "./Buttons/ActionButton";
+export { EditorButton } from "./Buttons/EditorButton";
+export { ClipboardButton } from "./Buttons/ClipboardButton";

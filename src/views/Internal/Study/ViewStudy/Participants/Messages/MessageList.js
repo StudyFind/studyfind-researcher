@@ -12,14 +12,8 @@ import Message from "./Message";
 function MessageList({ autoscroll, messagesRef }, ref) {
   const MESSAGES_PER_REQUEST = 15;
 
-  const [
-    messages,
-    loading,
-    error,
-    handleFetchAdditional,
-    additionalLoading,
-    fetchedAll,
-  ] = useRealtimePagination(messagesRef.orderBy("time", "desc"), MESSAGES_PER_REQUEST);
+  const [messages, loading, error, handleFetchAdditional, additionalLoading, fetchedAll] =
+    useRealtimePagination(messagesRef.orderBy("time", "desc"), MESSAGES_PER_REQUEST);
 
   useEffect(() => {
     !loading && autoscroll();

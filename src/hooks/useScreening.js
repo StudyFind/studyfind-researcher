@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateStudy } from "database/studies";
+import { firestore } from "database/firebase";
 
 function useScreening(study) {
   const validate = (values) => {
@@ -69,7 +69,10 @@ function useScreening(study) {
       }
 
       setLoading(true);
-      updateStudy(study.id, { questions: values })
+      firestore
+        .collection("studies")
+        .doc(study.id)
+        .update({ questions: values })
         .then(() => resolve())
         .catch(() => reject())
         .finally(() => setLoading(false));

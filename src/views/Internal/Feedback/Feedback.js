@@ -5,7 +5,7 @@ import { useForm } from "hooks";
 import { toasts } from "templates";
 import { auth, firestore } from "database/firebase";
 
-import { Form, Input, Textarea } from "components";
+import { Form, TextInput, TextareaInput } from "components";
 import { Box, Flex, Grid, Heading, Text, Button, useToast } from "@chakra-ui/react";
 import { FaPaperPlane } from "react-icons/fa";
 
@@ -45,14 +45,14 @@ function Feedback() {
       </Box>
       <Form onSubmit={handleSubmit}>
         <Grid gap="20px" w="400px">
-          <Input
+          <TextInput
             label="Title"
             name="title"
             value={inputs.title}
             error={errors.title}
             onChange={handleChange}
           />
-          <Textarea
+          <TextareaInput
             label="Body"
             name="body"
             height="150px"

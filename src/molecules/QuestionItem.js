@@ -1,7 +1,7 @@
 import React from "react";
 
 import { FaTrash } from "react-icons/fa";
-import { Select, Input } from "components";
+import { SelectInput, TextInput } from "components";
 import { Flex, IconButton } from "@chakra-ui/react";
 import { SortableElement } from "react-sortable-hoc";
 
@@ -10,7 +10,7 @@ import DragHandle from "./DragHandle";
 export default SortableElement(({ i, value, error, updateQuestion, deleteQuestion }) => (
   <Flex gridGap="10px" w="100%">
     <DragHandle />
-    <Select
+    <SelectInput
       w="210px"
       name="type"
       value={value.type}
@@ -18,7 +18,7 @@ export default SortableElement(({ i, value, error, updateQuestion, deleteQuestio
       onChange={(name, value) => updateQuestion(i, name, value)}
       options={["Inclusion", "Exclusion"]}
     />
-    <Input
+    <TextInput
       placeholder="Question Prompt"
       name="prompt"
       value={value.prompt}

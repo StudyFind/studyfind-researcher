@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Grid } from "@chakra-ui/react";
-import { Input, Textarea } from "components";
+import { TextInput, TextareaInput } from "components";
 
 import AccountHeader from "../AccountHeader";
 
@@ -13,13 +13,13 @@ function Profile({ inputs, handleChange }) {
         description="The profile section contains information like your organization and background"
       />
       <Grid gap="25px">
-        <Input
+        <TextInput
           label="Organization"
           name="organization"
           value={inputs.organization}
           onChange={handleChange}
         />
-        <Textarea
+        <TextareaInput
           label="Background"
           name="background"
           height="108px"
