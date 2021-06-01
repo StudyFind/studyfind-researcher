@@ -21,6 +21,10 @@ function MeetingsItem({ meeting }) {
   const handleClose = () => history.push(`/schedule`);
   const handleOpen = () => history.push(`/schedule?meetingID=${meeting.id}`);
 
+  const handleConfirm = () => {
+    firestore.collection("meetings").doc(meeting.id).delete();
+  };
+
   const [participant, loading] = useDocument(
     firestore
       .collection("studies")
@@ -39,10 +43,6 @@ function MeetingsItem({ meeting }) {
       loading,
       handleConfirm,
     });
-  };
-
-  const handleConfirm = () => {
-    firestore.collection("meetings").doc(meeting.id).delete();
   };
 
   const meetingInfo = (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "@chakra-ui/react";
-import { Link, List, ListRow } from "components";
+import { Link, List } from "components";
 
 import WelcomeStudy from "./WelcomeStudy";
 
@@ -16,9 +16,9 @@ function WelcomeList({ studies }) {
       </Text>
       <List>
         {studies.map((study) => (
-          <ListRow key={study.id}>
+          <List.Row key={study.id}>
             <WelcomeStudy study={study} />
-          </ListRow>
+          </List.Row>
         ))}
       </List>
     </>

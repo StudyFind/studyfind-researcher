@@ -1,11 +1,11 @@
-const name = (value) => {};
+// const name = (value) => {};
 
-const email = () => {};
+// const email = () => {};
 
-const password = () => {};
+// const password = () => {};
 
-const url = () => {};
+// const url = () => {};
 
-const date = () => {};
+// const date = () => {};
 
-const time = () => {};
+// const time = () => {};

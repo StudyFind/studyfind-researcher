@@ -24,6 +24,36 @@ function RemindersEdit({ reminder }) {
 
   const [errors, setErrors] = useState({});
 
+  const checker = (name, value) => {
+    if (!value) return true;
+
+    if (name === "times" && !value.length) {
+      return "Please add at least one time";
+    }
+
+    if (name === "weekdays" && !value.some((v) => v)) {
+      return "Please add at least one time";
+    }
+
+    if (name === "startDate" && value < datetime.getToday()) {
+      return "Start date must be in the future";
+    }
+
+    if (name === "endDate" && value < inputs.startDate) {
+      return "End date must be after start date";
+    }
+
+    return false;
+  };
+
+  const validate = ({ title, weekdays, times, startDate, endDate }) => ({
+    title: checker("title", title),
+    weekdays: checker("weekday", weekdays),
+    times: checker("times", times),
+    startDate: checker("startDate", startDate),
+    endDate: checker("endDate", endDate),
+  });
+
   const handleInitial = () => {
     const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(reminder.times);
     const { title, startDate, endDate } = reminder;
@@ -63,36 +93,6 @@ function RemindersEdit({ reminder }) {
 
   const handleToggleDay = (index) => {
     setInputs((prev) => ({ ...prev, weekdays: prev.weekdays.map((v, i) => (i !== index) ^ v) }));
-  };
-
-  const validate = ({ title, weekdays, times, startDate, endDate }) => ({
-    title: checker("title", title),
-    weekdays: checker("weekday", weekdays),
-    times: checker("times", times),
-    startDate: checker("startDate", startDate),
-    endDate: checker("endDate", endDate),
-  });
-
-  const checker = (name, value) => {
-    if (!value) return true;
-
-    if (name === "times" && !value.length) {
-      return "Please add at least one time";
-    }
-
-    if (name === "weekdays" && !value.some((v) => v)) {
-      return "Please add at least one time";
-    }
-
-    if (name === "startDate" && value < datetime.getToday()) {
-      return "Start date must be in the future";
-    }
-
-    if (name === "endDate" && value < inputs.startDate) {
-      return "End date must be after start date";
-    }
-
-    return false;
   };
 
   const handleSubmit = ({ title, weekdays, times, startDate, endDate }) => {

@@ -11,28 +11,6 @@ function ReviewBody({ study, next, back }) {
 
   const [loading, setLoading] = useState(false);
 
-  const openPublishModal = () => {
-    confirm({
-      title: "Confirm Publish Study",
-      description: `Publishing this study makes it visible to participants who can sign up for your study. Are you sure you want to publish this study (${study.id})?`,
-      button: "Publish",
-      color: "green",
-      loading,
-      handleConfirm: handlePublish,
-    });
-  };
-
-  const openDeleteModal = () => {
-    confirm({
-      title: "Confirm Delete Study",
-      description: `Deleting this study removes it from your account and you will not be able to recover any changes made to the study. Are you sure you want to delete this study (${study.id})?`,
-      button: "Delete",
-      color: "red",
-      loading,
-      handleConfirm: handleDelete,
-    });
-  };
-
   const triggerPublishSuccessToast = () => {
     toast({
       title: "Study Published!",
@@ -108,6 +86,28 @@ function ReviewBody({ study, next, back }) {
   const handleSaveProgress = () => {
     triggerSaveProgressToast();
     next();
+  };
+
+  const openPublishModal = () => {
+    confirm({
+      title: "Confirm Publish Study",
+      description: `Publishing this study makes it visible to participants who can sign up for your study. Are you sure you want to publish this study (${study.id})?`,
+      button: "Publish",
+      color: "green",
+      loading,
+      handleConfirm: handlePublish,
+    });
+  };
+
+  const openDeleteModal = () => {
+    confirm({
+      title: "Confirm Delete Study",
+      description: `Deleting this study removes it from your account and you will not be able to recover any changes made to the study. Are you sure you want to delete this study (${study.id})?`,
+      button: "Delete",
+      color: "red",
+      loading,
+      handleConfirm: handleDelete,
+    });
   };
 
   return (

@@ -40,7 +40,6 @@ function ScreeningView({ study, setEdit }) {
       </Table>
     </>
   );
-
   const EMPTY = (
     <Box h="500px">
       <Message

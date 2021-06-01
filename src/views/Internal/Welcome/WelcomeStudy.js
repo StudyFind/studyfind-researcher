@@ -13,7 +13,7 @@ function WelcomeStudy({ study }) {
       .collection("studies")
       .doc(study.id)
       .delete()
-      .then(() => {
+      .then(() =>
         toast({
           title: "Study Removed",
           description:
@@ -22,9 +22,9 @@ function WelcomeStudy({ study }) {
           duration: 2500,
           isClosable: true,
           position: "top",
-        });
-      })
-      .catch(() => {
+        })
+      )
+      .catch(() =>
         toast({
           title: "Connection Error",
           description:
@@ -33,8 +33,8 @@ function WelcomeStudy({ study }) {
           duration: 2500,
           isClosable: true,
           position: "top",
-        });
-      });
+        })
+      );
   };
 
   const handleAccept = () => {
@@ -43,13 +43,7 @@ function WelcomeStudy({ study }) {
 
   return (
     <Flex p="10px" align="center" w="100%">
-      <Text
-        fontSize="sm"
-        fontWeight="500"
-        color="gray.500"
-        mx="8px"
-        minW="100px"
-      >
+      <Text fontSize="sm" fontWeight="500" color="gray.500" mx="8px" minW="100px">
         {study.id}
       </Text>
       <Text fontSize="md" fontWeight="600" noOfLines={1}>
@@ -66,11 +60,7 @@ function WelcomeStudy({ study }) {
         >
           Remove
         </Button>
-        <Button
-          leftIcon={<FaCheck />}
-          colorScheme="green"
-          onClick={handleAccept}
-        >
+        <Button leftIcon={<FaCheck />} colorScheme="green" onClick={handleAccept}>
           Accept
         </Button>
       </Flex>

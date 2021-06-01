@@ -16,6 +16,14 @@ function Calendar({ date, setDate, today }) {
     setYear(now.year());
   }, []);
 
+  const backYear = () => {
+    setYear((prev) => prev - 1);
+  };
+
+  const nextYear = () => {
+    setYear((prev) => prev + 1);
+  };
+
   const backMonth = () => {
     setMonth((prev) => {
       if (prev === 0) {
@@ -34,14 +42,6 @@ function Calendar({ date, setDate, today }) {
       }
       return prev + 1;
     });
-  };
-
-  const backYear = () => {
-    setYear((prev) => prev - 1);
-  };
-
-  const nextYear = () => {
-    setYear((prev) => prev + 1);
   };
 
   return (

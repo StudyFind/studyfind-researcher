@@ -1,11 +1,4 @@
-import {
-  FaUser,
-  FaUsers,
-  FaCalendar,
-  FaClipboard,
-  FaQuestionCircle,
-  FaTimesCircle,
-} from "react-icons/fa";
+import { FaUser, FaUsers, FaCalendar, FaClipboard, FaTimesCircle } from "react-icons/fa";
 
 const createAccount = () => ({
   title: "Welcome to StudyFind",

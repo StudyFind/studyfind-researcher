@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListRow } from "components";
+import { List } from "components";
 import { Flex, Heading } from "@chakra-ui/react";
 
 import Publish from "./Publish";
@@ -39,7 +39,7 @@ function Settings({ study }) {
       </Flex>
       <List>
         {settings.map(({ condition, component }, i) => {
-          return condition && <ListRow key={i}>{component}</ListRow>;
+          return condition && <List.Row key={i}>{component}</List.Row>;
         })}
       </List>
     </>

@@ -21,8 +21,9 @@ const compute = {
     const BIAS = 20;
 
     let score = BIAS + flesch({ sentence, word, syllable });
-    if (score > 100) score = 100;
-    if (score < 0) score = 0;
+
+    score = Math.min(score, 100);
+    score = Math.max(score, 0);
 
     return Math.round(score);
   },

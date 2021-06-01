@@ -9,7 +9,6 @@ import Internal from "views/Internal/Internal";
 
 function App() {
   const [cred, loading] = useAuthState(auth);
-  auth.signOut();
   return loading ? <Loading /> : cred ? <Internal /> : <External />;
 }
 

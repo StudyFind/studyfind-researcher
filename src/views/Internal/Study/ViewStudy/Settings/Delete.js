@@ -20,20 +20,6 @@ function Delete({ study }) {
     setError("");
   };
 
-  const handleDelete = () => {
-    if (nctID === study.id) {
-      confirm({
-        title: "Delete Study",
-        description: `This is a permanant action and cannot be undone. Are you sure you want to delete study with study number ${nctID}?`,
-        color: "red",
-        button: "Delete",
-        handleConfirm,
-      });
-    } else {
-      setError("Entered ID does not match");
-    }
-  };
-
   const handleConfirm = () => {
     return firestore
       .collection("studies")
@@ -61,6 +47,20 @@ function Delete({ study }) {
           position: "top",
         });
       });
+  };
+
+  const handleDelete = () => {
+    if (nctID === study.id) {
+      confirm({
+        title: "Delete Study",
+        description: `This is a permanant action and cannot be undone. Are you sure you want to delete study with study number ${nctID}?`,
+        color: "red",
+        button: "Delete",
+        handleConfirm,
+      });
+    } else {
+      setError("Entered ID does not match");
+    }
   };
 
   return (

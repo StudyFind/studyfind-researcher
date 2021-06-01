@@ -29,18 +29,6 @@ function MeetingsEdit({ meeting, handleCancel }) {
     }
   }, [meeting]);
 
-  const handleChange = (name, value) => {
-    setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: checker(name, value) });
-  };
-
-  const validate = ({ name, date, time, link }) => ({
-    name: checker("name", name),
-    date: checker("date", date),
-    time: checker("time", time),
-    link: checker("link", link),
-  });
-
   const checker = (name, value) => {
     if (!value) return true;
 
@@ -58,6 +46,18 @@ function MeetingsEdit({ meeting, handleCancel }) {
 
     return false;
   };
+
+  const handleChange = (name, value) => {
+    setInputs({ ...inputs, [name]: value });
+    setErrors({ ...errors, [name]: checker(name, value) });
+  };
+
+  const validate = ({ name, date, time, link }) => ({
+    name: checker("name", name),
+    date: checker("date", date),
+    time: checker("time", time),
+    link: checker("link", link),
+  });
 
   const handleSubmit = () => {
     const error = validate(inputs);

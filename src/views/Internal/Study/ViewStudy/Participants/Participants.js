@@ -43,6 +43,42 @@ function Participants({ study }) {
     }
   }, [toggle]);
 
+  const sortByStatus = (participants) => {
+    const order = ["interested", "screened", "consented", "accepted", "rejected"];
+    participants.sort((a, b) => {
+      const statusA = order.indexOf(a.status);
+      const statusB = order.indexOf(b.status);
+
+      if (statusA > statusB) return 1;
+      if (statusA < statusB) return -1;
+      return 0;
+    });
+    return participants;
+  };
+
+  const sortByEligiblity = (participants) => {
+    participants.sort((a, b) => {
+      if (a.score < b.score) return 1;
+      if (a.score > b.score) return -1;
+      return 0;
+    });
+    return participants;
+  };
+
+  const filterStatus = (participants) => {
+    return participants.filter((p) => status[p.status]);
+  };
+
+  const filterSearch = (participants) => {
+    return participants.filter((p) => p.fakename.toLowerCase().includes(search));
+  };
+
+  const sortParticipants = (participants) => {
+    if (sort === "eligibility") return sortByEligiblity(participants);
+    if (sort === "status") return sortByStatus(participants);
+    return participants;
+  };
+
   useEffect(() => {
     if (participants) {
       const initial = participants.map((p) => ({
@@ -55,49 +91,6 @@ function Participants({ study }) {
       setParticipantsFiltered(sorted);
     }
   }, [sort, status, search, participants]);
-
-  const sortParticipants = (participants) => {
-    if (sort === "eligibility") return sortByEligiblity(participants);
-    if (sort === "status") return sortByStatus(participants);
-    return participants;
-  };
-
-  const sortByStatus = (participants) => {
-    const order = ["interested", "screened", "consented", "accepted", "rejected"];
-    participants.sort((a, b) => {
-      const statusA = order.indexOf(a.status);
-      const statusB = order.indexOf(b.status);
-      if (statusA > statusB) {
-        return 1;
-      } else if (statusA < statusB) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    return participants;
-  };
-
-  const sortByEligiblity = (participants) => {
-    participants.sort((a, b) => {
-      if (a.score < b.score) {
-        return 1;
-      } else if (a.score > b.score) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    return participants;
-  };
-
-  const filterStatus = (participants) => {
-    return participants.filter((p) => status[p.status]);
-  };
-
-  const filterSearch = (participants) => {
-    return participants.filter((p) => p.fakename.toLowerCase().includes(search));
-  };
 
   if (loading) {
     return (

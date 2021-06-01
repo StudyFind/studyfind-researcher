@@ -18,7 +18,7 @@ export const Message = ({ status, title, description, children, ...rest }) => {
     },
   };
 
-  const { icon, color } = statuses[status] || statuses["neutral"];
+  const { icon, color } = statuses[status] || statuses.neutral;
 
   return (
     <Flex
