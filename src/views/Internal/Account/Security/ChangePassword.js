@@ -4,9 +4,8 @@ import { useAuthForm } from "hooks";
 import { changePassword } from "database/auth";
 
 import { Grid, Button, useToast } from "@chakra-ui/react";
-import { Form } from "components";
+import { Form, PasswordInput } from "components";
 
-import PasswordInput from "./PasswordInput";
 import AccountHeader from "../AccountHeader";
 
 function ChangePassword() {

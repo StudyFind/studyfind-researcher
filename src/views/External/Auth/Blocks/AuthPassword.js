@@ -1,26 +1,14 @@
-import React, { useState } from "react";
-import { TextInput } from "components";
-import { Button } from "@chakra-ui/react";
+import React from "react";
+import { PasswordInput } from "components";
 
 function AuthPassword({ name, placeholder, value, error, onChange }) {
-  const [show, setShow] = useState(false);
-  const handleToggle = () => setShow((show) => !show);
-
   return (
-    <TextInput
-      size="lg"
+    <PasswordInput
       name={name || "password"}
       value={value}
       error={error}
       onChange={onChange}
       placeholder={placeholder || "Password"}
-      type={show ? "text" : "password"}
-      rightWidth="5rem"
-      right={
-        <Button color="gray.500" size="sm" onClick={handleToggle}>
-          {show ? "Hide" : "Show"}
-        </Button>
-      }
     />
   );
 }

@@ -3,14 +3,7 @@ import { TextInput } from "components";
 
 function AuthName({ value, error, onChange }) {
   return (
-    <TextInput
-      size="lg"
-      name="name"
-      value={value}
-      error={error}
-      onChange={onChange}
-      placeholder="Name"
-    />
+    <TextInput name="name" value={value} error={error} onChange={onChange} placeholder="Name" />
   );
 }
 

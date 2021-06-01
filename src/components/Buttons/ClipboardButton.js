@@ -2,7 +2,7 @@ import React from "react";
 import { Button, useClipboard } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 
-export const ClipboardButton = ({ children, text, copiedText }) => {
+export const ClipboardButton = ({ children, text, copiedText, ...rest }) => {
   const { hasCopied, onCopy } = useClipboard(text);
 
   if (hasCopied) {
@@ -15,6 +15,7 @@ export const ClipboardButton = ({ children, text, copiedText }) => {
         _hover={{ bg: "green.100" }}
         leftIcon={<FaCheckCircle />}
         onClick={onCopy}
+        {...rest}
       >
         {copiedText || children}
       </Button>

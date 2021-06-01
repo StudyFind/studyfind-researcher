@@ -1,9 +1,9 @@
 import React from "react";
 
-function Form({ children, onSubmit, ...rest }) {
-  const handleEnter = (event) => {
-    event.preventDefault();
-    onSubmit();
+export const Form = ({ children, onSubmit, ...rest }) => {
+  const handleEnter = (e) => {
+    e.preventDefault();
+    onSubmit(e);
   };
 
   return (
@@ -11,6 +11,6 @@ function Form({ children, onSubmit, ...rest }) {
       {children}
     </form>
   );
-}
+};
 
 export default Form;

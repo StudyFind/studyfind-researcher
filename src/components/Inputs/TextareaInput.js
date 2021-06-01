@@ -15,7 +15,9 @@ export const TextareaInput = ({
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setCount(value.length);
+    if (value) {
+      setCount(value.length);
+    }
   }, [value]);
 
   const handleChange = (e) => {

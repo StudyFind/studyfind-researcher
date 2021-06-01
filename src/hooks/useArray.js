@@ -19,19 +19,23 @@ function useArray(initial) {
     setArray((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const resetArray = () => {
+    setArray(initial);
+  };
+
   const clearArray = () => {
     setArray([]);
   };
 
   return [
     array,
-    setArray,
     {
       appendItem,
       updateItem,
       insertItem,
       deleteItem,
       clearArray,
+      resetArray,
     },
   ];
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Tooltip, IconButton } from "@chakra-ui/react";
 
-export const ActionButton = ({ icon, hint, color, onClick }) => {
+export const ActionButton = ({ icon, hint, size, color, onClick }) => {
   const colorText = color ? `${color}.500` : "gray.400";
   const colorBack = color ? `${color}.100` : "gray.50";
   const colorHover = color ? `${color}.200` : "gray.100";
@@ -10,7 +10,7 @@ export const ActionButton = ({ icon, hint, color, onClick }) => {
   return (
     <Tooltip label={hint}>
       <IconButton
-        size="sm"
+        size={size || "sm"}
         icon={icon}
         color={colorText}
         bg={colorBack}

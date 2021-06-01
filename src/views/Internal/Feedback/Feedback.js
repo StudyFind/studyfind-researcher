@@ -18,7 +18,7 @@ function Feedback() {
       body: "",
     },
 
-    check: (value) => !value,
+    check: (value) => (value ? "" : " "),
 
     submit: ({ title, body }) => {
       const email = auth.currentUser.email;

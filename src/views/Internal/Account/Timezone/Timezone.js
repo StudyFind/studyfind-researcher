@@ -19,12 +19,12 @@ function Timezone({ inputs, handleChange, handlePreferences }) {
           title="Auto Detect Timezone"
           description="Automatically detects and updates your local timezone each time you use StudyFind"
           name="autodetectTimezone"
-          value={inputs.preferences.autodetectTimezone}
+          value={inputs.preferences.timezone.autodetect}
           onChange={handlePreferences}
         />
         <Tooltip
           label={
-            inputs.preferences.autodetectTimezone &&
+            inputs.preferences.timezone.autodetect &&
             "Disable Auto Detect Timezone by unchecking the box above to manually enter your preferred timezone"
           }
         >
@@ -35,7 +35,7 @@ function Timezone({ inputs, handleChange, handlePreferences }) {
               options={moment.tz.zonesForCountry("US")}
               value={inputs.timezone}
               onChange={handleChange}
-              isDisabled={inputs.preferences.autodetectTimezone}
+              isDisabled={inputs.preferences.timezone.autodetect}
             />
           </Box>
         </Tooltip>

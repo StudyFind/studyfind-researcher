@@ -3,14 +3,18 @@ import styled from "styled-components";
 import { Flex } from "@chakra-ui/react";
 
 function Tabs({ tab, setTab }) {
+  const tabs = [
+    { value: "signup", label: "Sign up" },
+    { value: "login", label: "Login" },
+  ];
+
   return (
     <Flex borderBottom="1px solid #e7eaf3">
-      <Tab selected={tab === "signup"} onClick={() => setTab("signup")}>
-        Sign up
-      </Tab>
-      <Tab selected={tab === "login"} onClick={() => setTab("login")}>
-        Login
-      </Tab>
+      {tabs.map((t, i) => (
+        <Tab key={i} selected={tab === t.value} onClick={() => setTab(t.value)}>
+          {t.label}
+        </Tab>
+      ))}
     </Flex>
   );
 }

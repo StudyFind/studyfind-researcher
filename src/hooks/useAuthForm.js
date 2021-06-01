@@ -1,5 +1,5 @@
 import { useState } from "react";
-import validator from "validator";
+import { validate } from "functions";
 
 function useAuthForm({ initial, onSubmit }) {
   const [inputs, setInputs] = useState(initial);
@@ -7,30 +7,17 @@ function useAuthForm({ initial, onSubmit }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState();
 
-  const checker = (name, value) => {
-    if (!value) return true;
-
-    if (name === "email") {
-      if (!validator.isEmail(value)) return "Email is invalid";
-    }
-
-    if (name === "password" || name === "newPassword") {
-      const checkCase = value !== value.toLowerCase();
-      const checkSize = value.length > 7;
-
-      if (!value) return true;
-      if (!checkSize) return "Password must have at least 8 characters";
-      if (!checkCase) return "Password must have a capital letter";
-    }
-
-    return false;
+  const check = (name, value) => {
+    if (name === "email") return validate.email(value);
+    if (name === "password") return validate.password(value);
+    if (name === "newPassword") return validate.password(value);
   };
 
-  const validate = (inputs) => {
+  const getErrors = (inputs) => {
     const err = {};
 
     for (const name in inputs) {
-      err[name] = checker(name, inputs[name]);
+      err[name] = check(name, inputs[name]);
     }
 
     return err;
@@ -38,11 +25,11 @@ function useAuthForm({ initial, onSubmit }) {
 
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: checker(name, value) });
+    setErrors({ ...errors, [name]: check(name, value) });
   };
 
   const handleSubmit = async (...params) => {
-    const err = validate(inputs);
+    const err = getErrors(inputs);
 
     if (Object.keys(err).some((v) => err[v])) {
       setErrors(err);

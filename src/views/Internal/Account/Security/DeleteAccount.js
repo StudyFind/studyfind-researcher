@@ -4,9 +4,8 @@ import { useAuthForm } from "hooks";
 import { deleteAccount } from "database/auth";
 
 import { Grid, Button, useToast } from "@chakra-ui/react";
-import { Form, TextInput } from "components";
+import { Form, TextInput, PasswordInput } from "components";
 
-import PasswordInput from "./PasswordInput";
 import AccountHeader from "../AccountHeader";
 
 function DeleteAccount() {
