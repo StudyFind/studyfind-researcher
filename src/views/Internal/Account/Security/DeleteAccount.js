@@ -11,7 +11,7 @@ import AccountHeader from "../AccountHeader";
 function DeleteAccount() {
   const toast = useToast();
 
-  const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
+  const { input, loading, success, handleSubmit } = useAuthForm({
     initial: { email: "", password: "" },
     onSubmit: deleteAccount,
   });
@@ -37,22 +37,10 @@ function DeleteAccount() {
         description="Deleting your account is a permenant action which will delete all your
         user information and research studies"
       />
-      <Form onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
+      <Form onSubmit={handleSubmit}>
         <Grid gap="15px">
-          <TextInput
-            name="email"
-            label="Email"
-            value={inputs.email}
-            error={errors.email}
-            onChange={handleChange}
-          />
-          <PasswordInput
-            name="password"
-            label="Password"
-            value={inputs.password}
-            error={errors.password}
-            onChange={handleChange}
-          />
+          <TextInput label="Email" {...input("email")} />
+          <PasswordInput label="Password" {...input("password")} />
           <Button type="submit" colorScheme="red" isLoading={loading}>
             Delete Account
           </Button>

@@ -11,7 +11,7 @@ import AccountHeader from "../AccountHeader";
 function ChangePassword() {
   const toast = useToast();
 
-  const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
+  const { input, loading, success, handleSubmit } = useAuthForm({
     initial: { password: "", newPassword: "" },
     onSubmit: changePassword,
   });
@@ -36,22 +36,10 @@ function ChangePassword() {
         description="We recommend using a long password that is unique to your
         StudyFind account"
       />
-      <Form onSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
+      <Form onSubmit={handleSubmit}>
         <Grid gap="15px">
-          <PasswordInput
-            name="password"
-            label="Old Password"
-            value={inputs.password}
-            error={errors.password}
-            onChange={handleChange}
-          />
-          <PasswordInput
-            name="newPassword"
-            label="New Password"
-            value={inputs.newPassword}
-            error={errors.newPassword}
-            onChange={handleChange}
-          />
+          <PasswordInput label="Old Password" {...input("password")} />
+          <PasswordInput label="New Password" {...input("newPassword")} />
           <Button type="submit" colorScheme="blue" isLoading={loading}>
             Change Password
           </Button>

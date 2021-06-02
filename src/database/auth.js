@@ -12,7 +12,7 @@ const setLocalUserExists = (value) => {
   localStorage.setItem("exists", value);
 };
 
-const signup = async (name, email, password) => {
+const signup = async ({ name, email, password }) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
     const timezone = moment.tz.guess();
@@ -54,7 +54,7 @@ const signup = async (name, email, password) => {
   }
 };
 
-const signin = async (email, password) => {
+const signin = async ({ email, password }) => {
   try {
     await auth.signInWithEmailAndPassword(email, password);
     setLocalUserExists(true);
@@ -67,7 +67,7 @@ const signout = async () => {
   return auth.signOut();
 };
 
-const forgotPassword = async (email) => {
+const forgotPassword = async ({ email }) => {
   try {
     auth.sendPasswordResetEmail(email);
   } catch (error) {
@@ -75,7 +75,7 @@ const forgotPassword = async (email) => {
   }
 };
 
-const changePassword = async (password, newPassword) => {
+const changePassword = async ({ password, newPassword }) => {
   try {
     const { email } = auth.currentUser;
     const { user } = await auth.signInWithEmailAndPassword(email, password);
@@ -85,7 +85,7 @@ const changePassword = async (password, newPassword) => {
   }
 };
 
-const deleteAccount = async (email, password) => {
+const deleteAccount = async ({ email, password }) => {
   try {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
     await firestore.collection("researchers").doc(user.uid).delete();
