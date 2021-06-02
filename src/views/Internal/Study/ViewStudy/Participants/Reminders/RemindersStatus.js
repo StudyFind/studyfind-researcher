@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ConfirmationStatus } from "components";
 
 function RemindersStatus({ confirmed }) {

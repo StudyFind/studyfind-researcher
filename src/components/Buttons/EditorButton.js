@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@chakra-ui/react";
 
 export const EditorButton = ({ children, icon, color = "gray", onClick, ...rest }) => {

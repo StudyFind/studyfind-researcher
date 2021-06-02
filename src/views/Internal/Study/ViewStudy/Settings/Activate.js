@@ -1,4 +1,3 @@
-import React from "react";
 import { Heading, Text, Switch, Badge, Box, Flex } from "@chakra-ui/react";
 import { firestore } from "database/firebase";
 

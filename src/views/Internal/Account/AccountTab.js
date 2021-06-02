@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Text } from "@chakra-ui/react";
 
 function AccountTab({ icon, name, selected, onClick }) {

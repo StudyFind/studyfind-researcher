@@ -1,4 +1,3 @@
-import React from "react";
 import ScreeningHead from "./ScreeningHead";
 import ScreeningGrid from "./ScreeningGrid";
 

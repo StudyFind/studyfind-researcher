@@ -1,5 +1,3 @@
-import React from "react";
-
 import ReviewHead from "./ReviewHead";
 import ReviewBody from "./ReviewBody";
 

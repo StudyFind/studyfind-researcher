@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useDetails } from "hooks";
 import { Flex, Heading, Button } from "@chakra-ui/react";
 

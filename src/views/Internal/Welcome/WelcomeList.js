@@ -1,4 +1,3 @@
-import React from "react";
 import { auth } from "database/firebase";
 
 import { Text } from "@chakra-ui/react";

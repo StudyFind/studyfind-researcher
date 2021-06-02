@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Heading, Flex, Grid } from "@chakra-ui/react";
 
 import StudyCardSmall from "molecules/StudyCardSmall";

@@ -1,4 +1,3 @@
-import React from "react";
 import { List } from "components";
 import { Flex, Heading } from "@chakra-ui/react";
 

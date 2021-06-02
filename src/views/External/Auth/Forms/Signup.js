@@ -1,5 +1,3 @@
-import React from "react";
-
 import { signup } from "database/auth";
 import { useAuthForm } from "hooks";
 

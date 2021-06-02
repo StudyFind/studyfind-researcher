@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Tag, Text, Box, Grid } from "@chakra-ui/react";
 
 function Screening({ questions, responses }) {

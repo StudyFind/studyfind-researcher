@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import ScreeningView from "./ScreeningView";
 import ScreeningEdit from "./ScreeningEdit";

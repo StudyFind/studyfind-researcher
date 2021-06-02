@@ -1,4 +1,3 @@
-import React from "react";
 import { compute } from "functions";
 
 import { Heading, Text, Progress, Tag, Flex, Tooltip, Icon, Box } from "@chakra-ui/react";

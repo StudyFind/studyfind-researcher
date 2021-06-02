@@ -1,5 +1,3 @@
-import React from "react";
-
 import { datetime } from "functions";
 
 import { Text, Box, Flex, Heading, IconButton } from "@chakra-ui/react";

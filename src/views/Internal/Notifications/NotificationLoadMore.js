@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Flex, Text, Button } from "@chakra-ui/react";
 
 function NotificationLoadMore({ fetchedAll, additionalLoading, handleFetchAdditional }) {

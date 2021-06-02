@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Link } from "components";
 import { Box, Button, Tooltip } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";

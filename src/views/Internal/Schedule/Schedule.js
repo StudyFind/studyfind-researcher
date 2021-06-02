@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import moment from "moment";
 import { datetime } from "functions";
 import { Box, Grid, Heading, Text } from "@chakra-ui/react";

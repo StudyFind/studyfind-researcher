@@ -1,4 +1,3 @@
-import React from "react";
 import { useConfirm } from "hooks";
 import { firestore } from "database/firebase";
 

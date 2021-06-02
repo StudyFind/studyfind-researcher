@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex, Text, Spinner } from "@chakra-ui/react";
 
 export const Loader = ({ text }) => (

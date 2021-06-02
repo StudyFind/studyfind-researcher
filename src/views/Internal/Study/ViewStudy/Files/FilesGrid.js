@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Grid, Flex, Heading, Button, Tooltip } from "@chakra-ui/react";
 
 import FileCard from "./FileCard";

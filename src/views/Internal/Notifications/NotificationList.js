@@ -1,5 +1,3 @@
-import React from "react";
-
 import { List } from "components";
 
 import NotificationItem from "./NotificationItem";

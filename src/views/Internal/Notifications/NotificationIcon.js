@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex, Icon } from "@chakra-ui/react";
 
 function NotificationIcon({ icon, color }) {

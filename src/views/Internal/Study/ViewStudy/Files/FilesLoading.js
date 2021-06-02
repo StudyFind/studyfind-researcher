@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex, Grid, Skeleton, Heading } from "@chakra-ui/react";
 
 function FilesLoading() {

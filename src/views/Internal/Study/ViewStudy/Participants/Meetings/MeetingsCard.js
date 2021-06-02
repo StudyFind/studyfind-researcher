@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useConfirm } from "hooks";
 import { datetime } from "functions";
 import { firestore } from "database/firebase";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { toasts } from "templates";
 import { storage } from "database/firebase";
