@@ -5,8 +5,9 @@ import { firestore } from "database/firebase";
 import { useDocument, useConfirm } from "hooks";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { Box, Tooltip, Flex, Text, IconButton, Icon } from "@chakra-ui/react";
+import { Box, Tooltip, Flex, Text, Icon } from "@chakra-ui/react";
 import { FaInfoCircle, FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
+import { Link, ActionButton } from "components";
 
 import MeetingsForm from "./MeetingsForm.js";
 import ParticipantDrawer from "views/Internal/Study/ViewStudy/Participants/ParticipantDrawer.js";
@@ -25,7 +26,7 @@ function MeetingsItem({ meeting }) {
     firestore.collection("meetings").doc(meeting.id).delete();
   };
 
-  const [participant, loading] = useDocument(
+  const [participant] = useDocument(
     firestore
       .collection("studies")
       .doc(meeting.studyID)
@@ -40,7 +41,6 @@ function MeetingsItem({ meeting }) {
         "The respective participant will be notified of this deletion. Are you sure you want to delete this meeting?",
       color: "red",
       button: "Delete",
-      loading,
       handleConfirm,
     });
   };
@@ -75,45 +75,15 @@ function MeetingsItem({ meeting }) {
         </Flex>
       </Tooltip>
       <Flex gridGap="4px" ml="auto">
-        <a href={meeting.link} target="_blank" rel="noopener noreferrer">
-          {meeting.confirmedByParticipant ? (
-            <Tooltip label="Confirmed">
-              <IconButton
-                icon={<FaPhone />}
-                size="sm"
-                color="green.500"
-                bg="green.100"
-                _hover={{ bg: "green.200" }}
-              />
-            </Tooltip>
-          ) : (
-            <Tooltip label="Pending">
-              <IconButton
-                icon={<FaPhone />}
-                size="sm"
-                color="gray.500"
-                bg="gray.100"
-                _hover={{ bg: "gray.200" }}
-              />
-            </Tooltip>
-          )}
-        </a>
-        <IconButton
-          icon={<FaPencilAlt />}
-          size="sm"
-          color="blue.500"
-          bg="blue.100"
-          _hover={{ bg: "blue.200" }}
-          onClick={handleOpen}
-        />
-        <IconButton
-          icon={<FaTrashAlt />}
-          size="sm"
-          color="red.500"
-          bg="red.100"
-          _hover={{ bg: "red.200" }}
-          onClick={handleDelete}
-        />
+        <Link to={meeting.link} isWrapper>
+          <ActionButton
+            icon={<FaPhone />}
+            color={meeting.confirmedByParticipant ? "green" : "gray"}
+            hint={meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
+          />
+        </Link>
+        <ActionButton icon={<FaPencilAlt />} hint="Edit" color="blue" onClick={handleOpen} />
+        <ActionButton icon={<FaTrashAlt />} hint="Delete" color="red" onClick={handleDelete} />
       </Flex>
     </Flex>
   );

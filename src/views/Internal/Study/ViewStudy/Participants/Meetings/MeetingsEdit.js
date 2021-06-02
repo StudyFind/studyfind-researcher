@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import validator from "validator";
 
-import { datetime } from "functions";
+import { datetime, object } from "functions";
 import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 
@@ -61,7 +61,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
 
   const handleSubmit = () => {
     const error = validate(inputs);
-    const valid = Object.values(error).every((v) => !v);
+    const valid = !object.some(error);
 
     if (!valid) {
       setErrors(error);
