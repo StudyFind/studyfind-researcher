@@ -2,7 +2,7 @@ const LONG = 5000;
 const SHORT = 2500;
 
 const connectionError = {
-  title: "Connection Error!",
+  title: "Connection Error",
   description: `Your action could not be completed because of a connection error. Please try again later.`,
   status: "error",
   duration: LONG,
@@ -11,7 +11,7 @@ const connectionError = {
 };
 
 const updatedAccount = {
-  title: "Your profile information was successfully updated!",
+  title: "Your profile information was successfully updated",
   status: "success",
   duration: LONG,
   isClosable: true,
@@ -28,7 +28,7 @@ const deletedAccount = {
 };
 
 const changedPassword = {
-  title: "Password Changed!",
+  title: "Password Changed",
   description: "You can now use your new password to log in",
   status: "success",
   duration: LONG,
@@ -37,7 +37,7 @@ const changedPassword = {
 };
 
 const providedFeedback = {
-  title: "Thank you for your feedback!",
+  title: "Thank you for your feedback",
   description: `Your feedback was successfully sent and we will be reviewing it carefully. Thank you for taking the time to help make StudyFind work better :)`,
   status: "info",
   duration: LONG,
@@ -46,7 +46,7 @@ const providedFeedback = {
 };
 
 const publishedStudy = {
-  title: "Study Published!",
+  title: "Study Published",
   description: `Your study was successfully published is now available for participants to view and enroll.`,
   status: "success",
   duration: LONG,
@@ -55,7 +55,7 @@ const publishedStudy = {
 };
 
 const deletedStudy = {
-  title: "Study Deleted!",
+  title: "Study Deleted",
   description: `Your study was successfully deleted and will no longer be accessible through StudyFind`,
   status: "success",
   duration: LONG,
@@ -64,7 +64,7 @@ const deletedStudy = {
 };
 
 const savedStudy = {
-  title: "Study Progress Saved!",
+  title: "Study Progress Saved",
   description: `Your study along with any changes you made have been saved and can be published or deleted from the study settings tab.`,
   status: "info",
   duration: 5000,
