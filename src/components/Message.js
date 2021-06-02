@@ -41,7 +41,7 @@ export const Message = ({ status, title, description, children, ...rest }) => {
             {title}
           </Heading>
           <Text color="gray.500">{description}</Text>
-          {children && <Box mb="15px">{children}</Box>}
+          {children && <Box mt="15px">{children}</Box>}
         </Flex>
       </Center>
     </Flex>

@@ -4,21 +4,12 @@ import { FaExclamationCircle, FaTimesCircle, FaCheckCircle } from "react-icons/f
 
 export const ConfirmationStatus = ({ children, status, hint }) => {
   const statuses = {
-    success: {
-      icon: FaCheckCircle,
-      color: "green",
-    },
-    neutral: {
-      icon: FaExclamationCircle,
-      color: "gray",
-    },
-    failure: {
-      icon: FaTimesCircle,
-      color: "red",
-    },
+    success: { color: "green", icon: FaCheckCircle },
+    neutral: { color: "gray", icon: FaExclamationCircle },
+    failure: { color: "red", icon: FaTimesCircle },
   };
 
-  const { icon, color } = statuses[status];
+  const { icon, color } = statuses[status] || statuses.failure;
 
   return (
     <Tooltip label={hint}>
