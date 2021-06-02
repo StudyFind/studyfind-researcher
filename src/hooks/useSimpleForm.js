@@ -1,39 +1,16 @@
 import { useState } from "react";
+import { object } from "functions";
+import lodash from "lodash";
 
-export const Form = ({ initial, validate, onSubmit }) => {
-  const getInitialErrors = () => {
-    const errors = {};
-
-    Object.keys(initial).forEach((key) => {
-      errors[key] = "";
-    });
-
-    return errors;
-  };
-
+export const Form = ({ initial, cleared, check, onSubmit }) => {
   const [values, setValues] = useState(initial);
-  const [errors, setErrors] = useState(getInitialErrors());
+  const [errors, setErrors] = useState(object.map(initial, () => ""));
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
 
   const handleChange = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: validate(name, value) }));
-  };
-
-  const handleSubmit = async () => {
-    try {
-      const names = Object.keys(initial);
-      const error = names.some((name) => errors[name]);
-
-      if (error) {
-        throw error;
-      }
-
-      setLoading(true);
-      await onSubmit(values);
-    } finally {
-      setLoading(false);
-    }
+    setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
   };
 
   const input = (name) => {
@@ -41,11 +18,53 @@ export const Form = ({ initial, validate, onSubmit }) => {
       name,
       value: values[name],
       error: errors[name],
-      handleChange: handleChange,
+      onChange: handleChange,
     };
   };
 
-  return { input, loading, handleSubmit };
+  const handleReset = () => {
+    setValues(initial);
+  };
+
+  const handleClear = () => {
+    setValues(cleared);
+  };
+
+  const handleSubmit = async () => {
+    const errorMessages = object.map(values, check);
+    const errorExists = object.some(errorMessages);
+
+    if (errorExists) {
+      setErrors(errorMessages);
+      throw errorMessages;
+    }
+
+    setLoading(true);
+
+    onSubmit(values)
+      .then(() => {
+        setSuccess(true);
+        setValues(initial);
+      })
+      .catch((err) => {
+        setSuccess(false);
+        setErrors(err);
+      })
+      .finally(() => {
+        setLoading(false);
+        document.activeElement?.blur();
+      });
+  };
+
+  return {
+    input,
+    loading,
+    success,
+    handleClear,
+    handleReset,
+    handleSubmit,
+    isDifferent: !lodash.isEqual(initial, values),
+  };
 };
 
 export default Form;
