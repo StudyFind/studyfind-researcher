@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 
+import { toasts } from "templates";
 import { useAuthForm } from "hooks";
 import { deleteAccount } from "database/auth";
 
@@ -18,15 +19,7 @@ function DeleteAccount() {
 
   useEffect(() => {
     if (success) {
-      toast({
-        title: "Account Deleted",
-        description:
-          "Your account has been deleted along with all your user data and research studies.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top",
-      });
+      toast(toasts.deletedAccount);
     }
   }, [success]);
 

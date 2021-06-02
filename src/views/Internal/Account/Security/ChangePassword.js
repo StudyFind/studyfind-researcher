@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 
+import { toasts } from "templates";
 import { useAuthForm } from "hooks";
 import { changePassword } from "database/auth";
 
@@ -18,14 +19,7 @@ function ChangePassword() {
 
   useEffect(() => {
     if (success) {
-      toast({
-        title: "Password Changed!",
-        description: "You can now use your new password to log in",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top",
-      });
+      toast(toasts.changedPassword);
     }
   }, [success]);
 

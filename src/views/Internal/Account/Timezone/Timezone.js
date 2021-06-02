@@ -16,9 +16,9 @@ function Timezone({ inputs, handleChange, handlePreferences }) {
       />
       <Grid gap="25px">
         <AccountCheckbox
+          name="autodetectTimezone"
           title="Auto Detect Timezone"
           description="Automatically detects and updates your local timezone each time you use StudyFind"
-          name="autodetectTimezone"
           value={inputs.preferences.timezone.autodetect}
           onChange={handlePreferences}
         />

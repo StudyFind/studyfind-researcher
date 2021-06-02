@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import lodash from "lodash";
 import { toasts } from "templates";
 import { useTabs } from "hooks";
@@ -101,8 +101,8 @@ function Account() {
       content: (
         <Notifications
           inputs={inputs}
-          handleNotifications={handleNotifications}
           handleCategories={handleCategories}
+          handleNotifications={handleNotifications}
         />
       ),
     },
