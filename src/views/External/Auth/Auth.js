@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 
-import Tabs from "./Tabs";
-import Form from "./Form";
+import AuthTabs from "./AuthTabs";
+import AuthForm from "./AuthForm";
 
 function Auth() {
   const exists = localStorage.getItem("exists");
@@ -12,8 +12,8 @@ function Auth() {
   return (
     <Flex justify="center" align="center" h="100vh">
       <Box rounded="md" borderWidth="1px" w="350px" bg="#f8f9fa">
-        <Tabs tab={tab} setTab={setTab} />
-        <Form tab={tab} setTab={setTab} />
+        <AuthTabs tab={tab} setTab={setTab} />
+        <AuthForm tab={tab} setTab={setTab} />
       </Box>
     </Flex>
   );
