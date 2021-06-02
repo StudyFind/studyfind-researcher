@@ -1,81 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { firestore } from "database/firebase";
-import { auth } from "database/firebase";
 import { useParams } from "react-router-dom";
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Heading } from "@chakra-ui/react";
 import Loader from "components/Loader";
 
 import Survey from "./Survey";
+import SurveyEdit from "./SurveyEdit";
+import { useCollection } from "hooks";
 
-function Surveys({ study }) {
-  const [surveys, setSurveys] = useState([]);
-  const [loading, setLoading] = useState();
-  const [editing, setEditing] = useState(false);
+function Surveys() {
+  const { studyID } = useParams();
+  const surveysRef = firestore.collection("studies").doc(studyID).collection("surveys");
 
-  const { nctID } = useParams();
+  const [edit, setEdit] = useState(true);
+  const [survey, setSurvey] = useState(null);
+  const [surveys, loading, error] = useCollection(surveysRef);
 
-  const surveyRef = firestore.collection("studies").doc(nctID).collection("surveys");
-  function addSurvey() {
-    const joined = surveys.concat({
-      questions: null,
-      title: null,
-      editStatus: true,
-    });
-    setSurveys(() => {
-      return joined;
-    });
-  }
-  useEffect(() => {
-    setLoading(true);
-    surveyRef.get().then((query) => {
-      query.forEach((doc) => {
-        if (doc.exists) {
-          const data = doc.data();
-          data.id = doc.id;
-          setSurveys((oldSurveys) => [...oldSurveys, data]);
-        }
-      });
-      setLoading(false);
-    });
-  }, []);
+  const handleEditSurvey = (survey) => {
+    setEdit(true);
+    survey && setSurvey(survey);
+  };
+
   if (loading) {
     return <Loader></Loader>;
   }
-  return surveys.length > 0 ? (
+
+  return edit ? (
+    <SurveyEdit survey={survey} surveysRef={surveysRef} setEdit={setEdit} />
+  ) : (
     <Box>
       <Heading as="h2" fontSize="28px" mt="15px" mb="15px">
         Surveys
       </Heading>
-      {surveys.map((survey, i) => (
-        <Survey
-          surveyInfo={survey}
-          edit={survey["editStatus"] !== undefined}
-          path={surveyRef}
-          key={i}
-        />
-      ))}
+      {surveys &&
+        surveys.map((survey, i) => (
+          <Survey
+            surveyInfo={survey}
+            handleEditSurvey={handleEditSurvey}
+            edit={survey["editStatus"] !== undefined}
+            surveysRef={surveysRef}
+            key={i}
+          />
+        ))}
       <Button
         colorScheme="green"
         w="90%"
         bg="green.300"
         color="white"
         m="6px"
-        onClick={() => addSurvey()}
+        onClick={() => handleEditSurvey()}
       >
         Add Survey
       </Button>
     </Box>
-  ) : (
-    <Button
-      colorScheme="green"
-      w="90%"
-      bg="green.300"
-      color="white"
-      m="6px"
-      onClick={() => addSurvey()}
-    >
-      Add Survey
-    </Button>
   );
 }
 
