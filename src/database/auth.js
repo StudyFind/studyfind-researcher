@@ -8,12 +8,8 @@ const getErrorMessage = ({ code }) => {
   return { email: "", password: "", ...errors[code] };
 };
 
-const setLocalUserExists = () => {
-  localStorage.setItem("exists", true);
-};
-
-const setLocalUserDelete = () => {
-  localStorage.setItem("exists", false);
+const setLocalUserExists = (value) => {
+  localStorage.setItem("exists", value);
 };
 
 const signup = async (name, email, password) => {
@@ -33,12 +29,13 @@ const signup = async (name, email, password) => {
           organization: "",
           background: "",
           preferences: {
-            timezone: {
-              autodetect: true,
-            },
+            timezone: { autodetect: true },
+
             notifications: {
               email: false,
               phone: false,
+              toast: false,
+
               categories: {
                 account: true,
                 studies: true,
@@ -51,7 +48,7 @@ const signup = async (name, email, password) => {
         }),
     ]);
 
-    setLocalUserExists();
+    setLocalUserExists(true);
   } catch (error) {
     throw getErrorMessage(error);
   }
@@ -60,7 +57,7 @@ const signup = async (name, email, password) => {
 const signin = async (email, password) => {
   try {
     await auth.signInWithEmailAndPassword(email, password);
-    setLocalUserExists();
+    setLocalUserExists(true);
   } catch (error) {
     throw getErrorMessage(error);
   }
@@ -70,26 +67,17 @@ const signout = async () => {
   return auth.signOut();
 };
 
-const deleteAccount = async (email, password) => {
+const forgotPassword = async (email) => {
   try {
-    const { user } = await auth.signInWithEmailAndPassword(email, password);
-    await firestore.collection("researchers").doc(user.uid).delete();
-    await user.delete();
-    setLocalUserDelete();
+    auth.sendPasswordResetEmail(email);
   } catch (error) {
     throw getErrorMessage(error);
   }
 };
 
-// ========================== PASSWORD UPDATES ========================== //
-
-const forgotPassword = async (email) => {
-  return auth.sendPasswordResetEmail(email);
-};
-
 const changePassword = async (password, newPassword) => {
   try {
-    const { email } = await auth.currentUser;
+    const { email } = auth.currentUser;
     const { user } = await auth.signInWithEmailAndPassword(email, password);
     await user.updatePassword(newPassword);
   } catch (error) {
@@ -97,13 +85,15 @@ const changePassword = async (password, newPassword) => {
   }
 };
 
-export {
-  // DATA //
-  deleteAccount,
-  forgotPassword,
-  changePassword,
-  // AUTH //
-  signin,
-  signup,
-  signout,
+const deleteAccount = async (email, password) => {
+  try {
+    const { user } = await auth.signInWithEmailAndPassword(email, password);
+    await firestore.collection("researchers").doc(user.uid).delete();
+    await user.delete();
+    setLocalUserExists(false);
+  } catch (error) {
+    throw getErrorMessage(error);
+  }
 };
+
+export { signin, signup, signout, forgotPassword, changePassword, deleteAccount };
