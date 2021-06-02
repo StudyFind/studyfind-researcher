@@ -8,7 +8,7 @@ export const EmailInput = ({ name, value, error, label, placeholder, onChange, .
   };
 
   return (
-    <FormControl isInvalid={!!error}>
+    <FormControl isInvalid={error}>
       <Label label={label} />
       <Input
         w="100%"

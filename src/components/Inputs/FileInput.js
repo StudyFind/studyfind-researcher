@@ -4,13 +4,11 @@ import { Label, Error } from "./helpers";
 
 export const FileInput = ({ name, error, label, accept, onChange, ...rest }) => {
   const handleChange = (e) => {
-    const files = e.target.files;
-    const file = !!files && !!files.length && files[0];
-    onChange(name, file);
+    onChange(name, e.target.files[0]);
   };
 
   return (
-    <FormControl isInvalid={!!error}>
+    <FormControl isInvalid={error}>
       <Label label={label} />
       <Input
         type="file"

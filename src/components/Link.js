@@ -9,7 +9,7 @@ export const Link = ({ to, isWrapper, ...rest }) => {
   return to.substring(0, 4) === "http" ? (
     <StyledLink href={to} color="blue.500" isExternal isWrapper={isWrapper} {...rest} />
   ) : (
-    <StyledLink as={RouterLink} isWrapper={isWrapper} to={to} {...rest} />
+    <StyledLink as={RouterLink} to={to} {...rest} />
   );
 };
 

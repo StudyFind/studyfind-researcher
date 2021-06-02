@@ -8,7 +8,7 @@ export const DateInput = ({ name, value, error, label, onChange, ...rest }) => {
   };
 
   return (
-    <FormControl isInvalid={!!error}>
+    <FormControl isInvalid={error}>
       <Label label={label} />
       <Input
         type="date"
