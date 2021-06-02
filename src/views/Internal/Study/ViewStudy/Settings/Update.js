@@ -8,7 +8,7 @@ import { Box, Flex, Heading, Text, Button, FormErrorMessage } from "@chakra-ui/r
 
 function Update({ study }) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const handleUpdate = () => {
     setLoading(true);
@@ -38,10 +38,10 @@ function Update({ study }) {
       </Flex>
       <Button
         type="submit"
-        onClick={handleUpdate}
         colorScheme="blue"
-        isLoading={loading}
         loadingText="Updating"
+        isLoading={loading}
+        onClick={handleUpdate}
       >
         Update
       </Button>

@@ -18,7 +18,7 @@ function Share({ study }) {
         <Link to={link}>{link}</Link>
       </Box>
       <Flex gridGap="10px" mt="20px">
-        <ClipboardButton link={link} copiedText="Copied!">
+        <ClipboardButton text={link} copiedText="Copied!">
           Copy Link
         </ClipboardButton>
       </Flex>

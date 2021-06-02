@@ -1,10 +1,8 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { Box, Heading, Text, Button } from "@chakra-ui/react";
+import { Link } from "components";
 
 function Publish({ study }) {
-  const history = useHistory();
-
   return (
     <Box p="20px">
       <Heading mb="8px" size="md">
@@ -14,9 +12,9 @@ function Publish({ study }) {
         Once your study is published participants will be able to enroll for it; however, you will
         no longer be able to edit the study title, description, and screening survey.
       </Text>
-      <Button colorScheme="green" onClick={() => history.push(`/create/${study.id}/details`)}>
-        Publish
-      </Button>
+      <Link to={`/create/${study.id}/details`} isWrapper>
+        <Button colorScheme="green">Publish</Button>
+      </Link>
     </Box>
   );
 }
