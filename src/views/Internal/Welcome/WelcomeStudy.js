@@ -1,4 +1,5 @@
 import React from "react";
+import { toasts } from "templates";
 import { firestore } from "database/firebase";
 import { useHistory } from "react-router-dom";
 import { Flex, Text, Button, useToast } from "@chakra-ui/react";
@@ -13,28 +14,8 @@ function WelcomeStudy({ study }) {
       .collection("studies")
       .doc(study.id)
       .delete()
-      .then(() =>
-        toast({
-          title: "Study Removed",
-          description:
-            "This study has been removed from your StudyFind account. If this was a mistake you may re-create the study using its NCT ID from your dashboard.",
-          status: "info",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        })
-      )
-      .catch(() =>
-        toast({
-          title: "Connection Error",
-          description:
-            "Your study could not be deleted due to a connection error. Please try again later.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        })
-      );
+      .then(() => toast(toasts.removedStudy))
+      .catch(() => toast(toasts.connectionError));
   };
 
   const handleAccept = () => {
@@ -50,14 +31,7 @@ function WelcomeStudy({ study }) {
         {study.title}
       </Text>
       <Flex minW="240px" justify="flex-end" gridGap="8px" ml="auto">
-        <Button
-          leftIcon={<FaBan />}
-          colorScheme=""
-          color="gray.500"
-          bg="gray.100"
-          _hover={{ bg: "gray.200" }}
-          onClick={handleRemove}
-        >
+        <Button leftIcon={<FaBan />} color="gray.500" onClick={handleRemove}>
           Remove
         </Button>
         <Button leftIcon={<FaCheck />} colorScheme="green" onClick={handleAccept}>
