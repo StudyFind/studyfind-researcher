@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { StudiesContext } from "context";
 
 import { auth } from "database/firebase";

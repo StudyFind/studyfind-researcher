@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex, Heading, Image } from "@chakra-ui/react";
 import SFLogo from "images/logo.png";
 

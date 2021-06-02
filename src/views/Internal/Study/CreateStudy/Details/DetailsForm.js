@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useDetails } from "hooks";
 import { object } from "functions";
 

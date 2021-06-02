@@ -1,4 +1,3 @@
-import React from "react";
 import lodash from "lodash";
 
 import { useScreening } from "hooks";

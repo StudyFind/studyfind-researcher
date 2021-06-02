@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { TextInput, SelectInput } from "components";
 import { Checkbox, FormLabel, Stack } from "@chakra-ui/react";

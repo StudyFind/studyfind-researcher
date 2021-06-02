@@ -1,4 +1,3 @@
-import React from "react";
 import { toasts } from "templates";
 import { firestore } from "database/firebase";
 import { useHistory } from "react-router-dom";

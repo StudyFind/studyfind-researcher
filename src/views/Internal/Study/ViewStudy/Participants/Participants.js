@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { compute } from "functions";
 import { firestore } from "database/firebase";

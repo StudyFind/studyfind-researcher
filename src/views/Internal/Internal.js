@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
 import { useDocument, useCollection, useDetectTimezone } from "hooks";

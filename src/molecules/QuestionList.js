@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Grid } from "@chakra-ui/react";
 import { SortableContainer } from "react-sortable-hoc";
 

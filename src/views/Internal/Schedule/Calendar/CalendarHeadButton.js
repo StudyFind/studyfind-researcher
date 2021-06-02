@@ -1,4 +1,3 @@
-import React from "react";
 import { IconButton } from "@chakra-ui/react";
 
 function CalendarHeadButton({ icon, onClick }) {

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { FaBars } from "react-icons/fa";
 import { Flex } from "@chakra-ui/react";
 import { SortableHandle } from "react-sortable-hoc";

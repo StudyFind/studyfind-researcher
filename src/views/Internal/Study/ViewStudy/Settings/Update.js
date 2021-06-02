@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { datetime } from "functions";
 import { updateStudy } from "database/cloud";

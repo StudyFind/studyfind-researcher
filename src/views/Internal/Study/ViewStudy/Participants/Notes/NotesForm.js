@@ -1,4 +1,3 @@
-import React from "react";
 import { TextInput, TextareaInput } from "components";
 import { Flex, Grid, Button } from "@chakra-ui/react";
 

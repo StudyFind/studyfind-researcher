@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Badge } from "@chakra-ui/react";
 
 function StudyStatus({ published }) {

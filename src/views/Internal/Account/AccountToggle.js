@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Flex, Text, Switch } from "@chakra-ui/react";
 
 function NotificationsToggle({ label, name, value, onChange }) {

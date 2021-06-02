@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Form = ({ children, onSubmit, ...rest }) => {
   const handleEnter = (e) => {
     e.preventDefault();

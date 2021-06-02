@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import lodash from "lodash";
 import { toasts } from "templates";
 import { useTabs } from "hooks";

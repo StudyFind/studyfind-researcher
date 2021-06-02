@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Flex } from "@chakra-ui/react";
 import { Link, ActionButton } from "components";
 import { FaPencilAlt, FaTrashAlt, FaPhone } from "react-icons/fa";

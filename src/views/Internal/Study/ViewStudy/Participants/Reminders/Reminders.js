@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";

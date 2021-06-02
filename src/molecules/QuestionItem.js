@@ -1,5 +1,3 @@
-import React from "react";
-
 import { FaTrash } from "react-icons/fa";
 import { ActionButton, SelectInput, TextInput } from "components";
 import { Grid } from "@chakra-ui/react";

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { toasts } from "templates";
 import { useAuthForm } from "hooks";

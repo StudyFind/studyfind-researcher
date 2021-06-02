@@ -1,4 +1,3 @@
-import React from "react";
 import { Grid, Skeleton } from "@chakra-ui/react";
 
 function MeetingsLoading() {
