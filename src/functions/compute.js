@@ -10,23 +10,22 @@ const compute = {
       return null;
     }
 
-    const sentences = text.split(".").length;
-
     const wordList = text
       .toLowerCase()
-      .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") // removes all punctuation
-      .split(/\r?\n| /) // splits text at newlines and spaces
+      .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, " ") // removes all punctuation
+      .split(/\s/) // splits text at newlines and spaces
       .map((word) => word.trim()) // removes whitespace from each word
       .filter((word) => word); // removes empty strings
 
-    const words = wordList.length;
-
     const syllablesList = wordList.map((word) => syllable(word));
-    const syllables = words ? syllablesList.reduce((a, b) => a + b) : 0;
+
+    const numSentences = text.split(".").length;
+    const numWords = wordList.length;
+    const numSyllables = numWords ? syllablesList.reduce((a, b) => a + b) : 0;
 
     const BIAS = 20;
 
-    let score = BIAS + flesch({ sentence: sentences, word: words, syllable: syllables });
+    let score = BIAS + flesch({ sentence: numSentences, word: numWords, syllable: numSyllables });
 
     score = Math.min(score, 100);
     score = Math.max(score, 0);
@@ -69,13 +68,13 @@ const compute = {
           - this is the lowest percentile
     */
 
-    const num = questions.length;
+    const length = questions.length;
 
-    if (!num) return 0;
+    if (!length) return 0;
 
     let score = 0;
 
-    for (let i = 0; i < num; i++) {
+    for (let i = 0; i < length; i++) {
       const question = questions[i];
       const response = responses[i];
 
@@ -96,7 +95,7 @@ const compute = {
       }
     }
 
-    return Math.round(((score + num) / (2 * num)) * 100);
+    return Math.round(((score + length) / (2 * length)) * 100);
   },
 };
 
