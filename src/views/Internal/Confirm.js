@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { toasts } from "templates";
+
 import {
   Box,
   Flex,
@@ -9,21 +11,27 @@ import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogOverlay,
+  useToast,
 } from "@chakra-ui/react";
 
 function Confirm({ title, description, color, button, handleClose, handleConfirm }) {
+  const toast = useToast();
   const [loading, setLoading] = useState(false);
+
+  const handleCloseExtra = () => {
+    !loading && handleClose();
+  };
 
   const handleSubmit = () => {
     setLoading(true);
-    handleConfirm().finally(() => {
-      handleClose();
-      setLoading(false);
-    });
+    handleConfirm()
+      .then(() => handleClose())
+      .catch(() => toast(toasts.connectionError))
+      .finally(() => setLoading(false));
   };
 
   return (
-    <AlertDialog size="lg" motionPreset="scale" isCentered isOpen={true} onClose={handleClose}>
+    <AlertDialog size="lg" motionPreset="scale" isCentered isOpen={true} onClose={handleCloseExtra}>
       <AlertDialogOverlay bg="rgb(0, 0, 0, 0.75)">
         <AlertDialogContent>
           <Box p="20px" w="100%">

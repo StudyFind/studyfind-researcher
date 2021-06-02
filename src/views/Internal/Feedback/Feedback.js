@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 
-import { useForm } from "hooks";
 import { toasts } from "templates";
 import { auth, firestore } from "database/firebase";
 
@@ -12,25 +11,48 @@ import { FaPaperPlane } from "react-icons/fa";
 function Feedback() {
   const toast = useToast();
 
-  const { inputs, errors, loading, handleChange, handleSubmit } = useForm({
-    initial: {
-      title: "",
-      body: "",
-    },
+  const [inputs, setInputs] = useState({ title: "", body: "" });
+  const [errors, setErrors] = useState({ title: "", body: "" });
+  const [loading, setLoading] = useState(false);
 
-    check: (value) => (value ? "" : " "),
+  const check = (name, value) => {
+    if (!value && name === "title") return "Title cannot be empty";
+    if (!value && name === "body") return "Body cannot be empty";
+    return "";
+  };
 
-    submit: ({ title, body }) => {
-      const email = auth.currentUser.email;
-      const time = moment().utc().valueOf();
-      const side = "researcher";
+  const handleChange = (name, value) => {
+    setInputs((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
+  };
 
-      return firestore
-        .collection("feedback")
-        .add({ title, body, email, time, side })
-        .then(() => toast(toasts.providedFeedback));
-    },
-  });
+  const handleSubmit = () => {
+    const side = "researcher";
+    const time = moment().utc().valueOf();
+    const email = auth.currentUser.email;
+    const { title, body } = inputs;
+
+    const err = {
+      title: check("title", title),
+      body: check("body", body),
+    };
+
+    if (err.body || err.title) {
+      setErrors(err);
+      return;
+    }
+
+    setLoading(true);
+
+    firestore
+      .collection("feedback")
+      .add({ title, body, email, time, side })
+      .then(() => {
+        toast(toasts.providedFeedback);
+        setInputs({ title: "", body: "" });
+      })
+      .finally(() => setLoading(false));
+  };
 
   return (
     <Grid gap="20px">
@@ -62,6 +84,7 @@ function Feedback() {
           />
           <Flex justify="flex-end">
             <Button
+              type="submit"
               colorScheme="blue"
               rightIcon={<FaPaperPlane />}
               isLoading={loading}
