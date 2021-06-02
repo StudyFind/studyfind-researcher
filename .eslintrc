@@ -16,7 +16,7 @@
   "plugins": ["react", "react-hooks", "jest"],
   "rules": {
     "for-direction": "error",
-    "no-unused-vars": "error",
+    "no-unused-vars": "warn",
     "no-await-in-loop": "error",
     "no-cond-assign": "error",
     "no-console": "warn",
