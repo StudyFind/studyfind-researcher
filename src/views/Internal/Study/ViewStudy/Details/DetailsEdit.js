@@ -6,18 +6,12 @@ import { Flex, Heading, Button } from "@chakra-ui/react";
 import DetailsInputs from "molecules/DetailsInputs";
 
 function DetailsEdit({ study, setEdit }) {
-  const {
-    inputs,
-    errors,
-    loading,
-    handleChange,
-    handleSubmit,
-    handleReset,
-    isDifferent,
-  } = useDetails(study);
+  const { inputs, errors, loading, handleChange, handleSubmit, handleReset, isDifferent } =
+    useDetails(study);
 
-  const handleSubmitModified = () => {
-    handleSubmit().then(() => setEdit(false));
+  const handleSubmitModified = async () => {
+    await handleSubmit();
+    setEdit(false);
   };
 
   const handleResetModified = () => {

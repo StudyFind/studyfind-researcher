@@ -4,22 +4,18 @@ import { TextInput, FileInput } from "components";
 import { storage } from "database/firebase";
 
 function FilesEdit({ studyID, setEdit, getFiles }) {
-  const [inputs, setInputs] = useState({ name: "", file: null });
+  const [inputs, setInputs] = useState({ name: "", file: undefined });
   const [errors, setErrors] = useState({ name: "", file: "" });
   const [status, setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const validate = (name, value) => {
     if (name === "name") {
-      if (value === "") return "File name cannot be empty";
+      if (!value) return "File name cannot be empty";
       if (value.includes("/")) return "File name cannot contain '/'";
     }
 
-    if (name === "file") {
-      if (value === null) return "File has not been selected";
-    }
-
-    return false;
+    return "";
   };
 
   const handleChange = (name, value) => {
@@ -27,14 +23,19 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
     setErrors((prev) => ({ ...prev, name: validate(name, value) }));
   };
 
+  const handleSelect = (_, file) => {
+    const name = file?.name || "";
+
+    setInputs({ name, file });
+    setErrors({
+      name: name ? "" : "File name cannot be empty",
+      file: file ? "" : "File has not been selected",
+    });
+  };
+
   const handleCancel = () => {
     setEdit(false);
     setInputs({ name: "", file: null });
-    setErrors({ name: "", file: "" });
-  };
-
-  const handleSelect = (file) => {
-    setInputs({ name: file.name, file });
     setErrors({ name: "", file: "" });
   };
 
@@ -86,8 +87,7 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
           <>
             <FileInput
               label="File"
-              loading={loading}
-              status={status}
+              name="file"
               error={errors.file}
               onChange={handleSelect}
               accept="application/pdf"
@@ -106,11 +106,11 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
             Cancel
           </Button>
           <Button
+            type="submit"
             colorScheme="blue"
-            onClick={handleUpload}
             loadingText="Uploading"
             isLoading={loading}
-            type="submit"
+            onClick={handleUpload}
           >
             Upload
           </Button>
