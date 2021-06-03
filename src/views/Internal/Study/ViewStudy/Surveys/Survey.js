@@ -4,7 +4,7 @@ import { Box, Button, Text, Flex, Form, Input, Grid, Select } from "@chakra-ui/r
 
 import Question from "./Question";
 
-function Survey({ surveyInfo, edit, surveysRef }) {
+function Survey({ surveyInfo, edit, surveysRef, handleEditSurvey }) {
   const blankQuestion = { prompt: " ", type: "multiple choice" };
 
   const [editing, setEditing] = useState(edit);
@@ -251,7 +251,7 @@ function Survey({ surveyInfo, edit, surveysRef }) {
         bg="blue.500"
         ml="auto"
         mr="6px"
-        onClick={() => setEditing(true)}
+        onClick={() => handleEditSurvey(surveyInfo)}
       >
         Preview
       </Button>
@@ -261,7 +261,7 @@ function Survey({ surveyInfo, edit, surveysRef }) {
         bg="blue.500"
         ml="6px"
         mr="6px"
-        onClick={() => setEditing(true)}
+        onClick={() => handleEditSurvey(surveyInfo)}
       >
         Edit
       </Button>

@@ -12,7 +12,7 @@ function Surveys() {
   const { studyID } = useParams();
   const surveysRef = firestore.collection("studies").doc(studyID).collection("surveys");
 
-  const [edit, setEdit] = useState(true);
+  const [edit, setEdit] = useState(false);
   const [survey, setSurvey] = useState(null);
   const [surveys, loading, error] = useCollection(surveysRef);
 
@@ -26,8 +26,19 @@ function Surveys() {
   }
 
   return edit ? (
-    <SurveyEdit survey={survey} surveysRef={surveysRef} setEdit={setEdit} />
+    <SurveyEdit survey={survey} surveysRef={surveysRef} setEdit={setEdit} edit={edit} />
   ) : (
+    // <Drawer isOpen={edit} onClose={() => setEdit(false)} size="xl">
+    //   <DrawerOverlay />
+    //   <DrawerContent>
+    //     <DrawerCloseButton position="static" />
+
+    //     <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+    //     <DrawerBody>
+    //       <SurveyEdit survey={survey} surveysRef={surveysRef} setEdit={setEdit} />
+    //     </DrawerBody>
+    //   </DrawerContent>
+    // </Drawer>
     <Box>
       <Heading as="h2" fontSize="28px" mt="15px" mb="15px">
         Surveys
@@ -35,9 +46,10 @@ function Surveys() {
       {surveys &&
         surveys.map((survey, i) => (
           <Survey
+            setEdit={setEdit}
             surveyInfo={survey}
             handleEditSurvey={handleEditSurvey}
-            edit={survey["editStatus"] !== undefined}
+            edit={false}
             surveysRef={surveysRef}
             key={i}
           />
