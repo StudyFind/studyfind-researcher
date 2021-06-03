@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Flex, Text } from "@chakra-ui/react";
 import { FaAngleDoubleLeft, FaAngleDoubleRight, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 

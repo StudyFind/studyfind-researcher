@@ -1,5 +1,5 @@
 import { useForm } from "hooks";
-import { updateStudy } from "database/studies";
+import { firestore } from "database/firebase";
 
 function useDetails({ id, title, description }) {
   const initial = { title, description };
@@ -17,7 +17,7 @@ function useDetails({ id, title, description }) {
     }
   };
 
-  const submit = (inputs) => updateStudy(id, inputs);
+  const submit = (inputs) => firestore.collection("studies").doc(id).update(inputs);
 
   return useForm({ initial, check, submit });
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { useParams } from "react-router-dom";
 import { firestore } from "database/firebase";
@@ -32,7 +32,7 @@ function Status({ participant, handleClose }) {
       .doc(participant.id)
       .update({ status })
       .then(handleClose)
-      .catch(console.error)
+      .catch(() => {})
       .finally(() => setLoading(false));
   };
 

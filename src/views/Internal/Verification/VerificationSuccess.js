@@ -1,8 +1,9 @@
-import React from "react";
-
+import { auth } from "database/firebase";
 import { Text, Alert, AlertIcon } from "@chakra-ui/react";
 
-function VerificationSuccess({ email }) {
+function VerificationSuccess() {
+  const { email } = auth.currentUser;
+
   return (
     <Alert status="success" position="fixed" top="0" zIndex="100">
       <AlertIcon />

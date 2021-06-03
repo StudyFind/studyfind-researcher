@@ -1,6 +1,5 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import "styles.scss";
+import "styles.css";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router } from "react-router-dom";

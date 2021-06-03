@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
+import { toasts } from "templates";
 import { storage } from "database/firebase";
 import { datetime } from "functions";
 import { useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
 import FilesGrid from "./FilesGrid";
-import FilesUpload from "./FilesUpload";
+import FilesEdit from "./FilesEdit";
 import FilesLoading from "./FilesLoading";
 
 function Files() {
@@ -20,7 +21,7 @@ function Files() {
   const getFiles = async () => {
     const { items } = await storage.ref(`study/${studyID}`).listAll();
 
-    const tempFiles = await Promise.all(
+    const studyFiles = await Promise.all(
       items.map(async (ref) => {
         const meta = await ref.getMetadata();
         const url = await ref.getDownloadURL();
@@ -32,26 +33,7 @@ function Files() {
       })
     );
 
-    setFiles(tempFiles);
-  };
-
-  const handleDelete = (name) => {
-    storage
-      .ref(`study/${studyID}/${name}`)
-      .delete()
-      .then(() => {
-        getFiles();
-      })
-      .catch(() => {
-        toast({
-          title: "Connection Error!",
-          description: "We could not delete your file as there was a connection error",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
-      });
+    setFiles(studyFiles);
   };
 
   const initialLoad = async () => {
@@ -64,12 +46,20 @@ function Files() {
     initialLoad();
   }, []);
 
+  const handleDelete = (name) => {
+    storage
+      .ref(`study/${studyID}/${name}`)
+      .delete()
+      .then(() => getFiles())
+      .catch(() => toast(toasts.connectionError));
+  };
+
   if (loading) {
     return <FilesLoading />;
   }
 
   return edit ? (
-    <FilesUpload studyID={studyID} setEdit={setEdit} getFiles={getFiles} />
+    <FilesEdit studyID={studyID} setEdit={setEdit} getFiles={getFiles} />
   ) : (
     <FilesGrid studyID={studyID} setEdit={setEdit} files={files} handleDelete={handleDelete} />
   );

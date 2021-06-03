@@ -1,19 +1,18 @@
-import React from "react";
 import styled from "styled-components";
-import { Input, Select } from "components";
+import { TextInput, SelectInput } from "components";
 import { Checkbox, FormLabel, Stack } from "@chakra-ui/react";
 
 function ParticipantsFilter({ sort, setSort, status, setStatus, search, setSearch }) {
   return (
     <Filters>
       <Inputs>
-        <Select
+        <SelectInput
           label="Sort by"
           value={sort}
           onChange={(_, value) => setSort(value)}
           options={["eligibility", "status"]}
         />
-        <Input
+        <TextInput
           label="Search Participant"
           value={search}
           onChange={(_, value) => setSearch(value)}

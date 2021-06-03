@@ -1,4 +1,6 @@
-import React from "react";
+import { useState } from "react";
+
+import { toasts } from "templates";
 
 import {
   Box,
@@ -9,11 +11,27 @@ import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogOverlay,
+  useToast,
 } from "@chakra-ui/react";
 
-function Confirm({ title, description, color, button, loading, handleClose, handleConfirm }) {
+function Confirm({ title, description, color, button, handleClose, handleConfirm }) {
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
+
+  const handleCloseExtra = () => {
+    !loading && handleClose();
+  };
+
+  const handleSubmit = () => {
+    setLoading(true);
+    handleConfirm()
+      .then(() => handleClose())
+      .catch(() => toast(toasts.connectionError))
+      .finally(() => setLoading(false));
+  };
+
   return (
-    <AlertDialog size="lg" motionPreset="scale" isCentered isOpen={true} onClose={handleClose}>
+    <AlertDialog size="lg" motionPreset="scale" isCentered isOpen={true} onClose={handleCloseExtra}>
       <AlertDialogOverlay bg="rgb(0, 0, 0, 0.75)">
         <AlertDialogContent>
           <Box p="20px" w="100%">
@@ -29,7 +47,7 @@ function Confirm({ title, description, color, button, loading, handleClose, hand
                 colorScheme={color}
                 isLoading={loading}
                 loadingText={button}
-                onClick={handleConfirm}
+                onClick={handleSubmit}
               >
                 {button}
               </Button>

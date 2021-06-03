@@ -1,69 +1,97 @@
-import { auth, firestore } from "./firebase";
-import errors from "./errors";
+import { auth, firestore } from "database/firebase";
+
+import errors from "database/errors";
 import moment from "moment-timezone";
 
-const getErrorMessage = ({ code }) => ({ email: "", password: "", ...errors[code] });
+const getErrorMessage = ({ code }) => {
+  return { email: "", password: "", ...errors[code] };
+};
 
-const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
+const setLocalUserExists = (value) => {
+  localStorage.setItem("exists", value);
+};
 
-const signup = async (name, email, password) => {
+const signup = async ({ name, email, password }) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await user.sendEmailVerification();
-    await firestore.collection("researchers").doc(user.uid).set({
-      name,
-      timezone: moment.tz.guess(),
-    });
-    localStorage.setItem("exists", true);
-    return user;
+    const timezone = moment.tz.guess();
+
+    await Promise.all([
+      user.sendEmailVerification(),
+      firestore
+        .collection("researchers")
+        .doc(user.uid)
+        .set({
+          name,
+          timezone,
+          organization: "",
+          background: "",
+          preferences: {
+            timezone: { autodetect: true },
+
+            notifications: {
+              email: false,
+              phone: false,
+              toast: false,
+
+              categories: {
+                account: true,
+                studies: true,
+                participants: true,
+                meetings: true,
+                messages: true,
+              },
+            },
+          },
+        }),
+    ]);
+
+    setLocalUserExists(true);
   } catch (error) {
     throw getErrorMessage(error);
   }
 };
 
-const signin = async (email, password) => {
+const signin = async ({ email, password }) => {
   try {
-    const { user } = await auth.signInWithEmailAndPassword(email, password);
-    localStorage.setItem("exists", true);
-    return user;
+    await auth.signInWithEmailAndPassword(email, password);
+    setLocalUserExists(true);
   } catch (error) {
     throw getErrorMessage(error);
   }
 };
 
-const signout = async () => auth.signOut();
+const signout = async () => {
+  return auth.signOut();
+};
 
-const deleteAccount = async (email, password) => {
+const forgotPassword = async ({ email }) => {
+  try {
+    auth.sendPasswordResetEmail(email);
+  } catch (error) {
+    throw getErrorMessage(error);
+  }
+};
+
+const changePassword = async ({ password, newPassword }) => {
+  try {
+    const { email } = auth.currentUser;
+    const { user } = await auth.signInWithEmailAndPassword(email, password);
+    await user.updatePassword(newPassword);
+  } catch (error) {
+    throw getErrorMessage(error);
+  }
+};
+
+const deleteAccount = async ({ email, password }) => {
   try {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
     await firestore.collection("researchers").doc(user.uid).delete();
-    user.delete();
-    localStorage.setItem("exists", false);
+    await user.delete();
+    setLocalUserExists(false);
   } catch (error) {
     throw getErrorMessage(error);
   }
 };
 
-// ========================== PASSWORD UPDATES ========================== //
-
-const resetPassword = async (actionCode, password) => {
-  try {
-    const email = await auth.verifyPasswordResetCode(actionCode);
-    await auth.confirmPasswordReset(actionCode, password);
-    return signin(email, password);
-  } catch (error) {
-    throw getErrorMessage(error);
-  }
-};
-
-const changePassword = async (password, newPassword) => {
-  try {
-    const { email } = await auth.currentUser;
-    const { user } = await auth.signInWithEmailAndPassword(email, password);
-    return user.updatePassword(newPassword);
-  } catch (error) {
-    throw getErrorMessage(error);
-  }
-};
-
-export { deleteAccount, forgotPassword, resetPassword, changePassword, signin, signup, signout };
+export { signin, signup, signout, forgotPassword, changePassword, deleteAccount };

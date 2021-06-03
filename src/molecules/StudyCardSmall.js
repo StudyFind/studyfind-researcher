@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Link } from "components";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 

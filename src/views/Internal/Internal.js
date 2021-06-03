@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection, useDetectTimezone, useNotificationToast } from "hooks";
+import { useDocument, useCollection, useDetectTimezone } from "hooks";
 import { UserContext, StudiesContext, ConfirmContext } from "context";
 
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -31,40 +31,26 @@ function Internal() {
     .where("researcher.id", "==", uid)
     .orderBy("updatedAt", "desc");
 
-  const notificationsRef = firestore
-    .collection("researchers")
-    .doc(auth.currentUser.uid)
-    .collection("notifications")
-    .orderBy("time", "desc")
-    .limit(10);
-
   const [user] = useDocument(userRef);
   const [studies] = useCollection(studiesRef);
-  const [notifications] = useCollection(notificationsRef);
-
-  useDetectTimezone(user);
-  useNotificationToast(notifications);
-
   const [confirm, setConfirm] = useState(null);
 
-  const handleClose = () => {
-    setConfirm(null);
-  };
+  useDetectTimezone(user);
 
   return (
     <Flex>
       <UserContext.Provider value={user}>
         <StudiesContext.Provider value={studies}>
           <ConfirmContext.Provider value={setConfirm}>
-            <Sidebar name={user && user.name} email={email} />
+            <Sidebar name={user?.name} email={email} />
             <Box
               ml="280px"
               w="100%"
               minH={emailVerified ? "100vh" : "calc(100vh - 56px)"}
               mt={emailVerified ? "" : "40px"}
             >
-              {emailVerified || <Verification email={email} />}
-              {confirm && <Confirm {...confirm} handleClose={handleClose} />}
+              {emailVerified || <Verification />}
+              {confirm && <Confirm {...confirm} handleClose={() => setConfirm(null)} />}
               <Page isLoading={!(user && studies)}>
                 <Switch>
                   <Route exact path="/" component={Dashboard} />

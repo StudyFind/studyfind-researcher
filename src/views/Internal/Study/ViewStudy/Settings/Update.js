@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { datetime } from "functions";
-import { resetStudy } from "database/studies";
+import { updateStudy } from "database/cloud";
 
 import { Link } from "components";
-import { Box, Flex, Heading, Text, Button, FormErrorMessage } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 
 function Update({ study }) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const handleUpdate = () => {
     setLoading(true);
-    resetStudy(study.id)
-      .catch((err) => setError(`Update failed: ${err}`))
+    updateStudy({ nctID: study.id })
+      .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   };
 
@@ -38,14 +38,16 @@ function Update({ study }) {
       </Flex>
       <Button
         type="submit"
-        onClick={handleUpdate}
         colorScheme="blue"
-        isLoading={loading}
         loadingText="Updating"
+        isLoading={loading}
+        onClick={handleUpdate}
       >
         Update
       </Button>
-      {error && <FormErrorMessage>{error}</FormErrorMessage>}
+      <Text color="red.500" mt="10px">
+        {error}
+      </Text>
     </Box>
   );
 }

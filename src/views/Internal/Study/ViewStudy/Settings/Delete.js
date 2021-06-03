@@ -1,24 +1,39 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-import { deleteStudy } from "database/studies";
+import { toasts } from "templates";
+import { firestore } from "database/firebase";
 import { useHistory } from "react-router-dom";
 import { useConfirm } from "hooks";
 
-import { Form, Input } from "components";
-import { Box, Grid, Heading, Text, Button, useToast } from "@chakra-ui/react";
+import { Form, TextInput } from "components";
+import { Box, Grid, Heading, Text, Button, Tooltip, useToast } from "@chakra-ui/react";
 
 function Delete({ study }) {
   const toast = useToast();
   const confirm = useConfirm();
+
   const [nctID, setNctID] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
 
   const handleChange = (_, value) => {
     setNctID(value);
     setError("");
+  };
+
+  const handleConfirm = () => {
+    return firestore
+      .collection("studies")
+      .doc(study.id)
+      .delete()
+      .then(() => {
+        history.push("/studies");
+        toast(toasts.deletedStudy);
+      })
+      .catch(() => {
+        toast(toasts.connectionError);
+      });
   };
 
   const handleDelete = () => {
@@ -28,40 +43,11 @@ function Delete({ study }) {
         description: `This is a permanant action and cannot be undone. Are you sure you want to delete study with study number ${nctID}?`,
         color: "red",
         button: "Delete",
-        loading,
         handleConfirm,
       });
     } else {
       setError("Entered ID does not match");
     }
-  };
-
-  const handleConfirm = () => {
-    setLoading(true);
-    deleteStudy(study.id)
-      .then(() => {
-        history.push("/studies");
-        toast({
-          title: "Study Deleted!",
-          description: `Your study was successfully deleted along with all associated data`,
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
-      })
-      .catch(() => {
-        toast({
-          title: "Connection Error",
-          description:
-            "Your study could not be deleted due to a connection error. Please try again later.",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-          position: "top",
-        });
-      })
-      .finally(() => setLoading(false));
   };
 
   return (
@@ -79,10 +65,19 @@ function Delete({ study }) {
 
       <Form onSubmit={handleDelete}>
         <Grid gap="10px" w="210px">
-          <Input placeholder="NCT00000000" value={nctID} error={error} onChange={handleChange} />
-          <Button type="submit" colorScheme="red">
-            Delete
-          </Button>
+          <TextInput
+            placeholder="NCT00000000"
+            value={nctID}
+            error={error}
+            onChange={handleChange}
+          />
+          <Tooltip label={nctID !== study.id && "Entered ID does not match NCTID"}>
+            <Box>
+              <Button type="submit" w="100%" colorScheme="red" isDisabled={nctID !== study.id}>
+                Delete
+              </Button>
+            </Box>
+          </Tooltip>
         </Grid>
       </Form>
     </Box>

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import moment from "moment";
 import validator from "validator";
 
 import { firestore } from "database/firebase";
 
-import { Input } from "components";
+import { TextInput } from "components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
 
 function MeetingsForm({ meeting, onClose }) {
@@ -81,14 +81,14 @@ function MeetingsForm({ meeting, onClose }) {
 
   return (
     <Grid gap="32px">
-      <Input
+      <TextInput
         label="Meeting Name"
         name="name"
         value={inputs.name}
         error={errors.name}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Date"
         name="date"
         type="date"
@@ -97,7 +97,7 @@ function MeetingsForm({ meeting, onClose }) {
         error={errors.date}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Time"
         name="time"
         type="time"
@@ -105,7 +105,7 @@ function MeetingsForm({ meeting, onClose }) {
         error={errors.time}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Link"
         name="link"
         value={inputs.link}

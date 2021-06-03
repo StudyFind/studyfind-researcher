@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 import { useConfirm } from "hooks";
 import { datetime } from "functions";
 import { firestore } from "database/firebase";
@@ -8,22 +6,19 @@ import { Box, Flex, Heading, Text, useToast } from "@chakra-ui/react";
 
 import MeetingsStatus from "./MeetingsStatus";
 import MeetingsButtons from "./MeetingsButtons";
+import { toasts } from "templates";
 
 function MeetingsCard({ meeting, handleEdit }) {
   const toast = useToast();
   const confirm = useConfirm();
 
-  const [loading, setLoading] = useState(false);
-
   const handleConfirm = () => {
-    setLoading(true);
     firestore
       .collection("meetings")
       .doc(meeting.id)
       .delete()
-      .then(() => toast({}))
-      .catch(() => toast({}))
-      .finally(() => setLoading(false));
+      .then(() => toast(toasts.deletedMeeting))
+      .catch(() => toast(toasts.connectionError));
   };
 
   const handleDelete = () => {
@@ -31,7 +26,7 @@ function MeetingsCard({ meeting, handleEdit }) {
       title: "Confirm Delete Study",
       description: `Deleting this meeting cannot be undone and will notify the respective participant?`,
       button: "Delete",
-      loading,
+      color: "red",
       handleConfirm,
     });
   };

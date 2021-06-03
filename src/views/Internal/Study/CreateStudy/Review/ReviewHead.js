@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "components";
 import { Heading, Text } from "@chakra-ui/react";
 

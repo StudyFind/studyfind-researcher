@@ -1,16 +1,8 @@
-import React, { useEffect, useRef } from "react";
 import { Button, Text } from "@chakra-ui/react";
 
 function AccountTab({ icon, name, selected, onClick }) {
-  const ref = useRef();
-
-  useEffect(() => {
-    selected && ref.current.focus();
-  }, [selected]);
-
   return (
     <Button
-      ref={ref}
       className="tab"
       bg={selected ? "blue.500" : "none"}
       color={selected ? "white" : "gray.500"}

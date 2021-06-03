@@ -1,10 +1,9 @@
-import React from "react";
-import { Heading, Text, Switch, Badge, Box, Flex, Tooltip } from "@chakra-ui/react";
-import { updateStudy } from "database/studies";
+import { Heading, Text, Switch, Badge, Box, Flex } from "@chakra-ui/react";
+import { firestore } from "database/firebase";
 
 function Activate({ study }) {
   const handleToggle = () => {
-    updateStudy(study.id, { activated: !study.activated });
+    firestore.collection("studies").doc(study.id).update({ activated: !study.activated });
   };
 
   return (

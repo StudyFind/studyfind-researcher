@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment";
 import validator from "validator";
 
-import { datetime } from "functions";
+import { datetime, object } from "functions";
 import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 
-import { Input } from "components";
+import { TextInput } from "components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
 
 function MeetingsEdit({ meeting, handleCancel }) {
@@ -29,22 +29,10 @@ function MeetingsEdit({ meeting, handleCancel }) {
     }
   }, [meeting]);
 
-  const handleChange = (name, value) => {
-    setInputs({ ...inputs, [name]: value });
-    setErrors({ ...errors, [name]: checker(name, value) });
-  };
-
-  const validate = ({ name, date, time, link }) => ({
-    name: checker("name", name),
-    date: checker("date", date),
-    time: checker("time", time),
-    link: checker("link", link),
-  });
-
   const checker = (name, value) => {
     if (!value) return true;
 
-    if (name === "date" && value < Date.now()) {
+    if (name === "date" && value < datetime.getToday()) {
       return "Date must be in the future";
     }
 
@@ -59,9 +47,21 @@ function MeetingsEdit({ meeting, handleCancel }) {
     return false;
   };
 
+  const handleChange = (name, value) => {
+    setInputs({ ...inputs, [name]: value });
+    setErrors({ ...errors, [name]: checker(name, value) });
+  };
+
+  const validate = ({ name, date, time, link }) => ({
+    name: checker("name", name),
+    date: checker("date", date),
+    time: checker("time", time),
+    link: checker("link", link),
+  });
+
   const handleSubmit = () => {
     const error = validate(inputs);
-    const valid = Object.values(error).every((v) => !v);
+    const valid = !object.some(error);
 
     if (!valid) {
       setErrors(error);
@@ -75,6 +75,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
       researcherID: auth.currentUser.uid,
       participantID,
       studyID,
+      confirmedByParticipant: false,
     };
 
     meeting
@@ -86,14 +87,14 @@ function MeetingsEdit({ meeting, handleCancel }) {
 
   return (
     <Grid gap="32px">
-      <Input
+      <TextInput
         label="Meeting Name"
         name="name"
         value={inputs.name}
         error={errors.name}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Date"
         name="date"
         type="date"
@@ -102,7 +103,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
         error={errors.date}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Time"
         name="time"
         type="time"
@@ -110,7 +111,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
         error={errors.time}
         onChange={handleChange}
       />
-      <Input
+      <TextInput
         label="Meeting Link"
         name="link"
         value={inputs.link}

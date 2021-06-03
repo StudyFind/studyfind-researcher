@@ -1,6 +1,5 @@
-import React from "react";
-
 import { useDetails } from "hooks";
+import { object } from "functions";
 
 import { EditorButton } from "components";
 import { Flex, Button } from "@chakra-ui/react";
@@ -20,7 +19,7 @@ function DetailsForm({ study, next, back }) {
     isDifferent,
   } = useDetails(study);
 
-  const isInputNotEmpty = !Object.values(inputs).every((v) => !v);
+  const isInputNotEmpty = object.some(inputs);
 
   const handleSubmitModified = () => {
     handleSubmit();

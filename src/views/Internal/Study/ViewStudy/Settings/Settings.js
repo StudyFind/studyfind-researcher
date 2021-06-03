@@ -1,4 +1,3 @@
-import React from "react";
 import { List } from "components";
 import { Flex, Heading } from "@chakra-ui/react";
 
@@ -38,9 +37,9 @@ function Settings({ study }) {
         <Heading fontSize="28px">Settings</Heading>
       </Flex>
       <List>
-        {settings.map(({ condition, component }, i) => {
-          return condition && <List.Row key={i}>{component}</List.Row>;
-        })}
+        {settings.map(
+          ({ condition, component }, i) => condition && <List.Row key={i}>{component}</List.Row>
+        )}
       </List>
     </>
   );

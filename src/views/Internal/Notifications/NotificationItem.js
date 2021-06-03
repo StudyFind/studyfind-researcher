@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { auth, firestore } from "database/firebase";
@@ -41,7 +41,7 @@ function NotificationItem({ notification }) {
   }, []);
 
   const getTemplate = (type, meta) => {
-    const generateTemplate = notifications[type] || notifications["defaultTemplate"];
+    const generateTemplate = notifications[type] || notifications.defaultTemplate;
     return generateTemplate(meta);
   };
 

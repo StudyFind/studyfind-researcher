@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment";
 
 import { Grid } from "@chakra-ui/react";
@@ -15,6 +15,14 @@ function Calendar({ date, setDate, today }) {
     setMonth(now.month());
     setYear(now.year());
   }, []);
+
+  const backYear = () => {
+    setYear((prev) => prev - 1);
+  };
+
+  const nextYear = () => {
+    setYear((prev) => prev + 1);
+  };
 
   const backMonth = () => {
     setMonth((prev) => {
@@ -34,14 +42,6 @@ function Calendar({ date, setDate, today }) {
       }
       return prev + 1;
     });
-  };
-
-  const backYear = () => {
-    setYear((prev) => prev - 1);
-  };
-
-  const nextYear = () => {
-    setYear((prev) => prev + 1);
   };
 
   return (

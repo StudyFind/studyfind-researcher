@@ -1,5 +1,6 @@
-import React from "react";
 import lodash from "lodash";
+
+import { useScreening } from "hooks";
 
 import { EditorButton } from "components";
 import { Button, Flex, Grid } from "@chakra-ui/react";
@@ -7,24 +8,28 @@ import { FaTrash, FaPlus, FaUndo } from "react-icons/fa";
 
 import QuestionList from "molecules/QuestionList";
 
-function ScreeningGrid({
-  back,
-  values,
-  errors,
-  loading,
-  original,
-  createQuestion,
-  updateQuestion,
-  deleteQuestion,
-  resetQuestions,
-  clearQuestions,
-  sortQuestions,
-  handleSubmit,
-}) {
+function ScreeningGrid({ study, back, next }) {
+  const {
+    values,
+    errors,
+    loading,
+    createQuestion,
+    updateQuestion,
+    deleteQuestion,
+    clearQuestions,
+    resetQuestions,
+    sortQuestions,
+    handleSubmit,
+  } = useScreening(study);
+
+  const handleSubmitModified = () => {
+    handleSubmit().then(next);
+  };
+
   return (
     <>
       <Flex gridGap="10px">
-        {!lodash.isEqual(original, values) && (
+        {!lodash.isEqual(study.questions, values) && (
           <EditorButton icon={<FaUndo />} color="gray" onClick={resetQuestions}>
             Undo Changes
           </EditorButton>
@@ -52,7 +57,7 @@ function ScreeningGrid({
         <Button color="gray.500" variant="outline" onClick={back}>
           Back
         </Button>
-        <Button colorScheme="blue" onClick={handleSubmit} type="submit" isLoading={loading}>
+        <Button colorScheme="blue" onClick={handleSubmitModified} type="submit" isLoading={loading}>
           Next
         </Button>
       </Flex>

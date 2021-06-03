@@ -1,31 +1,32 @@
-import React from "react";
 import { Flex, Heading, Text, OrderedList, ListItem, Box } from "@chakra-ui/react";
-import { Message } from "components";
+import { Message, Link } from "components";
 
 function Locations({ study }) {
-  return study && study.locations && study.locations.length ? (
+  const getAddress = (location) => {
+    return `${location.localLocation.trim()}, ${location.nationalLocation.trim()}`;
+  };
+
+  const getGoogleMapsLink = (location) => {
+    const address = getAddress(location);
+    const initial = "https://www.google.com/maps?saddr=My+Location&daddr=";
+    const cleaned = address.trim().split(" ").join("+");
+    return initial + cleaned;
+  };
+
+  return study?.locations?.length ? (
     <>
       <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Locations</Heading>
       </Flex>
       <Flex direction="column" align="flex-start">
         <OrderedList>
-          {study.locations.map((location, i) => {
-            const address = `${location.localLocation.trim()}, ${location.nationalLocation.trim()}`;
-            return (
-              <ListItem key={i} my="4px">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://www.google.com/maps?saddr=My+Location&daddr=${
-                    address && address.trim().split(" ").join("+")
-                  }`}
-                >
-                  <Text color="blue.500">{address}</Text>
-                </a>
-              </ListItem>
-            );
-          })}
+          {study.locations.map((location, i) => (
+            <ListItem key={i} my="4px">
+              <Link to={getGoogleMapsLink(location)}>
+                <Text color="blue.500">{getAddress(location)}</Text>
+              </Link>
+            </ListItem>
+          ))}
         </OrderedList>
       </Flex>
     </>

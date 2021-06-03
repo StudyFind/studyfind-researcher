@@ -1,11 +1,10 @@
-import React from "react";
 import styled from "styled-components";
 
 import { Box, Flex, Heading, Button, Tag, Text } from "@chakra-ui/react";
 import { Message } from "components";
 
 function ScreeningView({ study, setEdit }) {
-  const BODY = (
+  return study?.questions?.length ? (
     <>
       <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Screening</Heading>
@@ -21,27 +20,22 @@ function ScreeningView({ study, setEdit }) {
           </tr>
         </thead>
         <tbody>
-          {study &&
-            study.questions &&
-            study.questions.length &&
-            study.questions.map((question, i) => (
-              <tr key={i}>
-                <BodyCell nowrap>
-                  <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
-                    {question.type}
-                  </Tag>
-                </BodyCell>
-                <BodyCell nowrap>
-                  <Text color="gray.600">{question.prompt}</Text>
-                </BodyCell>
-              </tr>
-            ))}
+          {study?.questions?.map((question, i) => (
+            <tr key={i}>
+              <BodyCell nowrap>
+                <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
+                  {question.type}
+                </Tag>
+              </BodyCell>
+              <BodyCell nowrap>
+                <Text color="gray.600">{question.prompt}</Text>
+              </BodyCell>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </>
-  );
-
-  const EMPTY = (
+  ) : (
     <Box h="500px">
       <Message
         title="Create screening survey"
@@ -53,8 +47,6 @@ function ScreeningView({ study, setEdit }) {
       </Message>
     </Box>
   );
-
-  return study && study.questions && study.questions.length ? BODY : EMPTY;
 }
 
 const Table = styled.table`

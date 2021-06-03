@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Link, ClipboardButton } from "components";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
@@ -18,7 +16,7 @@ function Share({ study }) {
         <Link to={link}>{link}</Link>
       </Box>
       <Flex gridGap="10px" mt="20px">
-        <ClipboardButton link={link} copiedText="Copied!">
+        <ClipboardButton text={link} copiedText="Copied!">
           Copy Link
         </ClipboardButton>
       </Flex>

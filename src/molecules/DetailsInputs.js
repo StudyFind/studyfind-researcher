@@ -1,13 +1,11 @@
-import React from "react";
-
-import { Textarea } from "components";
+import { TextareaInput } from "components";
 import { Grid } from "@chakra-ui/react";
 import DescriptionAccessibilityScore from "./DescriptionAccessibilityScore";
 
 function DetailsInputs({ inputs, errors, handleChange }) {
   return (
     <Grid py="10px" gap="10px">
-      <Textarea
+      <TextareaInput
         label="Study Title"
         name="title"
         value={inputs.title}
@@ -16,7 +14,7 @@ function DetailsInputs({ inputs, errors, handleChange }) {
         height="50px"
         onChange={handleChange}
       />
-      <Textarea
+      <TextareaInput
         label="Study Description"
         name="description"
         value={inputs.description}

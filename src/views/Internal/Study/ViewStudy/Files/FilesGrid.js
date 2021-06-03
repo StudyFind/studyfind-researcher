@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Grid, Flex, Heading, Button, Tooltip } from "@chakra-ui/react";
 
 import FileCard from "./FileCard";
@@ -8,7 +6,7 @@ import FilesEmpty from "./FilesEmpty";
 function FilesGrid({ files, setEdit, handleDelete }) {
   const FILE_LIMIT = 8;
 
-  if (files && files.length === 0) {
+  if (!files?.length) {
     return <FilesEmpty setEdit={setEdit} />;
   }
 
