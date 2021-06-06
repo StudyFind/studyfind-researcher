@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Box, Grid, Flex, Heading, Button } from "@chakra-ui/react";
-import { Input, Select, ActionButton } from "components";
-import { FaTrash } from "react-icons/fa";
+import { useState, useEffect } from "react";
 
 import {
+  Grid,
+  Flex,
+  Button,
+  Editable,
+  EditableInput,
+  EditablePreview,
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -13,26 +16,53 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 
-function SurveyEdit({ survey, surveysRef, setEdit, edit }) {
+import SurveyView from "./SurveyView";
+import QuestionEdit from "./QuestionEdit";
+
+function SurveyEdit({ survey, surveysRef, handleClose }) {
   const initial = {
-    title: null,
+    title: "",
     questions: [],
   };
 
   const [inputs, setInputs] = useState(initial);
+  const [questionEdit, setQuestionEdit] = useState(false);
+  const [questionIndex, setQuestionIndex] = useState(null);
 
-  const handleAddQuestion = () => {
-    setInputs((prev) => ({
-      ...prev,
-      questions: prev.questions.concat({
-        type: "multiple choice",
-        prompt: "",
-        options: ["", "", ""],
-      }),
-    }));
+  useEffect(() => {
+    if (survey) {
+      setInputs(survey);
+    }
+  }, [survey]);
+
+  const handleQuestionEdit = (index) => {
+    setQuestionEdit(true);
+    setQuestionIndex(index);
   };
 
-  const handleDeleteQuestion = (qIndex) => {
+  const handleQuestionCancel = () => {
+    setQuestionEdit(false);
+    setQuestionIndex(null);
+  };
+
+  const handleQuestionAdd = () => {
+    handleQuestionEdit(inputs.questions.length);
+  };
+
+  const handleQuestionSave = (index, question) => {
+    setInputs((prev) => {
+      const updated = [...prev.questions];
+      updated[index] = question;
+      return { ...prev, questions: updated };
+    });
+    handleQuestionCancel();
+  };
+
+  const handleTitleChange = (name, value) => {
+    setInputs((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleQuestionDelete = (qIndex) => {
     setInputs((prev) => {
       const questions = [...prev.questions];
       questions.splice(qIndex, 1);
@@ -40,21 +70,16 @@ function SurveyEdit({ survey, surveysRef, setEdit, edit }) {
     });
   };
 
-  const handleSurveyChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
-  };
-
   const handleCancel = () => {
     setInputs(initial);
-    setEdit(false);
+    handleClose();
   };
 
   const handleSubmit = () => {
-    // deletes options array for non-MCQ/non-checkbox questions
+    // clears options array for non-MCQ/non-checkbox questions
     const updatedQuestions = inputs.questions.map((question) => {
       if (!["multiple choice", "checkbox"].includes(question.type)) {
-        const { options, ...newQuestion } = question;
-        return newQuestion;
+        return { ...question, options: [] };
       }
 
       return question;
@@ -65,123 +90,46 @@ function SurveyEdit({ survey, surveysRef, setEdit, edit }) {
       questions: updatedQuestions,
     };
 
-    console.log("title: " + inputs.title);
-    console.log(updatedQuestions);
-
     if (survey) {
       surveysRef.doc(survey.id).set(payload);
     } else {
       surveysRef.add(payload);
     }
 
-    setEdit(false);
+    handleClose();
   };
-
-  const handleQuestionChange = (index, name, value) => {
-    setInputs((prev) => {
-      const questions = [...prev.questions];
-      questions[index][name] = value;
-      return { ...prev, questions };
-    });
-  };
-
-  const handleOptionChange = (qIndex, oIndex, value) => {
-    setInputs((prev) => {
-      const questions = [...prev.questions];
-      questions[qIndex].options[oIndex] = value;
-      return { ...prev, questions };
-    });
-  };
-
-  const handleOptionAdd = (qIndex) => {
-    setInputs((prev) => {
-      const questions = [...prev.questions];
-      questions[qIndex].options.push("");
-      return { ...prev, questions };
-    });
-  };
-
-  const handleOptionDelete = (qIndex, oIndex) => {
-    setInputs((prev) => {
-      const questions = [...prev.questions];
-      questions[qIndex].options.splice(oIndex, 1);
-      return { ...prev, questions };
-    });
-  };
-
-  useEffect(() => {
-    if (survey) {
-      setInputs(survey);
-    }
-  }, [survey]);
 
   return (
-    <Drawer isOpen={edit} onClose={() => setEdit(false)} size="xl">
+    <Drawer isOpen onClose={handleClose} size="md">
       <DrawerOverlay />
-      <DrawerContent>
-        <DrawerCloseButton m="0, 5px, 0, auto" />
-
-        <DrawerHeader borderBottomWidth="1px">Edit Survey</DrawerHeader>
-        <DrawerBody>
-          <Grid gap="20px" p="20px">
-            <Input
-              name="title"
-              label="Title"
-              value={inputs.title || ""}
-              onChange={handleSurveyChange}
-            />
-            {inputs?.questions?.map((question, i) => (
-              <Grid
-                key={i}
-                gap="10px"
-                p="20px"
-                borderWidth="1px"
-                borderColor="gray.300"
-                rounded="md"
-              >
-                <Flex gridGap="5px" align="center">
-                  <Heading fontSize="xl">Question {i + 1}</Heading>
-                  <ActionButton
-                    icon={<FaTrash />}
-                    hint="Delete Question"
-                    color="red"
-                    onClick={() => handleDeleteQuestion(i)}
-                  />
-                </Flex>
-                <Select
-                  name="type"
-                  label="Type"
-                  value={question.type}
-                  options={["multiple choice", "checkbox", "short response", "long response"]}
-                  onChange={(name, value) => handleQuestionChange(i, name, value)}
-                />
-                <Input
-                  name="prompt"
-                  label="Prompt"
-                  value={question.prompt}
-                  onChange={(name, value) => handleQuestionChange(i, name, value)}
-                />
-                {["multiple choice", "checkbox"].includes(question.type) && (
-                  <>
-                    <Heading fontSize="sm">Answer Choices</Heading>
-                    {question?.options?.map((option, j) => (
-                      <Box key={j}>
-                        <Flex>
-                          <Input
-                            name="option"
-                            value={option}
-                            onChange={(_, value) => handleOptionChange(i, j, value)}
-                          />
-                          <Button onClick={() => handleOptionDelete(i, j)}>x</Button>
-                        </Flex>
-                      </Box>
-                    ))}
-                    <Button onClick={() => handleOptionAdd(i)}>Add Option</Button>
-                  </>
-                )}
-              </Grid>
-            ))}
-            <Button onClick={handleAddQuestion}>Add Question</Button>
+      <DrawerContent bg="white">
+        <DrawerHeader>
+          <Flex align="center" justify="space-between">
+            <Editable placeholder="Survey Title" value={inputs.title}>
+              <EditablePreview />
+              <EditableInput onChange={(e) => handleTitleChange("title", e.target.value)} />
+            </Editable>
+            <DrawerCloseButton position="static" />
+          </Flex>
+        </DrawerHeader>
+        <DrawerBody bg="#f8f9fa" borderTopWidth="1px" borderBottomWidth="1px" p="25px">
+          <Grid gap="25px">
+            {questionEdit ? (
+              <QuestionEdit
+                index={questionIndex}
+                question={inputs.questions[questionIndex]}
+                handleQuestionSave={handleQuestionSave}
+                handleQuestionCancel={handleQuestionCancel}
+              />
+            ) : (
+              <SurveyView
+                inputs={inputs}
+                handleTitleChange={handleTitleChange}
+                handleQuestionAdd={handleQuestionAdd}
+                handleQuestionEdit={handleQuestionEdit}
+                handleQuestionDelete={handleQuestionDelete}
+              />
+            )}
           </Grid>
         </DrawerBody>
         <DrawerFooter>
@@ -190,7 +138,7 @@ function SurveyEdit({ survey, surveysRef, setEdit, edit }) {
               Cancel
             </Button>
             <Button onClick={handleSubmit} colorScheme="green">
-              Submit
+              Save
             </Button>
           </Flex>
         </DrawerFooter>

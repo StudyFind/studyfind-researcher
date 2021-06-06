@@ -18,14 +18,14 @@ function FetchStudy() {
   };
 
   const inferID = (studyID) => {
-    const { length } = studyID;
+    const length = studyID.length;
     const lastEight = studyID.substr(length - 8);
 
     if (length < 8 || isNaN(lastEight)) {
       return "";
     }
 
-    return "NCT" + lastEight;
+    return `NCT${lastEight}`;
   };
 
   const handleSubmit = () => {

@@ -15,8 +15,8 @@ function useNotificationToast(notifications) {
 
       if (read === false) {
         toast({
-          title: title,
-          description: description,
+          title,
+          description,
           status: "info",
           duration: 5000,
           isClosable: true,

@@ -1,6 +1,4 @@
-const keys = Object.keys;
-const values = Object.values;
-const entries = Object.entries;
+const { keys, values, entries } = Object.keys;
 
 const map = (object, fn) => {
   const updated = {};
@@ -41,7 +39,7 @@ const every = (object) => {
 
   values(object).forEach((value) => {
     if (!value) {
-      return false;
+      result = false;
     }
   });
 

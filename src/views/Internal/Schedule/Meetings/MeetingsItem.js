@@ -36,8 +36,7 @@ function MeetingsItem({ meeting }) {
   const handleDelete = () => {
     confirm({
       title: "Delete Meeting",
-      description:
-        "The respective participant will be notified of this deletion. Are you sure you want to delete this meeting?",
+      description: `The respective participant will be notified of this deletion. Are you sure you want to delete this meeting?`,
       color: "red",
       button: "Delete",
       handleConfirm,
