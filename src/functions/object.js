@@ -1,6 +1,4 @@
-const keys = Object.keys;
-const values = Object.values;
-const entries = Object.entries;
+const { keys, values, entries } = Object;
 
 const map = (object, fn) => {
   const updated = {};

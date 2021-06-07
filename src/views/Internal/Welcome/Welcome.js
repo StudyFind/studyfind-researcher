@@ -26,7 +26,7 @@ function Welcome() {
       return;
     }
 
-    if (!studies) {
+    if (!studies.length) {
       setLoading(true);
       welcomeAccount()
         .catch((err) => setError(err))
@@ -36,7 +36,7 @@ function Welcome() {
 
   const render = () => {
     if (loading) return <WelcomeLoading />;
-    if (error) return <WelcomeError />;
+    if (error) return <WelcomeError message={error.message} />;
     if (studies.length) return <WelcomeList studies={unpublished} />;
     return <WelcomeEmpty />;
   };
