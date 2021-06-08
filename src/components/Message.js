@@ -1,7 +1,7 @@
 import { Heading, Text, Box, Icon, Center, Flex } from "@chakra-ui/react";
 import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
-export const Message = ({ status, title, description, children, ...rest }) => {
+export const Message = ({ status, title, description, children, renderBackground, ...rest }) => {
   const statuses = {
     success: {
       icon: FaCheckCircle,
@@ -26,11 +26,11 @@ export const Message = ({ status, title, description, children, ...rest }) => {
       align="center"
       h="100%"
       w="100%"
-      bg={`${color}.50`}
       p="30px"
       rounded="md"
-      borderWidth="1px"
-      borderColor={`${color}.400`}
+      bg={renderBackground && `${color}.50`}
+      borderColor={renderBackground && `${color}.400`}
+      borderWidth={renderBackground && "1px"}
       {...rest}
     >
       <Center maxW="400px">
