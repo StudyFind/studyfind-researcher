@@ -1,7 +1,6 @@
 import { Message } from "components";
 
 function WelcomeError({ message }) {
-  console.log(message);
   return (
     <Message
       status="failure"
