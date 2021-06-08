@@ -25,9 +25,11 @@ function Confirm({ title, description, color, button, handleClose, handleConfirm
   const handleSubmit = () => {
     setLoading(true);
     handleConfirm()
-      .then(() => handleClose())
       .catch(() => toast(toasts.connectionError))
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        handleClose();
+      });
   };
 
   return (
