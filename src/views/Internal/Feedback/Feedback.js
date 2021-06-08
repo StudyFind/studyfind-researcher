@@ -26,6 +26,10 @@ function Feedback() {
     setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
   };
 
+  const handleCancel = () => {
+    setInputs({ title: "", body: "" });
+  };
+
   const handleSubmit = () => {
     const side = "researcher";
     const time = moment().utc().valueOf();
@@ -49,7 +53,11 @@ function Feedback() {
       .add({ title, body, email, time, side })
       .then(() => {
         toast(toasts.providedFeedback);
-        setInputs({ title: "", body: "" });
+        handleCancel();
+      })
+      .catch(() => {
+        toast(toasts.connectionError);
+        handleCancel();
       })
       .finally(() => setLoading(false));
   };
