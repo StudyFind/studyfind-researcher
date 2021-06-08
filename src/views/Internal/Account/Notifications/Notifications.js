@@ -12,11 +12,14 @@ function Notifications({ inputs, handleNotifications, handleCategories }) {
         description="The notification section allows you to change what notifications you want to see and where you want to receive them"
       />
       <Grid gap="20px">
+        <Methods
+          notifications={inputs?.preferences?.notifications}
+          handleNotifications={handleNotifications}
+        />
         <Categories
-          categories={inputs.notifications.categories}
+          categories={inputs?.preferences?.notifications?.categories}
           handleCategories={handleCategories}
         />
-        <Methods notifications={inputs.notifications} handleNotifications={handleNotifications} />
       </Grid>
     </Grid>
   );

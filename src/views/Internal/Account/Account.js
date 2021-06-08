@@ -25,41 +25,34 @@ function Account() {
 
   const isDifferent = !lodash.isEqual(user, inputs);
 
+  const deepcopy = (object) => JSON.parse(JSON.stringify(object));
+
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePreferences = (name, value) => {
-    setInputs((prev) => ({
-      ...prev,
-      preferences: {
-        ...prev.preferences,
-        [name]: value,
-      },
-    }));
+  const handleTimezone = (name, value) => {
+    setInputs((prev) => {
+      const updated = deepcopy(prev);
+      updated.preferences.timezone[name] = value;
+      return updated;
+    });
   };
 
   const handleNotifications = (name, value) => {
-    setInputs((prev) => ({
-      ...prev,
-      notifications: {
-        ...prev.notifications,
-        [name]: value,
-      },
-    }));
+    setInputs((prev) => {
+      const updated = deepcopy(prev);
+      updated.preferences.notifications[name] = value;
+      return updated;
+    });
   };
 
   const handleCategories = (name, value) => {
-    setInputs((prev) => ({
-      ...prev,
-      notifications: {
-        ...prev.notifications,
-        categories: {
-          ...prev.notifications?.categories,
-          [name]: value,
-        },
-      },
-    }));
+    setInputs((prev) => {
+      const updated = deepcopy(prev);
+      updated.preferences.notifications.categories[name] = value;
+      return updated;
+    });
   };
 
   const handleCancel = () => {
@@ -88,11 +81,7 @@ function Account() {
       name: "timezone",
       icon: <FaMapMarkedAlt />,
       content: (
-        <Timezone
-          inputs={inputs}
-          handleChange={handleChange}
-          handlePreferences={handlePreferences}
-        />
+        <Timezone inputs={inputs} handleChange={handleChange} handleTimezone={handleTimezone} />
       ),
     },
     {

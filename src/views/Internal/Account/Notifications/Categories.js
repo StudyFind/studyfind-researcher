@@ -14,25 +14,31 @@ function Categories({ categories, handleCategories }) {
         <AccountToggle
           label="Account"
           name="account"
-          value={categories.account}
+          value={categories?.account}
           onChange={handleCategories}
         />
         <AccountToggle
           label="Studies"
           name="studies"
-          value={categories.studies}
+          value={categories?.studies}
           onChange={handleCategories}
         />
         <AccountToggle
           label="Participants"
           name="participants"
-          value={categories.participants}
+          value={categories?.participants}
           onChange={handleCategories}
         />
         <AccountToggle
           label="Meetings"
           name="meetings"
-          value={categories.meetings}
+          value={categories?.meetings}
+          onChange={handleCategories}
+        />
+        <AccountToggle
+          label="Messages"
+          name="messages"
+          value={categories?.messages}
           onChange={handleCategories}
         />
       </Grid>
