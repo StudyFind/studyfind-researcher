@@ -40,11 +40,11 @@ function ScreeningEdit({ study, setEdit }) {
           <Button variant="outline" color="gray.500" onClick={handleCancel}>
             Cancel
           </Button>
-          {values?.length && (
+          {values?.length ? (
             <Button colorScheme="red" onClick={clearQuestions}>
               Delete All
             </Button>
-          )}
+          ) : null}
           {isDifferent && (
             <Button colorScheme="green" onClick={handleSubmitModified} isLoading={loading}>
               Save Changes
