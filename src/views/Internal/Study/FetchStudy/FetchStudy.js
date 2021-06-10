@@ -32,7 +32,7 @@ function FetchStudy() {
       return "";
     }
 
-    return `NCT ${lastEight.trim()}`;
+    return `NCT${lastEight.trim()}`;
   };
 
   const handleSubmit = () => {
