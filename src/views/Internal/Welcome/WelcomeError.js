@@ -1,11 +1,11 @@
 import { Message } from "components";
 
-function WelcomeError() {
+function WelcomeError({ message }) {
   return (
     <Message
       status="failure"
       title="Fetching Failed"
-      description="We could not fetch the requested studies"
+      description={message || "We could not fetch the requested studies"}
     />
   );
 }

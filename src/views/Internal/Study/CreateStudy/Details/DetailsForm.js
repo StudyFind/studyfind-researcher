@@ -22,8 +22,7 @@ function DetailsForm({ study, next, back }) {
   const isInputNotEmpty = object.some(inputs);
 
   const handleSubmitModified = () => {
-    handleSubmit();
-    next();
+    handleSubmit().then(next);
   };
 
   return (

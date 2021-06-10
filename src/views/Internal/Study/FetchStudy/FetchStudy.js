@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+import { auth } from "database/firebase";
 import { useHistory } from "react-router-dom";
 import { createStudy } from "database/cloud";
 
@@ -11,6 +12,12 @@ function FetchStudy() {
   const [inputs, setInputs] = useState({ studyID: "" });
   const [errors, setErrors] = useState({ studyID: "" });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!auth.currentUser.emailVerified) {
+      history.push("/");
+    }
+  }, []);
 
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
@@ -25,7 +32,7 @@ function FetchStudy() {
       return "";
     }
 
-    return `NCT${lastEight}`;
+    return `NCT ${lastEight.trim()}`;
   };
 
   const handleSubmit = () => {
@@ -39,7 +46,7 @@ function FetchStudy() {
     setLoading(true);
     createStudy({ nctID: validID })
       .then(() => history.push(`/create/${validID}/details`))
-      .catch((error) => setErrors({ studyID: error }))
+      .catch((error) => setErrors({ studyID: error.message }))
       .finally(() => setLoading(false));
   };
 
