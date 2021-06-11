@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
-import { Box, Grid, Flex, Heading, Button, Checkbox, FormLabel } from "@chakra-ui/react";
-import { TextInput, TextareaInput, SelectInput, ActionButton } from "components";
+import { Box, Grid, Flex, Heading, Button, Checkbox, FormLabel, Text } from "@chakra-ui/react";
+import {
+  TextInput,
+  TextareaInput,
+  SelectInput,
+  ActionButton,
+  DateInput,
+  TimeInput,
+} from "components";
 import { FaTrash } from "react-icons/fa";
 
 function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCancel }) {
@@ -8,6 +15,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
     type: "multiple choice",
     prompt: "",
     options: ["", "", ""],
+    constraints: {},
     required: false,
   });
 
@@ -21,11 +29,19 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleConstraintsChange = (name, value) => {
+    setInputs((prev) => {
+      const constraints = { ...prev.constraints };
+      constraints[name] = value;
+      return { ...prev, constraints };
+    });
+  };
+
   const handleOptionAdd = () => {
     setInputs((prev) => ({ ...prev, options: prev.options.concat("") }));
   };
 
-  const handleOptionEdit = (index, value) => {
+  const handleOptionsEdit = (index, name, value) => {
     setInputs((prev) => {
       const options = [...prev.options];
       options[index] = value;
@@ -83,7 +99,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
         onChange={handleChange}
         height="60px"
       />
-      {["multiple choice", "checkbox"].includes(inputs.type) && (
+      {["multiple choice", "checkbox", "dropdown"].includes(inputs.type) && (
         <Box>
           <FormLabel>Answer Choices</FormLabel>
           <Grid gap="10px">
@@ -94,7 +110,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                   rounded="md"
                   name="option"
                   value={option}
-                  onChange={(_, value) => handleOptionEdit(i, value)}
+                  onChange={(name, value) => handleOptionsEdit(i, name, value)}
                 />
                 <ActionButton
                   color="red"
@@ -109,10 +125,177 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
           </Grid>
         </Box>
       )}
+
+      {["short answer", "long answer"].includes(inputs.type) && (
+        <Box>
+          <FormLabel>Character Limits</FormLabel>
+          <Grid gap="10px">
+            <Flex gridGap="10px">
+              <Text>Min:</Text>
+              <TextInput
+                size="sm"
+                rounded="md"
+                name="characterMin"
+                value={inputs?.constraints.characterMin}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+              <Text>Max:</Text>
+              <TextInput
+                size="sm"
+                rounded="md"
+                name="characterMax"
+                value={inputs?.constraints.characterMax}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+            </Flex>
+          </Grid>
+        </Box>
+      )}
+
+      {["date"].includes(inputs.type) && (
+        <Box>
+          <FormLabel>Valid Responses</FormLabel>
+          <Grid gap="10px">
+            <Flex gridGap="10px">
+              <Text>Min:</Text>
+              <DateInput
+                size="sm"
+                rounded="md"
+                name="dateMin"
+                value={inputs?.constraints.dateMin}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+              <Text>Max:</Text>
+              <DateInput
+                size="sm"
+                rounded="md"
+                name="dateMax"
+                value={inputs?.constraints.dateMax}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+            </Flex>
+          </Grid>
+        </Box>
+      )}
+
+      {["time"].includes(inputs.type) && (
+        <Box>
+          <FormLabel>Valid Responses</FormLabel>
+          <Grid gap="10px">
+            <Flex gridGap="10px">
+              <Text>Min:</Text>
+              <TimeInput
+                size="sm"
+                rounded="md"
+                name="timeMin"
+                value={inputs?.constraints.timeMin}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+              <Text>Max:</Text>
+              <TimeInput
+                size="sm"
+                rounded="md"
+                name="timeMax"
+                value={inputs?.constraints.timeMax}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+            </Flex>
+            <Flex gridGap="10px">
+              <Text>Interval (minutes):</Text>
+              <TextInput
+                size="sm"
+                rounded="md"
+                name="timeInterval"
+                value={inputs?.constraints.timeInterval}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+            </Flex>
+          </Grid>
+        </Box>
+      )}
+
+      {["number"].includes(inputs.type) && (
+        <Box>
+          <FormLabel>Valid Responses</FormLabel>
+          <Grid gap="10px">
+            <Flex gridGap="10px">
+              <Text>Min:</Text>
+              <TextInput
+                size="sm"
+                rounded="md"
+                name="numberMin"
+                value={inputs?.constraints.numberMin}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+              <Text>Max:</Text>
+              <TextInput
+                size="sm"
+                rounded="md"
+                name="numberMax"
+                value={inputs?.constraints.numberMax}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+            </Flex>
+            <Flex gridGap="10px">
+              <Text>Interval:</Text>
+              <TextInput
+                size="sm"
+                rounded="md"
+                name="numberInterval"
+                value={inputs?.constraints.numberInterval}
+                onChange={(name, value) => handleConstraintsChange(name, value)}
+              />
+            </Flex>
+          </Grid>
+        </Box>
+      )}
+
+      {["file"].includes(inputs.type) && (
+        <Box>
+          <FormLabel>Valid File Types</FormLabel>
+          <Grid gap="10px">
+            <Flex gridGap="10px">
+              <Checkbox
+                size="sm"
+                name="pdfAllowed"
+                value={inputs?.constraints.pdfAllowed}
+                onChange={(e) => handleConstraintsChange("pdfAllowed", e.target.checked)}
+              >
+                PDF
+              </Checkbox>
+            </Flex>
+            <Checkbox
+              size="sm"
+              name="docAllowed"
+              value={inputs?.constraints.docAllowed}
+              onChange={(e) => handleConstraintsChange("docAllowed", e.target.checked)}
+            >
+              Doc
+            </Checkbox>
+            <Checkbox
+              size="sm"
+              name="jpgAllowed"
+              value={inputs?.constraints.jpgAllowed}
+              onChange={(e) => handleConstraintsChange("jpgAllowed", e.target.checked)}
+            >
+              JPG
+            </Checkbox>
+            <Checkbox
+              size="sm"
+              name="pngAllowed"
+              value={inputs?.constraints.pngAllowed}
+              onChange={(e) => handleConstraintsChange("pngAllowed", e.target.checked)}
+            >
+              PNG
+            </Checkbox>
+          </Grid>
+        </Box>
+      )}
+
       <Checkbox
         fontWeight="500"
         isChecked={inputs.required}
-        onChange={(_, value) => handleChange("required", value)}
+        onChange={(e) => handleConstraintsChange("required", e.target.checked)}
       >
         Make question required
       </Checkbox>

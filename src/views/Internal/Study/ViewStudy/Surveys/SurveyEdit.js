@@ -76,18 +76,9 @@ function SurveyEdit({ survey, surveysRef, handleClose }) {
   };
 
   const handleSubmit = () => {
-    // clears options array for non-MCQ/non-checkbox questions
-    const updatedQuestions = inputs.questions.map((question) => {
-      if (!["multiple choice", "checkbox"].includes(question.type)) {
-        return { ...question, options: [] };
-      }
-
-      return question;
-    });
-
     const payload = {
       title: inputs.title,
-      questions: updatedQuestions,
+      questions: inputs.questions,
     };
 
     if (survey) {

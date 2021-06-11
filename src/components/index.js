@@ -12,6 +12,7 @@ export { TextInput } from "./Inputs/TextInput";
 export { LinkInput } from "./Inputs/LinkInput";
 export { FileInput } from "./Inputs/FileInput";
 export { DateInput } from "./Inputs/DateInput";
+export { TimeInput } from "./Inputs/TimeInput";
 export { PhoneInput } from "./Inputs/PhoneInput";
 export { EmailInput } from "./Inputs/EmailInput";
 export { RadioInput } from "./Inputs/RadioInput";
