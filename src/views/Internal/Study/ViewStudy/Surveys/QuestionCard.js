@@ -1,4 +1,4 @@
-import { Text, Box, Flex, Badge, UnorderedList, ListItem, Input } from "@chakra-ui/react";
+import { Text, Box, Flex, Badge, UnorderedList, ListItem } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { ActionButton } from "components";
 
@@ -28,9 +28,10 @@ function QuestionCard({ index, question, handleQuestionEdit, handleQuestionDelet
           Constraints
         </Text>
         <UnorderedList pl="10px">
-          {Object.keys(question.constraints).map((constraint, i) => (
-            <ListItem key={i}>{constraint + ": " + question.constraints[constraint]}</ListItem>
-          ))}
+          {question.constraints &&
+            Object.keys(question.constraints).map((constraint, i) => (
+              <ListItem key={i}>{constraint + ": " + question.constraints[constraint]}</ListItem>
+            ))}
         </UnorderedList>
       </Box>
       <Box my="10px">

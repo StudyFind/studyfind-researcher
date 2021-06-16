@@ -9,6 +9,7 @@ import {
   TimeInput,
 } from "components";
 import { FaTrash } from "react-icons/fa";
+import handleErrors from "./QuestionErrorHandling";
 
 function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCancel }) {
   const [inputs, setInputs] = useState({
@@ -19,6 +20,12 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
     required: false,
   });
 
+  const [errors, setErrors] = useState({
+    prompt: "bug",
+    constraints: {},
+    options: [],
+  });
+
   useEffect(() => {
     if (question) {
       setInputs(question);
@@ -26,10 +33,16 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
   }, [question]);
 
   const handleChange = (name, value) => {
+    setErrors((prev) => {
+      return { ...prev, prompt: null };
+    });
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleConstraintsChange = (name, value) => {
+    setErrors((prev) => {
+      return { ...prev, constraints: {} };
+    });
     setInputs((prev) => {
       const constraints = { ...prev.constraints };
       constraints[name] = value;
@@ -42,6 +55,9 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
   };
 
   const handleOptionsEdit = (index, name, value) => {
+    setErrors((prev) => {
+      return { ...prev, options: [] };
+    });
     setInputs((prev) => {
       const options = [...prev.options];
       options[index] = value;
@@ -50,11 +66,33 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
   };
 
   const handleOptionDelete = (index) => {
+    setErrors((prev) => {
+      return { ...prev, options: [] };
+    });
+    if (inputs?.options?.length === 1) {
+      setErrors((prev) => {
+        return { ...prev, options: ["Please include at least one answer choice.", null] };
+      });
+      return;
+    }
     setInputs((prev) => {
       const options = [...prev.options];
       options.splice(index, 1);
       return { ...prev, options };
     });
+  };
+
+  const handleQuestionSaveModified = (index, inputs) => {
+    handleErrors(inputs, setErrors);
+    console.log(errors);
+    console.log([errors.prompt, ...errors.options, ...Object.values(errors.constraints)]);
+    for (const error of [errors.prompt, ...errors.options, ...Object.values(errors.constraints)]) {
+      if (error) {
+        console.log("theres an error!!");
+        return;
+      }
+    }
+    handleQuestionSave(index, inputs);
   };
 
   return (
@@ -67,7 +105,11 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
           <Button size="sm" variant="outline" color="gray.500" onClick={handleQuestionCancel}>
             Cancel
           </Button>
-          <Button size="sm" colorScheme="blue" onClick={() => handleQuestionSave(index, inputs)}>
+          <Button
+            size="sm"
+            colorScheme="blue"
+            onClick={() => handleQuestionSaveModified(index, inputs)}
+          >
             Save Question
           </Button>
         </Flex>
@@ -97,6 +139,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
         label="Question Prompt"
         value={inputs.prompt}
         onChange={handleChange}
+        error={errors && errors?.prompt}
         height="60px"
       />
       {["multiple choice", "checkbox", "dropdown"].includes(inputs.type) && (
@@ -110,6 +153,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                   rounded="md"
                   name="option"
                   value={option}
+                  error={errors.options[i]}
                   onChange={(name, value) => handleOptionsEdit(i, name, value)}
                 />
                 <ActionButton
@@ -136,7 +180,8 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 size="sm"
                 rounded="md"
                 name="characterMin"
-                value={inputs?.constraints.characterMin}
+                value={inputs?.constraints?.characterMin}
+                error={errors?.constraints?.characterMin}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
               <Text>Max:</Text>
@@ -144,7 +189,8 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 size="sm"
                 rounded="md"
                 name="characterMax"
-                value={inputs?.constraints.characterMax}
+                value={inputs?.constraints?.characterMax}
+                error={errors?.constraints?.characterMax}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
             </Flex>
@@ -162,7 +208,8 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 size="sm"
                 rounded="md"
                 name="dateMin"
-                value={inputs?.constraints.dateMin}
+                value={inputs?.constraints?.dateMin}
+                error={errors?.constraints?.dateMin}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
               <Text>Max:</Text>
@@ -171,6 +218,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 rounded="md"
                 name="dateMax"
                 value={inputs?.constraints.dateMax}
+                error={errors?.constraints?.dateMax}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
             </Flex>
@@ -189,6 +237,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 rounded="md"
                 name="timeMin"
                 value={inputs?.constraints.timeMin}
+                error={errors?.constraints?.timeMin}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
               <Text>Max:</Text>
@@ -197,6 +246,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 rounded="md"
                 name="timeMax"
                 value={inputs?.constraints.timeMax}
+                error={errors?.constraints?.timeMax}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
             </Flex>
@@ -207,6 +257,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 rounded="md"
                 name="timeInterval"
                 value={inputs?.constraints.timeInterval}
+                error={errors?.constraints?.timeInterval}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
             </Flex>
@@ -225,6 +276,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 rounded="md"
                 name="numberMin"
                 value={inputs?.constraints.numberMin}
+                error={errors?.constraints?.numberMin}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
               <Text>Max:</Text>
@@ -233,6 +285,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 rounded="md"
                 name="numberMax"
                 value={inputs?.constraints.numberMax}
+                error={errors?.constraints?.numberMax}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
             </Flex>
@@ -243,6 +296,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
                 rounded="md"
                 name="numberInterval"
                 value={inputs?.constraints.numberInterval}
+                error={errors?.constraints?.numberInterval}
                 onChange={(name, value) => handleConstraintsChange(name, value)}
               />
             </Flex>
