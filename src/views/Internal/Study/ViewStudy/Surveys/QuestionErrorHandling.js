@@ -1,5 +1,5 @@
 function handleErrors(question, setErrors) {
-  setErrors({ prompt: null, constraints: {}, options: [] });
+  setErrors({ prompt: "", constraints: {}, options: [] });
   if (!question.prompt || question.prompt === "") {
     setErrors((prev) => {
       return { ...prev, prompt: "Please enter a prompt." };
@@ -36,15 +36,34 @@ function handleErrors(question, setErrors) {
     }
   }
 
-  // if (["date"].includes(question.type)) {
-  //   //TODO
-  // }
-  // if (["time"].includes(question.type)) {
-  //   //TODO
-  // }
-  // if (["number"].includes(question.type)) {
-  //   //TODO
-  // }
+  if (["date"].includes(question.type)) {
+    if (Date.parse(question?.constraints?.dateMin) > Date.parse(question?.constraints?.dateMax)) {
+      setErrors((prev) => {
+        return {
+          ...prev,
+          constraints: {
+            dateMin: "The latest possible date must be later than the earliest date.",
+            dateMax: " ",
+          },
+        };
+      });
+    }
+    //TODO change date selection to a range for cleaner handling
+  }
+  if (["number"].includes(question.type)) {
+    if (parseInt(question.constraints.numberMin) > parseInt(question.constraints.numberMax)) {
+      setErrors((prev) => {
+        return {
+          ...prev,
+          constraints: {
+            numberMin:
+              "The maximum number of characters must be greater than the minimum number of characters.",
+            numberMax: " ",
+          },
+        };
+      });
+    }
+  }
 }
 
 export default handleErrors;

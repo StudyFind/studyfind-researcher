@@ -21,7 +21,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
   });
 
   const [errors, setErrors] = useState({
-    prompt: "bug",
+    prompt: "bug temp fix",
     constraints: {},
     options: [],
   });
@@ -84,11 +84,8 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
 
   const handleQuestionSaveModified = (index, inputs) => {
     handleErrors(inputs, setErrors);
-    console.log(errors);
-    console.log([errors.prompt, ...errors.options, ...Object.values(errors.constraints)]);
     for (const error of [errors.prompt, ...errors.options, ...Object.values(errors.constraints)]) {
       if (error) {
-        console.log("theres an error!!");
         return;
       }
     }
@@ -200,7 +197,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
 
       {["date"].includes(inputs.type) && (
         <Box>
-          <FormLabel>Valid Responses</FormLabel>
+          <FormLabel>Range of Valid Date Selections</FormLabel>
           <Grid gap="10px">
             <Flex gridGap="10px">
               <Text>Min:</Text>
