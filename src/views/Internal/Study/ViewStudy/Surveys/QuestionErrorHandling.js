@@ -1,4 +1,6 @@
 function handleErrors(question, setErrors) {
+  console.log("first");
+  console.log(question);
   setErrors({ prompt: "", constraints: {}, options: [] });
   if (!question.prompt || question.prompt === "") {
     setErrors((prev) => {
@@ -21,7 +23,11 @@ function handleErrors(question, setErrors) {
     });
   }
 
-  if (["short answer", "long answer"].includes(question.type)) {
+  if (
+    ["short answer", "long answer"].includes(question.type) &&
+    question.constraints.characterMin &&
+    question.constraints.characterMax
+  ) {
     if (parseInt(question.constraints.characterMin) > parseInt(question.constraints.characterMax)) {
       setErrors((prev) => {
         return {

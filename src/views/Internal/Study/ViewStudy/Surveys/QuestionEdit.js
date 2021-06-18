@@ -88,6 +88,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
       if (error) {
         return;
       }
+      console.log("second");
     }
     handleQuestionSave(index, inputs);
   };
@@ -345,7 +346,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
 
       <Checkbox
         fontWeight="500"
-        isChecked={inputs.required}
+        isChecked={inputs.constraints.required}
         onChange={(e) => handleConstraintsChange("required", e.target.checked)}
       >
         Make question required

@@ -18,6 +18,7 @@ function QuestionCard({ index, question, handleQuestionEdit, handleQuestionDelet
     docAllowed: "Doc Allowed",
     jpgAllowed: "JPG Allowed",
     pngAllowed: "PNG Allowed",
+    required: "Required",
   };
   function isBlank(arr) {
     for (const elem of arr) {
@@ -57,7 +58,7 @@ function QuestionCard({ index, question, handleQuestionEdit, handleQuestionDelet
           {question.constraints &&
             Object.keys(question.constraints).map((constraint, i) => (
               <ListItem key={i}>
-                {constraintLabels[constraint] + ": " + question.constraints[constraint]}
+                {`${constraintLabels[constraint]}: ${question.constraints[constraint]}`}
               </ListItem>
             ))}
         </UnorderedList>
