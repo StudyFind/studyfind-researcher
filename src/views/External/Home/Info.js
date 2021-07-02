@@ -13,6 +13,7 @@ function Info(props) {
             bottom: `${props.bottom}`,
             height: `${props.height}`,
             width: `${props.width}`,
+            objectfit: `${props.objectfit}`,
           }}
         />
       </Crop>
@@ -46,5 +47,7 @@ const Image = styled.img`
   position: relative;
   z-index: 2;
   width: auto;
+  height: 100%;
+  /* object-fit: cover; */
 `;
 export default Info;

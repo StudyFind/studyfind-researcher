@@ -32,14 +32,15 @@ const Text = styled.p`
 `;
 const Image = styled.img`
   height: 25px;
-  padding-top: 25px;
+  width: auto;
   position: relative;
+  z-index: 99;
   @media only screen and (min-width: 768px) {
     height: 30px;
   }
   @media only screen and (min-width: 1000px) {
     padding-top: 15px;
-    height: 38px;
+    height: 45px;
   } ;
 `;
 

@@ -50,7 +50,8 @@ const Image = styled.img`
 `;
 const Icon = styled.img`
   height: 10px;
-  margin: 0 5px;
+  margin: 6px;
+  position: relative;
   filter: grayscale(100%);
 `;
 const Click = styled.button`
@@ -61,6 +62,9 @@ const Click = styled.button`
   background: rgba(119, 131, 143, 0.1);
   transition: all 0.2s ease-in-out;
   padding: 10px;
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
   &:hover {
     color: #fff;
     background-color: #77838f;

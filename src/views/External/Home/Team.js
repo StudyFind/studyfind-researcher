@@ -59,7 +59,7 @@ function Team() {
           <Row>
             <Info name="Romina" image={Romina} />
             <Info name="Reina" image={Reina} height="130%" width="auto" right="0px" bottom="20px" />
-            <Info name="Suraj" image={Suraj} />
+            <Info name="Suraj" image={Suraj} objectfit="none" />
           </Row>
           <Row>
             <Info name="Evans" image={Evans} />
@@ -81,12 +81,12 @@ function Team() {
           <Row>
             <Info name="Jeremey" image={Jeremy} />
             <Info name="Wendy" image={Wendy} />
-            <Info name="David" image={David} bottom="50px" />
+            <Info name="David" image={David} />
           </Row>
           <Row>
             <Info name="Keely" image={Keely} />
             <Info name="Wenkai" image={Wenkai} />
-            <Info name="Yuyao" image={Yuyao} />
+            <Info name="Yuyao" image={Yuyao} width="130%" height="130%" bottom="10px" />
           </Row>
           <Row>
             <Info name="Steven" image={Steven_} />
@@ -103,7 +103,7 @@ function Team() {
         <BG4>
           <Header>Notable Alumni</Header>
           <Row>
-            <Info name="Michael" image={Michael} bottom=" 20px" />
+            <Info name="Michael" image={Michael} />
             <Info name="Gustavo" image={Gustavo} />
             <Info name="Mikolaj" image={Placeholder} />
           </Row>
@@ -188,8 +188,8 @@ const Bottom = styled.div`
 `;
 const Question = styled.div`
   color: rgb(55, 125, 255);
-  height: 18px;
-  width: 18px;
+  height: 20px;
+  width: 20px;
   margin-left: 5px;
   margin-top: 1px;
   text-align: center;

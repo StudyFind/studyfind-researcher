@@ -284,8 +284,8 @@ const Bottom = styled.div`
 `;
 const Question = styled.div`
   color: rgb(55, 125, 255);
-  height: 18px;
-  width: 18px;
+  height: 20px;
+  width: 20px;
   margin-left: 5px;
   margin-top: 1px;
   text-align: center;
@@ -367,6 +367,7 @@ const Click = styled(Button)`
 const Start2 = styled(Click)`
   background: rgb(10, 101, 255);
   position: relative;
+  top: 20px;
 `;
 const TeamButton = styled(Start2)`
   position: relative;

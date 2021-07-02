@@ -23,7 +23,9 @@ const Image = styled.img`
   margin-bottom: -15px;
   margin-left: -10px;
   @media only screen and (max-width: 768px) {
-    margin-left: 50px;
+    display: flex;
+    margin: auto;
+    margin-top: 0;
   }
   @media only screen and (min-width: 1000px) {
     margin-top: -80px;
