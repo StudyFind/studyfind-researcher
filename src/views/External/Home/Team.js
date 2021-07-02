@@ -49,7 +49,7 @@ function Team() {
           <BigHeader>Meet Our Team</BigHeader>
           <Header>Founding Team</Header>
           <Row>
-            <Info name="Yohan Jhaveri" image={Yohan} right="10px" />
+            <Info name="Yohan Jhaveri" image={Yohan} />
             <Info name="Andrew Garcia" image={Andrew} />
             <Info name="Vir Mittal" image={Vir} />
           </Row>
@@ -69,7 +69,7 @@ function Team() {
           <Row>
             <Info name="Alexis" image={Alexis} right="10px" />
             <Info name="Hannah" image={Hannah} right="20px" />
-            <Info name="Gabi" image={Gabi} right="60px" />
+            <Info name="Gabi" image={Gabi} />
           </Row>
           <Row>
             <Info name="Steven" image={Steven} right="30px" bottom="20px" height="140%" />
@@ -103,8 +103,8 @@ function Team() {
         <BG4>
           <Header>Notable Alumni</Header>
           <Row>
-            <Info name="Michael" image={Michael} right="10px" bottom="30px" />
-            <Info name="Gustavo" image={Gustavo} right="40px" bottom="10px" />
+            <Info name="Michael" image={Michael} bottom="30px" />
+            <Info name="Gustavo" image={Gustavo} bottom="10px" />
             <Info name="Mikolaj" image={Placeholder} right="36px" bottom="20px" height="150%" />
           </Row>
           <Row>
