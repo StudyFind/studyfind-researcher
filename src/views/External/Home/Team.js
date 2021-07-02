@@ -158,7 +158,7 @@ const BG1 = styled.div`
 `;
 const BG2 = styled.div`
   background: rgb(32, 201, 151);
-  z-index: 0;
+  z-index: -1;
   padding: 20px 0;
   border-bottom: 3px black solid;
 `;
@@ -169,7 +169,7 @@ const BG3 = styled.div`
 `;
 const BG4 = styled.div`
   background: rgb(32, 201, 151);
-  z-index: 0;
+  z-index: -1;
   padding: 20px 0;
 `;
 const Row = styled.div`

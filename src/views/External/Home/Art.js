@@ -22,6 +22,9 @@ const Image = styled.img`
   margin-top: -60px;
   margin-bottom: -15px;
   margin-left: -10px;
+  @media only screen and (max-width: 768px) {
+    margin-left: 50px;
+  }
   @media only screen and (min-width: 1000px) {
     margin-top: -80px;
     height: 400px;

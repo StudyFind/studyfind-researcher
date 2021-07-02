@@ -11,6 +11,7 @@ function Feature(props) {
   );
 }
 const Place = styled.div`
+  margin-top: 50px;
   z-index: -1;
 `;
 const List = styled.div`
@@ -37,6 +38,7 @@ const Image = styled.img`
     height: 30px;
   }
   @media only screen and (min-width: 1000px) {
+    padding-top: 15px;
     height: 38px;
   } ;
 `;

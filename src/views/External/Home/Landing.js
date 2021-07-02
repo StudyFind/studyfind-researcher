@@ -181,11 +181,11 @@ const Features = styled.div`
   position: relative;
   top: 330px;
   padding-left: 20px;
-  height: 430px;
+  height: 300px;
   padding-right: 10px;
   display: inline-block;
   @media only screen and (min-width: 768px) {
-    height: 450px;
+    height: 250px;
     padding-left: 60px;
     position: relative;
   } ;
@@ -210,7 +210,7 @@ const Founders = styled.div`
   text-justify: inter-word;
   position: relative;
   top: 400px;
-  height: 520px;
+  height: 420px;
   margin: 0 10px;
   @media only screen and (max-width: 350px) {
     position: relative;
@@ -262,7 +262,7 @@ const Bottom = styled.div`
   position: relative;
   top: 1300px;
 
-  height: 25px;
+  height: 30px;
   padding: 5px;
   background: rgb(55, 125, 255);
   @media only screen and (min-width: 400px) {
@@ -298,7 +298,7 @@ const Feed = styled.div`
 const Socials = styled.div`
   position: relative;
   float: right;
-  bottom: 28px;
+  bottom: 23px;
   right: 20px;
   display: grid;
   grid-template-columns: 30px 30px 30px 30px;

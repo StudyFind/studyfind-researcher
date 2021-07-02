@@ -7,6 +7,7 @@ function Info(props) {
       <Crop>
         <Image
           src={props.image}
+          alt={props.alt}
           style={{
             right: `${props.right}`,
             bottom: `${props.bottom}`,
@@ -43,7 +44,7 @@ const Title = styled.p`
 const Image = styled.img`
   display: inline;
   position: relative;
-  z-index: -1;
+  z-index: 2;
   width: auto;
 `;
 export default Info;
