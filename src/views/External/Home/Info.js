@@ -11,6 +11,7 @@ function Info(props) {
             right: `${props.right}`,
             bottom: `${props.bottom}`,
             height: `${props.height}`,
+            width: `${props.width}`,
           }}
         />
       </Crop>
@@ -24,7 +25,7 @@ const Bio = styled.div`
 `;
 const Crop = styled.div`
   position: relative;
-  height: 166%;
+
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -41,8 +42,8 @@ const Title = styled.p`
 `;
 const Image = styled.img`
   display: inline;
-  height: 165%;
   position: relative;
   z-index: -1;
+  width: auto;
 `;
 export default Info;

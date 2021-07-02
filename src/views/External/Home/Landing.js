@@ -158,11 +158,11 @@ const Main = styled.div`
   }
   @media only screen and (min-width: 1000px) {
     position: relative;
-    top: 300px;
+    top: 260px;
   }
   @media only screen and (min-width: 1500px) {
     position: relative;
-    top: 420px;
+    top: 400px;
   }
 `;
 const First = styled.div`
@@ -219,9 +219,6 @@ const Founders = styled.div`
   @media only screen and (min-width: 768px) {
     height: 600px;
   }
-  @media only screen and (min-width: 1000px) {
-    height: 675px;
-  } ;
 `;
 const About = styled.div`
   justify-content: center;
@@ -238,7 +235,7 @@ const Team = styled.div`
   height: 200px;
   text-align: center;
   @media only screen and (min-width: 768px) {
-    top: 540px;
+    top: 500px;
   } ;
 `;
 
@@ -249,8 +246,8 @@ const Clinical = styled.div`
   @media only screen and (min-width: 768px) {
     display: grid;
     top: 440px;
-    height: 200px;
-    grid-template-columns: 1fr 1fr;
+    height: 150px;
+    grid-template-columns: 1.3fr 0.7fr;
   } ;
 `;
 const SignUp = styled.div`
@@ -301,11 +298,14 @@ const Feed = styled.div`
 const Socials = styled.div`
   position: relative;
   float: right;
-  bottom: 18px;
+  bottom: 28px;
   right: 20px;
+  display: grid;
+  grid-template-columns: 30px 30px 30px 30px;
 `;
 const BigHeader1 = styled.h1`
   font-size: 28px;
+  font-weight: 700;
   color: rgb(32, 201, 151);
   @media only screen and (min-width: 1000px) {
     font-size: 40px;
@@ -317,6 +317,7 @@ const BigHeader2 = styled(BigHeader1)`
 `;
 const Header1 = styled.h2`
   font-size: 25px;
+  font-weight: 700;
   color: rgb(32, 201, 151);
   @media only screen and (min-width: 768px) {
     font-size: 28px;
@@ -339,7 +340,7 @@ const Text = styled.p`
   } ;
 `;
 const Button = styled.button`
-  padding: 10px;
+  padding: 8px;
   border: none;
   color: white;
 
@@ -349,7 +350,8 @@ const Button = styled.button`
 const Start = styled(Button)`
   position: absolute;
   right: 20px;
-  top: 8px;
+  top: 5px;
+  font-weight: 500;
   @media only screen and (max-width: 300px) {
     right: 10px;
   }
@@ -379,7 +381,7 @@ const Image = styled.img`
   } ;
 `;
 const Icon = styled.img`
-  height: 25px;
+  height: 22px;
   z-index: 20;
   margin-left: 5px;
   cursor: pointer;

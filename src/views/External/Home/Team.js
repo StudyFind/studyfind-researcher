@@ -10,7 +10,7 @@ import Romina from "images/Advisory/Romina.png";
 import Reina from "images/Advisory/Reina.png";
 import Suraj from "images/Advisory/Suraj.png";
 import Evans from "images/Advisory/Evans.png";
-import Aidan from "images/Advisory/Aidan.png";
+import Aidan from "images/Advisory/Aidan.jpeg";
 import Ayesha from "images/Advisory/Ayesha.png";
 import Alexis from "images/Advisory/Alexis.png";
 import Hannah from "images/Advisory/Hannah.png";
@@ -57,58 +57,58 @@ function Team() {
         <BG2>
           <Header>National Advisory Board</Header>
           <Row>
-            <Info name="Romina" image={Romina} right="30px" bottom="20px" />
-            <Info name="Reina" image={Reina} bottom="10px" />
-            <Info name="Suraj" image={Suraj} right="0px" bottom="10px" height="140%" />
+            <Info name="Romina" image={Romina} />
+            <Info name="Reina" image={Reina} height="130%" width="auto" right="0px" bottom="20px" />
+            <Info name="Suraj" image={Suraj} />
           </Row>
           <Row>
-            <Info name="Evans" image={Evans} right="50px" bottom="50px" />
+            <Info name="Evans" image={Evans} />
             <Info name="Aidan" image={Aidan} />
-            <Info name="Ayesha" image={Ayesha} right="30px" bottom="10px" />
+            <Info name="Ayesha" image={Ayesha} />
           </Row>
           <Row>
-            <Info name="Alexis" image={Alexis} right="10px" />
-            <Info name="Hannah" image={Hannah} right="20px" />
-            <Info name="Gabi" image={Gabi} />
+            <Info name="Alexis" image={Alexis} />
+            <Info name="Hannah" image={Hannah} />
+            <Info name="Gabi" image={Gabi} bottom="-10px" />
           </Row>
           <Row>
-            <Info name="Steven" image={Steven} right="30px" bottom="20px" height="140%" />
-            <Info name="Talia" image={Talia} right="90px" height="140%" />
+            <Info name="Steven" image={Steven} />
+            <Info name="Talia" image={Talia} />
           </Row>
         </BG2>
         <BG3>
           <Header>Interns</Header>
           <Row>
-            <Info name="Jeremey" image={Jeremy} right="30px" bottom="10px" />
-            <Info name="Wendy" image={Wendy} right="100px" />
-            <Info name="David" image={David} right="10px" bottom="40px" />
+            <Info name="Jeremey" image={Jeremy} />
+            <Info name="Wendy" image={Wendy} />
+            <Info name="David" image={David} bottom="50px" />
           </Row>
           <Row>
-            <Info name="Keely" image={Keely} right="30px" height="140%" />
+            <Info name="Keely" image={Keely} />
             <Info name="Wenkai" image={Wenkai} />
-            <Info name="Yuyao" image={Yuyao} right="10px" bottom="10px" />
+            <Info name="Yuyao" image={Yuyao} />
           </Row>
           <Row>
-            <Info name="Steven" image={Steven_} right="165px" bottom="20px" />
-            <Info name="Jonathon" image={Jonathon} right="40px" bottom="0px" height="110%" />
-            <Info name="Liang" image={Placeholder} right="36px" bottom="20px" height="150%" />
+            <Info name="Steven" image={Steven_} />
+            <Info name="Jonathon" image={Jonathon} />
+            <Info name="Liang" image={Placeholder} />
           </Row>
 
           <Row>
-            <Info name="Eric" image={Placeholder} right="36px" bottom="20px" height="150%" />
-            <Info name="Ivan" image={Placeholder} right="36px" bottom="20px" height="150%" />
-            <Info name="Jason" image={Placeholder} right="36px" bottom="20px" height="150%" />
+            <Info name="Eric" image={Placeholder} />
+            <Info name="Ivan" image={Placeholder} />
+            <Info name="Jason" image={Placeholder} />
           </Row>
         </BG3>
         <BG4>
           <Header>Notable Alumni</Header>
           <Row>
-            <Info name="Michael" image={Michael} bottom="30px" />
-            <Info name="Gustavo" image={Gustavo} bottom="10px" />
-            <Info name="Mikolaj" image={Placeholder} right="36px" bottom="20px" height="150%" />
+            <Info name="Michael" image={Michael} bottom=" 20px" />
+            <Info name="Gustavo" image={Gustavo} />
+            <Info name="Mikolaj" image={Placeholder} />
           </Row>
           <Row>
-            <Info name="Ziyao" image={Placeholder} right="36px" bottom="20px" height="150%" />
+            <Info name="Ziyao" image={Placeholder} />
           </Row>
         </BG4>
       </Section>
@@ -152,43 +152,25 @@ const Section = styled.div`
   top: 20px;
 `;
 const BG1 = styled.div`
-  background: #88dbdc;
   padding: 20px 0;
   z-index: 0;
   border-bottom: 3px black solid;
-  transition: background-color 0.5s;
-  &:hover {
-    background: #ffb48f;
-  }
 `;
 const BG2 = styled.div`
-  background: #ff652f;
+  background: rgb(32, 201, 151);
   z-index: 0;
   padding: 20px 0;
   border-bottom: 3px black solid;
-  transition: background-color 0.5s;
-  &:hover {
-    background: #65ccb8;
-  }
 `;
 const BG3 = styled.div`
-  background: #88dbdc;
   z-index: 0;
   padding: 20px 0;
   border-bottom: 3px black solid;
-  transition: background-color 0.5s;
-  &:hover {
-    background: #ffb48f;
-  }
 `;
 const BG4 = styled.div`
-  background: #ff652f;
+  background: rgb(32, 201, 151);
   z-index: 0;
   padding: 20px 0;
-  transition: background-color 0.5s;
-  &:hover {
-    background: #65ccb8;
-  }
 `;
 const Row = styled.div`
   @media only screen and (min-width: 768px) {
@@ -200,9 +182,8 @@ const Bottom = styled.div`
   color: white;
   position: relative;
   top: 20px;
-
   height: 25px;
-  padding: 5px;
+  padding: 0px 10px;
   background: rgb(55, 125, 255);
 `;
 const Question = styled.div`
@@ -221,22 +202,26 @@ const Feed = styled.div`
 const Socials = styled.div`
   position: relative;
   float: right;
-  bottom: 18px;
+  bottom: 22px;
   right: 20px;
+  display: grid;
+  grid-template-columns: 30px 30px 30px 30px;
 `;
 const BigHeader = styled.h1`
   text-align: center;
   color: rgb(32, 201, 151);
   font-size: 45px;
+  font-weight: 700;
 `;
 const Header = styled.h2`
   text-align: center;
   font-size: 30px;
   color: rgb(10, 101, 255);
   margin-top: 0;
+  font-weight: 700;
 `;
 const Button = styled.button`
-  padding: 10px;
+  padding: 8px;
   border: none;
   color: white;
 
@@ -246,7 +231,8 @@ const Button = styled.button`
 const Start = styled(Button)`
   position: absolute;
   right: 20px;
-  top: 8px;
+  top: 5px;
+  font-weight: 500;
   @media only screen and (max-width: 300px) {
     right: 10px;
   }
