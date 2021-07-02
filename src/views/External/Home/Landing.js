@@ -297,6 +297,8 @@ const Question = styled.div`
   text-align: center;
   border-radius: 50%;
   background: white;
+  position: relative;
+  top: 1px;
 `;
 const Feed = styled.div`
   display: flex;
