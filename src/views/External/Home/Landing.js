@@ -174,6 +174,9 @@ const First = styled.div`
   top: 250px;
   @media only screen and (min-width: 768px) {
     margin-left: 30px;
+  }
+  @media only screen and (max-width: 330px) {
+    top: 220px;
   } ;
 `;
 
@@ -231,9 +234,12 @@ const About = styled.div`
 `;
 const Team = styled.div`
   position: relative;
-  top: 1400px;
+  top: 1350px;
   height: 200px;
   text-align: center;
+  @media only screen and (max-width: 330px) {
+    top: 1300px;
+  }
   @media only screen and (min-width: 768px) {
     top: 500px;
   } ;

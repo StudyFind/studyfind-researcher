@@ -31,6 +31,9 @@ const Title = styled(Text)`
   font-size: 25px;
   margin-top: 0px;
   font-weight: bold;
+  @media only screen and (max-width: 330px) {
+    font-size: 23px;
+  } ;
 `;
 const Crop = styled.div`
   position: relative;
@@ -42,6 +45,10 @@ const Crop = styled.div`
   height: 150px;
   overflow: hidden;
   border-radius: 50%;
+  @media only screen and (max-width: 330px) {
+    width: 130px;
+    height: 130px;
+  } ;
 `;
 const Image = styled.img`
   display: inline;
