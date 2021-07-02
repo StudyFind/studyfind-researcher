@@ -47,7 +47,8 @@ const Image = styled.img`
   position: relative;
   z-index: 2;
   width: auto;
+  left: 0px;
   height: 100%;
-  /* object-fit: cover; */
+  object-fit: cover;
 `;
 export default Info;

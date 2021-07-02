@@ -49,27 +49,27 @@ function Team() {
           <BigHeader>Meet Our Team</BigHeader>
           <Header>Founding Team</Header>
           <Row>
-            <Info name="Yohan Jhaveri" image={Yohan} />
-            <Info name="Andrew Garcia" image={Andrew} />
-            <Info name="Vir Mittal" image={Vir} />
+            <Info name="Yohan Jhaveri" image={Yohan} height="150%" />
+            <Info name="Andrew Garcia" image={Andrew} height="165%" />
+            <Info name="Vir Mittal" image={Vir} height="150%" />
           </Row>
         </BG1>
         <BG2>
           <Header>National Advisory Board</Header>
           <Row>
-            <Info name="Romina" image={Romina} />
-            <Info name="Reina" image={Reina} height="130%" width="auto" right="0px" bottom="20px" />
-            <Info name="Suraj" image={Suraj} objectfit="none" />
+            <Info name="Romina" image={Romina} height="110%" />
+            <Info name="Reina" image={Reina} height="130%" bottom="10px" />
+            <Info name="Suraj" image={Suraj} objectfit="none" height="140%" bottom="10px" />
           </Row>
           <Row>
-            <Info name="Evans" image={Evans} />
-            <Info name="Aidan" image={Aidan} />
-            <Info name="Ayesha" image={Ayesha} />
+            <Info name="Evans" image={Evans} height="110%" bottom="10px" />
+            <Info name="Aidan" image={Aidan} height="120%" />
+            <Info name="Ayesha" image={Ayesha} height="116%" bottom="10px" />
           </Row>
           <Row>
-            <Info name="Alexis" image={Alexis} />
-            <Info name="Hannah" image={Hannah} />
-            <Info name="Gabi" image={Gabi} bottom="-10px" />
+            <Info name="Alexis" image={Alexis} height="135%" />
+            <Info name="Hannah" image={Hannah} height="135%" />
+            <Info name="Gabi" image={Gabi} height="110%" bottom="10px" />
           </Row>
           <Row>
             <Info name="Steven" image={Steven} />
@@ -79,13 +79,13 @@ function Team() {
         <BG3>
           <Header>Interns</Header>
           <Row>
-            <Info name="Jeremey" image={Jeremy} />
+            <Info name="Jeremey" image={Jeremy} height="135%" />
             <Info name="Wendy" image={Wendy} />
-            <Info name="David" image={David} />
+            <Info name="David" image={David} height="150%" bottom="30px" />
           </Row>
           <Row>
             <Info name="Keely" image={Keely} />
-            <Info name="Wenkai" image={Wenkai} />
+            <Info name="Wenkai" image={Wenkai} height="135%" />
             <Info name="Yuyao" image={Yuyao} width="130%" height="130%" bottom="10px" />
           </Row>
           <Row>
@@ -103,7 +103,7 @@ function Team() {
         <BG4>
           <Header>Notable Alumni</Header>
           <Row>
-            <Info name="Michael" image={Michael} />
+            <Info name="Michael" image={Michael} height="150%" bottom="20px" />
             <Info name="Gustavo" image={Gustavo} />
             <Info name="Mikolaj" image={Placeholder} />
           </Row>
@@ -154,21 +154,20 @@ const Section = styled.div`
 const BG1 = styled.div`
   padding: 20px 0;
   z-index: 0;
-  border-bottom: 3px black solid;
+  background: #c5d9ff;
 `;
 const BG2 = styled.div`
-  background: rgb(32, 201, 151);
+  background: #c5ffeb;
   z-index: -1;
   padding: 20px 0;
-  border-bottom: 3px black solid;
 `;
 const BG3 = styled.div`
   z-index: 0;
   padding: 20px 0;
-  border-bottom: 3px black solid;
+  background: #c5d9ff;
 `;
 const BG4 = styled.div`
-  background: rgb(32, 201, 151);
+  background: #c5ffeb;
   z-index: -1;
   padding: 20px 0;
 `;
