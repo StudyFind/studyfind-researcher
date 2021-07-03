@@ -1,7 +1,7 @@
 import { useDetails } from "hooks";
 import { object } from "functions";
 
-import { EditorButton } from "components";
+import { EditorButton } from "@studyfind/components";
 import { Flex, Button } from "@chakra-ui/react";
 import { FaEraser, FaUndo } from "react-icons/fa";
 

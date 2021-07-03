@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TextInput, SelectInput } from "components";
+import { TextInput, SelectInput } from "@studyfind/components";
 import { Checkbox, FormLabel, Stack } from "@chakra-ui/react";
 
 function ParticipantsFilter({ sort, setSort, status, setStatus, search, setSearch }) {

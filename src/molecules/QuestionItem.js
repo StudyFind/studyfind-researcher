@@ -1,5 +1,5 @@
 import { FaTrash } from "react-icons/fa";
-import { ActionButton, SelectInput, TextInput } from "components";
+import { ActionButton, SelectInput, TextInput } from "@studyfind/components";
 import { Grid } from "@chakra-ui/react";
 import { SortableElement } from "react-sortable-hoc";
 

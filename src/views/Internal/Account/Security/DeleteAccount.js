@@ -5,7 +5,7 @@ import { useAuthForm, useConfirm } from "hooks";
 import { deleteAccount } from "database/auth";
 
 import { Grid, Button, useToast } from "@chakra-ui/react";
-import { Form, TextInput, PasswordInput } from "components";
+import { Form, TextInput, PasswordInput } from "@studyfind/components";
 
 import AccountHeader from "../AccountHeader";
 

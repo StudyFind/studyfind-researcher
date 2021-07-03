@@ -1,4 +1,4 @@
-import { Link, ClipboardButton } from "components";
+import { Link, ClipboardButton } from "@studyfind/components";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 function Share({ study }) {

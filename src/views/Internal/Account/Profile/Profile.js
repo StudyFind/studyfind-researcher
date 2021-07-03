@@ -1,5 +1,5 @@
 import { Grid } from "@chakra-ui/react";
-import { TextInput, TextareaInput } from "components";
+import { TextInput, TextareaInput } from "@studyfind/components";
 
 import AccountHeader from "../AccountHeader";
 

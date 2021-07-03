@@ -6,7 +6,7 @@ import { datetime, object } from "functions";
 import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 
-import { TextInput } from "components";
+import { TextInput } from "@studyfind/components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
 
 function MeetingsEdit({ meeting, handleCancel }) {

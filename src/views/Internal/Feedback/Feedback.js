@@ -4,7 +4,7 @@ import moment from "moment";
 import { toasts } from "templates";
 import { auth, firestore } from "database/firebase";
 
-import { Form, TextInput, TextareaInput } from "components";
+import { Form, TextInput, TextareaInput } from "@studyfind/components";
 import { Box, Flex, Grid, Heading, Text, Button, useToast } from "@chakra-ui/react";
 import { FaPaperPlane } from "react-icons/fa";
 

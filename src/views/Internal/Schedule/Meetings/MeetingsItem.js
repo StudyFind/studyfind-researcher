@@ -6,7 +6,7 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import { Box, Tooltip, Flex, Text, Icon } from "@chakra-ui/react";
 import { FaInfoCircle, FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
-import { Link, ActionButton } from "components";
+import { Link, ActionButton } from "@studyfind/components";
 
 import MeetingsForm from "./MeetingsForm.js";
 import ParticipantDrawer from "views/Internal/Study/ViewStudy/Participants/ParticipantDrawer.js";

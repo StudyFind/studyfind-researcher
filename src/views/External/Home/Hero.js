@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 import { Heading, Button, Text } from "@chakra-ui/react";
 
 import Background from "images/microscope.jpg";

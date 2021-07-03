@@ -1,4 +1,4 @@
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 import { Alert, AlertIcon, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import DashboardButton from "./DashboardButton";

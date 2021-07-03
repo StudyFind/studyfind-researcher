@@ -1,4 +1,4 @@
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 import { Box, Button, Tooltip } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 

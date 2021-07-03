@@ -1,4 +1,4 @@
-import { Message } from "components";
+import { Message } from "@studyfind/components";
 
 function MeetingsEmpty() {
   return (

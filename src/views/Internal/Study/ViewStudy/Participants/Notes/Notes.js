@@ -10,7 +10,7 @@ import NotesNew from "./NotesNew";
 import NotesError from "./NotesError";
 
 import { Grid } from "@chakra-ui/react";
-import { Loader } from "components";
+import { Loader } from "@studyfind/components";
 
 function Notes({ id }) {
   const { studyID } = useParams();

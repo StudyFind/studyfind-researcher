@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Box, Flex, Heading, Button, Tag, Text } from "@chakra-ui/react";
-import { Message } from "components";
+import { Message } from "@studyfind/components";
 
 function ScreeningView({ study, setEdit }) {
   return study?.questions?.length ? (

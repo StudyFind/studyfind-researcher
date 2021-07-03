@@ -5,7 +5,7 @@ import { useTabs } from "hooks";
 import { StudiesContext } from "context";
 import { useParams } from "react-router-dom";
 
-import { Message } from "components";
+import { Message } from "@studyfind/components";
 import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 
 import Details from "./Details/Details";

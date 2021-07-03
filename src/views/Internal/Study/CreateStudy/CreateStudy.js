@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { StudiesContext } from "context";
 
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
-import { Message } from "components";
+import { Message } from "@studyfind/components";
 
 import Details from "./Details/Details";
 import Screening from "./Screening/Screening";

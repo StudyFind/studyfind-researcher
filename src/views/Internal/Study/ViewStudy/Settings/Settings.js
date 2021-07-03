@@ -1,4 +1,4 @@
-import { List } from "components";
+import { List } from "@studyfind/components";
 import { Flex, Heading } from "@chakra-ui/react";
 
 import Publish from "./Publish";

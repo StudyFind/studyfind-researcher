@@ -1,4 +1,4 @@
-import { List } from "components";
+import { List } from "@studyfind/components";
 
 import NotificationItem from "./NotificationItem";
 import NotificationLoadMore from "./NotificationLoadMore";

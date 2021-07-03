@@ -3,7 +3,7 @@ import { useState } from "react";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 
-import { Loader } from "components";
+import { Loader } from "@studyfind/components";
 
 import MeetingsView from "./MeetingsView";
 import MeetingsEdit from "./MeetingsEdit";

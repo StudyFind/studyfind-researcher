@@ -4,7 +4,7 @@ import { useRealtimePagination } from "hooks";
 import { auth } from "database/firebase";
 
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
-import { Loader } from "components";
+import { Loader } from "@studyfind/components";
 
 import Disclaimer from "./Disclaimer";
 import Message from "./Message";

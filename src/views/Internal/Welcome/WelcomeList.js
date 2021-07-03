@@ -1,7 +1,7 @@
 import { auth } from "database/firebase";
 
 import { Text } from "@chakra-ui/react";
-import { Link, List } from "components";
+import { Link, List } from "@studyfind/components";
 
 import WelcomeStudy from "./WelcomeStudy";
 

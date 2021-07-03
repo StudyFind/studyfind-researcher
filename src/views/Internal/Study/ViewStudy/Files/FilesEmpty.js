@@ -1,5 +1,5 @@
 import { Box, Button } from "@chakra-ui/react";
-import { Message } from "components";
+import { Message } from "@studyfind/components";
 
 function FilesEmpty({ setEdit }) {
   return (

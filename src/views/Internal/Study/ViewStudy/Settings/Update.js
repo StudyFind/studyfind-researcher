@@ -3,7 +3,7 @@ import { useState } from "react";
 import { datetime } from "functions";
 import { updateStudy } from "database/cloud";
 
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 
 function Update({ study }) {
