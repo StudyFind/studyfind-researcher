@@ -58,7 +58,7 @@ function Team() {
           <Row>
             <Info name="Romina" image={Romina} height="110%" />
             <Info name="Reina" image={Reina} height="130%" bottom="10px" />
-            <Info name="Suraj" image={Suraj} objectfit="none" height="140%" bottom="10px" />
+            <Info name="Suraj" image={Suraj} height="140%" bottom="10px" />
           </Row>
           <Row>
             <Info name="Evans" image={Evans} height="110%" bottom="10px" />
@@ -85,7 +85,7 @@ function Team() {
           <Row>
             <Info name="Keely" image={Keely} />
             <Info name="Wenkai" image={Wenkai} height="135%" />
-            <Info name="Yuyao" image={Yuyao} width="130%" height="130%" bottom="10px" />
+            <Info name="Yuyao" image={Yuyao} height="130%" bottom="10px" />
           </Row>
           <Row>
             <Info name="Steven" image={Steven_} />

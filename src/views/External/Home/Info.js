@@ -11,8 +11,6 @@ function Info(props) {
             right: `${props.right}`,
             bottom: `${props.bottom}`,
             height: `${props.height}`,
-            width: `${props.width}`,
-            objectfit: `${props.objectfit}`,
           }}
         />
       </Crop>
