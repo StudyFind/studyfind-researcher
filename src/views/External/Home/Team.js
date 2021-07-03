@@ -24,7 +24,7 @@ import Wenkai from "images/Interns/Wenkai.png";
 import Gustavo from "images/Interns/Gustavo.png";
 import Yuyao from "images/Interns/Yuyao.png";
 import Michael from "images/Interns/Michael.png";
-import Steven_ from "images/Interns/Steven_.png";
+import Steven2 from "images/Interns/Steven2.png";
 import Jonathon from "images/Interns/Jonathon.png";
 import Placeholder from "images/Interns/Placeholder.png";
 import Linkedin from "images/linkedin.png";
@@ -48,66 +48,66 @@ function Team() {
           <BigHeader>Meet Our Team</BigHeader>
           <Header>Founding Team</Header>
           <Row>
-            <Info name="Yohan Jhaveri" image={Yohan} height="150%" />
-            <Info name="Andrew Garcia" image={Andrew} height="165%" />
-            <Info name="Vir Mittal" image={Vir} height="150%" />
+            <Info name="Yohan Jhaveri" image={Yohan} height="150%" alt="Yohan Jhaveri" />
+            <Info name="Andrew Garcia" image={Andrew} height="165%" alt="Andrew Garcia" />
+            <Info name="Vir Mittal" image={Vir} height="150%" alt="Vir Mittal" />
           </Row>
         </BG1>
         <BG2>
           <Header>National Advisory Board</Header>
           <Row>
-            <Info name="Romina" image={Romina} height="110%" />
-            <Info name="Reina" image={Reina} height="130%" bottom="10px" />
-            <Info name="Suraj" image={Suraj} height="140%" bottom="10px" />
+            <Info name="Romina" image={Romina} height="110%" alt="Romina" />
+            <Info name="Reina" image={Reina} height="130%" bottom="10px" alt="Reina" />
+            <Info name="Suraj" image={Suraj} height="140%" bottom="10px" alt="Suraj" />
           </Row>
           <Row>
-            <Info name="Evans" image={Evans} height="110%" bottom="10px" />
-            <Info name="Aidan" image={Aidan} height="120%" />
-            <Info name="Ayesha" image={Ayesha} height="116%" bottom="10px" />
+            <Info name="Evans" image={Evans} height="110%" bottom="10px" alt="Evans" />
+            <Info name="Aidan" image={Aidan} height="120%" alt="Aidan" />
+            <Info name="Ayesha" image={Ayesha} height="116%" bottom="10px" alt="Ayesha" />
           </Row>
           <Row>
-            <Info name="Alexis" image={Alexis} height="135%" />
-            <Info name="Hannah" image={Hannah} height="135%" />
-            <Info name="Gabi" image={Gabi} height="110%" bottom="10px" />
+            <Info name="Alexis" image={Alexis} height="135%" alt="Alexis" />
+            <Info name="Hannah" image={Hannah} height="135%" alt="Hannah" />
+            <Info name="Gabi" image={Gabi} height="110%" bottom="10px" alt="Gabi" />
           </Row>
           <Row>
-            <Info name="Steven" image={Steven} />
-            <Info name="Talia" image={Talia} />
+            <Info name="Steven" image={Steven} alt="Steven" />
+            <Info name="Talia" image={Talia} alt="Talia" />
           </Row>
         </BG2>
         <BG3>
           <Header>Interns</Header>
           <Row>
-            <Info name="Jeremey" image={Jeremy} height="135%" />
-            <Info name="Wendy" image={Wendy} />
-            <Info name="David" image={David} height="150%" bottom="30px" />
+            <Info name="Jeremy" image={Jeremy} height="135%" alt="Jeremy" />
+            <Info name="Wendy" image={Wendy} alt="Wendy" />
+            <Info name="David" image={David} height="150%" bottom="30px" alt="David" />
           </Row>
           <Row>
-            <Info name="Keely" image={Keely} />
-            <Info name="Wenkai" image={Wenkai} height="135%" />
-            <Info name="Yuyao" image={Yuyao} height="130%" bottom="10px" />
+            <Info name="Keely" image={Keely} alt="Keely" />
+            <Info name="Wenkai" image={Wenkai} height="135%" alt="Wenkai" />
+            <Info name="Yuyao" image={Yuyao} height="130%" bottom="10px" alt="Yuyao" />
           </Row>
           <Row>
-            <Info name="Steven" image={Steven_} />
-            <Info name="Jonathon" image={Jonathon} />
-            <Info name="Liang" image={Placeholder} />
+            <Info name="Steven" image={Steven2} alt="Steven" />
+            <Info name="Jonathon" image={Jonathon} alt="Jonathon" />
+            <Info name="Liang" image={Placeholder} alt="Liang" />
           </Row>
 
           <Row>
-            <Info name="Eric" image={Placeholder} />
-            <Info name="Ivan" image={Placeholder} />
-            <Info name="Jason" image={Placeholder} />
+            <Info name="Eric" image={Placeholder} alt="Eric" />
+            <Info name="Ivan" image={Placeholder} alt="Ivan" />
+            <Info name="Jason" image={Placeholder} alt="Jason" />
           </Row>
         </BG3>
         <BG4>
           <Header>Notable Alumni</Header>
           <Row>
-            <Info name="Michael" image={Michael} height="150%" bottom="20px" />
-            <Info name="Gustavo" image={Gustavo} />
-            <Info name="Mikolaj" image={Placeholder} />
+            <Info name="Michael" image={Michael} height="150%" bottom="20px" alt="Michael" />
+            <Info name="Gustavo" image={Gustavo} alt="Gustavo" />
+            <Info name="Mikolaj" image={Placeholder} alt="Mikolaj" />
           </Row>
           <Row>
-            <Info name="Ziyao" image={Placeholder} />
+            <Info name="Ziyao" image={Placeholder} alt="Ziyao" />
           </Row>
         </BG4>
       </Section>
