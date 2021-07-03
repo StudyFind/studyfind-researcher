@@ -1,6 +1,6 @@
 import { signin } from "database/auth";
 import { useAuthForm } from "hooks";
-import { EmailInput, PasswordInput } from "components";
+import { EmailInput, PasswordInput } from "@studyfind/components";
 import { Auth } from "molecules";
 
 function Login({ setTab }) {

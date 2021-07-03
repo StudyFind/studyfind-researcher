@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { useParams, useHistory } from "react-router-dom";
 
-import { ActionButton } from "components";
+import { ActionButton } from "@studyfind/components";
 import { Box, Text, Avatar, Badge } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 

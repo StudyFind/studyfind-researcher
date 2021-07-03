@@ -1,4 +1,4 @@
-import { TextInput, TextareaInput } from "components";
+import { TextInput, TextareaInput } from "@studyfind/components";
 import { Flex, Grid, Button } from "@chakra-ui/react";
 
 function NotesForm({ inputs, errors, handleCancel, handleChange, handleSubmit }) {

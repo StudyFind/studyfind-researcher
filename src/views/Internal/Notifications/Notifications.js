@@ -2,7 +2,7 @@ import { auth, firestore } from "database/firebase";
 import { useRealtimePagination } from "hooks";
 
 import { Heading } from "@chakra-ui/react";
-import { Loader } from "components";
+import { Loader } from "@studyfind/components";
 
 import NotificationList from "./NotificationList";
 import NotificationsEmpty from "./NotificationsEmpty";

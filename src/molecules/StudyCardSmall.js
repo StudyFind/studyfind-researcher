@@ -1,4 +1,4 @@
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import StudyStatus from "./StudyStatus";

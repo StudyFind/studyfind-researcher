@@ -2645,6 +2645,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@studyfind/components@^0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@studyfind/components/-/components-0.4.3.tgz#36bd142b0f6b1ff84b14312862a32da46af9721b"
+  integrity sha512-Dai1Lqx0o4Yi/fQqhqm6VURvQW7Dk9tLJnSJLkKcRymrJNMeaHGyBPBSR25Zm0rytpOR2rkCUmMNfJGMFh+lGg==
+
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.2.tgz#e6786b6af5799f82f7ab3a82e53f6182d2b91a58"

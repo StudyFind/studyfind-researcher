@@ -2,7 +2,7 @@ import { signup } from "database/auth";
 import { useAuthForm } from "hooks";
 
 import { Text } from "@chakra-ui/react";
-import { Link, Message, TextInput, EmailInput, PasswordInput } from "components";
+import { Link, Message, TextInput, EmailInput, PasswordInput } from "@studyfind/components";
 import { Auth } from "molecules";
 
 function Signup({ setTab }) {

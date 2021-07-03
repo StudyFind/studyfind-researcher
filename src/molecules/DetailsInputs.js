@@ -1,4 +1,4 @@
-import { TextareaInput } from "components";
+import { TextareaInput } from "@studyfind/components";
 import { Grid } from "@chakra-ui/react";
 import DescriptionAccessibilityScore from "./DescriptionAccessibilityScore";
 

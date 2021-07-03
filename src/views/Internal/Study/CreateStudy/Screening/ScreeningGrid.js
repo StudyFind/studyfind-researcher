@@ -2,7 +2,7 @@ import lodash from "lodash";
 
 import { useScreening } from "hooks";
 
-import { EditorButton } from "components";
+import { EditorButton } from "@studyfind/components";
 import { Button, Flex, Grid } from "@chakra-ui/react";
 import { FaTrash, FaPlus, FaUndo } from "react-icons/fa";
 

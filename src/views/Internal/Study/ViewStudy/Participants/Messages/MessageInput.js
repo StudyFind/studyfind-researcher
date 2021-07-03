@@ -4,7 +4,7 @@ import moment from "moment";
 import { auth } from "database/firebase";
 
 import { Flex, IconButton } from "@chakra-ui/react";
-import { Form, TextInput } from "components";
+import { Form, TextInput } from "@studyfind/components";
 import { FaPaperPlane } from "react-icons/fa";
 
 function MessageInput({ autoscroll, messagesRef }) {

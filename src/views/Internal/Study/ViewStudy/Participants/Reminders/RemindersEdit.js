@@ -6,7 +6,7 @@ import { datetime, helpers } from "functions";
 import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 
-import { TextInput } from "components";
+import { TextInput } from "@studyfind/components";
 import { Grid, Flex, Tag, TagCloseButton, TagLabel, FormLabel, Button } from "@chakra-ui/react";
 
 function RemindersEdit({ reminder }) {

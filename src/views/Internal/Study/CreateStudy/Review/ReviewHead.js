@@ -1,4 +1,4 @@
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 import { Heading, Text } from "@chakra-ui/react";
 
 function ReviewHead() {

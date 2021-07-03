@@ -5,7 +5,7 @@ import { firestore } from "database/firebase";
 import { useHistory } from "react-router-dom";
 import { useConfirm } from "hooks";
 
-import { Form, TextInput } from "components";
+import { Form, TextInput } from "@studyfind/components";
 import { Box, Grid, Heading, Text, Button, Tooltip, useToast } from "@chakra-ui/react";
 
 function Delete({ study }) {

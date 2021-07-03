@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { useLocation } from "react-router-dom";
 
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
 
 import {

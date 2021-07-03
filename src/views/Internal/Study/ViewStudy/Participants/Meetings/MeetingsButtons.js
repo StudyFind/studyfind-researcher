@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { Link, ActionButton } from "components";
+import { Link, ActionButton } from "@studyfind/components";
 import { FaPencilAlt, FaTrashAlt, FaPhone } from "react-icons/fa";
 
 function MeetingButtons({ link, confirmed, handleEdit, handleDelete }) {

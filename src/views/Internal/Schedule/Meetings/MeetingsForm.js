@@ -4,7 +4,7 @@ import validator from "validator";
 
 import { firestore } from "database/firebase";
 
-import { TextInput } from "components";
+import { TextInput } from "@studyfind/components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
 
 function MeetingsForm({ meeting, onClose }) {

@@ -1,5 +1,5 @@
 import { Text } from "@chakra-ui/react";
-import { Link, Loader } from "components";
+import { Link, Loader } from "@studyfind/components";
 
 function WelcomeLoading() {
   return (

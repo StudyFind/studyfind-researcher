@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Heading, Button, Flex, Grid, Progress } from "@chakra-ui/react";
-import { TextInput, FileInput } from "components";
+import { TextInput, FileInput } from "@studyfind/components";
 import { storage } from "database/firebase";
 
 function FilesEdit({ studyID, setEdit, getFiles }) {

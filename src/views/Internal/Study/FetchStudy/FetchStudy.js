@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { createStudy } from "database/cloud";
 
 import { Grid, Heading, Text, Button } from "@chakra-ui/react";
-import { Link, Form, TextInput } from "components";
+import { Link, Form, TextInput } from "@studyfind/components";
 
 function FetchStudy() {
   const history = useHistory();

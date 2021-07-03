@@ -1,7 +1,7 @@
 import { forgotPassword } from "database/auth";
 import { useAuthForm } from "hooks";
 
-import { Message, EmailInput } from "components";
+import { Message, EmailInput } from "@studyfind/components";
 import { Auth } from "molecules";
 
 function ForgotPassword({ setTab }) {

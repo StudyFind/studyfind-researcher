@@ -6,7 +6,7 @@ import { useCollection } from "hooks";
 import { useParams } from "react-router-dom";
 
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
-import { Message, Loader } from "components";
+import { Message, Loader } from "@studyfind/components";
 
 import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsRow from "./ParticipantsRow";

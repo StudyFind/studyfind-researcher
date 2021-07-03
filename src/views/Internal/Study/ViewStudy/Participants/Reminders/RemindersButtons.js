@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { ActionButton } from "components";
+import { ActionButton } from "@studyfind/components";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
 function RemindersButtons({ handleEdit, handleDelete }) {

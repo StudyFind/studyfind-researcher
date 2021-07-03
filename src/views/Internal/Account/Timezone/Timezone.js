@@ -1,7 +1,7 @@
 import moment from "moment-timezone";
 
 import { Box, Grid, Tooltip } from "@chakra-ui/react";
-import { SelectInput } from "components";
+import { SelectInput } from "@studyfind/components";
 
 import AccountHeader from "../AccountHeader";
 import AccountCheckbox from "../AccountCheckbox";

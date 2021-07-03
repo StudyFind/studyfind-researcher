@@ -1,5 +1,5 @@
 import { Flex, Heading, Text, OrderedList, ListItem, Box } from "@chakra-ui/react";
-import { Message, Link } from "components";
+import { Message, Link } from "@studyfind/components";
 
 function Locations({ study }) {
   const getAddress = (location) => {

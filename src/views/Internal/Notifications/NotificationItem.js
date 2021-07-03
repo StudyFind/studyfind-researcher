@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { auth, firestore } from "database/firebase";
 import { notifications } from "templates";
 
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
 import NotificationIcon from "./NotificationIcon";

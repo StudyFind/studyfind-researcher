@@ -1,4 +1,4 @@
-import { ConfirmationStatus } from "components";
+import { ConfirmationStatus } from "@studyfind/components";
 
 function MeetingsStatus({ confirmed }) {
   const { status, hint, text } = confirmed

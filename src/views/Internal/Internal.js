@@ -6,7 +6,7 @@ import { UserContext, StudiesContext, ConfirmContext } from "context";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
-import { Page } from "components";
+import { Page } from "@studyfind/components";
 
 import Confirm from "./Confirm";
 import Sidebar from "./Sidebar";
