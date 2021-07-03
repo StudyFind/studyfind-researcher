@@ -4,7 +4,7 @@ function Art() {
   return (
     <Place>
       <Crop>
-        <Image src={Table} />
+        <Image src={Table} alt="Table" />
       </Crop>
     </Place>
   );

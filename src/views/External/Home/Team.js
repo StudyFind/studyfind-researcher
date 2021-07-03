@@ -2,31 +2,31 @@ import styled from "styled-components";
 import logo from "images/logo.jpg";
 import { Link } from "react-router-dom";
 import Info from "./Info";
-import Yohan from "images/Founders/Yohan.jpg";
-import Andrew from "images/Founders/Andrew.jpg";
-import Vir from "images/Founders/Vir.jpg";
-import Romina from "images/Advisory/Romina.png";
-import Reina from "images/Advisory/Reina.png";
-import Suraj from "images/Advisory/Suraj.png";
-import Evans from "images/Advisory/Evans.png";
-import Aidan from "images/Advisory/Aidan.jpeg";
-import Ayesha from "images/Advisory/Ayesha.png";
-import Alexis from "images/Advisory/Alexis.png";
-import Hannah from "images/Advisory/Hannah.png";
-import Gabi from "images/Advisory/Gabi.png";
-import Steven from "images/Advisory/Steven.png";
-import Talia from "images/Advisory/Talia.png";
-import Jeremy from "images/Interns/Jeremy.png";
-import Wendy from "images/Interns/Wendy.png";
-import David from "images/Interns/David.png";
-import Keely from "images/Interns/Keely.png";
-import Wenkai from "images/Interns/Wenkai.png";
-import Gustavo from "images/Interns/Gustavo.png";
-import Yuyao from "images/Interns/Yuyao.png";
-import Michael from "images/Interns/Michael.png";
-import Steven2 from "images/Interns/Steven2.png";
-import Jonathon from "images/Interns/Jonathon.png";
-import Placeholder from "images/Interns/Placeholder.png";
+import Yohan from "images/Founders/yohan.jpg";
+import Andrew from "images/Founders/andrew.jpg";
+import Vir from "images/Founders/vir.jpg";
+import Romina from "images/Advisory/romina.png";
+import Reina from "images/Advisory/reina.png";
+import Suraj from "images/Advisory/suraj.png";
+import Evans from "images/Advisory/evans.png";
+import Aidan from "images/Advisory/aidan.jpeg";
+import Ayesha from "images/Advisory/ayesha.png";
+import Alexis from "images/Advisory/alexis.png";
+import Hannah from "images/Advisory/hannah.png";
+import Gabi from "images/Advisory/gabi.png";
+import Steven from "images/Advisory/steven.png";
+import Talia from "images/Advisory/talia.png";
+import Jeremy from "images/Interns/jeremy.png";
+import Wendy from "images/Interns/wendy.png";
+import David from "images/Interns/david.png";
+import Keely from "images/Interns/keely.png";
+import Wenkai from "images/Interns/wenkai.png";
+import Gustavo from "images/Interns/gustavo.png";
+import Yuyao from "images/Interns/yuyao.png";
+import Michael from "images/Interns/michael.png";
+import Steven2 from "images/Interns/steven2.png";
+import Jonathon from "images/Interns/jonathon.png";
+import Placeholder from "images/Interns/placeholder.png";
 import Linkedin from "images/linkedin.png";
 import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
@@ -40,7 +40,7 @@ function Team() {
           <Start>Start Now</Start>
         </a>
         <Link to="/">
-          <Image src={logo} />
+          <Image src={logo} alt="StudyFind logo" />
         </Link>
       </Top>
       <Section>
@@ -57,8 +57,8 @@ function Team() {
           <Header>National Advisory Board</Header>
           <Row>
             <Info name="Romina" image={Romina} height="110%" alt="Romina" />
-            <Info name="Reina" image={Reina} height="130%" bottom="10px" alt="Reina" />
             <Info name="Suraj" image={Suraj} height="140%" bottom="10px" alt="Suraj" />
+            <Info name="Reina" image={Reina} height="130%" bottom="10px" alt="Reina" />
           </Row>
           <Row>
             <Info name="Evans" image={Evans} height="110%" bottom="10px" alt="Evans" />
@@ -117,16 +117,16 @@ function Team() {
         </Feed>
         <Socials>
           <a href="https://www.linkedin.com/company/studyfind/">
-            <Icon src={Linkedin} />
+            <Icon src={Linkedin} alt="Linkedin logo" />
           </a>
           <a href="https://www.facebook.com/studyfindco/">
-            <Icon src={Facebook} />
+            <Icon src={Facebook} alt="Facebook logo" />
           </a>
           <a href="https://www.youtube.com/channel/UCqOfwBbtyfMg-Hog0tj30qQ">
-            <Icon src={Youtube} />
+            <Icon src={Youtube} alt="Youtube logo" />
           </a>
           <a href="https://www.instagram.com/studyfindco/">
-            <Icon src={Instagram} />
+            <Icon src={Instagram} alt="Instagram logo" />
           </a>
         </Socials>
       </Bottom>

@@ -5,7 +5,7 @@ function Biography(props) {
     <Place>
       <Title>{props.name}</Title>
       <Crop>
-        <Image src={props.image} />
+        <Image src={props.image} alt={props.alt} />
       </Crop>
       <Text>{props.major}</Text>
 
@@ -13,7 +13,7 @@ function Biography(props) {
       <a href={props.link} target="_blank" rel="noreferrer noopener">
         <Click>
           {" "}
-          <Icon src={Linkedin} />
+          <Icon src={Linkedin} alt="Linkedin Logo" />
           {props.name}
         </Click>
       </a>

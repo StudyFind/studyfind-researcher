@@ -3,7 +3,7 @@ function Feature(props) {
   return (
     <Place>
       <List>
-        <Image src={props.image} />
+        <Image src={props.image} alt={props.alt} />
         <Text>{props.item}</Text>
       </List>
     </Place>

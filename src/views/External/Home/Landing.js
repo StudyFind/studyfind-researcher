@@ -3,9 +3,9 @@ import Art from "./Art";
 import Biography from "./Biography";
 import Feature from "./Feature";
 import logo from "images/logo.jpg";
-import Yohan from "images/Founders/Yohan.jpg";
-import Andrew from "images/Founders/Andrew.jpg";
-import Vir from "images/Founders/Vir.jpg";
+import Yohan from "images/Founders/yohan.jpg";
+import Andrew from "images/Founders/andrew.jpg";
+import Vir from "images/Founders/vir.jpg";
 import Bell from "images/Symbols/bell.jpg";
 import Calendar from "images/Symbols/calendar.jpg";
 import Clipboard from "images/Symbols/clipboard.jpg";
@@ -26,7 +26,7 @@ function Landing() {
           <Start>Start Now</Start>
         </a>
         <Link to="/">
-          <Image src={logo} />
+          <Image src={logo} alt="StudyFind Logo" />
         </Link>
       </Top>
 
@@ -41,19 +41,23 @@ function Landing() {
         <Features>
           <Header2>Researcher Account Features:</Header2>
           <List>
-            <Feature image={Clipboard} item="Pre-Screening Survey and Eligibility Score" />
-            <Feature image={Calendar} item="Calendar View" />
+            <Feature
+              image={Clipboard}
+              alt="Clipboard"
+              item="Pre-Screening Survey and Eligibility Score"
+            />
+            <Feature image={Calendar} alt="Calendar" item="Calendar View" />
           </List>
           <List>
-            <Feature image={Bell} item="Participant Reminders" />
-            <Feature image={Note} item="Quick Participant Notes" />
+            <Feature image={Bell} alt="Bell" item="Participant Reminders" />
+            <Feature image={Note} alt="Note" item="Quick Participant Notes" />
           </List>
           <List>
-            <Feature image={Schedule} item="Scheduling Meetings" />
-            <Feature image={Notification} item="Notification Updates" />
+            <Feature image={Schedule} alt="Schedule" item="Scheduling Meetings" />
+            <Feature image={Notification} alt="Notification" item="Notification Updates" />
           </List>
           <List>
-            <Feature image={Speech} item="HIPAA Compliant Instant Messaging" />
+            <Feature image={Speech} alt="Speech" item="HIPAA Compliant Instant Messaging" />
           </List>
         </Features>
         <Founders>
@@ -63,6 +67,7 @@ function Landing() {
             <Biography
               name="Yohan Jhaveri"
               image={Yohan}
+              alt="Yohan"
               major="Computer Science"
               alma="Emory University"
               link="https://www.linkedin.com/in/yohan-jhaveri-a142a2134/"
@@ -70,6 +75,7 @@ function Landing() {
             <Biography
               name="Andrew Garcia"
               image={Andrew}
+              alt="Andrew"
               major="Health Policy and Management"
               alma="Emory University & Stonybrook University"
               link="https://www.linkedin.com/in/andrew-garcia-almeida/"
@@ -77,6 +83,7 @@ function Landing() {
             <Biography
               name="Vir Mittal"
               image={Vir}
+              alt="Vir"
               major="Computer Science"
               alma="Emory University"
               link="https://www.linkedin.com/in/vir-m-1b1981130/"
@@ -115,16 +122,16 @@ function Landing() {
         </Feed>
         <Socials>
           <a href="https://www.linkedin.com/company/studyfind/">
-            <Icon src={Linkedin} />
+            <Icon src={Linkedin} alt="Linkedin logo" />
           </a>
           <a href="https://www.facebook.com/studyfindco/">
-            <Icon src={Facebook} />
+            <Icon src={Facebook} alt="Facebook logo" />
           </a>
           <a href="https://www.youtube.com/channel/UCqOfwBbtyfMg-Hog0tj30qQ">
-            <Icon src={Youtube} />
+            <Icon src={Youtube} alt="Youtube logo" />
           </a>
           <a href="https://www.instagram.com/studyfindco/">
-            <Icon src={Instagram} />
+            <Icon src={Instagram} alt="Instagram logo" />
           </a>
         </Socials>
       </Bottom>
