@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Table from "images/table.png";
 function Art() {

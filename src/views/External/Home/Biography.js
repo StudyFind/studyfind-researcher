@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Linkedin from "images/linkedin.png";
 function Biography(props) {

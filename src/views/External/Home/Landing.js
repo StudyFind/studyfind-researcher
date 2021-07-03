@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Art from "./Art";
 import Biography from "./Biography";
