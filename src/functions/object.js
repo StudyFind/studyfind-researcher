@@ -39,7 +39,7 @@ const every = (object) => {
 
   values(object).forEach((value) => {
     if (!value) {
-      return false;
+      result = false;
     }
   });
 
