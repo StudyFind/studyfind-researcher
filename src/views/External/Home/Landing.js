@@ -3,9 +3,9 @@ import Art from "./Art";
 import Biography from "./Biography";
 import Feature from "./Feature";
 import logo from "images/logo.jpg";
-import Yohan from "images/Founders/yohan.jpg";
-import Andrew from "images/Founders/andrew.jpg";
-import Vir from "images/Founders/vir.jpg";
+import Yohan from "images/Founders/Yohan.jpg";
+import Andrew from "images/Founders/Andrew.jpg";
+import Vir from "images/Founders/Vir.jpg";
 import Bell from "images/Symbols/bell.jpg";
 import Calendar from "images/Symbols/calendar.jpg";
 import Clipboard from "images/Symbols/clipboard.jpg";
@@ -22,9 +22,9 @@ function Landing() {
   return (
     <Website>
       <Top>
-        <a href="https://researcher.studyfind.org/auth">
+        <Link to="/auth">
           <Start>Start Now</Start>
-        </a>
+        </Link>
         <Link to="/">
           <Image src={logo} alt="StudyFind Logo" />
         </Link>
@@ -34,9 +34,9 @@ function Landing() {
         <First>
           <BigHeader1>Create a Research Account</BigHeader1>
           <BigHeader2>To Recruit and Manage Participants</BigHeader2>
-          <a href="https://researcher.studyfind.org/auth">
+          <Link to="/auth">
             <Start2>Start Now</Start2>
-          </a>
+          </Link>
         </First>
         <Features>
           <Header2>Researcher Account Features:</Header2>
@@ -109,7 +109,7 @@ function Landing() {
               Sign Up For Clinical Trials <br />
             </Header1>
             <Header2>By Clicking Below</Header2>
-            <a href="http://studyfind.org/">
+            <a href="https://studyfind-participant.firebaseapp.com/">
               <Click>Click Here </Click>
             </a>
           </SignUp>
