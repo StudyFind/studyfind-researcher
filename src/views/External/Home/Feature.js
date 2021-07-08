@@ -38,8 +38,7 @@ const Image = styled.img`
     height: 30px;
   }
   @media only screen and (min-width: 1000px) {
-    padding-top: 15px;
-    height: 45px;
+    height: 40px;
   } ;
 `;
 

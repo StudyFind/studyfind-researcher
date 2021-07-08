@@ -161,7 +161,6 @@ const Section = styled.div`
 const BG1 = styled.div`
   padding: 20px 0;
   z-index: 0;
-  background: #c5d9ff;
 `;
 const BG2 = styled.div`
   background: #c5ffeb;
@@ -171,7 +170,6 @@ const BG2 = styled.div`
 const BG3 = styled.div`
   z-index: 0;
   padding: 20px 0;
-  background: #c5d9ff;
 `;
 const BG4 = styled.div`
   background: #c5ffeb;
@@ -219,7 +217,11 @@ const BigHeader = styled.h1`
   text-align: center;
   color: rgb(32, 201, 151);
   font-size: 45px;
+
   font-weight: 700;
+  @media only screen and (min-width: 1000px) {
+    margin-left: 5px;
+  } ;
 `;
 const Header = styled.h2`
   text-align: center;
