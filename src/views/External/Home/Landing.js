@@ -334,7 +334,7 @@ const BigHeader1 = styled.h1`
 `;
 
 const BigHeader2 = styled(BigHeader1)`
-  color: rgb(10, 101, 255);
+  color: #3182ce;
 `;
 const Header1 = styled.h2`
   font-size: 25px;
@@ -344,7 +344,7 @@ const Header1 = styled.h2`
     font-size: 28px;
   }
   @media only screen and (min-width: 1000px) {
-    font-size: 35px;
+    font-size: 40px;
   }
   @media only screen and (min-width: 1500px) {
     font-size: 45px;
@@ -352,7 +352,7 @@ const Header1 = styled.h2`
 `;
 
 const Header2 = styled(Header1)`
-  color: rgb(10, 101, 255);
+  color: #3182ce;
 `;
 
 const Words = styled(Text)`
@@ -376,13 +376,21 @@ const Start = styled(Press)`
   top: 5px;
   font-weight: 700;
   @media only screen and (max-width: 300px) {
-    right: 10px;
+    right: 5px;
+    top: 7px;
+    height: 35px;
+    font-weight: 500;
   }
   @media only screen and (min-width: 1000px) {
     padding: 10px;
   }
 
-  background: rgb(10, 101, 255);
+  background: #377dff;
+
+  &:hover {
+    background: #3182ce;
+    cursor: pointer;
+  }
 `;
 const ClickHere = styled(Press)`
   background: rgb(32, 201, 151);
@@ -391,7 +399,7 @@ const ClickHere = styled(Press)`
   font-weight: bold;
 `;
 const Start2 = styled(ClickHere)`
-  background: rgb(10, 101, 255);
+  background: #377dff;
   position: relative;
   top: 20px;
   height: 40px;

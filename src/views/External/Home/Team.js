@@ -227,9 +227,10 @@ const BigHeader = styled.h1`
 const RegHeader = styled.h2`
   text-align: center;
   font-size: 30px;
-  color: rgb(10, 101, 255);
+
   margin-top: 0;
   font-weight: 700;
+  color: #3182ce;
 `;
 const Press = styled(Button)`
   padding: 8px;
@@ -245,13 +246,21 @@ const Start = styled(Press)`
   top: 5px;
   font-weight: 700;
   @media only screen and (max-width: 300px) {
-    right: 10px;
+    right: 5px;
+    top: 7px;
+    height: 35px;
+    font-weight: 500;
   }
   @media only screen and (min-width: 1000px) {
     padding: 10px;
   }
 
-  background: rgb(10, 101, 255);
+  background: #377dff;
+
+  &:hover {
+    background: #377dff;
+    cursor: pointer;
+  }
 `;
 const Image = styled.img`
   height: 45px;
