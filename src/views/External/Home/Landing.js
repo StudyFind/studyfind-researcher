@@ -18,7 +18,8 @@ import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
 import Instagram from "images/instagram.png";
 import { Link } from "react-router-dom";
-import { Text, Header, Button } from "@chakra-ui/react";
+import { Text, Button } from "@chakra-ui/react";
+
 function Landing() {
   return (
     <Website>
@@ -93,7 +94,7 @@ function Landing() {
           <Header1>About Us</Header1>
           <Words>
             StudyFind was founded by three co-founders who wanted to participate in clinical
-            research trials, but could not readily access and communicate with researchers!
+            research trials, but could not readily access or communicate with researchers!
           </Words>
           <Words>
             They set out to build a platform that caters to both researchers and study volunteers.
@@ -178,7 +179,7 @@ const First = styled.div`
   position: relative;
   padding-left: 20px;
   height: 200px;
-  top: 250px;
+  top: 170px;
   @media only screen and (min-width: 768px) {
     margin-left: 30px;
   }
@@ -367,8 +368,8 @@ const Header2 = styled(Header1)`
 const Words = styled(Text)`
   font-size: 18px;
   margin: 10px;
-  @media only screen and (min-width: 1000px) {
-    font-size: 30px;
+  @media only screen and (min-width: 500px) {
+    font-size: 25px;
   } ;
 `;
 const Press = styled(Button)`

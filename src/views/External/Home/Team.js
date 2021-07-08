@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import logo from "images/logo.jpg";
 import { Link } from "react-router-dom";
@@ -35,9 +36,13 @@ import Linkedin from "images/linkedin.png";
 import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
 import Instagram from "images/instagram.png";
-import { Text, Header, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 function Team() {
+  useEffect(() => {
+    document.body.scrollTo(0, 0);
+  }, []);
+
   return (
     <Website>
       <Top>
