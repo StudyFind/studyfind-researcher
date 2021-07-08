@@ -18,7 +18,7 @@ import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
 import Instagram from "images/instagram.png";
 import { Link } from "react-router-dom";
-import { Text, Header } from "@chakra-ui/react";
+import { Text, Header, Button } from "@chakra-ui/react";
 function Landing() {
   return (
     <Website>
@@ -111,7 +111,7 @@ function Landing() {
             </Header1>
             <Header2>By Clicking Below</Header2>
             <a href="http://studyfind.org/">
-              <Click>Click Here </Click>
+              <ClickHere>Click Here </ClickHere>
             </a>
           </SignUp>
           <Art />
@@ -362,7 +362,7 @@ const Words = styled(Text)`
     font-size: 30px;
   } ;
 `;
-const Button = styled.button`
+const Press = styled(Button)`
   padding: 8px;
   border: none;
   color: white;
@@ -370,27 +370,31 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
 `;
-const Start = styled(Button)`
+const Start = styled(Press)`
   position: absolute;
   right: 20px;
   top: 5px;
-  font-weight: 500;
+  font-weight: 700;
   @media only screen and (max-width: 300px) {
     right: 10px;
+  }
+  @media only screen and (min-width: 1000px) {
+    padding: 10px;
   }
 
   background: rgb(10, 101, 255);
 `;
-const Click = styled(Button)`
+const ClickHere = styled(Press)`
   background: rgb(32, 201, 151);
   padding: 15px;
   font-size: 20px;
   font-weight: bold;
 `;
-const Start2 = styled(Click)`
+const Start2 = styled(ClickHere)`
   background: rgb(10, 101, 255);
   position: relative;
   top: 20px;
+  height: 40px;
 `;
 const TeamButton = styled(Start2)`
   position: relative;

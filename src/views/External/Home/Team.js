@@ -35,6 +35,7 @@ import Linkedin from "images/linkedin.png";
 import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
 import Instagram from "images/instagram.png";
+import { Text, Header, Button } from "@chakra-ui/react";
 
 function Team() {
   return (
@@ -50,7 +51,7 @@ function Team() {
       <Section>
         <BG1>
           <BigHeader>Meet Our Team</BigHeader>
-          <Header>Founding Team</Header>
+          <RegHeader>Founding Team</RegHeader>
           <Row>
             <Info name="Yohan Jhaveri" image={Yohan} height="150%" alt="Yohan Jhaveri" />
             <Info name="Andrew Garcia" image={Andrew} height="165%" alt="Andrew Garcia" />
@@ -58,7 +59,7 @@ function Team() {
           </Row>
         </BG1>
         <BG2>
-          <Header>National Advisory Board</Header>
+          <RegHeader>National Advisory Board</RegHeader>
           <Row>
             <Info name="Romina" image={Romina} height="110%" alt="Romina" />
             <Info name="Suraj" image={Suraj} height="140%" bottom="10px" alt="Suraj" />
@@ -80,7 +81,7 @@ function Team() {
           </Row>
         </BG2>
         <BG3>
-          <Header>Interns</Header>
+          <RegHeader>Interns</RegHeader>
           <Row>
             <Info name="Jeremy" image={Jeremy} height="135%" alt="Jeremy" />
             <Info name="Wendy" image={Wendy} alt="Wendy" />
@@ -103,7 +104,7 @@ function Team() {
           </Row>
         </BG3>
         <BG4>
-          <Header>Notable Alumni</Header>
+          <RegHeader>Notable Alumni</RegHeader>
           <Row>
             <Info name="Michael" image={Michael} height="150%" bottom="20px" alt="Michael" />
             <Info name="Gustavo" image={Gustavo} alt="Gustavo" />
@@ -223,14 +224,14 @@ const BigHeader = styled.h1`
     margin-left: 5px;
   } ;
 `;
-const Header = styled.h2`
+const RegHeader = styled.h2`
   text-align: center;
   font-size: 30px;
   color: rgb(10, 101, 255);
   margin-top: 0;
   font-weight: 700;
 `;
-const Button = styled.button`
+const Press = styled(Button)`
   padding: 8px;
   border: none;
   color: white;
@@ -238,13 +239,16 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
 `;
-const Start = styled(Button)`
+const Start = styled(Press)`
   position: absolute;
   right: 20px;
   top: 5px;
-  font-weight: 500;
+  font-weight: 700;
   @media only screen and (max-width: 300px) {
     right: 10px;
+  }
+  @media only screen and (min-width: 1000px) {
+    padding: 10px;
   }
 
   background: rgb(10, 101, 255);
