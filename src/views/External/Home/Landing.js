@@ -249,7 +249,13 @@ const Team = styled.div`
   }
   @media only screen and (min-width: 768px) {
     top: 500px;
-  } ;
+  }
+  @media only screen and (min-width: 1000px) {
+    top: 560px;
+  }
+  @media only screen and (min-width: 1200px) {
+    top: 500px;
+  }
 `;
 
 const Clinical = styled.div`
