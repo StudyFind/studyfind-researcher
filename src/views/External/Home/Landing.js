@@ -260,7 +260,7 @@ const Team = styled.div`
 
 const Clinical = styled.div`
   position: relative;
-  top: 1300px;
+  top: 1250px;
   text-align: center;
   @media only screen and (min-width: 768px) {
     display: grid;
@@ -332,6 +332,9 @@ const BigHeader1 = styled.h1`
   font-weight: 700;
   color: rgb(32, 201, 151);
   @media only screen and (min-width: 1000px) {
+    font-size: 38px;
+  }
+  @media only screen and (min-width: 1200px) {
     font-size: 47px;
   }
   @media only screen and (min-width: 1500px) {
