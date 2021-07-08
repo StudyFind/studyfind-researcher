@@ -409,7 +409,7 @@ const ClickHere = styled(Press)`
   top: 10px;
   font-weight: bold;
   &:hover {
-    background: rgb(32, 201, 151);
+    background: #38a169;
     cursor: pointer;
   }
 `;
@@ -420,7 +420,7 @@ const Start2 = styled(ClickHere)`
   height: 40px;
 
   &:hover {
-    background: #377dff;
+    background: #3182ce;
     cursor: pointer;
   }
 `;
