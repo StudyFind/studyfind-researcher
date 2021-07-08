@@ -18,6 +18,7 @@ import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
 import Instagram from "images/instagram.png";
 import { Link } from "react-router-dom";
+import { Text, Header } from "@chakra-ui/react";
 function Landing() {
   return (
     <Website>
@@ -90,13 +91,13 @@ function Landing() {
             />
           </About>
           <Header1>About Us</Header1>
-          <Text>
+          <Words>
             StudyFind was founded by three co-founders who wanted to participate in clinical
             research trials, but could not readily access and communicate with researchers!
-          </Text>
-          <Text>
+          </Words>
+          <Words>
             They set out to build a platform that caters to both Researchers and Study Volunteers.
-          </Text>
+          </Words>
         </Founders>
         <Team>
           <Link to="/team">
@@ -164,7 +165,7 @@ const Main = styled.div`
   }
   @media only screen and (min-width: 1000px) {
     position: relative;
-    top: 230px;
+    top: 210px;
   }
   @media only screen and (min-width: 1500px) {
     position: relative;
@@ -325,7 +326,7 @@ const BigHeader1 = styled.h1`
   font-weight: 700;
   color: rgb(32, 201, 151);
   @media only screen and (min-width: 1000px) {
-    font-size: 40px;
+    font-size: 47px;
   }
   @media only screen and (min-width: 1500px) {
     font-size: 58px;
@@ -354,8 +355,7 @@ const Header2 = styled(Header1)`
   color: rgb(10, 101, 255);
 `;
 
-const Text = styled.p`
-  font-family: "YAD7QhGT6o 0", _fb_, auto;
+const Words = styled(Text)`
   font-size: 18px;
   margin: 10px;
   @media only screen and (min-width: 1000px) {
