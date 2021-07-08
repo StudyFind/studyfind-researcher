@@ -408,17 +408,31 @@ const ClickHere = styled(Press)`
   position: relative;
   top: 10px;
   font-weight: bold;
+  &:hover {
+    background: rgb(32, 201, 151);
+    cursor: pointer;
+  }
 `;
 const Start2 = styled(ClickHere)`
   background: #377dff;
   position: relative;
   top: 20px;
   height: 40px;
+
+  &:hover {
+    background: #377dff;
+    cursor: pointer;
+  }
 `;
 const TeamButton = styled(Start2)`
   position: relative;
   float: center;
   max-width: 250px;
+
+  &:hover {
+    background: #3182ce;
+    cursor: pointer;
+  }
 `;
 const Image = styled.img`
   height: 45px;
