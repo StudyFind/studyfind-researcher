@@ -164,11 +164,11 @@ const Main = styled.div`
   }
   @media only screen and (min-width: 1000px) {
     position: relative;
-    top: 260px;
+    top: 230px;
   }
   @media only screen and (min-width: 1500px) {
     position: relative;
-    top: 400px;
+    top: 350px;
   }
 `;
 const First = styled.div`
@@ -260,6 +260,9 @@ const Clinical = styled.div`
     top: 440px;
     height: 150px;
     grid-template-columns: 1.3fr 0.7fr;
+  }
+  @media only screen and (min-width: 1500px) {
+    height: 180px;
   } ;
 `;
 const SignUp = styled.div`
@@ -323,7 +326,10 @@ const BigHeader1 = styled.h1`
   color: rgb(32, 201, 151);
   @media only screen and (min-width: 1000px) {
     font-size: 40px;
-  } ;
+  }
+  @media only screen and (min-width: 1500px) {
+    font-size: 58px;
+  }
 `;
 
 const BigHeader2 = styled(BigHeader1)`
@@ -338,6 +344,9 @@ const Header1 = styled.h2`
   }
   @media only screen and (min-width: 1000px) {
     font-size: 35px;
+  }
+  @media only screen and (min-width: 1500px) {
+    font-size: 45px;
   } ;
 `;
 

@@ -9,7 +9,11 @@ function Art() {
     </Place>
   );
 }
-const Place = styled.div``;
+const Place = styled.div`
+  @media only screen and (min-width: 1000px) {
+    
+    margin-right: 20px;
+`;
 const Crop = styled.div`
   margin-top: 10px;
 
@@ -18,17 +22,22 @@ const Crop = styled.div`
 const Image = styled.img`
   height: 300px;
 
-  margin-top: -60px;
   margin-bottom: -15px;
-  margin-left: -10px;
+
   @media only screen and (max-width: 768px) {
     display: flex;
-    margin: auto;
-    margin-top: 0;
   }
   @media only screen and (min-width: 1000px) {
-    margin-top: -80px;
-    height: 400px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+
+    height: 300px;
+  }
+  @media only screen and (min-width: 1500px) {
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-bottom: 15px;
+    height: 300px;
   } ;
 `;
 export default Art;
