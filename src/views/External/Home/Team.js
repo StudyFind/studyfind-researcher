@@ -24,8 +24,12 @@ import Wenkai from "images/Interns/wenkai.png";
 import Gustavo from "images/Interns/gustavo.png";
 import Yuyao from "images/Interns/yuyao.png";
 import Michael from "images/Interns/michael.png";
-import Steven2 from "images/Interns/steven2.png";
 import Jonathon from "images/Interns/jonathon.png";
+import Mikolaj from "images/Interns/mikolaj.png";
+import Ziyao from "images/Interns/ziyao.png";
+import Natalie from "images/Interns/natalie.png";
+import Mileen from "images/Interns/mileen.png";
+import Sundari from "images/Interns/sundari.png";
 import Placeholder from "images/Interns/placeholder.png";
 import Linkedin from "images/linkedin.png";
 import Facebook from "images/facebook.png";
@@ -88,13 +92,12 @@ function Team() {
             <Info name="Yuyao" image={Yuyao} height="135%" bottom="10px" alt="Yuyao" />
           </Row>
           <Row>
-            <Info name="Steven" image={Steven2} alt="Steven" />
             <Info name="Jonathon" image={Jonathon} alt="Jonathon" />
+            <Info name="Eric" image={Placeholder} alt="Eric" />
             <Info name="Liang" image={Placeholder} alt="Liang" />
           </Row>
 
           <Row>
-            <Info name="Eric" image={Placeholder} alt="Eric" />
             <Info name="Ivan" image={Placeholder} alt="Ivan" />
             <Info name="Jason" image={Placeholder} alt="Jason" />
           </Row>
@@ -104,10 +107,15 @@ function Team() {
           <Row>
             <Info name="Michael" image={Michael} height="150%" bottom="20px" alt="Michael" />
             <Info name="Gustavo" image={Gustavo} alt="Gustavo" />
-            <Info name="Mikolaj" image={Placeholder} alt="Mikolaj" />
+            <Info name="Mikolaj" image={Mikolaj} alt="Mikolaj" height="150%" />
           </Row>
           <Row>
-            <Info name="Ziyao" image={Placeholder} alt="Ziyao" />
+            <Info name="Ziyao" image={Ziyao} alt="Ziyao" />
+            <Info name="Natalie" image={Natalie} alt="Natalie" />
+            <Info name="Mileen" image={Mileen} alt="Mileen" />
+          </Row>
+          <Row>
+            <Info name="Sundari" image={Sundari} alt="Sundari" height="115%" />
           </Row>
         </BG4>
       </Section>
