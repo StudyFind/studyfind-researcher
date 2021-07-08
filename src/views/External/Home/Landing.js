@@ -18,6 +18,7 @@ import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
 import Instagram from "images/instagram.png";
 import { Link } from "react-router-dom";
+import { Text, Header, Button } from "@chakra-ui/react";
 function Landing() {
   return (
     <Website>
@@ -90,13 +91,13 @@ function Landing() {
             />
           </About>
           <Header1>About Us</Header1>
-          <Text>
+          <Words>
             StudyFind was founded by three co-founders who wanted to participate in clinical
             research trials, but could not readily access and communicate with researchers!
-          </Text>
-          <Text>
-            They set out to build a platform that caters to both Researchers and Study Volunteers.
-          </Text>
+          </Words>
+          <Words>
+            They set out to build a platform that caters to both researchers and study volunteers.
+          </Words>
         </Founders>
         <Team>
           <Link to="/team">
@@ -110,7 +111,7 @@ function Landing() {
             </Header1>
             <Header2>By Clicking Below</Header2>
             <a href="https://studyfind-participant.firebaseapp.com/">
-              <Click>Click Here </Click>
+              <ClickHere>Click Here </ClickHere>
             </a>
           </SignUp>
           <Art />
@@ -164,11 +165,11 @@ const Main = styled.div`
   }
   @media only screen and (min-width: 1000px) {
     position: relative;
-    top: 260px;
+    top: 210px;
   }
   @media only screen and (min-width: 1500px) {
     position: relative;
-    top: 400px;
+    top: 350px;
   }
 `;
 const First = styled.div`
@@ -248,18 +249,27 @@ const Team = styled.div`
   }
   @media only screen and (min-width: 768px) {
     top: 500px;
-  } ;
+  }
+  @media only screen and (min-width: 1000px) {
+    top: 560px;
+  }
+  @media only screen and (min-width: 1200px) {
+    top: 500px;
+  }
 `;
 
 const Clinical = styled.div`
   position: relative;
-  top: 1300px;
+  top: 1250px;
   text-align: center;
   @media only screen and (min-width: 768px) {
     display: grid;
     top: 440px;
     height: 150px;
     grid-template-columns: 1.3fr 0.7fr;
+  }
+  @media only screen and (min-width: 1500px) {
+    height: 180px;
   } ;
 `;
 const SignUp = styled.div`
@@ -322,12 +332,18 @@ const BigHeader1 = styled.h1`
   font-weight: 700;
   color: rgb(32, 201, 151);
   @media only screen and (min-width: 1000px) {
-    font-size: 40px;
-  } ;
+    font-size: 38px;
+  }
+  @media only screen and (min-width: 1200px) {
+    font-size: 47px;
+  }
+  @media only screen and (min-width: 1500px) {
+    font-size: 58px;
+  }
 `;
 
 const BigHeader2 = styled(BigHeader1)`
-  color: rgb(10, 101, 255);
+  color: #3182ce;
 `;
 const Header1 = styled.h2`
   font-size: 25px;
@@ -337,23 +353,25 @@ const Header1 = styled.h2`
     font-size: 28px;
   }
   @media only screen and (min-width: 1000px) {
-    font-size: 35px;
+    font-size: 40px;
+  }
+  @media only screen and (min-width: 1500px) {
+    font-size: 45px;
   } ;
 `;
 
 const Header2 = styled(Header1)`
-  color: rgb(10, 101, 255);
+  color: #3182ce;
 `;
 
-const Text = styled.p`
-  font-family: "YAD7QhGT6o 0", _fb_, auto;
+const Words = styled(Text)`
   font-size: 18px;
   margin: 10px;
   @media only screen and (min-width: 1000px) {
     font-size: 30px;
   } ;
 `;
-const Button = styled.button`
+const Press = styled(Button)`
   padding: 8px;
   border: none;
   color: white;
@@ -361,32 +379,60 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
 `;
-const Start = styled(Button)`
+const Start = styled(Press)`
   position: absolute;
   right: 20px;
   top: 5px;
-  font-weight: 500;
+  font-weight: 700;
   @media only screen and (max-width: 300px) {
-    right: 10px;
+    right: 5px;
+    top: 7px;
+    height: 35px;
+    font-weight: 500;
+  }
+  @media only screen and (min-width: 1000px) {
+    padding: 10px;
   }
 
-  background: rgb(10, 101, 255);
+  background: #377dff;
+
+  &:hover {
+    background: #3182ce;
+    cursor: pointer;
+  }
 `;
-const Click = styled(Button)`
+const ClickHere = styled(Press)`
   background: rgb(32, 201, 151);
   padding: 15px;
   font-size: 20px;
+  position: relative;
+  top: 10px;
   font-weight: bold;
+  &:hover {
+    background: #38a169;
+    cursor: pointer;
+  }
 `;
-const Start2 = styled(Click)`
-  background: rgb(10, 101, 255);
+const Start2 = styled(ClickHere)`
+  background: #377dff;
   position: relative;
   top: 20px;
+  height: 40px;
+
+  &:hover {
+    background: #3182ce;
+    cursor: pointer;
+  }
 `;
 const TeamButton = styled(Start2)`
   position: relative;
   float: center;
   max-width: 250px;
+
+  &:hover {
+    background: #3182ce;
+    cursor: pointer;
+  }
 `;
 const Image = styled.img`
   height: 45px;

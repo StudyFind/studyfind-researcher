@@ -24,13 +24,18 @@ import Wenkai from "images/Interns/Wenkai.png";
 import Gustavo from "images/Interns/Gustavo.png";
 import Yuyao from "images/Interns/Yuyao.png";
 import Michael from "images/Interns/Michael.png";
-import Steven2 from "images/Interns/Steven2.png";
 import Jonathon from "images/Interns/Jonathon.png";
+import Mikolaj from "images/Interns/mikolaj.png";
+import Ziyao from "images/Interns/ziyao.png";
+import Natalie from "images/Interns/natalie.png";
+import Mileen from "images/Interns/mileen.png";
+import Sundari from "images/Interns/sundari.png";
 import Placeholder from "images/Interns/Placeholder.png";
 import Linkedin from "images/linkedin.png";
 import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
 import Instagram from "images/instagram.png";
+import { Text, Header, Button } from "@chakra-ui/react";
 
 function Team() {
   return (
@@ -46,7 +51,7 @@ function Team() {
       <Section>
         <BG1>
           <BigHeader>Meet Our Team</BigHeader>
-          <Header>Founding Team</Header>
+          <RegHeader>Founding Team</RegHeader>
           <Row>
             <Info name="Yohan Jhaveri" image={Yohan} height="150%" alt="Yohan Jhaveri" />
             <Info name="Andrew Garcia" image={Andrew} height="165%" alt="Andrew Garcia" />
@@ -54,7 +59,7 @@ function Team() {
           </Row>
         </BG1>
         <BG2>
-          <Header>National Advisory Board</Header>
+          <RegHeader>National Advisory Board</RegHeader>
           <Row>
             <Info name="Romina" image={Romina} height="110%" alt="Romina" />
             <Info name="Suraj" image={Suraj} height="140%" bottom="10px" alt="Suraj" />
@@ -76,7 +81,7 @@ function Team() {
           </Row>
         </BG2>
         <BG3>
-          <Header>Interns</Header>
+          <RegHeader>Interns</RegHeader>
           <Row>
             <Info name="Jeremy" image={Jeremy} height="135%" alt="Jeremy" />
             <Info name="Wendy" image={Wendy} alt="Wendy" />
@@ -88,26 +93,30 @@ function Team() {
             <Info name="Yuyao" image={Yuyao} height="135%" bottom="10px" alt="Yuyao" />
           </Row>
           <Row>
-            <Info name="Steven" image={Steven2} alt="Steven" />
             <Info name="Jonathon" image={Jonathon} alt="Jonathon" />
+            <Info name="Eric" image={Placeholder} alt="Eric" />
             <Info name="Liang" image={Placeholder} alt="Liang" />
           </Row>
 
           <Row>
-            <Info name="Eric" image={Placeholder} alt="Eric" />
             <Info name="Ivan" image={Placeholder} alt="Ivan" />
             <Info name="Jason" image={Placeholder} alt="Jason" />
           </Row>
         </BG3>
         <BG4>
-          <Header>Notable Alumni</Header>
+          <RegHeader>Notable Alumni</RegHeader>
           <Row>
             <Info name="Michael" image={Michael} height="150%" bottom="20px" alt="Michael" />
             <Info name="Gustavo" image={Gustavo} alt="Gustavo" />
-            <Info name="Mikolaj" image={Placeholder} alt="Mikolaj" />
+            <Info name="Mikolaj" image={Mikolaj} alt="Mikolaj" height="150%" />
           </Row>
           <Row>
-            <Info name="Ziyao" image={Placeholder} alt="Ziyao" />
+            <Info name="Ziyao" image={Ziyao} alt="Ziyao" />
+            <Info name="Natalie" image={Natalie} alt="Natalie" />
+            <Info name="Mileen" image={Mileen} alt="Mileen" />
+          </Row>
+          <Row>
+            <Info name="Sundari" image={Sundari} alt="Sundari" height="115%" />
           </Row>
         </BG4>
       </Section>
@@ -153,7 +162,6 @@ const Section = styled.div`
 const BG1 = styled.div`
   padding: 20px 0;
   z-index: 0;
-  background: #c5d9ff;
 `;
 const BG2 = styled.div`
   background: #c5ffeb;
@@ -163,7 +171,6 @@ const BG2 = styled.div`
 const BG3 = styled.div`
   z-index: 0;
   padding: 20px 0;
-  background: #c5d9ff;
 `;
 const BG4 = styled.div`
   background: #c5ffeb;
@@ -211,16 +218,21 @@ const BigHeader = styled.h1`
   text-align: center;
   color: rgb(32, 201, 151);
   font-size: 45px;
+
   font-weight: 700;
+  @media only screen and (min-width: 1000px) {
+    margin-left: 5px;
+  } ;
 `;
-const Header = styled.h2`
+const RegHeader = styled.h2`
   text-align: center;
   font-size: 30px;
-  color: rgb(10, 101, 255);
+
   margin-top: 0;
   font-weight: 700;
+  color: #3182ce;
 `;
-const Button = styled.button`
+const Press = styled(Button)`
   padding: 8px;
   border: none;
   color: white;
@@ -228,16 +240,27 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
 `;
-const Start = styled(Button)`
+const Start = styled(Press)`
   position: absolute;
   right: 20px;
   top: 5px;
-  font-weight: 500;
+  font-weight: 700;
   @media only screen and (max-width: 300px) {
-    right: 10px;
+    right: 5px;
+    top: 7px;
+    height: 35px;
+    font-weight: 500;
+  }
+  @media only screen and (min-width: 1000px) {
+    padding: 10px;
   }
 
-  background: rgb(10, 101, 255);
+  background: #377dff;
+
+  &:hover {
+    background: #377dff;
+    cursor: pointer;
+  }
 `;
 const Image = styled.img`
   height: 45px;

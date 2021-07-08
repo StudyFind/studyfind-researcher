@@ -44,6 +44,7 @@ const Crop = styled.div`
   height: 150px;
   overflow: hidden;
   border-radius: 50%;
+
   @media only screen and (max-width: 330px) {
     width: 130px;
     height: 130px;
@@ -51,7 +52,7 @@ const Crop = styled.div`
 `;
 const Image = styled.img`
   display: inline;
-  height: 166%;
+
   z-index: -1;
 `;
 const Icon = styled.img`

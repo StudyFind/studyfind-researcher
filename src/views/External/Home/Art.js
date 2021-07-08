@@ -9,7 +9,29 @@ function Art() {
     </Place>
   );
 }
-const Place = styled.div``;
+const Place = styled.div`
+  position: relative;
+  @media only screen and (min-width: 320px) and (max-width: 750px) {
+    left: 6%;
+  }
+  @media only screen and (min-width: 350px) and (max-width: 750px) {
+    left: 10%;
+  }
+  @media only screen and (min-width: 400px) and (max-width: 750px) {
+    left: 15%;
+    margin-top: 70px;
+  }
+  @media only screen and (min-width: 500px) and (max-width: 750px) {
+    left: 22%;
+  }
+  @media only screen and (max-width: 750px) {
+    top: 15px;
+  }
+
+  @media only screen and (min-width: 1000px) {
+    margin-right: 20px;
+  }
+`;
 const Crop = styled.div`
   margin-top: 10px;
 
@@ -18,17 +40,26 @@ const Crop = styled.div`
 const Image = styled.img`
   height: 300px;
 
-  margin-top: -60px;
   margin-bottom: -15px;
-  margin-left: -10px;
+
   @media only screen and (max-width: 768px) {
-    display: flex;
-    margin: auto;
-    margin-top: 0;
+    height: 200px;
+    margin-bottom: 10px;
   }
   @media only screen and (min-width: 1000px) {
-    margin-top: -80px;
-    height: 400px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+
+    height: 280px;
+  }
+  @media only screen and (min-width: 1200px) {
+    height: 300px;
+  }
+  @media only screen and (min-width: 1500px) {
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-bottom: 15px;
+    height: 300px;
   } ;
 `;
 export default Art;
