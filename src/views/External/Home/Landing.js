@@ -405,6 +405,8 @@ const ClickHere = styled(Press)`
   background: rgb(32, 201, 151);
   padding: 15px;
   font-size: 20px;
+  position: relative;
+  top: 10px;
   font-weight: bold;
 `;
 const Start2 = styled(ClickHere)`
