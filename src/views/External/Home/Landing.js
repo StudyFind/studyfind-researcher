@@ -180,6 +180,20 @@ const First = styled.div`
   padding-left: 20px;
   height: 200px;
   top: 170px;
+  @media only screen and (min-width: 350px) {
+    top: 280px;
+  }
+  @media only screen and (min-width: 500px) and (max-width: 700px) {
+    position: relative;
+    top: 250px;
+  }
+  @media only screen and (min-width: 768px) and (max-width: 999px) {
+    top: 250px;
+    max-width: 500px;
+  }
+  @media only screen and (min-width: 1200px) {
+    top: 250px;
+  }
   @media only screen and (min-width: 768px) {
     margin-left: 30px;
   }
@@ -195,6 +209,9 @@ const Features = styled.div`
   height: 300px;
   padding-right: 10px;
   display: inline-block;
+  @media only screen and (max-width: 768px) {
+    top: 300px;
+  }
   @media only screen and (min-width: 768px) {
     height: 250px;
     padding-left: 60px;
@@ -249,7 +266,7 @@ const Team = styled.div`
     top: 1300px;
   }
   @media only screen and (min-width: 768px) {
-    top: 500px;
+    top: 520px;
   }
   @media only screen and (min-width: 1000px) {
     top: 560px;
@@ -329,9 +346,12 @@ const Socials = styled.div`
   grid-template-columns: 30px 30px 30px 30px;
 `;
 const BigHeader1 = styled.h1`
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   color: rgb(32, 201, 151);
+  @media only screen and (min-width: 768px) and (max-width: 999px) {
+    font-size: 32px;
+  }
   @media only screen and (min-width: 1000px) {
     font-size: 38px;
   }
