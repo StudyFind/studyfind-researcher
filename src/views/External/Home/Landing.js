@@ -166,11 +166,11 @@ const Main = styled.div`
   }
   @media only screen and (min-width: 1000px) {
     position: relative;
-    top: 210px;
+    top: 250px;
   }
   @media only screen and (min-width: 1500px) {
     position: relative;
-    top: 350px;
+    top: 430px;
   }
 `;
 const First = styled.div`
@@ -318,11 +318,11 @@ const Bottom = styled.div`
   }
   @media only screen and (min-width: 1000px) {
     position: relative;
-    top: 860px;
+    top: 900px;
   }
   @media only screen and (min-width: 1500px) {
     position: relative;
-    top: 950px;
+    top: 1030px;
   }
 `;
 const Question = styled.div`
