@@ -194,6 +194,9 @@ const First = styled.div`
   @media only screen and (min-width: 1200px) {
     top: 250px;
   }
+  @media only screen and (min-width: 1500px) {
+    top: 220px;
+  }
   @media only screen and (min-width: 768px) {
     margin-left: 30px;
   }
@@ -356,10 +359,10 @@ const BigHeader1 = styled.h1`
     font-size: 38px;
   }
   @media only screen and (min-width: 1200px) {
-    font-size: 47px;
+    font-size: 45px;
   }
   @media only screen and (min-width: 1500px) {
-    font-size: 58px;
+    font-size: 50px;
   }
 `;
 
