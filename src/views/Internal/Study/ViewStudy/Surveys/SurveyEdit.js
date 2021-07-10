@@ -124,14 +124,16 @@ function SurveyEdit({ survey, surveysRef, handleClose }) {
           </Grid>
         </DrawerBody>
         <DrawerFooter>
-          <Flex justifyContent="flex-end" gridGap="10px">
-            <Button onClick={handleCancel} color="gray.500" variant="outline">
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit} colorScheme="green">
-              Save
-            </Button>
-          </Flex>
+          {questionEdit || (
+            <Flex justifyContent="flex-end" gridGap="10px">
+              <Button onClick={handleCancel} color="gray.500" variant="outline">
+                Cancel
+              </Button>
+              <Button onClick={handleSubmit} colorScheme="green">
+                Save
+              </Button>
+            </Flex>
+          )}
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
