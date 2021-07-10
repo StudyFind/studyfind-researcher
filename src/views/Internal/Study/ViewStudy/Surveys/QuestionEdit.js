@@ -21,7 +21,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
   });
 
   const [errors, setErrors] = useState({
-    prompt: "bug temp fix",
+    prompt: "",
     constraints: {},
     options: [],
   });
@@ -83,12 +83,12 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
   };
 
   const handleQuestionSaveModified = (index, inputs) => {
-    handleErrors(inputs, setErrors);
-    for (const error of [errors.prompt, ...errors.options, ...Object.values(errors.constraints)]) {
+    const err = handleErrors(inputs, setErrors);
+
+    for (const error of [err.prompt, ...err.options, ...Object.values(err.constraints)]) {
       if (error) {
         return;
       }
-      console.log("second");
     }
     handleQuestionSave(index, inputs);
   };
