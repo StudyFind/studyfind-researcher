@@ -39,6 +39,10 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleTypeChange = (name, value) => {
+    setInputs((prev) => ({ ...prev, [name]: value, constraints: {}, options: [] }));
+  };
+
   const handleConstraintsChange = (name, value) => {
     setErrors((prev) => {
       return { ...prev, constraints: {} };
@@ -130,7 +134,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
           { label: "Date", value: "date" },
           { label: "Time", value: "time" },
         ]}
-        onChange={handleChange}
+        onChange={handleTypeChange}
       />
       <TextareaInput
         name="prompt"
