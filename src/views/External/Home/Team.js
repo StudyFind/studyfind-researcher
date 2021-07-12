@@ -76,7 +76,7 @@ function Team() {
             <Info name="Talia" image={Talia} alt="Talia" />
           </Row>
         </BG2>
-        <BG3>
+        <BG1>
           <RegHeader>Interns</RegHeader>
           <Row>
             <Info name="Jeremy" image={Jeremy} height="135%" alt="Jeremy" />
@@ -98,8 +98,8 @@ function Team() {
             <Info name="Ivan" image={Placeholder} alt="Ivan" />
             <Info name="Jason" image={Placeholder} alt="Jason" />
           </Row>
-        </BG3>
-        <BG4>
+        </BG1>
+        <BG2>
           <RegHeader>Notable Alumni</RegHeader>
           <Row>
             <Info name="Michael" image={Michael} height="150%" bottom="20px" alt="Michael" />
@@ -114,7 +114,7 @@ function Team() {
           <Row>
             <Info name="Sundari" image={Sundari} alt="Sundari" height="115%" />
           </Row>
-        </BG4>
+        </BG2>
       </Section>
       <Bottom>
         <Feed>
@@ -149,15 +149,6 @@ const BG1 = styled.div`
   z-index: 0;
 `;
 const BG2 = styled.div`
-  background: #c5ffeb;
-  z-index: -1;
-  padding: 20px 0;
-`;
-const BG3 = styled.div`
-  z-index: 0;
-  padding: 20px 0;
-`;
-const BG4 = styled.div`
   background: #c5ffeb;
   z-index: -1;
   padding: 20px 0;
