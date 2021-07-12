@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Art from "./Art";
 import Biography from "./Biography";
 import Feature from "./Feature";
+import Head from "./Head";
+import Foot from "./Foot";
 import logo from "images/logo.jpg";
 import Yohan from "images/Founders/yohan.jpg";
 import Andrew from "images/Founders/andrew.jpg";
@@ -23,15 +25,7 @@ import { Text, Button } from "@chakra-ui/react";
 function Landing() {
   return (
     <Website>
-      <Top>
-        <Link to="/auth">
-          <Start>Start Now</Start>
-        </Link>
-        <Link to="/">
-          <Image src={logo} alt="StudyFind Logo" />
-        </Link>
-      </Top>
-
+      <Head />
       <Main>
         <First>
           <BigHeader1>Create a Research Account</BigHeader1>
@@ -144,18 +138,6 @@ function Landing() {
 const Website = styled.div`
   width: 100%;
 `;
-const Top = styled.div`
-  padding-top: 2px;
-  height: 50px;
-  border-bottom: 2px rgb(57 76 96 / 15%) solid;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  background: white;
-  box-shadow: 0 2px 8px rgba(57 76 96 / 15%);
-  z-index: 100;
-`;
-
 const Main = styled.div`
   position: relative;
   top: 20px;
@@ -402,28 +384,6 @@ const Press = styled(Button)`
 
   border-radius: 4px;
   cursor: pointer;
-`;
-const Start = styled(Press)`
-  position: absolute;
-  right: 20px;
-  top: 5px;
-  font-weight: 700;
-  @media only screen and (max-width: 300px) {
-    right: 5px;
-    top: 7px;
-    height: 35px;
-    font-weight: 500;
-  }
-  @media only screen and (min-width: 1000px) {
-    padding: 10px;
-  }
-
-  background: #377dff;
-
-  &:hover {
-    background: #3182ce;
-    cursor: pointer;
-  }
 `;
 const ClickHere = styled(Press)`
   background: rgb(32, 201, 151);

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import logo from "images/logo.jpg";
-import { Link } from "react-router-dom";
 import Info from "./Info";
+import Head from "./Head";
+import Foot from "./Foot";
 import Yohan from "images/Founders/yohan.jpg";
 import Andrew from "images/Founders/andrew.jpg";
 import Vir from "images/Founders/vir.jpg";
@@ -36,7 +36,6 @@ import Linkedin from "images/linkedin.png";
 import Facebook from "images/facebook.png";
 import Youtube from "images/youtube.png";
 import Instagram from "images/instagram.png";
-import { Button } from "@chakra-ui/react";
 
 function Team() {
   useEffect(() => {
@@ -45,14 +44,7 @@ function Team() {
 
   return (
     <Website>
-      <Top>
-        <Link to="/auth">
-          <Start>Start Now</Start>
-        </Link>
-        <Link to="/">
-          <Image src={logo} alt="StudyFind logo" />
-        </Link>
-      </Top>
+      <Head />
       <Section>
         <BG1>
           <BigHeader>Meet Our Team</BigHeader>
@@ -144,21 +136,11 @@ function Team() {
           </a>
         </Socials>
       </Bottom>
+      <Foot />
     </Website>
   );
 }
 const Website = styled.div``;
-const Top = styled.div`
-  padding-top: 2px;
-  height: 50px;
-  border-bottom: 2px rgb(57 76 96 / 15%) solid;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  background: white;
-  box-shadow: 0 2px 8px rgba(57 76 96 / 15%);
-  z-index: 100;
-`;
 
 const Section = styled.div`
   position: relative;
@@ -237,43 +219,7 @@ const RegHeader = styled.h2`
   font-weight: 700;
   color: #3182ce;
 `;
-const Press = styled(Button)`
-  padding: 8px;
-  border: none;
-  color: white;
 
-  border-radius: 4px;
-  cursor: pointer;
-`;
-const Start = styled(Press)`
-  position: absolute;
-  right: 20px;
-  top: 5px;
-  font-weight: 700;
-  @media only screen and (max-width: 300px) {
-    right: 5px;
-    top: 7px;
-    height: 35px;
-    font-weight: 500;
-  }
-  @media only screen and (min-width: 1000px) {
-    padding: 10px;
-  }
-
-  background: #377dff;
-
-  &:hover {
-    background: #377dff;
-    cursor: pointer;
-  }
-`;
-const Image = styled.img`
-  height: 45px;
-  margin-left: 30px;
-  @media only screen and (max-width: 300px) {
-    margin-left: 10px;
-  } ;
-`;
 const Icon = styled.img`
   height: 23px;
   z-index: 20;
