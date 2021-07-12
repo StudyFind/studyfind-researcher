@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import Info from "./Info";
 import Head from "./Head";
-import Foot from "./Foot";
 import Yohan from "images/Founders/yohan.jpg";
 import Andrew from "images/Founders/andrew.jpg";
 import Vir from "images/Founders/vir.jpg";
@@ -136,7 +135,6 @@ function Team() {
           </a>
         </Socials>
       </Bottom>
-      <Foot />
     </Website>
   );
 }
