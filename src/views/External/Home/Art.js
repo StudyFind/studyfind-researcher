@@ -15,14 +15,17 @@ const Place = styled.div`
     left: 6%;
   }
   @media only screen and (min-width: 350px) and (max-width: 750px) {
-    left: 10%;
+    left: 12%;
+  }
+  @media only screen and (min-width: 375px) and (max-width: 750px) {
+    left: 13%;
   }
   @media only screen and (min-width: 400px) and (max-width: 750px) {
     left: 15%;
     margin-top: 70px;
   }
   @media only screen and (min-width: 500px) and (max-width: 750px) {
-    left: 22%;
+    left: 23%;
   }
   @media only screen and (max-width: 750px) {
     top: 15px;
