@@ -17,7 +17,6 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
     prompt: "",
     options: ["", "", ""],
     constraints: {},
-    required: false,
   });
 
   const [errors, setErrors] = useState({
@@ -144,7 +143,7 @@ function QuestionEdit({ index, question, handleQuestionSave, handleQuestionCance
         error={errors && errors?.prompt}
         height="60px"
       />
-      {["multiple choice", "checkbox", "dropdown"].includes(inputs.type) && (
+      {["multiple choice", "checkboxes", "dropdown"].includes(inputs.type) && (
         <Box>
           <FormLabel>Answer Choices</FormLabel>
           <Grid gap="10px">
