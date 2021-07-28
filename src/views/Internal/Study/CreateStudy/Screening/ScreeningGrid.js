@@ -8,7 +8,7 @@ import { FaTrash, FaPlus, FaUndo } from "react-icons/fa";
 
 import QuestionList from "molecules/QuestionList";
 
-function ScreeningGrid({ study, back, next }) {
+function ScreeningGrid({ study, handleBack, handleNext }) {
   const {
     values,
     errors,
@@ -23,7 +23,7 @@ function ScreeningGrid({ study, back, next }) {
   } = useScreening(study);
 
   const handleSubmitModified = () => {
-    handleSubmit().then(next);
+    handleSubmit().then(handleNext);
   };
 
   return (
@@ -54,7 +54,7 @@ function ScreeningGrid({ study, back, next }) {
         </Button>
       </Grid>
       <Flex justify="flex-end" gridGap="10px">
-        <Button color="gray.500" variant="outline" onClick={back}>
+        <Button color="gray.500" variant="outline" onClick={handleBack}>
           Back
         </Button>
         <Button colorScheme="blue" onClick={handleSubmitModified} type="submit" isLoading={loading}>

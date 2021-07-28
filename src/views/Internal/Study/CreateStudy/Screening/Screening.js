@@ -1,11 +1,11 @@
 import ScreeningHead from "./ScreeningHead";
 import ScreeningGrid from "./ScreeningGrid";
 
-function Screening({ study, next, back }) {
+function Screening({ study, handleBack, handleNext }) {
   return (
     <>
       <ScreeningHead />
-      <ScreeningGrid study={study} next={next} back={back} />
+      <ScreeningGrid study={study} handleBack={handleBack} handleNext={handleNext} />
     </>
   );
 }

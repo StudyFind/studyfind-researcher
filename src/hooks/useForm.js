@@ -62,12 +62,12 @@ function useForm({ initial, check, submit }) {
 
       if (!valid) {
         setErrors(error);
-        setLoading(false);
         reject();
         return;
       }
 
       if (isDifferent) {
+        setLoading(true);
         return submit(inputs)
           .then(() => resolve())
           .catch(() => {
@@ -76,6 +76,8 @@ function useForm({ initial, check, submit }) {
           })
           .finally(() => setLoading(false));
       }
+
+      resolve();
     });
 
   return {

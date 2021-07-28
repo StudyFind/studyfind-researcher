@@ -1,7 +1,7 @@
 import { ConfirmationStatus } from "@studyfind/components";
 
-function RemindersStatus({ confirmed }) {
-  const { status, hint, text } = confirmed
+function ReminderConfirmation({ confirmedByParticipant }) {
+  const { status, hint, text } = confirmedByParticipant
     ? {
         status: "success",
         hint: "Confirmed by participant",
@@ -20,4 +20,4 @@ function RemindersStatus({ confirmed }) {
   );
 }
 
-export default RemindersStatus;
+export default ReminderConfirmation;

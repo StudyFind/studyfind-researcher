@@ -7,7 +7,7 @@ import { FaEraser, FaUndo } from "react-icons/fa";
 
 import DetailsInputs from "molecules/DetailsInputs";
 
-function DetailsForm({ study, next, back }) {
+function DetailsForm({ study, handleBack, handleNext }) {
   const {
     inputs,
     errors,
@@ -22,7 +22,7 @@ function DetailsForm({ study, next, back }) {
   const isInputNotEmpty = object.some(inputs);
 
   const handleSubmitModified = () => {
-    handleSubmit().then(next);
+    handleSubmit().then(handleNext);
   };
 
   return (
@@ -41,7 +41,7 @@ function DetailsForm({ study, next, back }) {
       </Flex>
       <DetailsInputs inputs={inputs} errors={errors} handleChange={handleChange} />
       <Flex justify="flex-end" mt="20px" gridGap="10px">
-        <Button color="gray.500" variant="outline" onClick={back}>
+        <Button color="gray.500" variant="outline" onClick={handleBack}>
           Back
         </Button>
         <Button type="submit" colorScheme="blue" onClick={handleSubmitModified} isLoading={loading}>

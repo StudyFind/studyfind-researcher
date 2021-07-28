@@ -6,15 +6,20 @@ import { datetime, helpers } from "functions";
 import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 
-import { TextInput } from "@studyfind/components";
+import { TextInput, DateInput, TimeInput } from "@studyfind/components";
 import { Grid, Flex, Tag, TagCloseButton, TagLabel, FormLabel, Button } from "@chakra-ui/react";
+
+import ReminderWeekdayInput from "./ReminderWeekdayInput";
+import ReminderTimesInput from "./ReminderTimesInput";
 
 function RemindersEdit({ reminder }) {
   const location = useLocation();
+
   const { studyID } = useParams();
   const participantID = new URLSearchParams(location.search).get("participantID");
 
   const [inputs, setInputs] = useState({
+    time: "",
     title: "",
     weekdays: [false, false, false, false, false, false, false],
     times: [],
@@ -32,7 +37,7 @@ function RemindersEdit({ reminder }) {
     }
 
     if (name === "weekdays" && !value.some((v) => v)) {
-      return "Please add at least one time";
+      return "Please select at least one day";
     }
 
     if (name === "startDate" && value < datetime.getToday()) {
@@ -55,45 +60,17 @@ function RemindersEdit({ reminder }) {
   });
 
   const handleInitial = () => {
-    const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(reminder.times);
-    const { title, startDate, endDate } = reminder;
-    const initial = { title, times, weekdays, startDate, endDate };
-
     if (reminder) {
+      const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(reminder.times);
+      const { title, startDate, endDate } = reminder;
+      const initial = { title, times, weekdays, startDate, endDate };
+
       setInputs(initial);
       setErrors(validate(initial));
     }
   };
 
   useEffect(handleInitial, [reminder]);
-
-  const handleCheckTime = (time, prev) => {
-    if (!time) return true;
-    if (prev.times.includes(time)) return "Time has been already added";
-    if (time.split(":")[1] % 30) return "Time must be divisible by 30 minutes";
-  };
-
-  const handleAddTime = (time) => {
-    setErrors((prev) => {
-      const error = handleCheckTime(time, prev);
-      return { ...prev, times: error };
-    });
-
-    setInputs((prev) => {
-      const times = prev.times;
-      times.push(time);
-      times.sort();
-      return { ...prev, times };
-    });
-  };
-
-  const handleDeleteTime = (index) => {
-    setInputs((prev) => ({ ...prev, times: prev.times.filter((_, i) => i !== index) }));
-  };
-
-  const handleToggleDay = (index) => {
-    setInputs((prev) => ({ ...prev, weekdays: prev.weekdays.map((v, i) => (i !== index) ^ v) }));
-  };
 
   const handleSubmit = ({ title, weekdays, times, startDate, endDate }) => {
     const err = validate({ title, weekdays, times, startDate, endDate });
@@ -122,10 +99,8 @@ function RemindersEdit({ reminder }) {
 
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: validate(name, value) }));
+    setErrors((prev) => ({ ...prev, [name]: checker(name, value) }));
   };
-
-  const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
 
   return (
     <Grid gap="32px">
@@ -138,65 +113,31 @@ function RemindersEdit({ reminder }) {
       />
       <div>
         <FormLabel>Reminder Weekdays</FormLabel>
-        <Weekdays>
-          {weekdayAcronyms.map((value, i) => (
-            <Button
-              key={i}
-              colorScheme={inputs.weekdays[i] ? "blue" : "gray"}
-              color={inputs.weekdays[i] ? "white" : "gray.500"}
-              bg={inputs.weekdays[i] ? "blue.500" : "white"}
-              borderColor={inputs.weekdays[i] ? "blue.500" : "rgb(226, 232, 240)"}
-              borderWidth="1px"
-              onClick={() => handleToggleDay(i)}
-              _focus={{ zIndex: 100 }}
-            >
-              {value}
-            </Button>
-          ))}
-        </Weekdays>
-      </div>
-      <Grid>
-        <TextInput
-          label="Reminder Times"
-          name="time"
-          value={inputs.time}
-          error={errors.time}
-          onChange={handleChange}
-          type="time"
-          rightWidth="6rem"
-          right={
-            <Button colorScheme="blue" size="sm" onClick={handleAddTime}>
-              Add Time
-            </Button>
-          }
+        <ReminderWeekdayInput
+          weekdays={inputs.weekdays}
+          error={errors.weekdays}
+          handleChange={handleChange}
         />
-        <Flex gridGap="8px" mt="8px" wrap="wrap">
-          {inputs.times &&
-            inputs.times.map((time, i) => (
-              <Tag key={i} colorScheme="blue">
-                <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")}</TagLabel>
-                <TagCloseButton onClick={() => handleDeleteTime(i)} />
-              </Tag>
-            ))}
-        </Flex>
-      </Grid>
+      </div>
+      <div>
+        <FormLabel>Reminder Times</FormLabel>
+        <ReminderTimesInput times={inputs.times} error={errors.times} handleChange={handleChange} />
+      </div>
       <Flex gridGap="16px">
-        <TextInput
+        <DateInput
           label="Start Date"
           name="startDate"
           value={inputs.startDate}
           error={errors.startDate}
           onChange={handleChange}
-          type="Date"
         />
-        <TextInput
+        <DateInput
           label="End Date"
           name="endDate"
           min={inputs.startDate}
           value={inputs.endDate}
           error={errors.endDate}
           onChange={handleChange}
-          type="Date"
         />
       </Flex>
       <Flex justify="flex-end" gridGap="8px">

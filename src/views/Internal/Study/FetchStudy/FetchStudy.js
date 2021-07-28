@@ -14,6 +14,8 @@ function FetchStudy() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // do not allow the user to visit this page if they have not verified their email yet
+    // as a result, redirect to the home page
     if (!auth.currentUser.emailVerified) {
       history.push("/");
     }
@@ -25,14 +27,14 @@ function FetchStudy() {
   };
 
   const inferID = (studyID) => {
-    const { length } = studyID;
-    const lastEight = studyID.substr(length - 8);
+    const length = studyID.length;
+    const digits = studyID.trim().substr(length - 8);
 
-    if (length < 8 || isNaN(lastEight)) {
+    if (length < 8 || isNaN(digits)) {
       return "";
     }
 
-    return "NCT" + lastEight.trim();
+    return "NCT" + digits;
   };
 
   const handleSubmit = () => {

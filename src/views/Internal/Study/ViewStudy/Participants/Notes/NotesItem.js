@@ -3,7 +3,7 @@ import { datetime } from "functions";
 import { Text, Box, Flex, Heading, IconButton } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
-function NotesItem({ note, editNote, deleteNote }) {
+function NotesItem({ note, handleEdit, handleDelete }) {
   const displayDate = datetime.getFriendlyDate(note.time);
   const displayTime = datetime.get12HourTime(note.time);
 
@@ -21,14 +21,14 @@ function NotesItem({ note, editNote, deleteNote }) {
             size="sm"
             color="blue.500"
             bg="blue.100"
-            onClick={() => editNote(note)}
+            onClick={() => handleEdit(note.id)}
           />
           <IconButton
             icon={<FaTrashAlt />}
             size="sm"
             color="red.500"
             bg="red.100"
-            onClick={() => deleteNote(note)}
+            onClick={handleDelete}
           />
         </Flex>
         <Text color="gray.500" fontSize="0.9rem">

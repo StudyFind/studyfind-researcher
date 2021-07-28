@@ -12,8 +12,6 @@ function Timezone({ inputs, handleChange, handleTimezone }) {
     value: timezone,
   }));
 
-  console.log(options);
-
   return (
     <>
       <AccountHeader

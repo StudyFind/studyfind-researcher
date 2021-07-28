@@ -1,7 +1,7 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Heading, Flex } from "@chakra-ui/react";
 import { FaPlusCircle } from "react-icons/fa";
 
-function NotesNew({ newNote }) {
+function NewButton({ children, onClick }) {
   return (
     <Flex
       h="136px"
@@ -13,16 +13,16 @@ function NotesNew({ newNote }) {
       justify="center"
       align="center"
       cursor="pointer"
-      onClick={newNote}
+      onClick={onClick}
     >
       <Heading size="md" color="gray.500">
         <Flex justify="center" align="center" gridGap="8px">
           <FaPlusCircle />
-          New Note
+          {children}
         </Flex>
       </Heading>
     </Flex>
   );
 }
 
-export default NotesNew;
+export default NewButton;

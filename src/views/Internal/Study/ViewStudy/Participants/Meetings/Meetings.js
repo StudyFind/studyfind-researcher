@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { firestore } from "database/firebase";
+import { auth, firestore } from "database/firebase";
 import { useCollection } from "hooks";
 
 import { Loader } from "@studyfind/components";
@@ -10,10 +10,13 @@ import MeetingsEdit from "./MeetingsEdit";
 import MeetingsError from "./MeetingsError";
 
 function Meetings({ participant, study }) {
+  const { uid } = auth.currentUser;
+
   const [meetings, loading, error] = useCollection(
     firestore
       .collection("meetings")
       .where("participantID", "==", participant.id)
+      .where("researcherID", "==", uid)
       .where("studyID", "==", study.id)
       .orderBy("time", "desc")
   );

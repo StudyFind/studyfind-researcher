@@ -1,86 +1,114 @@
-import { useState, useEffect, useContext } from "react";
-
+import { useEffect, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { StudiesContext } from "context";
 
+import { StudiesContext } from "context";
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
-import { Message } from "@studyfind/components";
 
 import Details from "./Details/Details";
 import Screening from "./Screening/Screening";
 import Review from "./Review/Review";
 
+import StudyNotFound from "./StudyNotFound";
+
 function CreateStudy() {
-  const studies = useContext(StudiesContext);
   const { studyID, tab } = useParams();
-  const study = studies.find((study) => study.id === studyID);
+
   const history = useHistory();
-  const [redirect, setRedirect] = useState();
 
   const tabs = ["details", "screening", "review"];
+  const currentIndex = tabs.indexOf(tab);
+
+  const studies = useContext(StudiesContext);
+  const study = studies.find((study) => study.id === studyID);
 
   useEffect(() => {
-    if (study && study.published) history.push("/"); // redirect to main page to prevent changes being made to published study (since researcher are not allowed to change study details and screening)
-    const params = new URL(window.location).searchParams;
-    const from = params.get("from");
-    setRedirect(from === "welcome" ? "/welcome" : `/study/${studyID}/details`);
+    // redirect to main page to prevent changes being made to published study
+    // since researcher are not allowed to change study details and screening
+    if (study?.published) {
+      history.push("/");
+    }
   }, []);
 
-  const back = () => {
-    const index = tabs.indexOf(tab);
-    const backTab = tabs[index - 1];
-    history.push(index === 0 ? "/fetch" : backTab);
+  const getBackTab = () => {
+    if (currentIndex > 0) {
+      return tabs[currentIndex - 1];
+    }
+
+    return "/fetch";
   };
 
-  const next = () => {
-    const index = tabs.indexOf(tab);
-    const nextTab = tabs[index + 1];
-    history.push(index === tabs.length - 1 ? redirect : nextTab);
+  const getNextTab = () => {
+    if (currentIndex < tabs.length - 1) {
+      return tabs[currentIndex + 1];
+    }
+
+    const welcomeLink = "/welcome";
+    const studyLink = `/study/${study?.id}/details`;
+
+    // checks where the user came from and redirects them back to the
+    // appropriate page on completing the study creation process
+    const { searchParams } = new URL(window.location);
+    const redirectedFrom = searchParams.get("from");
+
+    return redirectedFrom === "welcome" ? welcomeLink : studyLink;
+  };
+
+  const handleNext = () => {
+    const nextTab = getNextTab();
+    history.push(nextTab);
+  };
+
+  const handleBack = () => {
+    const backTab = getBackTab();
+    history.push(backTab);
   };
 
   const render = {
-    details: <Details study={study} next={next} back={back} />,
-    screening: <Screening study={study} next={next} back={back} />,
-    review: <Review study={study} next={next} back={back} />,
+    details: <Details study={study} handleBack={handleBack} handleNext={handleNext} />,
+    screening: <Screening study={study} handleBack={handleBack} handleNext={handleNext} />,
+    review: <Review study={study} handleBack={handleBack} handleNext={handleNext} />,
   };
 
-  const steps = (
+  const STEPS = (
     <Stack spacing={2} mb="15px" isInline>
-      {tabs.map((t, i) => (
-        <Tag
-          key={i}
-          h="24px"
-          w="24px"
-          rounded="full"
-          cursor={i <= tabs.indexOf(tab) ? "pointer" : "not-allowed"}
-          variant={i <= tabs.indexOf(tab) ? "solid" : "outline"}
-          onClick={i <= tabs.indexOf(tab) ? () => history.push(t) : () => {}}
-          colorScheme="blue"
-        >
-          <TagLabel>{i + 1}</TagLabel>
-        </Tag>
-      ))}
+      {tabs.map((t, i) => {
+        const cursor = i <= currentIndex ? "pointer" : "not-allowed";
+        const variant = i <= currentIndex ? "solid" : "outline";
+
+        const handleSelectTab = () => {
+          if (i < currentIndex) {
+            history.push(t);
+          }
+        };
+
+        return (
+          <Tag
+            key={i}
+            h="24px"
+            w="24px"
+            rounded="full"
+            cursor={cursor}
+            variant={variant}
+            onClick={handleSelectTab}
+            colorScheme="blue"
+          >
+            <TagLabel>{i + 1}</TagLabel>
+          </Tag>
+        );
+      })}
     </Stack>
   );
 
-  const BODY = (
+  if (!study) {
+    <StudyNotFound studyID={studyID} />;
+  }
+
+  return (
     <>
-      {steps}
+      {STEPS}
       {render[tab]}
     </>
   );
-
-  const MISSING = (
-    <Message
-      status="failure"
-      title="Study not found!"
-      description={`The study ${studyID} could not be found in the StudyFind database. Please
-  ensure that it has been successfully created by following all directions in the study
-  creation process.`}
-    />
-  );
-
-  return study ? BODY : MISSING;
 }
 
 export default CreateStudy;

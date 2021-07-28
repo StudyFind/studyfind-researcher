@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 
-import { toasts } from "templates";
 import { storage } from "database/firebase";
 import { datetime } from "functions";
 import { useParams } from "react-router-dom";
-import { useToast } from "@chakra-ui/react";
 
 import FilesGrid from "./FilesGrid";
 import FilesEdit from "./FilesEdit";
 import FilesLoading from "./FilesLoading";
 
 function Files() {
-  const toast = useToast();
   const { studyID } = useParams();
 
   const [edit, setEdit] = useState(false);
@@ -24,10 +21,10 @@ function Files() {
     const studyFiles = await Promise.all(
       items.map(async (ref) => {
         const meta = await ref.getMetadata();
-        const url = await ref.getDownloadURL();
+
         return {
+          ref,
           name: ref.name,
-          link: url,
           date: datetime.getFriendlyDate(meta.timeCreated),
         };
       })
@@ -46,14 +43,6 @@ function Files() {
     initialLoad();
   }, []);
 
-  const handleDelete = (name) => {
-    storage
-      .ref(`study/${studyID}/${name}`)
-      .delete()
-      .then(() => getFiles())
-      .catch(() => toast(toasts.connectionError));
-  };
-
   if (loading) {
     return <FilesLoading />;
   }
@@ -61,7 +50,7 @@ function Files() {
   return edit ? (
     <FilesEdit studyID={studyID} setEdit={setEdit} getFiles={getFiles} />
   ) : (
-    <FilesGrid studyID={studyID} setEdit={setEdit} files={files} handleDelete={handleDelete} />
+    <FilesGrid studyID={studyID} setEdit={setEdit} getFiles={getFiles} files={files} />
   );
 }
 

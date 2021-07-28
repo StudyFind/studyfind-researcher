@@ -3,7 +3,7 @@ import { Box, Grid, Flex, Heading, Button, Tooltip } from "@chakra-ui/react";
 import FileCard from "./FileCard";
 import FilesEmpty from "./FilesEmpty";
 
-function FilesGrid({ files, setEdit, handleDelete }) {
+function FilesGrid({ files, setEdit, getFiles }) {
   const FILE_LIMIT = 8;
 
   if (!files?.length) {
@@ -28,7 +28,7 @@ function FilesGrid({ files, setEdit, handleDelete }) {
       </Flex>
       <Grid gap="20px" templateColumns="1fr 1fr 1fr 1fr">
         {files.map((file, i) => (
-          <FileCard key={i} file={file} handleDelete={handleDelete} />
+          <FileCard key={i} file={file} getFiles={getFiles} />
         ))}
       </Grid>
     </>
