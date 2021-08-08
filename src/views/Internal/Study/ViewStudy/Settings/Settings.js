@@ -5,7 +5,6 @@ import Publish from "./Publish";
 import Activate from "./Activate";
 import Share from "./Share";
 import Delete from "./Delete";
-import Update from "./Update";
 
 function Settings({ study }) {
   const settings = [
@@ -20,10 +19,6 @@ function Settings({ study }) {
     {
       condition: !study.published,
       component: <Publish study={study} />,
-    },
-    {
-      condition: true,
-      component: <Update study={study} />,
     },
     {
       condition: true,

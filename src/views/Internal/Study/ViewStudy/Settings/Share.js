@@ -2,7 +2,7 @@ import { Link, ClipboardButton } from "@studyfind/components";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 function Share({ study }) {
-  const link = `https://participant.studyfind.org/study/${study.id}`;
+  const link = `https://studyfind.org/study/${study.id}`;
 
   return (
     <Box p="20px">
