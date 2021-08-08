@@ -21,14 +21,14 @@ function NotesItem({ note, handleEdit, handleDelete }) {
             size="sm"
             color="blue.500"
             bg="blue.100"
-            onClick={() => handleEdit(note.id)}
+            onClick={() => handleEdit(note)}
           />
           <IconButton
             icon={<FaTrashAlt />}
             size="sm"
             color="red.500"
             bg="red.100"
-            onClick={handleDelete}
+            onClick={() => handleDelete(note.id)}
           />
         </Flex>
         <Text color="gray.500" fontSize="0.9rem">

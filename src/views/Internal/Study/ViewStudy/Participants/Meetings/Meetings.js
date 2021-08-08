@@ -26,7 +26,7 @@ function Meetings({ participant, study }) {
 
   const handleEdit = (meeting) => {
     setEdit(true);
-    meeting && setMeeting(meeting);
+    setMeeting(meeting || null);
   };
 
   const handleCancel = () => {
