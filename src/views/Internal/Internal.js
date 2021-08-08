@@ -11,7 +11,6 @@ import { Page } from "@studyfind/components";
 import Confirm from "./Confirm";
 import Sidebar from "./Sidebar";
 import Verification from "views/Internal/Verification/Verification";
-import Welcome from "views/Internal/Welcome/Welcome";
 import Dashboard from "views/Internal/Dashboard/Dashboard";
 import FetchStudy from "views/Internal/Study/FetchStudy/FetchStudy";
 import CreateStudy from "views/Internal/Study/CreateStudy/CreateStudy";
@@ -55,7 +54,6 @@ function Internal() {
                 <Switch>
                   <Route exact path="/" component={Dashboard} />
                   <Route path="/dashboard" component={Dashboard} />
-                  <Route path="/welcome" component={Welcome} />
                   <Route path="/fetch" component={FetchStudy} />
                   <Route path="/create/:studyID/:tab" component={CreateStudy} />
                   <Route
