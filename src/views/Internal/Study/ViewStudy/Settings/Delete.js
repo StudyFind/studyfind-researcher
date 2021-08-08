@@ -12,13 +12,13 @@ function Delete({ study }) {
   const toast = useToast();
   const confirm = useConfirm();
 
-  const [nctID, setNctID] = useState("");
+  const [studyID, setStudyID] = useState("");
   const [error, setError] = useState("");
 
   const history = useHistory();
 
   const handleChange = (_, value) => {
-    setNctID(value);
+    setStudyID(value);
     setError("");
   };
 
@@ -37,10 +37,10 @@ function Delete({ study }) {
   };
 
   const handleDelete = () => {
-    if (nctID === study.id) {
+    if (studyID === study.id) {
       confirm({
         title: "Delete Study",
-        description: `This is a permanant action and cannot be undone. Are you sure you want to delete study with study number ${nctID}?`,
+        description: `This is a permanant action and cannot be undone. Are you sure you want to delete study with study number ${studyID}?`,
         color: "red",
         button: "Delete",
         handleConfirm,
@@ -66,14 +66,14 @@ function Delete({ study }) {
       <Form onSubmit={handleDelete}>
         <Grid gap="10px" w="210px">
           <TextInput
-            placeholder="NCT00000000"
-            value={nctID}
+            placeholder="Type here..."
+            value={studyID}
             error={error}
             onChange={handleChange}
           />
-          <Tooltip label={nctID !== study.id && "Entered ID does not match NCTID"}>
+          <Tooltip label={studyID !== study.id && "Entered ID does not match the study ID"}>
             <Box>
-              <Button type="submit" w="100%" colorScheme="red" isDisabled={nctID !== study.id}>
+              <Button type="submit" w="100%" colorScheme="red" isDisabled={studyID !== study.id}>
                 Delete
               </Button>
             </Box>
