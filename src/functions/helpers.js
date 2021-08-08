@@ -3,17 +3,19 @@ import moment from "moment";
 const convertWeekdaysAndTimesToOffsets = (weekdays, times) => {
   const offsets = [];
 
-  weekdays.forEach((_, index) => {
-    times.forEach((time) => {
-      const [hour, minute] = time.split(":");
+  weekdays.forEach((weekday, index) => {
+    if (weekday) {
+      times.forEach((time) => {
+        const [hour, minute] = time.split(":");
 
-      const hours = 24 * index + parseInt(hour);
-      const minutes = hours * 60 + parseInt(minute);
-      const seconds = minutes * 60;
-      const milliseconds = seconds * 1000;
+        const hours = 24 * index + parseInt(hour);
+        const minutes = hours * 60 + parseInt(minute);
+        const seconds = minutes * 60;
+        const milliseconds = seconds * 1000;
 
-      offsets.push(milliseconds);
-    });
+        offsets.push(milliseconds);
+      });
+    }
   });
 
   return offsets;
