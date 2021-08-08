@@ -6,7 +6,7 @@ import { useCollection } from "hooks";
 import { Loader } from "@studyfind/components";
 
 import RemindersView from "./RemindersView";
-import RemindersEdit from "./ReminderEdit";
+import RemindersEdit from "./ReminderEdit/ReminderEdit";
 import RemindersError from "./RemindersError";
 
 function Reminders({ participant, study }) {
@@ -26,12 +26,16 @@ function Reminders({ participant, study }) {
 
   const handleEdit = (reminder) => {
     setEdit(true);
-    reminder && setReminder(reminder);
+    setReminder(reminder || null);
   };
 
   const handleCancel = () => {
     setEdit(false);
     setReminder(null);
+  };
+
+  const handleDelete = (id) => {
+    firestore.collection("reminders").doc(id).delete();
   };
 
   if (loading) return <Loader />;
@@ -40,7 +44,7 @@ function Reminders({ participant, study }) {
   return edit ? (
     <RemindersEdit reminder={reminder} handleCancel={handleCancel} />
   ) : (
-    <RemindersView reminders={reminders} handleEdit={handleEdit} />
+    <RemindersView reminders={reminders} handleEdit={handleEdit} handleDelete={handleDelete} />
   );
 }
 

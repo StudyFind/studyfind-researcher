@@ -3,7 +3,7 @@ import { Flex, Tag, TagLabel } from "@chakra-ui/react";
 
 function ReminderTimes({ times }) {
   return (
-    <Flex gridGap="8px" my="8px">
+    <Flex gridGap="6px" my="12px">
       {times.map((time) => (
         <Tag key={time.id} colorScheme="blue">
           <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")}</TagLabel>

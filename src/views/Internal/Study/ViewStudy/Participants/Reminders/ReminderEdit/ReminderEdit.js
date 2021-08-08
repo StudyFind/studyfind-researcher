@@ -1,22 +1,16 @@
 import { useState, useEffect } from "react";
-import moment from "moment";
-import styled from "styled-components";
-
 import { datetime, helpers } from "functions";
 import { auth, firestore } from "database/firebase";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import { TextInput, DateInput, TimeInput } from "@studyfind/components";
-import { Grid, Flex, Tag, TagCloseButton, TagLabel, FormLabel, Button } from "@chakra-ui/react";
+import { TextInput, DateInput } from "@studyfind/components";
+import { Grid, Flex, FormLabel, Button } from "@chakra-ui/react";
 
 import ReminderWeekdayInput from "./ReminderWeekdayInput";
 import ReminderTimesInput from "./ReminderTimesInput";
 
-function RemindersEdit({ reminder }) {
-  const location = useLocation();
-
-  const { studyID } = useParams();
-  const participantID = new URLSearchParams(location.search).get("participantID");
+function RemindersEdit({ reminder, handleCancel }) {
+  const { studyID, participantID } = useParams();
 
   const [inputs, setInputs] = useState({
     time: "",
@@ -27,7 +21,14 @@ function RemindersEdit({ reminder }) {
     endDate: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    time: "",
+    title: "",
+    weekdays: "",
+    times: "",
+    startDate: "",
+    endDate: "",
+  });
 
   const checker = (name, value) => {
     if (!value) return true;
@@ -53,7 +54,7 @@ function RemindersEdit({ reminder }) {
 
   const validate = ({ title, weekdays, times, startDate, endDate }) => ({
     title: checker("title", title),
-    weekdays: checker("weekday", weekdays),
+    weekdays: checker("weekdays", weekdays),
     times: checker("times", times),
     startDate: checker("startDate", startDate),
     endDate: checker("endDate", endDate),
@@ -72,11 +73,13 @@ function RemindersEdit({ reminder }) {
 
   useEffect(handleInitial, [reminder]);
 
-  const handleSubmit = ({ title, weekdays, times, startDate, endDate }) => {
-    const err = validate({ title, weekdays, times, startDate, endDate });
+  const handleSubmit = () => {
+    const { title, weekdays, times, startDate, endDate } = inputs;
+    const error = validate(inputs);
 
-    if (err.title || err.weekdays || err.times || err.startDate || err.endDate) {
-      setErrors(err);
+    if (error.title || error.weekdays || error.times || error.startDate || error.endDate) {
+      setErrors(error);
+      return;
     }
 
     const payload = {
@@ -93,9 +96,9 @@ function RemindersEdit({ reminder }) {
     reminder
       ? firestore.collection("reminders").doc(reminder.id).update(payload)
       : firestore.collection("reminders").add(payload);
-  };
 
-  const handleCancel = handleInitial;
+    handleCancel();
+  };
 
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
@@ -114,7 +117,7 @@ function RemindersEdit({ reminder }) {
       <div>
         <FormLabel>Reminder Weekdays</FormLabel>
         <ReminderWeekdayInput
-          weekdays={inputs.weekdays}
+          value={inputs.weekdays}
           error={errors.weekdays}
           handleChange={handleChange}
         />
@@ -127,6 +130,7 @@ function RemindersEdit({ reminder }) {
         <DateInput
           label="Start Date"
           name="startDate"
+          max={inputs.endDate}
           value={inputs.startDate}
           error={errors.startDate}
           onChange={handleChange}
@@ -151,22 +155,5 @@ function RemindersEdit({ reminder }) {
     </Grid>
   );
 }
-
-const Weekdays = styled(Flex)`
-  & > button {
-    border-radius: 0;
-    margin-left: -1px;
-
-    &:first-child {
-      border-top-left-radius: 0.25rem;
-      border-bottom-left-radius: 0.25rem;
-    }
-
-    &:last-child {
-      border-top-right-radius: 0.25rem;
-      border-bottom-right-radius: 0.25rem;
-    }
-  }
-`;
 
 export default RemindersEdit;
