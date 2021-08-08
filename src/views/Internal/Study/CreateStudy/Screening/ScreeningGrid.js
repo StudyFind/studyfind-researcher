@@ -1,10 +1,8 @@
-import lodash from "lodash";
-
 import { useScreening } from "hooks";
 
 import { EditorButton } from "@studyfind/components";
 import { Button, Flex, Grid } from "@chakra-ui/react";
-import { FaTrash, FaPlus, FaUndo } from "react-icons/fa";
+import { FaTrash, FaPlus } from "react-icons/fa";
 
 import QuestionList from "molecules/QuestionList";
 
@@ -17,7 +15,6 @@ function ScreeningGrid({ study, handleBack, handleNext }) {
     updateQuestion,
     deleteQuestion,
     clearQuestions,
-    resetQuestions,
     sortQuestions,
     handleSubmit,
   } = useScreening(study);
@@ -29,11 +26,6 @@ function ScreeningGrid({ study, handleBack, handleNext }) {
   return (
     <>
       <Flex gridGap="10px">
-        {!lodash.isEqual(study.questions, values) && (
-          <EditorButton icon={<FaUndo />} color="gray" onClick={resetQuestions}>
-            Undo Changes
-          </EditorButton>
-        )}
         {values.length && (
           <EditorButton icon={<FaTrash />} color="red" onClick={clearQuestions}>
             Delete All

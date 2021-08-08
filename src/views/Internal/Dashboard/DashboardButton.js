@@ -9,7 +9,7 @@ function DashboardButton({ verified }) {
       placement="bottom"
     >
       <Box width="fit-content">
-        <Link to="/fetch" isWrapper>
+        <Link to="/create/details" isWrapper>
           <Button isDisabled={!verified} leftIcon={<FaPlus />} colorScheme="blue">
             Create Study
           </Button>
