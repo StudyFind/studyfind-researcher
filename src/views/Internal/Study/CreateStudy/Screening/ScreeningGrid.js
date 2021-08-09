@@ -8,33 +8,31 @@ import QuestionList from "molecules/QuestionList";
 
 function ScreeningGrid({ study, handleBack, handleNext }) {
   const {
-    values,
+    inputs,
     errors,
-    loading,
     createQuestion,
     updateQuestion,
     deleteQuestion,
     clearQuestions,
     sortQuestions,
-    handleSubmit,
   } = useScreening(study);
 
-  const handleSubmitModified = () => {
-    handleSubmit().then(handleNext);
+  const handleSubmit = () => {
+    handleNext({ questions: inputs });
   };
 
   return (
     <>
       <Flex gridGap="10px">
-        {values.length && (
+        {inputs.length ? (
           <EditorButton icon={<FaTrash />} color="red" onClick={clearQuestions}>
             Delete All
           </EditorButton>
-        )}
+        ) : null}
       </Flex>
       <Grid w="100%" gap="10px" py="10px">
         <QuestionList
-          values={values}
+          inputs={inputs}
           errors={errors}
           onSortEnd={sortQuestions}
           updateQuestion={updateQuestion}
@@ -49,7 +47,7 @@ function ScreeningGrid({ study, handleBack, handleNext }) {
         <Button color="gray.500" variant="outline" onClick={handleBack}>
           Back
         </Button>
-        <Button colorScheme="blue" onClick={handleSubmitModified} type="submit" isLoading={loading}>
+        <Button colorScheme="blue" onClick={handleSubmit} type="submit">
           Next
         </Button>
       </Flex>

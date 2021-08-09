@@ -1,45 +1,43 @@
 import { useState } from "react";
-import { firestore } from "database/firebase";
 
 function useScreening(study) {
-  const validate = (values) => {
-    return values.map((value) => ({
+  const validate = (inputs) => {
+    return inputs.map((value) => ({
       type: !value.type,
       prompt: !value.prompt,
     }));
   };
 
-  const [values, setValues] = useState(study.questions);
+  const [inputs, setInputs] = useState(study.questions);
   const [errors, setErrors] = useState(validate(study.questions));
-  const [loading, setLoading] = useState(false);
 
   const createQuestion = () => {
-    setValues((prev) => prev.concat({ type: "Inclusion", prompt: "" }));
+    setInputs((prev) => prev.concat({ type: "Inclusion", prompt: "" }));
     setErrors((prev) => prev.concat({ type: false, prompt: false }));
   };
 
   const updateQuestion = (index, name, value) => {
-    setValues((prev) => prev.map((v, i) => (index === i ? { ...v, [name]: value } : v)));
+    setInputs((prev) => prev.map((v, i) => (index === i ? { ...v, [name]: value } : v)));
     setErrors((prev) => prev.map((e, i) => (index === i ? { ...e, [name]: !value } : e)));
   };
 
   const deleteQuestion = (index) => {
-    setValues((prev) => prev.filter((_, i) => i !== index));
+    setInputs((prev) => prev.filter((_, i) => i !== index));
     setErrors((prev) => prev.filter((_, i) => i !== index));
   };
 
   const clearQuestions = () => {
-    setValues([]);
+    setInputs([]);
     setErrors([]);
   };
 
   const resetQuestions = () => {
-    setValues(study.questions);
+    setInputs(study.questions);
     setErrors(validate(study.questions));
   };
 
   const sortQuestions = ({ oldIndex, newIndex }) => {
-    setValues((prev) => {
+    setInputs((prev) => {
       const updated = [...prev];
       const removed = updated.splice(oldIndex, 1);
       updated.splice(newIndex, 0, removed[0]);
@@ -56,7 +54,7 @@ function useScreening(study) {
 
   const handleSubmit = () =>
     new Promise((resolve, reject) => {
-      const error = validate(values);
+      const error = validate(inputs);
       const valid = error
         .map((v) => [v.type, v.prompt])
         .flat()
@@ -68,20 +66,12 @@ function useScreening(study) {
         return;
       }
 
-      setLoading(true);
-      firestore
-        .collection("studies")
-        .doc(study.id)
-        .update({ questions: values })
-        .then(() => resolve())
-        .catch(() => reject())
-        .finally(() => setLoading(false));
+      resolve();
     });
 
   return {
-    values,
+    inputs,
     errors,
-    loading,
     createQuestion,
     updateQuestion,
     deleteQuestion,

@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { auth } from "database/firebase";
 
-import { StudiesContext } from "context";
+import { StudiesContext, UserContext } from "context";
 import { Stack, Tag, TagLabel } from "@chakra-ui/react";
 
 import Details from "./Details/Details";
@@ -9,8 +10,10 @@ import Screening from "./Screening/Screening";
 import Review from "./Review/Review";
 
 import StudyNotFound from "./StudyNotFound";
+import Eligibility from "./Eligibility/Eligiblity";
 
 function CreateStudy() {
+  const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
 
   const [step, setStep] = useState(0);
@@ -19,13 +22,18 @@ function CreateStudy() {
     description: "",
 
     sex: "",
-    minAge: "",
-    maxAge: "",
+    age: "",
     control: "",
 
     questions: [],
     locations: [],
     conditions: [],
+
+    researcher: {
+      id: user.id,
+      name: user.name,
+      email: auth.currentUser.email,
+    },
   });
 
   const { studyID } = useParams();
@@ -53,8 +61,9 @@ function CreateStudy() {
     });
   }, [studyID]);
 
-  const handleNext = () => {
+  const handleNext = (updates) => {
     setStep((prev) => prev + 1);
+    setStudy((prev) => ({ ...prev, ...updates }));
   };
 
   const handleBack = () => {
@@ -64,7 +73,8 @@ function CreateStudy() {
   const steps = [
     <Details key={0} study={study} handleBack={handleBack} handleNext={handleNext} />,
     <Screening key={1} study={study} handleBack={handleBack} handleNext={handleNext} />,
-    <Review key={2} study={study} handleBack={handleBack} handleNext={handleNext} />,
+    <Eligibility key={2} study={study} handleBack={handleBack} handleNext={handleNext} />,
+    <Review key={3} study={study} handleBack={handleBack} handleNext={handleNext} />,
   ];
 
   const STEPS = (
