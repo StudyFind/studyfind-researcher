@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useTabs } from "hooks";
 
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { Flex, Grid } from "@chakra-ui/react";
 import VerticalTabItem from "./VerticalTabItem";
@@ -17,18 +17,11 @@ import VerticalTabItem from "./VerticalTabItem";
 
 function VerticalTabs({ tabs, ...rest }) {
   const [tabIndex, setTabIndex] = useTabs(tabs);
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   return (
-    <Flex
-      direction={isPhone ? "column" : "row"}
-      align={isPhone || "flex-start"}
-    >
-      <Grid
-        gap="10px"
-        marginBottom={isPhone ? "30px" : "0"}
-        width={isPhone ? "100%" : "180px"}
-      >
+    <Flex direction={isPhone ? "column" : "row"} align={isPhone || "flex-start"}>
+      <Grid gap="10px" marginBottom={isPhone ? "30px" : "0"} width={isPhone ? "100%" : "180px"}>
         {tabs.map((t, i) => (
           <VerticalTabItem
             key={i}

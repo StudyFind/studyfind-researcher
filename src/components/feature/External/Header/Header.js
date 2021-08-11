@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { Flex, Button, useColorModeValue } from "@chakra-ui/react";
 import { Link } from "components";
@@ -7,7 +7,7 @@ import { Link } from "components";
 import HeaderLogo from "./HeaderLogo";
 
 function Header() {
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
   const background = useColorModeValue("white", "gray.900");
 
   return (

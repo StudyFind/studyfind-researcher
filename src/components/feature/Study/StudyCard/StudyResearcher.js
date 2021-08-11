@@ -1,5 +1,5 @@
 import { Box, Flex, Text, Avatar, useColorModeValue } from "@chakra-ui/react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 import { useContext } from "react";
 
 function StudyResearcher({ researcher }) {
@@ -7,7 +7,7 @@ function StudyResearcher({ researcher }) {
   const background = useColorModeValue("white", "gray.900");
   const borderColor = useColorModeValue("gray.200", "gray.700");
 
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   return (
     <Flex

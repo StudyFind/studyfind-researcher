@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { Flex, useColorModeValue } from "@chakra-ui/react";
 
@@ -10,7 +10,7 @@ import SidebarUser from "./SidebarUser";
 function Sidebar({ name, email, links, ...rest }) {
   const [active, setActive] = useState(false);
 
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   const background = useColorModeValue("blue.900", "gray.900");
 

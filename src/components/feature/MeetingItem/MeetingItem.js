@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { datetime } from "utils";
 
@@ -8,13 +8,11 @@ import { FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
 import { Hint, Link, ActionButton } from "components";
 
 function MeetingItem({ participant, meeting, handleEdit, handleDelete }) {
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   const meetingInfo = (
     <>
-      <Text>
-        Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
-      </Text>
+      <Text>Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}</Text>
       <Text>Study: {meeting.studyID}</Text>
       <Text>Participant: {participant?.fakename}</Text>
     </>
@@ -31,10 +29,7 @@ function MeetingItem({ participant, meeting, handleEdit, handleDelete }) {
       align="center"
       background={background}
     >
-      <Flex
-        direction={isPhone && "column-reverse"}
-        align={isPhone ? "flex-start" : "center"}
-      >
+      <Flex direction={isPhone && "column-reverse"} align={isPhone ? "flex-start" : "center"}>
         <Flex>
           <Text
             fontSize="0.9rem"
@@ -44,9 +39,7 @@ function MeetingItem({ participant, meeting, handleEdit, handleDelete }) {
           >
             {datetime.get12HourTime(meeting.time)}
           </Text>
-          {isPhone && (
-            <Hint fontSize="12px" label={meetingInfo} marginLeft="4px" />
-          )}
+          {isPhone && <Hint fontSize="12px" label={meetingInfo} marginLeft="4px" />}
         </Flex>
         <Text fontWeight="600" marginX={isPhone || "8px"}>
           {meeting.name}
@@ -61,18 +54,8 @@ function MeetingItem({ participant, meeting, handleEdit, handleDelete }) {
             hint={meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
           />
         </Link>
-        <ActionButton
-          icon={<FaPencilAlt />}
-          hint="Edit"
-          color="blue"
-          onClick={handleEdit}
-        />
-        <ActionButton
-          icon={<FaTrashAlt />}
-          hint="Delete"
-          color="red"
-          onClick={handleDelete}
-        />
+        <ActionButton icon={<FaPencilAlt />} hint="Edit" color="blue" onClick={handleEdit} />
+        <ActionButton icon={<FaTrashAlt />} hint="Delete" color="red" onClick={handleDelete} />
       </Flex>
     </Flex>
   );

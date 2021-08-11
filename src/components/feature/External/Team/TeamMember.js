@@ -1,9 +1,9 @@
 import { Box, Flex, Image, Text, useColorModeValue } from "@chakra-ui/react";
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 function TeamMember({ image, name, position, description }) {
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   const textColor = useColorModeValue("gray.600", "gray.400");
 

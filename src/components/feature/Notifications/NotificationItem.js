@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 import getNotificationTemplate from "./templates/getNotificationTemplate";
 
 import { Link } from "components";
@@ -41,7 +41,7 @@ function NotificationItem({ side, notification, handleNotificationRead }) {
     meta,
   });
 
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   const readColor = useColorModeValue("white", "gray.900");
   const unreadColor = useColorModeValue("blue.50", "gray.800");

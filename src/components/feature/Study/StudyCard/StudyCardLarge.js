@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { Heading, Text, Box, Flex, useColorModeValue } from "@chakra-ui/react";
 
@@ -11,7 +11,7 @@ function StudyCardLarge({ study }) {
   const background = useColorModeValue("white", "gray.900");
   const borderColor = useColorModeValue("gray.200", "gray.700");
 
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   return (
     <Box

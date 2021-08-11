@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { Grid, Flex, Heading, Text, SimpleGrid } from "@chakra-ui/react";
 
@@ -11,26 +11,16 @@ import Andrew from "images/Andrew.png";
 import Vir from "images/Vir.png";
 
 function Team() {
-  const { isPhone, isDesktop } = useContext(MediaContext);
+  const { isPhone, isDesktop } = useDetectDevice();
 
   return (
     <Flex direction="column" align="center" paddingY="50px">
-      <Heading
-        size="2xl"
-        marginBottom="20px"
-        fontWeight="black"
-        textAlign="center"
-      >
+      <Heading size="2xl" marginBottom="20px" fontWeight="black" textAlign="center">
         About the team
       </Heading>
-      <Text
-        textAlign="center"
-        color="gray.500"
-        maxWidth={isPhone ? "80%" : "500px"}
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation
+      <Text textAlign="center" color="gray.500" maxWidth={isPhone ? "80%" : "500px"}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
       </Text>
       <SimpleGrid
         marginTop={isPhone ? "60px" : "100px"}

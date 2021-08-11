@@ -5,7 +5,7 @@ import { Box, useColorModeValue } from "@chakra-ui/react";
 import AuthTabs from "./AuthTabs";
 import AuthForm from "./AuthForm";
 import AuthContext from "context/AuthContext";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 function Auth({ handleLogin, handleSignup, handleForgotPassword }) {
   const exists = localStorage.getItem("exists");
@@ -15,12 +15,10 @@ function Auth({ handleLogin, handleSignup, handleForgotPassword }) {
   const background = useColorModeValue("#f8f9fa", "gray.800");
   const borderColor = useColorModeValue("gray.200", "gray.700");
 
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   return (
-    <AuthContext.Provider
-      value={{ handleLogin, handleSignup, handleForgotPassword }}
-    >
+    <AuthContext.Provider value={{ handleLogin, handleSignup, handleForgotPassword }}>
       <Box
         rounded="md"
         width={isPhone ? "100%" : "350px"}

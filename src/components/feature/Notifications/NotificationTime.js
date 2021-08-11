@@ -2,14 +2,14 @@ import { datetime } from "utils";
 
 import { Tooltip, Text } from "@chakra-ui/react";
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 function NotificationTime({ time }) {
   const displayTime = datetime.get12HourTime(time);
   const displayDate = datetime.getFriendlyDate(time);
   const relativeTime = datetime.getRelativeTime(time);
 
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   return (
     <Tooltip label={`${displayDate} at ${displayTime}`}>

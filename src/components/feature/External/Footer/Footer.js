@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { Box, HStack, useColorModeValue } from "@chakra-ui/react";
 
@@ -7,7 +7,7 @@ import FooterCopyright from "./FooterCopyright";
 import FooterLinks from "./FooterLinks";
 
 function Footer() {
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
   const background = useColorModeValue("white", "gray.900");
 
   return (

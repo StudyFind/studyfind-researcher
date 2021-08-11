@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { Flex, Heading, Image } from "@chakra-ui/react";
 import SFLogo from "images/logo.png";
 
 function HeaderLogo() {
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
   const headingStyles = isPhone ? { size: "md" } : { fontSize: "25px" };
 
   return (

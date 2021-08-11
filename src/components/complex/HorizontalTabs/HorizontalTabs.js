@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useTabs } from "hooks";
 
 import styled from "styled-components";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 
@@ -19,7 +19,7 @@ import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 function HorizontalTabs({ tabs, ...rest }) {
   const [tabIndex, setTabIndex] = useTabs(tabs);
 
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   return (
     <Tabs colorScheme="blue" height="100%" index={tabIndex}>

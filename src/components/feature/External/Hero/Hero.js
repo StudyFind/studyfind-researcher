@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MediaContext from "context/MediaContext";
+import { useDetectDevice } from "hooks";
 
 import styled from "styled-components";
 
@@ -9,7 +9,7 @@ import { Link } from "components";
 import SFLogo from "images/logo.png";
 
 function Hero({ blackText, blueText, buttonText, buttonLink, image }) {
-  const { isPhone } = useContext(MediaContext);
+  const { isPhone } = useDetectDevice();
 
   const Container = styled.section`
     height: 100%;
