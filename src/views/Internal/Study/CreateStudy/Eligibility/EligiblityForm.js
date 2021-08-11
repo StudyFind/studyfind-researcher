@@ -4,21 +4,34 @@ import { object } from "functions";
 import { Flex, Button } from "@chakra-ui/react";
 
 function EligibilityForm({ study, handleBack, handleNext }) {
-  const [inputs, setInputs] = useState({ age: "", sex: "", control: false, conditions: [] });
-  const [errors, setErrors] = useState({ age: "", sex: "", control: false, conditions: [] });
+  const [inputs, setInputs] = useState({
+    minAge: "",
+    maxAge: "",
+    sex: "",
+    control: false,
+    conditions: [],
+  });
+  const [errors, setErrors] = useState({
+    minAge: "",
+    maxAge: "",
+    sex: "",
+    control: false,
+    conditions: [],
+  });
 
   const check = (name, value) => {
     if (!value) return true;
 
-    if (name === "age") {
-      const [min, max] = value.split("-");
-
-      if (max > min) {
+    if (name === "maxAge") {
+      if (inputs.min > value) {
         return "Max age must be greater than min age";
       }
     }
 
-    if (name === "sex") {
+    if (name === "conditions") {
+      if (value?.length < 3) {
+        return "You must have at least three conditions";
+      }
     }
   };
 

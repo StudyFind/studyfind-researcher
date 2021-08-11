@@ -10,7 +10,10 @@ function ParticipantsFilter({ sort, setSort, status, setStatus, search, setSearc
           label="Sort by"
           value={sort}
           onChange={(_, value) => setSort(value)}
-          options={["eligibility", "status"]}
+          options={[
+            { label: "Eligibility", value: "eligibility" },
+            { label: "Status", value: "status" },
+          ]}
         />
         <TextInput
           label="Search Participant"
