@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection, useDetectTimezone } from "hooks";
-import { UserContext, StudiesContext, ConfirmContext } from "context";
+import { useDocument, useCollection, useDetectTimezone, useStripeRole } from "hooks";
+import { UserContext, StudiesContext, ConfirmContext, StripeContext } from "context";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
@@ -37,43 +37,47 @@ function Internal() {
   const [confirm, setConfirm] = useState(null);
 
   useDetectTimezone(user);
+  const userStripeRole = useStripeRole();
 
   console.log(uid);
+  console.log(userStripeRole);
 
   return (
     <Flex>
       <UserContext.Provider value={user}>
         <StudiesContext.Provider value={studies}>
           <ConfirmContext.Provider value={setConfirm}>
-            <Sidebar name={user?.name} email={email} />
-            <Box
-              ml="280px"
-              w="100%"
-              minH={emailVerified ? "100vh" : "calc(100vh - 56px)"}
-              mt={emailVerified ? "" : "40px"}
-            >
-              {emailVerified || <Verification />}
-              {confirm && <Confirm {...confirm} handleClose={() => setConfirm(null)} />}
-              <Page isLoading={!(user)}>
-                <Switch>
-                  <Route exact path="/" component={Dashboard} />
-                  <Route path="/dashboard" component={Dashboard} />
-                  <Route path="/pricing" component={Pricing} />
-                  <Route path="/welcome" component={Welcome} />
-                  <Route path="/fetch" component={FetchStudy} />
-                  <Route path="/create/:studyID/:tab" component={CreateStudy} />
-                  <Route
-                    path="/study/:studyID/:tab/:action?/:participantID?"
-                    component={ViewStudy}
-                  />
-                  <Route path="/notifications" component={Notifications} />
-                  <Route path="/schedule" component={Schedule} />
-                  <Route path="/account/:tab" component={Account} />
-                  <Route path="/feedback" component={Feedback} />
-                  <Redirect to="/" />
-                </Switch>
-              </Page>
-            </Box>
+            <StripeContext.Provider value={userStripeRole}>
+              <Sidebar name={user?.name} email={email} />
+              <Box
+                ml="280px"
+                w="100%"
+                minH={emailVerified ? "100vh" : "calc(100vh - 56px)"}
+                mt={emailVerified ? "" : "40px"}
+              >
+                {emailVerified || <Verification />}
+                {confirm && <Confirm {...confirm} handleClose={() => setConfirm(null)} />}
+                <Page isLoading={!(user && userStripeRole)}>
+                  <Switch>
+                    <Route exact path="/" component={Dashboard} />
+                    <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/pricing" component={Pricing} />
+                    <Route path="/welcome" component={Welcome} />
+                    <Route path="/fetch" component={FetchStudy} />
+                    <Route path="/create/:studyID/:tab" component={CreateStudy} />
+                    <Route
+                      path="/study/:studyID/:tab/:action?/:participantID?"
+                      component={ViewStudy}
+                    />
+                    <Route path="/notifications" component={Notifications} />
+                    <Route path="/schedule" component={Schedule} />
+                    <Route path="/account/:tab" component={Account} />
+                    <Route path="/feedback" component={Feedback} />
+                    <Redirect to="/" />
+                  </Switch>
+                </Page>
+              </Box>
+            </StripeContext.Provider>
           </ConfirmContext.Provider>
         </StudiesContext.Provider>
       </UserContext.Provider>

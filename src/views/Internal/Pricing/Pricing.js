@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { StripeContext } from "context";
 
 import { auth, firestore, functions } from "database/firebase";
 import { Box, Button, Tooltip } from "@chakra-ui/react";
@@ -8,16 +9,19 @@ import { Page } from "@studyfind/components";
 
 function Pricing() {
 
-  const [userStripeRole, setUserStripeRole] = useState();
-  const [loading, setLoading] = useState(true);
+  const userStripeRole = useContext(StripeContext);
+  const [loading, setLoading] = useState(false);
 
   const handleSubscribe = async () => {
+    setLoading(true);
     const docRef = await firestore
       .collection('researchers')
       .doc(auth.currentUser.uid)
       .collection('checkout_sessions')
       .add({
         price: 'price_1JNtOPB81AOb8bDhopoIQFDH',
+        trial_from_plan: true,
+        allow_promotion_codes: true,
         success_url: window.location.origin,
         cancel_url: window.location.origin,
       });
@@ -37,32 +41,16 @@ function Pricing() {
   }
 
   const handleManageSubscription = async () => {
+    setLoading(true);
     const functionRef = functions
       .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
     const { data } = await functionRef({ returnUrl: window.location.origin });
     window.location.assign(data.url);
   }
 
-  const getCustomClaimRole = async () => {
-    await auth.currentUser.getIdToken(true);
-    const decodedToken = await auth.currentUser.getIdTokenResult();
-    if (decodedToken && decodedToken.claims && decodedToken.claims.stripeRole){
-      setUserStripeRole(decodedToken.claims.stripeRole);
-      setLoading(false);
-    }
-    else{
-      setUserStripeRole('basic');
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    getCustomClaimRole();
-  }, []);
-
   return (
     <>
-      <Page isLoading={loading}>
+      <Page isLoading={!(userStripeRole) || loading}>
         {(userStripeRole==='premium') ? (
           <Button leftIcon={<FaPlus />} colorScheme="blue" onClick={() => handleManageSubscription()}>
             Manage Subscription
