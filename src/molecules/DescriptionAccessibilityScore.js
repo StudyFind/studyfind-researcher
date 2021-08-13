@@ -1,4 +1,4 @@
-import { compute } from "functions";
+import { compute } from "utils";
 
 import { Heading, Text, Progress, Tag, Flex, Tooltip, Icon, Box } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";

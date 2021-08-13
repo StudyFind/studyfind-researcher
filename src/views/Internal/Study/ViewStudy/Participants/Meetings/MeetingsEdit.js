@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 import validator from "validator";
 
-import { datetime, object } from "functions";
+import { datetime, object } from "utils";
 import { auth, firestore } from "database/firebase";
 import { useParams, useLocation } from "react-router-dom";
 

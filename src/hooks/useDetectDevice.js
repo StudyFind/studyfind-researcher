@@ -5,7 +5,11 @@ function useDevice() {
   const [isTablet] = useMediaQuery("(min-width: 768px)");
   const [isPhone] = useMediaQuery("(min-width: 375px)");
 
-  return { isDesktop, isTablet, isPhone };
+  return {
+    isDesktop,
+    isTablet: isTablet && !isDesktop,
+    isPhone: isPhone && !isDesktop && !isTablet,
+  };
 }
 
 export default useDevice;

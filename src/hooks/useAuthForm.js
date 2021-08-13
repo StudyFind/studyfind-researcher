@@ -1,5 +1,5 @@
 import { useSimpleForm } from "hooks";
-import { validate } from "functions";
+import { validate } from "utils";
 
 function useAuthForm({ initial, onSubmit }) {
   const check = (name, value) => {

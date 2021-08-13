@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { object } from "functions";
+import { object } from "utils";
 
 import { Flex, Button } from "@chakra-ui/react";
 

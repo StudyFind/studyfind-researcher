@@ -1,6 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
-import { datetime } from "functions";
+import { datetime } from "utils";
 import { Box, Grid, Heading, Text } from "@chakra-ui/react";
 import Calendar from "./Calendar/Calendar";
 import Meetings from "./Meetings/Meetings";

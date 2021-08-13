@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { storage } from "database/firebase";
-import { datetime } from "functions";
+import { datetime } from "utils";
 import { useParams } from "react-router-dom";
 
 import FilesGrid from "./FilesGrid";

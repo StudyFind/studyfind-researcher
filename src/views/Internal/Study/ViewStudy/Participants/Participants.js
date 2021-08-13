@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { compute } from "functions";
+import { compute } from "utils";
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
 import { useParams } from "react-router-dom";

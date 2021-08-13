@@ -1,5 +1,5 @@
 import { Heading, Box, Flex, useColorModeValue } from "@chakra-ui/react";
-import { helpers } from "functions";
+import { helpers } from "utils";
 
 import ReminderStatus from "./ReminderStatus";
 import ReminderButtons from "./ReminderButtons";

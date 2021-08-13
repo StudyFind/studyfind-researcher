@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useDetectDevice } from "hooks";
 
 import styled from "styled-components";
@@ -10,6 +9,8 @@ import SFLogo from "images/logo.png";
 
 function Hero({ blackText, blueText, buttonText, buttonLink, image }) {
   const { isPhone } = useDetectDevice();
+
+  console.log(isPhone);
 
   const Container = styled.section`
     height: 100%;

@@ -1,4 +1,4 @@
-import { datetime } from "functions";
+import { datetime } from "utils";
 
 import { Text, Box, Flex, Heading, IconButton } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";

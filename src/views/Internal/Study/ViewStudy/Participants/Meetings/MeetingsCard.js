@@ -1,5 +1,5 @@
 import { useConfirm } from "hooks";
-import { datetime } from "functions";
+import { datetime } from "utils";
 import { firestore } from "database/firebase";
 
 import { Box, Flex, Heading, Text, useToast } from "@chakra-ui/react";

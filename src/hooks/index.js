@@ -1,3 +1,4 @@
+export { default as useAuth } from "./useAuth";
 export { default as useTabs } from "./useTabs";
 export { default as useForm } from "./useForm";
 export { default as useArray } from "./useArray";

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { datetime, helpers } from "functions";
+import { datetime, helpers } from "utils";
 import { auth, firestore } from "database/firebase";
 import { useParams } from "react-router-dom";
 

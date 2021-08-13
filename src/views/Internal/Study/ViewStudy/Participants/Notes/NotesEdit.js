@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { TextInput, TextareaInput } from "@studyfind/components";
 import { Flex, Grid, Button } from "@chakra-ui/react";
-import { object } from "functions";
+import { object } from "utils";
 
 function NotesEdit({ note, handleCreate, handleUpdate, handleCancel }) {
   const [inputs, setInputs] = useState({ title: "", body: "" });

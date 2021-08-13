@@ -1,4 +1,4 @@
-import { datetime } from "functions";
+import { datetime } from "utils";
 
 import { Tooltip, Text } from "@chakra-ui/react";
 

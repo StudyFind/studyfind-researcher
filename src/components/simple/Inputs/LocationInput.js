@@ -12,14 +12,9 @@ export const LocationInput = ({ name, value, error, label, onChange }) => {
 
   return (
     <InputWrapper label={label} error={error}>
-      <InputField
-        name={name}
-        value={text}
-        error={error}
-        onChange={handleTextChange}
-      />
-      {predictions.map((prediction) => (
-        <div>{prediction?.structured_formatting?.main_text}</div>
+      <InputField name={name} value={text} error={error} onChange={handleTextChange} />
+      {predictions.map((prediction, i) => (
+        <div key={i}>{prediction?.structured_formatting?.main_text}</div>
       ))}
     </InputWrapper>
   );
