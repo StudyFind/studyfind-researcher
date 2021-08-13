@@ -27,6 +27,7 @@ function Sidebar({ name, email }) {
 
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaPoll /> },
+    { name: "Pricing", path: "/pricing", icon: <FaPoll /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
     { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
     { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },

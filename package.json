@@ -7,6 +7,7 @@
     "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@stripe/stripe-js": "^1.17.0",
     "@studyfind/components": "^0.4.3",
     "firebase": "^8.6.3",
     "flesch": "^2.0.0",

@@ -20,6 +20,7 @@ import Notifications from "views/Internal/Notifications/Notifications";
 import Schedule from "views/Internal/Schedule/Schedule";
 import Account from "views/Internal/Account/Account";
 import Feedback from "views/Internal/Feedback/Feedback";
+import Pricing from "views/Internal/Pricing/Pricing";
 
 function Internal() {
   const { uid, email, emailVerified } = auth.currentUser;
@@ -37,6 +38,8 @@ function Internal() {
 
   useDetectTimezone(user);
 
+  console.log(uid);
+
   return (
     <Flex>
       <UserContext.Provider value={user}>
@@ -51,10 +54,11 @@ function Internal() {
             >
               {emailVerified || <Verification />}
               {confirm && <Confirm {...confirm} handleClose={() => setConfirm(null)} />}
-              <Page isLoading={!(user && studies)}>
+              <Page isLoading={!(user)}>
                 <Switch>
                   <Route exact path="/" component={Dashboard} />
                   <Route path="/dashboard" component={Dashboard} />
+                  <Route path="/pricing" component={Pricing} />
                   <Route path="/welcome" component={Welcome} />
                   <Route path="/fetch" component={FetchStudy} />
                   <Route path="/create/:studyID/:tab" component={CreateStudy} />
