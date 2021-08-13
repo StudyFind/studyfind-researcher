@@ -1,13 +1,12 @@
 import firebase from "firebase";
 
 const app = firebase.initializeApp({
-  apiKey: "AIzaSyB0_PyqZxFZm8t0jY3PAFyP8oMxFalCYGA",
-  authDomain: "studyfind-researcher.firebaseapp.com",
-  databaseURL: "https://studyfind-researcher.firebaseio.com",
-  projectId: "studyfind-researcher",
-  storageBucket: "studyfind-researcher.appspot.com",
-  messagingSenderId: "434311866185",
-  appId: "1:434311866185:web:6f6fa118d0b3b6959f1c98",
+  apiKey: "AIzaSyCsB6d3gfTvHNuHX2qbll4x_Axly0KML8k",
+  authDomain: "sf-pricing.firebaseapp.com",
+  projectId: "sf-pricing",
+  storageBucket: "sf-pricing.appspot.com",
+  messagingSenderId: "421158529056",
+  appId: "1:421158529056:web:f360fd107c4bf8e46f7445"
 });
 
 const auth = app.auth();
