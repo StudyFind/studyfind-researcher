@@ -1,8 +1,3 @@
-import { useEffect, useState } from "react";
-import { mockPromiseResolve } from "mock";
-import { notifications } from "data";
-import { notification } from "data";
-
 import { Button, Flex, Heading } from "@chakra-ui/react";
 import { Link, Loader } from "components";
 
@@ -10,33 +5,21 @@ import NotificationsList from "./NotificationsList";
 import NotificationsEmpty from "./NotificationsEmpty";
 import NotificationsError from "./NotificationsError";
 import { FaCog } from "react-icons/fa";
+import { useRealtimePagination } from "hooks";
+import { auth, firestore } from "database/firebase";
 
 function Notifications() {
-  const [notifs, setNotifs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [additionalLoading, setAdditionalLoading] = useState(false);
+  const { uid } = auth.currentUser;
 
-  const error = false;
-  const fetchedAll = true;
+  const NOTIFICATIONS_PER_REQUEST = 10;
+  const notificationsRef = firestore
+    .collection("researchers")
+    .doc(uid)
+    .collection("notifications")
+    .orderBy("time", "desc");
 
-  const handleFetchInitial = () => {
-    mockPromiseResolve().then(() => {
-      setNotifs(notifications);
-      setLoading(false);
-    });
-  };
-
-  const handleFetchAdditional = () => {
-    setAdditionalLoading(true);
-    mockPromiseResolve().then(() => {
-      setNotifs((prev) => prev.concat(notification));
-      setAdditionalLoading(false);
-    });
-  };
-
-  useEffect(() => {
-    handleFetchInitial();
-  }, []);
+  const [notifications, loading, error, handleFetchAdditional, additionalLoading, fetchedAll] =
+    useRealtimePagination(notificationsRef, NOTIFICATIONS_PER_REQUEST);
 
   if (loading) return <Loader />;
   if (error) return <NotificationsError />;
@@ -51,7 +34,7 @@ function Notifications() {
       </Flex>
       {notifications.length ? (
         <NotificationsList
-          notifications={notifs}
+          notifications={notifications}
           fetchedAll={fetchedAll}
           additionalLoading={additionalLoading}
           handleFetchAdditional={handleFetchAdditional}

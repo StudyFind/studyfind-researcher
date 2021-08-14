@@ -1,21 +1,24 @@
 import AccountResearcher from "components/feature/Account/AccountResearcher";
+import { useContext } from "react";
+import { UserContext } from "context";
+
+import { researcher } from "database/mutations";
+import { changePassword, deleteAccount, signout } from "database/auth";
 
 function Account() {
-  const handleUpdate = (updated) => {};
+  const user = useContext(UserContext);
 
-  const handleSignOut = () => {};
-
-  const handleChangePassword = ({ password, newPassword }) => {};
-
-  const handleDeleteAccount = ({ email, password }) => {};
+  const handleUpdate = (updated) => {
+    return researcher.update(updated);
+  };
 
   return (
     <AccountResearcher
-      user={{}}
+      user={user}
       handleUpdate={handleUpdate}
-      handleSignOut={handleSignOut}
-      handleChangePassword={handleChangePassword}
-      handleDeleteAccount={handleDeleteAccount}
+      handleSignOut={signout}
+      handleChangePassword={changePassword}
+      handleDeleteAccount={deleteAccount}
     />
   );
 }

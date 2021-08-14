@@ -1,0 +1,22 @@
+import { auth } from "database/firebase";
+import moment from "moment-timezone";
+
+export const getNow = () => {
+  return moment().utc().valueOf();
+};
+
+export const getUID = () => {
+  return auth?.currentUser?.uid;
+};
+
+export const getEmail = () => {
+  return auth?.currentUser?.email;
+};
+
+export const getSide = () => {
+  return "researcher";
+};
+
+export const getTimezone = () => {
+  return moment.tz.guess();
+};

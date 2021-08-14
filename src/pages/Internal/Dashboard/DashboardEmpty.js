@@ -1,5 +1,4 @@
-import { Alert, AlertIcon, Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { Link } from "components";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import DashboardButton from "./DashboardButton";
 
@@ -9,23 +8,11 @@ function DashboardEmpty({ verified }) {
       <Box w="500px">
         <Heading size="lg">Create your first study</Heading>
         <Text color="gray.500" mt="8px" mb="30px">
-          You can add your study using its Clinical Trials ID and begin
-          recruiting and managing participants almost instantaneously. StudyFind
-          automates a lot of your work for you.
+          You can add your study using its Clinical Trials ID and begin recruiting and managing
+          participants almost instantaneously. StudyFind automates a lot of your work for you.
         </Text>
         <DashboardButton verified={verified} />
       </Box>
-      {verified && (
-        <Box mt="auto">
-          <Link to="/welcome" isWrapper>
-            <Alert status="info" rounded="md" color="blue.500" mt="auto">
-              <AlertIcon />
-              Click here to automatically fetch all your studies from
-              clinicaltrials.gov and add them to your StudyFind account.
-            </Alert>
-          </Link>
-        </Box>
-      )}
     </Flex>
   );
 }

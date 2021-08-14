@@ -65,7 +65,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
 
     if (!valid) {
       setErrors(error);
-      return;
+      // return;
     }
 
     // const data = {

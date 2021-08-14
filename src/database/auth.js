@@ -1,7 +1,7 @@
-import { auth, firestore } from "database/firebase";
+import { auth } from "database/firebase";
+import { researcher } from "./mutations";
 
 import errors from "database/errors";
-import moment from "moment-timezone";
 
 const getErrorMessage = ({ code }) => {
   return { email: "", password: "", ...errors[code] };
@@ -14,37 +14,7 @@ const setLocalUserExists = (value) => {
 const signup = async ({ name, email, password }) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    const timezone = moment.tz.guess();
-
-    await Promise.all([
-      user.sendEmailVerification(),
-      firestore
-        .collection("researchers")
-        .doc(user.uid)
-        .set({
-          name,
-          timezone,
-          organization: "",
-          background: "",
-          preferences: {
-            timezone: { autodetect: true },
-
-            notifications: {
-              email: false,
-              phone: false,
-              toast: false,
-
-              categories: {
-                account: true,
-                studies: true,
-                participants: true,
-                meetings: true,
-                messages: true,
-              },
-            },
-          },
-        }),
-    ]);
+    await Promise.all([user.sendEmailVerification(), researcher.create(name)]);
 
     setLocalUserExists(true);
   } catch (error) {
@@ -86,7 +56,7 @@ const changePassword = async ({ password, newPassword }) => {
 const deleteAccount = async ({ email, password }) => {
   try {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
-    await firestore.collection("researchers").doc(user.uid).delete();
+    await researcher.delete();
     await user.delete();
     setLocalUserExists(false);
   } catch (error) {

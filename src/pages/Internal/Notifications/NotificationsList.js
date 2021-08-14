@@ -1,16 +1,13 @@
-import { Box, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 import { LoadMoreButton } from "components";
 
 import NotificationItem from "components/feature/Notifications/NotificationItem";
+import { notification } from "database/mutations";
 
-function NotificationList({
-  notifications,
-  fetchedAll,
-  additionalLoading,
-  handleFetchAdditional,
-}) {
+function NotificationList({ notifications, fetchedAll, additionalLoading, handleFetchAdditional }) {
   const handleNotificationRead = (id) => {
-    console.log("read", id);
+    console.log(id);
+    notification.read(id);
   };
 
   return (

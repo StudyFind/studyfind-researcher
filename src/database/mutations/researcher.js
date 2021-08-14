@@ -1,35 +1,36 @@
 import { firestore } from "database/firebase";
-import { getTimezone } from "database/getters";
+import { getTimezone, getUID } from "database/getters";
 
-const researchersRef = firestore.collection("researchers");
+const uid = getUID();
+const researcherRef = firestore.collection("researchers").doc(uid);
 
 export const researcher = {
-  create: (researcherID, name) =>
-    researchersRef.doc(researcherID).set({
-      name,
-      organization: "",
-      background: "",
-      timezone: {
-        region: getTimezone(),
-        autodetect: true,
-      },
-      notifications: {
-        local: false,
-        email: false,
-        phone: false,
-      },
-    }),
+  create: (name) =>
+    firestore
+      .collection("researchers")
+      .doc(uid)
+      .set({
+        name,
+        organization: "",
+        background: "",
+        timezone: {
+          region: getTimezone(),
+          autodetect: true,
+        },
+        notifications: {
+          local: false,
+          email: false,
+          phone: false,
+        },
+      }),
 
-  update: (
-    researcherID,
-    {
-      organization,
-      background,
-      timezone: { region, autodetect },
-      notifications: { local, email, phone },
-    }
-  ) =>
-    researchersRef.doc(researcherID).update({
+  update: ({
+    organization,
+    background,
+    timezone: { region, autodetect },
+    notifications: { local, email, phone },
+  }) =>
+    firestore.collection("researchers").doc(uid).update({
       organization,
       background,
       timezone: {
@@ -43,5 +44,5 @@ export const researcher = {
       },
     }),
 
-  delete: (researcherID) => researchersRef.doc(researcherID).delete(),
+  delete: () => firestore.collection("researchers").doc(uid).reearcherRef.delete(),
 };

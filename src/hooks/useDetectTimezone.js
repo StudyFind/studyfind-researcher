@@ -6,16 +6,19 @@ import moment from "moment";
 function useDetectTimezone(user) {
   useEffect(() => {
     if (user) {
-      const timezone = user.timezone;
-      const preference = user.preferences?.timezone?.autodetect;
+      const { region, autodetect } = user.timezone;
 
-      moment.tz.setDefault(timezone);
+      moment.tz.setDefault(region);
 
-      if (preference) {
+      if (autodetect) {
         const guessed = moment.tz.guess(true);
 
-        if (guessed !== timezone) {
-          firestore.collection("researchers").doc(user.id).update({ timezone: guessed });
+        if (guessed !== region) {
+          firestore
+            .collection("researchers")
+            .doc(user.id)
+            .update({ timezone: { region: guessed, autodetect } });
+
           moment.tz.setDefault(guessed);
         }
       }

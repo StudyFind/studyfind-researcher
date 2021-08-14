@@ -1,20 +1,31 @@
 import { useState } from "react";
 
+import { auth } from "database/firebase";
+
 import VerificationPending from "components/feature/EmailVerificationBanner/VerificationPending";
 import VerificationSuccess from "components/feature/EmailVerificationBanner/VerificationSuccess";
 import VerificationFailure from "components/feature/EmailVerificationBanner/VerificationFailure";
 
 function Verification() {
   const [state, setState] = useState("pending");
-  const email = "yohanjhaveri@gmail.com";
-  const loading = false;
+  const [loading, setLoading] = useState(false);
+
+  const { email, sendEmailVerification } = auth.currentUser;
+
+  const handleSendVerificationEmail = () => {
+    setLoading(true);
+    sendEmailVerification()
+      .then(() => setState("success"))
+      .catch(() => setState("failure"))
+      .finally(() => setLoading(false));
+  };
 
   return {
     pending: (
       <VerificationPending
         email={email}
         loading={loading}
-        setState={setState}
+        handleSendVerificationEmail={handleSendVerificationEmail}
       />
     ),
     success: <VerificationSuccess email={email} />,

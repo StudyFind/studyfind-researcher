@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import VerticalTabs from "components/complex/VerticalTabs/VerticalTabs";
 
@@ -7,17 +7,12 @@ import Notifications from "components/feature/Account/Notifications/Notification
 import Timezone from "components/feature/Account/Timezone/Timezone";
 import Security from "components/feature/Account/Security/Security";
 
-import { Flex, Heading, Button, Divider, Box } from "@chakra-ui/react";
-import {
-  FaDoorOpen,
-  FaUser,
-  FaMapMarkedAlt,
-  FaBell,
-  FaShieldAlt,
-} from "react-icons/fa";
+import { Flex, Heading, Button, Divider, Box, useToast } from "@chakra-ui/react";
+import { FaDoorOpen, FaUser, FaMapMarkedAlt, FaBell, FaShieldAlt } from "react-icons/fa";
 
 import AccountWrapper from "./AccountWrapper";
 import { useDetectDevice } from "hooks";
+import { toasts } from "templates";
 
 function AccountResearcher({
   user,
@@ -26,11 +21,16 @@ function AccountResearcher({
   handleChangePassword,
   handleDeleteAccount,
 }) {
+  const toast = useToast();
+
   const { isPhone } = useDetectDevice();
 
   const [inputs, setInputs] = useState(user);
-  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setInputs(user);
+  }, [user]);
 
   const haveInputsChanged = JSON.stringify(inputs) !== JSON.stringify(user);
 
@@ -41,8 +41,8 @@ function AccountResearcher({
   const handleUpdate = () => {
     setLoading(true);
     handleSave(inputs)
-      .then(() => {})
-      .catch(() => {})
+      .then(() => toast(toasts.updatedAccount))
+      .catch(() => toast(toasts.connectionError))
       .finally(() => setLoading(false));
   };
 
@@ -84,7 +84,6 @@ function AccountResearcher({
         >
           <ProfileResearcher
             inputs={inputs}
-            errors={errors}
             handleSetProfileAttribute={handleSetProfileAttribute}
           />
         </AccountWrapper>
@@ -103,7 +102,6 @@ function AccountResearcher({
         >
           <Notifications
             inputs={inputs}
-            errors={errors}
             handleSetNotificationsAttribute={handleSetNotificationsAttribute}
           />
         </AccountWrapper>
@@ -120,11 +118,7 @@ function AccountResearcher({
           handleUpdate={handleUpdate}
           showButtons={haveInputsChanged}
         >
-          <Timezone
-            inputs={inputs}
-            errors={errors}
-            handleSetTimezoneAttribute={handleSetTimezoneAttribute}
-          />
+          <Timezone inputs={inputs} handleSetTimezoneAttribute={handleSetTimezoneAttribute} />
         </AccountWrapper>
       ),
     },
@@ -150,17 +144,9 @@ function AccountResearcher({
 
   return (
     <>
-      <Flex
-        justify="space-between"
-        align="center"
-        marginBottom={isPhone && "40px"}
-      >
+      <Flex justify="space-between" align="center" marginBottom={isPhone && "40px"}>
         <Heading size="lg">Account</Heading>
-        <Button
-          colorScheme="red"
-          leftIcon={<FaDoorOpen />}
-          onClick={handleSignOut}
-        >
+        <Button colorScheme="red" leftIcon={<FaDoorOpen />} onClick={handleSignOut}>
           Sign out
         </Button>
       </Flex>

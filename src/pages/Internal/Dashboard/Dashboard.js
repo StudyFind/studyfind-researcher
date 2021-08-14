@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import { mockPromiseResolve } from "mock";
+import { useCollection } from "hooks";
+
+import { auth, firestore } from "database/firebase";
+
+import { Loader } from "components";
 
 import DashboardGrid from "./DashboardGrid";
 import DashboardEmpty from "./DashboardEmpty";
-import { Loader } from "components";
-import { auth, firestore } from "database/firebase";
-import { useDocument } from "hooks";
 
 function Dashboard() {
-  const [studies, loading, error] = useDocument(
-    firestore.documents("studies").where("researcher.id", "==", auth.currentUser.uid)
-  );
-  const [moreLoading, setMoreLoading] = useState(false);
+  const verified = auth.currentUser.emailVerified;
 
-  const verified = true;
+  const [studies, loading, error] = useCollection(
+    firestore.collection("studies").where("researcher.id", "==", auth.currentUser.uid)
+  );
+
+  const [moreLoading, setMoreLoading] = useState(false);
 
   const handleLoadInitial = () => {};
 
