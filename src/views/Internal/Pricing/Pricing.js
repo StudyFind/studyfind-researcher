@@ -1,16 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { StripeContext } from "context";
 
 import { auth, firestore, functions } from "database/firebase";
-import { Box, Button, Tooltip } from "@chakra-ui/react";
-import { FaPlus } from "react-icons/fa";
-import { Page } from "@studyfind/components";
+import { Box, Grid, Heading, Switch, Text } from "@chakra-ui/react";
+import { Loader } from "@studyfind/components";
+
+import { SiHive } from "react-icons/si";
+import PricingCard from "./PricingCard";
 
 
 function Pricing() {
 
   const userStripeRole = useContext(StripeContext);
   const [loading, setLoading] = useState(false);
+  const [billedAnnually, setBilledAnually] = useState(true);
 
   const handleSubscribe = async () => {
     setLoading(true);
@@ -19,7 +22,7 @@ function Pricing() {
       .doc(auth.currentUser.uid)
       .collection('checkout_sessions')
       .add({
-        price: 'price_1JNtOPB81AOb8bDhopoIQFDH',
+        price: billedAnnually? 'price_1JOMbtB81AOb8bDh5omTaX6a' : 'price_1JNtOPB81AOb8bDhopoIQFDH',
         trial_from_plan: true,
         allow_promotion_codes: true,
         success_url: window.location.origin,
@@ -48,20 +51,41 @@ function Pricing() {
     window.location.assign(data.url);
   }
 
+  const plans = {
+    premium: {
+      icon: SiHive,
+      name: "Premium",
+      price: ["$5", "$4"],
+      features: ["Instant Messaging", "Meetings and Reminders Scheduling", "Email and Text Notifications"],
+    },
+  };
+
+  const handleChange = (e) => {
+    setBilledAnually(e.target.checked);
+  };
+
+  if (!(userStripeRole) || loading) return (<Loader/>);
+
   return (
-    <>
-      <Page isLoading={!(userStripeRole) || loading}>
+    <Box bg="gray.100" p="100px">
+      <Heading fontWeight="extrabold" mb="12px">
+        Pricing Plans
+      </Heading>
+      <Text color="gray.600" w="450px">
+        Start with a free 1 month trial and then pick the plan of your liking. Account plans
+        unlock additional features and newer features may arrive to higher tier plans first.
+      </Text>
+      <Text fontWeight="medium" mt="24px" mb="48px">
+        Monthly <Switch mx="6px" isChecked={billedAnnually} onChange={handleChange} /> Annually
+      </Text>
+      <Grid gap="30px" templateColumns={"1fr"}>
         {(userStripeRole==='premium') ? (
-          <Button leftIcon={<FaPlus />} colorScheme="blue" onClick={() => handleManageSubscription()}>
-            Manage Subscription
-          </Button>
+          <PricingCard billedAnnually={billedAnnually} handleClick={handleManageSubscription} subscribed={true} {...plans.premium} />
         ) : (
-          <Button leftIcon={<FaPlus />} colorScheme="blue" onClick={() => handleSubscribe()}>
-            Subscribe
-          </Button>
+          <PricingCard billedAnnually={billedAnnually} handleClick={handleSubscribe} subscribed={false} {...plans.premium} />
         )}
-      </Page>
-    </>
+      </Grid>
+    </Box>
   );
 }
 
