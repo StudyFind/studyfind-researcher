@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 
 import { Link } from "@studyfind/components";
-import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, Text, Image, Avatar, Badge } from "@chakra-ui/react";
+
+import { useContext } from "react";
+import { StripeContext } from "context";
 
 import {
   FaBell,
@@ -18,6 +21,8 @@ import StudyFindLogo from "images/logo.png";
 
 function Sidebar({ name, email }) {
   const { pathname } = useLocation();
+
+  const userStripeRole = useContext(StripeContext);
 
   const isSelected = (path) => {
     const pagename = path.split("/")[1];
@@ -55,6 +60,7 @@ function Sidebar({ name, email }) {
         <Flex rounded="md" align="center">
           <Avatar name={name} bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
           <Box>
+            <Badge>{userStripeRole}</Badge>
             <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
               {name}
             </Text>
