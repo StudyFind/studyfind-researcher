@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import { useDetectDevice } from "hooks";
 import getNotificationTemplate from "./templates/getNotificationTemplate";
 
@@ -8,6 +8,7 @@ import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 
 import NotificationIcon from "./NotificationIcon";
 import NotificationTime from "./NotificationTime";
+import { Card } from "components/simple/Card";
 
 function NotificationItem({ side, notification, handleNotificationRead }) {
   const [initialRead] = useState(notification.read);
@@ -28,50 +29,54 @@ function NotificationItem({ side, notification, handleNotificationRead }) {
     original notification.read value would be true when the component first renders
   */
 
-  useEffect(() => {
-    if (!initialRead) {
-      handleNotificationRead();
-    }
-  }, []);
-
-  const { code, meta, time, read } = notification;
+  const { id, code, meta, time, read } = notification;
   const { title, body, icon, color, link } = getNotificationTemplate({
     code,
     side,
     meta,
   });
 
+  useEffect(() => {
+    if (!initialRead) {
+      handleNotificationRead(id);
+    }
+  }, []);
+
   const { isPhone } = useDetectDevice();
 
-  const readColor = useColorModeValue("white", "gray.900");
-  const unreadColor = useColorModeValue("blue.50", "gray.800");
+  const readBorderColor = useColorModeValue("gray.200", "gray.700");
+  const unreadBorderColor = useColorModeValue("blue.100", "blue.600");
+
+  const readBackgroundColor = useColorModeValue("white", "gray.900");
+  const unreadBackgroundColor = useColorModeValue("blue.50", "blue.900");
 
   return (
     <NotificationLink to={link}>
-      <Flex
-        align="flex-start"
-        padding="12px"
-        gridGap="10px"
-        rounded="md"
-        background={read ? readColor : unreadColor}
+      <Card
+        key={notification.id}
+        width="100%"
+        borderColor={read ? readBorderColor : unreadBorderColor}
+        background={read ? readBackgroundColor : unreadBackgroundColor}
       >
-        <NotificationIcon icon={icon} color={color} />
-        <Box width="100%" marginLeft="4px">
-          <Flex
-            direction={isPhone ? "column" : "row"}
-            justify={isPhone ? "" : "space-between"}
-            align={isPhone ? "flex-start" : "center"}
-          >
-            <Text size="sm" fontWeight="600">
-              {title}
+        <Flex align="flex-start" padding="12px" gridGap="10px" rounded="md">
+          <NotificationIcon icon={icon} color={color} />
+          <Box width="100%" marginLeft="4px">
+            <Flex
+              direction={isPhone ? "column" : "row"}
+              justify={isPhone ? "" : "space-between"}
+              align={isPhone ? "flex-start" : "center"}
+            >
+              <Text size="sm" fontWeight="600">
+                {title}
+              </Text>
+              <NotificationTime time={time} />
+            </Flex>
+            <Text fontSize="sm" color="gray.500">
+              {body}
             </Text>
-            <NotificationTime time={time} />
-          </Flex>
-          <Text fontSize="sm" color="gray.500">
-            {body}
-          </Text>
-        </Box>
-      </Flex>
+          </Box>
+        </Flex>
+      </Card>
     </NotificationLink>
   );
 }

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useDetectDevice } from "hooks";
 
 import { Flex, useColorModeValue } from "@chakra-ui/react";
@@ -17,15 +17,14 @@ function Sidebar({ name, email, links, ...rest }) {
   return (
     <Flex
       direction="column"
-      width={isPhone ? "100%" : "280px"}
-      h={(!isPhone || active) && "100vh"}
+      height={(!isPhone || active) && "100vh"}
       background={background}
       {...rest}
     >
       <SidebarLogo isPhone={isPhone} active={active} setActive={setActive} />
       {(!isPhone || active) && (
         <>
-          <SidebarLinks links={links} />
+          <SidebarLinks links={links} setActive={setActive} />
           <SidebarUser name={name} email={email} />
         </>
       )}

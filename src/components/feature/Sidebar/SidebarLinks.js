@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "components";
 import { Grid, Flex, useColorModeValue } from "@chakra-ui/react";
 
-function SidebarLinks({ links }) {
+function SidebarLinks({ links, setActive }) {
   const { pathname } = useLocation();
 
   const isSelected = (path) => {
@@ -17,7 +17,7 @@ function SidebarLinks({ links }) {
   return (
     <Grid marginBottom="auto">
       {links.map((link, i) => (
-        <Link key={i} to={link.path} isWrapper>
+        <Link key={i} to={link.path} isWrapper onClick={() => setActive(false)}>
           <Flex
             padding="20px"
             align="center"
@@ -26,7 +26,7 @@ function SidebarLinks({ links }) {
             fontWeight="600"
             _hover={{ color: "white" }}
             color={isSelected(link.path) ? "white" : linkColor}
-            background={isSelected(link.path) && "rgb(0, 0, 0, 0.2)"}
+            background={isSelected(link.path) && "rgb(0, 0, 0, 0.25)"}
           >
             {link.icon}
             {link.name}

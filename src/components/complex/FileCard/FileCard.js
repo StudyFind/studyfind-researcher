@@ -11,9 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { FaFilePdf, FaTrashAlt } from "react-icons/fa";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Link } from "components";
 
-function FileCard({ file, handleDelete }) {
+function FileCard({ file, handleOpen, handleDelete }) {
   const iconBackgroundColor = useColorModeValue("white", "gray.900");
   const detailsBackgroundColor = useColorModeValue("gray.50", "gray.800");
   const fileNameColor = useColorModeValue("gray.600", "gray.100");
@@ -22,33 +21,37 @@ function FileCard({ file, handleDelete }) {
 
   return (
     <Box borderRadius="6px" borderWidth="1px" borderColor={borderColor}>
-      <Link to={file.link} isWrapper>
-        <Flex
-          justify="center"
-          align="center"
-          height="100px"
-          background={iconBackgroundColor}
-          borderTopRadius="6px"
-        >
-          <Icon
-            as={FaFilePdf}
-            color={secondaryColor}
-            height="30px"
-            width="30px"
-          />
-        </Flex>
-      </Link>
+      <Flex
+        justify="center"
+        align="center"
+        height="100px"
+        borderTopRadius="6px"
+        cursor="pointer"
+        background={iconBackgroundColor}
+        onClick={handleOpen}
+      >
+        <Icon
+          as={FaFilePdf}
+          color={secondaryColor}
+          height="30px"
+          width="30px"
+        />
+      </Flex>
       <Divider color={borderColor} />
       <Box
         padding="15px"
         background={detailsBackgroundColor}
         borderBottomRadius="6px"
       >
-        <Link to={file.link} isWrapper>
-          <Name color={fileNameColor} fontSize="14px" fontWeight="500">
-            <Tooltip label={file.name}>{file.name}</Tooltip>
-          </Name>
-        </Link>
+        <Name
+          color={fileNameColor}
+          fontSize="14px"
+          fontWeight="500"
+          cursor="pointer"
+          onClick={handleOpen}
+        >
+          <Tooltip label={file.name}>{file.name}</Tooltip>
+        </Name>
         <Flex justify="space-between" align="center">
           <Text color={secondaryColor} fontSize="14px">
             {file.date}
@@ -63,20 +66,21 @@ function FileCard({ file, handleDelete }) {
                   _hover={{ color: "red.400" }}
                   onClick={() => handleDelete(file.name)}
                   pointerEvents="all"
+                  cursor="pointer"
                 />
               </Box>
             </Tooltip>
             <Tooltip label="Open File">
               <Box>
-                <Link to={file.link} isWrapper>
-                  <Icon
-                    as={ExternalLinkIcon}
-                    fontSize="14px"
-                    color={secondaryColor}
-                    _hover={{ color: "blue.400" }}
-                    pointerEvents="all"
-                  />
-                </Link>
+                <Icon
+                  as={ExternalLinkIcon}
+                  fontSize="14px"
+                  color={secondaryColor}
+                  _hover={{ color: "blue.400" }}
+                  pointerEvents="all"
+                  onClick={handleOpen}
+                  cursor="pointer"
+                />
               </Box>
             </Tooltip>
           </Flex>

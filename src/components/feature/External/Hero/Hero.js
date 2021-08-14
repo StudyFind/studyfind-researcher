@@ -1,8 +1,7 @@
+import styled from "styled-components";
 import { useDetectDevice } from "hooks";
 
-import styled from "styled-components";
-
-import { Flex, Heading, Button, Text, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button, Text, Image } from "@chakra-ui/react";
 import { Link } from "components";
 
 import SFLogo from "images/logo.png";
@@ -10,12 +9,9 @@ import SFLogo from "images/logo.png";
 function Hero({ blackText, blueText, buttonText, buttonLink, image }) {
   const { isPhone } = useDetectDevice();
 
-  console.log(isPhone);
-
-  const Container = styled.section`
-    height: 100%;
-    width: 100%;
-    padding: 50px;
+  const Container = styled(Box)`
+    height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -25,11 +21,6 @@ function Hero({ blackText, blueText, buttonText, buttonLink, image }) {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;`}
-
-    @media only screen and (max-width: 600px) {
-      padding: 30px;
-      grid-gap: 30px;
-    }
   `;
 
   const Call = styled.div`
@@ -40,9 +31,9 @@ function Hero({ blackText, blueText, buttonText, buttonLink, image }) {
   `;
 
   return (
-    <Container>
+    <Container padding={isPhone ? "30px" : "50px"}>
       <Flex align="center">
-        <Image src={SFLogo} height="2rem" marginRight="10px" />
+        <Image src={SFLogo} height="1.8rem" marginRight="10px" />
         <Heading fontSize="1.7rem">StudyFind</Heading>
       </Flex>
       <Call>

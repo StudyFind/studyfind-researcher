@@ -1,5 +1,4 @@
 import { Box, Flex, Image, Text, useColorModeValue } from "@chakra-ui/react";
-import { useContext } from "react";
 import { useDetectDevice } from "hooks";
 
 function TeamMember({ image, name, position, description }) {

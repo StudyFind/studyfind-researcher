@@ -3,12 +3,7 @@ import { Grid } from "@chakra-ui/react";
 import AccountHeader from "../AccountHeader";
 import { CheckboxInput } from "components";
 
-function Notifications({
-  inputs,
-  email,
-  phone,
-  handleSetNotificationsAttribute,
-}) {
+function Notifications({ inputs, handleSetNotificationsAttribute }) {
   return (
     <Grid gap="20px">
       <AccountHeader

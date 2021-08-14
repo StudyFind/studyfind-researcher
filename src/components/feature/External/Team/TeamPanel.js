@@ -1,5 +1,6 @@
 import {
   Box,
+  Flex,
   Heading,
   Text,
   Button,
@@ -18,8 +19,13 @@ function Panel({ colorScheme, title, description, buttonText, buttonLink }) {
   );
 
   return (
-    <Box padding="30px">
-      <Box background={backgroundColor} padding="30px" borderRadius="10px">
+    <Flex justify="center">
+      <Box
+        background={backgroundColor}
+        padding="30px"
+        borderRadius="10px"
+        maxWidth="360px"
+      >
         <Heading color={headingColor} as="h2" size="lg" fontWeight="bold">
           {title}
         </Heading>
@@ -34,7 +40,7 @@ function Panel({ colorScheme, title, description, buttonText, buttonLink }) {
           {buttonText}
         </Button>
       </Box>
-    </Box>
+    </Flex>
   );
 }
 

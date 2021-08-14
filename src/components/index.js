@@ -14,6 +14,7 @@ export { EditorButton } from "./simple/Buttons/EditorButton";
 export { ClipboardButton } from "./simple/Buttons/ClipboardButton";
 export { SecondaryButton } from "./simple/Buttons/SecondaryButton";
 export { NewCardButton } from "./simple/Buttons/NewCardButton";
+export { LoadMoreButton } from "./simple/Buttons/LoadMoreButton";
 
 // INPUTS
 export { TagInput } from "./simple/Inputs/TagInput";

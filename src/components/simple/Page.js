@@ -1,8 +1,12 @@
-import { Box } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import { Loader } from "./Loader";
 
-export const Page = ({ children, isLoading }) => (
-  <Box padding="40px" height="100%" background="#f8f9fa">
-    {isLoading ? <Loader /> : children}
-  </Box>
-);
+export const Page = ({ children, isLoading, ...rest }) => {
+  const background = useColorModeValue("#f8f9fa", "gray.800");
+
+  return (
+    <Box background={background} {...rest}>
+      {isLoading ? <Loader /> : children}
+    </Box>
+  );
+};

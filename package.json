@@ -25,6 +25,7 @@
     "react-use": "^17.2.4",
     "styled-components": "^5.3.0",
     "syllable": "^5.0.0",
+    "use-places-autocomplete": "^1.9.4",
     "validator": "^13.6.0"
   },
   "scripts": {

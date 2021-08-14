@@ -1,8 +1,9 @@
 import { Button, Text, useColorModeValue } from "@chakra-ui/react";
 
-function VerticalTabItem({ icon, name, selected, onClick }) {
+function VerticalTabItem({ icon, name, selected, showBorder, onClick }) {
   const hover = useColorModeValue("gray.200", "gray.800");
   const active = useColorModeValue("gray.300", "gray.700");
+  const borderColor = useColorModeValue("gray.200", "gray.700");
 
   return (
     <Button
@@ -13,6 +14,8 @@ function VerticalTabItem({ icon, name, selected, onClick }) {
       _active={{ bg: selected ? "blue.500" : active }}
       textTransform="capitalize"
       justifyContent="flex-start"
+      borderColor={selected ? "blue.500" : borderColor}
+      borderWidth={showBorder && "1px"}
       leftIcon={icon}
       onClick={onClick}
     >

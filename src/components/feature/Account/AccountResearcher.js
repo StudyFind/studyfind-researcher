@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 
 import AccountWrapper from "./AccountWrapper";
+import { useDetectDevice } from "hooks";
 
 function AccountResearcher({
   user,
@@ -25,6 +26,8 @@ function AccountResearcher({
   handleChangePassword,
   handleDeleteAccount,
 }) {
+  const { isPhone } = useDetectDevice();
+
   const [inputs, setInputs] = useState(user);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -126,7 +129,7 @@ function AccountResearcher({
       ),
     },
     {
-      name: "security",
+      name: "Security",
       link: "/account/security",
       icon: <FaShieldAlt />,
       content: (
@@ -147,7 +150,11 @@ function AccountResearcher({
 
   return (
     <>
-      <Flex justify="space-between" align="center">
+      <Flex
+        justify="space-between"
+        align="center"
+        marginBottom={isPhone && "40px"}
+      >
         <Heading size="lg">Account</Heading>
         <Button
           colorScheme="red"
@@ -157,7 +164,7 @@ function AccountResearcher({
           Sign out
         </Button>
       </Flex>
-      <Divider marginY="30px" />
+      {isPhone || <Divider marginY="30px" />}
       <Box>
         <VerticalTabs tabs={tabs} />
       </Box>

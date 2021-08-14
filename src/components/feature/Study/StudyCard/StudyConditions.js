@@ -1,6 +1,8 @@
-import { Flex, Tag, TagLabel } from "@chakra-ui/react";
+import { Flex, Tag, TagLabel, useColorMode } from "@chakra-ui/react";
 
 function StudyConditions({ conditions }) {
+  const { colorMode } = useColorMode();
+
   return (
     <Flex
       height="24px"
@@ -10,7 +12,12 @@ function StudyConditions({ conditions }) {
       overflow="hidden"
     >
       {conditions?.map((condition, i) => (
-        <Tag key={i} variant="solid" size="sm" colorScheme="blue">
+        <Tag
+          key={i}
+          size="sm"
+          colorScheme="blue"
+          variant={colorMode === "light" ? "solid" : "subtle"}
+        >
           <TagLabel>{condition}</TagLabel>
         </Tag>
       ))}

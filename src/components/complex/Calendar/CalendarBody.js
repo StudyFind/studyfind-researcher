@@ -1,8 +1,11 @@
 import moment from "moment";
 import styled from "styled-components";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useColorModeValue } from "@chakra-ui/react";
 
 function CalendarBody({ month, year, date, setDate }) {
+  const activeColor = useColorModeValue("blue.500", "blue.400");
+  const defaultColor = useColorModeValue("gray.500", "gray.500");
+
   const render = () => {
     const today = moment().format("YYYY-MM-DD");
     const selected = moment(`${year}-${month + 1}`, "YYYY-M");
@@ -21,6 +24,9 @@ function CalendarBody({ month, year, date, setDate }) {
           const isValid =
             currentDay <= daysInMonth && count >= firstWeekdayOffsetFromMonday;
 
+          const isSelected = date === currentDate;
+          const isToday = today === currentDate;
+
           return (
             <TableBodyCell
               key={weekday}
@@ -37,6 +43,10 @@ function CalendarBody({ month, year, date, setDate }) {
                   rounded="full"
                   today={today === currentDate}
                   selected={date === currentDate}
+                  color={isToday ? activeColor : defaultColor}
+                  background={isSelected ? activeColor : "transparent"}
+                  borderColor={isToday ? activeColor : "transparent"}
+                  borderWidth="2px"
                 >
                   {isValid ? currentDay : ""}
                 </Selected>
@@ -97,8 +107,6 @@ const Selected = styled(Flex)`
     props.today &&
     `
     font-weight: 500;
-    color: rgb(49, 130, 206);
-    border: 2px solid rgb(49, 130, 206);
     border-radius: 1000px;
   `}
 
@@ -107,7 +115,6 @@ const Selected = styled(Flex)`
     `
     font-weight: 500;
     color: white;
-    background: rgb(49, 130, 206);
     border-radius: 1000px;
   `}
 `;

@@ -4,7 +4,13 @@ import { useTabs } from "hooks";
 import styled from "styled-components";
 import { useDetectDevice } from "hooks";
 
-import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
+import {
+  Tabs,
+  Tab,
+  TabList,
+  TabPanels,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 /*
   tabs = [
@@ -17,15 +23,30 @@ import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 */
 
 function HorizontalTabs({ tabs, ...rest }) {
+  const color = useColorModeValue("gray.400", "gray.500");
+  const borderColor = useColorModeValue("gray.300", "gray.600");
+
   const [tabIndex, setTabIndex] = useTabs(tabs);
 
   const { isPhone } = useDetectDevice();
 
   return (
     <Tabs colorScheme="blue" height="100%" index={tabIndex}>
-      <TabList overflowY={isPhone && "scroll"}>
+      <TabList
+        overflowX={isPhone && "scroll"}
+        overflowY={isPhone && "hidden"}
+        borderBottomWidth={isPhone ? "0" : "2px"}
+        borderBottomColor={borderColor}
+        height="42px"
+      >
         {tabs.map((t, i) => (
-          <TabItem key={i} className="tab-item" onClick={() => setTabIndex(i)}>
+          <TabItem
+            key={i}
+            className="tab-item"
+            onClick={() => setTabIndex(i)}
+            color={color}
+            borderBottomColor={borderColor}
+          >
             {t.name}
           </TabItem>
         ))}
@@ -37,7 +58,6 @@ function HorizontalTabs({ tabs, ...rest }) {
 
 const TabItem = styled(Tab)`
   font-weight: 600;
-  color: rgb(161, 175, 192);
   display: flex;
   grid-gap: 8px;
   align-items: center;

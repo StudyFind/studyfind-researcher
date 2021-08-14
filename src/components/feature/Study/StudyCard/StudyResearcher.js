@@ -1,6 +1,5 @@
 import { Box, Flex, Text, Avatar, useColorModeValue } from "@chakra-ui/react";
 import { useDetectDevice } from "hooks";
-import { useContext } from "react";
 
 function StudyResearcher({ researcher }) {
   const avatar = useColorModeValue("blue.500", "blue.700");
@@ -24,7 +23,7 @@ function StudyResearcher({ researcher }) {
       <Avatar color="white" background={avatar} name={researcher.name} />
       <Box>
         <Text isTruncated>{researcher.name}</Text>
-        <Text isTruncated color="gray.500" maxWidth="80%">
+        <Text isTruncated color="gray.500">
           {researcher.email}
         </Text>
       </Box>

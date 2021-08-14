@@ -1,10 +1,10 @@
 import { Badge } from "@chakra-ui/react";
 
-function StudyStatus({ published }) {
-  return published ? (
-    <Badge colorScheme="green">Published</Badge>
+function StudyStatus({ activated }) {
+  return activated ? (
+    <Badge colorScheme="green">Active</Badge>
   ) : (
-    <Badge colorScheme="red">Unpublished</Badge>
+    <Badge colorScheme="red">Inactive</Badge>
   );
 }
 

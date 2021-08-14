@@ -13,7 +13,8 @@ import {
 function ScreeningTable({ questions }) {
   const textColor = useColorModeValue("gray.600", "gray.400");
   const borderColor = useColorModeValue("gray.200", "gray.700");
-  const backgroundColor = useColorModeValue("gray.100", "gray.800");
+  const headCellBackgroundColor = useColorModeValue("gray.100", "gray.800");
+  const bodyCellBackgroundColor = useColorModeValue("white", "gray.900");
 
   return (
     <Table width="100%">
@@ -23,7 +24,7 @@ function ScreeningTable({ questions }) {
             fontSize="12px"
             borderWidth="1px"
             borderColor={borderColor}
-            background={backgroundColor}
+            background={headCellBackgroundColor}
           >
             Type
           </Th>
@@ -31,7 +32,7 @@ function ScreeningTable({ questions }) {
             fontSize="12px"
             borderWidth="1px"
             borderColor={borderColor}
-            background={backgroundColor}
+            background={headCellBackgroundColor}
           >
             Question
           </Th>
@@ -44,6 +45,7 @@ function ScreeningTable({ questions }) {
               padding="8px 12px"
               borderWidth="1px"
               borderColor={borderColor}
+              background={bodyCellBackgroundColor}
               nowrap
             >
               <Tag
@@ -56,6 +58,7 @@ function ScreeningTable({ questions }) {
               padding="8px 12px"
               borderWidth="1px"
               borderColor={borderColor}
+              background={bodyCellBackgroundColor}
               nowrap
             >
               <Text color={textColor}>{question.prompt}</Text>

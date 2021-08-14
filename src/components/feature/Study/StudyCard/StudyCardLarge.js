@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useDetectDevice } from "hooks";
 
 import { Heading, Text, Box, Flex, useColorModeValue } from "@chakra-ui/react";

@@ -1,5 +1,5 @@
-import { Box, Grid, Flex, Button, useColorModeValue } from "@chakra-ui/react";
-import { Disclaimer } from "components";
+import { Box, Grid, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Disclaimer, LoadMoreButton } from "components";
 
 import Message from "./Message";
 
@@ -12,7 +12,6 @@ function MessageList({
   additionalLoading,
 }) {
   const messageListbackground = useColorModeValue("#f8f9fa", "gray.800");
-  const loadMoreButtonBackground = useColorModeValue("white", "gray.900");
 
   return (
     <Grid overflowY="scroll" background={messageListbackground}>
@@ -31,16 +30,12 @@ function MessageList({
             </Disclaimer>
           </Box>
         ) : (
-          <Button
+          <LoadMoreButton
             onClick={handleFetchAdditional}
             isLoading={additionalLoading}
-            background={loadMoreButtonBackground}
-            color="gray.500"
-            variant="outline"
-            size="sm"
           >
             Load more
-          </Button>
+          </LoadMoreButton>
         )}
       </Flex>
       <Flex

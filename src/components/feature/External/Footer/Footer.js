@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useDetectDevice } from "hooks";
 
 import { Box, HStack, useColorModeValue } from "@chakra-ui/react";

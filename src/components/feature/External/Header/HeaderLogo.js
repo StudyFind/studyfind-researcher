@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useDetectDevice } from "hooks";
 
 import { Flex, Heading, Image } from "@chakra-ui/react";

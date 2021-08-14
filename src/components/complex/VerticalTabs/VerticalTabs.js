@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import { useTabs } from "hooks";
 
 import { useDetectDevice } from "hooks";
 
-import { Flex, Grid } from "@chakra-ui/react";
+import { Flex, SimpleGrid } from "@chakra-ui/react";
 import VerticalTabItem from "./VerticalTabItem";
 /*
   tabs = [
@@ -20,8 +19,15 @@ function VerticalTabs({ tabs, ...rest }) {
   const { isPhone } = useDetectDevice();
 
   return (
-    <Flex direction={isPhone ? "column" : "row"} align={isPhone || "flex-start"}>
-      <Grid gap="10px" marginBottom={isPhone ? "30px" : "0"} width={isPhone ? "100%" : "180px"}>
+    <Flex
+      direction={isPhone ? "column" : "row"}
+      align={isPhone || "flex-start"}
+    >
+      <SimpleGrid
+        spacing="10px"
+        columns={isPhone ? 2 : 1}
+        width={isPhone ? "100%" : "180px"}
+      >
         {tabs.map((t, i) => (
           <VerticalTabItem
             key={i}
@@ -29,9 +35,10 @@ function VerticalTabs({ tabs, ...rest }) {
             icon={t.icon}
             selected={tabIndex === i}
             onClick={() => setTabIndex(i)}
+            showBorder={isPhone}
           />
         ))}
-      </Grid>
+      </SimpleGrid>
       <Flex {...rest}>{tabs[tabIndex].content}</Flex>
     </Flex>
   );

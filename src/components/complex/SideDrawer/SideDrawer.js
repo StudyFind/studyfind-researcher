@@ -20,7 +20,7 @@ function SideDrawer({ heading, subheading, onClose, isOpen, children }) {
 
   return (
     <Drawer size="sm" placement="right" onClose={onClose} isOpen={isOpen}>
-      <DrawerOverlay />
+      <DrawerOverlay background="rgb(0, 0, 0, 0.75)" />
       <DrawerContent>
         <DrawerHeader
           borderBottomWidth="1px"

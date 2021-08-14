@@ -19,11 +19,12 @@ function PricingCard({
   name,
   price,
   features,
-  billedAnnually,
   isPopular,
+  billedAnnually,
 }) {
   const background = useColorModeValue("white", "gray.900");
   const accentColor = useColorModeValue("blue.600", "blue.400");
+  const borderColor = useColorModeValue("gray.200", "gray.700");
 
   return (
     <Flex
@@ -35,8 +36,10 @@ function PricingCard({
       shadow="lg"
       width="100%"
       direction="column"
+      rounded="xl"
+      borderWidth="1px"
       background={background}
-      rounded={{ sm: "xl" }}
+      borderColor={borderColor}
     >
       {isPopular && <PricingBadge>Popular</PricingBadge>}
       <VStack spacing={6}>

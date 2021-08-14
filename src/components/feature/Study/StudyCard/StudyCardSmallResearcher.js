@@ -21,7 +21,7 @@ function StudyCardSmall({ study }) {
         <Text fontSize="sm" color="gray.400">
           {study.id}
         </Text>
-        <StudyStatus published={study.published} />
+        <StudyStatus activated={study.activated} />
       </Flex>
       <Heading size="sm" noOfLines={2} marginBottom="6px">
         {study.title}

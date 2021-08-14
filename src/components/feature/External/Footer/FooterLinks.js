@@ -3,7 +3,7 @@ import { FaFacebookSquare, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { Link } from "components";
 
 function FooterLinks() {
-  const color = useColorModeValue("gray.700", "gray.200");
+  const color = useColorModeValue("gray.500", "gray.200");
 
   return (
     <ButtonGroup variant="ghost" color="gray.600">

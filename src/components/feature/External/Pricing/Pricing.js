@@ -1,46 +1,22 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useDetectDevice } from "hooks";
 
-import { Box, Grid, Heading, Switch, Text, useColorModeValue } from "@chakra-ui/react";
-import { SiHive, SiMarketo, SiMicrosoft } from "react-icons/si";
+import { Box, Grid, Heading, SimpleGrid, Switch, Text, useColorModeValue } from "@chakra-ui/react";
+
 import PricingCard from "./PricingCard";
 
-function Pricing() {
-  const { isPhone, isDesktop } = useDetectDevice();
+function Pricing({ plans }) {
+  const { isPhone, isDesktop, responsive } = useDetectDevice();
   const [billedAnnually, setBilledAnually] = useState(true);
 
   const handleChange = (event) => {
     setBilledAnually(event.target.checked);
   };
 
-  const plans = {
-    basic: {
-      icon: SiMicrosoft,
-      name: "Basic",
-      price: ["$29", "$19"],
-      features: ["Create Studies", "Recruit Participants", "Track Participant Status"],
-    },
-
-    standard: {
-      icon: SiMarketo,
-      name: "Standard",
-      price: ["$99", "$79"],
-      features: ["Everything in Basic", "Participant Reminders", "Schedule Meetings"],
-      isPopular: true,
-    },
-
-    premium: {
-      icon: SiHive,
-      name: "Premium",
-      price: ["$249", "$199"],
-      features: ["Everything in Standard", "Instant Messaging", "Email and Text Notifications"],
-    },
-  };
-
   const background = useColorModeValue("gray.100", "gray.800");
 
   return (
-    <Box background={background} paddingX={isPhone ? "20px" : "100px"} paddingY="50px">
+    <Box id="pricing" background={background} paddingX={isPhone ? "20px" : "100px"} paddingY="50px">
       <Heading fontWeight="extrabold" marginBottom="12px">
         Pricing Plans
       </Heading>
@@ -53,11 +29,19 @@ function Pricing() {
         <Switch marginX="8px" isChecked={billedAnnually} onChange={handleChange} />
         Annually
       </Text>
-      <Grid gap="30px" templateColumns={isDesktop ? "1fr 1fr 1fr" : "1fr"}>
-        <PricingCard billedAnnually={billedAnnually} {...plans.basic} />
-        <PricingCard billedAnnually={billedAnnually} {...plans.standard} />
-        <PricingCard billedAnnually={billedAnnually} {...plans.premium} />
-      </Grid>
+      <SimpleGrid gap="30px" columns={responsive([1, 2, 3])}>
+        {plans.map((plan, i) => (
+          <PricingCard
+            key={i}
+            name={plan.name}
+            icon={plan.icon}
+            price={plan.price}
+            features={plan.features}
+            isPopular={plan.isPopular}
+            billedAnnually={billedAnnually}
+          />
+        ))}
+      </SimpleGrid>
     </Box>
   );
 }

@@ -8,11 +8,10 @@ export const Loader = ({ size = "lg", color = "blue" }) => {
 
   return (
     <Flex
-      gridGap="10px"
       justify="center"
       align="center"
-      height="100%"
       width="100%"
+      height="calc(100vh - 80px)"
     >
       <Spinner
         speed="0.5s"

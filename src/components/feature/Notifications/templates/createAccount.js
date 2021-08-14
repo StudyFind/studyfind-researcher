@@ -5,7 +5,8 @@ const createAccount = ({ side, meta }) => {
   const color = "purple";
   const icon = FaMagic;
 
-  const [firstName] = meta.name.split(" ");
+  const splitName = meta?.name?.split(" ");
+  const firstName = splitName && splitName[0];
 
   const body =
     side === "researcher"
