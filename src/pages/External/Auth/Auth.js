@@ -1,9 +1,9 @@
-import AuthBox from "components/feature/Auth/Auth";
+import AuthCard from "components/feature/AuthCard/AuthCard";
 import { signin, signup, forgotPassword } from "database/auth";
 
 function Auth() {
   return (
-    <AuthBox handleLogin={signin} handleSignup={signup} handleForgotPassword={forgotPassword} />
+    <AuthCard handleLogin={signin} handleSignup={signup} handleForgotPassword={forgotPassword} />
   );
 }
 

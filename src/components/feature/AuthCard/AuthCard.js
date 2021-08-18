@@ -7,7 +7,7 @@ import AuthTabs from "./AuthTabs";
 import AuthForm from "./AuthForm";
 import AuthContext from "context/AuthContext";
 
-function Auth({ handleLogin, handleSignup, handleForgotPassword }) {
+function AuthCard({ handleLogin, handleSignup, handleForgotPassword }) {
   const exists = localStorage.getItem("exists");
   const defaultTab = exists === "true" ? "login" : "signup";
   const [tab, setTab] = useState(defaultTab);
@@ -18,9 +18,7 @@ function Auth({ handleLogin, handleSignup, handleForgotPassword }) {
   const borderColor = useColor("gray.200", "gray.700");
 
   return (
-    <AuthContext.Provider
-      value={{ handleLogin, handleSignup, handleForgotPassword }}
-    >
+    <AuthContext.Provider value={{ handleLogin, handleSignup, handleForgotPassword }}>
       <Flex justify="center" align="center" width="100vw" height="100vh">
         <Box
           width={isPhone ? "80%" : "350px"}
@@ -37,4 +35,4 @@ function Auth({ handleLogin, handleSignup, handleForgotPassword }) {
   );
 }
 
-export default Auth;
+export default AuthCard;

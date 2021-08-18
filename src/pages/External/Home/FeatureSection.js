@@ -1,11 +1,6 @@
 import Features from "components/feature/External/Features/Features";
 
-import {
-  FcDoughnutChart,
-  FcMultipleDevices,
-  FcPrivacy,
-  FcTimeline,
-} from "react-icons/fc";
+import { FcDoughnutChart, FcMultipleDevices, FcPrivacy, FcTimeline } from "react-icons/fc";
 
 function FeatureSection() {
   const features = [

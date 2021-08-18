@@ -10,7 +10,7 @@ import {
   AuthInput,
   AuthButton,
   AuthTabLink,
-} from "components/feature/Auth/Blocks";
+} from "components/feature/AuthCard/Blocks";
 
 function Login({ setTab }) {
   const { handleLogin } = useContext(AuthContext);

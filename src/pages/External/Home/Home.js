@@ -13,19 +13,21 @@ function HomePage() {
   const dividerColor = useColor("gray.200", "gray.600");
   const backgroundColor = useColor("white", "gray.900");
 
+  const SectionDivider = () => <Divider borderColor={dividerColor} />;
+
   return (
     <Box background={backgroundColor}>
       <Header logoLink="/#" buttonText="Start Now" buttonLink="/auth" />
       <HeroSection />
-      <Divider borderColor={dividerColor} />
+      <SectionDivider />
       <FeatureSection />
-      <Divider borderColor={dividerColor} />
+      <SectionDivider />
       <TeamSection />
-      <Divider borderColor={dividerColor} />
+      <SectionDivider />
       <PricingSection />
-      <Divider borderColor={dividerColor} />
+      <SectionDivider />
       <MailingSection />
-      <Divider borderColor={dividerColor} />
+      <SectionDivider />
       <Footer />
     </Box>
   );
