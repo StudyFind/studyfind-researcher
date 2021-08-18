@@ -1,5 +1,3 @@
-import { study } from "data";
-
 import HorizontalTabs from "components/complex/HorizontalTabs/HorizontalTabs";
 
 import Details from "./Details/Details";
@@ -10,6 +8,8 @@ import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
 
 function ViewStudy() {
+  const study = {};
+
   const tabs = [
     {
       name: "Details",

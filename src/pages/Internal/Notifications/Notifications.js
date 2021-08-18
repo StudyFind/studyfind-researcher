@@ -5,7 +5,7 @@ import NotificationsList from "./NotificationsList";
 import NotificationsEmpty from "./NotificationsEmpty";
 import NotificationsError from "./NotificationsError";
 import { FaCog } from "react-icons/fa";
-import { useRealtimePagination } from "hooks";
+import { usePagination } from "hooks";
 import { auth, firestore } from "database/firebase";
 
 function Notifications() {
@@ -19,7 +19,7 @@ function Notifications() {
     .orderBy("time", "desc");
 
   const [notifications, loading, error, handleFetchAdditional, additionalLoading, fetchedAll] =
-    useRealtimePagination(notificationsRef, NOTIFICATIONS_PER_REQUEST);
+    usePagination(notificationsRef, NOTIFICATIONS_PER_REQUEST);
 
   if (loading) return <Loader />;
   if (error) return <NotificationsError />;

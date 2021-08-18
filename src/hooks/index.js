@@ -52,5 +52,5 @@ export { default as useFeedback } from "./useFeedback";
 // DESIGN
 export { default as useColor } from "./useColor";
 export { default as useColorMode } from "./useColorMode";
-export { default as useResponsive } from "./hooks/useResponsive";
-export { default as useMediaQuery } from "./hooks/useMediaQuery";
+export { default as useResponsive } from "./useResponsive";
+export { default as useMediaQuery } from "./useMediaQuery";

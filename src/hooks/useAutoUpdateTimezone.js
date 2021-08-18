@@ -1,8 +1,8 @@
 import { useEffect } from "react";
+import { useDetectTimezone } from "hooks";
 import { firestore } from "database/firebase";
 
 import moment from "moment";
-import useDetectTimezone from "hooks";
 
 function useAutoUpdateTimezone(user) {
   const detected = useDetectTimezone();
