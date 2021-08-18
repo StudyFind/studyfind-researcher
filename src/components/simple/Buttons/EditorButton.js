@@ -1,17 +1,11 @@
 import { useColor } from "hooks";
 import { Button } from "@chakra-ui/react";
 
-export const EditorButton = ({
-  children,
-  icon,
-  color = "gray",
-  onClick,
-  ...rest
-}) => {
-  const colorText = useColor(`${color}.500`, `${color}.400`);
-  const colorBack = useColor(`${color}.100`, `${color}.900`);
-  const colorHover = useColor(`${color}.200`, `${color}.800`);
-  const colorBorder = useColor(`${color}.500`, `${color}.400`);
+export const EditorButton = ({ children, icon, colorScheme = "gray", onClick, ...rest }) => {
+  const colorText = useColor(`${colorScheme}.500`, `${colorScheme}.400`);
+  const colorBack = useColor(`${colorScheme}.100`, `${colorScheme}.900`);
+  const colorHover = useColor(`${colorScheme}.200`, `${colorScheme}.800`);
+  const colorBorder = useColor(`${colorScheme}.500`, `${colorScheme}.400`);
 
   return (
     <Button

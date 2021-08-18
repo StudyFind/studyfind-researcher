@@ -1,37 +1,26 @@
 import { useColor } from "hooks";
 import { Heading, Text, Box, Icon, Center, Flex } from "@chakra-ui/react";
-import {
-  FaTimesCircle,
-  FaCheckCircle,
-  FaExclamationCircle,
-} from "react-icons/fa";
+import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
-export const Message = ({
-  status,
-  title,
-  description,
-  children,
-  showBackground,
-  ...rest
-}) => {
-  const { icon, color } = {
+export const Message = ({ status, title, description, children, showBackground, ...rest }) => {
+  const { icon, colorScheme } = {
     success: {
       icon: FaCheckCircle,
-      color: "green",
+      colorScheme: "green",
     },
     neutral: {
       icon: FaExclamationCircle,
-      color: "blue",
+      colorScheme: "blue",
     },
     failure: {
       icon: FaTimesCircle,
-      color: "red",
+      colorScheme: "red",
     },
   }[status || "neutral"];
 
-  const iconColor = useColor(`${color}.400`, `${color}.400`);
-  const background = useColor(`${color}.100`, `${color}.900`);
-  const borderColor = useColor(`${color}.400`, `${color}.400`);
+  const iconColor = useColor(`${colorScheme}.400`, `${colorScheme}.400`);
+  const background = useColor(`${colorScheme}.100`, `${colorScheme}.900`);
+  const borderColor = useColor(`${colorScheme}.400`, `${colorScheme}.400`);
   const descriptionTextColor = useColor("gray.500", "gray.400");
 
   const backgroundStyles = showBackground

@@ -2,9 +2,9 @@ import { useColor } from "hooks";
 import { Text, Icon } from "@chakra-ui/react";
 import { FaExclamationCircle } from "react-icons/fa";
 
-export const Disclaimer = ({ color = "red", children }) => {
-  const textColor = useColor(`${color}.500`, `${color}.400`);
-  const background = useColor(`${color}.100`, `${color}.900`);
+export const Disclaimer = ({ colorScheme = "red", children }) => {
+  const textColor = useColor(`${colorScheme}.500`, `${colorScheme}.400`);
+  const background = useColor(`${colorScheme}.100`, `${colorScheme}.900`);
 
   return (
     <Text
@@ -19,12 +19,7 @@ export const Disclaimer = ({ color = "red", children }) => {
       borderWidth="1px"
       borderColor={textColor}
     >
-      <Icon
-        as={FaExclamationCircle}
-        marginRight="5px"
-        marginBottom="3px"
-        fontSize="12px"
-      />
+      <Icon as={FaExclamationCircle} marginRight="5px" marginBottom="3px" fontSize="12px" />
       {children}
     </Text>
   );
