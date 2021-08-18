@@ -17,7 +17,7 @@ const getDocuments = async (query) => {
   const value = query.get();
   const documents = [];
 
-  value.docs.forEach(() => {
+  value.docs.forEach((doc) => {
     documents.push({
       id: doc.id,
       distance: doc.distance,

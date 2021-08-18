@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
 
 import TabHeader from "../TabHeader";
-import ScreeningInputs from "components/feature/Study/ScreeningInputs/ScreeningInputs";
+import QuestionsInputs from "components/feature/Study/QuestionsInputs/QuestionsInputs";
 
-function ScreeningEdit({ study, setEdit }) {
+function QuestionsEdit({ study, setEdit }) {
   const [values, setValues] = useState([]);
   const [errors, setErrors] = useState([]);
 
@@ -74,13 +74,13 @@ function ScreeningEdit({ study, setEdit }) {
 
   return (
     <>
-      <TabHeader heading="Screening">
+      <TabHeader heading="Questions">
         <Button onClick={handleCancel}>Cancel</Button>
         <Button colorScheme="green" onClick={handleSaveChanges}>
           Save Changes
         </Button>
       </TabHeader>
-      <ScreeningInputs
+      <QuestionsInputs
         values={values}
         errors={errors}
         hasChanged={JSON.stringify(values) !== JSON.stringify(study.questions)}
@@ -95,4 +95,4 @@ function ScreeningEdit({ study, setEdit }) {
   );
 }
 
-export default ScreeningEdit;
+export default QuestionsEdit;

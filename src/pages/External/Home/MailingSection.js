@@ -1,9 +1,9 @@
 import Mailing from "components/feature/External/Mailing/Mailing";
-import { firestore } from "database/firebase";
+import { mailing } from "database/mutations";
 
 function MailingSection() {
   const handleSubscribe = (email) => {
-    firestore.collection("mailing-researcher").add({ email });
+    mailing.subscribe({ email });
   };
 
   return <Mailing handleSubscribe={handleSubscribe} />;

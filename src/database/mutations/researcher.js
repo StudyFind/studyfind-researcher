@@ -1,5 +1,5 @@
 import { firestore } from "database/firebase";
-import { getTimezone, getUID } from "database/getters";
+import { getTimezone } from "database/getters";
 
 const researcherRef = (uid) => firestore.collection("researchers").doc(uid);
 
@@ -20,12 +20,15 @@ export const researcher = {
       },
     }),
 
-  update: ({
-    organization,
-    background,
-    timezone: { region, autodetect },
-    notifications: { local, email, phone },
-  }) =>
+  update: (
+    uid,
+    {
+      organization,
+      background,
+      timezone: { region, autodetect },
+      notifications: { local, email, phone },
+    }
+  ) =>
     firestore.collection("researchers").doc(uid).update({
       organization,
       background,
@@ -40,5 +43,5 @@ export const researcher = {
       },
     }),
 
-  delete: () => firestore.collection("researchers").doc(uid).reearcherRef.delete(),
+  delete: (uid) => firestore.collection("researchers").doc(uid).reearcherRef.delete(),
 };

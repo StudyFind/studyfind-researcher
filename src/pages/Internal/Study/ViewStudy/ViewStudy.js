@@ -4,7 +4,7 @@ import HorizontalTabs from "components/complex/HorizontalTabs/HorizontalTabs";
 
 import Details from "./Details/Details";
 import Locations from "./Locations/Locations";
-import Screening from "./Screening/Screening";
+import Questions from "./Questions/Questions";
 import Files from "./Files/Files";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
@@ -22,9 +22,9 @@ function ViewStudy() {
       content: <Locations study={study} />,
     },
     {
-      name: "Screening",
+      name: "Questions",
       link: `/study/${study.id}/screening`,
-      content: <Screening study={study} />,
+      content: <Questions study={study} />,
     },
     {
       name: "Files",

@@ -5,7 +5,7 @@ const { VStack, HStack } = require("@chakra-ui/react");
 const { EditorButton } = require("components/simple/Buttons/EditorButton");
 const { default: QuestionList } = require("./QuestionList");
 
-function ScreeningInputs({
+function QuestionsInputs({
   values,
   errors,
   hasChanged,
@@ -44,4 +44,4 @@ function ScreeningInputs({
   );
 }
 
-export default ScreeningInputs;
+export default QuestionsInputs;

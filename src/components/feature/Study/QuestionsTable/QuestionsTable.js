@@ -1,7 +1,7 @@
 import { useColor } from "hooks";
 import { Text, Tag, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 
-function ScreeningTable({ questions }) {
+function QuestionsTable({ questions }) {
   const textColor = useColor("gray.600", "gray.400");
   const borderColor = useColor("gray.200", "gray.700");
   const headCellBackgroundColor = useColor("gray.100", "gray.800");
@@ -39,9 +39,7 @@ function ScreeningTable({ questions }) {
               background={bodyCellBackgroundColor}
               nowrap
             >
-              <Tag
-                colorScheme={question.type === "Inclusion" ? "green" : "red"}
-              >
+              <Tag colorScheme={question.type === "Inclusion" ? "green" : "red"}>
                 {question.type}
               </Tag>
             </Td>
@@ -61,4 +59,4 @@ function ScreeningTable({ questions }) {
   );
 }
 
-export default ScreeningTable;
+export default QuestionsTable;
