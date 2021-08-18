@@ -1,14 +1,9 @@
-import { useColor } from "hooks";
-import { Button, useClipboard } from "@chakra-ui/react";
+import { useColor, useClipboard } from "hooks";
+import { Button } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 import { SecondaryButton } from "./SecondaryButton";
 
-export const ClipboardButton = ({
-  children,
-  copyTextValue,
-  buttonTextOnCopied,
-  ...rest
-}) => {
+export const ClipboardButton = ({ children, copyTextValue, buttonTextOnCopied, ...rest }) => {
   const { hasCopied, onCopy } = useClipboard(copyTextValue);
 
   const defaultHoverBackground = useColor("gray.100", "gray.800");
