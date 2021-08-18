@@ -3,7 +3,7 @@ import { auth, firestore } from "database/firebase";
 import moment from "moment";
 
 function useFeedback() {
-  const [inputs, setInputs] = useState({ title: "", body: "" });
+  const [values, setValues] = useState({ title: "", body: "" });
   const [errors, setErrors] = useState({ title: "", body: "" });
 
   const validate = ({ title, body }) => ({
@@ -26,11 +26,11 @@ function useFeedback() {
   };
 
   const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: validate(name, value) }));
   };
 
-  return [inputs, errors, handleChange, handleSubmit];
+  return [values, errors, handleChange, handleSubmit];
 }
 
 export { useFeedback };

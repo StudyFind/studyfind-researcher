@@ -5,7 +5,7 @@ import DetailsInputs from "components/feature/Study/DetailsInputs/DetailsInputs"
 import TabHeader from "../TabHeader";
 
 function DetailsEdit({ study, setEdit }) {
-  const { inputs, errors, hasChanged, handleChange, handleClear, handleReset, handleSubmit } =
+  const { values, errors, hasChanged, handleChange, handleClear, handleReset, handleSubmit } =
     useDetails(study, (data) => {
       setEdit(false);
     });
@@ -23,7 +23,7 @@ function DetailsEdit({ study, setEdit }) {
         </Button>
       </TabHeader>
       <DetailsInputs
-        inputs={inputs}
+        values={values}
         errors={errors}
         hasChanged={hasChanged}
         handleReset={handleReset}

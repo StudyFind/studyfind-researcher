@@ -1,14 +1,7 @@
 import { Box, HStack, Icon, useColorModeValue } from "@chakra-ui/react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
-function CarouselDots({
-  size,
-  itemIndex,
-  numberOfItems,
-  handleBack,
-  handleNext,
-  handleSelect,
-}) {
+function CarouselDots({ size, itemIndex, numberOfItems, handleBack, handleNext, handleSelect }) {
   const selectedColor = useColorModeValue("blue.500", "blue.400");
   const defaultColor = useColorModeValue("gray.300", "gray.700");
 
@@ -31,6 +24,7 @@ function CarouselDots({
         .fill(true)
         .map((_, i) => (
           <Box
+            key={i}
             rounded="full"
             cursor="pointer"
             width={pixelSizeString}

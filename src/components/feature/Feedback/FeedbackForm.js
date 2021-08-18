@@ -5,7 +5,7 @@ import { FaPaperPlane } from "react-icons/fa";
 
 function FeedbackForm({ onSubmit }) {
   // `onSubmit` must be a promise
-  const [inputs, setInputs] = useState({ title: "", body: "" });
+  const [values, setValues] = useState({ title: "", body: "" });
   const [errors, setErrors] = useState({ title: "", body: "" });
   const [loading, setLoading] = useState(false);
 
@@ -16,12 +16,12 @@ function FeedbackForm({ onSubmit }) {
   };
 
   const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
   };
 
   const handleSubmit = () => {
-    const { title, body } = inputs;
+    const { title, body } = values;
 
     const error = {
       title: check("title", title),
@@ -35,7 +35,7 @@ function FeedbackForm({ onSubmit }) {
 
     setLoading(true);
     onSubmit({ title, body })
-      .then(() => setInputs({ title: "", body: "" }))
+      .then(() => setValues({ title: "", body: "" }))
       .finally(() => setLoading(false));
   };
 
@@ -46,9 +46,8 @@ function FeedbackForm({ onSubmit }) {
           Feedback
         </Heading>
         <Text maxWidth="400px" color="gray.500">
-          Here is your opportunity to give us feedback about our software.
-          Please elaborate on your experiences, including which feature of the
-          software you may be referring to. Thank you!
+          Here is your opportunity to give us feedback about our software. Please elaborate on your
+          experiences, including which feature of the software you may be referring to. Thank you!
         </Text>
       </Box>
       <Form onSubmit={handleSubmit}>
@@ -56,7 +55,7 @@ function FeedbackForm({ onSubmit }) {
           <TextInput
             label="Title"
             name="title"
-            value={inputs.title}
+            value={values.title}
             error={errors.title}
             onChange={handleChange}
           />
@@ -64,7 +63,7 @@ function FeedbackForm({ onSubmit }) {
             label="Body"
             name="body"
             height="150px"
-            value={inputs.body}
+            value={values.body}
             error={errors.body}
             onChange={handleChange}
           />

@@ -2,22 +2,12 @@ import { useState } from "react";
 
 import { useHistory } from "react-router-dom";
 
-import {
-  Box,
-  Grid,
-  Heading,
-  Text,
-  Button,
-  Tooltip,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Grid, Heading, Text, Button, Tooltip } from "@chakra-ui/react";
 import { Form, TextInput } from "components";
 
 function Delete({ study }) {
   const [studyID, setStudyID] = useState("");
   const [error, setError] = useState("");
-
-  const history = useHistory();
 
   const handleChange = (_, value) => {
     setStudyID(value);
@@ -57,8 +47,8 @@ function Delete({ study }) {
       <Heading size="md">Delete Study</Heading>
 
       <Text my="8px" color="gray.500">
-        Deleting your study will erase all data associated with your research
-        study. This is a permanant action and cannot be undone.
+        Deleting your study will erase all data associated with your research study. This is a
+        permanant action and cannot be undone.
       </Text>
 
       <Text mt="24px" mb="8px" color="gray.500">
@@ -73,18 +63,9 @@ function Delete({ study }) {
             error={error}
             onChange={handleChange}
           />
-          <Tooltip
-            label={
-              studyID !== study.id && "Entered ID does not match the study ID"
-            }
-          >
+          <Tooltip label={studyID !== study.id && "Entered ID does not match the study ID"}>
             <Box>
-              <Button
-                type="submit"
-                w="100%"
-                colorScheme="red"
-                isDisabled={studyID !== study.id}
-              >
+              <Button type="submit" w="100%" colorScheme="red" isDisabled={studyID !== study.id}>
                 Delete
               </Button>
             </Box>

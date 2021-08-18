@@ -8,14 +8,6 @@ function Carousel({ items, size = "md", interval, ...rest }) {
   const firstIndex = 0;
   const lastIndex = items.length - 1;
 
-  useEffect(() => {
-    if (interval) {
-      setInterval(() => {
-        handleNext();
-      }, interval);
-    }
-  }, []);
-
   const handleBack = () => {
     setItemIndex((prev) => (prev > firstIndex ? prev - 1 : lastIndex));
   };
@@ -23,6 +15,14 @@ function Carousel({ items, size = "md", interval, ...rest }) {
   const handleNext = () => {
     setItemIndex((prev) => (prev < lastIndex ? prev + 1 : firstIndex));
   };
+
+  useEffect(() => {
+    if (interval) {
+      setInterval(() => {
+        handleNext();
+      }, interval);
+    }
+  }, []);
 
   const handleSelect = (index) => {
     if (0 <= index && index < items.length) {

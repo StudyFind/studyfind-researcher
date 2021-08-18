@@ -8,14 +8,7 @@ import { FaEraser, FaUndo } from "react-icons/fa";
 
 import DescriptionAccessibilityScore from "../DescriptionAccessibilityScore/DescriptionAccessibilityScore";
 
-function DetailsInputs({
-  inputs,
-  errors,
-  hasChanged,
-  handleChange,
-  handleReset,
-  handleClear,
-}) {
+function DetailsInputs({ values, errors, hasChanged, handleChange, handleReset, handleClear }) {
   return (
     <VStack spacing="10px" align="stretch">
       <HStack>
@@ -24,12 +17,8 @@ function DetailsInputs({
             Undo Changes
           </EditorButton>
         )}
-        {(inputs.title || inputs.description) && (
-          <EditorButton
-            color="purple"
-            icon={<FaEraser />}
-            onClick={handleClear}
-          >
+        {(values.title || values.description) && (
+          <EditorButton color="purple" icon={<FaEraser />} onClick={handleClear}>
             Clear Text
           </EditorButton>
         )}
@@ -38,7 +27,7 @@ function DetailsInputs({
         <TextareaInput
           label="Study Title"
           name="title"
-          value={inputs.title}
+          value={values.title}
           error={errors.title}
           limit={100}
           height="50px"
@@ -47,15 +36,13 @@ function DetailsInputs({
         <TextareaInput
           label="Study Description"
           name="description"
-          value={inputs.description}
+          value={values.description}
           error={errors.description}
           limit={500}
           height="128px"
           onChange={handleChange}
         />
-        <DescriptionAccessibilityScore
-          score={compute.readabilityIndex(inputs.description)}
-        />
+        <DescriptionAccessibilityScore score={compute.readabilityIndex(values.description)} />
       </Grid>
     </VStack>
   );

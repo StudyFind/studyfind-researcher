@@ -6,7 +6,7 @@ import { Form, PasswordInput } from "components";
 import AccountHeader from "../AccountHeader";
 
 function ChangePassword({ handleChangePassword }) {
-  const { inputs, errors, loading, handleChange, handleSubmit } = useAuth(
+  const { values, errors, loading, handleChange, handleSubmit } = useAuth(
     { password: "", newPassword: "" },
     handleChangePassword
   );
@@ -23,14 +23,14 @@ function ChangePassword({ handleChangePassword }) {
           <PasswordInput
             name="password"
             label="Old Password"
-            value={inputs.password}
+            value={values.password}
             error={errors.password}
             onChange={handleChange}
           />
           <PasswordInput
             name="newPassword"
             label="New Password"
-            value={inputs.newPassword}
+            value={values.newPassword}
             error={errors.newPassword}
             onChange={handleChange}
           />

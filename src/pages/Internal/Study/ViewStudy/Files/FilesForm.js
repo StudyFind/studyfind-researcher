@@ -5,7 +5,7 @@ import { TextInput, FileInput, SecondaryButton } from "components";
 import TabHeader from "../TabHeader";
 
 function FilesEdit({ studyID, setEdit, getFiles }) {
-  const [inputs, setInputs] = useState({ name: "", file: undefined });
+  const [values, setValues] = useState({ name: "", file: undefined });
   const [errors, setErrors] = useState({ name: "", file: "" });
   const [status, setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -20,14 +20,14 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
   };
 
   const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, name: validate(name, value) }));
   };
 
   const handleSelect = (_, file) => {
     const name = file?.name || "";
 
-    setInputs({ name, file });
+    setValues({ name, file });
     setErrors({
       name: name ? "" : "File name cannot be empty",
       file: file ? "" : "File has not been selected",
@@ -36,22 +36,22 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
 
   const handleCancel = () => {
     setEdit(false);
-    setInputs({ name: "", file: null });
+    setValues({ name: "", file: null });
     setErrors({ name: "", file: "" });
   };
 
   const handleUpload = () => {
     // const err = {
-    //   name: validate("name", inputs.name),
-    //   file: validate("file", inputs.file),
+    //   name: validate("name", values.name),
+    //   file: validate("file", values.file),
     // };
     // if (err.name || err.file) {
     //   setErrors(err);
     //   return;
     // }
     // setLoading(true);
-    // const ref = storage.ref(`study/${studyID}/${inputs.name}`);
-    // const task = ref.put(inputs.file);
+    // const ref = storage.ref(`study/${studyID}/${values.name}`);
+    // const task = ref.put(values.file);
     // task.on(
     //   "state_changed",
     //   (snapshot) => {
@@ -89,7 +89,7 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
             <TextInput
               label="Name"
               name="name"
-              value={inputs.name}
+              value={values.name}
               error={errors.name}
               onChange={handleChange}
             />

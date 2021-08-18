@@ -15,7 +15,7 @@ import {
 function Login({ setTab }) {
   const { handleLogin } = useContext(AuthContext);
 
-  const { inputs, errors, loading, handleChange, handleSubmit } = useAuth(
+  const { values, errors, loading, handleChange, handleSubmit } = useAuth(
     {
       email: "",
       password: "",
@@ -29,7 +29,7 @@ function Login({ setTab }) {
       <AuthInput
         as={EmailInput}
         name="email"
-        value={inputs.email}
+        value={values.email}
         error={errors.email}
         placeholder="Email"
         onChange={handleChange}
@@ -37,15 +37,13 @@ function Login({ setTab }) {
       <AuthInput
         as={PasswordInput}
         name="password"
-        value={inputs.password}
+        value={values.password}
         error={errors.password}
         placeholder="Password"
         onChange={handleChange}
       />
       <AuthButton loading={loading}>Login</AuthButton>
-      <AuthTabLink onClick={() => setTab("forgotPassword")}>
-        Forgot Password?
-      </AuthTabLink>
+      <AuthTabLink onClick={() => setTab("forgotPassword")}>Forgot Password?</AuthTabLink>
     </AuthForm>
   );
 }

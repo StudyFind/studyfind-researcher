@@ -18,11 +18,11 @@ function useForm({ initial, check, submit }) {
     return error;
   };
 
-  const [inputs, setInputs] = useState(initial);
+  const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState(validate(initial));
   const [loading, setLoading] = useState(false);
 
-  const isDifferent = !lodash.isEqual(initial, inputs);
+  const isDifferent = !lodash.isEqual(initial, values);
 
   const triggerErrorToast = () => {
     toast(toasts.connectionError);
@@ -39,25 +39,25 @@ function useForm({ initial, check, submit }) {
   };
 
   const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
   };
 
   const handleReset = () => {
     const error = validate(initial);
-    setInputs(initial);
+    setValues(initial);
     setErrors(error);
   };
 
   const handleClear = () => {
     const empty = getEmpty(initial);
-    setInputs(empty);
+    setValues(empty);
     setErrors(empty);
   };
 
   const handleSubmit = () =>
     new Promise((resolve, reject) => {
-      const error = validate(inputs);
+      const error = validate(values);
       const valid = Object.values(error).every((v) => !v);
 
       if (!valid) {
@@ -68,7 +68,7 @@ function useForm({ initial, check, submit }) {
 
       if (isDifferent) {
         setLoading(true);
-        return submit(inputs)
+        return submit(values)
           .then(() => resolve())
           .catch(() => {
             triggerErrorToast();
@@ -81,10 +81,10 @@ function useForm({ initial, check, submit }) {
     });
 
   return {
-    inputs,
+    values,
     errors,
     loading,
-    setInputs,
+    setValues,
     setErrors,
     handleChange,
     handleClear,

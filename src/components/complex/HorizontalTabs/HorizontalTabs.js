@@ -1,16 +1,9 @@
-import { useContext } from "react";
 import { useTabs } from "hooks";
 
 import styled from "styled-components";
 import { useDetectDevice } from "hooks";
 
-import {
-  Tabs,
-  Tab,
-  TabList,
-  TabPanels,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Tabs, Tab, TabList, TabPanels, useColorModeValue } from "@chakra-ui/react";
 
 /*
   tabs = [

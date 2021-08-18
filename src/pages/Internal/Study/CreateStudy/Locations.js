@@ -5,7 +5,7 @@ import LocationsInputs from "components/feature/Study/LocationsInputs/LocationsI
 import TabHeader from "../TabHeader";
 
 function Locations({ study, setEdit }) {
-  const [inputs, setInputs] = useState([]);
+  const [values, setValues] = useState([]);
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
@@ -14,34 +14,34 @@ function Locations({ study, setEdit }) {
     }
   }, [study]);
 
-  const hasChanged = JSON.stringify(inputs) !== JSON.stringify(study.locations);
+  const hasChanged = JSON.stringify(values) !== JSON.stringify(study.locations);
 
-  const validate = (inputs) => {
-    return inputs.map((l) => !l);
+  const validate = (values) => {
+    return values.map((l) => !l);
   };
 
   const createLocation = () => {
-    setInputs((prev) => prev.concat(""));
+    setValues((prev) => prev.concat(""));
     setErrors((prev) => prev.concat(false));
   };
 
   const updateLocation = (index, value) => {
-    setInputs((prev) => prev.map((l, i) => (index === i ? value : l)));
+    setValues((prev) => prev.map((l, i) => (index === i ? value : l)));
     setErrors((prev) => prev.map((l, i) => (index === i ? !value : l)));
   };
 
   const deleteLocation = (index) => {
-    setInputs((prev) => prev.filter((_, i) => i !== index));
+    setValues((prev) => prev.filter((_, i) => i !== index));
     setErrors((prev) => prev.filter((_, i) => i !== index));
   };
 
   const clearLocations = () => {
-    setInputs([]);
+    setValues([]);
     setErrors([]);
   };
 
   const resetLocations = () => {
-    setInputs(study.locations);
+    setValues(study.locations);
     setErrors(validate(study.locations));
   };
 
@@ -54,7 +54,7 @@ function Locations({ study, setEdit }) {
   };
 
   const sortLocations = ({ oldIndex, newIndex }) => {
-    setInputs((prev) => {
+    setValues((prev) => {
       const updated = [...prev];
       const removed = updated.splice(oldIndex, 1);
       updated.splice(newIndex, 0, removed[0]);
@@ -71,7 +71,7 @@ function Locations({ study, setEdit }) {
         </Button>
       </TabHeader>
       <LocationsInputs
-        inputs={inputs}
+        values={values}
         errors={errors}
         hasChanged={hasChanged}
         createLocation={createLocation}

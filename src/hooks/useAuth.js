@@ -2,7 +2,7 @@ import { useState } from "react";
 import { validate, object } from "utils";
 
 function useAuth(initial, onSubmit) {
-  const [inputs, setInputs] = useState(initial);
+  const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState(initial);
 
   const [loading, setLoading] = useState(false);
@@ -16,12 +16,12 @@ function useAuth(initial, onSubmit) {
   };
 
   const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
   };
 
   const handleSubmit = () => {
-    const errorMessages = object.map(inputs, check);
+    const errorMessages = object.map(values, check);
     const errorExists = object.some(errorMessages);
 
     if (errorExists) {
@@ -31,10 +31,10 @@ function useAuth(initial, onSubmit) {
 
     setLoading(true);
 
-    onSubmit(inputs)
+    onSubmit(values)
       .then(() => {
         setSuccess(true);
-        setInputs(initial);
+        setValues(initial);
       })
       .catch((err) => {
         setSuccess(false);
@@ -43,7 +43,7 @@ function useAuth(initial, onSubmit) {
       .finally(() => setLoading(false));
   };
 
-  return { inputs, errors, loading, success, handleChange, handleSubmit };
+  return { values, errors, loading, success, handleChange, handleSubmit };
 }
 
 export default useAuth;

@@ -6,7 +6,7 @@ const { EditorButton } = require("components/simple/Buttons/EditorButton");
 const { default: QuestionList } = require("./QuestionList");
 
 function ScreeningInputs({
-  inputs,
+  values,
   errors,
   hasChanged,
   sortQuestions,
@@ -24,18 +24,14 @@ function ScreeningInputs({
             Undo Changes
           </EditorButton>
         )}
-        {inputs.length && (
-          <EditorButton
-            color="red"
-            icon={<FaTrashAlt />}
-            onClick={clearQuestions}
-          >
+        {values.length && (
+          <EditorButton color="red" icon={<FaTrashAlt />} onClick={clearQuestions}>
             Delete All
           </EditorButton>
         )}
       </HStack>
       <QuestionList
-        inputs={inputs}
+        values={values}
         errors={errors}
         updateQuestion={updateQuestion}
         deleteQuestion={deleteQuestion}

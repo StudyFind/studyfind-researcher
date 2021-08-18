@@ -15,13 +15,12 @@ import {
 function ForgotPassword({ setTab }) {
   const { handleForgotPassword } = useContext(AuthContext);
 
-  const { inputs, errors, loading, success, handleChange, handleSubmit } =
-    useAuth(
-      {
-        email: "",
-      },
-      handleForgotPassword
-    );
+  const { values, errors, loading, success, handleChange, handleSubmit } = useAuth(
+    {
+      email: "",
+    },
+    handleForgotPassword
+  );
 
   if (success) {
     return (
@@ -42,7 +41,7 @@ function ForgotPassword({ setTab }) {
       <AuthInput
         as={EmailInput}
         name="email"
-        value={inputs.email}
+        value={values.email}
         error={errors.email}
         placeholder="Email"
         onChange={handleChange}

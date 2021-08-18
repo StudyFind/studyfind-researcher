@@ -5,8 +5,8 @@ import { SelectInput, CheckboxInput } from "components";
 
 import AccountHeader from "../AccountHeader";
 
-function Timezone({ inputs, handleSetTimezoneAttribute }) {
-  const autodetect = inputs?.timezone?.autodetect;
+function Timezone({ values, handleSetTimezoneAttribute }) {
+  const autodetect = values?.timezone?.autodetect;
   const options = moment.tz.zonesForCountry("US").map((timezone) => ({
     label: timezone,
     value: timezone,
@@ -35,7 +35,7 @@ function Timezone({ inputs, handleSetTimezoneAttribute }) {
           <SelectInput
             name="region"
             label="Timezone Region"
-            value={inputs?.timezone?.region}
+            value={values?.timezone?.region}
             options={options}
             onChange={handleSetTimezoneAttribute}
             isDisabled={autodetect}

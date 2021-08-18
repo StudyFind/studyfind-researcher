@@ -3,8 +3,8 @@ import { TextInput, CheckboxInput } from "components";
 
 import AccountHeader from "../AccountHeader";
 
-function Location({ inputs, handleSetLocationAttribute }) {
-  const autodetect = inputs?.location?.autodetect;
+function Location({ values, handleSetLocationAttribute }) {
+  const autodetect = values?.location?.autodetect;
 
   return (
     <>
@@ -30,7 +30,7 @@ function Location({ inputs, handleSetLocationAttribute }) {
             <TextInput
               label="Location"
               name="address"
-              value={inputs?.location?.address}
+              value={values?.location?.address}
               onChange={handleSetLocationAttribute}
               isDisabled={autodetect}
             />

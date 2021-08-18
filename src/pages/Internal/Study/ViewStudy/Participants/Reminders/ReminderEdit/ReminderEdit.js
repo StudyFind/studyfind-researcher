@@ -3,12 +3,7 @@ import { datetime, helpers } from "utils";
 // import { auth, firestore } from "database/firebase";
 import { useParams } from "react-router-dom";
 
-import {
-  TextInput,
-  DateInput,
-  ToggleSelectInput,
-  SecondaryButton,
-} from "components";
+import { TextInput, DateInput, ToggleSelectInput, SecondaryButton } from "components";
 import { Grid, Flex, FormLabel, Button } from "@chakra-ui/react";
 
 import ReminderWeekdayInput from "./ReminderWeekdayInput";
@@ -17,7 +12,7 @@ import ReminderTimesInput from "./ReminderTimesInput";
 function RemindersEdit({ reminder, handleCancel }) {
   const { studyID, participantID } = useParams();
 
-  const [inputs, setInputs] = useState({
+  const [values, setValues] = useState({
     time: "",
     title: "",
     weekdays: [false, false, false, false, false, false, false],
@@ -50,7 +45,7 @@ function RemindersEdit({ reminder, handleCancel }) {
       return "Start date must be in the future";
     }
 
-    if (name === "endDate" && value < inputs.startDate) {
+    if (name === "endDate" && value < values.startDate) {
       return "End date must be after start date";
     }
 
@@ -67,13 +62,11 @@ function RemindersEdit({ reminder, handleCancel }) {
 
   const handleInitial = () => {
     if (reminder) {
-      const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(
-        reminder.times
-      );
+      const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(reminder.times);
       const { title, startDate, endDate } = reminder;
       const initial = { title, times, weekdays, startDate, endDate };
 
-      setInputs(initial);
+      setValues(initial);
       setErrors(validate(initial));
     }
   };
@@ -81,16 +74,10 @@ function RemindersEdit({ reminder, handleCancel }) {
   useEffect(handleInitial, [reminder]);
 
   const handleSubmit = () => {
-    const { title, weekdays, times, startDate, endDate } = inputs;
-    const error = validate(inputs);
+    const { title, weekdays, times, startDate, endDate } = values;
+    const error = validate(values);
 
-    if (
-      error.title ||
-      error.weekdays ||
-      error.times ||
-      error.startDate ||
-      error.endDate
-    ) {
+    if (error.title || error.weekdays || error.times || error.startDate || error.endDate) {
       setErrors(error);
       return;
     }
@@ -114,7 +101,7 @@ function RemindersEdit({ reminder, handleCancel }) {
   };
 
   const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: checker(name, value) }));
   };
 
@@ -123,7 +110,7 @@ function RemindersEdit({ reminder, handleCancel }) {
       <TextInput
         name="title"
         label="Reminder Title"
-        value={inputs.title}
+        value={values.title}
         error={errors.title}
         onChange={handleChange}
       />
@@ -131,7 +118,7 @@ function RemindersEdit({ reminder, handleCancel }) {
         <FormLabel>Reminder Weekdays</FormLabel>
         <ToggleSelectInput
           name="weekdays"
-          value={inputs.weekdays}
+          value={values.weekdays}
           error={errors.weekdays}
           options={[
             { label: "M", value: "Monday" },
@@ -148,26 +135,22 @@ function RemindersEdit({ reminder, handleCancel }) {
       </div>
       <div>
         <FormLabel>Reminder Times</FormLabel>
-        <ReminderTimesInput
-          times={inputs.times}
-          error={errors.times}
-          handleChange={handleChange}
-        />
+        <ReminderTimesInput times={values.times} error={errors.times} handleChange={handleChange} />
       </div>
       <Flex gridGap="16px">
         <DateInput
           name="startDate"
           label="Start Date"
-          max={inputs.endDate}
-          value={inputs.startDate}
+          max={values.endDate}
+          value={values.startDate}
           error={errors.startDate}
           onChange={handleChange}
         />
         <DateInput
           name="endDate"
           label="End Date"
-          min={inputs.startDate}
-          value={inputs.endDate}
+          min={values.startDate}
+          value={values.endDate}
           error={errors.endDate}
           onChange={handleChange}
         />

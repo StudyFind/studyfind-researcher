@@ -1,7 +1,7 @@
 import { Heading, SimpleGrid } from "@chakra-ui/react";
 import { Card, MultiSelectInput, SelectInput } from "components";
 
-function ParticipantsFilter({ inputs, handleChange }) {
+function ParticipantsFilter({ values, handleChange }) {
   return (
     <Card padding="20px" marginBottom="20px">
       <Heading size="md" marginBottom="15px">
@@ -11,7 +11,7 @@ function ParticipantsFilter({ inputs, handleChange }) {
         <MultiSelectInput
           name="status"
           label="Selected Status"
-          value={inputs.status}
+          value={values.status}
           onChange={handleChange}
           options={[
             { label: "Interested", value: "interested" },
@@ -25,7 +25,7 @@ function ParticipantsFilter({ inputs, handleChange }) {
         <SelectInput
           name="sort"
           label="Sort by"
-          value={inputs.sort}
+          value={values.sort}
           onChange={handleChange}
           options={[
             { label: "Eligibility", value: "eligibility" },

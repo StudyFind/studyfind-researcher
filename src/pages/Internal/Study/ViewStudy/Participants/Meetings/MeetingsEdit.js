@@ -15,12 +15,12 @@ function MeetingsEdit({ meeting, handleCancel }) {
   // );
 
   const initial = { name: "", link: "", time: "", date: "" };
-  const [inputs, setInputs] = useState(initial);
+  const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState(initial);
 
   useEffect(() => {
     if (meeting) {
-      setInputs({
+      setValues({
         name: meeting.name,
         link: meeting.link,
         time: datetime.get24HourTime(meeting.time),
@@ -48,7 +48,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
   };
 
   const handleChange = (name, value) => {
-    setInputs({ ...inputs, [name]: value });
+    setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: checker(name, value) });
   };
 
@@ -60,7 +60,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
   });
 
   const handleSubmit = () => {
-    const error = validate(inputs);
+    const error = validate(values);
     const valid = !object.some(error);
 
     if (!valid) {
@@ -69,9 +69,9 @@ function MeetingsEdit({ meeting, handleCancel }) {
     }
 
     // const data = {
-    //   name: inputs.name,
-    //   link: inputs.link,
-    //   time: datetime.getTimestampFromDatetime(inputs.date, inputs.time),
+    //   name: values.name,
+    //   link: values.link,
+    //   time: datetime.getTimestampFromDatetime(values.date, values.time),
     //   researcherID: auth.currentUser.uid,
     //   participantID,
     //   studyID,
@@ -88,7 +88,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
       <TextInput
         name="name"
         label="Meeting Name"
-        value={inputs.name}
+        value={values.name}
         error={errors.name}
         onChange={handleChange}
       />
@@ -97,7 +97,7 @@ function MeetingsEdit({ meeting, handleCancel }) {
         name="date"
         label="Meeting Date"
         min={moment().format("YYYY-MM-DD")}
-        value={inputs.date}
+        value={values.date}
         error={errors.date}
         onChange={handleChange}
       />
@@ -105,14 +105,14 @@ function MeetingsEdit({ meeting, handleCancel }) {
         type="time"
         name="time"
         label="Meeting Time"
-        value={inputs.time}
+        value={values.time}
         error={errors.time}
         onChange={handleChange}
       />
       <TextInput
         label="Meeting Link"
         name="link"
-        value={inputs.link}
+        value={values.link}
         error={errors.link}
         onChange={handleChange}
       />

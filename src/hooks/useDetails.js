@@ -17,7 +17,7 @@ function useDetails({ id, title, description }) {
     }
   };
 
-  const submit = (inputs) => firestore.collection("studies").doc(id).update(inputs);
+  const submit = (values) => firestore.collection("studies").doc(id).update(values);
 
   return useForm({ initial, check, submit });
 }

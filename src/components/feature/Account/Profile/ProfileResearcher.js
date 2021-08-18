@@ -3,7 +3,7 @@ import { TextInput, TextareaInput } from "components";
 
 import AccountHeader from "../AccountHeader";
 
-function ProfileResearcher({ inputs, handleSetProfileAttribute }) {
+function ProfileResearcher({ values, handleSetProfileAttribute }) {
   return (
     <>
       <AccountHeader
@@ -14,14 +14,14 @@ function ProfileResearcher({ inputs, handleSetProfileAttribute }) {
         <TextInput
           label="Organization"
           name="organization"
-          value={inputs.organization}
+          value={values.organization}
           onChange={handleSetProfileAttribute}
         />
         <TextareaInput
           label="Background"
           name="background"
           height="108px"
-          value={inputs.background}
+          value={values.background}
           onChange={handleSetProfileAttribute}
         />
       </Grid>

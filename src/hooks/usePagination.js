@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function useRealtimePagination(ref, limit) {
+function usePagination(ref, limit) {
   const [documents, setDocuments] = useState([]);
   const [lastDoc, setLastDoc] = useState(null);
   const [fetchedAll, setFetchedAll] = useState(false);
@@ -67,4 +67,4 @@ function useRealtimePagination(ref, limit) {
   return [documents, loading, error, handleFetchAdditional, additionalLoading, fetchedAll];
 }
 
-export default useRealtimePagination;
+export default usePagination;

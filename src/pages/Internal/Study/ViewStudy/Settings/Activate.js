@@ -1,9 +1,7 @@
 import { Heading, Text, Switch, Badge, Box, Flex } from "@chakra-ui/react";
 
 function Activate({ study }) {
-  const handleToggle = () => {
-    console.log("toggled");
-  };
+  const handleToggle = () => {};
 
   return (
     <Box p="20px">
@@ -11,16 +9,13 @@ function Activate({ study }) {
         <Heading size="md" mr="10px">
           Recruitment Status
         </Heading>
-        <Badge
-          colorScheme={study.activated ? "green" : "red"}
-          fontSize="0.8rem"
-        >
+        <Badge colorScheme={study.activated ? "green" : "red"} fontSize="0.8rem">
           {study.activated ? "ACTIVE" : "INACTIVE"}
         </Badge>
       </Flex>
       <Text color="gray.500" my="8px">
-        Your study recruitment status corresponds to whether you are currently
-        accepting participants into your study. A status of{" "}
+        Your study recruitment status corresponds to whether you are currently accepting
+        participants into your study. A status of{" "}
         <Text display="inline" fontWeight="700">
           active
         </Text>{" "}

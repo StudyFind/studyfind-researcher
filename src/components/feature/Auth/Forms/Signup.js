@@ -3,13 +3,7 @@ import { useAuth } from "hooks";
 
 import AuthContext from "context/AuthContext";
 
-import {
-  Link,
-  Message,
-  TextInput,
-  EmailInput,
-  PasswordInput,
-} from "components";
+import { Link, Message, TextInput, EmailInput, PasswordInput } from "components";
 import {
   AuthForm,
   AuthHeading,
@@ -23,15 +17,14 @@ import { Text } from "@chakra-ui/react";
 function Signup({ setTab }) {
   const { handleSignup } = useContext(AuthContext);
 
-  const { inputs, errors, loading, success, handleChange, handleSubmit } =
-    useAuth(
-      {
-        name: "",
-        email: "",
-        password: "",
-      },
-      handleSignup
-    );
+  const { values, errors, loading, success, handleChange, handleSubmit } = useAuth(
+    {
+      name: "",
+      email: "",
+      password: "",
+    },
+    handleSignup
+  );
 
   if (success) {
     return (
@@ -71,7 +64,7 @@ function Signup({ setTab }) {
       <AuthInput
         as={TextInput}
         name="name"
-        value={inputs.name}
+        value={values.name}
         error={errors.name}
         placeholder="Name"
         onChange={handleChange}
@@ -79,7 +72,7 @@ function Signup({ setTab }) {
       <AuthInput
         as={EmailInput}
         name="email"
-        value={inputs.email}
+        value={values.email}
         error={errors.email}
         placeholder="Email"
         onChange={handleChange}
@@ -87,7 +80,7 @@ function Signup({ setTab }) {
       <AuthInput
         as={PasswordInput}
         name="password"
-        value={inputs.password}
+        value={values.password}
         error={errors.password}
         placeholder="Password"
         onChange={handleChange}

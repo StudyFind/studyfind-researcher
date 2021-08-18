@@ -2,20 +2,20 @@ import { Grid, Flex } from "@chakra-ui/react";
 import { TagInput, NumberInput, RadioInput } from "components";
 import CheckboxInput from "components/simple/Inputs/CheckboxInput";
 
-function EligibilityInputs({ inputs, errors, handleChange }) {
+function EligibilityInputs({ values, errors, handleChange }) {
   return (
     <Grid paddingY="10px" gap="40px" maxWidth="360px">
       <CheckboxInput
         name="acceptsHealthyVolunteers"
         label="Accepts Healthy Volunteers"
         details="Check this box if your research study accepts healthy volunteers"
-        value={inputs.acceptsHealthyVolunteers}
+        value={values.acceptsHealthyVolunteers}
         onChange={handleChange}
       />
       <RadioInput
         name="sex"
         label="Biological Sex"
-        value={inputs.sex}
+        value={values.sex}
         error={errors.sex}
         options={[
           { label: "All", value: "All" },
@@ -32,18 +32,18 @@ function EligibilityInputs({ inputs, errors, handleChange }) {
           precision={0}
           name="minAge"
           label="Min Age"
-          value={inputs.minAge}
+          value={values.minAge}
           error={errors.minAge}
           onChange={handleChange}
         />
         <NumberInput
-          min={inputs.minAge}
+          min={values.minAge}
           max={100}
           step={1}
           precision={0}
           name="maxAge"
           label="Max Age"
-          value={inputs.maxAge}
+          value={values.maxAge}
           error={errors.maxAge}
           onChange={handleChange}
         />
@@ -51,7 +51,7 @@ function EligibilityInputs({ inputs, errors, handleChange }) {
       <TagInput
         name="conditions"
         label="Medical Conditions"
-        value={inputs.conditions}
+        value={values.conditions}
         error={errors.conditions}
         onChange={handleChange}
         buttonText="Add Condition"

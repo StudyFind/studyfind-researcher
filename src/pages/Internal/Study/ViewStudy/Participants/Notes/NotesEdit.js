@@ -5,26 +5,26 @@ import { TextInput, TextareaInput, SecondaryButton } from "components";
 import { Flex, Grid, Button } from "@chakra-ui/react";
 
 function NotesEdit({ note, handleCreate, handleUpdate, handleCancel }) {
-  const [inputs, setInputs] = useState({ title: "", body: "" });
+  const [values, setValues] = useState({ title: "", body: "" });
   const [errors, setErrors] = useState({ title: "", body: "" });
 
   useEffect(() => {
     if (note) {
       const { title, body } = note;
-      setInputs({ title, body });
+      setValues({ title, body });
       setErrors({ title: !title, body: !body });
     }
   }, [note]);
 
   const handleChange = (name, value) => {
-    setInputs({ ...inputs, [name]: value });
+    setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: !value });
   };
 
   const handleSubmit = () => {
     const error = {
-      title: !inputs.title,
-      body: !inputs.body,
+      title: !values.title,
+      body: !values.body,
     };
 
     if (object.some(error)) {
@@ -33,8 +33,8 @@ function NotesEdit({ note, handleCreate, handleUpdate, handleCancel }) {
     }
 
     const data = {
-      title: inputs.title,
-      body: inputs.body,
+      title: values.title,
+      body: values.body,
       time: Date.now(),
     };
 
@@ -52,14 +52,14 @@ function NotesEdit({ note, handleCreate, handleUpdate, handleCancel }) {
       <TextInput
         label="Title"
         name="title"
-        value={inputs.title}
+        value={values.title}
         error={errors.title}
         onChange={handleChange}
       />
       <TextareaInput
         label="Body"
         name="body"
-        value={inputs.body}
+        value={values.body}
         error={errors.body}
         onChange={handleChange}
         limit={400}

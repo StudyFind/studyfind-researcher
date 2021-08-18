@@ -26,14 +26,13 @@ function AccountParticipant({
   handleChangePassword,
   handleDeleteAccount,
 }) {
-  const [inputs, setInputs] = useState(user);
-  const [errors, setErrors] = useState({});
+  const [values, setValues] = useState(user);
   const [loading, setLoading] = useState(false);
 
-  const haveInputsChanged = JSON.stringify(inputs) !== JSON.stringify(user);
+  const haveInputsChanged = JSON.stringify(values) !== JSON.stringify(user);
 
   const handleCancel = () => {
-    setInputs(user);
+    setValues(user);
   };
 
   const handleUpdate = () => {
@@ -45,11 +44,11 @@ function AccountParticipant({
   };
 
   const handleSetProfileAttribute = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSetNotificationsAttribute = (name, value) => {
-    setInputs((prev) => ({
+    setValues((prev) => ({
       ...prev,
       notifications: {
         ...prev.notifications,
@@ -59,7 +58,7 @@ function AccountParticipant({
   };
 
   const handleSetLocationAttribute = (name, value) => {
-    setInputs((prev) => ({
+    setValues((prev) => ({
       ...prev,
       location: {
         ...prev.location,
@@ -69,7 +68,7 @@ function AccountParticipant({
   };
 
   const handleSetTimezoneAttribute = (name, value) => {
-    setInputs((prev) => ({
+    setValues((prev) => ({
       ...prev,
       timezone: {
         ...prev.timezone,
@@ -91,8 +90,7 @@ function AccountParticipant({
           showButtons={haveInputsChanged}
         >
           <ProfileParticipant
-            inputs={inputs}
-            errors={errors}
+            values={values}
             handleSetProfileAttribute={handleSetProfileAttribute}
           />
         </AccountWrapper>
@@ -110,8 +108,7 @@ function AccountParticipant({
           showButtons={haveInputsChanged}
         >
           <Notifications
-            inputs={inputs}
-            errors={errors}
+            values={values}
             handleSetNotificationsAttribute={handleSetNotificationsAttribute}
           />
         </AccountWrapper>
@@ -128,11 +125,7 @@ function AccountParticipant({
           handleUpdate={handleUpdate}
           showButtons={haveInputsChanged}
         >
-          <Timezone
-            inputs={inputs}
-            errors={errors}
-            handleSetTimezoneAttribute={handleSetTimezoneAttribute}
-          />
+          <Timezone values={values} handleSetTimezoneAttribute={handleSetTimezoneAttribute} />
         </AccountWrapper>
       ),
     },
@@ -147,11 +140,7 @@ function AccountParticipant({
           handleUpdate={handleUpdate}
           showButtons={haveInputsChanged}
         >
-          <Location
-            inputs={inputs}
-            errors={errors}
-            handleSetLocationAttribute={handleSetLocationAttribute}
-          />
+          <Location values={values} handleSetLocationAttribute={handleSetLocationAttribute} />
         </AccountWrapper>
       ),
     },
@@ -179,11 +168,7 @@ function AccountParticipant({
     <>
       <Flex justify="space-between" align="center">
         <Heading size="lg">Account</Heading>
-        <Button
-          colorScheme="red"
-          leftIcon={<FaDoorOpen />}
-          onClick={handleSignOut}
-        >
+        <Button colorScheme="red" leftIcon={<FaDoorOpen />} onClick={handleSignOut}>
           Sign out
         </Button>
       </Flex>

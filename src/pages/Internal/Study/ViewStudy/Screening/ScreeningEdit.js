@@ -5,23 +5,23 @@ import TabHeader from "../TabHeader";
 import ScreeningInputs from "components/feature/Study/ScreeningInputs/ScreeningInputs";
 
 function ScreeningEdit({ study, setEdit }) {
-  const [inputs, setInputs] = useState([]);
+  const [values, setValues] = useState([]);
   const [errors, setErrors] = useState([]);
 
-  const validate = (inputs) => {
-    return inputs.map((q) => ({
+  const validate = (values) => {
+    return values.map((q) => ({
       type: !q.type,
       prompt: !q.prompt,
     }));
   };
 
   const createQuestion = () => {
-    setInputs((prev) => prev.concat({ type: "Inclusion", prompt: "" }));
+    setValues((prev) => prev.concat({ type: "Inclusion", prompt: "" }));
     setErrors((prev) => prev.concat({ type: false, prompt: false }));
   };
 
   const updateQuestion = (index, name, value) => {
-    setInputs((prev) =>
+    setValues((prev) =>
       prev.map((q, i) => {
         return index === i ? { ...q, [name]: value } : q;
       })
@@ -35,22 +35,22 @@ function ScreeningEdit({ study, setEdit }) {
   };
 
   const deleteQuestion = (index) => {
-    setInputs((prev) => prev.filter((_, i) => i !== index));
+    setValues((prev) => prev.filter((_, i) => i !== index));
     setErrors((prev) => prev.filter((_, i) => i !== index));
   };
 
   const clearQuestions = () => {
-    setInputs([]);
+    setValues([]);
     setErrors([]);
   };
 
   const resetQuestions = () => {
-    setInputs(study.questions);
+    setValues(study.questions);
     setErrors(validate(study.questions));
   };
 
   const sortQuestions = ({ oldIndex, newIndex }) => {
-    setInputs((prev) => {
+    setValues((prev) => {
       const updated = [...prev];
       const removed = updated.splice(oldIndex, 1);
       updated.splice(newIndex, 0, removed[0]);
@@ -81,9 +81,9 @@ function ScreeningEdit({ study, setEdit }) {
         </Button>
       </TabHeader>
       <ScreeningInputs
-        inputs={inputs}
+        values={values}
         errors={errors}
-        hasChanged={JSON.stringify(inputs) !== JSON.stringify(study.questions)}
+        hasChanged={JSON.stringify(values) !== JSON.stringify(study.questions)}
         createQuestion={createQuestion}
         updateQuestion={updateQuestion}
         deleteQuestion={deleteQuestion}

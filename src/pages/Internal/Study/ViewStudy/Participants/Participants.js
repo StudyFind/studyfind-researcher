@@ -22,13 +22,12 @@ function Participants() {
   const handleFetchAdditional = () => {};
 
   const [toggle, setToggle] = useState(false);
-  const [inputs, setInputs] = useState(initialFilters);
+  const [values, setValues] = useState(initialFilters);
 
-  const areFiltersApplied =
-    JSON.stringify(initialFilters) !== JSON.stringify(inputs);
+  const areFiltersApplied = JSON.stringify(initialFilters) !== JSON.stringify(values);
 
   const handleChange = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const participants = [
@@ -83,9 +82,7 @@ function Participants() {
 
   const isOpen = action && participantID;
 
-  const selectedParticipant = participants.find(
-    (participant) => participant.id === participantID
-  );
+  const selectedParticipant = participants.find((participant) => participant.id === participantID);
 
   if (loading) {
     return <Loader />;
@@ -95,7 +92,7 @@ function Participants() {
     <>
       <TabHeader heading="Participants">
         {areFiltersApplied && (
-          <Button colorScheme="red" onClick={() => setInputs(initialFilters)}>
+          <Button colorScheme="red" onClick={() => setValues(initialFilters)}>
             Clear Filters
           </Button>
         )}
@@ -109,9 +106,7 @@ function Participants() {
           </Button>
         )}
       </TabHeader>
-      {toggle && (
-        <ParticipantsFilter inputs={inputs} handleChange={handleChange} />
-      )}
+      {toggle && <ParticipantsFilter values={values} handleChange={handleChange} />}
       <ParticipantsList
         participants={participants}
         handleOpen={handleOpen}

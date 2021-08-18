@@ -7,7 +7,7 @@ import { EditorButton } from "components";
 import LocationList from "./LocationList";
 
 function LocationsInputs({
-  inputs,
+  values,
   errors,
   hasChanged,
   createLocation,
@@ -25,18 +25,14 @@ function LocationsInputs({
             Undo Changes
           </EditorButton>
         )}
-        {inputs.length && (
-          <EditorButton
-            color="red"
-            icon={<FaTrashAlt />}
-            onClick={clearLocations}
-          >
+        {values.length && (
+          <EditorButton color="red" icon={<FaTrashAlt />} onClick={clearLocations}>
             Delete All
           </EditorButton>
         )}
       </HStack>
       <LocationList
-        inputs={inputs}
+        values={values}
         errors={errors}
         updateLocation={updateLocation}
         deleteLocation={deleteLocation}

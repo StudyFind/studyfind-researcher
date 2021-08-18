@@ -6,7 +6,7 @@ import { Form, EmailInput, PasswordInput } from "components";
 import AccountHeader from "../AccountHeader";
 
 function DeleteAccount({ handleDeleteAccount }) {
-  const { inputs, errors, loading, handleChange, handleSubmit } = useAuth(
+  const { values, errors, loading, handleChange, handleSubmit } = useAuth(
     { email: "", password: "" },
     handleDeleteAccount
   );
@@ -23,14 +23,14 @@ function DeleteAccount({ handleDeleteAccount }) {
           <EmailInput
             name="email"
             label="Email"
-            value={inputs.email}
+            value={values.email}
             error={errors.email}
             onChange={handleChange}
           />
           <PasswordInput
             name="password"
             label="Password"
-            value={inputs.password}
+            value={values.password}
             error={errors.password}
             onChange={handleChange}
           />

@@ -25,33 +25,33 @@ function AccountResearcher({
 
   const { isPhone } = useDetectDevice();
 
-  const [inputs, setInputs] = useState(user);
+  const [values, setValues] = useState(user);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setInputs(user);
+    setValues(user);
   }, [user]);
 
-  const haveInputsChanged = JSON.stringify(inputs) !== JSON.stringify(user);
+  const haveInputsChanged = JSON.stringify(values) !== JSON.stringify(user);
 
   const handleCancel = () => {
-    setInputs(user);
+    setValues(user);
   };
 
   const handleUpdate = () => {
     setLoading(true);
-    handleSave(inputs)
+    handleSave(values)
       .then(() => toast(toasts.updatedAccount))
       .catch(() => toast(toasts.connectionError))
       .finally(() => setLoading(false));
   };
 
   const handleSetProfileAttribute = (name, value) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSetNotificationsAttribute = (name, value) => {
-    setInputs((prev) => ({
+    setValues((prev) => ({
       ...prev,
       notifications: {
         ...prev.notifications,
@@ -61,7 +61,7 @@ function AccountResearcher({
   };
 
   const handleSetTimezoneAttribute = (name, value) => {
-    setInputs((prev) => ({
+    setValues((prev) => ({
       ...prev,
       timezone: {
         ...prev.timezone,
@@ -83,7 +83,7 @@ function AccountResearcher({
           showButtons={haveInputsChanged}
         >
           <ProfileResearcher
-            inputs={inputs}
+            values={values}
             handleSetProfileAttribute={handleSetProfileAttribute}
           />
         </AccountWrapper>
@@ -101,7 +101,7 @@ function AccountResearcher({
           showButtons={haveInputsChanged}
         >
           <Notifications
-            inputs={inputs}
+            values={values}
             handleSetNotificationsAttribute={handleSetNotificationsAttribute}
           />
         </AccountWrapper>
@@ -118,7 +118,7 @@ function AccountResearcher({
           handleUpdate={handleUpdate}
           showButtons={haveInputsChanged}
         >
-          <Timezone inputs={inputs} handleSetTimezoneAttribute={handleSetTimezoneAttribute} />
+          <Timezone values={values} handleSetTimezoneAttribute={handleSetTimezoneAttribute} />
         </AccountWrapper>
       ),
     },

@@ -3,7 +3,7 @@ import { RadioInput, TextInput, TextareaInput } from "components";
 
 import AccountHeader from "../AccountHeader";
 
-function ProfileParticipant({ inputs, handleSetProfileAttribute }) {
+function ProfileParticipant({ values, handleSetProfileAttribute }) {
   return (
     <>
       <AccountHeader
@@ -14,7 +14,7 @@ function ProfileParticipant({ inputs, handleSetProfileAttribute }) {
         <RadioInput
           label="Biological Sex"
           name="sex"
-          value={inputs.sex}
+          value={values.sex}
           options={[
             { label: "Male", value: "Male" },
             { label: "Female", value: "Female" },
@@ -26,7 +26,7 @@ function ProfileParticipant({ inputs, handleSetProfileAttribute }) {
           type="date"
           name="birthdate"
           label="Birthdate"
-          value={inputs.birthdate}
+          value={values.birthdate}
           onChange={handleSetProfileAttribute}
         />
         <TextareaInput
@@ -34,7 +34,7 @@ function ProfileParticipant({ inputs, handleSetProfileAttribute }) {
           name="availability"
           limit={500}
           height="100px"
-          value={inputs.availability}
+          value={values.availability}
           onChange={handleSetProfileAttribute}
           placeholder="Put a little something about your weekly availability"
         />
