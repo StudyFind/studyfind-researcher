@@ -18,9 +18,10 @@ export { default as usePagination } from "./usePagination";
 export { default as useCredentials } from "./useCredentials";
 export { default as useCustomClaims } from "./useCustomClaims";
 
-// COMPLEX COMPONENTS
+// COMPONENTS
 export { default as useTabs } from "./useTabs";
 export { default as useWizard } from "./useWizard";
+export { default as useClipboard } from "./useColorMode";
 
 // AUTOUPDATE
 export { default as useAutoUpdateLocation } from "./useAutoUpdateLocation";
@@ -49,4 +50,5 @@ export { default as useFeedback } from "./useFeedback";
 // export { default as useNote } from "./useNote";
 
 // DESIGN
-export { default as useColor } from "./useScreening";
+export { default as useColor } from "./useColor";
+export { default as useColorMode } from "./useColorMode";
