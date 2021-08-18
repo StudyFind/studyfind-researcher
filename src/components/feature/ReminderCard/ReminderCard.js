@@ -1,5 +1,6 @@
+import { useColor } from "hooks";
 import { helpers } from "utils";
-import { Heading, Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Heading, Box, Flex } from "@chakra-ui/react";
 
 import ReminderStatus from "./ReminderStatus";
 import ReminderButtons from "./ReminderButtons";
@@ -12,8 +13,8 @@ function RemindersCard({ reminder, handleEdit, handleDelete }) {
     reminder.times
   );
 
-  const border = useColorModeValue("gray.200", "gray.700");
-  const background = useColorModeValue("white", "gray.900");
+  const border = useColor("gray.200", "gray.700");
+  const background = useColor("white", "gray.900");
 
   return (
     <Box

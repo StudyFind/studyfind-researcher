@@ -1,10 +1,10 @@
-import { useDetectDevice } from "hooks";
-import { SimpleGrid, useColorModeValue } from "@chakra-ui/react";
+import { useColor, useDetectDevice } from "hooks";
+import { SimpleGrid } from "@chakra-ui/react";
 import SectionWrapper from "../SectionWrapper";
 import Feature from "./Feature";
 
 function Features({ features }) {
-  const background = useColorModeValue("gray.100", "gray.800");
+  const background = useColor("gray.100", "gray.800");
 
   const { isPhone } = useDetectDevice();
 

@@ -1,12 +1,13 @@
-import { Input, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Input } from "@chakra-ui/react";
 
 export const InputField = ({ as, error, ...rest }) => {
-  const errorPlaceholderColor = useColorModeValue("red.400", "red.400");
-  const errorBackground = useColorModeValue("red.100", "red.800");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
-  const backgroundColor = useColorModeValue("white", "gray.900");
-  const hoverBorderColor = useColorModeValue("gray.300", "gray.600");
-  const placeholderColor = useColorModeValue("gray.400", "gray.500");
+  const errorPlaceholderColor = useColor("red.400", "red.400");
+  const errorBackground = useColor("red.100", "red.800");
+  const borderColor = useColor("gray.200", "gray.700");
+  const backgroundColor = useColor("white", "gray.900");
+  const hoverBorderColor = useColor("gray.300", "gray.600");
+  const placeholderColor = useColor("gray.400", "gray.500");
 
   const errorStyles = {
     background: errorBackground,

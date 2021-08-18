@@ -1,23 +1,16 @@
 import styled from "styled-components";
+import { useColor } from "hooks";
 
-import {
-  Box,
-  Flex,
-  Divider,
-  Text,
-  Icon,
-  Tooltip,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Divider, Text, Icon, Tooltip } from "@chakra-ui/react";
 import { FaFilePdf, FaTrashAlt } from "react-icons/fa";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 function FileCard({ file, handleOpen, handleDelete }) {
-  const iconBackgroundColor = useColorModeValue("white", "gray.900");
-  const detailsBackgroundColor = useColorModeValue("gray.50", "gray.800");
-  const fileNameColor = useColorModeValue("gray.600", "gray.100");
-  const secondaryColor = useColorModeValue("gray.400", "gray.500");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const iconBackgroundColor = useColor("white", "gray.900");
+  const detailsBackgroundColor = useColor("gray.50", "gray.800");
+  const fileNameColor = useColor("gray.600", "gray.100");
+  const secondaryColor = useColor("gray.400", "gray.500");
+  const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <Box borderRadius="6px" borderWidth="1px" borderColor={borderColor}>

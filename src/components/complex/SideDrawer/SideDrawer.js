@@ -1,3 +1,4 @@
+import { useColor } from "hooks";
 import {
   Box,
   Flex,
@@ -9,14 +10,13 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerCloseButton,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 function SideDrawer({ heading, subheading, onClose, isOpen, children }) {
-  const headBackground = useColorModeValue("white", "gray.900");
-  const bodyBackground = useColorModeValue("#f8f9fa", "gray.800");
+  const headBackground = useColor("white", "gray.900");
+  const bodyBackground = useColor("#f8f9fa", "gray.800");
 
-  const dividerColor = useColorModeValue("gray.200", "gray.700");
+  const dividerColor = useColor("gray.200", "gray.700");
 
   return (
     <Drawer size="sm" placement="right" onClose={onClose} isOpen={isOpen}>

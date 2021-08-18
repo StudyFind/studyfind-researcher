@@ -1,3 +1,4 @@
+import { useColor } from "hooks";
 import {
   Heading,
   Text,
@@ -7,16 +8,15 @@ import {
   Tooltip,
   Icon,
   Box,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
 
 function DescriptionAccessibilityScore({ score }) {
   const colorModeValues = {
-    gray: useColorModeValue("gray.500", "gray.200"),
-    red: useColorModeValue("red.500", "red.200"),
-    green: useColorModeValue("green.500", "green.200"),
-    yellow: useColorModeValue("yellow.500", "yellow.200"),
+    gray: useColor("gray.500", "gray.200"),
+    red: useColor("red.500", "red.200"),
+    green: useColor("green.500", "green.200"),
+    yellow: useColor("yellow.500", "yellow.200"),
   };
 
   const isScoreInvalid = score === null || isNaN(score) || score === undefined;
@@ -30,10 +30,10 @@ function DescriptionAccessibilityScore({ score }) {
 
   const color = getColor();
 
-  const scoreColor = useColorModeValue("white", "black");
+  const scoreColor = useColor("white", "black");
   const scoreBackground = colorModeValues[color];
-  const scoreBorderColor = useColorModeValue("gray.200", "gray.700");
-  const progressBackground = useColorModeValue("gray.200", "gray.700");
+  const scoreBorderColor = useColor("gray.200", "gray.700");
+  const progressBackground = useColor("gray.200", "gray.700");
 
   return (
     <Box

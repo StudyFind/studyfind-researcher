@@ -1,22 +1,10 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  Button,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 
 function Panel({ colorScheme, title, description, buttonText, buttonLink }) {
-  const backgroundColor = useColorModeValue(
-    `${colorScheme}.100`,
-    `${colorScheme}.700`
-  );
+  const backgroundColor = useColor(`${colorScheme}.100`, `${colorScheme}.700`);
 
-  const headingColor = useColorModeValue(
-    `${colorScheme}.700`,
-    `${colorScheme}.200`
-  );
+  const headingColor = useColor(`${colorScheme}.700`, `${colorScheme}.200`);
 
   return (
     <Flex justify="center">

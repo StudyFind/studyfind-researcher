@@ -1,14 +1,13 @@
-import { useDetectDevice } from "hooks";
-
-import { Heading, Text, Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { useColor, useDetectDevice } from "hooks";
+import { Heading, Text, Box, Flex } from "@chakra-ui/react";
 
 import StudyBullets from "./StudyBullets";
 import StudyConditions from "./StudyConditions";
 import StudyResearcher from "./StudyResearcher";
 
 function StudyCardLarge({ study }) {
-  const background = useColorModeValue("white", "gray.900");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const background = useColor("white", "gray.900");
+  const borderColor = useColor("gray.200", "gray.700");
 
   const { isPhone } = useDetectDevice();
 

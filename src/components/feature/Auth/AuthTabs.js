@@ -1,4 +1,5 @@
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Flex } from "@chakra-ui/react";
 
 function AuthTabs({ tab, setTab }) {
   const tabs = [
@@ -6,8 +7,8 @@ function AuthTabs({ tab, setTab }) {
     { value: "login", label: "Login" },
   ];
 
-  const borderBottomColor = useColorModeValue("gray.200", "gray.700");
-  const activeBorderBottomColor = useColorModeValue("blue.500", "blue.400");
+  const borderBottomColor = useColor("gray.200", "gray.700");
+  const activeBorderBottomColor = useColor("blue.500", "blue.400");
 
   return (
     <Flex>

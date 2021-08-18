@@ -1,4 +1,5 @@
-import { Button, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Button } from "@chakra-ui/react";
 
 export const EditorButton = ({
   children,
@@ -7,10 +8,10 @@ export const EditorButton = ({
   onClick,
   ...rest
 }) => {
-  const colorText = useColorModeValue(`${color}.500`, `${color}.400`);
-  const colorBack = useColorModeValue(`${color}.100`, `${color}.900`);
-  const colorHover = useColorModeValue(`${color}.200`, `${color}.800`);
-  const colorBorder = useColorModeValue(`${color}.500`, `${color}.400`);
+  const colorText = useColor(`${color}.500`, `${color}.400`);
+  const colorBack = useColor(`${color}.100`, `${color}.900`);
+  const colorHover = useColor(`${color}.200`, `${color}.800`);
+  const colorBorder = useColor(`${color}.500`, `${color}.400`);
 
   return (
     <Button

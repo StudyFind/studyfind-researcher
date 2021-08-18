@@ -1,4 +1,5 @@
-import { Box, Divider, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Divider } from "@chakra-ui/react";
 
 import Header from "components/feature/External/Header/Header";
 import HeroSection from "./HeroSection";
@@ -9,8 +10,8 @@ import PricingSection from "./PricingSection";
 import Footer from "components/feature/External/Footer/Footer";
 
 function HomePage() {
-  const dividerColor = useColorModeValue("gray.200", "gray.600");
-  const backgroundColor = useColorModeValue("white", "gray.900");
+  const dividerColor = useColor("gray.200", "gray.600");
+  const backgroundColor = useColor("white", "gray.900");
 
   return (
     <Box background={backgroundColor}>

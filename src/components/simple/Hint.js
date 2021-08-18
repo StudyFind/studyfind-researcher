@@ -1,4 +1,5 @@
-import { Flex, Icon, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Flex, Icon, Tooltip } from "@chakra-ui/react";
 import { FaExclamationCircle } from "react-icons/fa";
 
 export const Hint = ({
@@ -7,7 +8,7 @@ export const Hint = ({
   color = "gray",
   ...rest
 }) => {
-  const tooltipBackground = useColorModeValue(`gray.700`, `${color}.400`);
+  const tooltipBackground = useColor(`gray.700`, `${color}.400`);
 
   return (
     <Tooltip label={label} background={tooltipBackground}>

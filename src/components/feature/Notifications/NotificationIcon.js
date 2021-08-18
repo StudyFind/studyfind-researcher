@@ -1,8 +1,9 @@
-import { Flex, Icon, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Flex, Icon } from "@chakra-ui/react";
 
 function NotificationIcon({ icon, color }) {
-  const iconColor = useColorModeValue(`${color}.400`, `${color}.400`);
-  const backgroundColor = useColorModeValue(`${color}.100`, `${color}.900`);
+  const iconColor = useColor(`${color}.400`, `${color}.400`);
+  const backgroundColor = useColor(`${color}.100`, `${color}.900`);
 
   return (
     <Flex

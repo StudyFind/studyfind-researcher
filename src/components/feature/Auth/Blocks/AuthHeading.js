@@ -1,7 +1,8 @@
-import { Heading, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Heading } from "@chakra-ui/react";
 
 export const AuthHeading = ({ children, ...rest }) => {
-  const color = useColorModeValue("blue.500", "blue.400");
+  const color = useColor("blue.500", "blue.400");
 
   return (
     <Heading

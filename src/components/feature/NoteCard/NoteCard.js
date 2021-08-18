@@ -1,6 +1,7 @@
+import { useColor } from "hooks";
 import { datetime } from "utils";
 
-import { Text, Box, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import { Text, Box, Flex, Heading } from "@chakra-ui/react";
 import { ActionButton } from "components";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
@@ -8,8 +9,8 @@ function NoteCard({ note, handleEdit, handleDelete }) {
   const displayDate = datetime.getFriendlyDate(note.time);
   const displayTime = datetime.get12HourTime(note.time);
 
-  const border = useColorModeValue("gray.200", "gray.700");
-  const background = useColorModeValue("white", "gray.900");
+  const border = useColor("gray.200", "gray.700");
+  const background = useColor("white", "gray.900");
 
   return (
     <Box

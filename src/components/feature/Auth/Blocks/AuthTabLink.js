@@ -1,8 +1,9 @@
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box } from "@chakra-ui/react";
 
 export const AuthTabLink = ({ children, ...rest }) => {
-  const color = useColorModeValue("#718096", "gray.500");
-  const hoverColor = useColorModeValue("blue.500", "blue.400");
+  const color = useColor("#718096", "gray.500");
+  const hoverColor = useColor("blue.500", "blue.400");
 
   const hoverStyles = {
     color: hoverColor,

@@ -1,4 +1,5 @@
-import { Box, Grid, Flex, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Grid, Flex } from "@chakra-ui/react";
 import { Disclaimer, LoadMoreButton } from "components";
 
 import Message from "./Message";
@@ -11,7 +12,7 @@ function MessageList({
   handleFetchAdditional,
   additionalLoading,
 }) {
-  const messageListbackground = useColorModeValue("#f8f9fa", "gray.800");
+  const messageListbackground = useColor("#f8f9fa", "gray.800");
 
   return (
     <Grid overflowY="scroll" background={messageListbackground}>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useColor } from "hooks";
 import { useMeasure } from "react-use";
 
 import {
@@ -9,7 +10,6 @@ import {
   TagCloseButton,
   TagLabel,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import { TextInput, Form } from "components";
@@ -62,7 +62,7 @@ export const TagInput = ({
     setTextError("");
   };
 
-  const grayColor = useColorModeValue("gray.500", "gray.200");
+  const grayColor = useColor("gray.500", "gray.200");
 
   return (
     <Box width="100%">

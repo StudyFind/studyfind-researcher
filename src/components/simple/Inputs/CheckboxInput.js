@@ -1,10 +1,5 @@
-import {
-  Grid,
-  Heading,
-  Text,
-  Checkbox,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Grid, Heading, Text, Checkbox } from "@chakra-ui/react";
 
 export const CheckboxInput = ({
   name,
@@ -19,8 +14,8 @@ export const CheckboxInput = ({
     onChange(name, value);
   };
 
-  const textColor = useColorModeValue("gray.500", "gray.400");
-  const errorColor = useColorModeValue("red.500", "red.400");
+  const textColor = useColor("gray.500", "gray.400");
+  const errorColor = useColor("red.500", "red.400");
 
   return (
     <Checkbox

@@ -1,8 +1,9 @@
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 function StudyBullet({ icon, value }) {
-  const iconColor = useColorModeValue("blue.500", "blue.600");
-  const textColor = useColorModeValue("black", "gray.200");
+  const iconColor = useColor("blue.500", "blue.600");
+  const textColor = useColor("black", "gray.200");
 
   return (
     <Flex align="center" gridGap="10px">

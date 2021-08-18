@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useDetectDevice } from "hooks";
+import { useColor, useDetectDevice } from "hooks";
 import { validate } from "utils";
 
-import { Heading, Button, Flex, Icon, useColorModeValue } from "@chakra-ui/react";
+import { Heading, Button, Flex, Icon } from "@chakra-ui/react";
 import { Card, TextInput } from "components";
 import { FaShieldAlt } from "react-icons/fa";
 
@@ -19,8 +19,8 @@ function Mailing({ handleSubscribe }) {
     setError(validate.email(value));
   };
 
-  const cardBackgroundColor = useColorModeValue("gray.100", "gray.800");
-  const inputBackgroundColor = useColorModeValue("white", "gray.900");
+  const cardBackgroundColor = useColor("gray.100", "gray.800");
+  const inputBackgroundColor = useColor("white", "gray.900");
 
   return (
     <SectionWrapper>
@@ -47,7 +47,11 @@ function Mailing({ handleSubscribe }) {
             placeholder="example@domain.com"
             background={inputBackgroundColor}
           />
-          <Button width="100%" colorScheme="blue" onClick={() => handleSubscribe(email)}>
+          <Button
+            width="100%"
+            colorScheme="blue"
+            onClick={() => handleSubscribe(email)}
+          >
             Join Now
           </Button>
           <Flex color="gray.500" fontSize="12px" align="center" gridGap="4px">

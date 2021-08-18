@@ -1,20 +1,11 @@
-import {
-  Text,
-  Tag,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Text, Tag, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 
 function ScreeningTable({ questions }) {
-  const textColor = useColorModeValue("gray.600", "gray.400");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
-  const headCellBackgroundColor = useColorModeValue("gray.100", "gray.800");
-  const bodyCellBackgroundColor = useColorModeValue("white", "gray.900");
+  const textColor = useColor("gray.600", "gray.400");
+  const borderColor = useColor("gray.200", "gray.700");
+  const headCellBackgroundColor = useColor("gray.100", "gray.800");
+  const bodyCellBackgroundColor = useColor("white", "gray.900");
 
   return (
     <Table width="100%">

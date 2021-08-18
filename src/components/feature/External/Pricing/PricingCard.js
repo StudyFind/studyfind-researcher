@@ -1,3 +1,4 @@
+import { useColor } from "hooks";
 import {
   Box,
   Flex,
@@ -7,7 +8,6 @@ import {
   ListIcon,
   ListItem,
   Text,
-  useColorModeValue,
   VStack,
   Button,
 } from "@chakra-ui/react";
@@ -15,10 +15,17 @@ import { Link } from "components";
 import { HiCheckCircle } from "react-icons/hi";
 import PricingBadge from "./PricingBadge";
 
-function PricingCard({ icon, name, price, features, isPopular, billedAnnually }) {
-  const background = useColorModeValue("white", "gray.900");
-  const accentColor = useColorModeValue("blue.600", "blue.400");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+function PricingCard({
+  icon,
+  name,
+  price,
+  features,
+  isPopular,
+  billedAnnually,
+}) {
+  const background = useColor("white", "gray.900");
+  const accentColor = useColor("blue.600", "blue.400");
+  const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <Flex
@@ -43,22 +50,42 @@ function PricingCard({ icon, name, price, features, isPopular, billedAnnually })
         </Heading>
       </VStack>
       <Box marginY="6">
-        <Flex align="flex-end" justify="center" fontWeight="extrabold" color={accentColor}>
-          <Heading size="xl" fontWeight="inherit" lineHeight="0.9em" marginRight="2px">
+        <Flex
+          align="flex-end"
+          justify="center"
+          fontWeight="extrabold"
+          color={accentColor}
+        >
+          <Heading
+            size="xl"
+            fontWeight="inherit"
+            lineHeight="0.9em"
+            marginRight="2px"
+          >
             {price[billedAnnually ? 1 : 0]}
           </Heading>
           <Text fontWeight="inherit" fontSize="lg">
             / month
           </Text>
         </Flex>
-        <Text color="gray.500" marginTop="4px" fontWeight="500" textAlign="center">
+        <Text
+          color="gray.500"
+          marginTop="4px"
+          fontWeight="500"
+          textAlign="center"
+        >
           billed {billedAnnually ? "annually" : "monthly"}
         </Text>
       </Box>
       <List spacing="4" marginBottom="8" maxWidth="28ch" marginX="auto">
         {features.map((feature, index) => (
           <ListItem fontWeight="medium" key={index}>
-            <ListIcon fontSize="xl" as={HiCheckCircle} marginEnd={2} color={accentColor} />
+            <ListIcon
+              fontSize="xl"
+              as={HiCheckCircle}
+              marginEnd={2}
+              color={accentColor}
+            />
             {feature}
           </ListItem>
         ))}

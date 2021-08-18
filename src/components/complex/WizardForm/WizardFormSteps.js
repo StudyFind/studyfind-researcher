@@ -1,4 +1,5 @@
-import { Flex, HStack, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Flex, HStack } from "@chakra-ui/react";
 
 function WizardFormSteps({
   stepIndex,
@@ -6,8 +7,8 @@ function WizardFormSteps({
   allowSkippingSteps,
   handleSelect,
 }) {
-  const blueColor = useColorModeValue("blue.500", "blue.400");
-  const reachedTextColor = useColorModeValue("white", "gray.800");
+  const blueColor = useColor("blue.500", "blue.400");
+  const reachedTextColor = useColor("white", "gray.800");
 
   return (
     <HStack>

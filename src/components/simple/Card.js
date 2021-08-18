@@ -1,8 +1,9 @@
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box } from "@chakra-ui/react";
 
 export const Card = ({ children, ...rest }) => {
-  const borderColor = useColorModeValue("gray.200", "gray.700");
-  const backgroundColor = useColorModeValue("white", "gray.900");
+  const borderColor = useColor("gray.200", "gray.700");
+  const backgroundColor = useColor("white", "gray.900");
 
   return (
     <Box

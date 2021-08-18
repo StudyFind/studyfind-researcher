@@ -1,10 +1,11 @@
-import { Box, Flex, Text, Avatar, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Flex, Text, Avatar } from "@chakra-ui/react";
 import { useDetectDevice } from "hooks";
 
 function StudyResearcher({ researcher }) {
-  const avatar = useColorModeValue("blue.500", "blue.700");
-  const background = useColorModeValue("white", "gray.900");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const avatar = useColor("blue.500", "blue.700");
+  const background = useColor("white", "gray.900");
+  const borderColor = useColor("gray.200", "gray.700");
 
   const { isPhone } = useDetectDevice();
 

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { useDetectDevice } from "hooks";
+import { useColor, useDetectDevice } from "hooks";
+
 import getNotificationTemplate from "./templates/getNotificationTemplate";
 
-import { Link } from "components";
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Card, Link } from "components";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 import NotificationIcon from "./NotificationIcon";
 import NotificationTime from "./NotificationTime";
-import { Card } from "components/simple/Card";
 
 function NotificationItem({ side, notification, handleNotificationRead }) {
   const [initialRead] = useState(notification.read);
@@ -44,11 +44,11 @@ function NotificationItem({ side, notification, handleNotificationRead }) {
 
   const { isPhone } = useDetectDevice();
 
-  const readBorderColor = useColorModeValue("gray.200", "gray.700");
-  const unreadBorderColor = useColorModeValue("blue.100", "blue.600");
+  const readBorderColor = useColor("gray.200", "gray.700");
+  const unreadBorderColor = useColor("blue.100", "blue.600");
 
-  const readBackgroundColor = useColorModeValue("white", "gray.900");
-  const unreadBackgroundColor = useColorModeValue("blue.50", "blue.900");
+  const readBackgroundColor = useColor("white", "gray.900");
+  const unreadBackgroundColor = useColor("blue.50", "blue.900");
 
   return (
     <NotificationLink to={link}>

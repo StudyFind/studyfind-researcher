@@ -1,11 +1,12 @@
-import { Box, Tag, Text, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Tag, Text } from "@chakra-ui/react";
 
 function QuestionCard({ question, response }) {
-  const borderColor = useColorModeValue("gray.200", "gray.700");
-  const backgroundColor = useColorModeValue("white", "gray.900");
+  const borderColor = useColor("gray.200", "gray.700");
+  const backgroundColor = useColor("white", "gray.900");
 
-  const questionColor = useColorModeValue("black", "gray.200");
-  const responseColor = useColorModeValue("gray.500", "gray.500");
+  const questionColor = useColor("black", "gray.200");
+  const responseColor = useColor("gray.500", "gray.500");
 
   return (
     <Box

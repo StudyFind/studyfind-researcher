@@ -1,12 +1,5 @@
-import {
-  Heading,
-  Text,
-  Box,
-  Icon,
-  Center,
-  Flex,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Heading, Text, Box, Icon, Center, Flex } from "@chakra-ui/react";
 import {
   FaTimesCircle,
   FaCheckCircle,
@@ -36,10 +29,10 @@ export const Message = ({
     },
   }[status || "neutral"];
 
-  const iconColor = useColorModeValue(`${color}.400`, `${color}.400`);
-  const background = useColorModeValue(`${color}.100`, `${color}.900`);
-  const borderColor = useColorModeValue(`${color}.400`, `${color}.400`);
-  const descriptionTextColor = useColorModeValue("gray.500", "gray.400");
+  const iconColor = useColor(`${color}.400`, `${color}.400`);
+  const background = useColor(`${color}.100`, `${color}.900`);
+  const borderColor = useColor(`${color}.400`, `${color}.400`);
+  const descriptionTextColor = useColor("gray.500", "gray.400");
 
   const backgroundStyles = showBackground
     ? {

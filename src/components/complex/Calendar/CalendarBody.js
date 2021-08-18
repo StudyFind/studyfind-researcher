@@ -1,10 +1,11 @@
 import moment from "moment";
 import styled from "styled-components";
-import { Flex, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Flex } from "@chakra-ui/react";
 
 function CalendarBody({ month, year, date, setDate }) {
-  const activeColor = useColorModeValue("blue.500", "blue.400");
-  const defaultColor = useColorModeValue("gray.500", "gray.500");
+  const activeColor = useColor("blue.500", "blue.400");
+  const defaultColor = useColor("gray.500", "gray.500");
 
   const render = () => {
     const today = moment().format("YYYY-MM-DD");

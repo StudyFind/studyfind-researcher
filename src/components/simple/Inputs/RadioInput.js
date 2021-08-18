@@ -1,4 +1,5 @@
-import { Flex, Button, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Flex, Button, Tooltip } from "@chakra-ui/react";
 import { InputWrapper } from "./helpers";
 
 export const RadioInput = ({
@@ -23,7 +24,7 @@ export const RadioInput = ({
     }
   };
 
-  const defaultBackground = useColorModeValue("gray.200", "gray.700");
+  const defaultBackground = useColor("gray.200", "gray.700");
 
   return (
     <InputWrapper label={label} error={error}>

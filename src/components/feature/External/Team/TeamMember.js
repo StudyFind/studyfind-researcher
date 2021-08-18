@@ -1,10 +1,11 @@
-import { Box, Flex, Image, Text, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { useDetectDevice } from "hooks";
 
 function TeamMember({ image, name, position, description }) {
   const { isPhone } = useDetectDevice();
 
-  const textColor = useColorModeValue("gray.600", "gray.400");
+  const textColor = useColor("gray.600", "gray.400");
 
   return (
     <Flex direction="column" align="center">

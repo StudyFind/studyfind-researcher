@@ -1,9 +1,10 @@
-import { Button, Text, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Button, Text } from "@chakra-ui/react";
 
 function VerticalTabItem({ icon, name, selected, showBorder, onClick }) {
-  const hover = useColorModeValue("gray.200", "gray.800");
-  const active = useColorModeValue("gray.300", "gray.700");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const hover = useColor("gray.200", "gray.800");
+  const active = useColor("gray.300", "gray.700");
+  const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <Button

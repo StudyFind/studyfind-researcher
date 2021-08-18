@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useColor, useDetectDevice } from "hooks";
 
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 import AuthTabs from "./AuthTabs";
 import AuthForm from "./AuthForm";
 import AuthContext from "context/AuthContext";
-import { useDetectDevice } from "hooks";
 
 function Auth({ handleLogin, handleSignup, handleForgotPassword }) {
   const exists = localStorage.getItem("exists");
@@ -14,8 +14,8 @@ function Auth({ handleLogin, handleSignup, handleForgotPassword }) {
 
   const { isPhone } = useDetectDevice();
 
-  const background = useColorModeValue("#f8f9fa", "gray.800");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const background = useColor("#f8f9fa", "gray.800");
+  const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <AuthContext.Provider

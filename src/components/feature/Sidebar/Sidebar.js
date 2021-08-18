@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useDetectDevice } from "hooks";
+import { useColor, useDetectDevice } from "hooks";
 
-import { Flex, useColorModeValue } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import SidebarLogo from "./SidebarLogo";
 import SidebarLinks from "./SidebarLinks";
@@ -12,7 +12,7 @@ function Sidebar({ name, email, links, ...rest }) {
 
   const { isPhone } = useDetectDevice();
 
-  const background = useColorModeValue("blue.900", "gray.900");
+  const background = useColor("blue.900", "gray.900");
 
   return (
     <Flex

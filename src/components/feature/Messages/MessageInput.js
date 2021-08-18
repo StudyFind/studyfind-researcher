@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Flex, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Flex } from "@chakra-ui/react";
 import { Form, TextInput } from "components";
 import { FaPaperPlane } from "react-icons/fa";
 import { ActionButton } from "components/simple/Buttons/ActionButton";
@@ -15,8 +16,8 @@ function MessageInput({ handleMessageSend }) {
     handleMessageSend(text);
   };
 
-  const background = useColorModeValue("white", "gray.900");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const background = useColor("white", "gray.900");
+  const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <Form onSubmit={handleSubmit}>

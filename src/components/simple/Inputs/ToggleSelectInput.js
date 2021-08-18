@@ -1,4 +1,5 @@
-import { Flex, Button, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Flex, Button, Tooltip } from "@chakra-ui/react";
 import { InputWrapper } from "./helpers";
 
 export const ToggleSelectInput = ({
@@ -17,7 +18,7 @@ export const ToggleSelectInput = ({
     onChange(name, updated);
   };
 
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <InputWrapper label={label} error={error}>

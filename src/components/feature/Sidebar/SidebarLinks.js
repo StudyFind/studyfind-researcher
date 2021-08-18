@@ -1,7 +1,8 @@
+import { useColor } from "hooks";
 import { useLocation } from "react-router-dom";
 
 import { Link } from "components";
-import { Grid, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Grid, Flex } from "@chakra-ui/react";
 
 function SidebarLinks({ links, setActive }) {
   const { pathname } = useLocation();
@@ -12,7 +13,7 @@ function SidebarLinks({ links, setActive }) {
     return pagename === truename;
   };
 
-  const linkColor = useColorModeValue("gray.400", "gray.500");
+  const linkColor = useColor("gray.400", "gray.500");
 
   return (
     <Grid marginBottom="auto">

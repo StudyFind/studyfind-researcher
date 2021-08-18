@@ -1,11 +1,12 @@
-import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import StudyStatus from "./StudyStatus";
 import StudyConditions from "./StudyConditions";
 
 function StudyCardSmall({ study }) {
-  const background = useColorModeValue("white", "gray.900");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const background = useColor("white", "gray.900");
+  const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <Box

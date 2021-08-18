@@ -1,13 +1,12 @@
-import { useDetectDevice } from "hooks";
-
-import { Box, HStack, useColorModeValue } from "@chakra-ui/react";
+import { useColor, useDetectDevice } from "hooks";
+import { Box, HStack } from "@chakra-ui/react";
 
 import FooterCopyright from "./FooterCopyright";
 import FooterLinks from "./FooterLinks";
 
 function Footer() {
   const { isPhone } = useDetectDevice();
-  const background = useColorModeValue("white", "gray.900");
+  const background = useColor("white", "gray.900");
 
   return (
     <Box>

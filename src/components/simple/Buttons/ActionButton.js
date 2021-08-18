@@ -1,4 +1,5 @@
-import { Tooltip, IconButton, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Tooltip, IconButton } from "@chakra-ui/react";
 
 export const ActionButton = ({
   icon,
@@ -9,17 +10,17 @@ export const ActionButton = ({
   ...rest
 }) => {
   const defaultColors = {
-    color: useColorModeValue("gray.500", "gray.500"),
-    bg: useColorModeValue("transparent", "transparent"),
-    _hover: { bg: useColorModeValue("gray.100", "gray.900") },
-    _active: { bg: useColorModeValue("gray.200", "gray.800") },
+    color: useColor("gray.500", "gray.500"),
+    bg: useColor("transparent", "transparent"),
+    _hover: { bg: useColor("gray.100", "gray.900") },
+    _active: { bg: useColor("gray.200", "gray.800") },
   };
 
   const schemedColors = {
-    color: useColorModeValue(`${color}.500`, `${color}.400`),
-    bg: useColorModeValue(`${color}.100`, `${color}.900`),
-    _hover: { bg: useColorModeValue(`${color}.200`, `${color}.800`) },
-    _active: { bg: useColorModeValue(`${color}.300`, `${color}.700`) },
+    color: useColor(`${color}.500`, `${color}.400`),
+    bg: useColor(`${color}.100`, `${color}.900`),
+    _hover: { bg: useColor(`${color}.200`, `${color}.800`) },
+    _active: { bg: useColor(`${color}.300`, `${color}.700`) },
   };
 
   const colors = color ? schemedColors : defaultColors;

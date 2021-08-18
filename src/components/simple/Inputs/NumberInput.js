@@ -1,10 +1,10 @@
+import { useColor } from "hooks";
 import {
   NumberInput as NumberInputWrapper,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { InputField, InputWrapper } from "./helpers";
 
@@ -25,7 +25,7 @@ export const NumberInput = ({
     onChange(name, value);
   };
 
-  const stepperColor = useColorModeValue("gray.500", "gray.400");
+  const stepperColor = useColor("gray.500", "gray.400");
 
   return (
     <InputWrapper label={label} error={error}>

@@ -1,10 +1,11 @@
-import { Heading, Flex, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Heading, Flex } from "@chakra-ui/react";
 import { FaPlusCircle } from "react-icons/fa";
 
 export const NewCardButton = ({ children, onClick }) => {
-  const color = useColorModeValue("gray.500", "gray.500");
-  const border = useColorModeValue("gray.300", "gray.600");
-  const background = useColorModeValue("gray.100", "gray.800");
+  const color = useColor("gray.500", "gray.500");
+  const border = useColor("gray.300", "gray.600");
+  const background = useColor("gray.100", "gray.800");
 
   return (
     <Flex

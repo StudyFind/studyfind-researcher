@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
-import { useDetectDevice, useDetectTimezone, useDocument } from "hooks";
+import { useColor, useDetectDevice, useDetectTimezone, useDocument } from "hooks";
 
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
 
 import {
@@ -73,7 +73,7 @@ function Internal() {
   // const exceptVerificationHeightDesktop = "calc(100vw - 40px)";
   // const exceptVerificationHeightMobile = "calc(100vw - 128px)";
 
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <UserContext.Provider value={user}>

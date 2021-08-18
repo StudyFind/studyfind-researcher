@@ -1,5 +1,6 @@
+import { useColor } from "hooks";
 import { datetime } from "utils";
-import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import MeetingStatus from "./MeetingStatus";
 import MeetingButtons from "./MeetingButtons";
@@ -8,8 +9,8 @@ function MeetingCard({ meeting, handleEdit, handleDelete }) {
   const displayDate = datetime.getFriendlyDate(meeting.time);
   const displayTime = datetime.get12HourTime(meeting.time);
 
-  const border = useColorModeValue("gray.200", "gray.700");
-  const background = useColorModeValue("white", "gray.900");
+  const border = useColor("gray.200", "gray.700");
+  const background = useColor("white", "gray.900");
 
   return (
     <Box

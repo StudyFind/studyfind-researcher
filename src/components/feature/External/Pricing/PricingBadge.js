@@ -1,9 +1,10 @@
-import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Flex, Text } from "@chakra-ui/react";
 
 function PricingBadge({ children }) {
   return (
     <Flex
-      background={useColorModeValue("blue.500", "blue.200")}
+      background={useColor("blue.500", "blue.200")}
       position="absolute"
       paddingY="4px"
       top="24px"
@@ -18,7 +19,7 @@ function PricingBadge({ children }) {
         textTransform="uppercase"
         fontWeight="bold"
         letterSpacing="wider"
-        color={useColorModeValue("white", "gray.800")}
+        color={useColor("white", "gray.800")}
       >
         {children}
       </Text>

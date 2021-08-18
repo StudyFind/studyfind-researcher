@@ -1,12 +1,12 @@
+import { useColor } from "hooks";
 import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogOverlay,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 function Modal({ children, open, handleClose, ...rest }) {
-  const backgroundColor = useColorModeValue("white", "gray.800");
+  const backgroundColor = useColor("white", "gray.800");
 
   return (
     <AlertDialog

@@ -1,4 +1,5 @@
-import { Icon, Flex, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import { useColor } from "hooks";
+import { Icon, Flex, Text, Tooltip } from "@chakra-ui/react";
 import {
   FaExclamationCircle,
   FaTimesCircle,
@@ -12,8 +13,8 @@ export const ConfirmationStatus = ({ children, status, hint }) => {
     failure: { color: "red", icon: FaTimesCircle },
   }[status || "neutral"];
 
-  const textColor = useColorModeValue(`${color}.500`, `${color}.300`);
-  const borderColor = useColorModeValue(`${color}.400`, `${color}.300`);
+  const textColor = useColor(`${color}.500`, `${color}.300`);
+  const borderColor = useColor(`${color}.400`, `${color}.300`);
 
   return (
     <Tooltip label={hint}>

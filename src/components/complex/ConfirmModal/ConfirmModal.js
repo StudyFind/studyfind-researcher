@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useColor } from "hooks";
 
 import {
   Box,
@@ -9,7 +10,6 @@ import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogOverlay,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { SecondaryButton } from "components/simple/Buttons/SecondaryButton";
 
@@ -32,8 +32,8 @@ function ConfirmModal({
       .finally(() => setLoading(false));
   };
 
-  const textColor = useColorModeValue("gray.500", "gray.400");
-  const backgroundColor = useColorModeValue("white", "gray.800");
+  const textColor = useColor("gray.500", "gray.400");
+  const backgroundColor = useColor("white", "gray.800");
 
   return (
     <AlertDialog
