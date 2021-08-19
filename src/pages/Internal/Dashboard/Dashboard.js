@@ -31,7 +31,7 @@ function Dashboard() {
     return <DashboardError verified={verified} />;
   }
 
-  if (!studies?.length) {
+  if (studies.length === 0) {
     return <DashboardEmpty verified={verified} />;
   }
 
