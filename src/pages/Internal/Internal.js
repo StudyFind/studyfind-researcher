@@ -20,7 +20,7 @@ import Dashboard from "./Dashboard/Dashboard";
 // import Account from "./Account/Account";
 import Verification from "./Verification/Verification";
 // import Schedule from "./Schedule/Schedule";
-// import Notifications from "./Notifications/Notifications";
+import Notifications from "./Notifications/Notifications";
 // import CreateStudy from "./Study/CreateStudy/CreateStudy";
 // import ViewStudy from "./Study/ViewStudy/ViewStudy";
 
@@ -125,12 +125,12 @@ function Internal() {
           >
             <Switch>
               <Route exact path="/" component={Dashboard} />
-              {/* <Route path="/create" component={CreateStudy} />
+              {/* <Route path="/create" component={CreateStudy} /> */}
               <Route path="/notifications" component={Notifications} />
-              <Route path="/study/:studyID/:tab/:action?/:participantID?" component={ViewStudy} />
-              <Route path="/schedule" component={Schedule} />
-              <Route path="/account/:tab" component={Account} />
-              <Route path="/feedback" component={Feedback} /> */}
+              {/* <Route path="/study/:studyID/:tab/:action?/:participantID?" component={ViewStudy} /> */}
+              {/* <Route path="/schedule" component={Schedule} /> */}
+              {/* <Route path="/account/:tab" component={Account} /> */}
+              {/* <Route path="/feedback" component={Feedback} /> */}
               <Redirect to="/" />
             </Switch>
           </Page>

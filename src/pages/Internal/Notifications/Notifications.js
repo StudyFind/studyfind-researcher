@@ -10,16 +10,20 @@ import { auth, firestore } from "database/firebase";
 
 function Notifications() {
   const { uid } = auth.currentUser;
-
-  const NOTIFICATIONS_PER_REQUEST = 10;
   const notificationsRef = firestore
     .collection("researchers")
     .doc(uid)
     .collection("notifications")
     .orderBy("time", "desc");
 
-  const [notifications, loading, error, handleFetchAdditional, additionalLoading, fetchedAll] =
-    usePagination(notificationsRef, NOTIFICATIONS_PER_REQUEST);
+  const {
+    documents: notifications,
+    loading,
+    loadingMore,
+    handleLoadMore,
+    fetchedAll,
+    error,
+  } = usePagination(notificationsRef, 10);
 
   if (loading) return <Loader />;
   if (error) return <NotificationsError />;
@@ -36,8 +40,8 @@ function Notifications() {
         <NotificationsList
           notifications={notifications}
           fetchedAll={fetchedAll}
-          additionalLoading={additionalLoading}
-          handleFetchAdditional={handleFetchAdditional}
+          loadingMore={loadingMore}
+          handleLoadMore={handleLoadMore}
         />
       ) : (
         <NotificationsEmpty />
