@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { useColor, useDetectDevice, useDetectTimezone, useDocument } from "hooks";
+import { useColor, useDetectDevice, useDocument, useAutoUpdateTimezone } from "hooks";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
@@ -15,14 +15,14 @@ import {
 } from "react-icons/fa";
 
 import Sidebar from "components/feature/Sidebar/Sidebar";
-import Dashboard from "./Dashboard/Dashboard";
-// import Feedback from "./Feedback/Feedback";
-// import Account from "./Account/Account";
 import Verification from "./Verification/Verification";
-// import Schedule from "./Schedule/Schedule";
-import Notifications from "./Notifications/Notifications";
+import Dashboard from "./Dashboard/Dashboard";
 // import CreateStudy from "./Study/CreateStudy/CreateStudy";
 // import ViewStudy from "./Study/ViewStudy/ViewStudy";
+import Notifications from "./Notifications/Notifications";
+import Schedule from "./Schedule/Schedule";
+import Account from "./Account/Account";
+import Feedback from "./Feedback/Feedback";
 
 import { auth, firestore } from "database/firebase";
 import { UserContext } from "context";
@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Internal() {
-  const { uid, email, emailVerified } = auth.currentUser;
+  const { uid, displayName, email, emailVerified } = auth.currentUser;
 
   const [user] = useDocument(firestore.collection("researchers").doc(uid));
 
@@ -58,7 +58,7 @@ function Internal() {
 
   const [confirm, setConfirm] = useState(null);
 
-  useDetectTimezone(user);
+  useAutoUpdateTimezone(user);
 
   // const verificationHeightDesktop = "56px";
   // const verificationHeightMobile = "128px";
@@ -89,7 +89,7 @@ function Internal() {
           borderRightWidth={isPhone ? "0" : "1px"}
           borderBottomWidth={isPhone ? "1px" : "0"}
         >
-          <Sidebar name={user?.name} email={email} links={links} />
+          <Sidebar name={displayName} email={email} links={links} />
         </Box>
         <Box
           width="100%"
@@ -126,11 +126,11 @@ function Internal() {
             <Switch>
               <Route exact path="/" component={Dashboard} />
               {/* <Route path="/create" component={CreateStudy} /> */}
-              <Route path="/notifications" component={Notifications} />
               {/* <Route path="/study/:studyID/:tab/:action?/:participantID?" component={ViewStudy} /> */}
-              {/* <Route path="/schedule" component={Schedule} /> */}
-              {/* <Route path="/account/:tab" component={Account} /> */}
-              {/* <Route path="/feedback" component={Feedback} /> */}
+              <Route path="/notifications" component={Notifications} />
+              <Route path="/schedule" component={Schedule} />
+              <Route path="/account/:tab" component={Account} />
+              <Route path="/feedback" component={Feedback} />
               <Redirect to="/" />
             </Switch>
           </Page>

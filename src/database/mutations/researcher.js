@@ -4,9 +4,8 @@ import { getTimezone } from "database/getters";
 const researcherRef = (uid) => firestore.collection("researchers").doc(uid);
 
 export const researcher = {
-  create: (uid, name) =>
+  create: (uid) =>
     researcherRef(uid).set({
-      name,
       organization: "",
       background: "",
       timezone: {
@@ -14,7 +13,7 @@ export const researcher = {
         autodetect: true,
       },
       notifications: {
-        local: false,
+        local: true,
         email: false,
         phone: false,
       },

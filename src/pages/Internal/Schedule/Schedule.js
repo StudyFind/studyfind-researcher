@@ -17,6 +17,7 @@ function Schedule() {
   const { isDesktop } = useDetectDevice();
 
   const today = moment().format("YYYY-MM-DD");
+
   const [date, setDate] = useState(today);
   const [open, setOpen] = useState(false);
 
@@ -44,11 +45,7 @@ function Schedule() {
             {isDesktop && <Text color="gray.500">{displayDate}</Text>}
           </Box>
           {isDesktop || (
-            <SecondaryButton
-              size="sm"
-              leftIcon={<FaCalendar />}
-              onClick={handleOpenModal}
-            >
+            <SecondaryButton size="sm" leftIcon={<FaCalendar />} onClick={handleOpenModal}>
               {displayDate || "Select Date"}
             </SecondaryButton>
           )}

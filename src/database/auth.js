@@ -14,7 +14,12 @@ const setLocalUserExists = (value) => {
 const signup = async ({ name, email, password }) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await Promise.all([user.sendEmailVerification(), researcher.create(name)]);
+
+    await Promise.all([
+      user.sendEmailVerification(),
+      user.updateProfile({ displayName: name }),
+      researcher.create(user.uid),
+    ]);
 
     setLocalUserExists(true);
   } catch (error) {

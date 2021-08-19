@@ -11,10 +11,12 @@ function Calendar({ date, setDate }) {
   const [year, setYear] = useState();
 
   useEffect(() => {
-    const now = moment();
-    setMonth(now.month());
-    setYear(now.year());
-  }, []);
+    if (date) {
+      const momentDate = moment(date);
+      setMonth(momentDate.month());
+      setYear(momentDate.year());
+    }
+  }, [date]);
 
   const backYear = () => {
     setYear((prev) => prev - 1);

@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { useAuth } from "hooks";
-
-import AuthContext from "context/AuthContext";
+import { AuthContext } from "context";
 
 import { Message, EmailInput } from "components";
 import {

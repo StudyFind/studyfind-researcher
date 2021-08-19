@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useColor, useDetectDevice } from "hooks";
+import { AuthContext } from "context";
 
 import { Box } from "@chakra-ui/react";
 
 import AuthTabs from "./AuthTabs";
 import AuthForm from "./AuthForm";
-import AuthContext from "context/AuthContext";
 import SectionWrapper from "../HomeSections/SectionWrapper";
 
 function AuthCard({ handleLogin, handleSignup, handleForgotPassword }) {
