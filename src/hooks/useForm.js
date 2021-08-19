@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { useToast } from "@chakra-ui/react";
-import { toasts } from "templates";
 import lodash from "lodash";
 
 function useForm({ initial, check, submit }) {
-  const toast = useToast();
   const names = Object.keys(initial);
 
   const validate = (values) => {
@@ -23,10 +20,6 @@ function useForm({ initial, check, submit }) {
   const [loading, setLoading] = useState(false);
 
   const isDifferent = !lodash.isEqual(initial, values);
-
-  const triggerErrorToast = () => {
-    toast(toasts.connectionError);
-  };
 
   const getEmpty = () => {
     const empty = {};
@@ -70,10 +63,7 @@ function useForm({ initial, check, submit }) {
         setLoading(true);
         return submit(values)
           .then(() => resolve())
-          .catch(() => {
-            triggerErrorToast();
-            reject();
-          })
+          .catch(() => reject())
           .finally(() => setLoading(false));
       }
 

@@ -1,12 +1,38 @@
 // returns function that triggers notification
 // const triggerNotification = useTriggerNotification();
 
-// function useNotification() {
-//   Notification.requestPermission().then((result) => {
+import { useEffect } from "react";
 
-//   });
+function useTriggerNotification(user) {
+  const setLocalNotificationPreference = (preference) => {
+    const notifications = { ...user.notifications, local: preference };
+    firestore.collection("researchers").doc(user.id).update({ notifications });
+  };
 
-//   return
-// }
+  const requestPermission = (callback) => {
+    Notification.requestPermission().then(callback);
+  };
 
-// export default useNotification;
+  useEffect(() => {
+    if (user.notifications.local) {
+      // only requests if Notification.permission is set to "default"
+      requestPermission((status) => {
+        if (status === "denied") {
+          setLocalNotificationPreference(false);
+        }
+      });
+    }
+  }, []);
+
+  const triggerNotification = ({ title, body, icon }) => {
+    const notification = new Notification(title, { body, icon });
+
+    setTimeout(() => {
+      notification.close();
+    }, 3000);
+  };
+
+  return triggerNotification;
+}
+
+export default useTriggerNotification;

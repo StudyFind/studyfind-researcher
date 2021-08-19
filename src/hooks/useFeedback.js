@@ -33,4 +33,4 @@ function useFeedback() {
   return [values, errors, handleChange, handleSubmit];
 }
 
-export default useFeedback;
+export { useFeedback };

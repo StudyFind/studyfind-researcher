@@ -1,16 +1,16 @@
 import moment from "moment";
 
-import { datetime } from "utils";
 import { useState } from "react";
 import { useDetectDevice } from "hooks";
+import { datetime } from "utils";
 
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { FaCalendar } from "react-icons/fa";
 import { SecondaryButton } from "components";
 
 import Modal from "components/complex/Modal/Modal";
-
 import Calendar from "components/complex/Calendar/Calendar";
+
 import Meetings from "./Meetings";
 
 function Schedule() {

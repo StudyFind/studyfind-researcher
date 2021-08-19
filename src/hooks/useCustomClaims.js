@@ -1,7 +1,6 @@
-import { auth } from "database/firebase";
 import { useEffect, useState } from "react";
 
-function useCustomClaims() {
+function useCustomClaims(auth) {
   const [claims, setClaims] = useState(null);
 
   useEffect(() => {
