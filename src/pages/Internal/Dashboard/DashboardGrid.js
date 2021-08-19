@@ -4,13 +4,10 @@ import { Heading, Flex, SimpleGrid } from "@chakra-ui/react";
 import { Link, LoadMoreButton } from "components";
 
 import StudyCardSmall from "components/feature/Study/StudyCard/StudyCardSmallResearcher";
-
 import DashboardButton from "./DashboardButton";
 
-function DashboardGrid({ verified, studies, moreLoading, handleLoadMore }) {
+function DashboardGrid({ verified, studies, fetchedAll, loadingMore, handleLoadMore }) {
   const { responsive } = useDetectDevice();
-
-  const fetchedAll = true;
 
   return (
     <SimpleGrid spacing="25px">
@@ -29,7 +26,7 @@ function DashboardGrid({ verified, studies, moreLoading, handleLoadMore }) {
         <LoadMoreButton
           fetchedAll={fetchedAll}
           fetchedAllText={`Showing all ${studies.length} studies`}
-          isLoading={moreLoading}
+          isLoading={loadingMore}
           onClick={handleLoadMore}
         />
       </Flex>

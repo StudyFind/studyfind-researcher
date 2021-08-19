@@ -5,7 +5,7 @@ function usePagination(ref, limit) {
   const [lastDoc, setLastDoc] = useState(null);
   const [fetchedAll, setFetchedAll] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [additionalLoading, setAdditionalLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
 
   const transformData = (snapshot) => {
@@ -18,30 +18,37 @@ function usePagination(ref, limit) {
   //  0 1 2 3 4 5 6 7 8 9 ...
 
   useEffect(() => {
-    const unsubscribe = ref.limit(limit).onSnapshot((snapshot) => {
-      const count = snapshot.docs.length;
+    const unsubscribe = ref.limit(limit).onSnapshot(
+      (snapshot) => {
+        const count = snapshot.docs.length;
 
-      setDocuments((prev) => {
-        const next = transformData(snapshot);
-        const match = prev.findIndex((d) => d.id === next[count - 1].id);
-        return next.concat(prev.slice(match + 1));
-      });
+        setDocuments((prev) => {
+          const next = transformData(snapshot);
+          const match = prev.findIndex((d) => d.id === next[count - 1].id);
+          return next.concat(prev.slice(match + 1));
+        });
 
-      if (!lastDoc) {
+        if (!lastDoc) {
+          setLoading(false);
+          setLastDoc(snapshot.docs[count - 1]);
+        }
+
+        if (count < limit) {
+          setFetchedAll(true);
+        }
+      },
+      (err) => {
+        setError(err.message);
         setLoading(false);
-        setLastDoc(snapshot.docs[count - 1]);
       }
-
-      if (count < limit) {
-        setFetchedAll(true);
-      }
-    });
+    );
 
     return () => unsubscribe();
   }, []);
 
-  const handleFetchAdditional = () => {
-    setAdditionalLoading(true);
+  const handleLoadMore = () => {
+    setLoadingMore(true);
+
     ref
       .limit(limit)
       .startAfter(lastDoc)
@@ -61,10 +68,10 @@ function usePagination(ref, limit) {
         setLastDoc(snapshot.docs[count - 1]);
       })
       .catch((err) => setError(err.message))
-      .finally(() => setAdditionalLoading(false));
+      .finally(() => setLoadingMore(false));
   };
 
-  return [documents, loading, error, handleFetchAdditional, additionalLoading, fetchedAll];
+  return { documents, loading, error, loadingMore, handleLoadMore, fetchedAll };
 }
 
 export default usePagination;
