@@ -1,58 +1,29 @@
 import { useState } from "react";
-import { useColor, useDetectDevice } from "hooks";
+import { useColor } from "hooks";
 
-import { Box, Heading, SimpleGrid, Switch, Text } from "@chakra-ui/react";
+import PricingHeader from "./PricingHeader";
+import PricingPlans from "./PricingPlans";
+import SectionWrapper from "../SectionWrapper";
 
-import PricingCard from "./PricingCard";
+function Pricing({ title, description, plans }) {
+  const [isBilledAnnually, setIsBilledAnnually] = useState(true);
 
-function Pricing({ plans }) {
-  const { isPhone, responsive } = useDetectDevice();
-  const [billedAnnually, setBilledAnually] = useState(true);
-
-  const handleChange = (event) => {
-    setBilledAnually(event.target.checked);
+  const handleChange = (_, value) => {
+    setIsBilledAnnually(value);
   };
 
   const background = useColor("gray.100", "gray.800");
 
   return (
-    <Box
-      id="pricing"
-      background={background}
-      paddingX={isPhone ? "20px" : "100px"}
-      paddingY="50px"
-    >
-      <Heading fontWeight="extrabold" marginBottom="12px">
-        Pricing Plans
-      </Heading>
-      <Text color="gray.500" width={isPhone ? "100%" : "450px"}>
-        Start with a free three month trial and then pick the plan of your
-        liking. Account plans unlock additional features and newer features may
-        arrive to higher tier plans first.
-      </Text>
-      <Text fontWeight="medium" marginTop="24px" marginBottom="48px">
-        Monthly
-        <Switch
-          marginX="8px"
-          isChecked={billedAnnually}
-          onChange={handleChange}
-        />
-        Annually
-      </Text>
-      <SimpleGrid gap="30px" columns={responsive([1, 2, 3])}>
-        {plans.map((plan, i) => (
-          <PricingCard
-            key={i}
-            name={plan.name}
-            icon={plan.icon}
-            price={plan.price}
-            features={plan.features}
-            isPopular={plan.isPopular}
-            billedAnnually={billedAnnually}
-          />
-        ))}
-      </SimpleGrid>
-    </Box>
+    <SectionWrapper background={background}>
+      <PricingHeader
+        title={title}
+        description={description}
+        isBilledAnnually={isBilledAnnually}
+        handleChange={handleChange}
+      />
+      <PricingPlans plans={plans} isBilledAnnually={isBilledAnnually} />
+    </SectionWrapper>
   );
 }
 

@@ -1,10 +1,12 @@
 import { useColor } from "hooks";
 import { Flex, Text } from "@chakra-ui/react";
 
-function PricingBadge({ children }) {
+function PricingPlanBadge({ children }) {
+  const color = useColor("white", "gray.800");
+  const background = useColor("blue.500", "blue.200");
+
   return (
     <Flex
-      background={useColor("blue.500", "blue.200")}
       position="absolute"
       paddingY="4px"
       top="24px"
@@ -13,13 +15,14 @@ function PricingBadge({ children }) {
       transform="rotate(45deg)"
       justifyContent="center"
       alignItems="center"
+      background={background}
     >
       <Text
         fontSize="xs"
-        textTransform="uppercase"
         fontWeight="bold"
+        textTransform="uppercase"
         letterSpacing="wider"
-        color={useColor("white", "gray.800")}
+        color={color}
       >
         {children}
       </Text>
@@ -27,4 +30,4 @@ function PricingBadge({ children }) {
   );
 }
 
-export default PricingBadge;
+export default PricingPlanBadge;

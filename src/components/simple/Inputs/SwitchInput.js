@@ -1,14 +1,7 @@
 import { useColor } from "hooks";
 import { Flex, Grid, Heading, Text, Switch } from "@chakra-ui/react";
 
-export const SwitchInput = ({
-  name,
-  value,
-  error,
-  label,
-  details,
-  onChange,
-}) => {
+export const SwitchInput = ({ name, value, error, label, details, onChange }) => {
   const handleChange = (event) => {
     const value = event.target.checked;
     onChange(name, value);
@@ -27,15 +20,17 @@ export const SwitchInput = ({
       borderColor={error && errorColor}
     >
       <Switch isChecked={value} onChange={handleChange} />
-      <Grid gap="2px">
-        <Heading size="sm">{label}</Heading>
-        <Text fontSize="sm" color={textColor}>
-          {details}
-        </Text>
-        <Text fontSize="sm" color={errorColor}>
-          {error}
-        </Text>
-      </Grid>
+      {(label || details || error) && (
+        <Grid gap="2px">
+          <Heading size="sm">{label}</Heading>
+          <Text fontSize="sm" color={textColor}>
+            {details}
+          </Text>
+          <Text fontSize="sm" color={errorColor}>
+            {error}
+          </Text>
+        </Grid>
+      )}
     </Flex>
   );
 };
