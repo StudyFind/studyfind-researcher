@@ -1,4 +1,4 @@
-import Features from "components/feature/External/Features/Features";
+import Features from "components/feature/External/HomeSections/Features/Features";
 
 import { FcDoughnutChart, FcMultipleDevices, FcPrivacy, FcTimeline } from "react-icons/fc";
 

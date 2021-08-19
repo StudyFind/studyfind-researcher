@@ -1,4 +1,4 @@
-import AuthCard from "components/feature/AuthCard/AuthCard";
+import AuthCard from "components/feature/External/AuthCard/AuthCard";
 import { signin, signup, forgotPassword } from "database/auth";
 
 function Auth() {

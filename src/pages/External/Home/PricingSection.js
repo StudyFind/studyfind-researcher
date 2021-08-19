@@ -1,4 +1,4 @@
-import Pricing from "components/feature/External/Pricing/Pricing";
+import Pricing from "components/feature/External/HomeSections/Pricing/Pricing";
 
 import { SiHive, SiMarketo, SiMicrosoft } from "react-icons/si";
 

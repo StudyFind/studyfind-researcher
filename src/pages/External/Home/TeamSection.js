@@ -1,7 +1,7 @@
 import Yohan from "images/Yohan.png";
 import Andrew from "images/Andrew.png";
 import Vir from "images/Vir.png";
-import Team from "components/feature/External/Team/Team";
+import Team from "components/feature/External/HomeSections/Team/Team";
 
 function TeamSection() {
   const title = "About the team";
