@@ -1,8 +1,10 @@
 import { Stack } from "@chakra-ui/react";
-import { useDetectDevice } from "hooks";
+import { useColor, useDetectDevice } from "hooks";
 
 function SectionWrapper({ children, ...rest }) {
   const { isPhone } = useDetectDevice();
+
+  const backgroundColor = useColor("white", "gray.900");
 
   return (
     <Stack
@@ -12,6 +14,7 @@ function SectionWrapper({ children, ...rest }) {
       paddingY="50px"
       minHeight="100vh"
       width="100vw"
+      background={backgroundColor}
       {...rest}
     >
       {children}

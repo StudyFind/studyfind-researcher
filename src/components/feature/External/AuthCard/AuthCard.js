@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useColor, useDetectDevice } from "hooks";
 
-import { Box, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import AuthTabs from "./AuthTabs";
 import AuthForm from "./AuthForm";
 import AuthContext from "context/AuthContext";
+import SectionWrapper from "../HomeSections/SectionWrapper";
 
 function AuthCard({ handleLogin, handleSignup, handleForgotPassword }) {
   const exists = localStorage.getItem("exists");
@@ -16,10 +17,11 @@ function AuthCard({ handleLogin, handleSignup, handleForgotPassword }) {
 
   const background = useColor("#f8f9fa", "gray.800");
   const borderColor = useColor("gray.200", "gray.700");
+  const backgroundColor = useColor("white", "gray.900");
 
   return (
     <AuthContext.Provider value={{ handleLogin, handleSignup, handleForgotPassword }}>
-      <Flex justify="center" align="center" width="100vw" height="100vh">
+      <SectionWrapper background={backgroundColor}>
         <Box
           width={isPhone ? "80%" : "350px"}
           rounded="md"
@@ -30,7 +32,7 @@ function AuthCard({ handleLogin, handleSignup, handleForgotPassword }) {
           <AuthTabs tab={tab} setTab={setTab} />
           <AuthForm tab={tab} setTab={setTab} />
         </Box>
-      </Flex>
+      </SectionWrapper>
     </AuthContext.Provider>
   );
 }

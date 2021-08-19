@@ -11,23 +11,20 @@ import Footer from "components/feature/External/Footer/Footer";
 
 function HomePage() {
   const dividerColor = useColor("gray.200", "gray.600");
-  const backgroundColor = useColor("white", "gray.900");
-
-  const SectionDivider = () => <Divider borderColor={dividerColor} />;
 
   return (
-    <Box background={backgroundColor}>
+    <Box>
       <Header logoLink="/#" buttonText="Start Now" buttonLink="/auth" />
       <HeroSection />
-      <SectionDivider />
+      <Divider borderColor={dividerColor} />
       <FeatureSection />
-      <SectionDivider />
+      <Divider borderColor={dividerColor} />
       <TeamSection />
-      <SectionDivider />
+      <Divider borderColor={dividerColor} />
       <PricingSection />
-      <SectionDivider />
+      <Divider borderColor={dividerColor} />
       <MailingSection />
-      <SectionDivider />
+      <Divider borderColor={dividerColor} />
       <Footer
         links={{
           linkedin: "https://google.com",
