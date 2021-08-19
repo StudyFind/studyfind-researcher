@@ -1,12 +1,12 @@
+import { notification } from "database/mutations";
+
 import { VStack } from "@chakra-ui/react";
 import { LoadMoreButton } from "components";
-
 import NotificationItem from "components/feature/Notifications/NotificationItem";
-import { notification } from "database/mutations";
 
 function NotificationList({ notifications, fetchedAll, loadingMore, handleLoadMore }) {
   const handleNotificationRead = (id) => {
-    notification.read(id);
+    return notification.read(id);
   };
 
   return (
