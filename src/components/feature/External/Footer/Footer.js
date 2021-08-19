@@ -4,7 +4,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import FooterCopyright from "./FooterCopyright";
 import FooterLinks from "./FooterLinks";
 
-function Footer() {
+function Footer({ links }) {
   const { isPhone } = useDetectDevice();
   const background = useColor("white", "gray.900");
 
@@ -17,7 +17,7 @@ function Footer() {
         background={background}
       >
         <FooterCopyright />
-        <FooterLinks />
+        <FooterLinks links={links} />
       </HStack>
     </Box>
   );

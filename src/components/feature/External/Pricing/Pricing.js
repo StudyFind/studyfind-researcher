@@ -15,7 +15,7 @@ function Pricing({ title, description, plans }) {
   const background = useColor("gray.100", "gray.800");
 
   return (
-    <SectionWrapper background={background}>
+    <SectionWrapper background={background} align="flex-start">
       <PricingHeader
         title={title}
         description={description}

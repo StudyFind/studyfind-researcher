@@ -3,7 +3,7 @@ import { mailing } from "database/mutations";
 
 function MailingSection() {
   const handleSubscribe = (email) => {
-    mailing.subscribe({ email });
+    return mailing.subscribe({ email });
   };
 
   return <Mailing handleSubscribe={handleSubscribe} />;

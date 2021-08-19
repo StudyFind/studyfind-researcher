@@ -28,7 +28,13 @@ function HomePage() {
       <SectionDivider />
       <MailingSection />
       <SectionDivider />
-      <Footer />
+      <Footer
+        links={{
+          linkedin: "https://google.com",
+          instagram: "https://google.com",
+          facebook: "https://google.com",
+        }}
+      />
     </Box>
   );
 }
