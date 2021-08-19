@@ -37,7 +37,7 @@ const signout = async () => {
 
 const forgotPassword = async ({ email }) => {
   try {
-    auth.sendPasswordResetEmail(email);
+    await auth.sendPasswordResetEmail(email);
   } catch (error) {
     throw getErrorMessage(error);
   }
