@@ -1,34 +1,32 @@
 import { useColor } from "hooks";
-import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
+import { VStack, Heading, Text, Button } from "@chakra-ui/react";
+import { Link } from "components";
 
 function Panel({ colorScheme, title, description, buttonText, buttonLink }) {
+  const headingColor = useColor(`${colorScheme}.700`, `${colorScheme}.200`);
   const backgroundColor = useColor(`${colorScheme}.100`, `${colorScheme}.700`);
 
-  const headingColor = useColor(`${colorScheme}.700`, `${colorScheme}.200`);
-
   return (
-    <Flex justify="center">
-      <Box
-        background={backgroundColor}
-        padding="30px"
-        borderRadius="10px"
-        maxWidth="360px"
-      >
-        <Heading color={headingColor} as="h2" size="lg" fontWeight="bold">
+    <VStack
+      align="flex-start"
+      spacing="25px"
+      padding="30px"
+      maxWidth="360px"
+      borderRadius="10px"
+      background={backgroundColor}
+    >
+      <VStack align="flex-start" spacing="10px">
+        <Heading color={headingColor} size="lg" fontWeight="700">
           {title}
         </Heading>
-        <Text marginTop="4">{description}</Text>
-        <Button
-          marginTop="8"
-          as="a"
-          href={buttonLink}
-          colorScheme={colorScheme}
-          fontWeight="bold"
-        >
+        <Text>{description}</Text>
+      </VStack>
+      <Link to={""} isWrapper>
+        <Button colorScheme={colorScheme} fontWeight="bold">
           {buttonText}
         </Button>
-      </Box>
-    </Flex>
+      </Link>
+    </VStack>
   );
 }
 

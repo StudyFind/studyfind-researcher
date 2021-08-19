@@ -56,14 +56,7 @@ function TeamSection() {
     },
   ];
 
-  return (
-    <Team
-      title={title}
-      description={description}
-      founders={founders}
-      panels={panels}
-    />
-  );
+  return <Team title={title} description={description} founders={founders} panels={panels} />;
 }
 
 export default TeamSection;
