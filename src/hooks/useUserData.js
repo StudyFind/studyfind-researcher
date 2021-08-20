@@ -4,4 +4,4 @@ function useUserData(auth) {
 
 export default useUserData;
 
-// const { uid, email, emailVerified } = useCredentials()
+// const { uid, email, emailVerified } = useUserData()

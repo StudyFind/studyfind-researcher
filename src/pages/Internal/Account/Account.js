@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useCredentials, useDetectDevice } from "hooks";
+import { useUserData, useDetectDevice } from "hooks";
 import { UserContext } from "context";
 import { toasts } from "templates";
 import { researcher } from "database/mutations";
@@ -17,12 +17,10 @@ import Timezone from "components/feature/Account/Timezone/Timezone";
 import Security from "components/feature/Account/Security/Security";
 
 function Account() {
-  const { uid } = useCredentials();
-  const user = useContext(UserContext);
-
-  const toast = useToast();
-
   const { isPhone } = useDetectDevice();
+  const { uid } = useUserData();
+  const user = useContext(UserContext);
+  const toast = useToast();
 
   const [values, setValues] = useState(user);
   const [loading, setLoading] = useState(false);
