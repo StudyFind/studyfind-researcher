@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { StripeContext } from "context";
+
 import styled from "styled-components";
 
 import { useParams, useHistory } from "react-router-dom";
@@ -27,6 +30,8 @@ function ParticipantsRow({ study, participant }) {
   const history = useHistory();
 
   const { studyID, action, participantID } = useParams();
+
+  const userStripeRole = useContext(StripeContext);
 
   const isOpen = action && participant.id === participantID;
 
@@ -62,7 +67,11 @@ function ParticipantsRow({ study, participant }) {
         {participant.score}% eligible
       </Text>
       <Buttons>
-        <ActionButton hint="Messages" icon={<FaComment />} onClick={() => handleOpen("messages")} />
+        {(userStripeRole === 'premium') ? (
+          <ActionButton hint="Messages" icon={<FaComment />} onClick={() => handleOpen("messages")} />
+        ) : (
+          <ActionButton hint="Messages: Premium Feature" icon={<FaComment />} isDisabled={true}/>
+        )}
         <ActionButton
           hint="Screening"
           icon={<FaClipboard />}

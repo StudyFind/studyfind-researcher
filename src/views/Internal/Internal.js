@@ -57,7 +57,7 @@ function Internal() {
               >
                 {emailVerified || <Verification />}
                 {confirm && <Confirm {...confirm} handleClose={() => setConfirm(null)} />}
-                <Page isLoading={!(user && userStripeRole)}>
+                <Page isLoading={!(user && studies && userStripeRole)}>
                   <Switch>
                     <Route exact path="/" component={Dashboard} />
                     <Route path="/dashboard" component={Dashboard} />
