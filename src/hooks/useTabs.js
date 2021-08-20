@@ -58,14 +58,12 @@ function useTabs(tabs, useURL) {
       }
     };
 
-    if (useURL) {
-      document.querySelector(".tab-item").focus();
-      document.addEventListener("keydown", handleArrowKeys, false);
+    document.querySelector(".tab-item").focus();
+    document.addEventListener("keydown", handleArrowKeys, false);
 
-      return () => {
-        document.removeEventListener("keydown", handleArrowKeys, false);
-      };
-    }
+    return () => {
+      document.removeEventListener("keydown", handleArrowKeys, false);
+    };
   }, []);
 
   useEffect(() => {
