@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory, useWizard } from "hooks";
+import { useHistory, useTriggerToast, useWizard } from "hooks";
 import { study } from "database/mutations";
 
 import WizardFormSteps from "components/complex/WizardForm/WizardFormSteps";
@@ -9,11 +9,13 @@ import Locations from "./Locations";
 import Questions from "./Questions";
 import Resources from "./Resources";
 import Review from "./Review";
+import { toasts } from "templates";
 
 function CreateStudy() {
   const { stepIndex, handleBack, handleNext, handleSelect } = useWizard(5);
 
   const history = useHistory();
+  const triggerToast = useTriggerToast();
 
   const [newStudy, setNewStudy] = useState({
     title: "",
@@ -31,12 +33,20 @@ function CreateStudy() {
     resources: [],
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleBefore = () => {
     history.push("/");
   };
 
   const handleSubmit = () => {
-    study.create(newStudy);
+    setLoading(true);
+
+    study
+      .create(newStudy)
+      .then((doc) => history.push(`/study/${doc.id}/details`))
+      .catch(() => triggerToast(toasts.publishedStudy))
+      .finally(() => setLoading(false));
   };
 
   const steps = [
@@ -68,7 +78,13 @@ function CreateStudy() {
       handleBack={handleBack}
       handleNext={handleNext}
     />,
-    <Review key={4} newStudy={newStudy} handleBack={handleBack} handleSubmit={handleSubmit} />,
+    <Review
+      key={4}
+      loading={loading}
+      newStudy={newStudy}
+      handleBack={handleBack}
+      handleSubmit={handleSubmit}
+    />,
   ];
 
   return (

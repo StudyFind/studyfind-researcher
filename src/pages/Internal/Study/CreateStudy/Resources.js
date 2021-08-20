@@ -1,9 +1,8 @@
 import { useResourcesInputs } from "hooks";
 
-import { Box, Heading, Text } from "@chakra-ui/react";
-
 import ResourcesInputs from "components/feature/Study/ResourcesInputs/ResourcesInputs";
 import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
+import CreateStudyWrapper from "./CreateStudyWrapper";
 
 function Resources({ newStudy, setNewStudy, handleBack, handleNext }) {
   const {
@@ -24,12 +23,11 @@ function Resources({ newStudy, setNewStudy, handleBack, handleNext }) {
   });
 
   return (
-    <Box paddingY="20px">
-      <Heading>Resources</Heading>
-      <Text color="gray.500" paddingTop="5px" paddingBottom="10px">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-      </Text>
+    <CreateStudyWrapper
+      title="Resources"
+      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
+    >
       <ResourcesInputs
         values={values}
         errors={errors}
@@ -43,7 +41,7 @@ function Resources({ newStudy, setNewStudy, handleBack, handleNext }) {
         sortResources={sortResources}
       />
       <WizardFormButton handleBack={handleBack} handleNext={handleSubmit} />
-    </Box>
+    </CreateStudyWrapper>
   );
 }
 
