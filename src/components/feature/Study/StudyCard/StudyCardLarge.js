@@ -21,9 +21,6 @@ function StudyCardLarge({ study }) {
       background={background}
       width={isPhone && "100%"}
     >
-      <Text fontSize="sm" color="gray.400">
-        {study.id}
-      </Text>
       <Heading size="md" marginTop="5px">
         {study.title}
       </Heading>

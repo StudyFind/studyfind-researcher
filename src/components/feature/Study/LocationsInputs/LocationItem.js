@@ -10,10 +10,10 @@ export default SortableElement(({ i, value, error, updateLocation, deleteLocatio
     <DragHandle />
     <TextInput
       placeholder="Location Address"
-      name="prompt"
+      name="address"
       value={value}
       error={error}
-      onChange={(_, v) => updateLocation(i, v)}
+      onChange={(n, v) => updateLocation(i, n, v)}
     />
     <ActionButton
       colorScheme="red"

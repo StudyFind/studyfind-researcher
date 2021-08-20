@@ -19,9 +19,6 @@ function StudyCardSmall({ study }) {
       width="100%"
     >
       <Flex justify="space-between" align="center" marginBottom="8px">
-        <Text fontSize="sm" color="gray.400">
-          {study.id}
-        </Text>
         <StudyStatus activated={study.activated} />
       </Flex>
       <Heading size="sm" noOfLines={2} marginBottom="6px">
