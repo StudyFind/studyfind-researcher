@@ -14,20 +14,13 @@ import VerticalTabItem from "./VerticalTabItem";
   ]
 */
 
-function VerticalTabs({ tabs, ...rest }) {
-  const [tabIndex, setTabIndex] = useTabs(tabs);
+function VerticalTabs({ tabs, useURL = true, ...rest }) {
+  const [tabIndex, setTabIndex] = useTabs(tabs, useURL);
   const { isPhone } = useDetectDevice();
 
   return (
-    <Flex
-      direction={isPhone ? "column" : "row"}
-      align={isPhone || "flex-start"}
-    >
-      <SimpleGrid
-        spacing="10px"
-        columns={isPhone ? 2 : 1}
-        width={isPhone ? "100%" : "180px"}
-      >
+    <Flex direction={isPhone ? "column" : "row"} align={isPhone || "flex-start"}>
+      <SimpleGrid spacing="10px" columns={isPhone ? 2 : 1} width={isPhone ? "100%" : "180px"}>
         {tabs.map((t, i) => (
           <VerticalTabItem
             key={i}

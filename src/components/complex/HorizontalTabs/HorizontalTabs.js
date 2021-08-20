@@ -12,11 +12,11 @@ import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
   ]
 */
 
-function HorizontalTabs({ tabs, ...rest }) {
+function HorizontalTabs({ tabs, useURL = true, ...rest }) {
   const color = useColor("gray.400", "gray.500");
   const borderColor = useColor("gray.300", "gray.600");
 
-  const [tabIndex, setTabIndex] = useTabs(tabs);
+  const [tabIndex, setTabIndex] = useTabs(tabs, useURL);
 
   const { isPhone } = useDetectDevice();
 

@@ -1,11 +1,15 @@
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-function useTabs(tabs) {
+function useTabs(tabs, useURL) {
   const history = useHistory();
   const { tab } = useParams();
 
   const findTabIndex = () => {
+    if (!useURL) {
+      return 0;
+    }
+
     const found = tabs.findIndex((t) => {
       const split = t.link.split("/");
       const last = split[split.length - 1];
@@ -54,20 +58,24 @@ function useTabs(tabs) {
       }
     };
 
-    document.querySelector(".tab-item").focus();
-    document.addEventListener("keydown", handleArrowKeys, false);
+    if (useURL) {
+      document.querySelector(".tab-item").focus();
+      document.addEventListener("keydown", handleArrowKeys, false);
 
-    return () => {
-      document.removeEventListener("keydown", handleArrowKeys, false);
-    };
+      return () => {
+        document.removeEventListener("keydown", handleArrowKeys, false);
+      };
+    }
   }, []);
 
   useEffect(() => {
     const tabItems = document.querySelectorAll(".tab-item");
     tabItems[tabIndex].focus();
 
-    if (tabIndex !== findTabIndex()) {
-      handleUpdatePath();
+    if (useURL) {
+      if (tabIndex !== findTabIndex()) {
+        handleUpdatePath();
+      }
     }
   }, [tabIndex]);
 
