@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useLocationsInputs } from "hooks";
 
 import { Box, Heading, Text } from "@chakra-ui/react";
@@ -23,14 +22,6 @@ function Locations({ newStudy, setNewStudy, handleBack, handleNext }) {
     setNewStudy((prev) => ({ ...prev, locations: data }));
     handleNext();
   });
-
-  useEffect(() => {
-    if (!hasChanged && !notDefault) {
-      createLocation();
-      createLocation();
-      createLocation();
-    }
-  }, []);
 
   return (
     <Box paddingY="20px">

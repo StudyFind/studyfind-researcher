@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuestionsInputs } from "hooks";
 
 import { Box, Heading, Text } from "@chakra-ui/react";
@@ -23,14 +22,6 @@ function Questions({ newStudy, setNewStudy, handleBack, handleNext }) {
     setNewStudy((prev) => ({ ...prev, questions: data }));
     handleNext();
   });
-
-  useEffect(() => {
-    if (!hasChanged && !notDefault) {
-      createQuestion();
-      createQuestion();
-      createQuestion();
-    }
-  }, []);
 
   return (
     <Box paddingY="20px">

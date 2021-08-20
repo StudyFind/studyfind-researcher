@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useResourcesInputs } from "hooks";
 
 import { Box, Heading, Text } from "@chakra-ui/react";
@@ -23,14 +22,6 @@ function Resources({ newStudy, setNewStudy, handleBack, handleNext }) {
     setNewStudy((prev) => ({ ...prev, resources: data }));
     handleNext();
   });
-
-  useEffect(() => {
-    if (!hasChanged && !notDefault) {
-      createResource();
-      createResource();
-      createResource();
-    }
-  }, []);
 
   return (
     <Box paddingY="20px">
