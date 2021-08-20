@@ -39,7 +39,7 @@ function Schedule() {
   return (
     <Stack direction={isDesktop ? "row" : "column-reverse"} spacing="50px" align="flex-start">
       <Box width="100%">
-        <Stack justify="space-between" align="flex-start">
+        <Stack direction="row" justify="space-between" align="flex-start">
           <Box>
             <Heading size="md">Meetings</Heading>
             {isDesktop && <Text color="gray.500">{displayDate}</Text>}

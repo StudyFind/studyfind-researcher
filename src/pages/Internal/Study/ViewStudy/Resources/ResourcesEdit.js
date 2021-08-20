@@ -1,74 +1,29 @@
-import { useEffect, useState } from "react";
+import { useResourcesInputs } from "hooks";
 import { Button } from "@chakra-ui/react";
+import { study as researchStudy } from "database/mutations";
 
 import TabHeader from "../TabHeader";
 import ResourcesInputs from "components/feature/Study/ResourcesInputs/ResourcesInputs";
 
 function ResourcesEdit({ study, setEdit }) {
-  const [values, setValues] = useState([]);
-  const [errors, setErrors] = useState([]);
-
-  const validate = (values) => {
-    return values.map((q) => ({
-      type: !q.type,
-      prompt: !q.prompt,
-    }));
-  };
-
-  const createQuestion = () => {
-    setValues((prev) => prev.concat({ type: "Inclusion", prompt: "" }));
-    setErrors((prev) => prev.concat({ type: false, prompt: false }));
-  };
-
-  const updateQuestion = (index, name, value) => {
-    setValues((prev) =>
-      prev.map((q, i) => {
-        return index === i ? { ...q, [name]: value } : q;
-      })
-    );
-
-    setErrors((prev) =>
-      prev.map((q, i) => {
-        return index === i ? { ...q, [name]: !value } : q;
-      })
-    );
-  };
-
-  const deleteQuestion = (index) => {
-    setValues((prev) => prev.filter((_, i) => i !== index));
-    setErrors((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const clearQuestions = () => {
-    setValues([]);
-    setErrors([]);
-  };
-
-  const resetQuestions = () => {
-    setValues(study.questions);
-    setErrors(validate(study.questions));
-  };
-
-  const sortQuestions = ({ oldIndex, newIndex }) => {
-    setValues((prev) => {
-      const updated = [...prev];
-      const removed = updated.splice(oldIndex, 1);
-      updated.splice(newIndex, 0, removed[0]);
-      return updated;
-    });
-  };
-
-  useEffect(() => {
-    if (study) {
-      resetQuestions();
-    }
-  }, [study]);
+  const {
+    values,
+    errors,
+    hasChanged,
+    notDefault,
+    createResource,
+    updateResource,
+    deleteResource,
+    clearResources,
+    resetResources,
+    sortResources,
+    handleSubmit,
+  } = useResourcesInputs(study, (data) => {
+    researchStudy.update({ ...study, resources: data });
+    setEdit(false);
+  });
 
   const handleCancel = () => {
-    setEdit(false);
-  };
-
-  const handleSaveChanges = () => {
     setEdit(false);
   };
 
@@ -76,20 +31,21 @@ function ResourcesEdit({ study, setEdit }) {
     <>
       <TabHeader heading="Resources">
         <Button onClick={handleCancel}>Cancel</Button>
-        <Button colorScheme="green" onClick={handleSaveChanges}>
+        <Button colorScheme="green" onClick={handleSubmit}>
           Save Changes
         </Button>
       </TabHeader>
       <ResourcesInputs
         values={values}
         errors={errors}
-        hasChanged={JSON.stringify(values) !== JSON.stringify(study.questions)}
-        createQuestion={createQuestion}
-        updateQuestion={updateQuestion}
-        deleteQuestion={deleteQuestion}
-        clearQuestions={clearQuestions}
-        resetQuestions={resetQuestions}
-        sortQuestions={sortQuestions}
+        hasChanged={hasChanged}
+        notDefault={notDefault}
+        createResource={createResource}
+        updateResource={updateResource}
+        deleteResource={deleteResource}
+        clearResources={clearResources}
+        resetResources={resetResources}
+        sortResources={sortResources}
       />
     </>
   );

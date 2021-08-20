@@ -4,7 +4,7 @@ import QuestionsInputs from "components/feature/Study/QuestionsInputs/QuestionsI
 import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
 import CreateStudyWrapper from "./CreateStudyWrapper";
 
-function Questions({ newStudy, setNewStudy, handleBack, handleNext }) {
+function Questions({ study, setStudy, handleBack, handleNext }) {
   const {
     values,
     errors,
@@ -17,8 +17,8 @@ function Questions({ newStudy, setNewStudy, handleBack, handleNext }) {
     resetQuestions,
     sortQuestions,
     handleSubmit,
-  } = useQuestionsInputs(newStudy, (data) => {
-    setNewStudy((prev) => ({ ...prev, questions: data }));
+  } = useQuestionsInputs(study, (data) => {
+    setStudy((prev) => ({ ...prev, questions: data }));
     handleNext();
   });
 

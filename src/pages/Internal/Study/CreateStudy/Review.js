@@ -10,14 +10,14 @@ import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
 import CreateStudyWrapper from "./CreateStudyWrapper";
 import ResourcesList from "components/feature/Study/ResourcesList/ResourcesList";
 
-function Review({ loading, newStudy, handleBack, handleSubmit }) {
+function Review({ loading, study, handleBack, handleSubmit }) {
   const tabs = [
     {
       name: "Details",
       content: (
         <StudyCardLarge
           study={{
-            ...newStudy,
+            ...study,
             activated: false,
             researcher: {
               id: auth.currentUser.uid,
@@ -30,8 +30,8 @@ function Review({ loading, newStudy, handleBack, handleSubmit }) {
     },
     {
       name: "Locations",
-      content: newStudy.locations.length ? (
-        <LocationsList locations={newStudy.locations} />
+      content: study.locations.length ? (
+        <LocationsList locations={study.locations} />
       ) : (
         <Message
           title="No Locations"
@@ -53,8 +53,8 @@ function Review({ loading, newStudy, handleBack, handleSubmit }) {
     },
     {
       name: "Questions",
-      content: newStudy.questions.length ? (
-        <QuestionsTable questions={newStudy.questions} />
+      content: study.questions.length ? (
+        <QuestionsTable questions={study.questions} />
       ) : (
         <Message
           title="No Questions"
@@ -75,8 +75,8 @@ function Review({ loading, newStudy, handleBack, handleSubmit }) {
     },
     {
       name: "Resources",
-      content: newStudy.resources.length ? (
-        <ResourcesList resources={newStudy.resources} />
+      content: study.resources.length ? (
+        <ResourcesList resources={study.resources} />
       ) : (
         <Message
           title="No Resources"

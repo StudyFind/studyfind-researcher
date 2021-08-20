@@ -56,7 +56,7 @@ function Delete({ study }) {
       </Text>
 
       <Form onSubmit={handleDelete}>
-        <Grid gap="10px" w="210px">
+        <Grid gap="10px" maxW="240px">
           <TextInput
             placeholder="Type here..."
             value={studyID}

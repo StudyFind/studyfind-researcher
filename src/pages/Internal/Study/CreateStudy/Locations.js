@@ -4,7 +4,7 @@ import LocationsInputs from "components/feature/Study/LocationsInputs/LocationsI
 import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
 import CreateStudyWrapper from "./CreateStudyWrapper";
 
-function Locations({ newStudy, setNewStudy, handleBack, handleNext }) {
+function Locations({ study, setStudy, handleBack, handleNext }) {
   const {
     values,
     errors,
@@ -17,8 +17,8 @@ function Locations({ newStudy, setNewStudy, handleBack, handleNext }) {
     resetLocations,
     sortLocations,
     handleSubmit,
-  } = useLocationsInputs(newStudy, (data) => {
-    setNewStudy((prev) => ({ ...prev, locations: data }));
+  } = useLocationsInputs(study, (data) => {
+    setStudy((prev) => ({ ...prev, locations: data }));
     handleNext();
   });
 

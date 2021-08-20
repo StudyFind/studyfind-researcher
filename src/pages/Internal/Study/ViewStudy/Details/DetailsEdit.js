@@ -1,14 +1,24 @@
-import { useDetails } from "hooks";
+import { useDetailsInputs } from "hooks";
 import { Button } from "@chakra-ui/react";
+import { study as researchStudy } from "database/mutations";
 
 import DetailsInputs from "components/feature/Study/DetailsInputs/DetailsInputs";
 import TabHeader from "../TabHeader";
 
 function DetailsEdit({ study, setEdit }) {
-  const { values, errors, hasChanged, handleChange, handleClear, handleReset, handleSubmit } =
-    useDetails(study, (data) => {
-      setEdit(false);
-    });
+  const {
+    values,
+    errors,
+    hasChanged,
+    notDefault,
+    handleReset,
+    handleClear,
+    handleChange,
+    handleSubmit,
+  } = useDetailsInputs(study, (data) => {
+    researchStudy.update({ ...study, ...data });
+    setEdit(false);
+  });
 
   const handleCancel = () => {
     setEdit(false);
@@ -26,6 +36,7 @@ function DetailsEdit({ study, setEdit }) {
         values={values}
         errors={errors}
         hasChanged={hasChanged}
+        notDefault={notDefault}
         handleReset={handleReset}
         handleClear={handleClear}
         handleChange={handleChange}

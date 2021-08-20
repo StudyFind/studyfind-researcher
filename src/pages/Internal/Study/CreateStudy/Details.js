@@ -4,7 +4,7 @@ import DetailsInputs from "components/feature/Study/DetailsInputs/DetailsInputs"
 import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
 import CreateStudyWrapper from "./CreateStudyWrapper";
 
-function Details({ newStudy, setNewStudy, handleNext }) {
+function Details({ study, setStudy, handleNext }) {
   const {
     values,
     errors,
@@ -14,8 +14,8 @@ function Details({ newStudy, setNewStudy, handleNext }) {
     handleClear,
     handleChange,
     handleSubmit,
-  } = useDetailsInputs(newStudy, (data) => {
-    setNewStudy((prev) => ({ ...prev, ...data }));
+  } = useDetailsInputs(study, (data) => {
+    setStudy((prev) => ({ ...prev, ...data }));
     handleNext();
   });
 

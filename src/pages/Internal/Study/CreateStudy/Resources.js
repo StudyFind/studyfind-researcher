@@ -4,7 +4,7 @@ import ResourcesInputs from "components/feature/Study/ResourcesInputs/ResourcesI
 import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
 import CreateStudyWrapper from "./CreateStudyWrapper";
 
-function Resources({ newStudy, setNewStudy, handleBack, handleNext }) {
+function Resources({ study, setStudy, handleBack, handleNext }) {
   const {
     values,
     errors,
@@ -17,8 +17,8 @@ function Resources({ newStudy, setNewStudy, handleBack, handleNext }) {
     resetResources,
     sortResources,
     handleSubmit,
-  } = useResourcesInputs(newStudy, (data) => {
-    setNewStudy((prev) => ({ ...prev, resources: data }));
+  } = useResourcesInputs(study, (data) => {
+    setStudy((prev) => ({ ...prev, resources: data }));
     handleNext();
   });
 
