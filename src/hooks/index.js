@@ -23,7 +23,7 @@ export { default as useCustomClaims } from "./useCustomClaims";
 // COMPONENTS
 export { default as useTabs } from "./useTabs";
 export { default as useWizard } from "./useWizard";
-export { default as useClipboard } from "./useColorMode";
+export { default as useClipboard } from "./useClipboard";
 
 // AUTOUPDATE
 export { default as useAutoUpdateLocation } from "./useAutoUpdateLocation";
