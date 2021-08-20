@@ -28,28 +28,28 @@ function DescriptionAccessibilityScore({ score }) {
 
   return (
     <Box borderColor={scoreBorderColor} borderWidth="1px" padding="16px 20px" rounded="md">
-      <Flex align="center">
-        <Heading marginRight="8px" size="md">
-          Description Accessibility Score
-        </Heading>
-        <HStack align="center">
-          <Tag
-            variant="solid"
-            fontWeight="500"
-            minWidth="45px"
-            color={scoreColor}
-            background={scoreBackground}
-          >
-            {isScoreInvalid ? "??" : score}%
-          </Tag>
-          <Tooltip label="This score is derived from the Flesch–Kincaid Readability Index. To improve your accessibility score, please use shorter sentences and words with fewer syllables.">
-            <HStack height="100%" align="center">
-              <Icon color="gray.500" as={FaInfoCircle} />
-            </HStack>
-          </Tooltip>
+      <HStack justify="space-between" align="center" wrap="wrap">
+        <HStack>
+          <Heading size="md">Description Accessibility Score</Heading>
+          <HStack align="center">
+            <Tag
+              variant="solid"
+              fontWeight="500"
+              minWidth="45px"
+              color={scoreColor}
+              background={scoreBackground}
+            >
+              {isScoreInvalid ? "??" : score}%
+            </Tag>
+            <Tooltip label="This score is derived from the Flesch–Kincaid Readability Index. To improve your accessibility score, please use shorter sentences and words with fewer syllables.">
+              <HStack height="100%" align="center">
+                <Icon color="gray.500" as={FaInfoCircle} />
+              </HStack>
+            </Tooltip>
+          </HStack>
         </HStack>
-      </Flex>
-      <Text color="gray.500">
+      </HStack>
+      <Text color="gray.500" marginTop="4px" marginBottom="12px">
         Accessible study descriptions are shown to improve participant interest and enrollment rates
       </Text>
       <Progress value={score} marginTop="8px" background={progressBackground} colorScheme={color} />
