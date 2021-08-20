@@ -33,7 +33,6 @@ export { SwitchInput } from "./simple/Inputs/SwitchInput";
 export { CheckboxInput } from "./simple/Inputs/CheckboxInput";
 export { PasswordInput } from "./simple/Inputs/PasswordInput";
 export { TextareaInput } from "./simple/Inputs/TextareaInput";
-export { LocationInput } from "./simple/Inputs/LocationInput";
 export { MultiSelectInput } from "./simple/Inputs/MultiSelectInput";
 export { ToggleSelectInput } from "./simple/Inputs/ToggleSelectInput";
 export { ToggleInput } from "./simple/Inputs/ToggleInput";

@@ -8,12 +8,6 @@ function Locations({ study, setEdit }) {
   const [values, setValues] = useState([]);
   const [errors, setErrors] = useState([]);
 
-  useEffect(() => {
-    if (study) {
-      resetLocations();
-    }
-  }, [study]);
-
   const hasChanged = JSON.stringify(values) !== JSON.stringify(study.locations);
 
   const validate = (values) => {
@@ -61,6 +55,12 @@ function Locations({ study, setEdit }) {
       return updated;
     });
   };
+
+  useEffect(() => {
+    if (study) {
+      resetLocations();
+    }
+  }, [study]);
 
   return (
     <>

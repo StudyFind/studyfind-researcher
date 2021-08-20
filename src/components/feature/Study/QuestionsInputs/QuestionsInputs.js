@@ -25,7 +25,7 @@ function QuestionsInputs({
           </EditorButton>
         )}
         {values.length && (
-          <EditorButton color="red" icon={<FaTrashAlt />} onClick={clearQuestions}>
+          <EditorButton icon={<FaTrashAlt />} onClick={clearQuestions} colorScheme="red">
             Delete All
           </EditorButton>
         )}

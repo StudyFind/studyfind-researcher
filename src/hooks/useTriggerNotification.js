@@ -2,6 +2,7 @@
 // const triggerNotification = useTriggerNotification();
 
 import { useEffect } from "react";
+import { firestore } from "database/firebase";
 
 function useTriggerNotification(user) {
   const setLocalNotificationPreference = (preference) => {

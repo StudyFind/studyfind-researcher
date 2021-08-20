@@ -20,8 +20,8 @@ import {
 import Sidebar from "components/feature/Sidebar/Sidebar";
 import Verification from "./Verification/Verification";
 import Dashboard from "./Dashboard/Dashboard";
-// import CreateStudy from "./Study/CreateStudy/CreateStudy";
-// import ViewStudy from "./Study/ViewStudy/ViewStudy";
+import CreateStudy from "./Study/CreateStudy/CreateStudy";
+import ViewStudy from "./Study/ViewStudy/ViewStudy";
 import Notifications from "./Notifications/Notifications";
 import Schedule from "./Schedule/Schedule";
 import Account from "./Account/Account";
@@ -126,8 +126,8 @@ function Internal() {
             >
               <Switch>
                 <Route exact path="/" component={Dashboard} />
-                {/* <Route path="/create" component={CreateStudy} /> */}
-                {/* <Route path="/study/:studyID/:tab/:action?/:participantID?" component={ViewStudy} /> */}
+                <Route path="/create" component={CreateStudy} />
+                <Route path="/study/:studyID/:tab/:action?/:participantID?" component={ViewStudy} />
                 <Route path="/notifications" component={Notifications} />
                 <Route path="/schedule" component={Schedule} />
                 <Route path="/account/:tab" component={Account} />

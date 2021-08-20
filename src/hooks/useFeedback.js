@@ -1,6 +1,7 @@
+import moment from "moment";
+
 import { useState } from "react";
 import { auth, firestore } from "database/firebase";
-import moment from "moment";
 
 function useFeedback() {
   const [values, setValues] = useState({ title: "", body: "" });
@@ -33,4 +34,4 @@ function useFeedback() {
   return [values, errors, handleChange, handleSubmit];
 }
 
-export { useFeedback };
+export default useFeedback;

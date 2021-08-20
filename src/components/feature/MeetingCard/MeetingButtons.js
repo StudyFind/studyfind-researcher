@@ -9,11 +9,11 @@ function MeetingButtons({ link, confirmed, handleEdit, handleDelete }) {
         <ActionButton
           icon={<FaPhone />}
           hint={confirmed ? "Join" : "Pending"}
-          color={confirmed ? "green" : "gray"}
+          colorScheme={confirmed ? "green" : "gray"}
         />
       </Link>
-      <ActionButton icon={<FaPencilAlt />} hint="Edit" color="blue" onClick={handleEdit} />
-      <ActionButton icon={<FaTrashAlt />} hint="Delete" color="red" onClick={handleDelete} />
+      <ActionButton icon={<FaPencilAlt />} hint="Edit" colorScheme="blue" onClick={handleEdit} />
+      <ActionButton icon={<FaTrashAlt />} hint="Delete" colorScheme="red" onClick={handleDelete} />
     </Flex>
   );
 }

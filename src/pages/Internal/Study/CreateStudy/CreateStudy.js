@@ -1,13 +1,20 @@
 import { useState } from "react";
-import { useWizard } from "hooks";
+import { useHistory, useWizard } from "hooks";
 
 import WizardFormSteps from "components/complex/WizardForm/WizardFormSteps";
 import Details from "./Details";
+// import Locations from "./Locations";
 
 function CreateStudy() {
   const { stepIndex, handleBack, handleNext, handleSelect } = useWizard(4);
 
-  const handleCreate = () => {};
+  const history = useHistory();
+
+  const handleBefore = () => {
+    history.push("/");
+  };
+
+  const handleSubmit = () => {};
 
   const [study, setStudy] = useState({
     title: "",
@@ -25,10 +32,17 @@ function CreateStudy() {
   });
 
   const steps = [
-    <Details key={0} handleNext={handleNext} />,
-    <div key={1}>Locations</div>,
-    <div key={2}>Screening</div>,
-    <div key={3}>Review</div>,
+    <Details
+      key={0}
+      study={study}
+      setStudy={setStudy}
+      handleBack={handleBefore}
+      handleNext={handleNext}
+    />,
+    // <Locations key={1} setStudy={setStudy} handleBack={handleBack} handleNext={handleNext} />,
+    // <Resources key={2} setStudy={setStudy} handleBack={handleBack} handleNext={handleNext} />,
+    // <Questions key={3} setStudy={setStudy} handleBack={handleBack} handleNext={handleNext} />,
+    // <Review key={4} handleBack={handleBack} handleSubmit={handleSubmit} />,
   ];
 
   return (

@@ -1,8 +1,7 @@
+import { useDetectDevice } from "hooks";
 import { datetime } from "utils";
 
 import { Tooltip, Text } from "@chakra-ui/react";
-import { useContext } from "react";
-import { useDetectDevice } from "hooks";
 
 function NotificationTime({ time }) {
   const displayTime = datetime.get12HourTime(time);

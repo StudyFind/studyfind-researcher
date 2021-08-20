@@ -12,13 +12,13 @@ function DetailsInputs({ values, errors, hasChanged, handleChange, handleReset, 
   return (
     <VStack spacing="10px" align="stretch">
       <HStack>
-        {hasChanged && (
+        {handleReset && hasChanged && (
           <EditorButton icon={<FaUndo />} onClick={handleReset}>
             Undo Changes
           </EditorButton>
         )}
-        {(values.title || values.description) && (
-          <EditorButton color="purple" icon={<FaEraser />} onClick={handleClear}>
+        {handleClear && (values.title || values.description) && (
+          <EditorButton icon={<FaEraser />} onClick={handleClear} colorScheme="purple">
             Clear Text
           </EditorButton>
         )}

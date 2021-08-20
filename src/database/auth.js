@@ -59,13 +59,9 @@ const changePassword = async ({ password, newPassword }) => {
 };
 
 const deleteAccount = async ({ email, password }) => {
-  console.log({ email, password });
-
   try {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
-    console.log("reached here 1");
     await researcher.delete(user.uid);
-    console.log("reached here 2");
     await user.delete();
     setLocalUserExists(false);
   } catch (error) {

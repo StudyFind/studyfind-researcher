@@ -31,13 +31,13 @@ function NoteCard({ note, handleEdit, handleDelete }) {
           <ActionButton
             icon={<FaPencilAlt />}
             hint="Edit"
-            color="blue"
+            colorScheme="blue"
             onClick={() => handleEdit(note)}
           />
           <ActionButton
             icon={<FaTrashAlt />}
             hint="Delete"
-            color="red"
+            colorScheme="red"
             onClick={() => handleDelete(note.id)}
           />
         </Flex>

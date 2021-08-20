@@ -21,7 +21,7 @@ function Panel({ colorScheme, title, description, buttonText, buttonLink }) {
         </Heading>
         <Text>{description}</Text>
       </VStack>
-      <Link to={""} isWrapper>
+      <Link to={buttonLink} isWrapper>
         <Button colorScheme={colorScheme} fontWeight="bold">
           {buttonText}
         </Button>

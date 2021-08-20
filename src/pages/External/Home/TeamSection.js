@@ -39,6 +39,7 @@ function TeamSection() {
       description:
         "Our interns have put in the time and effort to deliver the best quality product for researchers to use.",
       buttonText: "Meet the Interns",
+      buttonLink: "/team",
     },
     {
       title: "Advisory Board",
@@ -46,6 +47,7 @@ function TeamSection() {
       description:
         "Our advisory board has given us the direction and strategy needed to build a product researchers love.",
       buttonText: "Meet the Advisory Board",
+      buttonLink: "/team",
     },
     {
       title: "Collaborations",
@@ -53,6 +55,7 @@ function TeamSection() {
       description:
         "Our collaborations have enabled us to constantly push boundaries and develop experimental products.",
       buttonText: "View our Collaborations",
+      buttonLink: "/team",
     },
   ];
 
