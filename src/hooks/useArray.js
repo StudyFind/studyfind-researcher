@@ -7,11 +7,11 @@ function useArray(initial) {
     setArray((prev) => prev.concat([value]));
   };
 
-  const updateItem = (value, index) => {
+  const updateItem = (index, value) => {
     setArray((prev) => [...prev.slice(0, index), value, ...prev.slice(index + 1)]);
   };
 
-  const insertItem = (value, index) => {
+  const insertItem = (index, value) => {
     setArray((prev) => [...prev.slice(0, index), value, ...prev.slice(index)]);
   };
 
@@ -29,6 +29,7 @@ function useArray(initial) {
 
   return [
     array,
+    setArray,
     {
       appendItem,
       updateItem,

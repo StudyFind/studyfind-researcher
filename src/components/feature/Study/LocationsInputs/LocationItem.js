@@ -9,11 +9,11 @@ export default SortableElement(({ i, value, error, updateLocation, deleteLocatio
   <Grid templateColumns="1fr 24fr 1fr" gridGap="10px" width="100%">
     <DragHandle />
     <TextInput
-      placeholder="Location"
+      placeholder="Location Address"
       name="prompt"
       value={value}
       error={error}
-      onChange={() => updateLocation(i, value)}
+      onChange={(_, v) => updateLocation(i, v)}
     />
     <ActionButton
       colorScheme="red"

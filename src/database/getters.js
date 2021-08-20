@@ -13,6 +13,10 @@ export const getEmail = () => {
   return auth?.currentUser?.email;
 };
 
+export const getName = () => {
+  return auth?.currentUser?.displayName;
+};
+
 export const getSide = () => {
   return "researcher";
 };

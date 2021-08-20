@@ -10,6 +10,7 @@ function LocationsInputs({
   values,
   errors,
   hasChanged,
+  notDefault,
   createLocation,
   updateLocation,
   deleteLocation,
@@ -20,7 +21,7 @@ function LocationsInputs({
   return (
     <VStack spacing="10px" align="stretch">
       <HStack>
-        {hasChanged && (
+        {hasChanged && notDefault && (
           <EditorButton icon={<FaUndo />} onClick={resetLocations}>
             Undo Changes
           </EditorButton>

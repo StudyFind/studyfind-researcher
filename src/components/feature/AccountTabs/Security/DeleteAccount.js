@@ -9,7 +9,7 @@ import AccountHeader from "../AccountHeader";
 function DeleteAccount({ handleDeleteAccount }) {
   const { values, errors, loading, handleChange, handleSubmit } = useAuth({
     initial: { email: "", password: "" },
-    toasts: { success: toasts.deletedAccount, failure: toasts.connectionError },
+    toasts: { success: toasts.deletedAccount },
     onSubmit: handleDeleteAccount,
   });
 

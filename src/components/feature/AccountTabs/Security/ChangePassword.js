@@ -9,7 +9,7 @@ import AccountHeader from "../AccountHeader";
 function ChangePassword({ handleChangePassword }) {
   const { values, errors, loading, handleChange, handleSubmit } = useAuth({
     initial: { password: "", newPassword: "" },
-    toasts: { success: toasts.changedPassword, failure: toasts.connectionError },
+    toasts: { success: toasts.changedPassword },
     onSubmit: handleChangePassword,
   });
 

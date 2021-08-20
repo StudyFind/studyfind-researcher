@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { validate, object } from "utils";
-import useTriggerToast from "./useTriggerToast";
+
+import useTriggerToast from "../useTriggerToast";
 
 function useAuth({ initial, toasts, onSubmit }) {
   const [values, setValues] = useState(initial);
@@ -46,6 +47,10 @@ function useAuth({ initial, toasts, onSubmit }) {
       .catch((err) => {
         setSuccess(false);
         setErrors(err);
+
+        if (toasts.failure) {
+          triggerToast(toasts.failure);
+        }
       })
       .finally(() => setLoading(false));
   };

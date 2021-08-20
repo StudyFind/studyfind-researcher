@@ -1,5 +1,5 @@
 import { firestore } from "database/firebase";
-import { getEmail, getNow, getUID } from "database/getters";
+import { getEmail, getName, getNow, getUID } from "database/getters";
 
 const assertCreateFields = ({
   type,
@@ -49,13 +49,13 @@ const assertUpdateFields = ({
   conditions,
 });
 
-const createStudy = (data, researcherName) => {
+const createStudy = (data) => {
   const assertedFields = assertCreateFields(data);
 
   const now = getNow();
 
   const id = getUID();
-  const name = researcherName;
+  const name = getName();
   const email = getEmail();
 
   const researcher = { id, name, email };

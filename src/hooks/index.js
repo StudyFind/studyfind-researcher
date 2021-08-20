@@ -43,10 +43,12 @@ export { default as useTriggerNotification } from "./useTriggerNotification";
 
 // FORMS
 export { default as useForm } from "./useForm";
-export { default as useAuth } from "./useAuth";
-export { default as useDetails } from "./useDetails";
-export { default as useScreening } from "./useScreening";
-export { default as useFeedback } from "./useFeedback";
+export { default as useAuth } from "./feature/useAuth";
+export { default as useDetailsInputs } from "./feature/useDetailsInputs";
+export { default as useLocationsInputs } from "./feature/useLocationsInputs";
+export { default as useQuestionsInputs } from "./feature/useQuestionsInputs";
+export { default as useResourcesInputs } from "./feature/useResourcesInputs";
+export { default as useFeedbackInputs } from "./feature/useFeedbackInputs";
 // export { default as useMeeting } from "./useMeeting";
 // export { default as useReminder } from "./useReminder";
 // export { default as useNote } from "./useNote";

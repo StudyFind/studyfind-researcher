@@ -12,7 +12,7 @@ export default SortableElement(({ i, value, error, updateQuestion, deleteQuestio
       name="type"
       value={value.type}
       error={error.type}
-      onChange={(name, value) => updateQuestion(i, name, value)}
+      onChange={(n, v) => updateQuestion(i, n, v)}
       options={[
         { label: "Inclusion", value: "Inclusion" },
         { label: "Exclusion", value: "Exclusion" },
@@ -23,7 +23,7 @@ export default SortableElement(({ i, value, error, updateQuestion, deleteQuestio
       name="prompt"
       value={value.prompt}
       error={error.prompt}
-      onChange={(name, value) => updateQuestion(i, name, value)}
+      onChange={(n, v) => updateQuestion(i, n, v)}
     />
     <ActionButton
       colorScheme="red"

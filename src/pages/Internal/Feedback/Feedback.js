@@ -2,7 +2,7 @@ import { useTriggerToast } from "hooks";
 import { toasts } from "templates";
 import { feedback } from "database/mutations";
 
-import FeedbackForm from "components/feature/Feedback/FeedbackForm";
+import FeedbackForm from "components/feature/FeedbackForm/FeedbackForm";
 
 function Feedback() {
   const triggerToast = useTriggerToast();

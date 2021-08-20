@@ -1,79 +1,49 @@
-import { useState, useEffect } from "react";
-import { Button } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useLocationsInputs } from "hooks";
+
+import { Box, Heading, Text } from "@chakra-ui/react";
 
 import LocationsInputs from "components/feature/Study/LocationsInputs/LocationsInputs";
-import TabHeader from "../TabHeader";
+import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
 
-function Locations({ study, setEdit }) {
-  const [values, setValues] = useState([]);
-  const [errors, setErrors] = useState([]);
-
-  const hasChanged = JSON.stringify(values) !== JSON.stringify(study.locations);
-
-  const validate = (values) => {
-    return values.map((l) => !l);
-  };
-
-  const createLocation = () => {
-    setValues((prev) => prev.concat(""));
-    setErrors((prev) => prev.concat(false));
-  };
-
-  const updateLocation = (index, value) => {
-    setValues((prev) => prev.map((l, i) => (index === i ? value : l)));
-    setErrors((prev) => prev.map((l, i) => (index === i ? !value : l)));
-  };
-
-  const deleteLocation = (index) => {
-    setValues((prev) => prev.filter((_, i) => i !== index));
-    setErrors((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const clearLocations = () => {
-    setValues([]);
-    setErrors([]);
-  };
-
-  const resetLocations = () => {
-    setValues(study.locations);
-    setErrors(validate(study.locations));
-  };
-
-  const handleCancel = () => {
-    setEdit(false);
-  };
-
-  const handleSaveChanges = () => {
-    setEdit(false);
-  };
-
-  const sortLocations = ({ oldIndex, newIndex }) => {
-    setValues((prev) => {
-      const updated = [...prev];
-      const removed = updated.splice(oldIndex, 1);
-      updated.splice(newIndex, 0, removed[0]);
-      return updated;
-    });
-  };
+function Locations({ newStudy, setNewStudy, handleBack, handleNext }) {
+  const {
+    values,
+    errors,
+    hasChanged,
+    notDefault,
+    createLocation,
+    updateLocation,
+    deleteLocation,
+    clearLocations,
+    resetLocations,
+    sortLocations,
+    handleSubmit,
+  } = useLocationsInputs(newStudy, (data) => {
+    setNewStudy((prev) => ({ ...prev, locations: data }));
+    handleNext();
+  });
 
   useEffect(() => {
-    if (study) {
-      resetLocations();
+    if (!hasChanged && !notDefault) {
+      createLocation();
+      createLocation();
+      createLocation();
     }
-  }, [study]);
+  }, []);
 
   return (
-    <>
-      <TabHeader heading="Locations">
-        <Button onClick={handleCancel}>Cancel</Button>
-        <Button colorScheme="green" onClick={handleSaveChanges}>
-          Save Changes
-        </Button>
-      </TabHeader>
+    <Box paddingY="20px">
+      <Heading>Locations</Heading>
+      <Text color="gray.500" paddingTop="5px" paddingBottom="10px">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+      </Text>
       <LocationsInputs
         values={values}
         errors={errors}
         hasChanged={hasChanged}
+        notDefault={notDefault}
         createLocation={createLocation}
         updateLocation={updateLocation}
         deleteLocation={deleteLocation}
@@ -81,7 +51,8 @@ function Locations({ study, setEdit }) {
         resetLocations={resetLocations}
         sortLocations={sortLocations}
       />
-    </>
+      <WizardFormButton handleBack={handleBack} handleNext={handleSubmit} />
+    </Box>
   );
 }
 

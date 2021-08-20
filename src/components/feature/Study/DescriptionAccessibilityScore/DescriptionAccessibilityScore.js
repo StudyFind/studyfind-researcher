@@ -1,14 +1,5 @@
 import { useColor } from "hooks";
-import {
-  Heading,
-  Text,
-  Progress,
-  Tag,
-  Flex,
-  Tooltip,
-  Icon,
-  Box,
-} from "@chakra-ui/react";
+import { Heading, Text, Progress, Tag, Flex, Tooltip, Icon, Box, HStack } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
 
 function DescriptionAccessibilityScore({ score }) {
@@ -36,42 +27,32 @@ function DescriptionAccessibilityScore({ score }) {
   const progressBackground = useColor("gray.200", "gray.700");
 
   return (
-    <Box
-      borderColor={scoreBorderColor}
-      borderWidth="1px"
-      padding="16px 20px"
-      rounded="md"
-    >
+    <Box borderColor={scoreBorderColor} borderWidth="1px" padding="16px 20px" rounded="md">
       <Flex align="center">
         <Heading marginRight="8px" size="md">
           Description Accessibility Score
         </Heading>
-        <Tag
-          variant="solid"
-          marginRight="8px"
-          fontWeight="500"
-          minWidth="45px"
-          color={scoreColor}
-          background={scoreBackground}
-        >
-          {isScoreInvalid ? "??" : score}%
-        </Tag>
-        <Tooltip label="This score is derived from the Flesch–Kincaid Readability Index. To improve your accessibility score, please use shorter sentences and words with fewer syllables.">
-          <Box>
-            <Icon color="gray.500" as={FaInfoCircle} />
-          </Box>
-        </Tooltip>
+        <HStack align="center">
+          <Tag
+            variant="solid"
+            fontWeight="500"
+            minWidth="45px"
+            color={scoreColor}
+            background={scoreBackground}
+          >
+            {isScoreInvalid ? "??" : score}%
+          </Tag>
+          <Tooltip label="This score is derived from the Flesch–Kincaid Readability Index. To improve your accessibility score, please use shorter sentences and words with fewer syllables.">
+            <HStack height="100%" align="center">
+              <Icon color="gray.500" as={FaInfoCircle} />
+            </HStack>
+          </Tooltip>
+        </HStack>
       </Flex>
       <Text color="gray.500">
-        Accessible study descriptions are shown to improve participant interest
-        and enrollment rates
+        Accessible study descriptions are shown to improve participant interest and enrollment rates
       </Text>
-      <Progress
-        value={score}
-        marginTop="8px"
-        background={progressBackground}
-        colorScheme={color}
-      />
+      <Progress value={score} marginTop="8px" background={progressBackground} colorScheme={color} />
     </Box>
   );
 }
