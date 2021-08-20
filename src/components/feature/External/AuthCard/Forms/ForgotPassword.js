@@ -14,12 +14,10 @@ import {
 function ForgotPassword({ setTab }) {
   const { handleForgotPassword } = useContext(AuthContext);
 
-  const { values, errors, loading, success, handleChange, handleSubmit } = useAuth(
-    {
-      email: "",
-    },
-    handleForgotPassword
-  );
+  const { values, errors, loading, success, handleChange, handleSubmit } = useAuth({
+    initial: { email: "" },
+    onSubmit: handleForgotPassword,
+  });
 
   if (success) {
     return (

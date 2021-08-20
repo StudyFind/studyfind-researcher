@@ -26,10 +26,11 @@ function ConfirmModal({
 
   const handleSubmit = () => {
     setLoading(true);
-    handleConfirm()
-      .then(() => handleClose())
-      .catch(() => console.log("There was an error"))
-      .finally(() => setLoading(false));
+
+    return handleConfirm().finally(() => {
+      handleClose();
+      setLoading(false);
+    });
   };
 
   const textColor = useColor("gray.500", "gray.400");

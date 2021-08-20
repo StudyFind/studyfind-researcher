@@ -1,5 +1,6 @@
-import { usePagination } from "hooks";
-import { auth, firestore } from "database/firebase";
+import { usePagination, useUserData } from "hooks";
+import { auth } from "database/firebase";
+import { dashboardQuery } from "database/queries";
 
 import { Loader } from "components";
 
@@ -8,11 +9,7 @@ import DashboardEmpty from "./DashboardEmpty";
 import DashboardError from "./DashboardError";
 
 function Dashboard() {
-  const verified = auth.currentUser.emailVerified;
-  const studiesRef = firestore
-    .collection("studies")
-    .where("researcher.id", "==", auth.currentUser.uid)
-    .orderBy("createdAt", "desc");
+  const { uid, emailVerified } = useUserData(auth);
 
   const {
     documents: studies,
@@ -21,23 +18,23 @@ function Dashboard() {
     handleLoadMore,
     fetchedAll,
     error,
-  } = usePagination(studiesRef, 10);
+  } = usePagination(dashboardQuery(uid), 10);
 
   if (loading) {
     return <Loader />;
   }
 
   if (error) {
-    return <DashboardError verified={verified} />;
+    return <DashboardError verified={emailVerified} />;
   }
 
   if (studies.length === 0) {
-    return <DashboardEmpty verified={verified} />;
+    return <DashboardEmpty verified={emailVerified} />;
   }
 
   return (
     <DashboardGrid
-      verified={verified}
+      verified={emailVerified}
       studies={studies}
       fetchedAll={fetchedAll}
       loadingMore={loadingMore}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDetectDevice } from "hooks";
 import { datetime } from "utils";
 
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Stack, Box, Heading, Text } from "@chakra-ui/react";
 import { FaCalendar } from "react-icons/fa";
 import { SecondaryButton } from "components";
 
@@ -37,9 +37,9 @@ function Schedule() {
   };
 
   return (
-    <Flex direction={isDesktop ? "row" : "column-reverse"} gridGap="50px">
+    <Stack direction={isDesktop ? "row" : "column-reverse"} spacing="50px" align="flex-start">
       <Box width="100%">
-        <Flex justify="space-between" align="center">
+        <Stack justify="space-between" align="flex-start">
           <Box>
             <Heading size="md">Meetings</Heading>
             {isDesktop && <Text color="gray.500">{displayDate}</Text>}
@@ -49,20 +49,20 @@ function Schedule() {
               {displayDate || "Select Date"}
             </SecondaryButton>
           )}
-        </Flex>
+        </Stack>
         <Meetings date={date} />
       </Box>
       {isDesktop && (
-        <Flex justify="center">
+        <Stack justify="center">
           <Calendar date={date} setDate={setDate} />
-        </Flex>
+        </Stack>
       )}
       <Modal open={open} handleClose={handleCloseModal} width="330px">
         <Box padding="15px">
           <Calendar date={date} setDate={handleSelectDate} />
         </Box>
       </Modal>
-    </Flex>
+    </Stack>
   );
 }
 

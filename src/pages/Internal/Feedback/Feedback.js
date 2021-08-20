@@ -1,14 +1,14 @@
-import { useToast } from "@chakra-ui/react";
-import { feedback } from "database/mutations";
+import { useTriggerToast } from "hooks";
 import { toasts } from "templates";
+import { feedback } from "database/mutations";
 
 import FeedbackForm from "components/feature/Feedback/FeedbackForm";
 
 function Feedback() {
-  const toast = useToast();
+  const triggerToast = useTriggerToast();
 
   const handleSubmit = ({ title, body }) => {
-    return feedback.submit({ title, body }).then(() => toast(toasts.providedFeedback));
+    return feedback.submit({ title, body }).then(() => triggerToast(toasts.providedFeedback));
   };
 
   return <FeedbackForm onSubmit={handleSubmit} />;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function usePagination(ref, limit) {
+function usePagination(query, limit) {
   const [documents, setDocuments] = useState([]);
   const [lastDoc, setLastDoc] = useState(null);
   const [fetchedAll, setFetchedAll] = useState(false);
@@ -18,7 +18,7 @@ function usePagination(ref, limit) {
   //  0 1 2 3 4 5 6 7 8 9 ...
 
   useEffect(() => {
-    const unsubscribe = ref.limit(limit).onSnapshot(
+    const unsubscribe = query.limit(limit).onSnapshot(
       (snapshot) => {
         const count = snapshot.docs.length;
 
@@ -49,7 +49,7 @@ function usePagination(ref, limit) {
   const handleLoadMore = () => {
     setLoadingMore(true);
 
-    ref
+    query
       .limit(limit)
       .startAfter(lastDoc)
       .get()

@@ -1,13 +1,18 @@
 import { Box, Grid, Tooltip } from "@chakra-ui/react";
 import { TextInput, CheckboxInput } from "components";
 
+import AccountWrapper from "../AccountWrapper";
 import AccountHeader from "../AccountHeader";
 
-function Location({ values, handleSetLocationAttribute }) {
+function Location({ values, showButtons, handleCancel, handleUpdate, handleSetLocationAttribute }) {
   const autodetect = values?.location?.autodetect;
 
   return (
-    <>
+    <AccountWrapper
+      showButtons={showButtons}
+      handleCancel={handleCancel}
+      handleUpdate={handleUpdate}
+    >
       <Grid gap="25px">
         <AccountHeader
           title="Location"
@@ -37,7 +42,7 @@ function Location({ values, handleSetLocationAttribute }) {
           </Box>
         </Tooltip>
       </Grid>
-    </>
+    </AccountWrapper>
   );
 }
 

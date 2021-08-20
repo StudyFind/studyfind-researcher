@@ -1,33 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import VerticalTabs from "components/complex/VerticalTabs/VerticalTabs";
 
-import ProfileParticipant from "components/feature/Account/Profile/ProfileParticipant";
-import Notifications from "components/feature/Account/Notifications/Notifications";
-import Timezone from "components/feature/Account/Timezone/Timezone";
-import Location from "components/feature/Account/Location/Location";
-import Security from "components/feature/Account/Security/Security";
+import ProfileResearcher from "components/feature/AccountTabs/Profile/ProfileResearcher";
+import Notifications from "components/feature/AccountTabs/Notifications/Notifications";
+import Timezone from "components/feature/AccountTabs/Timezone/Timezone";
+import Security from "components/feature/AccountTabs/Security/Security";
 
-import { Flex, Heading, Button, Divider, Box } from "@chakra-ui/react";
-import {
-  FaDoorOpen,
-  FaUser,
-  FaMapMarkedAlt,
-  FaBell,
-  FaShieldAlt,
-  FaLocationArrow,
-} from "react-icons/fa";
+import { Flex, Heading, Button, Divider, Box, useToast } from "@chakra-ui/react";
+import { FaDoorOpen, FaUser, FaMapMarkedAlt, FaBell, FaShieldAlt } from "react-icons/fa";
+
 import AccountWrapper from "./AccountWrapper";
+import { useDetectDevice } from "hooks";
+import { toasts } from "templates";
 
-function AccountParticipant({
+function AccountResearcher({
   user,
   handleUpdate: handleSave,
   handleSignOut,
   handleChangePassword,
   handleDeleteAccount,
 }) {
+  const toast = useToast();
+
+  const { isPhone } = useDetectDevice();
+
   const [values, setValues] = useState(user);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setValues(user);
+  }, [user]);
 
   const haveInputsChanged = JSON.stringify(values) !== JSON.stringify(user);
 
@@ -37,9 +40,9 @@ function AccountParticipant({
 
   const handleUpdate = () => {
     setLoading(true);
-    handleSave()
-      .then(() => {})
-      .catch(() => {})
+    handleSave(values)
+      .then(() => toast(toasts.updatedAccount))
+      .catch(() => toast(toasts.connectionError))
       .finally(() => setLoading(false));
   };
 
@@ -52,16 +55,6 @@ function AccountParticipant({
       ...prev,
       notifications: {
         ...prev.notifications,
-        [name]: value,
-      },
-    }));
-  };
-
-  const handleSetLocationAttribute = (name, value) => {
-    setValues((prev) => ({
-      ...prev,
-      location: {
-        ...prev.location,
         [name]: value,
       },
     }));
@@ -89,7 +82,7 @@ function AccountParticipant({
           handleUpdate={handleUpdate}
           showButtons={haveInputsChanged}
         >
-          <ProfileParticipant
+          <ProfileResearcher
             values={values}
             handleSetProfileAttribute={handleSetProfileAttribute}
           />
@@ -130,22 +123,7 @@ function AccountParticipant({
       ),
     },
     {
-      name: "Location",
-      link: "/account/location",
-      icon: <FaLocationArrow />,
-      content: (
-        <AccountWrapper
-          loading={loading}
-          handleCancel={handleCancel}
-          handleUpdate={handleUpdate}
-          showButtons={haveInputsChanged}
-        >
-          <Location values={values} handleSetLocationAttribute={handleSetLocationAttribute} />
-        </AccountWrapper>
-      ),
-    },
-    {
-      name: "security",
+      name: "Security",
       link: "/account/security",
       icon: <FaShieldAlt />,
       content: (
@@ -166,13 +144,13 @@ function AccountParticipant({
 
   return (
     <>
-      <Flex justify="space-between" align="center">
+      <Flex justify="space-between" align="center" marginBottom={isPhone && "40px"}>
         <Heading size="lg">Account</Heading>
         <Button colorScheme="red" leftIcon={<FaDoorOpen />} onClick={handleSignOut}>
           Sign out
         </Button>
       </Flex>
-      <Divider marginY="30px" />
+      {isPhone || <Divider marginY="30px" />}
       <Box>
         <VerticalTabs tabs={tabs} />
       </Box>
@@ -180,4 +158,4 @@ function AccountParticipant({
   );
 }
 
-export default AccountParticipant;
+export default AccountResearcher;

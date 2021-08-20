@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { validate, object } from "utils";
+import useTriggerToast from "./useTriggerToast";
 
-function useAuth(initial, onSubmit) {
+function useAuth({ initial, toasts, onSubmit }) {
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState(initial);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const triggerToast = useTriggerToast();
 
   const check = (name, value) => {
     if (name === "name") return value ? "" : " ";
@@ -31,10 +34,14 @@ function useAuth(initial, onSubmit) {
 
     setLoading(true);
 
-    onSubmit(values)
+    return onSubmit(values)
       .then(() => {
         setSuccess(true);
         setValues(initial);
+
+        if (toasts.success) {
+          triggerToast(toasts.success);
+        }
       })
       .catch((err) => {
         setSuccess(false);

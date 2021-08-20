@@ -1,4 +1,5 @@
 import { useAuth } from "hooks";
+import { toasts } from "templates";
 
 import { Grid, Button } from "@chakra-ui/react";
 import { Form, PasswordInput } from "components";
@@ -6,10 +7,11 @@ import { Form, PasswordInput } from "components";
 import AccountHeader from "../AccountHeader";
 
 function ChangePassword({ handleChangePassword }) {
-  const { values, errors, loading, handleChange, handleSubmit } = useAuth(
-    { password: "", newPassword: "" },
-    handleChangePassword
-  );
+  const { values, errors, loading, handleChange, handleSubmit } = useAuth({
+    initial: { password: "", newPassword: "" },
+    toasts: { success: toasts.changedPassword, failure: toasts.connectionError },
+    onSubmit: handleChangePassword,
+  });
 
   return (
     <>

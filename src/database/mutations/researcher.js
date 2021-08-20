@@ -42,5 +42,5 @@ export const researcher = {
       },
     }),
 
-  delete: (uid) => firestore.collection("researchers").doc(uid).reearcherRef.delete(),
+  delete: (uid) => firestore.collection("researchers").doc(uid).delete(),
 };

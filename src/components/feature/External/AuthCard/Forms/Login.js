@@ -15,13 +15,10 @@ import {
 function Login({ setTab }) {
   const { handleLogin } = useContext(AuthContext);
 
-  const { values, errors, loading, handleChange, handleSubmit } = useAuth(
-    {
-      email: "",
-      password: "",
-    },
-    handleLogin
-  );
+  const { values, errors, loading, handleChange, handleSubmit } = useAuth({
+    initial: { email: "", password: "" },
+    onSubmit: handleLogin,
+  });
 
   return (
     <AuthForm onSubmit={handleSubmit}>

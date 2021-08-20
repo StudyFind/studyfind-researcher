@@ -1,10 +1,10 @@
-import { auth, firestore } from "database/firebase";
+import { firestore } from "database/firebase";
 
 export const notification = {
-  read: (notificationID) => {
+  read: (researcherID, notificationID) => {
     return firestore
       .collection("researchers")
-      .doc(auth.currentUser.uid)
+      .doc(researcherID)
       .collection("notifications")
       .doc(notificationID)
       .update({ read: true });

@@ -17,14 +17,10 @@ import { Text } from "@chakra-ui/react";
 function Signup({ setTab }) {
   const { handleSignup } = useContext(AuthContext);
 
-  const { values, errors, loading, success, handleChange, handleSubmit } = useAuth(
-    {
-      name: "",
-      email: "",
-      password: "",
-    },
-    handleSignup
-  );
+  const { values, errors, loading, success, handleChange, handleSubmit } = useAuth({
+    initial: { name: "", email: "", password: "" },
+    onSubmit: handleSignup,
+  });
 
   if (success) {
     return (

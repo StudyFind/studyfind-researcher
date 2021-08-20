@@ -1,11 +1,22 @@
 import { Grid } from "@chakra-ui/react";
 import { RadioInput, TextInput, TextareaInput } from "components";
 
+import AccountWrapper from "../AccountWrapper";
 import AccountHeader from "../AccountHeader";
 
-function ProfileParticipant({ values, handleSetProfileAttribute }) {
+function ProfileParticipant({
+  values,
+  showButtons,
+  handleCancel,
+  handleUpdate,
+  handleSetProfileAttribute,
+}) {
   return (
-    <>
+    <AccountWrapper
+      showButtons={showButtons}
+      handleCancel={handleCancel}
+      handleUpdate={handleUpdate}
+    >
       <AccountHeader
         title="Profile"
         description="The profile section contains personal information like your sex, birthdate, and availability"
@@ -39,7 +50,7 @@ function ProfileParticipant({ values, handleSetProfileAttribute }) {
           placeholder="Put a little something about your weekly availability"
         />
       </Grid>
-    </>
+    </AccountWrapper>
   );
 }
 

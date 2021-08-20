@@ -3,8 +3,8 @@
 import { useContext } from "react";
 import { ConfirmContext } from "context";
 
-function useConfirm() {
+function useTriggerConfirm() {
   return useContext(ConfirmContext);
 }
 
-export default useConfirm;
+export default useTriggerConfirm;

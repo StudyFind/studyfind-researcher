@@ -1,4 +1,5 @@
 import { useAuth } from "hooks";
+import { toasts } from "templates";
 
 import { Grid, Button } from "@chakra-ui/react";
 import { Form, EmailInput, PasswordInput } from "components";
@@ -6,10 +7,11 @@ import { Form, EmailInput, PasswordInput } from "components";
 import AccountHeader from "../AccountHeader";
 
 function DeleteAccount({ handleDeleteAccount }) {
-  const { values, errors, loading, handleChange, handleSubmit } = useAuth(
-    { email: "", password: "" },
-    handleDeleteAccount
-  );
+  const { values, errors, loading, handleChange, handleSubmit } = useAuth({
+    initial: { email: "", password: "" },
+    toasts: { success: toasts.deletedAccount, failure: toasts.connectionError },
+    onSubmit: handleDeleteAccount,
+  });
 
   return (
     <>
