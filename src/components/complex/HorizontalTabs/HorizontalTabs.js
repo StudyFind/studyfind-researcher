@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useTabs, useColor, useDetectDevice } from "hooks";
-import { Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
+import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 
 /*
   tabs = [
@@ -41,7 +41,13 @@ function HorizontalTabs({ tabs, useURL = true, ...rest }) {
           </TabItem>
         ))}
       </TabList>
-      <TabPanels {...rest}>{tabs[tabIndex].content}</TabPanels>
+      <TabPanels>
+        {tabs.map((t, i) => (
+          <TabPanel key={i} paddingX="0" {...rest}>
+            {t.content}
+          </TabPanel>
+        ))}
+      </TabPanels>
     </Tabs>
   );
 }
