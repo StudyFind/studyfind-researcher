@@ -22,19 +22,13 @@ function StudyResearcher({ researcher }) {
         background={background}
         width={isPhone && "100%"}
       >
-        <Avatar
-          name={researcher.name}
-          color="white"
-          background={avatar}
-          width="42px"
-          height="42px"
-        />
+        <Avatar name={researcher?.name} color="white" background={avatar} />
         <Box>
-          <Text color="white" fontSize="0.9rem" fontWeight="500" maxWidth="180px" isTruncated>
-            {researcher.name}
+          <Text isTruncated fontWeight="500">
+            {researcher?.name}
           </Text>
-          <Text fontSize="0.9rem" color="gray.400" isTruncated maxWidth="180px">
-            {researcher.email}
+          <Text isTruncated color="gray.500">
+            {researcher?.email}
           </Text>
         </Box>
       </Flex>
