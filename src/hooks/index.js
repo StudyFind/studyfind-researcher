@@ -41,6 +41,10 @@ export { default as useTriggerConfirm } from "./useTriggerConfirm";
 export { default as useTriggerRedirect } from "./useTriggerRedirect";
 export { default as useTriggerNotification } from "./useTriggerNotification";
 
+// ASYNC
+// add debounce
+export { default as useAsync } from "./useAsync";
+
 // FORMS
 export { default as useForm } from "./useForm";
 export { default as useAuthForm } from "./feature/useAuthForm";
@@ -49,6 +53,8 @@ export { default as useLocationsForm } from "./feature/useLocationsForm";
 export { default as useQuestionsForm } from "./feature/useQuestionsForm";
 export { default as useResourcesForm } from "./feature/useResourcesForm";
 export { default as useFeedbackInputs } from "./feature/useFeedbackInputs";
+export { default as useFilesForm } from "./feature/useFilesForm";
+export { default as useFiles } from "./feature/useFiles";
 // export { default as useMeeting } from "./useMeeting";
 // export { default as useReminder } from "./useReminder";
 // export { default as useNote } from "./useNote";

@@ -1,53 +1,45 @@
 import { useEffect, useState } from "react";
-import { datetime } from "utils";
-import { storage } from "database/firebase";
+import { useFiles } from "hooks";
 
-import FilesGrid from "./FilesGrid";
-import FilesForm from "./FilesForm";
+import FilesView from "./FilesView";
+import FilesEdit from "./FilesEdit";
 
 function Files({ study }) {
   const [edit, setEdit] = useState(false);
 
-  const [files, setFiles] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const getFiles = async () => {
-    const { items } = await storage.ref(`study/${study.id}`).listAll();
-
-    const studyFiles = await Promise.all(
-      items.map(async (ref) => {
-        const meta = await ref.getMetadata();
-
-        return {
-          ref,
-          name: ref.name,
-          date: datetime.getFriendlyDate(meta.timeCreated),
-        };
-      })
-    );
-
-    setFiles(studyFiles);
-  };
-
-  const initialLoad = async () => {
-    setLoading(true);
-    await getFiles();
-    setLoading(false);
-  };
+  const {
+    files,
+    loading,
+    uploading,
+    uploadError,
+    uploadStatus,
+    handleFetch,
+    handleOpen,
+    handleDelete,
+    handleUpload,
+  } = useFiles(study.id);
 
   useEffect(() => {
-    initialLoad();
+    handleFetch();
   }, []);
 
   return edit ? (
-    <FilesForm studyID={study.id} setEdit={setEdit} getFiles={getFiles} />
-  ) : (
-    <FilesGrid
-      studyID={study.id}
+    <FilesEdit
+      study={study}
       setEdit={setEdit}
-      getFiles={getFiles}
+      uploading={uploading}
+      uploadError={uploadError}
+      uploadStatus={uploadStatus}
+      handleUpload={handleUpload}
+    />
+  ) : (
+    <FilesView
       files={files}
+      setEdit={setEdit}
       loading={loading}
+      handleFetch={handleFetch}
+      handleOpen={handleOpen}
+      handleDelete={handleDelete}
     />
   );
 }

@@ -2,7 +2,7 @@ import useSortableObjectArrayWithBooleanErrors from "./useSortableObjectArrayWit
 
 function useResourcesForm(study) {
   return useSortableObjectArrayWithBooleanErrors(study.resources, {
-    name: "Inclusion",
+    name: "",
     link: "",
   });
 }
