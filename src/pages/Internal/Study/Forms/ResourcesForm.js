@@ -1,39 +1,35 @@
-import { useResourcesInputs } from "hooks";
+import { useResourcesForm } from "hooks";
 
 import ResourcesInputs from "components/feature/Study/ResourcesInputs/ResourcesInputs";
 
 function ResourcesForm({ study, onSubmit, Wrapper }) {
-  const {
-    values,
-    errors,
-    hasChanged,
-    notDefault,
-    createResource,
-    updateResource,
-    deleteResource,
-    clearResources,
-    resetResources,
-    sortResources,
-    handleSubmit,
-  } = useResourcesInputs(study, onSubmit);
+  const resourcesForm = useResourcesForm(study, onSubmit);
 
   const title = "Resources";
   const description =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
 
+  const handleSubmit = () => {
+    const isValid = resourcesForm.validate();
+
+    if (isValid) {
+      onSubmit(resourcesForm.values);
+    }
+  };
+
   return (
     <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
       <ResourcesInputs
-        values={values}
-        errors={errors}
-        hasChanged={hasChanged}
-        notDefault={notDefault}
-        createResource={createResource}
-        updateResource={updateResource}
-        deleteResource={deleteResource}
-        clearResources={clearResources}
-        resetResources={resetResources}
-        sortResources={sortResources}
+        values={resourcesForm.values}
+        errors={resourcesForm.errors}
+        hasChanged={resourcesForm.hasChanged}
+        notDefault={resourcesForm.notDefault}
+        createResource={resourcesForm.create}
+        updateResource={resourcesForm.update}
+        deleteResource={resourcesForm.delete}
+        clearResources={resourcesForm.clear}
+        resetResources={resourcesForm.reset}
+        sortResources={resourcesForm.onSortEnd}
       />
     </Wrapper>
   );

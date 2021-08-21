@@ -1,7 +1,7 @@
 import useSortableObjectArrayWithBooleanErrors from "./useSortableObjectArrayWithBooleanErrors";
 
-function useLocationsInputs(study) {
+function useLocationsForm(study) {
   return useSortableObjectArrayWithBooleanErrors(study.locations, { address: "" });
 }
 
-export default useLocationsInputs;
+export default useLocationsForm;

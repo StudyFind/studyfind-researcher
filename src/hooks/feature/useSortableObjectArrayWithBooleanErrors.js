@@ -28,8 +28,8 @@ function useSortableObjectArrayWithBooleanErrors(initialValues, newObjectValue) 
   };
 
   const update = (index, name, value) => {
-    values.update(index, { [name]: value });
-    errors.update(index, { [name]: !value });
+    values.update(index, { ...values.value[index], [name]: value });
+    errors.update(index, { ...errors.value[index], [name]: !value });
   };
 
   const deleteItem = (index) => {

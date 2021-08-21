@@ -1,10 +1,10 @@
 import useSortableObjectArrayWithBooleanErrors from "./useSortableObjectArrayWithBooleanErrors";
 
-function useResourcesInputs(study) {
+function useResourcesForm(study) {
   return useSortableObjectArrayWithBooleanErrors(study.resources, {
     name: "Inclusion",
     link: "",
   });
 }
 
-export default useResourcesInputs;
+export default useResourcesForm;

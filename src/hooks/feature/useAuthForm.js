@@ -3,7 +3,7 @@ import { validate, object } from "utils";
 
 import useTriggerToast from "../useTriggerToast";
 
-function useAuth({ initial, toasts, onSubmit }) {
+function useAuthForm({ initial, toasts, onSubmit }) {
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState(initial);
 
@@ -19,12 +19,12 @@ function useAuth({ initial, toasts, onSubmit }) {
     if (name === "newPassword") return validate.password(value);
   };
 
-  const handleChange = (name, value) => {
+  const update = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
   };
 
-  const handleSubmit = () => {
+  const submit = () => {
     const errorMessages = object.map(values, check);
     const errorExists = object.some(errorMessages);
 
@@ -55,7 +55,7 @@ function useAuth({ initial, toasts, onSubmit }) {
       .finally(() => setLoading(false));
   };
 
-  return { values, errors, loading, success, handleChange, handleSubmit };
+  return { values, errors, loading, success, update, submit };
 }
 
-export default useAuth;
+export default useAuthForm;

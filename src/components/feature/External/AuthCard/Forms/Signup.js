@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useAuth } from "hooks";
+import { useAuthForm } from "hooks";
 
 import { AuthContext } from "context";
 
@@ -17,12 +17,12 @@ import { Text } from "@chakra-ui/react";
 function Signup({ setTab }) {
   const { handleSignup } = useContext(AuthContext);
 
-  const { values, errors, loading, success, handleChange, handleSubmit } = useAuth({
+  const authForm = useAuthForm({
     initial: { name: "", email: "", password: "" },
     onSubmit: handleSignup,
   });
 
-  if (success) {
+  if (authForm.success) {
     return (
       <Message
         status="success"
@@ -55,33 +55,33 @@ function Signup({ setTab }) {
   );
 
   return (
-    <AuthForm onSubmit={handleSubmit}>
+    <AuthForm onSubmit={authForm.submit}>
       <AuthHeading>Create Account!</AuthHeading>
       <AuthInput
         as={TextInput}
         name="name"
-        value={values.name}
-        error={errors.name}
         placeholder="Name"
-        onChange={handleChange}
+        value={authForm.values.name}
+        error={authForm.errors.name}
+        onChange={authForm.update}
       />
       <AuthInput
         as={EmailInput}
         name="email"
-        value={values.email}
-        error={errors.email}
         placeholder="Email"
-        onChange={handleChange}
+        value={authForm.values.email}
+        error={authForm.errors.email}
+        onChange={authForm.update}
       />
       <AuthInput
         as={PasswordInput}
         name="password"
-        value={values.password}
-        error={errors.password}
         placeholder="Password"
-        onChange={handleChange}
+        value={authForm.values.password}
+        error={authForm.errors.password}
+        onChange={authForm.update}
       />
-      <AuthButton loading={loading}>Sign up</AuthButton>
+      <AuthButton loading={authForm.loading}>Sign up</AuthButton>
       <Text color="gray.500" fontSize="xs" textAlign="center">
         By creating an account, you agree to our {TERMS} and {PRIVACY}
       </Text>

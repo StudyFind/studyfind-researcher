@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { object } from "utils";
 
-function useDetailsInputs(study, onSubmit) {
+function useDetailsForm(study) {
   const check = (name, value) => {
     if (value === "") return " ";
 
@@ -20,9 +20,11 @@ function useDetailsInputs(study, onSubmit) {
     if (name === "conditions" && value.length === 0) {
       return "You must add at least 1 condition";
     }
+
+    return "";
   };
 
-  const validate = ({ title, description, minAge, maxAge, type, conditions }) => ({
+  const getErrorMessages = ({ title, description, minAge, maxAge, type, conditions }) => ({
     title: check("title", title),
     description: check("description", description),
     minAge: check("minAge", minAge),
@@ -64,7 +66,7 @@ function useDetailsInputs(study, onSubmit) {
     conditions: study.conditions,
   };
 
-  const initialErrors = validate(initialValues);
+  const initialErrors = getErrorMessages(initialValues);
 
   const notDefault = JSON.stringify(initialValues) !== JSON.stringify(defaultValues);
 
@@ -73,42 +75,29 @@ function useDetailsInputs(study, onSubmit) {
 
   const hasChanged = JSON.stringify(initialValues) !== JSON.stringify(values);
 
-  const handleReset = () => {
+  const reset = () => {
     setValues(initialValues);
     setErrors(initialErrors);
   };
 
-  const handleClear = () => {
+  const clear = () => {
     setValues(defaultValues);
     setErrors(defaultErrors);
   };
 
-  const handleChange = (name, value) => {
+  const update = (name, value) => {
     setValues((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
   };
 
-  const handleSubmit = () => {
-    const errorMessages = validate(values);
-
-    if (object.some(errorMessages)) {
-      setErrors(errorMessages);
-      return;
-    }
-
-    return onSubmit(values);
+  const validate = () => {
+    const errorMessages = getErrorMessages(values);
+    const isValid = !object.some(errorMessages);
+    setErrors(errorMessages);
+    return isValid;
   };
 
-  return {
-    values,
-    errors,
-    hasChanged,
-    notDefault,
-    handleReset,
-    handleClear,
-    handleChange,
-    handleSubmit,
-  };
+  return { values, errors, hasChanged, notDefault, reset, clear, update, validate };
 }
 
-export default useDetailsInputs;
+export default useDetailsForm;

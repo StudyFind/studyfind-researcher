@@ -1,10 +1,10 @@
 import useSortableObjectArrayWithBooleanErrors from "./useSortableObjectArrayWithBooleanErrors";
 
-function useQuestionsInputs(study) {
+function useQuestionsForm(study) {
   return useSortableObjectArrayWithBooleanErrors(study.questions, {
     type: "Inclusion",
     prompt: "",
   });
 }
 
-export default useQuestionsInputs;
+export default useQuestionsForm;

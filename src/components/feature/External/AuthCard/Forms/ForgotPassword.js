@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useAuth } from "hooks";
+import { useAuthForm } from "hooks";
 import { AuthContext } from "context";
 
 import { Message, EmailInput } from "components";
@@ -14,12 +14,12 @@ import {
 function ForgotPassword({ setTab }) {
   const { handleForgotPassword } = useContext(AuthContext);
 
-  const { values, errors, loading, success, handleChange, handleSubmit } = useAuth({
+  const authForm = useAuthForm({
     initial: { email: "" },
     onSubmit: handleForgotPassword,
   });
 
-  if (success) {
+  if (authForm.success) {
     return (
       <Message
         status="success"
@@ -33,17 +33,17 @@ function ForgotPassword({ setTab }) {
   }
 
   return (
-    <AuthForm onSubmit={handleSubmit}>
+    <AuthForm onSubmit={authForm.submit}>
       <AuthHeading>Forgot Password</AuthHeading>
       <AuthInput
         as={EmailInput}
         name="email"
-        value={values.email}
-        error={errors.email}
         placeholder="Email"
-        onChange={handleChange}
+        value={authForm.values.email}
+        error={authForm.errors.email}
+        onChange={authForm.update}
       />
-      <AuthButton loading={loading}>Send Password Reset Email</AuthButton>
+      <AuthButton loading={authForm.loading}>Send Password Reset Email</AuthButton>
       <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
     </AuthForm>
   );

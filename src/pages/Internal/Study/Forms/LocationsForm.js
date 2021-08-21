@@ -1,35 +1,35 @@
-import { useLocationsInputs } from "hooks";
+import { useLocationsForm } from "hooks";
 
 import LocationsInputs from "components/feature/Study/LocationsInputs/LocationsInputs";
 
 function LocationsForm({ study, onSubmit, Wrapper }) {
-  const locations = useLocationsInputs(study, onSubmit);
+  const locationsForm = useLocationsForm(study, onSubmit);
 
   const title = "Locations";
   const description =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
 
   const handleSubmit = () => {
-    const isValid = locations.validate();
+    const isValid = locationsForm.validate();
 
     if (isValid) {
-      onSubmit(locations.values);
+      onSubmit(locationsForm.values);
     }
   };
 
   return (
     <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
       <LocationsInputs
-        values={locations.values}
-        errors={locations.errors}
-        hasChanged={locations.hasChanged}
-        notDefault={locations.notDefault}
-        createLocation={locations.create}
-        updateLocation={locations.update}
-        deleteLocation={locations.delete}
-        clearLocations={locations.clear}
-        resetLocations={locations.reset}
-        sortLocations={locations.onSortEnd}
+        values={locationsForm.values}
+        errors={locationsForm.errors}
+        hasChanged={locationsForm.hasChanged}
+        notDefault={locationsForm.notDefault}
+        createLocation={locationsForm.create}
+        updateLocation={locationsForm.update}
+        deleteLocation={locationsForm.delete}
+        clearLocations={locationsForm.clear}
+        resetLocations={locationsForm.reset}
+        sortLocations={locationsForm.onSortEnd}
       />
     </Wrapper>
   );

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { object } from "utils";
 
 function useFeedbackInputs(onSubmit) {
   // `onSubmit` must be a promise
@@ -12,7 +13,7 @@ function useFeedbackInputs(onSubmit) {
     return "";
   };
 
-  const validate = ({ title, body }) => ({
+  const getErrorMessages = ({ title, body }) => ({
     title: check("title", title),
     body: check("body", body),
   });
@@ -23,10 +24,10 @@ function useFeedbackInputs(onSubmit) {
   };
 
   const handleSubmit = () => {
-    const error = validate(values);
+    const errorMessages = getErrorMessages(values);
 
-    if (error.title || error.body) {
-      setErrors(error);
+    if (object.some(errorMessages)) {
+      setErrors(errorMessages);
       return;
     }
 

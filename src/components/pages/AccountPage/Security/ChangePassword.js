@@ -1,4 +1,4 @@
-import { useAuth } from "hooks";
+import { useAuthForm } from "hooks";
 import { toasts } from "templates";
 
 import { Grid, Button } from "@chakra-ui/react";
@@ -7,7 +7,7 @@ import { Form, PasswordInput } from "components";
 import AccountHeader from "../AccountHeader";
 
 function ChangePassword({ handleChangePassword }) {
-  const { values, errors, loading, handleChange, handleSubmit } = useAuth({
+  const authForm = useAuthForm({
     initial: { password: "", newPassword: "" },
     toasts: { success: toasts.changedPassword },
     onSubmit: handleChangePassword,
@@ -20,23 +20,23 @@ function ChangePassword({ handleChangePassword }) {
         description="We recommend using a long password that is unique to your
         StudyFind account"
       />
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={authForm.submit}>
         <Grid gap="15px">
           <PasswordInput
             name="password"
             label="Old Password"
-            value={values.password}
-            error={errors.password}
-            onChange={handleChange}
+            value={authForm.values.password}
+            error={authForm.errors.password}
+            onChange={authForm.update}
           />
           <PasswordInput
             name="newPassword"
             label="New Password"
-            value={values.newPassword}
-            error={errors.newPassword}
-            onChange={handleChange}
+            value={authForm.values.newPassword}
+            error={authForm.errors.newPassword}
+            onChange={authForm.update}
           />
-          <Button type="submit" colorScheme="blue" isLoading={loading}>
+          <Button type="submit" colorScheme="blue" isLoading={authForm.loading}>
             Change Password
           </Button>
         </Grid>
