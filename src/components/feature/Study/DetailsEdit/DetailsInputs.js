@@ -13,7 +13,7 @@ import {
 } from "components";
 import { FaEraser, FaUndo } from "react-icons/fa";
 
-import DescriptionAccessibilityScore from "../DescriptionAccessibilityScore/DescriptionAccessibilityScore";
+import DescriptionAccessibilityScore from "./DescriptionAccessibilityScore";
 
 function DetailsInputs({
   values,

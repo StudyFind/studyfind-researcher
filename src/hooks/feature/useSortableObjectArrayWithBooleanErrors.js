@@ -3,7 +3,7 @@ import { object } from "utils";
 
 function useSortableObjectArrayWithBooleanErrors(initialValues, newObjectValue) {
   const getObjectErrors = (value) => {
-    return object.map(value, (v) => !v);
+    return object.map(value, (_, v) => !v);
   };
 
   const getValuesErrors = (values) => {
@@ -22,7 +22,7 @@ function useSortableObjectArrayWithBooleanErrors(initialValues, newObjectValue) 
   const hasChanged = JSON.stringify(initialValues) !== JSON.stringify(values.value);
 
   const create = () => {
-    const newObjectError = getObjectErrors(newObjectValue);
+    const newObjectError = object.map(newObjectValue, () => false);
     values.append(newObjectValue);
     errors.append(newObjectError);
   };
@@ -67,7 +67,6 @@ function useSortableObjectArrayWithBooleanErrors(initialValues, newObjectValue) 
       .every((v) => !v);
 
     errors.set(errorMessages);
-
     return isValid;
   };
 

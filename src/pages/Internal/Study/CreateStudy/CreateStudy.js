@@ -7,10 +7,10 @@ import CreateStudyWrapper from "./CreateStudyWrapper";
 import WizardFormSteps from "components/complex/WizardForm/WizardFormSteps";
 import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
 
-import DetailsForm from "components/feature/Study/DetailsForm/DetailsForm";
-import LocationsForm from "components/feature/Study/LocationsForm/LocationsForm";
-import QuestionsForm from "components/feature/Study/QuestionsForm/QuestionsForm";
-import ResourcesForm from "components/feature/Study/ResourcesForm/ResourcesForm";
+import DetailsForm from "components/feature/Study/DetailsEdit/DetailsForm";
+import LocationsForm from "components/feature/Study/LocationsEdit/LocationsForm";
+import QuestionsForm from "components/feature/Study/QuestionsEdit/QuestionsForm";
+import ResourcesForm from "components/feature/Study/ResourcesEdit/ResourcesForm";
 import Review from "./Review";
 
 function CreateStudy() {

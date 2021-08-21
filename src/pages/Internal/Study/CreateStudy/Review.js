@@ -1,12 +1,13 @@
 import { auth } from "database/firebase";
-import { Button } from "@chakra-ui/react";
-import { Message } from "components";
 
-import StudyCardLarge from "components/feature/Study/StudyCard/StudyCardLarge";
-import LocationsList from "components/feature/Study/LocationsList/LocationsList";
 import HorizontalTabs from "components/complex/HorizontalTabs/HorizontalTabs";
-import QuestionsTable from "components/feature/Study/QuestionsTable/QuestionsTable";
-import ResourcesList from "components/feature/Study/ResourcesList/ResourcesList";
+import StudyCardLarge from "components/feature/Study/StudyCard/StudyCardLarge";
+import LocationsList from "components/feature/Study/LocationsView/LocationsList";
+import LocationsEmpty from "components/feature/Study/LocationsView/LocationsEmpty";
+import QuestionsTable from "components/feature/Study/QuestionsView/QuestionsTable";
+import QuestionsEmpty from "components/feature/Study/QuestionsView/QuestionsEmpty";
+import ResourcesList from "components/feature/Study/ResourcesView/ResourcesList";
+import ResourcesEmpty from "components/feature/Study/ResourcesView/ResourcesEmpty";
 
 function Review({ study, Wrapper, goBack }) {
   const title = "Review";
@@ -35,14 +36,7 @@ function Review({ study, Wrapper, goBack }) {
       content: study.locations.length ? (
         <LocationsList locations={study.locations} />
       ) : (
-        <Message
-          title="No Locations"
-          description="Locations are used when filtering for users trying to find studies near them and therefore adding locations improves their chances of finding your study"
-          height="300px"
-          showBackground
-        >
-          <Button onClick={() => goBack(3)}>Add Locations</Button>
-        </Message>
+        <LocationsEmpty onButtonClick={() => goBack(3)} />
       ),
     },
     {
@@ -50,14 +44,7 @@ function Review({ study, Wrapper, goBack }) {
       content: study.questions.length ? (
         <QuestionsTable questions={study.questions} />
       ) : (
-        <Message
-          title="No Questions"
-          description="Questions are used to screen participants when signing up for your study and automatically assigns them an eligibility score based on their responses"
-          height="300px"
-          showBackground
-        >
-          <Button onClick={() => goBack(2)}>Add Questions</Button>
-        </Message>
+        <QuestionsEmpty onButtonClick={() => goBack(2)} />
       ),
     },
     {
@@ -65,14 +52,7 @@ function Review({ study, Wrapper, goBack }) {
       content: study.resources.length ? (
         <ResourcesList resources={study.resources} />
       ) : (
-        <Message
-          title="No Resources"
-          description="Resources are any useful links relevant to the research study (like marketing material or external surveys) that need to be shared with participants"
-          height="300px"
-          showBackground
-        >
-          <Button onClick={() => goBack(1)}>Add Resources</Button>
-        </Message>
+        <ResourcesEmpty onButtonClick={() => goBack(1)} />
       ),
     },
   ];

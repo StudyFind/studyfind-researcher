@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { study as researchStudy } from "database/mutations";
 
-import LocationsForm from "components/feature/Study/LocationsForm/LocationsForm";
+import LocationsForm from "components/feature/Study/LocationsEdit/LocationsForm";
 import TabHeader from "../TabHeader";
 
 function LocationsEdit({ study, setEdit }) {

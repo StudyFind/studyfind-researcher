@@ -5,7 +5,7 @@ function NotificationsEmpty() {
   return (
     <Box height="400px" rounded="md">
       <Message
-        title="Nothing to show"
+        title="Nothing to see here"
         description="You do not have any notifications right now"
         showBackground
       />

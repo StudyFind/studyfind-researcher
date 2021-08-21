@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/react";
+
+import QuestionsTable from "components/feature/Study/QuestionsView/QuestionsTable";
 import TabHeader from "../TabHeader";
-import QuestionsTable from "components/feature/Study/QuestionsTable/QuestionsTable";
 
 function QuestionsView({ study, setEdit }) {
   const handleEdit = () => {

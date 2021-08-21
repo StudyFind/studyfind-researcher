@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/react";
+
+import ResourcesList from "components/feature/Study/ResourcesView/ResourcesList";
 import TabHeader from "../TabHeader";
-import ResourcesList from "components/feature/Study/ResourcesList/ResourcesList";
 
 function ResourcesView({ study, setEdit }) {
   const handleEdit = () => {
