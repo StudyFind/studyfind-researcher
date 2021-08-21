@@ -6,7 +6,7 @@ function ResourcesEmpty({ onButtonClick }) {
     <Message
       title="No Resources"
       description="Resources are any useful links relevant to the research study (like marketing material or external surveys) that need to be shared with participants"
-      height="300px"
+      height="400px"
       showBackground
     >
       <Button onClick={onButtonClick}>Add Resources</Button>

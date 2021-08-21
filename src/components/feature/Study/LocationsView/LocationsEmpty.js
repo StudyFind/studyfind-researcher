@@ -6,7 +6,7 @@ function LocationsEmpty({ onButtonClick }) {
     <Message
       title="No Locations"
       description="Locations are used when filtering for users trying to find studies near them and therefore adding locations improves their chances of finding your study"
-      height="300px"
+      height="400px"
       showBackground
     >
       <Button onClick={onButtonClick}>Add Locations</Button>
