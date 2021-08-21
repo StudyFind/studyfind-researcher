@@ -20,7 +20,7 @@ function Delete({ study }) {
   };
 
   const handleConfirm = () => {
-    researchStudy
+    return researchStudy
       .delete(study.id)
       .then(() => {
         history.push("/");

@@ -14,7 +14,7 @@ function FilesView({ setEdit, files, loading, handleOpen, handleDelete }) {
   };
 
   if (!loading && !files?.length) {
-    return <FilesEmpty handleEdit={handleEdit} />;
+    return <FilesEmpty onButtonClick={handleEdit} />;
   }
 
   return (
