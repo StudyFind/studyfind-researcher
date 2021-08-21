@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { study as researchStudy } from "database/mutations";
 
-import ResourcesForm from "../../Forms/ResourcesForm";
+import ResourcesForm from "components/feature/Study/ResourcesForm/ResourcesForm";
 import TabHeader from "../TabHeader";
 
 function ResourcesEdit({ study, setEdit }) {

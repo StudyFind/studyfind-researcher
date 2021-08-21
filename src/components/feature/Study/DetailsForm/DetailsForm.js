@@ -1,6 +1,6 @@
 import { useDetailsForm } from "hooks";
 
-import DetailsInputs from "components/feature/Study/DetailsInputs/DetailsInputs";
+import DetailsInputs from "./DetailsInputs";
 
 function DetailsForm({ study, onSubmit, Wrapper }) {
   const detailsForm = useDetailsForm(study, onSubmit);
@@ -11,8 +11,6 @@ function DetailsForm({ study, onSubmit, Wrapper }) {
 
   const handleSubmit = () => {
     const isValid = detailsForm.validate();
-
-    console.log(isValid);
 
     if (isValid) {
       onSubmit(detailsForm.values);

@@ -1,6 +1,6 @@
 import { useResourcesForm } from "hooks";
 
-import ResourcesInputs from "components/feature/Study/ResourcesInputs/ResourcesInputs";
+import ResourcesInputs from "./ResourcesInputs";
 
 function ResourcesForm({ study, onSubmit, Wrapper }) {
   const resourcesForm = useResourcesForm(study, onSubmit);

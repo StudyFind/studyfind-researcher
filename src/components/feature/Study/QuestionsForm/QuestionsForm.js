@@ -1,6 +1,6 @@
 import { useQuestionsForm } from "hooks";
 
-import QuestionsInputs from "components/feature/Study/QuestionsInputs/QuestionsInputs";
+import QuestionsInputs from "./QuestionsInputs";
 
 function QuestionsForm({ study, onSubmit, Wrapper }) {
   const questionsForm = useQuestionsForm(study, onSubmit);

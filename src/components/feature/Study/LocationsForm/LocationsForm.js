@@ -1,6 +1,6 @@
 import { useLocationsForm } from "hooks";
 
-import LocationsInputs from "components/feature/Study/LocationsInputs/LocationsInputs";
+import LocationsInputs from "./LocationsInputs";
 
 function LocationsForm({ study, onSubmit, Wrapper }) {
   const locationsForm = useLocationsForm(study, onSubmit);
