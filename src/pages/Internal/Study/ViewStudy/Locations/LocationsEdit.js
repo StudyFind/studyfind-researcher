@@ -1,55 +1,32 @@
-import { useLocationsInputs } from "hooks";
 import { Button } from "@chakra-ui/react";
 import { study as researchStudy } from "database/mutations";
 
-import LocationsInputs from "components/feature/Study/LocationsInputs/LocationsInputs";
+import LocationsForm from "../../Forms/LocationsForm";
 import TabHeader from "../TabHeader";
 
 function LocationsEdit({ study, setEdit }) {
-  const {
-    values,
-    errors,
-    hasChanged,
-    notDefault,
-    createLocation,
-    updateLocation,
-    deleteLocation,
-    clearLocations,
-    resetLocations,
-    sortLocations,
-    handleSubmit,
-  } = useLocationsInputs(study, (data) => {
-    researchStudy.update({ ...study, locations: data });
-    setEdit(false);
-  });
-
-  const handleCancel = () => {
-    resetLocations();
+  const handleUpdate = (data) => {
+    researchStudy.update(study.id, { ...study, locations: data });
     setEdit(false);
   };
 
-  return (
+  const handleCancel = () => {
+    setEdit(false);
+  };
+
+  const Wrapper = ({ children, title, handleSubmit }) => (
     <>
-      <TabHeader heading="Locations">
+      <TabHeader heading={title}>
         <Button onClick={handleCancel}>Cancel</Button>
         <Button colorScheme="green" onClick={handleSubmit}>
           Save Changes
         </Button>
       </TabHeader>
-      <LocationsInputs
-        values={values}
-        errors={errors}
-        hasChanged={hasChanged}
-        notDefault={notDefault}
-        createLocation={createLocation}
-        updateLocation={updateLocation}
-        deleteLocation={deleteLocation}
-        clearLocations={clearLocations}
-        resetLocations={resetLocations}
-        sortLocations={sortLocations}
-      />
+      {children}
     </>
   );
+
+  return <LocationsForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />;
 }
 
 export default LocationsEdit;

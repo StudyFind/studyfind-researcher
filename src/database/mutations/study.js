@@ -11,6 +11,7 @@ const assertCreateFields = ({
   acceptsHealthyVolunteers,
   questions,
   locations,
+  resources,
   conditions,
 }) => ({
   type,
@@ -22,6 +23,7 @@ const assertCreateFields = ({
   acceptsHealthyVolunteers,
   questions,
   locations,
+  resources,
   conditions,
 });
 
@@ -35,7 +37,9 @@ const assertUpdateFields = ({
   type,
   questions,
   locations,
+  resources,
   conditions,
+  activated,
 }) => ({
   title,
   description,
@@ -46,7 +50,9 @@ const assertUpdateFields = ({
   type,
   questions,
   locations,
+  resources,
   conditions,
+  activated,
 });
 
 const createStudy = (data) => {

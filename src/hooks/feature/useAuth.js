@@ -40,7 +40,7 @@ function useAuth({ initial, toasts, onSubmit }) {
         setSuccess(true);
         setValues(initial);
 
-        if (toasts.success) {
+        if (toasts?.success) {
           triggerToast(toasts.success);
         }
       })
@@ -48,7 +48,7 @@ function useAuth({ initial, toasts, onSubmit }) {
         setSuccess(false);
         setErrors(err);
 
-        if (toasts.failure) {
+        if (toasts?.failure) {
           triggerToast(toasts.failure);
         }
       })

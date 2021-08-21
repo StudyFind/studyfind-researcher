@@ -1,16 +1,23 @@
 import { firestore } from "database/firebase";
 import { getTimezone } from "database/getters";
 
-const researcherRef = (uid) => firestore.collection("researchers").doc(uid);
+const participantRef = (uid) => firestore.collection("participants").doc(uid);
 
-export const researcher = {
+export const participant = {
   create: (uid) =>
-    researcherRef(uid).set({
+    participantRef(uid).set({
       organization: "",
       background: "",
       timezone: {
         region: getTimezone(),
         autodetect: true,
+      },
+      location: {
+        address: "",
+        coordinates: {
+          latitude: 0,
+          longitude: 0,
+        },
       },
       notifications: {
         local: true,
@@ -25,15 +32,23 @@ export const researcher = {
       organization,
       background,
       timezone: { region, autodetect },
+      location: {
+        address,
+        coordinates: { latitude, longitude },
+      },
       notifications: { local, email, phone },
     }
   ) =>
-    researcherRef(uid).update({
+    participantRef(uid).update({
       organization,
       background,
       timezone: {
         region,
         autodetect,
+      },
+      location: {
+        address,
+        coordinates: { latitude, longitude },
       },
       notifications: {
         local,
@@ -42,5 +57,5 @@ export const researcher = {
       },
     }),
 
-  delete: (uid) => researcherRef(uid).delete(),
+  delete: (uid) => participantRef(uid).delete(),
 };

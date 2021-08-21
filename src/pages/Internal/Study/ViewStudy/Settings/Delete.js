@@ -1,44 +1,45 @@
 import { useState } from "react";
-
 import { useHistory } from "react-router-dom";
+import { useTriggerConfirm, useTriggerToast } from "hooks";
+
+import { study as researchStudy } from "database/mutations";
 
 import { Box, Grid, Heading, Text, Button, Tooltip } from "@chakra-ui/react";
 import { Form, TextInput } from "components";
+import { toasts } from "templates";
 
 function Delete({ study }) {
   const [studyID, setStudyID] = useState("");
-  const [error, setError] = useState("");
+
+  const history = useHistory();
+  const triggerToast = useTriggerToast();
+  const triggerConfirm = useTriggerConfirm();
 
   const handleChange = (_, value) => {
     setStudyID(value);
-    setError("");
   };
 
   const handleConfirm = () => {
-    // return firestore
-    //   .collection("studies")
-    //   .doc(study.id)
-    //   .delete()
-    //   .then(() => {
-    //     history.push("/studies");
-    //     toast(toasts.deletedStudy);
-    //   })
-    //   .catch(() => {
-    //     toast(toasts.connectionError);
-    //   });
+    researchStudy
+      .delete(study.id)
+      .then(() => {
+        history.push("/");
+        triggerToast(toasts.deletedStudy);
+      })
+      .catch(() => {
+        triggerToast(toasts.connectionError);
+      });
   };
 
   const handleDelete = () => {
     if (studyID === study.id) {
-      // confirm({
-      //   title: "Delete Study",
-      //   description: `This is a permanant action and cannot be undone. Are you sure you want to delete study with study number ${studyID}?`,
-      //   color: "red",
-      //   button: "Delete",
-      //   handleConfirm,
-      // });
-    } else {
-      setError("Entered ID does not match");
+      triggerConfirm({
+        title: "Delete Study",
+        description: `Are you sure you want to delete study with study id "${studyID}"?`,
+        color: "red",
+        button: "Delete",
+        handleConfirm,
+      });
     }
   };
 
@@ -57,12 +58,7 @@ function Delete({ study }) {
 
       <Form onSubmit={handleDelete}>
         <Grid gap="10px" maxW="240px">
-          <TextInput
-            placeholder="Type here..."
-            value={studyID}
-            error={error}
-            onChange={handleChange}
-          />
+          <TextInput value={studyID} placeholder="Type here..." onChange={handleChange} />
           <Tooltip label={studyID !== study.id && "Entered ID does not match the study ID"}>
             <Box>
               <Button type="submit" w="100%" colorScheme="red" isDisabled={studyID !== study.id}>

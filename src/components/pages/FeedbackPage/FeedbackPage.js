@@ -1,43 +1,19 @@
-import { useState } from "react";
+import { useTriggerToast, useFeedbackInputs } from "hooks";
+import { feedback } from "database/mutations";
+import { toasts } from "templates";
+
 import { Form, TextInput, TextareaInput } from "components";
 import { Box, Flex, Grid, Heading, Text, Button } from "@chakra-ui/react";
 import { FaPaperPlane } from "react-icons/fa";
 
-function FeedbackForm({ onSubmit }) {
-  // `onSubmit` must be a promise
-  const [values, setValues] = useState({ title: "", body: "" });
-  const [errors, setErrors] = useState({ title: "", body: "" });
-  const [loading, setLoading] = useState(false);
+function FeedbackPage() {
+  const triggerToast = useTriggerToast();
 
-  const check = (name, value) => {
-    if (!value && name === "title") return "Title cannot be empty";
-    if (!value && name === "body") return "Body cannot be empty";
-    return "";
+  const onSubmit = ({ title, body }) => {
+    return feedback.submit({ title, body }).then(() => triggerToast(toasts.providedFeedback));
   };
 
-  const handleChange = (name, value) => {
-    setValues((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: check(name, value) }));
-  };
-
-  const handleSubmit = () => {
-    const { title, body } = values;
-
-    const error = {
-      title: check("title", title),
-      body: check("body", body),
-    };
-
-    if (error.title || error.body) {
-      setErrors(error);
-      return;
-    }
-
-    setLoading(true);
-    onSubmit({ title, body })
-      .then(() => setValues({ title: "", body: "" }))
-      .finally(() => setLoading(false));
-  };
+  const { values, errors, loading, handleChange, handleSubmit } = useFeedbackInputs(onSubmit);
 
   return (
     <Grid gap="20px">
@@ -84,4 +60,4 @@ function FeedbackForm({ onSubmit }) {
   );
 }
 
-export default FeedbackForm;
+export default FeedbackPage;

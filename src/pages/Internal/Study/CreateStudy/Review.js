@@ -6,11 +6,13 @@ import StudyCardLarge from "components/feature/Study/StudyCard/StudyCardLarge";
 import LocationsList from "components/feature/Study/LocationsList/LocationsList";
 import HorizontalTabs from "components/complex/HorizontalTabs/HorizontalTabs";
 import QuestionsTable from "components/feature/Study/QuestionsTable/QuestionsTable";
-import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
-import CreateStudyWrapper from "./CreateStudyWrapper";
 import ResourcesList from "components/feature/Study/ResourcesList/ResourcesList";
 
-function Review({ loading, study, handleBack, handleSubmit }) {
+function Review({ study, Wrapper, goBack }) {
+  const title = "Review";
+  const description =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
+
   const tabs = [
     {
       name: "Details",
@@ -39,15 +41,7 @@ function Review({ loading, study, handleBack, handleSubmit }) {
           height="300px"
           showBackground
         >
-          <Button
-            onClick={() => {
-              handleBack();
-              handleBack();
-              handleBack();
-            }}
-          >
-            Add Locations
-          </Button>
+          <Button onClick={() => goBack(3)}>Add Locations</Button>
         </Message>
       ),
     },
@@ -62,14 +56,7 @@ function Review({ loading, study, handleBack, handleSubmit }) {
           height="300px"
           showBackground
         >
-          <Button
-            onClick={() => {
-              handleBack();
-              handleBack();
-            }}
-          >
-            Add Questions
-          </Button>
+          <Button onClick={() => goBack(2)}>Add Questions</Button>
         </Message>
       ),
     },
@@ -84,32 +71,16 @@ function Review({ loading, study, handleBack, handleSubmit }) {
           height="300px"
           showBackground
         >
-          <Button
-            onClick={() => {
-              handleBack();
-            }}
-          >
-            Add Resources
-          </Button>
+          <Button onClick={() => goBack(1)}>Add Resources</Button>
         </Message>
       ),
     },
   ];
 
   return (
-    <CreateStudyWrapper
-      title="Review"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
-    >
+    <Wrapper title={title} description={description}>
       <HorizontalTabs tabs={tabs} useURL={false} paddingY="20px" />
-      <WizardFormButton
-        isFinalStep
-        loading={loading}
-        handleBack={handleBack}
-        handleSubmit={handleSubmit}
-      />
-    </CreateStudyWrapper>
+    </Wrapper>
   );
 }
 

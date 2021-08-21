@@ -44,8 +44,8 @@ export { default as useTriggerNotification } from "./useTriggerNotification";
 // FORMS
 export { default as useForm } from "./useForm";
 export { default as useAuth } from "./feature/useAuth";
-export { default as useDetailsInputs } from "./feature/useDetailsInputs";
-export { default as useLocationsInputs } from "./feature/useLocationsInputs";
+export { default as useDetailsInputs } from "./feature/useDetailsForm";
+export { default as useLocationsInputs } from "./feature/useLocationsForm";
 export { default as useQuestionsInputs } from "./feature/useQuestionsInputs";
 export { default as useResourcesInputs } from "./feature/useResourcesInputs";
 export { default as useFeedbackInputs } from "./feature/useFeedbackInputs";

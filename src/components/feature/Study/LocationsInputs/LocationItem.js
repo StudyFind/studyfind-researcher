@@ -11,8 +11,8 @@ export default SortableElement(({ i, value, error, updateLocation, deleteLocatio
     <TextInput
       placeholder="Location Address"
       name="address"
-      value={value}
-      error={error}
+      value={value.address}
+      error={error.address}
       onChange={(n, v) => updateLocation(i, n, v)}
     />
     <ActionButton

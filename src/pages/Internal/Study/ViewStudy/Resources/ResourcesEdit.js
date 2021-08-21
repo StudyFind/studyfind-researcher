@@ -1,54 +1,32 @@
-import { useResourcesInputs } from "hooks";
 import { Button } from "@chakra-ui/react";
 import { study as researchStudy } from "database/mutations";
 
+import ResourcesForm from "../../Forms/ResourcesForm";
 import TabHeader from "../TabHeader";
-import ResourcesInputs from "components/feature/Study/ResourcesInputs/ResourcesInputs";
 
 function ResourcesEdit({ study, setEdit }) {
-  const {
-    values,
-    errors,
-    hasChanged,
-    notDefault,
-    createResource,
-    updateResource,
-    deleteResource,
-    clearResources,
-    resetResources,
-    sortResources,
-    handleSubmit,
-  } = useResourcesInputs(study, (data) => {
-    researchStudy.update({ ...study, resources: data });
+  const handleUpdate = (data) => {
+    researchStudy.update(study.id, { ...study, resources: data });
     setEdit(false);
-  });
+  };
 
   const handleCancel = () => {
     setEdit(false);
   };
 
-  return (
+  const Wrapper = ({ children, title, handleSubmit }) => (
     <>
-      <TabHeader heading="Resources">
+      <TabHeader heading={title}>
         <Button onClick={handleCancel}>Cancel</Button>
         <Button colorScheme="green" onClick={handleSubmit}>
           Save Changes
         </Button>
       </TabHeader>
-      <ResourcesInputs
-        values={values}
-        errors={errors}
-        hasChanged={hasChanged}
-        notDefault={notDefault}
-        createResource={createResource}
-        updateResource={updateResource}
-        deleteResource={deleteResource}
-        clearResources={clearResources}
-        resetResources={resetResources}
-        sortResources={sortResources}
-      />
+      {children}
     </>
   );
+
+  return <ResourcesForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />;
 }
 
 export default ResourcesEdit;

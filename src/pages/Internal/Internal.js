@@ -22,7 +22,7 @@ import Verification from "./Verification/Verification";
 import Dashboard from "./Dashboard/Dashboard";
 import CreateStudy from "./Study/CreateStudy/CreateStudy";
 import ViewStudy from "./Study/ViewStudy/ViewStudy";
-import Notifications from "./Notifications/Notifications";
+import Notifications from "../../components/pages/NotificationsPage/NotificationsPage";
 import Schedule from "./Schedule/Schedule";
 import Account from "./Account/Account";
 import Feedback from "./Feedback/Feedback";

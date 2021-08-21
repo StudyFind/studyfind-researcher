@@ -3,6 +3,7 @@ import { Button, Flex, Grid, Progress } from "@chakra-ui/react";
 import { TextInput, FileInput, SecondaryButton } from "components";
 
 import TabHeader from "../TabHeader";
+import { storage } from "database/firebase";
 
 function FilesEdit({ studyID, setEdit, getFiles }) {
   const [values, setValues] = useState({ name: "", file: undefined });
@@ -41,34 +42,35 @@ function FilesEdit({ studyID, setEdit, getFiles }) {
   };
 
   const handleUpload = () => {
-    // const err = {
-    //   name: validate("name", values.name),
-    //   file: validate("file", values.file),
-    // };
-    // if (err.name || err.file) {
-    //   setErrors(err);
-    //   return;
-    // }
-    // setLoading(true);
-    // const ref = storage.ref(`study/${studyID}/${values.name}`);
-    // const task = ref.put(values.file);
-    // task.on(
-    //   "state_changed",
-    //   (snapshot) => {
-    //     const filesize = snapshot.totalBytes;
-    //     const uploaded = snapshot.bytesTransferred;
-    //     const percent = Math.round((100 * uploaded) / filesize);
-    //     setStatus(percent);
-    //   },
-    //   (error) => {
-    //     setErrors({ file: error.message && "File cannot be larger than 5MB" });
-    //     setLoading(false);
-    //   },
-    //   () => {
-    //     setLoading(false);
-    //     setEdit(false);
-    //   }
-    // );
+    const err = {
+      name: validate("name", values.name),
+      file: validate("file", values.file),
+    };
+    if (err.name || err.file) {
+      setErrors(err);
+      return;
+    }
+    setLoading(true);
+    const ref = storage.ref(`study/${studyID}/${values.name}`);
+    const task = ref.put(values.file);
+    task.on(
+      "state_changed",
+      (snapshot) => {
+        const filesize = snapshot.totalBytes;
+        const uploaded = snapshot.bytesTransferred;
+        const percent = Math.round((100 * uploaded) / filesize);
+        setStatus(percent);
+      },
+      (error) => {
+        setErrors({ file: error.message && "File cannot be larger than 5MB" });
+        setLoading(false);
+      },
+      () => {
+        setLoading(false);
+        setEdit(false);
+        getFiles();
+      }
+    );
   };
 
   return (

@@ -1,7 +1,10 @@
 import { Heading, Text, Switch, Badge, Box, Flex } from "@chakra-ui/react";
+import { study as researchStudy } from "database/mutations";
 
 function Activate({ study }) {
-  const handleToggle = () => {};
+  const handleToggle = () => {
+    researchStudy.update(study.id, { ...study, activated: !study.activated });
+  };
 
   return (
     <Box p="20px">
@@ -15,15 +18,9 @@ function Activate({ study }) {
       </Flex>
       <Text color="gray.500" my="8px">
         Your study recruitment status corresponds to whether you are currently accepting
-        participants into your study. A status of{" "}
-        <Text display="inline" fontWeight="700">
-          active
-        </Text>{" "}
-        allows participants to enroll, while a status of{" "}
-        <Text display="inline" fontWeight="700">
-          inactive
-        </Text>{" "}
-        hides the study from potential participants.
+        participants into your study. A status of <strong>active</strong> allows participants to
+        enroll, while a status of <strong>inactive</strong> hides the study from potential
+        participants.
       </Text>
 
       <Box display="inline">

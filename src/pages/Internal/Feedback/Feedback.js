@@ -1,17 +1,7 @@
-import { useTriggerToast } from "hooks";
-import { toasts } from "templates";
-import { feedback } from "database/mutations";
-
-import FeedbackForm from "components/feature/FeedbackForm/FeedbackForm";
+import FeedbackPage from "components/pages/FeedbackPage/FeedbackPage";
 
 function Feedback() {
-  const triggerToast = useTriggerToast();
-
-  const handleSubmit = ({ title, body }) => {
-    return feedback.submit({ title, body }).then(() => triggerToast(toasts.providedFeedback));
-  };
-
-  return <FeedbackForm onSubmit={handleSubmit} />;
+  return <FeedbackPage />;
 }
 
 export default Feedback;

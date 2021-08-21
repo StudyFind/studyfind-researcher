@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useHistory, useTriggerToast, useWizard } from "hooks";
 import { study as researchStudy } from "database/mutations";
-
-import WizardFormSteps from "components/complex/WizardForm/WizardFormSteps";
-
-import Details from "./Details";
-import Locations from "./Locations";
-import Questions from "./Questions";
-import Resources from "./Resources";
-import Review from "./Review";
 import { toasts } from "templates";
+
+import CreateStudyWrapper from "./CreateStudyWrapper";
+import WizardFormSteps from "components/complex/WizardForm/WizardFormSteps";
+import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
+
+import DetailsForm from "../Forms/DetailsForm";
+import LocationsForm from "../Forms/LocationsForm";
+import QuestionsForm from "../Forms/QuestionsForm";
+import ResourcesForm from "../Forms/ResourcesForm";
+import Review from "./Review";
 
 function CreateStudy() {
   const { stepIndex, handleBack, handleNext, handleSelect } = useWizard(5);
@@ -49,42 +51,55 @@ function CreateStudy() {
       .finally(() => setLoading(false));
   };
 
+  const extraProps = [
+    {
+      handleBack: handleBefore,
+      isFirstStep: true,
+    },
+    {},
+    {},
+    {},
+    {
+      loading,
+      handleBack,
+      handleSubmit: handleSubmit,
+      isFinalStep: true,
+    },
+  ];
+
+  const Wrapper = ({ children, title, description, handleSubmit }) => (
+    <CreateStudyWrapper title={title} description={description}>
+      {children}
+      <WizardFormButton
+        handleNext={handleSubmit}
+        handleBack={handleBack}
+        {...extraProps[stepIndex]}
+      />
+    </CreateStudyWrapper>
+  );
+
+  const goBack = (n) => {
+    for (let i = 0; i < n; i++) {
+      handleBack();
+    }
+  };
+
+  const handleContinue = (updatedFields) => {
+    setStudy((prev) => ({ ...prev, ...updatedFields }));
+    handleNext();
+  };
+
+  const handleDetails = (data) => handleContinue(data);
+  const handleLocations = (data) => handleContinue({ locations: data });
+  const handleQuestions = (data) => handleContinue({ questions: data });
+  const handleResources = (data) => handleContinue({ resources: data });
+
   const steps = [
-    <Details
-      key={0}
-      study={study}
-      setStudy={setStudy}
-      handleBack={handleBefore}
-      handleNext={handleNext}
-    />,
-    <Locations
-      key={1}
-      study={study}
-      setStudy={setStudy}
-      handleBack={handleBack}
-      handleNext={handleNext}
-    />,
-    <Questions
-      key={2}
-      study={study}
-      setStudy={setStudy}
-      handleBack={handleBack}
-      handleNext={handleNext}
-    />,
-    <Resources
-      key={3}
-      study={study}
-      setStudy={setStudy}
-      handleBack={handleBack}
-      handleNext={handleNext}
-    />,
-    <Review
-      key={4}
-      loading={loading}
-      study={study}
-      handleBack={handleBack}
-      handleSubmit={handleSubmit}
-    />,
+    <DetailsForm key={0} study={study} onSubmit={handleDetails} Wrapper={Wrapper} />,
+    <LocationsForm key={1} study={study} onSubmit={handleLocations} Wrapper={Wrapper} />,
+    <QuestionsForm key={2} study={study} onSubmit={handleQuestions} Wrapper={Wrapper} />,
+    <ResourcesForm key={3} study={study} onSubmit={handleResources} Wrapper={Wrapper} />,
+    <Review key={4} study={study} goBack={goBack} Wrapper={Wrapper} />,
   ];
 
   return (

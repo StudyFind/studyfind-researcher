@@ -1,10 +1,8 @@
 import { useQuestionsInputs } from "hooks";
 
 import QuestionsInputs from "components/feature/Study/QuestionsInputs/QuestionsInputs";
-import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
-import CreateStudyWrapper from "./CreateStudyWrapper";
 
-function Questions({ study, setStudy, handleBack, handleNext }) {
+function QuestionsForm({ study, onSubmit, Wrapper }) {
   const {
     values,
     errors,
@@ -17,17 +15,14 @@ function Questions({ study, setStudy, handleBack, handleNext }) {
     resetQuestions,
     sortQuestions,
     handleSubmit,
-  } = useQuestionsInputs(study, (data) => {
-    setStudy((prev) => ({ ...prev, questions: data }));
-    handleNext();
-  });
+  } = useQuestionsInputs(study, onSubmit);
+
+  const title = "Questions";
+  const description =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
 
   return (
-    <CreateStudyWrapper
-      title="Questions"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
-    >
+    <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
       <QuestionsInputs
         values={values}
         errors={errors}
@@ -40,9 +35,8 @@ function Questions({ study, setStudy, handleBack, handleNext }) {
         resetQuestions={resetQuestions}
         sortQuestions={sortQuestions}
       />
-      <WizardFormButton handleBack={handleBack} handleNext={handleSubmit} />
-    </CreateStudyWrapper>
+    </Wrapper>
   );
 }
 
-export default Questions;
+export default QuestionsForm;

@@ -44,7 +44,7 @@ function ViewStudy() {
     {
       name: "Files",
       link: `/study/${study.id}/files`,
-      content: <Files />,
+      content: <Files study={study} />,
     },
     // {
     //   name: "Participants",

@@ -1,10 +1,8 @@
 import { useResourcesInputs } from "hooks";
 
 import ResourcesInputs from "components/feature/Study/ResourcesInputs/ResourcesInputs";
-import WizardFormButton from "components/complex/WizardForm/WizardFormButtons";
-import CreateStudyWrapper from "./CreateStudyWrapper";
 
-function Resources({ study, setStudy, handleBack, handleNext }) {
+function ResourcesForm({ study, onSubmit, Wrapper }) {
   const {
     values,
     errors,
@@ -17,17 +15,14 @@ function Resources({ study, setStudy, handleBack, handleNext }) {
     resetResources,
     sortResources,
     handleSubmit,
-  } = useResourcesInputs(study, (data) => {
-    setStudy((prev) => ({ ...prev, resources: data }));
-    handleNext();
-  });
+  } = useResourcesInputs(study, onSubmit);
+
+  const title = "Resources";
+  const description =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
 
   return (
-    <CreateStudyWrapper
-      title="Resources"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
-    >
+    <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
       <ResourcesInputs
         values={values}
         errors={errors}
@@ -40,9 +35,8 @@ function Resources({ study, setStudy, handleBack, handleNext }) {
         resetResources={resetResources}
         sortResources={sortResources}
       />
-      <WizardFormButton handleBack={handleBack} handleNext={handleSubmit} />
-    </CreateStudyWrapper>
+    </Wrapper>
   );
 }
 
-export default Resources;
+export default ResourcesForm;

@@ -36,7 +36,10 @@ export const ClipboardButton = ({ children, copyTextValue, buttonTextOnCopied, .
   return (
     <SecondaryButton
       leftIcon={<FaCopy />}
-      onClick={onCopy}
+      onClick={() => {
+        console.log("clicked");
+        onCopy();
+      }}
       _hover={defaultHover}
       _active={defaultActive}
     >

@@ -21,27 +21,18 @@ function FileCard({ file, handleOpen, handleDelete }) {
         borderTopRadius="6px"
         cursor="pointer"
         background={iconBackgroundColor}
-        onClick={handleOpen}
+        onClick={() => handleOpen(file)}
       >
-        <Icon
-          as={FaFilePdf}
-          color={secondaryColor}
-          height="30px"
-          width="30px"
-        />
+        <Icon as={FaFilePdf} color={secondaryColor} height="30px" width="30px" />
       </Flex>
       <Divider color={borderColor} />
-      <Box
-        padding="15px"
-        background={detailsBackgroundColor}
-        borderBottomRadius="6px"
-      >
+      <Box padding="15px" background={detailsBackgroundColor} borderBottomRadius="6px">
         <Name
           color={fileNameColor}
           fontSize="14px"
           fontWeight="500"
           cursor="pointer"
-          onClick={handleOpen}
+          onClick={() => handleOpen(file)}
         >
           <Tooltip label={file.name}>{file.name}</Tooltip>
         </Name>
@@ -57,7 +48,7 @@ function FileCard({ file, handleOpen, handleDelete }) {
                   fontSize="12px"
                   color={secondaryColor}
                   _hover={{ color: "red.400" }}
-                  onClick={() => handleDelete(file.name)}
+                  onClick={() => handleDelete(file)}
                   pointerEvents="all"
                   cursor="pointer"
                 />
@@ -71,7 +62,7 @@ function FileCard({ file, handleOpen, handleDelete }) {
                   color={secondaryColor}
                   _hover={{ color: "blue.400" }}
                   pointerEvents="all"
-                  onClick={handleOpen}
+                  onClick={() => handleOpen(file)}
                   cursor="pointer"
                 />
               </Box>
