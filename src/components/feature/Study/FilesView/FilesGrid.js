@@ -1,7 +1,7 @@
 import { useDetectDevice } from "hooks";
 import { SimpleGrid } from "@chakra-ui/react";
 
-import FileCard from "components/complex/FileCard/FileCard";
+import FileCard from "./FileCard";
 
 function FilesGrid({ files, handleOpen, handleDelete }) {
   const { responsive } = useDetectDevice();
