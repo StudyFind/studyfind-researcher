@@ -45,9 +45,9 @@ const providedFeedback = {
   position: "top",
 };
 
-const publishedStudy = {
-  title: "Study Published",
-  description: `Your study was successfully published is now available for participants to view and enroll.`,
+const createdStudy = {
+  title: "Study Created",
+  description: `Your study was successfully created and has been added to your account.`,
   status: "success",
   duration: LONG,
   isClosable: true,
@@ -59,24 +59,6 @@ const deletedStudy = {
   description: `Your study was successfully deleted and will no longer be accessible through StudyFind`,
   status: "success",
   duration: LONG,
-  isClosable: true,
-  position: "top",
-};
-
-const savedStudy = {
-  title: "Study Progress Saved",
-  description: `Your study along with any changes you made have been saved and can be published or deleted from the study settings tab.`,
-  status: "info",
-  duration: 5000,
-  isClosable: true,
-  position: "top",
-};
-
-const removedStudy = {
-  title: "Study Removed",
-  description: `This study has been removed from your StudyFind account. If this was a mistake you may re-create the study using its NCT ID from your dashboard.`,
-  status: "info",
-  duration: SHORT,
   isClosable: true,
   position: "top",
 };
@@ -114,11 +96,8 @@ export default {
   deletedAccount, // account page - only security tab
   changedPassword, // account page - only security tab
   providedFeedback, // feedback page
-  publishedStudy, // create study page - review step
+  createdStudy, // create study page - review step
   deletedStudy, // create study page - review step && view study page - settings tab
-  savedStudy, // create study page - review step
-  removedStudy, // welcome account page
-
   deletedReminder,
   deletedMeeting,
   deletedNote,

@@ -1,6 +1,6 @@
 import { usePagination, useUserData } from "hooks";
 import { auth } from "database/firebase";
-import { dashboardQuery } from "database/queries";
+import { buildDashboardQuery } from "database/queries";
 
 import { Loader } from "components";
 
@@ -11,6 +11,8 @@ import DashboardError from "./DashboardError";
 function Dashboard() {
   const { uid, emailVerified } = useUserData(auth);
 
+  const dashboardQuery = buildDashboardQuery(uid);
+
   const {
     documents: studies,
     loading,
@@ -18,7 +20,7 @@ function Dashboard() {
     handleLoadMore,
     fetchedAll,
     error,
-  } = usePagination(dashboardQuery(uid), 10);
+  } = usePagination(dashboardQuery, 10);
 
   if (loading) {
     return <Loader />;

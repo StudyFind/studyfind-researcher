@@ -28,6 +28,7 @@ import Account from "./Account/Account";
 import Feedback from "./Feedback/Feedback";
 
 import ConfirmModal from "components/complex/ConfirmModal/ConfirmModal";
+import { buildResearcherQuery } from "database/queries";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -43,7 +44,8 @@ const GlobalStyle = createGlobalStyle`
 function Internal() {
   const { uid, displayName, email, emailVerified } = auth.currentUser;
 
-  const [user] = useDocument(firestore.collection("researchers").doc(uid));
+  const researcherQuery = buildResearcherQuery(uid);
+  const [user] = useDocument(researcherQuery);
 
   const { isPhone } = useDetectDevice();
 

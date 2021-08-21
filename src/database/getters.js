@@ -17,10 +17,10 @@ export const getName = () => {
   return auth.currentUser?.displayName;
 };
 
-export const getSide = () => {
-  return "researcher";
-};
-
 export const getTimezone = () => {
   return moment.tz.guess();
+};
+
+export const getSide = () => {
+  return "researcher";
 };

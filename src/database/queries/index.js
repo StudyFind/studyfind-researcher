@@ -1,10 +1,10 @@
 import { firestore } from "database/firebase";
 
-export const researcherQuery = (researcherID) => {
+export const buildResearcherQuery = (researcherID) => {
   return firestore.collection("researchers").doc(researcherID);
 };
 
-export const dashboardQuery = (researcherID) => {
+export const buildDashboardQuery = (researcherID) => {
   return firestore
     .collection("studies")
     .where("researcher.id", "==", researcherID)

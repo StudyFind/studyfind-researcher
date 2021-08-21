@@ -46,8 +46,11 @@ function CreateStudy() {
 
     researchStudy
       .create(study)
-      .then((doc) => history.push(`/study/${doc.id}/details`))
-      .catch(() => triggerToast(toasts.publishedStudy))
+      .then((doc) => {
+        history.push(`/study/${doc.id}/details`);
+        triggerToast(toasts.createdStudy);
+      })
+      .catch(() => triggerToast(toasts.connectionError))
       .finally(() => setLoading(false));
   };
 

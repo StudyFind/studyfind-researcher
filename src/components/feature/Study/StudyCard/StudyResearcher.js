@@ -1,6 +1,5 @@
-import { useColor } from "hooks";
+import { useColor, useDetectDevice } from "hooks";
 import { Box, Flex, Text, Avatar } from "@chakra-ui/react";
-import { useDetectDevice } from "hooks";
 
 function StudyResearcher({ researcher }) {
   const { isPhone } = useDetectDevice();
