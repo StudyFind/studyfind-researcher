@@ -7,7 +7,9 @@ import { HiCheckCircle } from "react-icons/hi";
 
 function Message({ message, handleMessageRead, isUserMessageSender }) {
   useEffect(() => {
-    handleMessageRead(message.id);
+    if (!isUserMessageSender) {
+      handleMessageRead(message.id);
+    }
   }, []);
 
   const placement = isUserMessageSender ? "flex-end" : "flex-start";

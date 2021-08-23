@@ -14,6 +14,9 @@ import Settings from "./Settings/Settings";
 
 function ViewStudy() {
   const { studyID } = usePathParams();
+
+  console.log(studyID);
+
   const [study, loading, error] = useDocument(firestore.collection("studies").doc(studyID));
 
   if (!study || loading) {
@@ -49,7 +52,7 @@ function ViewStudy() {
     {
       name: "Participants",
       link: `/study/${study.id}/participants`,
-      content: <Participants />,
+      content: <Participants study={study} />,
     },
     {
       name: "Settings",

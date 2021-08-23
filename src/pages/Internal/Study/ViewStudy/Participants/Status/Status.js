@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { studyParticipant } from "database/mutations";
 
 import { Flex, Badge, Button, Box, SimpleGrid } from "@chakra-ui/react";
 import { Card, ChoiceInput, SecondaryButton } from "components";
 
-function Status({ participant = { status: "screened" }, handleClose }) {
-  const { studyID } = useParams();
+function Status({ participant, handleClose }) {
+  const { studyID, participantID } = useParams();
   const [status, setStatus] = useState(participant.status);
   const [loading, setLoading] = useState(false);
+
+  const handleChange = (_, value) => {
+    setStatus(value);
+  };
 
   const handleCancel = () => {
     setStatus(participant.status);
@@ -16,15 +21,10 @@ function Status({ participant = { status: "screened" }, handleClose }) {
 
   const handleSubmit = () => {
     setLoading(true);
-    // firestore
-    //   .collection("studies")
-    //   .doc(studyID)
-    //   .collection("participants")
-    //   .doc(participant.id)
-    //   .update({ status })
-    //   .then(handleClose)
-    //   .catch(() => {})
-    //   .finally(() => setLoading(false));
+    studyParticipant
+      .updateStatus(studyID, participantID, { status })
+      .then(() => handleClose())
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -75,13 +75,11 @@ function Status({ participant = { status: "screened" }, handleClose }) {
                 value: "rejected",
               },
             ]}
-            onChange={setStatus}
+            onChange={handleChange}
           />
         </Card>
         <Flex gridGap="10px" justify="flex-end">
-          <SecondaryButton onClick={() => handleCancel()}>
-            Cancel
-          </SecondaryButton>
+          <SecondaryButton onClick={() => handleCancel()}>Cancel</SecondaryButton>
           <Button
             colorScheme="blue"
             onClick={() => handleSubmit()}

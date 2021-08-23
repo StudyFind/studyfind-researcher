@@ -11,6 +11,7 @@ function MessageList({
   handleMessageRead,
   handleLoadMore,
   loadingMore,
+  bottomRef,
 }) {
   const messageListbackground = useColor("#f8f9fa", "gray.800");
 
@@ -39,6 +40,7 @@ function MessageList({
             isUserMessageSender={message.user === uid}
           />
         ))}
+        <Box ref={bottomRef} />
       </Flex>
     </Grid>
   );

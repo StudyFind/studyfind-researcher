@@ -2,7 +2,7 @@ import { Text, Avatar, Badge, Flex } from "@chakra-ui/react";
 import { ActionButton } from "components";
 import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
-function ParticipantsItem({ participant, handleOpen }) {
+function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -32,9 +32,11 @@ function ParticipantsItem({ participant, handleOpen }) {
       >
         {participant.status}
       </Badge>
-      <Text color="gray.400" w="100px" textAlign="right">
-        {participant.score}% eligible
-      </Text>
+      {hasQuestions && (
+        <Text color="gray.400" w="100px" textAlign="right">
+          {participant.score}% eligible
+        </Text>
+      )}
       <Flex align="center" gridGap="5px">
         <ActionButton
           hint="Messages"
@@ -42,9 +44,9 @@ function ParticipantsItem({ participant, handleOpen }) {
           onClick={() => handleOpen(participant.id, "messages")}
         />
         <ActionButton
-          hint="Screening"
+          hint="Questions"
           icon={<FaClipboard />}
-          onClick={() => handleOpen(participant.id, "screening")}
+          onClick={() => handleOpen(participant.id, "questions")}
         />
         <ActionButton
           hint="Meetings"

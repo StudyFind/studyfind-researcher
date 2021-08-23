@@ -1,11 +1,7 @@
 import { firestore } from "database/firebase";
 
 const getStudyParticipantRef = (studyID, participantID) => {
-  return firestore
-    .collection("studies")
-    .doc(studyID)
-    .collection("participants")
-    .doc(participantID);
+  return firestore.collection("studies").doc(studyID).collection("participants").doc(participantID);
 };
 
 const updateParticipantStatus = (studyID, participantID, { status }) => {

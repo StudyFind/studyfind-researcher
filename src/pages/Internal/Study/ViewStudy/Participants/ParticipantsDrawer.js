@@ -6,20 +6,22 @@ import Meetings from "./Meetings/Meetings";
 import Messages from "./Messages/Messages";
 import Reminders from "./Reminders/Reminders";
 import Notes from "./Notes/Notes";
-import Screening from "./Screening/Screening";
+import Questions from "./Questions/Questions";
 import Status from "./Status/Status";
 
-function ParticipantsDrawer({ action, participant, isOpen, handleClose }) {
+function ParticipantsDrawer({ action, isOpen, study, participant, handleClose }) {
   const fakename = participant?.fakename;
   const timezone = participant?.timezone;
 
   const render = {
+    status: action === "status" && <Status participant={participant} handleClose={handleClose} />,
     meetings: action === "meetings" && <Meetings />,
     reminders: action === "reminders" && <Reminders />,
     messages: action === "messages" && <Messages />,
     notes: action === "notes" && <Notes />,
-    screening: action === "screening" && <Screening />,
-    status: action === "status" && <Status />,
+    questions: action === "questions" && (
+      <Questions questions={study.questions} responses={participant.responses} />
+    ),
   };
 
   return (

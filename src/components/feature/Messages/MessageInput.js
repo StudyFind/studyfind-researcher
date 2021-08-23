@@ -13,7 +13,7 @@ function MessageInput({ handleMessageSend }) {
   };
 
   const handleSubmit = () => {
-    handleMessageSend(text);
+    handleMessageSend(text).then(() => setText(""));
   };
 
   const background = useColor("white", "gray.900");
@@ -36,12 +36,7 @@ function MessageInput({ handleMessageSend }) {
           placeholder="Type your message here..."
           borderWidth="0"
         />
-        <ActionButton
-          size="md"
-          type="submit"
-          background="transparent"
-          icon={<FaPaperPlane />}
-        />
+        <ActionButton size="md" type="submit" background="transparent" icon={<FaPaperPlane />} />
       </Flex>
     </Form>
   );

@@ -3,13 +3,21 @@ import { VStack } from "@chakra-ui/react";
 
 import ParticipantsItem from "./ParticipantsItem";
 
-function ParticipantsList({ participants, handleOpen, fetchedAll, loadingMore, handleLoadMore }) {
+function ParticipantsList({
+  participants,
+  hasQuestions,
+  handleOpen,
+  fetchedAll,
+  loadingMore,
+  handleLoadMore,
+}) {
   return (
     <VStack spacing="20px">
       <Card width="100%">
         {participants.map((participant) => (
           <ParticipantsItem
             key={participant.id}
+            hasQuestions={hasQuestions}
             participant={participant}
             handleOpen={handleOpen}
           />

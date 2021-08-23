@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 
 function usePagination(query, limit) {
   const [documents, setDocuments] = useState([]);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [fetchedAll, setFetchedAll] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [lastDoc, setLastDoc] = useState(null);
+  const [fetchedAll, setFetchedAll] = useState(false);
   const [error, setError] = useState(null);
 
   const transformData = (snapshot) => {
@@ -18,6 +18,10 @@ function usePagination(query, limit) {
   //  0 1 2 3 4 5 6 7 8 9 ...
 
   useEffect(() => {
+    // setFetchedAll(false);
+    // setLoading(true);
+    // setDocuments([]);
+
     return query.limit(limit).onSnapshot(
       (snapshot) => {
         const count = snapshot.docs.length;

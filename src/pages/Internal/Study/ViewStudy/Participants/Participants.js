@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { usePagination } from "hooks";
 import { useHistory, useParams } from "react-router";
-import { firestore } from "database/firebase";
+import { useParticipantQueryWithFilters } from "hooks";
 
 import { Button } from "@chakra-ui/react";
 import { Loader } from "components";
@@ -13,71 +11,23 @@ import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsDrawer from "./ParticipantsDrawer";
 import ParticipantsEmpty from "./ParticipantsEmpty";
 
-function Participants() {
+function Participants({ study }) {
   const { action, studyID, participantID } = useParams();
 
-  const initialFilters = {
-    status: ["interested", "screened", "consented", "accepted", "rejected"],
-    sort: "eligibility",
-  };
-
-  const [toggle, setToggle] = useState(false);
-  const [values, setValues] = useState(initialFilters);
-
-  const areFiltersApplied = JSON.stringify(initialFilters) !== JSON.stringify(values);
-
-  const participantsQuery = firestore.collection("studies").doc(studyID).collection("participants");
-
   const {
-    documents: participants,
+    participants,
     loading,
     error,
     loadingMore,
     handleLoadMore,
     fetchedAll,
-  } = usePagination(participantsQuery, 10);
-
-  const handleChange = (name, value) => {
-    setValues((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // const participants = [
-  //   {
-  //     id: "UWGOEHUHHI",
-  //     fakename: "UWGOEHUHHI",
-  //     timezone: "PST",
-  //     status: "interested",
-  //     score: 40,
-  //   },
-  //   {
-  //     id: "VREIOFJHUU",
-  //     fakename: "VREIOFJHUU",
-  //     timezone: "EST",
-  //     status: "screened",
-  //     score: 10,
-  //   },
-  //   {
-  //     id: "REWIGUHIEW",
-  //     fakename: "REWIGUHIEW",
-  //     timezone: "MST",
-  //     status: "accepted",
-  //     score: 18,
-  //   },
-  //   {
-  //     id: "PFDIUHWEUH",
-  //     fakename: "PFDIUHWEUH",
-  //     timezone: "CST",
-  //     status: "rejected",
-  //     score: 52,
-  //   },
-  //   {
-  //     id: "BGUIHAIHEVE",
-  //     fakename: "BGUIHAIHEVE",
-  //     timezone: "GST",
-  //     status: "consented",
-  //     score: 43,
-  //   },
-  // ];
+    filters,
+    toggleFilters,
+    setToggleFilters,
+    handleChangeFilter,
+    handleClearFilters,
+    areFiltersApplied,
+  } = useParticipantQueryWithFilters(study);
 
   const isOpen = action && participantID;
   const selectedParticipant = participants.find((participant) => participant.id === participantID);
@@ -100,23 +50,26 @@ function Participants() {
     <>
       <TabHeader heading="Participants">
         {areFiltersApplied && (
-          <Button colorScheme="red" onClick={() => setValues(initialFilters)}>
+          <Button colorScheme="red" onClick={handleClearFilters}>
             Clear Filters
           </Button>
         )}
-        {toggle ? (
-          <Button colorScheme="gray" onClick={() => setToggle(false)}>
+        {toggleFilters ? (
+          <Button colorScheme="gray" onClick={() => setToggleFilters(false)}>
             Hide Filters
           </Button>
         ) : (
-          <Button colorScheme="blue" onClick={() => setToggle(true)}>
+          <Button colorScheme="blue" onClick={() => setToggleFilters(true)}>
             Show Filters
           </Button>
         )}
       </TabHeader>
-      {toggle && <ParticipantsFilter values={values} handleChange={handleChange} />}
+      {toggleFilters && (
+        <ParticipantsFilter filters={filters} handleChangeFilter={handleChangeFilter} />
+      )}
       <ParticipantsList
         participants={participants}
+        hasQuestions={!!study.questions.length}
         handleOpen={handleOpen}
         fetchedAll={fetchedAll}
         loadingMore={loadingMore}
@@ -124,8 +77,9 @@ function Participants() {
       />
       <ParticipantsDrawer
         action={action}
-        participant={selectedParticipant}
         isOpen={isOpen}
+        study={study}
+        participant={selectedParticipant}
         handleClose={handleClose}
       />
     </>
