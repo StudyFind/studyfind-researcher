@@ -1,3 +1,5 @@
+import moment from "moment-timezone";
+
 import SideDrawer from "components/complex/SideDrawer/SideDrawer";
 
 import Meetings from "./Meetings/Meetings";
@@ -23,7 +25,7 @@ function ParticipantsDrawer({ action, participant, isOpen, handleClose }) {
   return (
     <SideDrawer
       heading={action}
-      subheading={`${fakename} (${timezone})`}
+      subheading={`${fakename} (${moment.tz(timezone).zoneAbbr()})`}
       isOpen={isOpen}
       onClose={handleClose}
     >

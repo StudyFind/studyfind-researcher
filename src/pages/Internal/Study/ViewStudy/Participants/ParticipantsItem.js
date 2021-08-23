@@ -1,21 +1,6 @@
 import { Text, Avatar, Badge, Flex } from "@chakra-ui/react";
 import { ActionButton } from "components";
-import {
-  FaClock,
-  FaCalendar,
-  FaClipboard,
-  FaStickyNote,
-  FaComment,
-} from "react-icons/fa";
-
-// import ParticipantDrawer from "./ParticipantDrawer";
-
-// import Status from "./Status/Status";
-// import Screening from "./Screening/Screening";
-// import Meetings from "./Meetings/Meetings";
-// import Reminders from "./Reminders/Reminders";
-// import Notes from "./Notes/Notes";
-// import Messages from "./Messages/Messages";
+import { FaClock, FaCalendar, FaClipboard, FaStickyNote, FaComment } from "react-icons/fa";
 
 function ParticipantsItem({ participant, handleOpen }) {
   const statusColors = {

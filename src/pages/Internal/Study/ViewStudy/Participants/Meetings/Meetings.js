@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import { meeting as exampleMeeting } from "data";
-
 import { Loader } from "components";
 
 import MeetingsView from "./MeetingsView";
@@ -9,7 +7,7 @@ import MeetingsEdit from "./MeetingsEdit";
 import MeetingsError from "./MeetingsError";
 
 function Meetings({ participant, study }) {
-  const meetings = [exampleMeeting, exampleMeeting, exampleMeeting];
+  const meetings = [];
   const loading = false;
   const error = "";
 

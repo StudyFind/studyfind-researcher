@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { note as exampleNote } from "data";
 
 import { useParams } from "react-router-dom";
 // import { firestore } from "database/firebase";
@@ -16,7 +15,7 @@ function Notes({ id }) {
   const [edit, setEdit] = useState(false);
   const [note, setNote] = useState(null);
 
-  const notes = [exampleNote, exampleNote, exampleNote];
+  const notes = [];
   const loading = false;
   const error = "";
 
@@ -62,11 +61,7 @@ function Notes({ id }) {
       handleCancel={handleCancel}
     />
   ) : (
-    <NotesView
-      notes={notes}
-      handleDelete={handleDelete}
-      handleEdit={handleEdit}
-    />
+    <NotesView notes={notes} handleDelete={handleDelete} handleEdit={handleEdit} />
   );
 }
 

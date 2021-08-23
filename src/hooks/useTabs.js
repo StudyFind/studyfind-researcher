@@ -67,6 +67,11 @@ function useTabs(tabs, useURL) {
   }, []);
 
   useEffect(() => {
+    const found = findTabIndex() ?? 0;
+    setTabIndex(found);
+  }, [tab]);
+
+  useEffect(() => {
     const tabItems = document.querySelectorAll(".tab-item");
     tabItems[tabIndex].focus();
 

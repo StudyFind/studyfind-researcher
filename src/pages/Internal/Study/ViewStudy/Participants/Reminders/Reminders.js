@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { reminder as exampleReminder } from "data";
 
 import { Loader } from "components";
 
@@ -17,7 +16,7 @@ function Reminders({ participant, study }) {
   //     .orderBy("startDate", "desc")
   // );
 
-  const reminders = [exampleReminder, exampleReminder, exampleReminder];
+  const reminders = [];
   const loading = false;
   const error = "";
 
@@ -44,11 +43,7 @@ function Reminders({ participant, study }) {
   return edit ? (
     <RemindersEdit reminder={reminder} handleCancel={handleCancel} />
   ) : (
-    <RemindersView
-      reminders={reminders}
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-    />
+    <RemindersView reminders={reminders} handleEdit={handleEdit} handleDelete={handleDelete} />
   );
 }
 

@@ -9,7 +9,7 @@ import Locations from "./Locations/Locations";
 import Questions from "./Questions/Questions";
 import Resources from "./Resources/Resources";
 import Files from "./Files/Files";
-// import Participants from "./Participants/Participants";
+import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
 
 function ViewStudy() {
@@ -46,11 +46,11 @@ function ViewStudy() {
       link: `/study/${study.id}/files`,
       content: <Files study={study} />,
     },
-    // {
-    //   name: "Participants",
-    //   link: `/study/${study.id}/participants`,
-    //   content: <Participants />,
-    // },
+    {
+      name: "Participants",
+      link: `/study/${study.id}/participants`,
+      content: <Participants />,
+    },
     {
       name: "Settings",
       link: `/study/${study.id}/settings`,

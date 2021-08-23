@@ -1,15 +1,9 @@
 import { Card, LoadMoreButton } from "components";
-import { Box, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 
 import ParticipantsItem from "./ParticipantsItem";
 
-function ParticipantsList({
-  participants,
-  handleOpen,
-  fetchedAll,
-  additionalLoading,
-  handleFetchAdditional,
-}) {
+function ParticipantsList({ participants, handleOpen, fetchedAll, loadingMore, handleLoadMore }) {
   return (
     <VStack spacing="20px">
       <Card width="100%">
@@ -24,8 +18,8 @@ function ParticipantsList({
       <LoadMoreButton
         fetchedAll={fetchedAll}
         fetchedAllText={`Showing all ${participants.length} participants`}
-        isLoading={additionalLoading}
-        onClick={handleFetchAdditional}
+        isLoading={loadingMore}
+        onClick={handleLoadMore}
       />
     </VStack>
   );
