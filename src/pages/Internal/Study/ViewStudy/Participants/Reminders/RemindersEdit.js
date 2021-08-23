@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
-import { datetime, helpers } from "utils";
-// import { auth, firestore } from "database/firebase";
-import { useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { datetime, helpers, object } from "utils";
+
+import { RemindersContext } from "./RemindersContext";
 
 import { TextInput, DateInput, ToggleSelectInput, SecondaryButton } from "components";
 import { Grid, Flex, FormLabel, Button } from "@chakra-ui/react";
 
-import ReminderWeekdayInput from "./ReminderWeekdayInput";
 import ReminderTimesInput from "./ReminderTimesInput";
 
-function RemindersEdit({ reminder, handleCancel }) {
-  const { studyID, participantID } = useParams();
+function RemindersEdit() {
+  const { selectedReminder, isCreating, isUpdating, handleSave, handleCancel } =
+    useContext(RemindersContext);
+
+  const isSaving = isCreating || isUpdating;
 
   const [values, setValues] = useState({
     time: "",
@@ -60,44 +62,33 @@ function RemindersEdit({ reminder, handleCancel }) {
     endDate: checker("endDate", endDate),
   });
 
-  const handleInitial = () => {
-    if (reminder) {
-      const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(reminder.times);
-      const { title, startDate, endDate } = reminder;
-      const initial = { title, times, weekdays, startDate, endDate };
+  useEffect(() => {
+    if (selectedReminder) {
+      const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(selectedReminder.times);
+      const { title, startDate, endDate } = selectedReminder;
 
-      setValues(initial);
-      setErrors(validate(initial));
+      const reminderInputs = { title, times, weekdays, startDate, endDate };
+      const errorMessages = validate(reminderInputs);
+
+      setValues(reminderInputs);
+      setErrors(errorMessages);
     }
-  };
-
-  useEffect(handleInitial, [reminder]);
+  }, [selectedReminder]);
 
   const handleSubmit = () => {
-    const { title, weekdays, times, startDate, endDate } = values;
     const error = validate(values);
 
-    if (error.title || error.weekdays || error.times || error.startDate || error.endDate) {
+    if (object.some(error)) {
       setErrors(error);
       return;
     }
 
-    // const payload = {
-    //   title,
-    //   times: helpers.convertWeekdaysAndTimesToOffsets(weekdays, times),
-    //   startDate,
-    //   endDate,
-    //   researcherID: auth.currentUser.uid,
-    //   participantID,
-    //   studyID,
-    //   confirmedByParticipant: false,
-    // };
-
-    // reminder
-    //   ? firestore.collection("reminders").doc(reminder.id).update(payload)
-    //   : firestore.collection("reminders").add(payload);
-
-    handleCancel();
+    handleSave({
+      title: values.title,
+      times: helpers.convertWeekdaysAndTimesToOffsets(values.weekdays, values.times),
+      startDate: values.startDate,
+      endDate: values.endDate,
+    });
   };
 
   const handleChange = (name, value) => {
@@ -156,8 +147,15 @@ function RemindersEdit({ reminder, handleCancel }) {
         />
       </Flex>
       <Flex justify="flex-end" gridGap="8px">
-        <SecondaryButton onClick={handleCancel}>Cancel</SecondaryButton>
-        <Button colorScheme="blue" onClick={handleSubmit}>
+        <SecondaryButton onClick={handleCancel} isDisabled={isSaving}>
+          Cancel
+        </SecondaryButton>
+        <Button
+          colorScheme="blue"
+          onClick={handleSubmit}
+          isLoading={isSaving}
+          loadingText="Saving..."
+        >
           Save
         </Button>
       </Flex>

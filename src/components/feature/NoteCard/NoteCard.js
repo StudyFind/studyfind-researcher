@@ -38,7 +38,7 @@ function NoteCard({ note, handleEdit, handleDelete }) {
             icon={<FaTrashAlt />}
             hint="Delete"
             colorScheme="red"
-            onClick={() => handleDelete(note.id)}
+            onClick={() => handleDelete(note)}
           />
         </Flex>
         <Text color="gray.500" fontSize="0.9rem">

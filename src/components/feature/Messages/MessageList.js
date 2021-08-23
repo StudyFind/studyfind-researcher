@@ -26,9 +26,7 @@ function MessageList({
             </Disclaimer>
           </Box>
         ) : (
-          <LoadMoreButton onClick={handleLoadMore} isLoading={loadingMore}>
-            Load more
-          </LoadMoreButton>
+          <LoadMoreButton onClick={handleLoadMore} isLoading={loadingMore} />
         )}
       </Flex>
       <Flex justify="flex-end" direction="column" padding="20px" gridGap="8px" width="100%">

@@ -1,20 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { object } from "utils";
 
 import { TextInput, TextareaInput, SecondaryButton } from "components";
 import { Flex, Grid, Button } from "@chakra-ui/react";
+import { NotesContext } from "./NotesContext";
 
-function NotesEdit({ note, handleCreate, handleUpdate, handleCancel }) {
+function NotesEdit() {
+  const { selectedNote, isCreating, isUpdating, handleSave, handleCancel } =
+    useContext(NotesContext);
+
+  const isSaving = isCreating || isUpdating;
+
   const [values, setValues] = useState({ title: "", body: "" });
   const [errors, setErrors] = useState({ title: "", body: "" });
 
   useEffect(() => {
-    if (note) {
-      const { title, body } = note;
+    if (selectedNote) {
+      const { title, body } = selectedNote;
+
       setValues({ title, body });
       setErrors({ title: !title, body: !body });
     }
-  }, [note]);
+  }, [selectedNote]);
 
   const handleChange = (name, value) => {
     setValues({ ...values, [name]: value });
@@ -32,19 +39,7 @@ function NotesEdit({ note, handleCreate, handleUpdate, handleCancel }) {
       return;
     }
 
-    const data = {
-      title: values.title,
-      body: values.body,
-      time: Date.now(),
-    };
-
-    if (note) {
-      handleUpdate(note.id, data);
-    } else {
-      handleCreate(data);
-    }
-
-    handleCancel();
+    handleSave(values);
   };
 
   return (
@@ -66,8 +61,15 @@ function NotesEdit({ note, handleCreate, handleUpdate, handleCancel }) {
         height="100px"
       />
       <Flex gridGap="10px" justify="flex-end">
-        <SecondaryButton onClick={handleCancel}>Cancel</SecondaryButton>
-        <Button colorScheme="blue" onClick={handleSubmit}>
+        <SecondaryButton onClick={handleCancel} isDisabled={isSaving}>
+          Cancel
+        </SecondaryButton>
+        <Button
+          colorScheme="blue"
+          onClick={handleSubmit}
+          isLoading={isSaving}
+          loadingText="Saving..."
+        >
           Save
         </Button>
       </Flex>

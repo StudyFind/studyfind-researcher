@@ -1,5 +1,5 @@
-import { useHistory, useParams } from "react-router";
-import { useParticipantQueryWithFilters } from "hooks";
+import { useHistory } from "react-router-dom";
+import { useParticipantQueryWithFilters, usePathParams } from "hooks";
 
 import { Button } from "@chakra-ui/react";
 import { Loader } from "components";
@@ -12,7 +12,7 @@ import ParticipantsDrawer from "./ParticipantsDrawer";
 import ParticipantsEmpty from "./ParticipantsEmpty";
 
 function Participants({ study }) {
-  const { action, studyID, participantID } = useParams();
+  const { action, studyID, participantID } = usePathParams();
 
   const {
     participants,

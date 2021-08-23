@@ -1,33 +1,23 @@
 import moment from "moment";
 import validator from "validator";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { datetime, object } from "utils";
+
+import { MeetingsContext } from "./MeetingsContext";
 
 import { SecondaryButton, TextInput } from "components";
 import { Grid, Flex, Button } from "@chakra-ui/react";
-import { datetime, object } from "utils";
 
-function MeetingsEdit({ meeting, handleCancel }) {
-  // const location = useLocation();
-  // const { studyID } = useParams();
-  // const participantID = new URLSearchParams(location.search).get(
-  //   "participantID"
-  // );
+function MeetingsEdit() {
+  const { selectedMeeting, isCreating, isUpdating, handleSave, handleCancel } =
+    useContext(MeetingsContext);
+
+  const isSaving = isCreating || isUpdating;
 
   const initial = { name: "", link: "", time: "", date: "" };
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState(initial);
-
-  useEffect(() => {
-    if (meeting) {
-      setValues({
-        name: meeting.name,
-        link: meeting.link,
-        time: datetime.get24HourTime(meeting.time),
-        date: datetime.getStandardDate(meeting.time),
-      });
-    }
-  }, [meeting]);
 
   const checker = (name, value) => {
     if (!value) return true;
@@ -47,11 +37,6 @@ function MeetingsEdit({ meeting, handleCancel }) {
     return false;
   };
 
-  const handleChange = (name, value) => {
-    setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: checker(name, value) });
-  };
-
   const validate = ({ name, date, time, link }) => ({
     name: checker("name", name),
     date: checker("date", date),
@@ -59,28 +44,40 @@ function MeetingsEdit({ meeting, handleCancel }) {
     link: checker("link", link),
   });
 
+  useEffect(() => {
+    if (selectedMeeting) {
+      const meetingInputs = {
+        name: selectedMeeting.name,
+        link: selectedMeeting.link,
+        time: datetime.get24HourTime(selectedMeeting.time),
+        date: datetime.getStandardDate(selectedMeeting.time),
+      };
+
+      const errorMessages = validate(meetingInputs);
+
+      setValues(meetingInputs);
+      setErrors(errorMessages);
+    }
+  }, [selectedMeeting]);
+
+  const handleChange = (name, value) => {
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: checker(name, value) });
+  };
+
   const handleSubmit = () => {
     const error = validate(values);
-    const valid = !object.some(error);
 
-    if (!valid) {
+    if (object.some(error)) {
       setErrors(error);
-      // return;
+      return;
     }
 
-    // const data = {
-    //   name: values.name,
-    //   link: values.link,
-    //   time: datetime.getTimestampFromDatetime(values.date, values.time),
-    //   researcherID: auth.currentUser.uid,
-    //   participantID,
-    //   studyID,
-    //   confirmedByParticipant: false,
-    // };
-    // meeting
-    //   ? firestore.collection("meetings").doc(meeting.id).update(data)
-    //   : firestore.collection("meetings").add(data);
-    // handleCancel();
+    handleSave({
+      name: values.name,
+      link: values.link,
+      time: datetime.getTimestampFromDatetime(values.time, values.date),
+    });
   };
 
   return (
@@ -117,8 +114,15 @@ function MeetingsEdit({ meeting, handleCancel }) {
         onChange={handleChange}
       />
       <Flex justify="flex-end" gridGap="8px">
-        <SecondaryButton onClick={handleCancel}>Cancel</SecondaryButton>
-        <Button colorScheme="blue" onClick={handleSubmit}>
+        <SecondaryButton onClick={handleCancel} isDisabled={isSaving}>
+          Cancel
+        </SecondaryButton>
+        <Button
+          colorScheme="blue"
+          onClick={handleSubmit}
+          isLoading={isSaving}
+          loadingText="Saving..."
+        >
           Save
         </Button>
       </Flex>
