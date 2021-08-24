@@ -25,19 +25,20 @@ function Messages() {
   const {
     documents: messages,
     loading,
-    error,
     loadingMore,
     handleLoadMore,
     fetchedAll,
-  } = usePagination(messagesQuery, 10);
+  } = usePagination(messagesQuery, 15);
 
   const scrollToBottom = () => {
     bottomRef?.current?.scrollIntoView();
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, []);
+    if (!loading) {
+      scrollToBottom();
+    }
+  }, [loading]);
 
   const handleMessageSend = (text) => {
     return message.send(studyID, participantID, { text }).then(() => scrollToBottom());

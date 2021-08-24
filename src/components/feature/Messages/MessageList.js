@@ -38,8 +38,8 @@ function MessageList({
             isUserMessageSender={message.user === uid}
           />
         ))}
-        <Box ref={bottomRef} />
       </Flex>
+      <Box ref={bottomRef} />
     </Grid>
   );
 }
