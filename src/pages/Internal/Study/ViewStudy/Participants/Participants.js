@@ -35,7 +35,7 @@ function Participants({ study }) {
   const history = useHistory();
 
   const handleOpen = (participantID, action) => {
-    history.push(`/study/${studyID}/participants/${action}/${participantID}`);
+    history.push(`/study/${studyID}/participants/${participantID}/${action}`);
   };
 
   const handleClose = () => {

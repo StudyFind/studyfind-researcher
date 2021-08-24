@@ -129,7 +129,7 @@ function Internal() {
               <Switch>
                 <Route exact path="/" component={Dashboard} />
                 <Route path="/create" component={CreateStudy} />
-                <Route path="/study/:studyID/:tab/:action?/:participantID?" component={ViewStudy} />
+                <Route path="/study/:studyID/:tab/:participantID?/:action?" component={ViewStudy} />
                 <Route path="/notifications" component={Notifications} />
                 <Route path="/schedule" component={Schedule} />
                 <Route path="/account/:tab" component={Account} />
