@@ -77,12 +77,17 @@ function ParticipantsRow({ study, participant }) {
           icon={<FaClipboard />}
           onClick={() => handleOpen("screening")}
         />
-        <ActionButton
-          hint="Meetings"
-          icon={<FaCalendar />}
-          onClick={() => handleOpen("meetings")}
-        />
-        <ActionButton hint="Reminders" icon={<FaClock />} onClick={() => handleOpen("reminders")} />
+        {(userStripeRole === 'premium') ? (
+          <ActionButton hint="Meetings" icon={<FaCalendar />} onClick={() => handleOpen("meetings")} />
+        ) : (
+          <ActionButton hint="Meetings: Premium Feature" icon={<FaCalendar />} isDisabled={true}/>
+        )}
+        {(userStripeRole === 'premium') ? (
+          <ActionButton hint="Reminders" icon={<FaClock />} onClick={() => handleOpen("reminders")} />
+        ) : (
+          <ActionButton hint="Reminders: Premium Feature" icon={<FaClock />} isDisabled={true}/>
+        )}
+
         <ActionButton hint="Notes" icon={<FaStickyNote />} onClick={() => handleOpen("notes")} />
       </Buttons>
       <ParticipantDrawer
