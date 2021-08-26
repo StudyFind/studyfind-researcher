@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useColor, useDetectDevice, useDocument, useAutoUpdateTimezone } from "hooks";
-import { auth, firestore } from "database/firebase";
+import { auth } from "database/firebase";
 import { UserContext, ConfirmContext } from "context";
 import { createGlobalStyle } from "styled-components";
 

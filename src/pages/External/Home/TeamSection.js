@@ -1,6 +1,6 @@
-import Yohan from "images/Yohan.png";
-import Andrew from "images/Andrew.png";
-import Vir from "images/Vir.png";
+import Yohan from "images/yohan.png";
+import Andrew from "images/andrew.png";
+import Vir from "images/vir.png";
 import Team from "components/feature/External/HomeSections/Team/Team";
 
 function TeamSection() {

@@ -15,8 +15,6 @@ import Settings from "./Settings/Settings";
 function ViewStudy() {
   const { studyID } = usePathParams();
 
-  console.log(studyID);
-
   const [study, loading, error] = useDocument(firestore.collection("studies").doc(studyID));
 
   if (!study || loading) {

@@ -33,7 +33,7 @@ function useParticipantQueryWithFilters(study) {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleClearFilters = (name, value) => {
+  const handleClearFilters = () => {
     setFilters(initialFilters);
   };
 

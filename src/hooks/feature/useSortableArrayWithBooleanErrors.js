@@ -23,7 +23,6 @@ function useSortableArrayWithBooleanErrors(initialValues, newValue) {
   };
 
   const update = (index, value) => {
-    console.log(value);
     values.update(index, value);
     errors.update(index, !value);
   };
