@@ -1,13 +1,13 @@
 import { useHistory } from "react-router-dom";
 import { useParticipantQueryWithFilters, usePathParams } from "hooks";
 
-import { Button } from "@chakra-ui/react";
+// import { Button } from "@chakra-ui/react";
 import { Loader } from "components";
 
 import TabHeader from "../TabHeader";
 
 import ParticipantsList from "./ParticipantsList";
-import ParticipantsFilter from "./ParticipantsFilter";
+// import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsDrawer from "./ParticipantsDrawer";
 import ParticipantsEmpty from "./ParticipantsEmpty";
 
