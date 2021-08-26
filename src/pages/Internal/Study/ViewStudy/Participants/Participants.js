@@ -17,16 +17,16 @@ function Participants({ study }) {
   const {
     participants,
     loading,
-    error,
+    // error,
     loadingMore,
     handleLoadMore,
     fetchedAll,
-    filters,
-    toggleFilters,
-    setToggleFilters,
-    handleChangeFilter,
-    handleClearFilters,
-    areFiltersApplied,
+    // filters,
+    // toggleFilters,
+    // setToggleFilters,
+    // handleChangeFilter,
+    // handleClearFilters,
+    // areFiltersApplied,
   } = useParticipantQueryWithFilters(study);
 
   const isOpen = action && participantID;
@@ -49,7 +49,7 @@ function Participants({ study }) {
   return participants.length ? (
     <>
       <TabHeader heading="Participants">
-        {areFiltersApplied && (
+        {/* {areFiltersApplied && (
           <Button colorScheme="red" onClick={handleClearFilters}>
             Clear Filters
           </Button>
@@ -62,11 +62,11 @@ function Participants({ study }) {
           <Button colorScheme="blue" onClick={() => setToggleFilters(true)}>
             Show Filters
           </Button>
-        )}
+        )} */}
       </TabHeader>
-      {toggleFilters && (
+      {/* {toggleFilters && (
         <ParticipantsFilter filters={filters} handleChangeFilter={handleChangeFilter} />
-      )}
+      )} */}
       <ParticipantsList
         participants={participants}
         hasQuestions={!!study.questions.length}
