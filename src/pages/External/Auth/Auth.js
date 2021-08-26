@@ -1,9 +1,11 @@
 import AuthCard from "components/feature/External/AuthCard/AuthCard";
-import { signin, signup, forgotPassword } from "database/auth";
+import { AuthProvider } from "../../../context/AuthContext";
 
 function Auth() {
   return (
-    <AuthCard handleLogin={signin} handleSignup={signup} handleForgotPassword={forgotPassword} />
+    <AuthProvider>
+      <AuthCard />
+    </AuthProvider>
   );
 }
 

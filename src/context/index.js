@@ -1,5 +1,6 @@
 import { createContext } from "react";
 
-export const AuthContext = createContext(null);
+export { AuthContext, AuthProvider } from "./AuthContext";
+
 export const UserContext = createContext(null);
 export const ConfirmContext = createContext(null);

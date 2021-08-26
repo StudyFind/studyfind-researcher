@@ -28,9 +28,9 @@ function HomePage() {
       <Divider borderColor={dividerColor} />
       <Footer
         links={{
-          linkedin: "https://google.com",
-          instagram: "https://google.com",
-          facebook: "https://google.com",
+          linkedin: "https://www.linkedin.com/company/studyfind/",
+          instagram: "https://www.instagram.com/studyfindco",
+          facebook: "https://www.facebook.com/studyfindco",
         }}
       />
     </Box>
