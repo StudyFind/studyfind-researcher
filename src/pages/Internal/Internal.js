@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useColor, useDetectDevice, useDocument, useAutoUpdateTimezone } from "hooks";
+
 import { auth } from "database/firebase";
 import { UserContext, ConfirmContext } from "context";
 import { createGlobalStyle } from "styled-components";
 
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
 
@@ -61,6 +62,17 @@ function Internal() {
   const [confirm, setConfirm] = useState(null);
 
   useAutoUpdateTimezone(user);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    const redirect = localStorage.getItem("redirect");
+
+    if (redirect) {
+      history.push(redirect);
+      localStorage.removeItem("redirect");
+    }
+  }, []);
 
   // const verificationHeightDesktop = "56px";
   // const verificationHeightMobile = "128px";

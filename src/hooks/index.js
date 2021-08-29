@@ -38,7 +38,6 @@ export { default as useDetectConnection } from "./useDetectConnection";
 // TRIGGER
 export { default as useTriggerToast } from "./useTriggerToast";
 export { default as useTriggerConfirm } from "./useTriggerConfirm";
-export { default as useTriggerRedirect } from "./useTriggerRedirect";
 export { default as useTriggerNotification } from "./useTriggerNotification";
 
 // ASYNC

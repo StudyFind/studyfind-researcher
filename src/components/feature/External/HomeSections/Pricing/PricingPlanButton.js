@@ -1,13 +1,14 @@
 import { Button } from "@chakra-ui/react";
-import { Link } from "components";
 
 function PricingPlanButton() {
+  const handleClick = () => {
+    localStorage.setItem("redirect", "/account/plans");
+  };
+
   return (
-    <Link to="/auth">
-      <Button size="lg" width="100%" marginTop="10px" colorScheme="blue">
-        Start Now
-      </Button>
-    </Link>
+    <Button size="lg" width="100%" marginTop="10px" colorScheme="blue" onClick={handleClick}>
+      Start Now
+    </Button>
   );
 }
 
