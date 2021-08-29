@@ -32,12 +32,12 @@ import TeamMember from "components/feature/External/HomeSections/Team/TeamMember
 
 function Interns() {
   const { responsive } = useDetectDevice();
-  const background = useColor("blue.100", "blue.900");
+  const background = useColor("gray.100", "gray.800");
 
   return (
     <Box id="interns" minHeight="100vh" background={background} padding="40px">
       <Heading color="blue.500" size="2xl" lineHeight="1.25" textAlign="center" marginY="20px">
-        Interns
+        Our Interns
       </Heading>
       <VStack align="stretch">
         <Box>
@@ -130,16 +130,66 @@ function Interns() {
             Alumni
           </Heading>
           <SimpleGrid columns={responsive([1, 2, 4])} spacingY="40px">
-            <TeamMember image={Mileen} name="Mileen Meyer" position="Marketing" />
-            <TeamMember image={Natalie} name="Natalie Merizalde" position="Marketing" />
-            <TeamMember image={Nikita} name="Nikita Kute" position="Research" />
-            <TeamMember image={Mikolaj} name="Mikolaj Figurski" position="Software Developer" />
-            <TeamMember image={Zeil} name="Zeil Ren" position="Software Developer" />
-            <TeamMember image={Sundari} name="Sundari Arunarasu" position="Backend Developer" />
-            <TeamMember image={Gustavo} name="Gustavo Fonseca" position="Jr. Software Developer" />
-            <TeamMember image={Michael} name="Michael Albo" position="Jr. Software Developer" />
-            <TeamMember image={Wenkai} name="Wenkai Zheng" position="Sr. Software Developer" />
-            <TeamMember image={Wendy} name="Wendy Mo" position="Sr. Software Developer" />
+            <TeamMember
+              image={Mileen}
+              name="Mileen Meyer"
+              position="Marketing"
+              linkedinURL="https://www.linkedin.com/in/mileenmeyer/"
+            />
+            <TeamMember
+              image={Natalie}
+              name="Natalie Merizalde"
+              position="Marketing"
+              linkedinURL="https://www.linkedin.com/in/natalie-m-115095136/"
+            />
+            <TeamMember
+              image={Nikita}
+              name="Nikita Kute"
+              position="Research"
+              linkedinURL="https://www.linkedin.com/in/nikita-kute-bds-mph/"
+            />
+            <TeamMember
+              image={Mikolaj}
+              name="Mikolaj Figurski"
+              position="Software Developer"
+              linkedinURL="https://www.linkedin.com/in/mikolaj-figurski-1257a7149/"
+            />
+            <TeamMember
+              image={Zeil}
+              name="Zeil Ren"
+              position="Software Developer"
+              linkedinURL="https://www.linkedin.com/in/ziyaoren/"
+            />
+            <TeamMember
+              image={Sundari}
+              name="Sundari Arunarasu"
+              position="Backend Developer"
+              linkedinURL="https://www.linkedin.com/in/sivasomasundari-arunarasu-6299131a6/"
+            />
+            <TeamMember
+              image={Gustavo}
+              name="Gustavo Fonseca"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/gustavo-fonseca-a69b55135/"
+            />
+            <TeamMember
+              image={Michael}
+              name="Michael Albo"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/michael-albo-55b74b196/"
+            />
+            <TeamMember
+              image={Wenkai}
+              name="Wenkai Zheng"
+              position="Sr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/wenkai-zheng/"
+            />
+            <TeamMember
+              image={Wendy}
+              name="Wendy Mo"
+              position="Sr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/weiting-mo-82974b138/"
+            />
             <TeamMember image={Liang} name="Liang Chen" position="Software Developer" />
           </SimpleGrid>
         </Box>
