@@ -1,6 +1,5 @@
-import Yohan from "images/yohan.png";
-import Andrew from "images/andrew.png";
-import Vir from "images/vir.png";
+import Yohan from "images/founders/yohan.png";
+import Andrew from "images/founders/andrew.png";
 import Team from "components/feature/External/HomeSections/Team/Team";
 
 function TeamSection() {
@@ -23,13 +22,6 @@ function TeamSection() {
       description:
         "Habitant morbi tristique senectus et netus et malesuada fames. Vestibulum morbi",
     },
-    {
-      image: Vir,
-      name: "Vir Mittal",
-      position: "Co-Founder",
-      description:
-        "Habitant morbi tristique senectus et netus et malesuada fames. Vestibulum morbi",
-    },
   ];
 
   const panels = [
@@ -39,7 +31,7 @@ function TeamSection() {
       description:
         "Our interns have put in the time and effort to deliver the best quality product for researchers to use.",
       buttonText: "Meet the Interns",
-      buttonLink: "/team",
+      buttonLink: "/team#interns",
     },
     {
       title: "Advisory Board",
@@ -47,7 +39,7 @@ function TeamSection() {
       description:
         "Our advisory board has given us the direction and strategy needed to build a product researchers love.",
       buttonText: "Meet the Advisory Board",
-      buttonLink: "/team",
+      buttonLink: "/team#board",
     },
     {
       title: "Collaborations",
@@ -55,7 +47,7 @@ function TeamSection() {
       description:
         "Our collaborations have enabled us to constantly push boundaries and develop experimental products.",
       buttonText: "View our Collaborations",
-      buttonLink: "/team",
+      buttonLink: "/team#collaborations",
     },
   ];
 

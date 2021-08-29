@@ -14,10 +14,10 @@ function TeamMember({ image, name, position, description }) {
       </Box>
       <VStack>
         <VStack spacing="0px">
-          <Text fontSize="18px" fontWeight="800">
+          <Text fontSize="18px" fontWeight="800" align="center">
             {name}
           </Text>
-          <Text fontSize="16px" fontWeight="600" color="gray.500">
+          <Text fontSize="16px" fontWeight="600" color="gray.500" align="center">
             {position}
           </Text>
         </VStack>
