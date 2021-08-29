@@ -34,18 +34,18 @@ function Board() {
         Advisory Board
       </Heading>
       <SimpleGrid columns={responsive([1, 3, 6])} spacingY="40px">
-        <TeamMember image={Vir} name="Vir Mittal" position="" />
-        <TeamMember image={Aidan} name="Aidan Williams" position="" />
-        <TeamMember image={Alexis} name="Alexis Whitmire" position="" />
-        <TeamMember image={Ayesha} name="Ayesha" position="" />
-        <TeamMember image={Evans} name="Evans" position="" />
-        <TeamMember image={Gabi} name="Gabi Schiller" position="" />
-        <TeamMember image={Hannah} name="Hannah Lipper" position="" />
-        <TeamMember image={Reina} name="Reina Factor" position="" />
-        <TeamMember image={Romina} name="Romina Nejad" position="" />
-        <TeamMember image={Steven} name="Steven Choi" position="" />
-        <TeamMember image={Suraj} name="Suraj Ooman" position="" />
-        <TeamMember image={Talia} name="Talia Korn" position="" />
+        <TeamMember image={Vir} name="Vir Mittal" />
+        <TeamMember image={Aidan} name="Aidan Williams" />
+        <TeamMember image={Alexis} name="Alexis Whitmire" />
+        <TeamMember image={Ayesha} name="Ayesha Hameed" />
+        <TeamMember image={Evans} name="Evans Pope" />
+        <TeamMember image={Gabi} name="Gabrielle Schiller" />
+        <TeamMember image={Hannah} name="Hannah Lipper" />
+        <TeamMember image={Reina} name="Reina Factor" />
+        <TeamMember image={Romina} name="Romina Nejad" />
+        <TeamMember image={Steven} name="Steven Choi" />
+        <TeamMember image={Suraj} name="Suraj Oomman" />
+        <TeamMember image={Talia} name="Talia Korn" />
       </SimpleGrid>
     </Box>
   );

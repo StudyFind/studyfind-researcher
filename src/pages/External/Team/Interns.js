@@ -19,9 +19,14 @@ import Eric from "images/interns/eric.jpg";
 import Jason from "images/interns/jason.jpg";
 import Nikita from "images/interns/nikita.jpg";
 import Liang from "images/interns/liang.jpg";
+import Sundari from "images/interns/sundari.jpg";
 import Sandra from "images/interns/sandra.jpeg";
 import Randy from "images/interns/randy.png";
-import Placeholder from "images/interns/placeholder.png";
+import Ivan from "images/interns/ivan.png";
+import Etna from "images/interns/etna.png";
+import Biraj from "images/interns/biraj.png";
+import Brandon from "images/interns/brandon.png";
+// import Placeholder from "images/interns/placeholder.png";
 
 import TeamMember from "components/feature/External/HomeSections/Team/TeamMember";
 
@@ -39,37 +44,103 @@ function Interns() {
           <Heading align="center" size="lg" marginBottom="60px">
             Current
           </Heading>
-          <SimpleGrid columns={responsive([1, 3, 6])} spacingY="40px">
-            <TeamMember image={Keely} name="Keely Culbertson" position="Senior Developer" />
-            <TeamMember image={David} name="David Chen" position="Senior Developer" />
-            <TeamMember image={Jeremy} name="Jeremy Webb" position="Senior Developer" />
-            <TeamMember image={Jonathon} name="Jonathon Sisson" position="Senior Developer" />
-            <TeamMember image={Eric} name="Eric Park" position="Junior Developer" />
-            <TeamMember image={Jason} name="Jason Ji" position="Junior Developer" />
-            <TeamMember image={Placeholder} name="Ivan Yau" position="Junior Developer" />
-            <TeamMember image={Yuyao} name="Yuyao Wang" position="Data Scientist" />
-            <TeamMember image={Placeholder} name="Etna Ozkara" position="Backend Developer" />
-            <TeamMember image={Placeholder} name="Biraj Ghimire" position="Fellow" />
-            <TeamMember image={Placeholder} name="Brandon Banarsi" position="Fellow" />
-            <TeamMember image={Sandra} name="Sandra Mustopa" position="Marketing" />
-            <TeamMember image={Randy} name="Randy Erickson" position="Copywriting" />
+          <SimpleGrid columns={responsive([1, 2, 4])} spacingY="40px">
+            <TeamMember
+              image={Keely}
+              name="Keely Culbertson"
+              position="Software Developer"
+              linkedinURL="https://www.linkedin.com/in/keely-culbertson/"
+            />
+            <TeamMember
+              image={David}
+              name="David Chen"
+              position="Software Developer"
+              linkedinURL="https://www.linkedin.com/in/david-chen-105ba9158/"
+            />
+            <TeamMember
+              image={Jeremy}
+              name="Jeremy Webb"
+              position="Software Developer"
+              linkedinURL="https://www.linkedin.com/in/jwebb45/"
+            />
+            <TeamMember
+              image={Jonathon}
+              name="Jonathon Sisson"
+              position="Software Developer"
+              linkedinURL="https://www.linkedin.com/in/jonathon-sisson/"
+            />
+            <TeamMember
+              image={Eric}
+              name="Eric Park"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/eric-park-1a03421b7/"
+            />
+            <TeamMember
+              image={Jason}
+              name="Jason Ji"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/jason-ji-566673166/"
+            />
+            <TeamMember
+              image={Ivan}
+              name="Ivan Yau"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
+            />
+            <TeamMember
+              image={Etna}
+              name="Etna Ozkara"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/etna-ozkara-1a876b204/"
+            />
+            <TeamMember
+              image={Yuyao}
+              name="Yuyao Wang"
+              position="Data Scientist"
+              linkedinURL="https://www.linkedin.com/in/yuyao-wang-march/"
+            />
+            <TeamMember
+              image={Biraj}
+              name="Biraj Ghimire"
+              position="SBU-CSTEP Fellow"
+              linkedinURL="https://www.linkedin.com/in/biraj-ghimire-4b01891b1/"
+            />
+            <TeamMember
+              image={Brandon}
+              name="Brandon Banarsi"
+              position="SBU-CSTEP Fellow"
+              linkedinURL="https://www.linkedin.com/in/brandon-banarsi/"
+            />
+            <TeamMember
+              image={Sandra}
+              name="Sandra Mustopa"
+              position="Marketing and Technical Writing"
+              linkedinURL="https://www.linkedin.com/in/sandra-mustopa7090-graphicdesigner/"
+            />
+            <TeamMember
+              image={Randy}
+              name="Randy Erickson"
+              position="Marketing and Technical Writing"
+              linkedinURL="https://www.linkedin.com/in/randy-erickson-2138878a/"
+            />
           </SimpleGrid>
         </Box>
         <Box>
           <Heading align="center" size="lg" marginTop="40px" marginBottom="60px">
             Alumni
           </Heading>
-          <SimpleGrid columns={responsive([1, 3, 6])} spacingY="40px">
+          <SimpleGrid columns={responsive([1, 2, 4])} spacingY="40px">
             <TeamMember image={Mileen} name="Mileen Meyer" position="Marketing" />
-            <TeamMember image={Natalie} name="Natalie Merizalde" position="Video Content" />
+            <TeamMember image={Natalie} name="Natalie Merizalde" position="Marketing" />
             <TeamMember image={Nikita} name="Nikita Kute" position="Research" />
-            <TeamMember image={Mikolaj} name="Mikolaj Figurski" position="Senior Developer" />
-            <TeamMember image={Zeil} name="Zeil Ren" position="Senior Developer" />
-            <TeamMember image={Gustavo} name="Gustavo Fonseca" position="Junior Developer" />
-            <TeamMember image={Michael} name="Michael Albo" position="Junior Developer" />
-            <TeamMember image={Wenkai} name="Wenkai Zheng" position="Backend Developer" />
-            <TeamMember image={Wendy} name="Wendy Mo" position="Data Scientist" />
-            <TeamMember image={Liang} name="Liang Chen" position="Backend Developer" />
+            <TeamMember image={Mikolaj} name="Mikolaj Figurski" position="Software Developer" />
+            <TeamMember image={Zeil} name="Zeil Ren" position="Software Developer" />
+            <TeamMember image={Sundari} name="Sundari Arunarasu" position="Backend Developer" />
+            <TeamMember image={Gustavo} name="Gustavo Fonseca" position="Jr. Software Developer" />
+            <TeamMember image={Michael} name="Michael Albo" position="Jr. Software Developer" />
+            <TeamMember image={Wenkai} name="Wenkai Zheng" position="Sr. Software Developer" />
+            <TeamMember image={Wendy} name="Wendy Mo" position="Sr. Software Developer" />
+            <TeamMember image={Liang} name="Liang Chen" position="Software Developer" />
           </SimpleGrid>
         </Box>
       </VStack>
