@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
+import { useColor } from "hooks";
+
 import { Flex, Image } from "@chakra-ui/react";
 
 import Logo from "images/logo.png";
 
 function Loading() {
+  const background = useColor("white", "gray.900");
+
   return (
-    <Flex height="100vh" width="100vw" justify="center" align="center">
+    <Flex height="100vh" width="100vw" justify="center" align="center" background={background}>
       <SpinningLogo src={Logo} />
     </Flex>
   );
