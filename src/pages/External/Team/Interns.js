@@ -20,9 +20,8 @@ import Jason from "images/interns/jason.jpg";
 import Nikita from "images/interns/nikita.jpg";
 import Liang from "images/interns/liang.jpg";
 import Sandra from "images/interns/sandra.jpeg";
+import Randy from "images/interns/randy.png";
 import Placeholder from "images/interns/placeholder.png";
-
-// mikolaj, mileen, natalie, eric, jason, ivan, biraj, brandon, ziyao
 
 import TeamMember from "components/feature/External/HomeSections/Team/TeamMember";
 
@@ -53,7 +52,7 @@ function Interns() {
             <TeamMember image={Placeholder} name="Biraj Ghimire" position="Fellow" />
             <TeamMember image={Placeholder} name="Brandon Banarsi" position="Fellow" />
             <TeamMember image={Sandra} name="Sandra Mustopa" position="Marketing" />
-            <TeamMember image={Placeholder} name="Randy Erickson" position="Copywriting" />
+            <TeamMember image={Randy} name="Randy Erickson" position="Copywriting" />
           </SimpleGrid>
         </Box>
         <Box>
@@ -61,16 +60,16 @@ function Interns() {
             Alumni
           </Heading>
           <SimpleGrid columns={responsive([1, 3, 6])} spacingY="40px">
-            <TeamMember image={Mileen} name="Mileen Meyers" position="Marketing" />
+            <TeamMember image={Mileen} name="Mileen Meyer" position="Marketing" />
             <TeamMember image={Natalie} name="Natalie Merizalde" position="Video Content" />
             <TeamMember image={Nikita} name="Nikita Kute" position="Research" />
             <TeamMember image={Mikolaj} name="Mikolaj Figurski" position="Senior Developer" />
             <TeamMember image={Zeil} name="Zeil Ren" position="Senior Developer" />
-            <TeamMember image={Gustavo} name="Gustavo" position="Junior Developer" />
+            <TeamMember image={Gustavo} name="Gustavo Fonseca" position="Junior Developer" />
             <TeamMember image={Michael} name="Michael Albo" position="Junior Developer" />
             <TeamMember image={Wenkai} name="Wenkai Zheng" position="Backend Developer" />
-            <TeamMember image={Wendy} name="Wendy" position="Data Scientist" />
-            <TeamMember image={Liang} name="Liang Chen" position="Data Scientist" />
+            <TeamMember image={Wendy} name="Wendy Mo" position="Data Scientist" />
+            <TeamMember image={Liang} name="Liang Chen" position="Backend Developer" />
           </SimpleGrid>
         </Box>
       </VStack>
