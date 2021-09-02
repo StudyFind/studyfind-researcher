@@ -1,14 +1,7 @@
 import { useColor } from "hooks";
 import { Grid, Heading, Text, Checkbox } from "@chakra-ui/react";
 
-export const CheckboxInput = ({
-  name,
-  value,
-  error,
-  label,
-  details,
-  onChange,
-}) => {
+export const CheckboxInput = ({ name, value, error, label, details, onChange, ...rest }) => {
   const handleChange = (event) => {
     const value = event.target.checked;
     onChange(name, value);
@@ -25,6 +18,7 @@ export const CheckboxInput = ({
       isChecked={value}
       onChange={handleChange}
       borderColor={error && errorColor}
+      {...rest}
     >
       <Grid gap="2px">
         <Heading size="sm" marginTop="-1px">
