@@ -6,7 +6,7 @@ function HeroSection() {
     <Hero
       blackText="We help you find relevant"
       blueText="research studies"
-      buttonText="Start Now"
+      buttonText="Start Free Trial"
       buttonLink="/auth"
       image={Background}
     />
