@@ -19,22 +19,20 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const [loading, setLoading] = useState(true);
   const [linking, setLinking] = useState(false);
 
-  const selectedPlanID = [
-    {
-      basic: {
-        annually: "price_1JU1hsIzlngCzbHLkjD7vwaj",
-        monthly: "price_1JU1gaIzlngCzbHLv2NowTqn",
-      },
-      standard: {
-        annually: "price_1JU1jwIzlngCzbHL32su7mlE",
-        monthly: "price_1JU1jQIzlngCzbHLwgm0SVAe",
-      },
-      premium: {
-        annually: "price_1JU1n4IzlngCzbHLAFMoPmtq",
-        monthly: "price_1JU1mJIzlngCzbHLsYWJCSFm",
-      },
+  const selectedPlanID = {
+    basic: {
+      annually: "price_1JU1hsIzlngCzbHLkjD7vwaj",
+      monthly: "price_1JU1gaIzlngCzbHLv2NowTqn",
     },
-  ][selectedPlan][isBilledAnnually ? "annually" : "monthly"];
+    standard: {
+      annually: "price_1JU1jwIzlngCzbHL32su7mlE",
+      monthly: "price_1JU1jQIzlngCzbHLwgm0SVAe",
+    },
+    premium: {
+      annually: "price_1JU1n4IzlngCzbHLAFMoPmtq",
+      monthly: "price_1JU1mJIzlngCzbHLsYWJCSFm",
+    },
+  }[selectedPlan][isBilledAnnually ? "annually" : "monthly"];
 
   const handleChangeBilledAnnually = (_, value) => {
     setIsBilledAnnually(value);
@@ -87,15 +85,11 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const getCustomClaimRole = async () => {
     await auth.currentUser.getIdToken(true);
     const decodedToken = await auth.currentUser.getIdTokenResult();
+    const plan = decodedToken?.claims?.stripeRole || "basic";
 
-    if (decodedToken && decodedToken.claims && decodedToken.claims.stripeRole) {
-      console.log(decodedToken.claims.stripeRole);
-      setCurrentPlan(decodedToken.claims.stripeRole);
-      setSelectedPlan(decodedToken.claims.stripeRole);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
+    setCurrentPlan(plan);
+    setSelectedPlan(plan);
+    setLoading(false);
   };
 
   useEffect(() => {
