@@ -23,7 +23,7 @@ function Dashboard() {
   } = usePagination(dashboardQuery, 10);
 
   if (loading) {
-    return <Loader />;
+    return <Loader height="calc(100vh - 80px)" />;
   }
 
   if (error) {

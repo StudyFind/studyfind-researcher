@@ -80,7 +80,7 @@ export const NotesProvider = ({ children }) => {
     promise.then(() => setIsEditing(false));
   };
 
-  if (isFetching) return <Loader />;
+  if (isFetching) return <Loader height="calc(100vh - 80px)" />;
 
   if (error) {
     return (

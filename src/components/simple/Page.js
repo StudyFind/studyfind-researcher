@@ -7,7 +7,7 @@ export const Page = ({ children, isLoading, ...rest }) => {
 
   return (
     <Box background={background} {...rest}>
-      {isLoading ? <Loader /> : children}
+      {isLoading ? <Loader height="calc(100vh - 80px)" /> : children}
     </Box>
   );
 };

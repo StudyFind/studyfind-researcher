@@ -49,7 +49,7 @@ function Messages() {
   };
 
   if (loading) {
-    return <Loader />;
+    return <Loader height="calc(100vh - 80px)" />;
   }
 
   return (

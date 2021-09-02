@@ -18,7 +18,7 @@ function ViewStudy() {
   const [study, loading, error] = useDocument(firestore.collection("studies").doc(studyID));
 
   if (!study || loading) {
-    return <Loader />;
+    return <Loader height="calc(100vh - 80px)" />;
   }
 
   const tabs = [
