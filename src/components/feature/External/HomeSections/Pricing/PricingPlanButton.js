@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 
 function PricingPlanButton() {
   const handleClick = () => {
-    localStorage.setItem("redirect", "/account/plans");
+    localStorage.setItem("redirect", "/account/subscription");
   };
 
   return (
