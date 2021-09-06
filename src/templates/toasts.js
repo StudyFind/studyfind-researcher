@@ -10,6 +10,15 @@ const connectionError = {
   position: "top",
 };
 
+const stripeCancel = {
+  title: "Transaction Cancelled",
+  description: `You have cancelled the Stripe checkout session`,
+  status: "info",
+  duration: SHORT,
+  isClosable: true,
+  position: "bottom",
+};
+
 const updatedAccount = {
   title: "Your profile information was successfully updated",
   status: "success",
@@ -101,4 +110,5 @@ export default {
   deletedReminder,
   deletedMeeting,
   deletedNote,
+  stripeCancel
 };

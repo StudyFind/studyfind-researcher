@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { auth, firestore, functions } from "database/firebase";
+import { StripeContext } from "context";
 
 import { Grid } from "@chakra-ui/react";
 import { Loader } from "components";
@@ -11,6 +12,8 @@ import AccountHeader from "../AccountHeader";
 
 import SubscriptionView from "./SubscriptionView";
 import SubscriptionForm from "./SubscriptionForm";
+import { useTriggerToast } from "hooks";
+import { toasts } from "templates"
 
 function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const [isBilledAnnually, setIsBilledAnnually] = useState(true);
@@ -18,6 +21,8 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const [currentPlan, setCurrentPlan] = useState("");
   const [loading, setLoading] = useState(true);
   const [linking, setLinking] = useState(false);
+  const action = useContext(StripeContext)
+  const triggerToast = useTriggerToast()
 
   const selectedPlanID = {
     basic: {
@@ -54,7 +59,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
         trial_from_plan: true,
         allow_promotion_codes: true,
         success_url: window.location.origin,
-        cancel_url: window.location.origin,
+        cancel_url: window.location.origin + "/account/subscription?action=cancel",
       });
 
     docRef.onSnapshot((snapshot) => {
@@ -95,6 +100,12 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
   useEffect(() => {
     getCustomClaimRole();
   }, []);
+
+  useEffect(() => {
+    if (action) {
+      triggerToast(toasts.stripeCancel)
+    }
+  }, [action])
 
   const plans = [
     {
