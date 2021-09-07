@@ -1,44 +1,58 @@
 import Features from "components/feature/External/HomeSections/Features/Features";
 
-import { FcDoughnutChart, FcMultipleDevices, FcPrivacy, FcTimeline } from "react-icons/fc";
+import {
+  FcDoughnutChart,
+  FcMultipleDevices,
+  FcPrivacy,
+  FcTimeline,
+  FcSurvey,
+  FcCalendar,
+  FcDataSheet,
+  FcBarChart,
+  FcAlarmClock,
+  FcComments,
+  FcPlanner,
+  FcClock,
+  FcDocument,
+} from "react-icons/fc";
 
 function FeatureSection() {
   const features = [
     {
-      icon: <FcPrivacy />,
-      title: "Secured by default",
+      icon: <FcSurvey />,
+      title: "Pre-Screening Survey",
+      description:
+        "The pre-screening survey can filter participants based on customizable inclusionary and exclusionary criteria",
+    },
+    {
+      icon: <FcBarChart />,
+      title: "Participant Eligibility Score",
+      description:
+        "The participant eligibility score will highlight the most qualified candidates based on their reponses to the survey",
+    },
+    {
+      icon: <FcAlarmClock />,
+      title: "Participant Reminders",
+      description:
+        "The reminder feature can be customized to alert your participants according to your study's specific needs",
+    },
+    {
+      icon: <FcDocument />,
+      title: "Participant Notes",
+      description:
+        "The notes feature allows you to privately record important details for the participants of your study",
+    },
+    {
+      icon: <FcPlanner />,
+      title: "Calendar View",
       description:
         "At vero eos et accusam et justo duo dolores et ea rebum. Stet clitakasd gubergren, no sea takimata sanctus.",
     },
     {
-      icon: <FcTimeline />,
-      title: "Always up to date",
+      icon: <FcComments />,
+      title: "Messaging",
       description:
-        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diamnonumy eirmod tempor invidunt ut labore.",
-    },
-    {
-      icon: <FcDoughnutChart />,
-      title: "Incredible statistics",
-      description:
-        "At vero eos et accusam et justo duo dolores et ea rebum. Stet clitakasd gubergren, no sea takimata sanctus.",
-    },
-    {
-      icon: <FcPrivacy />,
-      title: "Support for multiple devices",
-      description:
-        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diamnonumy eirmod tempor invidunt ut labore.",
-    },
-    {
-      icon: <FcTimeline />,
-      title: "Incredible statistics",
-      description:
-        "At vero eos et accusam et justo duo dolores et ea rebum. Stet clitakasd gubergren, no sea takimata sanctus.",
-    },
-    {
-      icon: <FcMultipleDevices />,
-      title: "Support for multiple devices",
-      description:
-        "At vero eos et accusam et justo duo dolores et ea rebum. Stet clitakasd gubergren, no sea takimata sanctus.",
+        "Communicate effectively with participants through our HIPAA-compliant messaging feature",
     },
   ];
 

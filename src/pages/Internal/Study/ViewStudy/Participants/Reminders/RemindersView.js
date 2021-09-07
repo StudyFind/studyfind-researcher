@@ -5,21 +5,27 @@ import { RemindersContext } from "./RemindersContext";
 import { Grid } from "@chakra-ui/react";
 import { LoadMoreButton, NewCardButton } from "components";
 
-import ReminderCard from "components/feature/ReminderCard/ReminderCard";
+import ReminderCardResearcher from "components/feature/Participants/ReminderCard/ReminderCardResearcher";
 
 function RemindersView() {
-  const { reminders, hasFetchedAll, isFetchingMore, handleFetchMore, handleDelete, handleEdit } =
-    useContext(RemindersContext);
+  const {
+    reminders,
+    hasFetchedAll,
+    isFetchingMore,
+    handleFetchMore,
+    handleDelete,
+    handleEdit,
+  } = useContext(RemindersContext);
 
   return (
     <Grid gap="15px" padding="20px" alignItems="center">
       <NewCardButton onClick={() => handleEdit()}>New Reminder</NewCardButton>
       {reminders?.map((reminder) => (
-        <ReminderCard
+        <ReminderCardResearcher
           key={reminder.id}
           reminder={reminder}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
+          handleEdit={() => handleEdit(reminder)}
+          handleDelete={() => handleDelete(reminder)}
         />
       ))}
       <LoadMoreButton

@@ -6,8 +6,8 @@ import { message } from "database/mutations";
 import { Grid } from "@chakra-ui/react";
 import { Loader } from "components";
 
-import MessageList from "components/feature/Messages/MessageList";
-import MessageInput from "components/feature/Messages/MessageInput";
+import MessageList from "components/feature/Participants/Messages/MessageList";
+import MessageInput from "components/feature/Participants/Messages/MessageInput";
 
 function Messages() {
   const { studyID, participantID } = usePathParams();

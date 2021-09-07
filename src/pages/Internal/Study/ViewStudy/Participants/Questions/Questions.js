@@ -1,7 +1,7 @@
 import { Grid } from "@chakra-ui/react";
 import { Message } from "components";
 
-import QuestionCard from "components/feature/QuestionCard/QuestionCard";
+import QuestionCard from "components/feature/Participants/QuestionCard/QuestionCard";
 
 function Questions({ questions, responses }) {
   return (
