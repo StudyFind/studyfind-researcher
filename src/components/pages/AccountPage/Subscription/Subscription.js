@@ -62,7 +62,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
         price: selectedPlanID,
         trial_from_plan: true,
         allow_promotion_codes: true,
-        success_url: window.location.origin,
+        success_url: window.location.origin + "/account/subscription/success",
         cancel_url: window.location.origin + "/account/subscription/cancel",
       });
 
@@ -112,7 +112,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
       }
 
       if (action === "success") {
-        // TODO: trigger success toast
+        triggerToast(toasts.stripeSuccess)
       }
 
       history.push("/account/subscription");

@@ -12,8 +12,17 @@ const connectionError = {
 
 const stripeCancel = {
   title: "Transaction Cancelled",
-  description: `You have cancelled the Stripe checkout session`,
+  description: `You have cancelled the Stripe checkout session.`,
   status: "info",
+  duration: SHORT,
+  isClosable: true,
+  position: "bottom",
+};
+
+const stripeSuccess = {
+  title: "Transaction Recieved Successfully",
+  description: `You have successfully subscribed to a StudyFind plan. Look above to see the details of your plan!`,
+  status: "success",
   duration: SHORT,
   isClosable: true,
   position: "bottom",
@@ -110,5 +119,6 @@ export default {
   deletedReminder,
   deletedMeeting,
   deletedNote,
-  stripeCancel
+  stripeCancel,
+  stripeSuccess
 };
