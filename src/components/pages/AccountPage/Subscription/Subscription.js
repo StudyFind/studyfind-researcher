@@ -1,7 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useTriggerToast, usePathParams } from "hooks";
+import { useHistory } from "react-router-dom";
 
 import { auth, firestore, functions } from "database/firebase";
-import { StripeContext } from "context";
+import { toasts } from "templates";
 
 import { Grid } from "@chakra-ui/react";
 import { Loader } from "components";
@@ -12,8 +14,6 @@ import AccountHeader from "../AccountHeader";
 
 import SubscriptionView from "./SubscriptionView";
 import SubscriptionForm from "./SubscriptionForm";
-import { useTriggerToast } from "hooks";
-import { toasts } from "templates"
 
 function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const [isBilledAnnually, setIsBilledAnnually] = useState(true);
@@ -21,8 +21,12 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const [currentPlan, setCurrentPlan] = useState("");
   const [loading, setLoading] = useState(true);
   const [linking, setLinking] = useState(false);
-  const action = useContext(StripeContext)
-  const triggerToast = useTriggerToast()
+
+  const triggerToast = useTriggerToast();
+
+  const history = useHistory();
+
+  const { action } = usePathParams();
 
   const selectedPlanID = {
     basic: {
@@ -59,7 +63,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
         trial_from_plan: true,
         allow_promotion_codes: true,
         success_url: window.location.origin,
-        cancel_url: window.location.origin + "/account/subscription?action=cancel",
+        cancel_url: window.location.origin + "/account/subscription/cancel",
       });
 
     docRef.onSnapshot((snapshot) => {
@@ -90,10 +94,10 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const getCustomClaimRole = async () => {
     await auth.currentUser.getIdToken(true);
     const decodedToken = await auth.currentUser.getIdTokenResult();
-    const plan = decodedToken?.claims?.stripeRole || "basic";
+    const plan = decodedToken?.claims?.stripeRole;
 
     setCurrentPlan(plan);
-    setSelectedPlan(plan);
+    setSelectedPlan(plan || "basic");
     setLoading(false);
   };
 
@@ -103,9 +107,17 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
 
   useEffect(() => {
     if (action) {
-      triggerToast(toasts.stripeCancel)
+      if (action === "cancel") {
+        triggerToast(toasts.stripeCancel);
+      }
+
+      if (action === "success") {
+        // TODO: trigger success toast
+      }
+
+      history.push("/account/subscription");
     }
-  }, [action])
+  }, [action]);
 
   const plans = [
     {
@@ -147,8 +159,10 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
         />
         {loading ? (
           <Loader height="300px" />
-        ) : currentPlan === "Premium" ? (
+        ) : currentPlan !== "free" ? (
           <SubscriptionView
+            plans={plans}
+            isBilledAnnually={isBilledAnnually}
             currentPlan={currentPlan}
             linking={linking}
             handleManageSubscription={handleManageSubscription}
