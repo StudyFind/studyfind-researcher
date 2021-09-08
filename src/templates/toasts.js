@@ -23,10 +23,19 @@ const stripeSuccess = {
   title: "Transaction Recieved Successfully",
   description: `You have successfully subscribed to a StudyFind plan. Look above to see the details of your plan!`,
   status: "success",
-  duration: SHORT,
+  duration: LONG,
   isClosable: true,
   position: "bottom",
 };
+
+const stripeError = (msg) => ({
+  title: "Error with Transaction",
+  description: `There was an error with your Stripe checkout session: ${msg}`,
+  status: "error",
+  duration: LONG,
+  isClosable: true,
+  position: "bottom",
+})
 
 const updatedAccount = {
   title: "Your profile information was successfully updated",
@@ -120,5 +129,6 @@ export default {
   deletedMeeting,
   deletedNote,
   stripeCancel,
-  stripeSuccess
+  stripeSuccess,
+  stripeError
 };

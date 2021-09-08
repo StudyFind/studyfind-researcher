@@ -71,6 +71,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
 
       if (error) {
         setLinking(false);
+        triggerToast(toasts.stripeError(error.message))
       }
 
       if (url) {
