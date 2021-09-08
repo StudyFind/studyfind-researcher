@@ -96,7 +96,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
     const decodedToken = await auth.currentUser.getIdTokenResult();
     const plan = decodedToken?.claims?.stripeRole;
 
-    setCurrentPlan(plan);
+    setCurrentPlan(plan || "free");
     setSelectedPlan(plan || "basic");
     setLoading(false);
   };
