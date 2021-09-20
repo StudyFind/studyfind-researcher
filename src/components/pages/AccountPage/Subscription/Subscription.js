@@ -30,15 +30,18 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
 
   const selectedPlanID = {
     basic: {
-      annually: "price_1JU1hsIzlngCzbHLkjD7vwaj",
+      // annually: "price_1JU1hsIzlngCzbHLkjD7vwaj", UNCOMMENT WHEN MERGING TO PRODUCTION
+      annually: "price_1JboRyIzlngCzbHLrjB591Rl",
       monthly: "price_1JU1gaIzlngCzbHLv2NowTqn",
     },
     standard: {
-      annually: "price_1JU1jwIzlngCzbHL32su7mlE",
+      // annually: "price_1JU1jwIzlngCzbHL32su7mlE", SAME
+      annually: "price_1JboXRIzlngCzbHLp3oycIFU",
       monthly: "price_1JU1jQIzlngCzbHLwgm0SVAe",
     },
     premium: {
-      annually: "price_1JU1n4IzlngCzbHLAFMoPmtq",
+      // annually: "price_1JU1n4IzlngCzbHLAFMoPmtq", SAME
+      annually: "price_1JboY8IzlngCzbHLYG7R09VN",
       monthly: "price_1JU1mJIzlngCzbHLsYWJCSFm",
     },
   }[selectedPlan][isBilledAnnually ? "annually" : "monthly"];
