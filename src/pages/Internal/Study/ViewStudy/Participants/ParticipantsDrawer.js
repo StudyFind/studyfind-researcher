@@ -9,18 +9,33 @@ import Notes from "./Notes/Notes";
 import Questions from "./Questions/Questions";
 import Status from "./Status/Status";
 
-function ParticipantsDrawer({ action, isOpen, study, participant, handleClose }) {
+function ParticipantsDrawer({
+  action,
+  isOpen,
+  study,
+  participant,
+  handleClose,
+}) {
+  if (!isOpen) {
+    return null;
+  }
+
   const fakename = participant?.fakename;
   const timezone = participant?.timezone;
 
   const render = {
-    status: action === "status" && <Status participant={participant} handleClose={handleClose} />,
+    status: action === "status" && (
+      <Status participant={participant} handleClose={handleClose} />
+    ),
     meetings: action === "meetings" && <Meetings />,
     reminders: action === "reminders" && <Reminders />,
     messages: action === "messages" && <Messages />,
     notes: action === "notes" && <Notes />,
     questions: action === "questions" && (
-      <Questions questions={study.questions} responses={participant.responses} />
+      <Questions
+        questions={study.questions}
+        responses={participant.responses}
+      />
     ),
   };
 

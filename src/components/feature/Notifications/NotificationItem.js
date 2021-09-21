@@ -42,25 +42,25 @@ function NotificationItem({ notification, handleNotificationRead }) {
     original notification.read value would be true when the component first renders
   */
 
-  const { code, time, title, body, link, read } = notification;
+  const { code, time, title, description, link, read } = notification;
 
   const { icon, color } = {
-    CREATE_ACCOUNT: { icons: <FaMagic />, color: "purple" },
-    CREATE_STUDY: { icons: <FaClipboard />, color: "green" },
-    DELETE_STUDY: { icons: <FaClipboard />, color: "red" },
-    PARTICIPANT_ENROLLED: { icons: <FaUser />, color: "teal" },
-    PARTICIPANT_CONFIRMED_MEETING: { icons: <FaCalendarCheck />, color: "teal" },
-    PARTICIPANT_CONFIRMED_REMINDER: { icons: <FaCheckSquare />, color: "teal" },
-    RESEARCHER_SENT_MESSAGE: { icons: <FaComment />, color: "teal" },
-    RESEARCHER_CREATED_MEETING: { icons: <FaCalendarPlus />, color: "green" },
-    RESEARCHER_UPDATED_MEETING: { icons: <FaCalendar />, color: "blue" },
-    RESEARCHER_DELETED_MEETING: { icons: <FaCalendarMinus />, color: "red" },
-    RESEARCHER_CREATED_REMINDER: { icons: <FaUserClock />, color: "green" },
-    RESEARCHER_UPDATED_REMINDER: { icons: <FaUserClock />, color: "blue" },
-    RESEARCHER_DELETED_REMINDER: { icons: <FaUserClock />, color: "red" },
-    RESEARCHER_CHANGED_PARTICIPANT_STATUS: { icons: <FaDotCircle />, color: "teal" },
-    MEETING_NOW: { icons: <FaCalendarDay />, color: "cyan" },
-    REMINDER_NOW: { icons: <FaClock />, color: "cyan" },
+    CREATE_ACCOUNT: { icon: FaMagic, color: "purple" },
+    CREATE_STUDY: { icon: FaClipboard, color: "green" },
+    DELETE_STUDY: { icon: FaClipboard, color: "red" },
+    PARTICIPANT_ENROLLED: { icon: FaUser, color: "teal" },
+    PARTICIPANT_CONFIRMED_MEETING: { icon: FaCalendarCheck, color: "teal" },
+    PARTICIPANT_CONFIRMED_REMINDER: { icon: FaCheckSquare, color: "teal" },
+    RESEARCHER_SENT_MESSAGE: { icon: FaComment, color: "teal" },
+    RESEARCHER_CREATED_MEETING: { icon: FaCalendarPlus, color: "green" },
+    RESEARCHER_UPDATED_MEETING: { icon: FaCalendar, color: "blue" },
+    RESEARCHER_DELETED_MEETING: { icon: FaCalendarMinus, color: "red" },
+    RESEARCHER_CREATED_REMINDER: { icon: FaUserClock, color: "green" },
+    RESEARCHER_UPDATED_REMINDER: { icon: FaUserClock, color: "blue" },
+    RESEARCHER_DELETED_REMINDER: { icon: FaUserClock, color: "red" },
+    RESEARCHER_CHANGED_PARTICIPANT_STATUS: { icon: FaDotCircle, color: "teal" },
+    MEETING_NOW: { icon: FaCalendarDay, color: "cyan" },
+    REMINDER_NOW: { icon: FaClock, color: "cyan" },
   }[code];
 
   useEffect(() => {
@@ -84,7 +84,12 @@ function NotificationItem({ notification, handleNotificationRead }) {
         borderColor={read ? readBorderColor : unreadBorderColor}
         background={read ? readBackgroundColor : unreadBackgroundColor}
       >
-        <Flex align="flex-start" padding="12px" gridGap="10px" rounded="md">
+        <Flex
+          align={isPhone ? "flex-start" : "center"}
+          padding="12px"
+          gridGap="10px"
+          rounded="md"
+        >
           <NotificationIcon icon={icon} color={color} />
           <Box width="100%" marginLeft="4px">
             <Flex
@@ -98,7 +103,7 @@ function NotificationItem({ notification, handleNotificationRead }) {
               <NotificationTime time={time} />
             </Flex>
             <Text fontSize="sm" color="gray.500">
-              {body}
+              {description}
             </Text>
           </Box>
         </Flex>

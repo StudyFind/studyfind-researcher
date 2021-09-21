@@ -10,7 +10,7 @@ function Buttons({ link, confirmed, handleEdit, handleDelete }) {
           <ActionButton
             icon={<FaPhone />}
             hint={confirmed ? "Join" : "Pending"}
-            colorScheme="gray"
+            colorScheme={confirmed ? "green" : "gray"}
           />
         </Link>
       )}

@@ -1,4 +1,5 @@
 import { notification } from "database/mutations";
+import { auth } from "database/firebase";
 
 import { VStack } from "@chakra-ui/react";
 import { LoadMoreButton } from "components";
@@ -11,7 +12,7 @@ function NotificationList({
   handleLoadMore,
 }) {
   const handleNotificationRead = ({ id }) => {
-    return notification.read(id);
+    return notification.read(auth.currentUser.uid, id);
   };
 
   return (

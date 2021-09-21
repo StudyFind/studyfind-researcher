@@ -29,8 +29,10 @@ function Participants({ study }) {
     // areFiltersApplied,
   } = useParticipantQueryWithFilters(study);
 
-  const isOpen = action && participantID;
-  const selectedParticipant = participants.find((participant) => participant.id === participantID);
+  const selectedParticipant = participants.find(
+    (participant) => participant.id === participantID
+  );
+  const isOpen = action && participantID && selectedParticipant;
 
   const history = useHistory();
 
