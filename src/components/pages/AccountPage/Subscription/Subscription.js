@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTriggerToast, usePathParams } from "hooks";
+import { useTriggerToast, usePathParams, useCollection } from "hooks";
 import { useHistory } from "react-router-dom";
 
 import { auth, firestore, functions } from "database/firebase";
@@ -19,6 +19,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const [isBilledAnnually, setIsBilledAnnually] = useState(true);
   const [selectedPlan, setSelectedPlan] = useState("basic");
   const [currentPlan, setCurrentPlan] = useState("");
+  const [planItems, setPlanItems] = useState({})
   const [loading, setLoading] = useState(true);
   const [linking, setLinking] = useState(false);
 
@@ -32,17 +33,20 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
     basic: {
       // annually: "price_1JU1hsIzlngCzbHLkjD7vwaj", UNCOMMENT WHEN MERGING TO PRODUCTION
       annually: "price_1JboRyIzlngCzbHLrjB591Rl",
-      monthly: "price_1JU1gaIzlngCzbHLv2NowTqn",
+      // monthly: "price_1JU1gaIzlngCzbHLv2NowTqn",
+      monthly: "price_1Jbv5aIzlngCzbHLzcyoqZRu",
     },
     standard: {
       // annually: "price_1JU1jwIzlngCzbHL32su7mlE", SAME
       annually: "price_1JboXRIzlngCzbHLp3oycIFU",
-      monthly: "price_1JU1jQIzlngCzbHLwgm0SVAe",
+      // monthly: "price_1JU1jQIzlngCzbHLwgm0SVAe",
+      monthly: "price_1Jbv6KIzlngCzbHLIWwhVEcx",
     },
     premium: {
       // annually: "price_1JU1n4IzlngCzbHLAFMoPmtq", SAME
       annually: "price_1JboY8IzlngCzbHLYG7R09VN",
-      monthly: "price_1JU1mJIzlngCzbHLsYWJCSFm",
+      // monthly: "price_1JU1mJIzlngCzbHLsYWJCSFm",
+      monthly: "price_1Jbv6vIzlngCzbHLkn8dctTn",
     },
   }[selectedPlan][isBilledAnnually ? "annually" : "monthly"];
 
@@ -99,6 +103,26 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
     await auth.currentUser.getIdToken(true);
     const decodedToken = await auth.currentUser.getIdTokenResult();
     const plan = decodedToken?.claims?.stripeRole;
+    if (plan) {
+      const docRef = firestore
+      .collection("researchers")
+      .doc(auth.currentUser.uid)
+      .collection("subscriptions")
+
+      docRef.onSnapshot((snapshot) => {
+        /*
+        ASSUMING ONLY 1 SUBSCRIPTION PER RESEARCHER, MAY NEED TO UPDATE TO ACCOUNT FOR MULTIPLE SUBSCRIPTION TYPES
+        */
+        snapshot.forEach((subscription) => {
+          const {items, current_period_end} = subscription.data()
+          const {amount} = (items[0]).plan
+          setPlanItems({
+            amount,
+            current_period_end: current_period_end.toDate(),
+          })
+        })
+      })
+    }
 
     setCurrentPlan(plan || "free");
     setSelectedPlan(plan || "basic");
@@ -168,6 +192,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
             plans={plans}
             isBilledAnnually={isBilledAnnually}
             currentPlan={currentPlan}
+            planItems={planItems}
             linking={linking}
             handleManageSubscription={handleManageSubscription}
           />
