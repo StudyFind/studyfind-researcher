@@ -114,11 +114,12 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
         ASSUMING ONLY 1 SUBSCRIPTION PER RESEARCHER, MAY NEED TO UPDATE TO ACCOUNT FOR MULTIPLE SUBSCRIPTION TYPES
         */
         snapshot.forEach((subscription) => {
-          const {items, current_period_end} = subscription.data()
+          const {items, current_period_end, cancel_at_period_end} = subscription.data()
           const {amount} = (items[0]).plan
           setPlanItems({
             amount,
             current_period_end: current_period_end.toDate(),
+            cancel_at_period_end
           })
         })
       })
