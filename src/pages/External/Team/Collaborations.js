@@ -28,20 +28,20 @@ function Collaborations() {
       ],
     },
     {
-      logo: SBU,
+      logo: GaTech,
       sections: [
         {
-          title: "CSTEP Fellowship Program",
+          title: "Computer Science Junior Design Capstone",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         },
       ],
     },
     {
-      logo: GaTech,
+      logo: SBU,
       sections: [
         {
-          title: "Computer Science Junior Design Capstone",
+          title: "CSTEP Fellowship Program",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
         },
@@ -76,7 +76,7 @@ function Collaborations() {
       >
         Collaborations
       </Heading>
-      <HStack spacing="40px">
+      <HStack spacing="40px" justify="center">
         <TeamCollaborations collaborations={collaborations} />
       </HStack>
     </Box>

@@ -4,8 +4,8 @@ import Hero from "components/feature/External/HomeSections/Hero/Hero";
 function HeroSection() {
   return (
     <Hero
-      blackText="We help you find relevant"
-      blueText="research studies"
+      blackText="We simplify coordinating"
+      blueText="your participants"
       buttonText="Start Free Trial"
       buttonLink="/auth"
       image={Background}

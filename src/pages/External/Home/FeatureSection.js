@@ -14,6 +14,19 @@ import {
   FcPlanner,
   FcClock,
   FcDocument,
+  FcInspection,
+  FcAnswers,
+  FcCollaboration,
+  FcVideoCall,
+  FcOvertime,
+  FcHighPriority,
+  FcAbout,
+  FcApproval,
+  FcDisplay,
+  FcInfo,
+  FcFinePrint,
+  FcList,
+  FcRules,
 } from "react-icons/fc";
 
 function FeatureSection() {
@@ -31,28 +44,40 @@ function FeatureSection() {
         "The participant eligibility score will highlight the most qualified candidates based on their reponses to the survey",
     },
     {
-      icon: <FcAlarmClock />,
+      icon: <FcOvertime />,
       title: "Participant Reminders",
       description:
         "The reminder feature can be customized to alert your participants according to your study's specific needs",
     },
     {
-      icon: <FcDocument />,
+      icon: <FcRules />,
       title: "Participant Notes",
       description:
         "The notes feature allows you to privately record important details for the participants of your study",
     },
     {
-      icon: <FcPlanner />,
-      title: "Calendar View",
+      icon: <FcCollaboration />,
+      title: "HIPAA Compliant Messaging",
       description:
-        "At vero eos et accusam et justo duo dolores et ea rebum. Stet clitakasd gubergren, no sea takimata sanctus.",
+        "The HIPAA compliant messaging feature allows you to communicate with participants securely and effectively",
     },
     {
-      icon: <FcComments />,
-      title: "Messaging",
+      icon: <FcVideoCall />,
+      title: "Scheduling Meetings",
       description:
-        "Communicate effectively with participants through our HIPAA-compliant messaging feature",
+        "The meetings feature enables you to schedule meetings for participants at different milestones in the lifecycle of your study",
+    },
+    {
+      icon: <FcCalendar />,
+      title: "Calendar View",
+      description:
+        "The calendar view allows you to glance at meetings scheduled with participants across all studies",
+    },
+    {
+      icon: <FcAbout />,
+      title: "Notification Updates",
+      description:
+        "The notification feature allows you to recieve timely notification in and out of application through emails and text",
     },
   ];
 

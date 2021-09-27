@@ -3,9 +3,9 @@ import Andrew from "images/founders/andrew.png";
 import Team from "components/feature/External/HomeSections/Team/Team";
 
 function TeamSection() {
-  const title = "About the team";
+  const title = "About Us";
   const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
+    "Andrew and Yohan met at HackATL, an annual event organized by Emory University. During the event they composed and pitched an early prototype of the StudyFind software. Yohan's tech skills in confluence with Andrew's public health expertise drove them futher develop StudyFind and make it a viable solution to the participant recruitment problem we see today.";
 
   const founders = [
     {
@@ -13,31 +13,31 @@ function TeamSection() {
       name: "Yohan Jhaveri",
       position: "Co-Founder",
       description:
-        "Habitant morbi tristique senectus et netus et malesuada fames. Vestibulum morbi",
+        "Yohan recently graduated from Emory University with a degree in Computer Science and Economics",
     },
     {
       image: Andrew,
       name: "Andrew Garcia",
       position: "Co-Founder",
       description:
-        "Habitant morbi tristique senectus et netus et malesuada fames. Vestibulum morbi",
+        "Andrew earned his Masters in Public Health at Emory University with a focus on Health Policy and Management",
     },
   ];
 
   const panels = [
     {
-      title: "Interns",
+      title: "Our Team",
       colorScheme: "blue",
       description:
-        "Our interns have put in the time and effort to deliver the best quality product for researchers to use.",
-      buttonText: "Meet the Interns",
+        "The talented individuals resonsible for the day-to-day operations at StudyFind",
+      buttonText: "Meet the team",
       buttonLink: "/team#interns",
     },
     {
       title: "Advisory Board",
       colorScheme: "teal",
       description:
-        "Our advisory board has given us the direction and strategy needed to build a product researchers love.",
+        "The diverse group of professionals that guide us in making a product researchers love",
       buttonText: "Meet the Advisory Board",
       buttonLink: "/team#board",
     },
@@ -45,13 +45,20 @@ function TeamSection() {
       title: "Collaborations",
       colorScheme: "purple",
       description:
-        "Our collaborations have enabled us to constantly push boundaries and develop experimental products.",
+        "The institutions that enable us to constantly push boundaries and innovate",
       buttonText: "View our Collaborations",
       buttonLink: "/team#collaborations",
     },
   ];
 
-  return <Team title={title} description={description} founders={founders} panels={panels} />;
+  return (
+    <Team
+      title={title}
+      description={description}
+      founders={founders}
+      panels={panels}
+    />
+  );
 }
 
 export default TeamSection;
