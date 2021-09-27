@@ -20,7 +20,7 @@ function DeleteAccount({ handleDeleteAccount }) {
         description="Deleting your account is a permenant action which will delete all your
         user information and research studies"
       />
-      <Form onSubmit={authForm.handleSubmit}>
+      <Form onSubmit={authForm.submit}>
         <Grid gap="15px">
           <EmailInput
             name="email"
