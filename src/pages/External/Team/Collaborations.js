@@ -1,5 +1,5 @@
 import { useColor } from "hooks";
-import { Box, VStack, Heading } from "@chakra-ui/react";
+import { Box, HStack, Heading } from "@chakra-ui/react";
 
 import Emory from "images/collaborations/emory.png";
 import SBU from "images/collaborations/sbu.png";
@@ -60,7 +60,12 @@ function Collaborations() {
   ];
 
   return (
-    <Box id="collaborations" minHeight="100vh" background={background} padding="40px">
+    <Box
+      id="collaborations"
+      minHeight="100vh"
+      background={background}
+      padding="40px"
+    >
       <Heading
         color="blue.500"
         size="2xl"
@@ -71,9 +76,9 @@ function Collaborations() {
       >
         Collaborations
       </Heading>
-      <VStack spacing="40px">
+      <HStack spacing="40px">
         <TeamCollaborations collaborations={collaborations} />
-      </VStack>
+      </HStack>
     </Box>
   );
 }
