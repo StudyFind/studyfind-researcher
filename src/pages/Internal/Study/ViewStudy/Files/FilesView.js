@@ -14,15 +14,24 @@ function FilesView({ setEdit, files, loading, handleOpen, handleDelete }) {
   };
 
   if (!loading && !files?.length) {
-    return <FilesEmpty onButtonClick={handleEdit} />;
+    return <FilesEmpty limit={FILE_LIMIT} onButtonClick={handleEdit} />;
   }
 
   return (
     <>
       <TabHeader heading="Files">
-        <Tooltip label={files.length >= FILE_LIMIT && `You can upload up to ${FILE_LIMIT} files`}>
+        <Tooltip
+          label={
+            files.length >= FILE_LIMIT &&
+            `You can upload up to ${FILE_LIMIT} files`
+          }
+        >
           <Box>
-            <Button colorScheme="blue" onClick={handleEdit} isDisabled={files.length >= FILE_LIMIT}>
+            <Button
+              colorScheme="blue"
+              onClick={handleEdit}
+              isDisabled={files.length >= FILE_LIMIT}
+            >
               Upload File
             </Button>
           </Box>
@@ -31,7 +40,11 @@ function FilesView({ setEdit, files, loading, handleOpen, handleDelete }) {
       {loading ? (
         <FilesLoading />
       ) : (
-        <FilesGrid files={files} handleOpen={handleOpen} handleDelete={handleDelete} />
+        <FilesGrid
+          files={files}
+          handleOpen={handleOpen}
+          handleDelete={handleDelete}
+        />
       )}
     </>
   );
