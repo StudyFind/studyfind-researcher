@@ -33,8 +33,9 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
     basic: {
       // annually: "price_1JU1hsIzlngCzbHLkjD7vwaj", UNCOMMENT WHEN MERGING TO PRODUCTION
       annually: "price_1JboRyIzlngCzbHLrjB591Rl",
-      // monthly: "price_1JU1gaIzlngCzbHLv2NowTqn",
-      monthly: "price_1Jbv5aIzlngCzbHLzcyoqZRu",
+      // old_monthly: "price_1JU1gaIzlngCzbHLv2NowTqn",
+      monthly: "price_1JeTbpIzlngCzbHLBw68zzbH" //cheap monthly
+      // test_monthly: "price_1Jbv5aIzlngCzbHLzcyoqZRu",
     },
     standard: {
       // annually: "price_1JU1jwIzlngCzbHL32su7mlE", SAME
