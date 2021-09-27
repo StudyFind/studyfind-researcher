@@ -1,3 +1,5 @@
+import firebase from "firebase";
+
 import { firestore } from "database/firebase";
 import { getTimezone } from "database/getters";
 
@@ -6,8 +8,12 @@ const participantRef = (uid) => firestore.collection("participants").doc(uid);
 export const participant = {
   create: (uid) =>
     participantRef(uid).set({
-      organization: "",
-      background: "",
+      sex: "",
+      birthdate: "",
+      availability: "",
+      phone: "",
+      enrolled: [],
+      saved: [],
       timezone: {
         region: getTimezone(),
         autodetect: true,
@@ -26,35 +32,21 @@ export const participant = {
       },
     }),
 
-  update: (
-    uid,
-    {
-      organization,
-      background,
-      timezone: { region, autodetect },
-      location: {
-        address,
-        coordinates: { latitude, longitude },
-      },
-      notifications: { local, email, phone },
-    }
-  ) =>
+  update: (uid, updatedData) => participantRef(uid).update(updatedData),
+
+  appendStudyToEnrolled: (uid, studyID) =>
     participantRef(uid).update({
-      organization,
-      background,
-      timezone: {
-        region,
-        autodetect,
-      },
-      location: {
-        address,
-        coordinates: { latitude, longitude },
-      },
-      notifications: {
-        local,
-        email,
-        phone,
-      },
+      enrolled: firebase.firestore.FieldValue.arrayUnion(studyID),
+    }),
+
+  appendStudyToSaved: (uid, studyID) =>
+    participantRef(uid).update({
+      saved: firebase.firestore.FieldValue.arrayUnion(studyID),
+    }),
+
+  removeStudyFromSaved: (uid, studyID) =>
+    participantRef(uid).update({
+      saved: firebase.firestore.FieldValue.arrayRemove(studyID),
     }),
 
   delete: (uid) => participantRef(uid).delete(),

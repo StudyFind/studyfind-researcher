@@ -53,7 +53,7 @@ function ProfileParticipant({
 
   return (
     <AccountWrapper
-      showButtons={showButtons}
+      showButtons={!phoneError && showButtons}
       handleCancel={handleCancel}
       handleUpdate={handleUpdate}
     >
