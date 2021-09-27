@@ -10,7 +10,7 @@ function PricingSection() {
       price: ["$0", "$0"],
       features: [
         "Create Studies",
-        "Recruit Participants",
+        "Write Participant Notes",
         "Track Participant Status",
       ],
     },
