@@ -61,7 +61,7 @@ function Internal() {
     { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
     { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },
     { name: "Feedback", path: "/feedback", icon: <FaCommentAlt /> },
-    { name: "FAQ", path: "/faq", icon: <FaQuestionCircle /> },
+    // { name: "FAQ", path: "/faq", icon: <FaQuestionCircle /> },
   ];
 
   const [confirm, setConfirm] = useState(null);
