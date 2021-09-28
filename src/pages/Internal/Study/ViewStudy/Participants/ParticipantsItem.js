@@ -19,10 +19,10 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
         height="30px"
         color="white"
         background="blue.500"
-        name={participant.fakename}
+        name={participant.id}
       />
       <Text fontWeight="500" mr="auto">
-        {participant.fakename}
+        {participant.id}
       </Text>
       <Badge
         size="sm"
