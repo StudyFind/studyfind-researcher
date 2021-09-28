@@ -94,7 +94,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
     const functionRef = functions.httpsCallable(FUNCTION_CODE);
 
     setLinking(true);
-    const { data } = await functionRef({ returnUrl: window.location.origin });
+    const { data } = await functionRef({ returnUrl: window.location.origin + "/account/subscription" });
     setLinking(false);
 
     window.location.assign(data.url);
