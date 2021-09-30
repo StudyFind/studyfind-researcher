@@ -72,6 +72,8 @@ function NotificationItem({ notification, handleNotificationRead }) {
 
   const { isPhone } = useDetectDevice();
 
+  const titleColor = useColor("black", "white");
+
   const readBorderColor = useColor("gray.200", "gray.700");
   const unreadBorderColor = useColor("blue.100", "blue.600");
 
@@ -87,7 +89,7 @@ function NotificationItem({ notification, handleNotificationRead }) {
     link ? <NotificationLink to={link}>{children}</NotificationLink> : children;
 
   return (
-    <NotificationLinkWrapper link={link}>
+    <NotificationLinkWrapper link={link} isWrapper>
       <Card
         width="100%"
         borderColor={read ? readBorderColor : unreadBorderColor}
@@ -106,7 +108,7 @@ function NotificationItem({ notification, handleNotificationRead }) {
               justify={isPhone ? "" : "space-between"}
               align={isPhone ? "flex-start" : "center"}
             >
-              <Text size="sm" fontWeight="600">
+              <Text size="sm" fontWeight="600" color={titleColor}>
                 {title}
               </Text>
               <NotificationTime time={time} />
