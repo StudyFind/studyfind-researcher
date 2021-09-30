@@ -34,6 +34,8 @@ import Account from "./Account/Account";
 import Feedback from "./Feedback/Feedback";
 
 import ConfirmModal from "components/complex/ConfirmModal/ConfirmModal";
+import Denied from "./Denied";
+
 import { buildResearcherQuery } from "database/queries";
 
 const GlobalStyle = createGlobalStyle`
@@ -52,7 +54,8 @@ function Internal() {
 
   const researcherQuery = buildResearcherQuery(uid);
   const [user] = useDocument(researcherQuery);
-  const [plan, setPlan] = useState();
+  const [plan, setPlan] = useState(null);
+  const [type, setType] = useState(null);
 
   const { isPhone } = useDetectDevice();
 
@@ -71,11 +74,14 @@ function Internal() {
 
   const history = useHistory();
 
-  const fetchAndSetUserPlan = async () => {
-    await auth.currentUser.getIdToken(true);
-    const decodedToken = await auth.currentUser.getIdTokenResult();
-
-    setPlan(decodedToken.claims.userplan || "FREE");
+  const fetchAndSetUserClaims = () => {
+    auth.onIdTokenChanged(async (user) => {
+      if (user) {
+        const decodedToken = await user?.getIdTokenResult();
+        setPlan(decodedToken?.claims?.userplan || "FREE");
+        setType(decodedToken?.claims?.usertype || "");
+      }
+    });
   };
 
   useEffect(() => {
@@ -86,8 +92,7 @@ function Internal() {
       localStorage.removeItem("redirect");
     }
 
-    // fetch user plan
-    fetchAndSetUserPlan();
+    fetchAndSetUserClaims();
   }, []);
 
   // const verificationHeightDesktop = "56px";
@@ -103,6 +108,10 @@ function Internal() {
   // const exceptVerificationHeightMobile = "calc(100vw - 128px)";
 
   const borderColor = useColor("gray.200", "gray.700");
+
+  if (type === "participant") {
+    return <Denied email={auth.currentUser.email} />;
+  }
 
   return (
     <UserContext.Provider value={user}>
