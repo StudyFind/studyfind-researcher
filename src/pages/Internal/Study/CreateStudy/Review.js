@@ -12,7 +12,7 @@ import ResourcesEmpty from "components/feature/Study/ResourcesView/ResourcesEmpt
 function Review({ study, Wrapper, goBack }) {
   const title = "Review";
   const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
+    'Please check that the details of the study match what you would like to present to potential participants and click "Done" to complete the study creation process. You will be able to change all the information even after the study has been created.';
 
   const tabs = [
     {

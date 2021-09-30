@@ -7,7 +7,7 @@ function DetailsForm({ study, onSubmit, Wrapper }) {
 
   const title = "Details";
   const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
+    "StudyFind strives to make research studies as accessible as possible. To achieve this, we ask that you simplify the language used in the study title and description. This will make the study more readable for the general population and will lead to improvements in partipant recruitment.";
 
   const handleSubmit = () => {
     const isValid = detailsForm.validate();
@@ -18,7 +18,11 @@ function DetailsForm({ study, onSubmit, Wrapper }) {
   };
 
   return (
-    <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
+    <Wrapper
+      title={title}
+      description={description}
+      handleSubmit={handleSubmit}
+    >
       <DetailsInputs
         values={detailsForm.values}
         errors={detailsForm.errors}

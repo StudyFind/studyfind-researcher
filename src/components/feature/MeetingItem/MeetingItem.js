@@ -6,20 +6,25 @@ import { Flex, Text } from "@chakra-ui/react";
 import { FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
 import { Card, Hint, Link, ActionButton } from "components";
 
-function MeetingItem({ participant, meeting, handleDelete }) {
+function MeetingItem({ meeting, handleDelete }) {
   const { isPhone } = useDetectDevice();
 
   const meetingInfo = (
     <>
-      <Text>Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}</Text>
+      <Text>
+        Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
+      </Text>
       <Text>Study: {meeting.studyID}</Text>
-      <Text>Participant: {participant?.id}</Text>
+      <Text>Participant: {meeting.participantID}</Text>
     </>
   );
 
   return (
     <Card display="flex" gridGap="8px" padding="10px 12px" align="center">
-      <Flex direction={isPhone && "column-reverse"} align={isPhone ? "flex-start" : "center"}>
+      <Flex
+        direction={isPhone && "column-reverse"}
+        align={isPhone ? "flex-start" : "center"}
+      >
         <Flex>
           <Text
             fontSize="0.9rem"
@@ -29,7 +34,9 @@ function MeetingItem({ participant, meeting, handleDelete }) {
           >
             {datetime.get12HourTime(meeting.time)}
           </Text>
-          {isPhone && <Hint fontSize="12px" label={meetingInfo} marginLeft="4px" />}
+          {isPhone && (
+            <Hint fontSize="12px" label={meetingInfo} marginLeft="4px" />
+          )}
         </Flex>
         <Text fontWeight="600" marginX={isPhone || "8px"}>
           {meeting.name}
@@ -45,7 +52,7 @@ function MeetingItem({ participant, meeting, handleDelete }) {
           />
         </Link>
         <Link
-          to={`/study/${meeting.studyID}/participants/meetings/${meeting.participantID}`}
+          to={`/study/${meeting.studyID}/participants/${meeting.participantID}/meetings`}
           isWrapper
         >
           <ActionButton icon={<FaPencilAlt />} hint="Edit" colorScheme="blue" />

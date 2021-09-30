@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useColor, useDetectDevice } from "hooks";
@@ -77,8 +78,16 @@ function NotificationItem({ notification, handleNotificationRead }) {
   const readBackgroundColor = useColor("white", "gray.900");
   const unreadBackgroundColor = useColor("blue.50", "blue.900");
 
+  const NotificationLink = styled(Link)`
+    display: block;
+    width: 100%;
+  `;
+
+  const NotificationLinkWrapper = ({ link, children }) =>
+    link ? <NotificationLink to={link}>{children}</NotificationLink> : children;
+
   return (
-    <NotificationLink to={link}>
+    <NotificationLinkWrapper link={link}>
       <Card
         width="100%"
         borderColor={read ? readBorderColor : unreadBorderColor}
@@ -108,13 +117,8 @@ function NotificationItem({ notification, handleNotificationRead }) {
           </Box>
         </Flex>
       </Card>
-    </NotificationLink>
+    </NotificationLinkWrapper>
   );
 }
-
-const NotificationLink = styled(Link)`
-  display: block;
-  width: 100%;
-`;
 
 export default NotificationItem;

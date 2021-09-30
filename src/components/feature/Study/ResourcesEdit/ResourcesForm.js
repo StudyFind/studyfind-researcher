@@ -7,7 +7,7 @@ function ResourcesForm({ study, onSubmit, Wrapper }) {
 
   const title = "Resources";
   const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
+    "Please list out any study resources including but not limited to flyers or surveys (names along with links) that may be useful for a participant to have quick access to.";
 
   const handleSubmit = () => {
     const isValid = resourcesForm.validate();
@@ -18,7 +18,11 @@ function ResourcesForm({ study, onSubmit, Wrapper }) {
   };
 
   return (
-    <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
+    <Wrapper
+      title={title}
+      description={description}
+      handleSubmit={handleSubmit}
+    >
       <ResourcesInputs
         values={resourcesForm.values}
         errors={resourcesForm.errors}
