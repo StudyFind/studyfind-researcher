@@ -5,4 +5,5 @@ export { AuthContext, AuthProvider } from "./AuthContext";
 // export { FirebaseContext, FirebaseProvider } from "./FirebaseContext";
 
 export const UserContext = createContext(null);
+export const PlanContext = createContext(null);
 export const ConfirmContext = createContext(null);

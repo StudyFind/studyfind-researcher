@@ -7,7 +7,7 @@ import {
 } from "hooks";
 
 import { auth } from "database/firebase";
-import { UserContext, ConfirmContext } from "context";
+import { UserContext, PlanContext, ConfirmContext } from "context";
 import { createGlobalStyle } from "styled-components";
 
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
@@ -52,6 +52,7 @@ function Internal() {
 
   const researcherQuery = buildResearcherQuery(uid);
   const [user] = useDocument(researcherQuery);
+  const [plan, setPlan] = useState();
 
   const { isPhone } = useDetectDevice();
 
@@ -70,6 +71,13 @@ function Internal() {
 
   const history = useHistory();
 
+  const fetchAndSetUserPlan = async () => {
+    await auth.currentUser.getIdToken(true);
+    const decodedToken = await auth.currentUser.getIdTokenResult();
+
+    setPlan(decodedToken.claims.userplan || "FREE");
+  };
+
   useEffect(() => {
     const redirect = localStorage.getItem("redirect");
 
@@ -77,6 +85,9 @@ function Internal() {
       history.push(redirect);
       localStorage.removeItem("redirect");
     }
+
+    // fetch user plan
+    fetchAndSetUserPlan();
   }, []);
 
   // const verificationHeightDesktop = "56px";
@@ -95,75 +106,77 @@ function Internal() {
 
   return (
     <UserContext.Provider value={user}>
-      <ConfirmContext.Provider value={setConfirm}>
-        <Flex>
-          <ConfirmModal
-            {...confirm}
-            open={!!confirm}
-            handleClose={() => setConfirm(null)}
-          />
-          <GlobalStyle />
-          <Box
-            width={isPhone ? "100%" : "280px"}
-            position="fixed"
-            left="0"
-            top="0"
-            zIndex={500}
-            borderColor={borderColor}
-            borderRightWidth={isPhone ? "0" : "1px"}
-            borderBottomWidth={isPhone ? "1px" : "0"}
-          >
-            <Sidebar name={displayName} email={email} links={links} />
-          </Box>
-          <Box
-            width="100%"
-            marginLeft={isPhone ? "0" : "280px"}
-            marginTop={isPhone ? "71px" : emailVerified ? "0" : "40px"}
-            marginBottom={isPhone && !emailVerified && "128px"}
-          >
-            {emailVerified || (
-              <Box
-                minHeight={isPhone || "56px"}
-                width={isPhone ? "100vw" : "calc(100vw - 280px)"}
-                position="fixed"
-                top={isPhone || "0"}
-                bottom={isPhone && "0"}
-                zIndex={100}
-                background="gray.900"
-              >
-                <Verification />
-              </Box>
-            )}
-            <Page
-              isLoading={!user}
-              padding={isPhone ? "20px" : "40px"}
-              minHeight={
-                isPhone
-                  ? emailVerified
-                    ? "calc(100vh - 71px)"
-                    : "calc(100vh - 71px - 128px)"
-                  : emailVerified
-                  ? "100vh"
-                  : "calc(100vh - 40px)"
-              }
+      <PlanContext.Provider value={plan}>
+        <ConfirmContext.Provider value={setConfirm}>
+          <Flex>
+            <ConfirmModal
+              {...confirm}
+              open={!!confirm}
+              handleClose={() => setConfirm(null)}
+            />
+            <GlobalStyle />
+            <Box
+              width={isPhone ? "100%" : "280px"}
+              position="fixed"
+              left="0"
+              top="0"
+              zIndex={500}
+              borderColor={borderColor}
+              borderRightWidth={isPhone ? "0" : "1px"}
+              borderBottomWidth={isPhone ? "1px" : "0"}
             >
-              <Switch>
-                <Route exact path="/" component={Dashboard} />
-                <Route path="/create" component={CreateStudy} />
-                <Route
-                  path="/study/:studyID/:tab/:participantID?/:action?"
-                  component={ViewStudy}
-                />
-                <Route path="/notifications" component={Notifications} />
-                <Route path="/schedule" component={Schedule} />
-                <Route path="/account/:tab" component={Account} />
-                <Route path="/feedback" component={Feedback} />
-                <Redirect to="/" />
-              </Switch>
-            </Page>
-          </Box>
-        </Flex>
-      </ConfirmContext.Provider>
+              <Sidebar name={displayName} email={email} links={links} />
+            </Box>
+            <Box
+              width="100%"
+              marginLeft={isPhone ? "0" : "280px"}
+              marginTop={isPhone ? "71px" : emailVerified ? "0" : "40px"}
+              marginBottom={isPhone && !emailVerified && "128px"}
+            >
+              {emailVerified || (
+                <Box
+                  minHeight={isPhone || "56px"}
+                  width={isPhone ? "100vw" : "calc(100vw - 280px)"}
+                  position="fixed"
+                  top={isPhone || "0"}
+                  bottom={isPhone && "0"}
+                  zIndex={100}
+                  background="gray.900"
+                >
+                  <Verification />
+                </Box>
+              )}
+              <Page
+                isLoading={!user || !plan}
+                padding={isPhone ? "20px" : "40px"}
+                minHeight={
+                  isPhone
+                    ? emailVerified
+                      ? "calc(100vh - 71px)"
+                      : "calc(100vh - 71px - 128px)"
+                    : emailVerified
+                    ? "100vh"
+                    : "calc(100vh - 40px)"
+                }
+              >
+                <Switch>
+                  <Route exact path="/" component={Dashboard} />
+                  <Route path="/create" component={CreateStudy} />
+                  <Route
+                    path="/study/:studyID/:tab/:participantID?/:action?"
+                    component={ViewStudy}
+                  />
+                  <Route path="/notifications" component={Notifications} />
+                  <Route path="/schedule" component={Schedule} />
+                  <Route path="/account/:tab" component={Account} />
+                  <Route path="/feedback" component={Feedback} />
+                  <Redirect to="/" />
+                </Switch>
+              </Page>
+            </Box>
+          </Flex>
+        </ConfirmContext.Provider>
+      </PlanContext.Provider>
     </UserContext.Provider>
   );
 }
