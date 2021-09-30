@@ -5,8 +5,8 @@ import { useHistory } from "react-router-dom";
 import { auth, firestore, functions } from "database/firebase";
 import { toasts } from "templates";
 
-import { Grid } from "@chakra-ui/react";
-import { Loader } from "components";
+import { Grid, Card, VStack, Heading, Badge, Text } from "@chakra-ui/react";
+import { Loader, Page } from "components";
 import { SiHive, SiMarketo, SiMicrosoft } from "react-icons/si";
 
 import AccountWrapper from "../AccountWrapper";
@@ -17,11 +17,14 @@ import SubscriptionForm from "./SubscriptionForm";
 
 function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const [isBilledAnnually, setIsBilledAnnually] = useState(true);
-  const [selectedPlan, setSelectedPlan] = useState("basic");
+  const [selectedPlan, setSelectedPlan] = useState("standard");
   const [currentPlan, setCurrentPlan] = useState("");
   const [planItems, setPlanItems] = useState({})
   const [loading, setLoading] = useState(true);
   const [linking, setLinking] = useState(false);
+  const [testPlans, setPlans] = useState([])
+  const [products, setProducts] = useState([])
+  const [retrieving, setRetrieving] = useState(true)
 
   const triggerToast = useTriggerToast();
 
@@ -30,24 +33,13 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
   const { action } = usePathParams();
 
   const selectedPlanID = {
-    basic: {
-      // annually: "price_1JU1hsIzlngCzbHLkjD7vwaj", UNCOMMENT WHEN MERGING TO PRODUCTION
-      annually: "price_1JboRyIzlngCzbHLrjB591Rl",
-      // old_monthly: "price_1JU1gaIzlngCzbHLv2NowTqn",
-      monthly: "price_1JeTbpIzlngCzbHLBw68zzbH" //cheap monthly
-      // test_monthly: "price_1Jbv5aIzlngCzbHLzcyoqZRu",
-    },
     standard: {
-      // annually: "price_1JU1jwIzlngCzbHL32su7mlE", SAME
-      annually: "price_1JboXRIzlngCzbHLp3oycIFU",
-      // monthly: "price_1JU1jQIzlngCzbHLwgm0SVAe",
-      monthly: "price_1Jbv6KIzlngCzbHLIWwhVEcx",
+      annually: "price_1JU1jwIzlngCzbHL32su7mlE",
+      monthly: "price_1JU1jQIzlngCzbHLwgm0SVAe",
     },
     premium: {
-      // annually: "price_1JU1n4IzlngCzbHLAFMoPmtq", SAME
-      annually: "price_1JboY8IzlngCzbHLYG7R09VN",
-      // monthly: "price_1JU1mJIzlngCzbHLsYWJCSFm",
-      monthly: "price_1Jbv6vIzlngCzbHLkn8dctTn",
+      annually: "price_1JU1n4IzlngCzbHLAFMoPmtq",
+      monthly: "price_1JU1mJIzlngCzbHLsYWJCSFm",
     },
   }[selectedPlan][isBilledAnnually ? "annually" : "monthly"];
 
@@ -104,7 +96,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
     await auth.currentUser.getIdToken(true);
     const decodedToken = await auth.currentUser.getIdTokenResult();
     const plan = decodedToken?.claims?.stripeRole;
-    if (plan) {
+    if (plan) { //IF THE HAVE A PLAN, GATHER THE PLAN DETAILS
       const docRef = firestore
       .collection("researchers")
       .doc(auth.currentUser.uid)
@@ -124,16 +116,82 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
           })
         })
       })
+    } else { //IF NOT, GATHER THE PLANS DETAILS
+      const docRef = firestore
+      .collection("pricing")
+      .where("active", "==", true)
+      docRef.onSnapshot((snapshot) => { //This is so jank, the way products and prices are stored in firebase made me do it sorry lol
+        snapshot.forEach((product) => {
+          const docRef = firestore
+          .collection("pricing")
+          .doc(product.id)
+          .collection("prices")
+          docRef.onSnapshot((snapshot) => {
+            setRetrieving(true)
+            snapshot.forEach((price) => {
+              setProducts(prev => ([...prev, {name: product.data().name.split(" ")[0], amount: price.data().unit_amount}]))
+            })
+            setRetrieving(false)
+          })
+        })
+      })
     }
-
-    setCurrentPlan(plan || "free");
-    setSelectedPlan(plan || "basic");
-    setLoading(false);
+    setCurrentPlan(plan || "basic");
+    setSelectedPlan(plan || "standard");
   };
 
   useEffect(() => {
-    getCustomClaimRole();
+    if (testPlans.length === 0) {
+      getCustomClaimRole();
+    }
   }, []);
+
+  useEffect(() => { //Seems like a very inefficient way to accomplish this but it works so /shrug
+    if (products.length !== 0 && !retrieving) {
+      const plans = [
+        {
+          icon: SiMarketo,
+          name: "standard",
+          title: "Standard",
+          price: [],
+          features: ["Everything in Basic", "Participant Reminders", "Schedule Meetings"],
+          isPopular: true,
+        }, 
+        {
+          icon: SiHive,
+          name: "premium",
+          title: "Premium",
+          price: [],
+          features: ["Everything in Standard", "Instant Messaging", "Email and Text Notifications"],
+        }
+      ]
+      products.forEach((prod) => {
+        plans.forEach((plan) => {
+          if (plan.title === prod.name) {
+            plan.price.push(prod.amount)
+          }
+        })
+      }) //I make the assumption the yearly price will ALWAYS cost more, this allows me to adapt the data without needing the interval explicitly
+      plans.forEach(plan => {
+        plan.price.sort((a, b) => (b - a))
+      })
+      plans.forEach(plan => {
+        plan.price = plan.price.map((item, id) => (
+          id === 0 ? item / 1200 : item / 100
+        ))
+      })
+      plans.forEach(plan => {
+        plan.price.sort((a, b) => (b - a))
+      })
+      plans.forEach(plan => {
+        plan.price = plan.price.map((item) => (
+          `$${item}`
+        ))
+      })
+      setPlans(plans)
+      setLoading(false)
+    }
+  }, [retrieving])
 
   useEffect(() => {
     if (action) {
@@ -149,33 +207,6 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
     }
   }, [action]);
 
-  const plans = [
-    {
-      icon: SiMicrosoft,
-      name: "basic",
-      title: "Basic",
-      price: ["$29", "$19"],
-      features: ["Create Studies", "Recruit Participants", "Track Participant Status"],
-    },
-
-    {
-      icon: SiMarketo,
-      name: "standard",
-      title: "Standard",
-      price: ["$99", "$79"],
-      features: ["Everything in Basic", "Participant Reminders", "Schedule Meetings"],
-      isPopular: true,
-    },
-
-    {
-      icon: SiHive,
-      name: "premium",
-      title: "Premium",
-      price: ["$249", "$199"],
-      features: ["Everything in Standard", "Instant Messaging", "Email and Text Notifications"],
-    },
-  ];
-
   return (
     <AccountWrapper
       showButtons={showButtons}
@@ -189,9 +220,8 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
         />
         {loading ? (
           <Loader height="300px" />
-        ) : currentPlan !== "free" ? (
+        ) : currentPlan !== "basic" ? (
           <SubscriptionView
-            plans={plans}
             isBilledAnnually={isBilledAnnually}
             currentPlan={currentPlan}
             planItems={planItems}
@@ -199,15 +229,15 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
             handleManageSubscription={handleManageSubscription}
           />
         ) : (
-          <SubscriptionForm
-            plans={plans}
-            selectedPlan={selectedPlan}
-            linking={linking}
-            handleSubscribe={handleSubscribe}
-            handleSelectPlan={handleSelectPlan}
-            isBilledAnnually={isBilledAnnually}
-            handleChangeBilledAnnually={handleChangeBilledAnnually}
-          />
+            <SubscriptionForm
+              plans={testPlans}
+              selectedPlan={selectedPlan}
+              linking={linking}
+              handleSubscribe={handleSubscribe}
+              handleSelectPlan={handleSelectPlan}
+              isBilledAnnually={isBilledAnnually}
+              handleChangeBilledAnnually={handleChangeBilledAnnually}
+            />
         )}
       </Grid>
     </AccountWrapper>
