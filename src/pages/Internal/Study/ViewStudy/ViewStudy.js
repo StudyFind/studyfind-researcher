@@ -1,7 +1,8 @@
 import { useDocument, usePathParams } from "hooks";
 import { firestore } from "database/firebase";
 
-import { Loader } from "components";
+import { Loader, Message } from "components";
+import { Box } from "@chakra-ui/react";
 
 import HorizontalTabs from "components/complex/HorizontalTabs/HorizontalTabs";
 import Details from "./Details/Details";
@@ -15,10 +16,25 @@ import Settings from "./Settings/Settings";
 function ViewStudy() {
   const { studyID } = usePathParams();
 
-  const [study, loading, error] = useDocument(firestore.collection("studies").doc(studyID));
+  const [study, loading, error] = useDocument(
+    firestore.collection("studies").doc(studyID)
+  );
 
   if (!study || loading) {
     return <Loader height="calc(100vh - 80px)" />;
+  }
+
+  if (!study.title) {
+    return (
+      <Box height="400px" rounded="md">
+        <Message
+          status="failure"
+          title="Study Not Found"
+          description={`The study with ID "${studyID}" does not exist in our database. It may have been either deleted or never existed in the first place.`}
+          showBackground
+        />
+      </Box>
+    );
   }
 
   const tabs = [
