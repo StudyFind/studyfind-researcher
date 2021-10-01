@@ -4,6 +4,8 @@ import { CheckboxInput } from "components";
 import AccountWrapper from "../AccountWrapper";
 import AccountHeader from "../AccountHeader";
 import { auth } from "database/firebase";
+import { useContext } from "react";
+import { PlanContext } from "context";
 
 function Notifications({
   values,
@@ -12,6 +14,8 @@ function Notifications({
   handleUpdate,
   handleSetNotificationsAttribute,
 }) {
+  const plan = useContext(PlanContext);
+
   return (
     <AccountWrapper
       showButtons={showButtons}
@@ -31,24 +35,36 @@ function Notifications({
             value={values?.notifications?.local}
             onChange={handleSetNotificationsAttribute}
           /> */}
-          <CheckboxInput
-            name="email"
-            label="Receive Email Notifications"
-            details={`Sends notifications to your inbox at ${auth.currentUser.email}`}
-            value={values?.notifications?.email}
-            onChange={handleSetNotificationsAttribute}
-          />
           <Tooltip
             label={
-              values.phone ||
-              "You must provide a valid phone number in the profile section to enable text notifications"
+              plan !== "PREMIUM" &&
+              "Premium subscription required to enable email notifications"
+            }
+          >
+            <Box>
+              <CheckboxInput
+                name="email"
+                label="Receive Email Notifications"
+                isDisabled={!values.phone || plan !== "PREMIUM"}
+                details={`Sends notifications to your inbox at ${auth.currentUser.email}`}
+                value={values?.notifications?.email}
+                onChange={handleSetNotificationsAttribute}
+              />
+            </Box>
+          </Tooltip>
+          <Tooltip
+            label={
+              plan !== "PREMIUM"
+                ? "Premium subscription required to enable text notifications"
+                : values.phone ||
+                  "You must provide a valid phone number in the profile section to enable text notifications"
             }
           >
             <Box>
               <CheckboxInput
                 name="phone"
                 label="Receive Text Notifications"
-                isDisabled={!values.phone}
+                isDisabled={!values.phone || plan !== "PREMIUM"}
                 details={`Sends notifications to your phone ${
                   values.phone ? `at ${values.phone}` : ""
                 }`}
