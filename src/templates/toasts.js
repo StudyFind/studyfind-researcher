@@ -20,7 +20,8 @@ const updatedAccount = {
 
 const deletedAccount = {
   title: "Account Deleted",
-  description: "Your account has been deleted along with all your user data and research studies.",
+  description:
+    "Your account has been deleted along with all your user data and research studies.",
   status: "success",
   duration: LONG,
   isClosable: true,
@@ -90,6 +91,33 @@ const deletedNote = {
   position: "top",
 };
 
+const stripeError = {
+  title: "Error with Transaction",
+  description: `There was an error with your Stripe checkout session`,
+  status: "error",
+  duration: LONG,
+  isClosable: true,
+  position: "top",
+};
+
+const stripeCancel = {
+  title: "Transaction Cancelled",
+  description: `You have cancelled the Stripe checkout session.`,
+  status: "info",
+  duration: SHORT,
+  isClosable: true,
+  position: "bottom",
+};
+
+const stripeSuccess = {
+  title: "Transaction Recieved Successfully",
+  description: `You have successfully subscribed to a StudyFind plan. Look above to see the details of your plan!`,
+  status: "success",
+  duration: LONG,
+  isClosable: true,
+  position: "bottom",
+};
+
 export default {
   connectionError, // generic error toast
   updatedAccount, // account page - everything except security tab
@@ -101,4 +129,7 @@ export default {
   deletedReminder,
   deletedMeeting,
   deletedNote,
+  stripeError,
+  stripeCancel,
+  stripeSuccess,
 };

@@ -78,7 +78,7 @@ function Internal() {
     auth.onIdTokenChanged(async (user) => {
       if (user) {
         const decodedToken = await user?.getIdTokenResult();
-        setPlan(decodedToken?.claims?.userplan || "FREE");
+        setPlan(decodedToken?.claims?.stripeRole || "FREE");
         setType(decodedToken?.claims?.usertype || "");
       }
     });
