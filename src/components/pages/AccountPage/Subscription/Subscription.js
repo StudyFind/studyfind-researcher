@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { PlanContext } from "context";
 
 import { auth, firestore, functions } from "database/firebase";
+import { signout } from "database/auth";
 import { toasts } from "templates";
 
 import { Grid } from "@chakra-ui/react";
@@ -16,7 +17,6 @@ import AccountHeader from "../AccountHeader";
 
 import SubscriptionView from "./SubscriptionView";
 import SubscriptionForm from "./SubscriptionForm";
-import { signout } from "database/auth";
 
 const getStripePriceID = (plan, period) => {
   return {
