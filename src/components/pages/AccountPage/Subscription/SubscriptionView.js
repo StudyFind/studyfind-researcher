@@ -9,7 +9,7 @@ function SubscriptionView({
   handleManageSubscription,
   planDetails,
 }) {
-  const { status, amount, current_period_end } = planDetails;
+  const { amount, current_period_end, cancel_at_period_end } = planDetails;
 
   const planColorScheme = {
     basic: "gray",
@@ -17,22 +17,17 @@ function SubscriptionView({
     premium: "green",
   };
 
-  const message = {
-    trailing: (
-      <>
-        Your subscription will be cancelled on{" "}
-        <strong>{datetime.getFriendlyDate(current_period_end)}</strong>
-      </>
-    ),
-
-    active: (
-      <>
-        Your card will be automatically charged{" "}
-        <strong>${amount || "0"}</strong> on{" "}
-        <strong>{datetime.getFriendlyDate(current_period_end)}</strong>
-      </>
-    ),
-  }[status];
+  const message = cancel_at_period_end ? (
+    <>
+      Your subscription will be cancelled on{" "}
+      <strong>{datetime.getFriendlyDate(current_period_end)}</strong>
+    </>
+  ) : (
+    <>
+      Your card will be automatically charged <strong>${amount || "0"}</strong>{" "}
+      on <strong>{datetime.getFriendlyDate(current_period_end)}</strong>
+    </>
+  );
 
   return (
     <Card padding="15px">
