@@ -16,6 +16,7 @@ import AccountHeader from "../AccountHeader";
 
 import SubscriptionView from "./SubscriptionView";
 import SubscriptionForm from "./SubscriptionForm";
+import { signout } from "database/auth";
 
 const getStripePriceID = (plan, period) => {
   return {
@@ -172,6 +173,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
       }
 
       if (action === "success") {
+        signout();
         triggerToast(toasts.stripeSuccess);
       }
 
