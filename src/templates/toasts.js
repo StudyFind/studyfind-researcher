@@ -102,20 +102,20 @@ const stripeError = {
 
 const stripeCancel = {
   title: "Transaction Cancelled",
-  description: `You have cancelled the Stripe checkout session.`,
+  description: `You have cancelled your checkout session`,
   status: "info",
   duration: SHORT,
   isClosable: true,
-  position: "bottom",
+  position: "top",
 };
 
 const stripeSuccess = {
   title: "Transaction Recieved Successfully",
-  description: `You have successfully subscribed to a StudyFind plan. Look above to see the details of your plan!`,
+  description: `You have successfully subscribed to StudyFind. Log in again to get access to all the new features!`,
   status: "success",
   duration: LONG,
   isClosable: true,
-  position: "bottom",
+  position: "top",
 };
 
 export default {
