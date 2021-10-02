@@ -88,11 +88,8 @@ function NotificationItem({ notification, handleNotificationRead }) {
   const hostname = "https://researcher.studyfind.org";
   const internalLink = link.substring(hostname.length);
 
-  const NotificationLinkWrapper = ({ link, children }) =>
-    link ? <NotificationLink to={link}>{children}</NotificationLink> : children;
-
   return (
-    <NotificationLinkWrapper link={internalLink} isWrapper>
+    <NotificationLink to={internalLink} isWrapper>
       <Card
         width="100%"
         borderColor={read ? readBorderColor : unreadBorderColor}
@@ -122,7 +119,7 @@ function NotificationItem({ notification, handleNotificationRead }) {
           </Box>
         </Flex>
       </Card>
-    </NotificationLinkWrapper>
+    </NotificationLink>
   );
 }
 
