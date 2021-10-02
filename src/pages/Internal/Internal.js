@@ -177,7 +177,7 @@ function Internal() {
                   />
                   <Route path="/notifications" component={Notifications} />
                   <Route path="/schedule" component={Schedule} />
-                  <Route path="/account/:tab" component={Account} />
+                  <Route path="/account/:tab/:action?" component={Account} />
                   <Route path="/feedback" component={Feedback} />
                   <Redirect to="/" />
                 </Switch>
