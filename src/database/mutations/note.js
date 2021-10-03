@@ -7,7 +7,7 @@ const getNotesRef = (studyID, participantID) => {
     .doc(studyID)
     .collection("participants")
     .doc(participantID)
-    .collection("messages");
+    .collection("notes");
 };
 
 const getNoteRef = (studyID, participantID, noteID) => {
