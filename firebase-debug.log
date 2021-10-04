@@ -1,0 +1,101 @@
+[debug] [2021-10-04T19:53:08.520Z] ----------------------------------------------------------------------
+[debug] [2021-10-04T19:53:08.527Z] Command:       /Users/yohanjhaveri/.nvm/versions/node/v15.12.0/bin/node /usr/local/bin/firebase init hosting:github
+[debug] [2021-10-04T19:53:08.528Z] CLI Version:   9.2.1
+[debug] [2021-10-04T19:53:08.528Z] Platform:      darwin
+[debug] [2021-10-04T19:53:08.528Z] Node Version:  v15.12.0
+[debug] [2021-10-04T19:53:08.875Z] Time:          Mon Oct 04 2021 15:53:08 GMT-0400 (Eastern Daylight Time)
+[debug] [2021-10-04T19:53:08.875Z] ----------------------------------------------------------------------
+[debug] [2021-10-04T19:53:08.875Z] 
+[debug] [2021-10-04T19:53:08.887Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-10-04T19:53:08.888Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/yohanjhaveri/studyfind/studyfind-researcher
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2021-10-04T19:53:08.904Z] > refreshing access token with scopes: []
+[debug] [2021-10-04T19:53:08.905Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-10-04T19:53:09.500Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Mon, 04 Oct 2021 19:53:09 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-10-04T19:53:09.509Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studyfind-development [none]
+[debug] [2021-10-04T19:53:09.811Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studyfind-development 200
+[debug] [2021-10-04T19:53:09.811Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studyfind-development {"projectId":"studyfind-development","projectNumber":"629466210039","displayName":"studyfind-development","name":"projects/studyfind-development","resources":{"hostingSite":"studyfind-development","storageBucket":"studyfind-development.appspot.com","locationId":"us-central"},"state":"ACTIVE"}
+[info] i  Using project studyfind-development (studyfind-development) 
+[info] 
+=== Hosting:github Setup
+[info] 
+[info] i  Detected a .git folder at /Users/yohanjhaveri/studyfind/studyfind-researcher 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=173003717&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2021-10-04T19:53:10.479Z] >>> HTTP REQUEST POST https://github.com/login/oauth/access_token  
+ {"client_id":"89cf50f02ac6aaed3484","client_secret":"3330d14abc895d9a74d5f17cd7a00711fa2c5bf0","code":"952338cceacfdfd2d93b","redirect_uri":"http://localhost:9005","state":"173003717"}
+[debug] [2021-10-04T19:53:10.673Z] <<< HTTP RESPONSE 200 {"server":"GitHub.com","date":"Mon, 04 Oct 2021 19:53:10 GMT","content-type":"application/json; charset=utf-8","transfer-encoding":"chunked","vary":"X-PJAX, X-PJAX-Container, Accept-Encoding, Accept, X-Requested-With","permissions-policy":"interest-cohort=()","etag":"W/\"da4d63f62718c890329261d8fd63a14b\"","cache-control":"max-age=0, private, must-revalidate","strict-transport-security":"max-age=31536000; includeSubdomains; preload","x-frame-options":"deny","x-content-type-options":"nosniff","x-xss-protection":"0","referrer-policy":"origin-when-cross-origin, strict-origin-when-cross-origin","expect-ct":"max-age=2592000, report-uri=\"https://api.github.com/_private/browser/errors\"","content-security-policy":"default-src 'none'; base-uri 'self'; block-all-mixed-content; child-src github.com/assets-cdn/worker/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.githubapp.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com cdn.optimizely.com logx.optimizely.com/v1/events translator.github.com wss://alive.github.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com; frame-ancestors 'none'; frame-src render.githubusercontent.com viewscreen.githubusercontent.com viewscreen-lab.githubusercontent.com; img-src 'self' data: github.githubassets.com identicons.github.com collector.githubapp.com github-cloud.s3.amazonaws.com secured-user-images.githubusercontent.com/ *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; worker-src github.com/assets-cdn/worker/ gist.github.com/assets-cdn/worker/ github.com/socket-worker-0af8a29d.js gist.github.com/socket-worker-0af8a29d.js","x-github-request-id":"C095:461B:AA9031:1233795:615B5BA6"}
+[debug] [2021-10-04T19:53:10.674Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2021-10-04T19:53:11.020Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2021-10-04T19:53:11.020Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"YohanJhaveri","id":35095726,"node_id":"MDQ6VXNlcjM1MDk1NzI2","avatar_url":"https://avatars.githubusercontent.com/u/35095726?v=4","gravatar_id":"","url":"https://api.github.com/users/YohanJhaveri","html_url":"https://github.com/YohanJhaveri","followers_url":"https://api.github.com/users/YohanJhaveri/followers","following_url":"https://api.github.com/users/YohanJhaveri/following{/other_user}","gists_url":"https://api.github.com/users/YohanJhaveri/gists{/gist_id}","starred_url":"https://api.github.com/users/YohanJhaveri/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/YohanJhaveri/subscriptions","organizations_url":"https://api.github.com/users/YohanJhaveri/orgs","repos_url":"https://api.github.com/users/YohanJhaveri/repos","events_url":"https://api.github.com/users/YohanJhaveri/events{/privacy}","received_events_url":"https://api.github.com/users/YohanJhaveri/received_events","type":"User","site_admin":false,"name":"Yohan Jhaveri","company":"@StudyFind","blog":"yohan.tech","location":"Atlanta, GA","email":"yohanjhaveri@gmail.com","hireable":true,"bio":"I'm a student at Emory University and am interested in Software Development, Machine Learning and Cryptography","twitter_username":null,"public_repos":17,"public_gists":5,"followers":9,"following":4,"created_at":"2018-01-04T08:29:51Z","updated_at":"2021-09-14T17:47:43Z","private_gists":0,"total_private_repos":6,"owned_private_repos":6,"disk_usage":301952,"collaborators":9,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}
+[info] 
+[info] ✔  Success! Logged into GitHub as YohanJhaveri 
+[info] 
+[debug] [2021-10-04T19:53:32.432Z] >>> [apiv2][query] GET https://api.github.com/repos/StudyFind/studyfind-researcher/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:53:32.955Z] <<< [apiv2][status] GET https://api.github.com/repos/StudyFind/studyfind-researcher/actions/secrets/public-key 404
+[debug] [2021-10-04T19:53:32.955Z] <<< [apiv2][body] GET https://api.github.com/repos/StudyFind/studyfind-researcher/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2021-10-04T19:55:00.520Z] >>> [apiv2][query] GET https://api.github.com/repos/StudyFind/studyfind-researcher/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:00.855Z] <<< [apiv2][status] GET https://api.github.com/repos/StudyFind/studyfind-researcher/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:00.856Z] <<< [apiv2][body] GET https://api.github.com/repos/StudyFind/studyfind-researcher/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2021-10-04T19:55:16.338Z] >>> [apiv2][query] GET https://api.github.com/repos/https://github.com/StudyFind/studyfind-participant/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:16.747Z] <<< [apiv2][status] GET https://api.github.com/repos/https://github.com/StudyFind/studyfind-participant/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:16.747Z] <<< [apiv2][body] GET https://api.github.com/repos/https://github.com/StudyFind/studyfind-participant/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2021-10-04T19:55:28.274Z] >>> [apiv2][query] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:28.275Z] >>> [apiv2][query] GET https://api.github.com/repos///actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:28.634Z] >>> [apiv2][query] GET https://api.github.com/repos/studyfind-participant/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:28.663Z] <<< [apiv2][status] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:28.664Z] <<< [apiv2][body] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2021-10-04T19:55:28.795Z] <<< [apiv2][status] GET https://api.github.com/repos///actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:28.795Z] <<< [apiv2][body] GET https://api.github.com/repos///actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2021-10-04T19:55:28.917Z] <<< [apiv2][status] GET https://api.github.com/repos/studyfind-participant/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:28.919Z] <<< [apiv2][body] GET https://api.github.com/repos/studyfind-participant/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2021-10-04T19:55:29.943Z] >>> [apiv2][query] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:29.944Z] >>> [apiv2][query] GET https://api.github.com/repos///actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:30.248Z] <<< [apiv2][status] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:30.248Z] <<< [apiv2][body] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2021-10-04T19:55:30.451Z] <<< [apiv2][status] GET https://api.github.com/repos///actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:30.451Z] <<< [apiv2][body] GET https://api.github.com/repos///actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2021-10-04T19:55:33.699Z] >>> [apiv2][query] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:33.701Z] >>> [apiv2][query] GET https://api.github.com/repos///actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:33.993Z] <<< [apiv2][status] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:33.993Z] <<< [apiv2][body] GET https://api.github.com/repos/StudyFind/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2021-10-04T19:55:34.210Z] <<< [apiv2][status] GET https://api.github.com/repos///actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:34.211Z] <<< [apiv2][body] GET https://api.github.com/repos///actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2021-10-04T19:55:43.611Z] >>> [apiv2][query] GET https://api.github.com/repos/StudyFind/studyfind/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:43.911Z] <<< [apiv2][status] GET https://api.github.com/repos/StudyFind/studyfind/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:43.911Z] <<< [apiv2][body] GET https://api.github.com/repos/StudyFind/studyfind/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2021-10-04T19:55:53.567Z] >>> [apiv2][query] GET https://api.github.com/repos/StudyFind/studyfind-participant.git/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:53.848Z] <<< [apiv2][status] GET https://api.github.com/repos/StudyFind/studyfind-participant.git/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:53.848Z] <<< [apiv2][body] GET https://api.github.com/repos/StudyFind/studyfind-participant.git/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2021-10-04T19:55:57.416Z] >>> [apiv2][query] GET https://api.github.com/repos/StudyFind/studyfind-participant/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:55:57.715Z] <<< [apiv2][status] GET https://api.github.com/repos/StudyFind/studyfind-participant/actions/secrets/public-key 404
+[debug] [2021-10-04T19:55:57.715Z] <<< [apiv2][body] GET https://api.github.com/repos/StudyFind/studyfind-participant/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2021-10-04T19:56:07.446Z] >>> [apiv2][query] GET https://api.github.com/repos/YohanJhaveri/studyfind-researcher/actions/secrets/public-key type=owner
+[debug] [2021-10-04T19:56:07.854Z] <<< [apiv2][status] GET https://api.github.com/repos/YohanJhaveri/studyfind-researcher/actions/secrets/public-key 404
+[debug] [2021-10-04T19:56:07.855Z] <<< [apiv2][body] GET https://api.github.com/repos/YohanJhaveri/studyfind-researcher/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}

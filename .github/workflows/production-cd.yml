@@ -24,6 +24,7 @@ jobs:
           args: deploy --only hosting --project studyfind-researcher
         env:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+          PROJECT_PATH: ./build
           REACT_APP_FIREBASE_API_KEY: ${{secrets.PRODUCTION_FIREBASE_API_KEY}}
           REACT_APP_FIREBASE_APP_ID: ${{secrets.PRODUCTION_FIREBASE_APP_ID}}
           REACT_APP_FIREBASE_AUTH_DOMAIN: ${{secrets.PRODUCTION_FIREBASE_AUTH_DOMAIN}}
