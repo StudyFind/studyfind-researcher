@@ -5,7 +5,7 @@ import Team from "components/feature/External/HomeSections/Team/Team";
 function TeamSection() {
   const title = "About Us";
   const description =
-    "Andrew and Yohan met at HackATL, an annual event organized by Emory University. During the event they composed and pitched an early prototype of the StudyFind software. Yohan's tech skills in confluence with Andrew's public health expertise drove them futher develop StudyFind and make it a viable solution to the participant recruitment problem we see today.";
+    "Andrew and Yohan met at HackATL, an annual event organized by Emory University. During the event they composed and pitched an early prototype of the StudyFind software. Yohan's tech skills in confluence with Andrew's public health expertise drove them to futher develop StudyFind and make it a viable solution to the participant recruitment problem we see today.";
 
   const founders = [
     {
