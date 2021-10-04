@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI: false
+      REACT_APP_FIREBASE_API_KEY: ${{secrets.DEVELOPMENT_FIREBASE_API_KEY}}
+      REACT_APP_FIREBASE_APP_ID: ${{secrets.DEVELOPMENT_FIREBASE_APP_ID}}
+      REACT_APP_FIREBASE_AUTH_DOMAIN: ${{secrets.DEVELOPMENT_FIREBASE_AUTH_DOMAIN}}
+      REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{secrets.DEVELOPMENT_FIREBASE_MESSAGING_SENDER_ID}}
+      REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.DEVELOPMENT_FIREBASE_PROJECT_ID}}
+      REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.DEVELOPMENT_FIREBASE_STORAGE_BUCKET}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -19,4 +25,4 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run build
-      - run: npm run stage -- --token ${{secrets.FIREBASE_TOKEN}}
+      - run: npx firebase deploy --only hosting --project studyfind-development --token ${{secrets.FIREBASE_TOKEN}}
