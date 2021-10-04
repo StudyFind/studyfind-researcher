@@ -14,8 +14,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npm run build
       - run: |
           cat << EOF > .env
           REACT_APP_FIREBASE_API_KEY: ${{secrets.DEVELOPMENT_FIREBASE_API_KEY}}
@@ -25,7 +23,8 @@ jobs:
           REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.DEVELOPMENT_FIREBASE_PROJECT_ID}}
           REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.DEVELOPMENT_FIREBASE_STORAGE_BUCKET}}
           EOF
-      - run: cat .env
+      - run: npm ci
+      - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
