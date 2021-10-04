@@ -10,10 +10,6 @@ jobs:
     env:
       CI: false
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
       - run: |
           cat << EOF > .env
           REACT_APP_FIREBASE_API_KEY: ${{secrets.DEVELOPMENT_FIREBASE_API_KEY}}
@@ -23,6 +19,12 @@ jobs:
           REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.DEVELOPMENT_FIREBASE_PROJECT_ID}}
           REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.DEVELOPMENT_FIREBASE_STORAGE_BUCKET}}
           EOF
+      - uses: actions/checkout@v2
+        with:
+          clean: "false"
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
       - run: ls -l
       - run: cat .env
       - run: npm ci
