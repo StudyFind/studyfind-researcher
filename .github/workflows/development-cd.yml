@@ -18,6 +18,7 @@ jobs:
       REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{secrets.DEVELOPMENT_FIREBASE_MESSAGING_SENDER_ID}}
       REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.DEVELOPMENT_FIREBASE_PROJECT_ID}}
       REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.DEVELOPMENT_FIREBASE_STORAGE_BUCKET}}
+      FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -25,4 +26,4 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run build
-      - run: npx firebase deploy --only hosting --project studyfind-development --token ${{secrets.FIREBASE_TOKEN}}
+      - run: npx firebase deploy --token $FIREBASE_TOKEN --only hosting --project studyfind-development
