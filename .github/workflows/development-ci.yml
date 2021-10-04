@@ -10,6 +10,8 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      CI: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -20,6 +22,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      CI: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -30,6 +34,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      CI: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
