@@ -15,7 +15,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: Deploying
-        run: npm ci
-        run: npm run build
-        run: npm run stage -- --token ${{secrets.FIREBASE_TOKEN}}
+      - run: npm ci
+      - run: npm run build
+      - run: npm run stage -- --token ${{secrets.FIREBASE_TOKEN}}
