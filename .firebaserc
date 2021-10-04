@@ -1,5 +1,18 @@
 {
-  "projects": {
-    "default": "studyfind-researcher"
+  "targets": {
+    "studyfind-researcher": {
+      "hosting": {
+        "researcher": [
+          "studyfind-researcher"
+        ]
+      }
+    },
+    "studyfind-development": {
+      "hosting": {
+        "researcher": [
+          "development-researcher"
+        ]
+      }
+    }
   }
 }
