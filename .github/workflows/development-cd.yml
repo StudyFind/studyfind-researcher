@@ -23,7 +23,7 @@ jobs:
           REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.DEVELOPMENT_FIREBASE_STORAGE_BUCKET}}
           EOF
       - run: ls -l
-      - run: cat .env
+      - run: cat .env.development
       - run: npm ci
       - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
