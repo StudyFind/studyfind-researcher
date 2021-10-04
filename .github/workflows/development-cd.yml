@@ -19,7 +19,7 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run build
-      - run: npx firebase deploy --token $FIREBASE_TOKEN --only hosting --project studyfind-development
+      - run: npx firebase deploy --only hosting --project studyfind-development --token $FIREBASE_TOKEN
         env:
           REACT_APP_FIREBASE_API_KEY: ${{secrets.DEVELOPMENT_FIREBASE_API_KEY}}
           REACT_APP_FIREBASE_APP_ID: ${{secrets.DEVELOPMENT_FIREBASE_APP_ID}}
