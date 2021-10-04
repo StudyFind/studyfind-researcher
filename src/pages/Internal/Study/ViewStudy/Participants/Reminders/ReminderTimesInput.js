@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 
 import { useState, useEffect } from "react";
 import { Flex, Tag, TagCloseButton, TagLabel, Button } from "@chakra-ui/react";

@@ -82,7 +82,9 @@ export const MeetingsProvider = ({ children }) => {
   };
 
   const handleSave = (data) => {
-    const promise = selectedMeeting ? updateMeeting(selectedMeeting.id, data) : createMeeting(data);
+    const promise = selectedMeeting
+      ? updateMeeting(selectedMeeting.id, data)
+      : createMeeting(data);
     promise.then(() => setIsEditing(false));
   };
 

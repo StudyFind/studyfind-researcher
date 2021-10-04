@@ -8,7 +8,11 @@ function Questions({ questions, responses }) {
     <Grid gap="15px" padding="20px">
       {questions.length ? (
         questions?.map((_, i) => (
-          <QuestionCard key={i} question={questions[i]} response={responses[i]} />
+          <QuestionCard
+            key={i}
+            question={questions[i]}
+            response={responses[i]}
+          />
         ))
       ) : (
         <Message

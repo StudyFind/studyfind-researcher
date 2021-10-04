@@ -40,7 +40,9 @@ function QuestionsEdit({ study, setEdit }) {
     </>
   );
 
-  return <QuestionsForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />;
+  return (
+    <QuestionsForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />
+  );
 }
 
 export default QuestionsEdit;

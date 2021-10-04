@@ -8,7 +8,10 @@ function DashboardButton({ verified }) {
 
   return (
     <Tooltip
-      label={!verified && "You must verify your email before you can create any studies"}
+      label={
+        !verified &&
+        "You must verify your email before you can create any studies"
+      }
       placement="bottom"
     >
       <Box width="fit-content">

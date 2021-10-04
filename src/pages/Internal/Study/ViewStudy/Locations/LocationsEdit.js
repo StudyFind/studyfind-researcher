@@ -40,7 +40,9 @@ function LocationsEdit({ study, setEdit }) {
     </>
   );
 
-  return <LocationsForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />;
+  return (
+    <LocationsForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />
+  );
 }
 
 export default LocationsEdit;

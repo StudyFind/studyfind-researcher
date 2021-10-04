@@ -1,7 +1,13 @@
 import FilesForm from "components/feature/Study/FilesEdit/FilesForm";
 import TabHeader from "../TabHeader";
 
-function FilesEdit({ setEdit, uploading, uploadError, uploadStatus, handleUpload }) {
+function FilesEdit({
+  setEdit,
+  uploading,
+  uploadError,
+  uploadStatus,
+  handleUpload,
+}) {
   const handleCancel = () => {
     setEdit(false);
   };

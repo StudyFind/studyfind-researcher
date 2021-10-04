@@ -79,7 +79,9 @@ function Status({ participant, handleClose }) {
           />
         </Card>
         <Flex gridGap="10px" justify="flex-end">
-          <SecondaryButton onClick={() => handleCancel()}>Cancel</SecondaryButton>
+          <SecondaryButton onClick={() => handleCancel()}>
+            Cancel
+          </SecondaryButton>
           <Button
             colorScheme="blue"
             onClick={() => handleSubmit()}

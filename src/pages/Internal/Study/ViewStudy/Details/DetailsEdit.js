@@ -40,7 +40,9 @@ function DetailsEdit({ study, setEdit }) {
     </>
   );
 
-  return <DetailsForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />;
+  return (
+    <DetailsForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />
+  );
 }
 
 export default DetailsEdit;

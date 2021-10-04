@@ -40,7 +40,9 @@ function ResourcesEdit({ study, setEdit }) {
     </>
   );
 
-  return <ResourcesForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />;
+  return (
+    <ResourcesForm study={study} onSubmit={handleUpdate} Wrapper={Wrapper} />
+  );
 }
 
 export default ResourcesEdit;

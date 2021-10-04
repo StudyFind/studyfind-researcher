@@ -98,10 +98,30 @@ function CreateStudy() {
   const handleResources = (data) => handleContinue({ resources: data });
 
   const steps = [
-    <DetailsForm key={0} study={study} onSubmit={handleDetails} Wrapper={Wrapper} />,
-    <LocationsForm key={1} study={study} onSubmit={handleLocations} Wrapper={Wrapper} />,
-    <QuestionsForm key={2} study={study} onSubmit={handleQuestions} Wrapper={Wrapper} />,
-    <ResourcesForm key={3} study={study} onSubmit={handleResources} Wrapper={Wrapper} />,
+    <DetailsForm
+      key={0}
+      study={study}
+      onSubmit={handleDetails}
+      Wrapper={Wrapper}
+    />,
+    <LocationsForm
+      key={1}
+      study={study}
+      onSubmit={handleLocations}
+      Wrapper={Wrapper}
+    />,
+    <QuestionsForm
+      key={2}
+      study={study}
+      onSubmit={handleQuestions}
+      Wrapper={Wrapper}
+    />,
+    <ResourcesForm
+      key={3}
+      study={study}
+      onSubmit={handleResources}
+      Wrapper={Wrapper}
+    />,
     <Review key={4} study={study} goBack={goBack} Wrapper={Wrapper} />,
   ];
 

@@ -1,6 +1,6 @@
 import { useCollection } from "hooks";
 import { auth, firestore } from "database/firebase";
-import moment from "moment";
+import moment from "moment-timezone";
 
 import MeetingsLoading from "./MeetingsLoading";
 import MeetingsError from "./MeetingsError";

@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 
 import { useState, createContext } from "react";
 import { usePagination } from "hooks";
@@ -76,7 +76,9 @@ export const NotesProvider = ({ children }) => {
   };
 
   const handleSave = (data) => {
-    const promise = selectedNote ? updateNote(selectedNote.id, data) : createNote(data);
+    const promise = selectedNote
+      ? updateNote(selectedNote.id, data)
+      : createNote(data);
     promise.then(() => setIsEditing(false));
   };
 

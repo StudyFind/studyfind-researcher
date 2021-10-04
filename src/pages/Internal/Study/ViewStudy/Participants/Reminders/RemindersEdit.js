@@ -3,7 +3,12 @@ import { datetime, helpers, object } from "utils";
 
 import { RemindersContext } from "./RemindersContext";
 
-import { TextInput, DateInput, ToggleSelectInput, SecondaryButton } from "components";
+import {
+  TextInput,
+  DateInput,
+  ToggleSelectInput,
+  SecondaryButton,
+} from "components";
 import { Grid, Flex, FormLabel, Button } from "@chakra-ui/react";
 
 import ReminderTimesInput from "./ReminderTimesInput";
@@ -64,7 +69,9 @@ function RemindersEdit() {
 
   useEffect(() => {
     if (selectedReminder) {
-      const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(selectedReminder.times);
+      const [weekdays, times] = helpers.convertOffsetsToWeekdaysAndTimes(
+        selectedReminder.times
+      );
       const { title, startDate, endDate } = selectedReminder;
 
       const reminderInputs = { title, times, weekdays, startDate, endDate };
@@ -85,7 +92,10 @@ function RemindersEdit() {
 
     handleSave({
       title: values.title,
-      times: helpers.convertWeekdaysAndTimesToOffsets(values.weekdays, values.times),
+      times: helpers.convertWeekdaysAndTimesToOffsets(
+        values.weekdays,
+        values.times
+      ),
       startDate: values.startDate,
       endDate: values.endDate,
     });
@@ -126,7 +136,11 @@ function RemindersEdit() {
       </div>
       <div>
         <FormLabel>Reminder Times</FormLabel>
-        <ReminderTimesInput times={values.times} error={errors.times} handleChange={handleChange} />
+        <ReminderTimesInput
+          times={values.times}
+          error={errors.times}
+          handleChange={handleChange}
+        />
       </div>
       <Flex gridGap="16px">
         <DateInput

@@ -12,15 +12,18 @@ function Activate({ study }) {
         <Heading size="md" mr="10px">
           Recruitment Status
         </Heading>
-        <Badge colorScheme={study.activated ? "green" : "red"} fontSize="0.8rem">
+        <Badge
+          colorScheme={study.activated ? "green" : "red"}
+          fontSize="0.8rem"
+        >
           {study.activated ? "ACTIVE" : "INACTIVE"}
         </Badge>
       </Flex>
       <Text color="gray.500" my="8px">
-        Your study recruitment status corresponds to whether you are currently accepting
-        participants into your study. A status of <strong>active</strong> allows participants to
-        enroll, while a status of <strong>inactive</strong> hides the study from potential
-        participants.
+        Your study recruitment status corresponds to whether you are currently
+        accepting participants into your study. A status of{" "}
+        <strong>active</strong> allows participants to enroll, while a status of{" "}
+        <strong>inactive</strong> hides the study from potential participants.
       </Text>
 
       <Box display="inline">

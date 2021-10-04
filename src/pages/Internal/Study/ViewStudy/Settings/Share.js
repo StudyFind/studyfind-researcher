@@ -11,7 +11,8 @@ function Share({ study }) {
       </Heading>
       <Box my="8px">
         <Text color="gray.500">
-          You can share this link with participants so they can find your study after signing in:
+          You can share this link with participants so they can find your study
+          after signing in:
         </Text>
         <Link to={link}>{link}</Link>
       </Box>
