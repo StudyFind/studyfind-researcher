@@ -14,7 +14,7 @@ jobs:
         with:
           clean: "false"
       - run: |
-          cat << EOF > .env.development
+          cat << EOF > .env
           REACT_APP_FIREBASE_API_KEY: ${{secrets.DEVELOPMENT_FIREBASE_API_KEY}}
           REACT_APP_FIREBASE_APP_ID: ${{secrets.DEVELOPMENT_FIREBASE_APP_ID}}
           REACT_APP_FIREBASE_AUTH_DOMAIN: ${{secrets.DEVELOPMENT_FIREBASE_AUTH_DOMAIN}}
@@ -23,7 +23,7 @@ jobs:
           REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.DEVELOPMENT_FIREBASE_STORAGE_BUCKET}}
           EOF
       - run: ls -la
-      - run: cat .env.development
+      - run: cat .env
       - run: npm ci
       - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
