@@ -1,12 +1,12 @@
 import firebase from "firebase";
 
 const app = firebase.initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  apiKey: "AIzaSyA2HhlpEPOZzuClQ-svONo3I9quxom1C9w",
+  authDomain: "studyfind-development.firebaseapp.com",
+  projectId: "studyfind-development",
+  storageBucket: "studyfind-development.appspot.com",
+  messagingSenderId: "629466210039",
+  appId: "1:629466210039:web:a018f233b4e6cd9491bdf2",
 });
 
 const auth = app.auth();
