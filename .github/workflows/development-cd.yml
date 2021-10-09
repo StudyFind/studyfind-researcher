@@ -24,6 +24,7 @@ jobs:
           EOF
       - run: ls -la
       - run: cat .env.development
+      - run: echo $REACT_APP_FIREBASE_API_KEY
       - run: npm ci
       - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
