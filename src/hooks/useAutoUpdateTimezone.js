@@ -16,7 +16,7 @@ function useAutoUpdateTimezone(user) {
       if (
         autodetect &&
         region !== detected &&
-        (!lastUpdated || lastUpdated + thirtyMinutes < now)
+        lastUpdated + thirtyMinutes > now
       ) {
         firestore
           .collection("researchers")
