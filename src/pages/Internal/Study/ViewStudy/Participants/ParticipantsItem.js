@@ -60,32 +60,17 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
           onClick={() => handleOpen(participant.id, "notes")}
         />
         <ActionButton
-          hint={
-            plan !== "STANDARD"
-              ? "Standard subscription required to access the meetings feature"
-              : "Meetings"
-          }
-          isDisabled={plan !== "STANDARD"}
+          hint="Meetings"
           icon={<FaCalendar />}
           onClick={() => handleOpen(participant.id, "meetings")}
         />
         <ActionButton
-          hint={
-            plan !== "STANDARD"
-              ? "Standard subscription required to access the reminders feature"
-              : "Reminders"
-          }
-          isDisabled={plan !== "STANDARD"}
+          hint="Reminders"
           icon={<FaClock />}
           onClick={() => handleOpen(participant.id, "reminders")}
         />
         <ActionButton
-          hint={
-            plan !== "PREMIUM"
-              ? "Premium subscription required to access the messages feature"
-              : "Messages"
-          }
-          isDisabled={plan !== "PREMIUM"}
+          hint="Messages"
           icon={<FaComment />}
           onClick={() => handleOpen(participant.id, "messages")}
         />
