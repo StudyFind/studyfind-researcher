@@ -47,7 +47,7 @@ function NotificationItem({ notification, handleNotificationRead }) {
     original notification.read value would be true when the component first renders
   */
 
-  const { code, time, title, description, link, read } = notification;
+  const { code, time, title, body, link, read } = notification;
 
   const { icon, color } = {
     CREATE_ACCOUNT: { icon: FaMagic, color: "purple" },
@@ -66,7 +66,8 @@ function NotificationItem({ notification, handleNotificationRead }) {
     RESEARCHER_CHANGED_PARTICIPANT_STATUS: { icon: FaDotCircle, color: "teal" },
     MEETING_NOW: { icon: FaCalendarDay, color: "cyan" },
     REMINDER_NOW: { icon: FaClock, color: "cyan" },
-  }[code];
+    NEW_MESSAGE: { icon: FaClock, color: "cyan" },
+  }[code] || { icon: FaUser, color: "teal" };
 
   useEffect(() => {
     if (!initialRead) {
@@ -114,7 +115,7 @@ function NotificationItem({ notification, handleNotificationRead }) {
               <NotificationTime time={time} />
             </Flex>
             <Text fontSize="sm" color="gray.500">
-              {description}
+              {body}
             </Text>
           </Box>
         </Flex>
