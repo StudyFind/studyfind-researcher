@@ -1,3 +1,6 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
 name: Development CD
 
 on:
@@ -11,34 +14,19 @@ jobs:
       CI: false
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          clean: "false"
-      - run: |
-          cat << EOF > .env
-          REACT_APP_FIREBASE_API_KEY: ${{secrets.DEVELOPMENT_FIREBASE_API_KEY}}
-          REACT_APP_FIREBASE_APP_ID: ${{secrets.DEVELOPMENT_FIREBASE_APP_ID}}
-          REACT_APP_FIREBASE_AUTH_DOMAIN: ${{secrets.DEVELOPMENT_FIREBASE_AUTH_DOMAIN}}
-          REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{secrets.DEVELOPMENT_FIREBASE_MESSAGING_SENDER_ID}}
-          REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.DEVELOPMENT_FIREBASE_PROJECT_ID}}
-          REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.DEVELOPMENT_FIREBASE_STORAGE_BUCKET}}
-          EOF
-      - run: ls -la
-      - run: cat .env
+          node-version: 12
       - run: npm ci
       - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: w9jds/firebase-action@master
         with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_STUDYFIND_DEVELOPMENT }}"
-          channelId: live
-          projectId: studyfind-development
-          target: researcher
+          args: deploy --only hosting --project studyfind-development
         env:
-          FIREBASE_CLI_PREVIEWS: hostingchannels
+          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
           REACT_APP_FIREBASE_API_KEY: ${{secrets.DEVELOPMENT_FIREBASE_API_KEY}}
           REACT_APP_FIREBASE_APP_ID: ${{secrets.DEVELOPMENT_FIREBASE_APP_ID}}
           REACT_APP_FIREBASE_AUTH_DOMAIN: ${{secrets.DEVELOPMENT_FIREBASE_AUTH_DOMAIN}}
           REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{secrets.DEVELOPMENT_FIREBASE_MESSAGING_SENDER_ID}}
           REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.DEVELOPMENT_FIREBASE_PROJECT_ID}}
           REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.DEVELOPMENT_FIREBASE_STORAGE_BUCKET}}
-      - run: echo $REACT_APP_FIREBASE_API_KEY
