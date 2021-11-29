@@ -16,7 +16,7 @@ function ParticipantsDrawer({
   participant,
   handleClose,
 }) {
-  const participantID = participant?.id;
+  const participantID = participant?.firstname ? participant.firstname : participant?.id
   const timezone = participant?.timezone?.region;
 
   const render = {
