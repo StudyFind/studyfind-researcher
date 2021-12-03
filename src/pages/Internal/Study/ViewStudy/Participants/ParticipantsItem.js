@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { PlanContext } from "context";
-
 import { Text, Avatar, Badge, Flex } from "@chakra-ui/react";
 import { ActionButton } from "components";
 import {
@@ -12,8 +9,6 @@ import {
 } from "react-icons/fa";
 
 function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
-  const plan = useContext(PlanContext);
-
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -22,6 +17,9 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
     rejected: "red",
   };
 
+  const color = participant?.color || "blue.500";
+  const fakename = participant?.fakename || participant?.id;
+
   return (
     <Flex align="center" gridGap="10px" padding="10px">
       <Avatar
@@ -29,11 +27,11 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
         width="30px"
         height="30px"
         color="white"
-        background={participant?.color ? participant.color : 'blue.500'}
-        name={participant?.firstname ? participant.firstname : participant.id}
+        background={color}
+        name={fakename}
       />
       <Text fontWeight="500" mr="auto">
-        {participant?.firstname ? participant.firstname : participant.id}
+        {fakename}
       </Text>
       <Badge
         size="sm"
