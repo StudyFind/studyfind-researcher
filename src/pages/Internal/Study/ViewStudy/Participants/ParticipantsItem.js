@@ -29,11 +29,11 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
         width="30px"
         height="30px"
         color="white"
-        background="blue.500"
-        name={participant.id}
+        background={participant?.color ? participant.color : 'blue.500'}
+        name={participant?.firstname ? participant.firstname : participant.id}
       />
       <Text fontWeight="500" mr="auto">
-        {participant.id}
+        {participant?.firstname ? participant.firstname : participant.id}
       </Text>
       <Badge
         size="sm"
