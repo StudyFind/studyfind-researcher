@@ -74,6 +74,7 @@ function Participants({ study }) {
         fetchedAll={fetchedAll}
         loadingMore={loadingMore}
         handleLoadMore={handleLoadMore}
+        study={study}
       />
       <ParticipantsDrawer
         action={action}

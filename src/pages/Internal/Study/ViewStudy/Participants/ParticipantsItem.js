@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { PlanContext } from "context";
 
-import { Text, Avatar, Badge, Flex } from "@chakra-ui/react";
+import { Text, Avatar, Badge, Flex, Editable, EditableInput, EditablePreview, useEditableControls, ButtonGroup, IconButton } from "@chakra-ui/react";
 import { ActionButton } from "components";
 import {
   FaClock,
@@ -9,10 +9,60 @@ import {
   FaClipboard,
   FaStickyNote,
   FaComment,
+  FaCheck,
+  FaTimes,
+  FaEdit
 } from "react-icons/fa";
+import { studyParticipant } from "database/mutations"
 
-function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
+function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
   const plan = useContext(PlanContext);
+  const [displayName, setDisplayName] = useState(participant?.firstname ? participant.firstname : participant.id)
+
+  function CustomControlsExample() {
+    /* Here's a custom control */
+
+    const [placeHolder, setplaceHolder] = useState(displayName)
+
+    const handleConfirm = () => {
+      studyParticipant.updateName(study.id, participant.id, {name: "hey"})
+      setplaceHolder("hey")
+    }
+
+    function EditableControls() {
+      const {
+        isEditing,
+        getSubmitButtonProps,
+        getCancelButtonProps,
+      } = useEditableControls()
+  
+      return isEditing && (
+        <ButtonGroup color="#718096" justifyContent='center' size='sm'>
+          <IconButton onClickCapture={handleConfirm} background={"white"} icon={<FaCheck />} {...getSubmitButtonProps()} />
+          <IconButton onClickCapture={() => {setplaceHolder(displayName)}} background={"white"} icon={<FaTimes />} {...getCancelButtonProps()} />
+        </ButtonGroup>
+      )
+    }
+  
+    return (
+      <Editable
+        defaultValue={placeHolder}
+        fontWeight="500"
+        mr="auto"
+        value={placeHolder}
+        onChange={(val) => {setplaceHolder(val)}}
+        onSubmit={() => {setplaceHolder(displayName)}}
+      >
+        <Flex align="center" gridGap="10px">
+          <Flex>
+          <EditablePreview paddingLeft="10px" />
+          <EditableInput paddingLeft="10px" />
+          </Flex>
+          <EditableControls />
+        </Flex>
+      </Editable>
+    )
+  }
 
   const statusColors = {
     interested: "gray",
@@ -30,11 +80,9 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
         height="30px"
         color="white"
         background={participant?.color ? participant.color : 'blue.500'}
-        name={participant?.firstname ? participant.firstname : participant.id}
+        name={displayName}
       />
-      <Text fontWeight="500" mr="auto">
-        {participant?.firstname ? participant.firstname : participant.id}
-      </Text>
+      <CustomControlsExample />
       <Badge
         size="sm"
         cursor="pointer"
