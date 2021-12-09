@@ -15,15 +15,23 @@ import {
 import { studyParticipant } from "database/mutations"
 
 function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
-  const plan = useContext(PlanContext);
-  const displayName = participant?.firstname ? participant.firstname : participant.id
+  const statusColors = {
+    interested: "gray",
+    screened: "purple",
+    consented: "cyan",
+    accepted: "green",
+    rejected: "red",
+  };
 
+  const color = participant?.color || "blue.500";
+  const fakename = participant?.fakename || participant?.id;
+  
   function EditableParticipantName() {
     
-    const [placeHolder, setplaceHolder] = useState(displayName)
+    const [placeHolder, setplaceHolder] = useState(fakename)
 
     const handleConfirm = () => {
-      studyParticipant.updateName(study.id, participant.id, {firstname: placeHolder})
+      studyParticipant.updateName(study.id, participant.id, {fakename: placeHolder})
     }
 
     function EditableControls() {
@@ -48,7 +56,8 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
         mr="auto"
         value={placeHolder}
         onChange={(val) => {setplaceHolder(val)}}
-        onSubmit={() => {setplaceHolder(displayName)}}
+        //This doesn't actually submit anything, its used to listen for clicks outside the edit box
+        onSubmit={() => {setplaceHolder(fakename)}}
       >
         <Flex align="center" gridGap="10px">
           <Flex>
@@ -60,15 +69,7 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
       </Editable>
     )
   }
-
-  const statusColors = {
-    interested: "gray",
-    screened: "purple",
-    consented: "cyan",
-    accepted: "green",
-    rejected: "red",
-  };
-
+  <EditableParticipantName />
   return (
     <Flex align="center" gridGap="10px" padding="10px">
       <Avatar
@@ -76,10 +77,9 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
         width="30px"
         height="30px"
         color="white"
-        background={participant?.color ? participant.color : 'blue.500'}
-        name={displayName}
+        background={color}
+        name={fakename}
       />
-      <EditableParticipantName />
       <Badge
         size="sm"
         cursor="pointer"
