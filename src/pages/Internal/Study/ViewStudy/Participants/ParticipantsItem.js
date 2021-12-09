@@ -69,7 +69,6 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
       </Editable>
     )
   }
-  <EditableParticipantName />
   return (
     <Flex align="center" gridGap="10px" padding="10px">
       <Avatar
@@ -80,6 +79,7 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
         background={color}
         name={fakename}
       />
+      <EditableParticipantName />
       <Badge
         size="sm"
         cursor="pointer"
