@@ -11,22 +11,19 @@ import {
   FaComment,
   FaCheck,
   FaTimes,
-  FaEdit
 } from "react-icons/fa";
 import { studyParticipant } from "database/mutations"
 
 function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
   const plan = useContext(PlanContext);
-  const [displayName, setDisplayName] = useState(participant?.firstname ? participant.firstname : participant.id)
+  const displayName = participant?.firstname ? participant.firstname : participant.id
 
-  function CustomControlsExample() {
-    /* Here's a custom control */
-
+  function EditableParticipantName() {
+    
     const [placeHolder, setplaceHolder] = useState(displayName)
 
     const handleConfirm = () => {
-      studyParticipant.updateName(study.id, participant.id, {name: "hey"})
-      setplaceHolder("hey")
+      studyParticipant.updateName(study.id, participant.id, {firstname: placeHolder})
     }
 
     function EditableControls() {
@@ -39,7 +36,7 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
       return isEditing && (
         <ButtonGroup color="#718096" justifyContent='center' size='sm'>
           <IconButton onClickCapture={handleConfirm} background={"white"} icon={<FaCheck />} {...getSubmitButtonProps()} />
-          <IconButton onClickCapture={() => {setplaceHolder(displayName)}} background={"white"} icon={<FaTimes />} {...getCancelButtonProps()} />
+          <IconButton background={"white"} icon={<FaTimes />} {...getCancelButtonProps()} />
         </ButtonGroup>
       )
     }
@@ -82,7 +79,7 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
         background={participant?.color ? participant.color : 'blue.500'}
         name={displayName}
       />
-      <CustomControlsExample />
+      <EditableParticipantName />
       <Badge
         size="sm"
         cursor="pointer"

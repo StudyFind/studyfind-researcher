@@ -12,8 +12,8 @@ const updateParticipantStatus = (studyID, participantID, { status }) => {
   return getStudyParticipantRef(studyID, participantID).update({ status });
 };
 
-const updateParticipantName = (studyID, participantID, { name }) => {
-  console.log(studyID, participantID, name)
+const updateParticipantName = (studyID, participantID, { firstname }) => {
+  return getStudyParticipantRef(studyID, participantID).update({ firstname });
 }
 
 export const studyParticipant = {
