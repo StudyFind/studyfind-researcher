@@ -1,7 +1,15 @@
-import { useContext, useState } from "react";
-import { PlanContext } from "context";
-
-import { Text, Avatar, Badge, Flex, Editable, EditableInput, EditablePreview, useEditableControls, ButtonGroup, IconButton } from "@chakra-ui/react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { studyParticipant } from "database/mutations";
+import {
+  Text,
+  Avatar,
+  Badge,
+  Flex,
+  Editable,
+  EditableInput,
+  EditablePreview,
+} from "@chakra-ui/react";
 import { ActionButton } from "components";
 import {
   FaClock,
@@ -9,12 +17,10 @@ import {
   FaClipboard,
   FaStickyNote,
   FaComment,
-  FaCheck,
-  FaTimes,
 } from "react-icons/fa";
-import { studyParticipant } from "database/mutations"
 
-function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
+function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
+  const { studyID } = useParams();
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -25,49 +31,40 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
 
   const color = participant?.color || "blue.500";
   const fakename = participant?.fakename || participant?.id;
-  
+
   function EditableParticipantName() {
-    
-    const [placeHolder, setplaceHolder] = useState(fakename)
+    const [placeholder, setPlaceholder] = useState(fakename);
 
     const handleConfirm = () => {
-      studyParticipant.updateName(study.id, participant.id, {fakename: placeHolder})
-    }
+      studyParticipant.updateFakename(studyID, participant.id, {
+        fakename: placeholder,
+      });
+    };
 
-    function EditableControls() {
-      const {
-        isEditing,
-        getSubmitButtonProps,
-        getCancelButtonProps,
-      } = useEditableControls()
-  
-      return isEditing && (
-        <ButtonGroup color="#718096" justifyContent='center' size='sm'>
-          <IconButton onClickCapture={handleConfirm} background={"white"} icon={<FaCheck />} {...getSubmitButtonProps()} />
-          <IconButton background={"white"} icon={<FaTimes />} {...getCancelButtonProps()} />
-        </ButtonGroup>
-      )
-    }
-  
     return (
       <Editable
-        defaultValue={placeHolder}
+        defaultValue={placeholder}
         fontWeight="500"
         mr="auto"
-        value={placeHolder}
-        onChange={(val) => {setplaceHolder(val)}}
+        value={placeholder}
+        width="100%"
+        onChange={(val) => {
+          setPlaceholder(val);
+        }}
         //This doesn't actually submit anything, its used to listen for clicks outside the edit box
-        onSubmit={() => {setplaceHolder(fakename)}}
+        onSubmit={() => {
+          setPlaceholder(fakename);
+        }}
       >
-        <Flex align="center" gridGap="10px">
-          <Flex>
-          <EditablePreview paddingLeft="10px" />
-          <EditableInput paddingLeft="10px" />
-          </Flex>
-          <EditableControls />
-        </Flex>
+        {/* <Flex align="center" gridGap="10px"> */}
+        {/* <Flex> */}
+        <EditablePreview paddingLeft="10px" />
+        <EditableInput paddingLeft="10px" />
+        {/* </Flex> */}
+        {/* <EditableControls handleConfirm={handleConfirm} /> */}
+        {/* </Flex> */}
       </Editable>
-    )
+    );
   }
   return (
     <Flex align="center" gridGap="10px" padding="10px">
@@ -79,7 +76,7 @@ function ParticipantsItem({ study, participant, handleOpen, hasQuestions }) {
         background={color}
         name={fakename}
       />
-      <EditableParticipantName />
+      <EditableParticipantName participant={participant} fakename={fakename} />
       <Badge
         size="sm"
         cursor="pointer"

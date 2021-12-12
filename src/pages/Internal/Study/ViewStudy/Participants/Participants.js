@@ -15,16 +15,9 @@ function Participants({ study }) {
   const {
     participants,
     loading,
-    // error,
     loadingMore,
     handleLoadMore,
     fetchedAll,
-    // filters,
-    // toggleFilters,
-    // setToggleFilters,
-    // handleChangeFilter,
-    // handleClearFilters,
-    // areFiltersApplied,
   } = useParticipantQueryWithFilters(study);
 
   const selectedParticipant = participants.find(
@@ -74,7 +67,6 @@ function Participants({ study }) {
         fetchedAll={fetchedAll}
         loadingMore={loadingMore}
         handleLoadMore={handleLoadMore}
-        study={study}
       />
       <ParticipantsDrawer
         action={action}

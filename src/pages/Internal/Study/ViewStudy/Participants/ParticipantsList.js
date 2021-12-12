@@ -10,14 +10,12 @@ function ParticipantsList({
   fetchedAll,
   loadingMore,
   handleLoadMore,
-  study
 }) {
   return (
     <VStack spacing="20px">
       <Card width="100%">
         {participants.map((participant) => (
           <ParticipantsItem
-            study={study}
             key={participant.id}
             hasQuestions={hasQuestions}
             participant={participant}
