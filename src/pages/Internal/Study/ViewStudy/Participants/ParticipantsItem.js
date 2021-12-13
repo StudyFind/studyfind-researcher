@@ -18,6 +18,7 @@ import {
   FaStickyNote,
   FaComment,
 } from "react-icons/fa";
+import EditableControls from "components/feature/Participants/EditableControls";
 
 function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
   const { studyID } = useParams();
@@ -56,13 +57,13 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
           setPlaceholder(fakename);
         }}
       >
-        {/* <Flex align="center" gridGap="10px"> */}
-        {/* <Flex> */}
-        <EditablePreview paddingLeft="10px" />
-        <EditableInput paddingLeft="10px" />
-        {/* </Flex> */}
-        {/* <EditableControls handleConfirm={handleConfirm} /> */}
-        {/* </Flex> */}
+        <Flex align="center" gridGap="10px">
+          <Flex>
+            <EditablePreview paddingLeft="10px" />
+            <EditableInput paddingLeft="10px" />
+          </Flex>
+          <EditableControls handleConfirm={handleConfirm} />
+        </Flex>
       </Editable>
     );
   }
