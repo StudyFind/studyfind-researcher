@@ -13,7 +13,7 @@ function FilesForm({
 
   return (
     <>
-      <Grid gap="16px" width="300px">
+      <Grid alignItems="center" gap="16px" width="300px">
         {uploading ? (
           <Progress hasStripe value={uploadStatus} colorScheme="blue" />
         ) : (

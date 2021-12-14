@@ -15,12 +15,13 @@ const getMessageRef = (studyID, participantID, messageID) => {
 };
 
 export const message = {
-  send: (studyID, participantID, { text }) =>
+  send: (studyID, participantID, { text }, hasAttachment = false) =>
     getMessagesRef(studyID, participantID).add({
       text,
       time: getNow(),
       user: getUID(),
       read: false,
+      hasAttachment,
     }),
 
   read: (studyID, participantID, messageID) =>
