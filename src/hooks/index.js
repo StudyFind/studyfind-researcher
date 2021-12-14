@@ -54,6 +54,7 @@ export { default as useResourcesForm } from "./feature/useResourcesForm";
 export { default as useFeedbackInputs } from "./feature/useFeedbackInputs";
 export { default as useFilesForm } from "./feature/useFilesForm";
 export { default as useFiles } from "./feature/useFiles";
+export { default as useMessageFiles } from "./feature/useMessageFiles";
 export { default as useParticipantQueryWithFilters } from "./feature/useParticipantQueryWithFilters";
 // export { default as useMeeting } from "./useMeeting";
 // export { default as useReminder } from "./useReminder";

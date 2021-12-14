@@ -15,14 +15,27 @@ const getMessageRef = (studyID, participantID, messageID) => {
 };
 
 export const message = {
-  send: (studyID, participantID, { text }, hasAttachment = false) =>
-    getMessagesRef(studyID, participantID).add({
-      text,
-      time: getNow(),
-      user: getUID(),
-      read: false,
-      hasAttachment,
-    }),
+  send: (
+    studyID,
+    participantID,
+    { text },
+    hasAttachment = false,
+    file = "",
+    handleUpload = ""
+  ) => {
+    const now = getNow();
+    return getMessagesRef(studyID, participantID)
+      .add({
+        text,
+        time: now,
+        user: getUID(),
+        read: false,
+        hasAttachment,
+      })
+      .then(() => {
+        hasAttachment && handleUpload(now, file);
+      });
+  },
 
   read: (studyID, participantID, messageID) =>
     getMessageRef(studyID, participantID, messageID).update({

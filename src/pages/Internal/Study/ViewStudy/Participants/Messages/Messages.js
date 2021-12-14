@@ -10,10 +10,19 @@ import { Loader } from "components";
 import MessageList from "components/feature/Participants/Messages/MessageList";
 import MessageInput from "components/feature/Participants/Messages/MessageInput";
 import FilesForm from "components/feature/Study/FilesEdit/FilesForm";
+import { useMessageFiles } from "hooks";
 
 function Messages() {
   const { studyID, participantID } = usePathParams();
   const [isUploadView, setisUploadView] = useState(false);
+  const {
+    uploadError,
+    uploadStatus,
+    uploadSuccess,
+    uploading,
+    handleOpen,
+    handleUpload,
+  } = useMessageFiles(studyID, participantID);
 
   const bottomRef = useRef();
 
@@ -43,9 +52,14 @@ function Messages() {
     }
   }, [loading]);
 
-  const handleMessageSend = (text, hasAttachment = false) => {
+  const handleMessageSend = (
+    text,
+    hasAttachment = false,
+    file = "",
+    handleUpload = ""
+  ) => {
     return message
-      .send(studyID, participantID, { text }, hasAttachment)
+      .send(studyID, participantID, { text }, hasAttachment, file, handleUpload)
       .then(() => scrollToBottom());
   };
 
@@ -62,8 +76,8 @@ function Messages() {
   };
 
   const handleFileUpload = (value) => {
-    const msg = value.name + ".pdf";
-    handleMessageSend(msg, true);
+    const msg = value.name;
+    handleMessageSend(msg, true, value.file, handleUpload);
     setisUploadView(false);
   };
 
@@ -74,6 +88,9 @@ function Messages() {
   return isUploadView ? (
     <Flex height="100%" justifyContent="center">
       <FilesForm
+        uploading={uploading}
+        uploadError={uploadError}
+        uploadStatus={uploadStatus}
         handleSubmit={handleFileUpload}
         handleCancel={handleCancelUpload}
       />
