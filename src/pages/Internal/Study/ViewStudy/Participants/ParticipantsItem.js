@@ -46,7 +46,6 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
       <Editable
         defaultValue={placeholder}
         fontWeight="500"
-        mr="auto"
         value={placeholder}
         width="100%"
         onChange={(val) => {
@@ -58,7 +57,7 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
         }}
       >
         <Flex align="center" gridGap="10px">
-          <Flex>
+          <Flex flexGrow="1">
             <EditablePreview paddingLeft="10px" />
             <EditableInput paddingLeft="10px" />
           </Flex>
