@@ -30,6 +30,7 @@ function CreateStudy() {
     type: "Observational",
     conditions: [],
 
+    isRemote: false,
     locations: [],
     questions: [],
     resources: [],
@@ -93,7 +94,8 @@ function CreateStudy() {
   };
 
   const handleDetails = (data) => handleContinue(data);
-  const handleLocations = (data) => handleContinue({ locations: data });
+  const handleLocations = (locationData, remote) =>
+    handleContinue({ locations: locationData, remote: remote });
   const handleQuestions = (data) => handleContinue({ questions: data });
   const handleResources = (data) => handleContinue({ resources: data });
 

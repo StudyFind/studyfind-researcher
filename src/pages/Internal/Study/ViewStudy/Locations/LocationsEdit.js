@@ -9,12 +9,14 @@ import TabHeader from "../TabHeader";
 function LocationsEdit({ study, setEdit }) {
   const [isSaving, setIsSaving] = useState(false);
 
-  const handleUpdate = (data) => {
+  const handleUpdate = (data, remote) => {
     setIsSaving(true);
-    researchStudy.update(study.id, { ...study, locations: data }).then(() => {
-      setIsSaving(false);
-      setEdit(false);
-    });
+    researchStudy
+      .update(study.id, { ...study, locations: data, isRemote: remote })
+      .then(() => {
+        setIsSaving(false);
+        setEdit(false);
+      });
   };
 
   const handleCancel = () => {

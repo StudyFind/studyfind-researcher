@@ -11,6 +11,7 @@ const assertCreateFields = ({
   acceptsHealthyVolunteers,
   questions,
   locations,
+  isRemote,
   resources,
   conditions,
 }) => ({
@@ -23,6 +24,7 @@ const assertCreateFields = ({
   acceptsHealthyVolunteers,
   questions,
   locations,
+  isRemote,
   resources,
   conditions,
 });
@@ -37,6 +39,7 @@ const assertUpdateFields = ({
   type,
   questions,
   locations,
+  isRemote,
   resources,
   conditions,
   activated,
@@ -50,6 +53,7 @@ const assertUpdateFields = ({
   type,
   questions,
   locations,
+  isRemote,
   resources,
   conditions,
   activated,
