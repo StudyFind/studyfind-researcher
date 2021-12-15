@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { studyParticipant } from "database/mutations";
-import {
-  Text,
-  Avatar,
-  Badge,
-  Flex,
-  Editable,
-  EditableInput,
-  EditablePreview,
-} from "@chakra-ui/react";
+
+import { Text, Avatar, Badge, Flex } from "@chakra-ui/react";
 import { ActionButton } from "components";
 import {
   FaClock,
@@ -18,10 +12,12 @@ import {
   FaStickyNote,
   FaComment,
 } from "react-icons/fa";
-import EditableControls from "components/feature/Participants/EditableControls";
+
+import EditableParticipantName from "pages/Internal/Study/ViewStudy/Participants/EditableParticipantName";
 
 function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
   const { studyID } = useParams();
+
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -33,39 +29,18 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
   const color = participant?.color || "blue.500";
   const fakename = participant?.fakename || participant?.id;
 
-  function EditableParticipantName() {
-    const [placeholder, setPlaceholder] = useState(fakename);
+  const [placeholder, setPlaceholder] = useState(fakename);
 
-    const handleConfirm = () => {
-      studyParticipant.updateFakename(studyID, participant.id, {
-        fakename: placeholder,
-      });
-    };
+  const handleChange = (val) => {
+    setPlaceholder(val);
+  };
 
-    return (
-      <Editable
-        defaultValue={placeholder}
-        fontWeight="500"
-        value={placeholder}
-        width="100%"
-        onChange={(val) => {
-          setPlaceholder(val);
-        }}
-        //This doesn't actually submit anything, its used to listen for clicks outside the edit box
-        onSubmit={() => {
-          setPlaceholder(fakename);
-        }}
-      >
-        <Flex align="center" gridGap="10px">
-          <Flex flexGrow="1">
-            <EditablePreview paddingLeft="10px" />
-            <EditableInput paddingLeft="10px" />
-          </Flex>
-          <EditableControls handleConfirm={handleConfirm} />
-        </Flex>
-      </Editable>
-    );
-  }
+  const handleConfirm = () => {
+    studyParticipant.updateFakename(studyID, participant.id, {
+      fakename: placeholder,
+    });
+  };
+
   return (
     <Flex align="center" gridGap="10px" padding="10px">
       <Avatar
@@ -76,7 +51,11 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
         background={color}
         name={fakename}
       />
-      <EditableParticipantName participant={participant} fakename={fakename} />
+      <EditableParticipantName
+        value={placeholder}
+        handleChange={handleChange}
+        handleConfirm={handleConfirm}
+      />
       <Badge
         size="sm"
         cursor="pointer"
