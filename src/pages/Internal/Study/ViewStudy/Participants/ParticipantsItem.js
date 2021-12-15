@@ -18,6 +18,8 @@ import EditableParticipantName from "pages/Internal/Study/ViewStudy/Participants
 function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
   const { studyID } = useParams();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const statusColors = {
     interested: "gray",
     screened: "purple",
@@ -36,9 +38,13 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
   };
 
   const handleConfirm = () => {
-    studyParticipant.updateFakename(studyID, participant.id, {
-      fakename: placeholder,
-    });
+    setIsLoading(true);
+
+    studyParticipant
+      .updateFakename(studyID, participant.id, {
+        fakename: placeholder,
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -53,6 +59,7 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
       />
       <EditableParticipantName
         value={placeholder}
+        isLoading={isLoading}
         handleChange={handleChange}
         handleConfirm={handleConfirm}
       />

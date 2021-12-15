@@ -1,7 +1,7 @@
 import { useEditableControls, ButtonGroup, IconButton } from "@chakra-ui/react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-function EditableControls({ handleConfirm }) {
+function EditableControls({ isLoading }) {
   const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
     useEditableControls();
 
@@ -9,14 +9,15 @@ function EditableControls({ handleConfirm }) {
     isEditing && (
       <ButtonGroup justifyContent="center" size="xs">
         <IconButton
-          onClickCapture={handleConfirm}
           colorScheme="green"
           icon={<FaCheck />}
+          isLoading={isLoading}
           {...getSubmitButtonProps()}
         />
         <IconButton
           colorScheme="red"
           icon={<FaTimes />}
+          isDisabled={isLoading}
           {...getCancelButtonProps()}
         />
       </ButtonGroup>

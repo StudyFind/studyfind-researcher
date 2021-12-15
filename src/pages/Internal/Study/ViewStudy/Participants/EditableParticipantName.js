@@ -7,7 +7,12 @@ import {
 
 import EditableControls from "components/feature/Participants/EditableControls";
 
-function EditableParticipantName({ value, handleChange, handleConfirm }) {
+function EditableParticipantName({
+  value,
+  isLoading,
+  handleChange,
+  handleConfirm,
+}) {
   return (
     <Editable
       defaultValue={value}
@@ -22,7 +27,7 @@ function EditableParticipantName({ value, handleChange, handleConfirm }) {
           <EditablePreview paddingLeft="10px" />
           <EditableInput paddingLeft="10px" />
         </Flex>
-        <EditableControls handleConfirm={handleConfirm} />
+        <EditableControls isLoading={isLoading} />
       </Flex>
     </Editable>
   );
