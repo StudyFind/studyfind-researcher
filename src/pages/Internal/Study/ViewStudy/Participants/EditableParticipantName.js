@@ -24,8 +24,8 @@ function EditableParticipantName({
     >
       <Flex align="center" gridGap="10px" maxWidth="300px">
         <Flex flexGrow="1">
-          <EditablePreview paddingLeft="10px" />
-          <EditableInput paddingLeft="10px" />
+          <EditablePreview />
+          <EditableInput paddingLeft="5px" />
         </Flex>
         <EditableControls isLoading={isLoading} />
       </Flex>
