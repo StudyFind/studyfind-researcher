@@ -15,16 +15,9 @@ function Participants({ study }) {
   const {
     participants,
     loading,
-    // error,
     loadingMore,
     handleLoadMore,
     fetchedAll,
-    // filters,
-    // toggleFilters,
-    // setToggleFilters,
-    // handleChangeFilter,
-    // handleClearFilters,
-    // areFiltersApplied,
   } = useParticipantQueryWithFilters(study);
 
   const selectedParticipant = participants.find(
