@@ -26,7 +26,7 @@ import Ivan from "images/interns/ivan.png";
 import Etna from "images/interns/etna.png";
 import Biraj from "images/interns/biraj.png";
 import Brandon from "images/interns/brandon.png";
-// import Placeholder from "images/interns/placeholder.png";
+import Placeholder from "images/interns/placeholder.png";
 
 import TeamMember from "components/feature/External/HomeSections/Team/TeamMember";
 
@@ -52,22 +52,10 @@ function Interns() {
           </Heading>
           <SimpleGrid columns={responsive([1, 2, 4])} spacingY="40px">
             <TeamMember
-              image={David}
-              name="David Chen"
-              position="Sr. Software Developer"
-              linkedinURL="https://www.linkedin.com/in/david-chen-105ba9158/"
-            />
-            <TeamMember
               image={Jeremy}
               name="Jeremy Webb"
               position="Sr. Software Developer"
               linkedinURL="https://www.linkedin.com/in/jwebb45/"
-            />
-            <TeamMember
-              image={Jonathon}
-              name="Jonathon Sisson"
-              position="Sr. Software Developer"
-              linkedinURL="https://www.linkedin.com/in/jonathon-sisson/"
             />
             <TeamMember
               image={Eric}
@@ -80,12 +68,6 @@ function Interns() {
               name="Jason Ji"
               position="Jr. Software Developer"
               linkedinURL="https://www.linkedin.com/in/jason-ji-566673166/"
-            />
-            <TeamMember
-              image={Ivan}
-              name="Ivan Yau"
-              position="Jr. Software Developer"
-              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
             />
             <TeamMember
               image={Etna}
@@ -106,16 +88,40 @@ function Interns() {
               linkedinURL="https://www.linkedin.com/in/brandon-banarsi/"
             />
             <TeamMember
-              image={Sandra}
-              name="Sandra Mustopa"
-              position="Marketing and Technical Writing"
-              linkedinURL="https://www.linkedin.com/in/sandra-mustopa7090-graphicdesigner/"
-            />
-            <TeamMember
               image={Randy}
               name="Randy Erickson"
               position="Marketing and Technical Writing"
               linkedinURL="https://www.linkedin.com/in/randy-erickson-2138878a/"
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Harini Prakash"
+              position="Sales Team"
+              linkedinURL="https://www.linkedin.com/"
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Drew Haaga"
+              position="Sales Team"
+              linkedinURL="https://www.linkedin.com/"
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Christian Armstrong"
+              position="Cybersecurity Team"
+              linkedinURL="https://www.linkedin.com/"
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Ameet Rahegaonkar"
+              position="Cybersecurity Team"
+              linkedinURL="https://www.linkedin.com/"
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Aakash Parekh"
+              position="Cybersecurity Team"
+              linkedinURL="https://www.linkedin.com/"
             />
           </SimpleGrid>
         </Box>
@@ -205,6 +211,30 @@ function Interns() {
               name="Keely Culbertson"
               position="Software Developer"
               linkedinURL="https://www.linkedin.com/in/keely-culbertson/"
+            />
+            <TeamMember
+              image={David}
+              name="David Chen"
+              position="Sr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/david-chen-105ba9158/"
+            />
+            <TeamMember
+              image={Jonathon}
+              name="Jonathon Sisson"
+              position="Sr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/jonathon-sisson/"
+            />
+            <TeamMember
+              image={Ivan}
+              name="Ivan Yau"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
+            />
+            <TeamMember
+              image={Sandra}
+              name="Sandra Mustopa"
+              position="Marketing and Technical Writing"
+              linkedinURL="https://www.linkedin.com/in/sandra-mustopa7090-graphicdesigner/"
             />
           </SimpleGrid>
         </Box>
