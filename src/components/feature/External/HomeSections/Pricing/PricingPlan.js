@@ -25,6 +25,7 @@ function PricingPlan({
       padding="24px"
       paddingTop="48px"
       position="relative"
+      minWidth="400px"
       overflow="hidden"
       shadow="lg"
       direction="column"
