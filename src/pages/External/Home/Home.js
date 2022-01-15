@@ -1,5 +1,5 @@
 import { useColor } from "hooks";
-import { Box, Divider } from "@chakra-ui/react";
+import { Box, Divider, Heading, Text } from "@chakra-ui/react";
 
 import Header from "components/feature/External/HomeSections/Header/Header";
 import Footer from "components/feature/External/HomeSections/Footer/Footer";
@@ -21,7 +21,58 @@ function HomePage() {
       <FeatureSection />
       <Divider borderColor={dividerColor} />
       <TeamSection />
-      <Divider borderColor={dividerColor} />
+      <div
+        style={{
+          display: "flex",
+          width: "100vw",
+          padding: "40px",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            textAlign: "center",
+          }}
+        >
+          <Heading size="2xl" fontWeight="900">
+            Our Mission
+          </Heading>
+          <Text mt="50px" color="gray.500">
+            This is some test text This is some test text This is some test text
+            This is some test text This is some test text This is some test text
+            This is some test text This is some test text This is some test text
+          </Text>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          width: "100vw",
+          padding: "40px",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            textAlign: "center",
+          }}
+        >
+          <Heading size="2xl" fontWeight="900">
+            Our Vision
+          </Heading>
+          <Text mt="50px" color="gray.500">
+            This is some test text This is some test text This is some test text
+            This is some test text This is some test text This is some test text
+            This is some test text This is some test text This is some test text
+          </Text>
+        </div>
+      </div>
       <PricingSection />
       <Divider borderColor={dividerColor} />
       <MailingSection />
