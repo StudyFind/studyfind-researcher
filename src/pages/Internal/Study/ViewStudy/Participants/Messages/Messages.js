@@ -3,6 +3,8 @@ import { usePagination, usePathParams } from "hooks";
 import { auth, firestore } from "database/firebase";
 import { message } from "database/mutations";
 import { PDFDocument } from "pdf-lib";
+import fs from "fs";
+import SFLogo from "images/logo.png";
 
 import { Grid } from "@chakra-ui/react";
 import { Loader } from "components";
@@ -61,7 +63,18 @@ function Messages() {
       link.click();
     };
     const pdfDoc = await PDFDocument.create();
+    const canvas = document.createElement("canvas");
+    const logoUrl = canvas.toDataURL("images/logo.png");
+    const logo = await pdfDoc.embedPng(logoUrl);
+    const logoDims = logo.scale(0.5);
     const page = pdfDoc.addPage();
+    // Wont draw....?????
+    page.drawImage(logo, {
+      x: page.getWidth() / 2 - logoDims.width / 2,
+      y: page.getHeight() / 2 - logoDims.height / 2 + 250,
+      width: logoDims.width,
+      height: logoDims.height,
+    });
     const { height } = page.getSize();
     let y = height / (messages.length * 2);
     const x = 25;
