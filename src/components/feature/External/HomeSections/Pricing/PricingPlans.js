@@ -1,13 +1,23 @@
+import { useDetectDevice } from "hooks";
 import PricingPlan from "./PricingPlan";
 
 function PricingPlans({ plans, isBilledAnnually }) {
+  const { isDesktop } = useDetectDevice();
   return (
     <div
-      style={{
-        display: "flex",
-        width: "100%",
-        justifyContent: "space-evenly",
-      }}
+      style={
+        isDesktop
+          ? {
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-evenly",
+            }
+          : {
+              display: "grid",
+              width: "100%",
+              rowGap: "20px",
+            }
+      }
     >
       {plans.map((plan, i) => (
         <PricingPlan
