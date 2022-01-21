@@ -11,6 +11,7 @@ import Resources from "./Resources/Resources";
 import Files from "./Files/Files";
 import Participants from "./Participants/Participants";
 import Settings from "./Settings/Settings";
+import Tasks from "./Tasks/Tasks";
 
 function ViewStudy() {
   const { studyID } = usePathParams();
@@ -56,6 +57,11 @@ function ViewStudy() {
       name: "Settings",
       link: `/study/${study.id}/settings`,
       content: <Settings study={study} />,
+    },
+    {
+      name: "Tasks",
+      link: `/study/${study.id}/tasks`,
+      content: <Tasks study={study} />,
     },
   ];
 
