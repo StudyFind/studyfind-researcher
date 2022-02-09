@@ -6,7 +6,7 @@ function HeroSection() {
     <Hero
       blackText="We simplify coordinating with"
       blueText="your participants"
-      buttonText="Start Now"
+      buttonText="Login"
       buttonLink="/auth"
       image={Background}
     />
