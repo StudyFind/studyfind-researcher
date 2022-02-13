@@ -10,7 +10,7 @@ import { toasts } from "templates";
 
 import { Grid } from "@chakra-ui/react";
 import { Loader } from "components";
-import { SiHive, SiMarketo } from "react-icons/si";
+import { SiHive } from "react-icons/si";
 
 import AccountWrapper from "../AccountWrapper";
 import AccountHeader from "../AccountHeader";
@@ -19,12 +19,10 @@ import SubscriptionView from "./SubscriptionView";
 import SubscriptionForm from "./SubscriptionForm";
 
 const getStripePriceID = (plan, period) => {
+  if (plan === "FREE") {
+    return "";
+  }
   return {
-    STANDARD: {
-      annually: "price_1JU1jwIzlngCzbHL32su7mlE",
-      monthly: "price_1JU1jQIzlngCzbHLwgm0SVAe",
-    },
-
     PREMIUM: {
       annually: "price_1JU1n4IzlngCzbHLAFMoPmtq",
       monthly: "price_1JU1mJIzlngCzbHLsYWJCSFm",
@@ -34,16 +32,15 @@ const getStripePriceID = (plan, period) => {
 
 const plans = [
   {
-    icon: SiMarketo,
-    name: "STANDARD",
-    title: "Standard",
-    price: ["$99", "$79"],
+    icon: SiHive,
+    name: "FREE",
+    title: "Free",
+    price: ["$0", "$0"],
     features: [
-      "Participant Notes",
-      "Participant Reminders",
-      "Schedule Meetings",
+      "Create Studies",
+      "Write Participant Notes",
+      "Track Participant Status",
     ],
-    isPopular: true,
   },
   {
     icon: SiHive,
@@ -51,7 +48,7 @@ const plans = [
     title: "Premium",
     price: ["$249", "$199"],
     features: [
-      "Everything in Standard",
+      "Everything in Free",
       "Instant Messaging",
       "Email and Text Notifications",
     ],
@@ -65,7 +62,7 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
 
   const [isBilledAnnually, setIsBilledAnnually] = useState(true);
   const [hasActivePlan, setHasActivePlan] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState("STANDARD");
+  const [selectedPlan, setSelectedPlan] = useState("FREE");
   const [planDetails, setPlanDetails] = useState({});
 
   const [loading, setLoading] = useState(true);

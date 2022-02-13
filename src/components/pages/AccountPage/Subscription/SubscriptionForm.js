@@ -42,6 +42,7 @@ function SubscriptionForm({
           colorScheme="green"
           onClick={handleSubscribe}
           isLoading={redirecting}
+          isDisabled={selectedPlan === "FREE"}
         >
           Continue
         </Button>
