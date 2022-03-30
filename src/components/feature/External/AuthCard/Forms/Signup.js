@@ -62,7 +62,7 @@ function Signup({ setTab }) {
 
   return (
     <AuthForm onSubmit={authForm.submit}>
-      <AuthHeading>Create Account!</AuthHeading>
+      <AuthHeading>Private Beta</AuthHeading>
       <AuthInput
         as={TextInput}
         name="name"

@@ -7,11 +7,13 @@ import {
 } from "hooks";
 
 import { auth } from "database/firebase";
+import { signout } from "database/auth";
 import { UserContext, PlanContext, ConfirmContext } from "context";
 import { createGlobalStyle } from "styled-components";
 
+import { FaTimesCircle, FaDoorOpen } from "react-icons/fa";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
 import { Page } from "components";
 
 import {
@@ -20,7 +22,6 @@ import {
   FaPoll,
   FaCommentAlt,
   FaUserCircle,
-  FaQuestionCircle,
 } from "react-icons/fa";
 
 import Sidebar from "components/feature/Sidebar/Sidebar";
@@ -107,10 +108,24 @@ function Internal() {
   // const exceptVerificationHeightDesktop = "calc(100vw - 40px)";
   // const exceptVerificationHeightMobile = "calc(100vw - 128px)";
 
+  const iconColor = useColor("red.500", "red.400");
   const borderColor = useColor("gray.200", "gray.700");
 
   if (type === "PARTICIPANT") {
-    return <Denied email={auth.currentUser.email} />;
+    return (
+      <Denied>
+        <Icon as={FaTimesCircle} color={iconColor} fontSize="36px" />
+        <Box textAlign="center">
+          <Text fontSize="24px" fontWeight="600">
+            {email}
+          </Text>
+          <Text>is not associated with a researcher account</Text>
+        </Box>
+        <Button colorScheme="red" rightIcon={<FaDoorOpen />} onClick={signout}>
+          Sign out
+        </Button>
+      </Denied>
+    );
   }
 
   return (
@@ -157,6 +172,7 @@ function Internal() {
               )}
               <Page
                 isLoading={!user || !plan}
+                isPrivate={user?.privateBeta}
                 padding={isPhone ? "20px" : "40px"}
                 minHeight={
                   isPhone
