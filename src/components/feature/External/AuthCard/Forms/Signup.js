@@ -63,6 +63,10 @@ function Signup({ setTab }) {
   return (
     <AuthForm onSubmit={authForm.submit}>
       <AuthHeading>Private Beta</AuthHeading>
+      <Text color="gray.500" fontSize="xs" textAlign="center">
+        Full access to the software is available but may take several business
+        days to be approved.
+      </Text>
       <AuthInput
         as={TextInput}
         name="name"

@@ -13,9 +13,9 @@ export const Page = ({ children, isLoading, isPrivate, ...rest }) => {
     <Denied>
       <Icon as={FaTimesCircle} color={iconColor} fontSize="36px" />
       <Box textAlign="center">
-        Please wait until your private beta account is approved. If this does
-        not update in a few days, please reach out to
-        <strong>outreach@studyfind.org</strong>
+        Thank you for registering! Your private beta account should be approved
+        shortly. If this status persists for more than a few days, please send a
+        message to <strong>Outreach@StudyFind.org</strong>
       </Box>
     </Denied>
   );
