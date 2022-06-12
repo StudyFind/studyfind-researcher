@@ -1,20 +1,10 @@
-import Yohan from "images/founders/yohan.png";
 import Andrew from "images/founders/andrew.png";
 import Team from "components/feature/External/HomeSections/Team/Team";
 
 function TeamSection() {
   const title = "About Us";
-  const description =
-    "Andrew and Yohan met at HackATL, an annual event organized by Emory University. During the event they composed and pitched an early prototype of the StudyFind software. Yohan's tech skills in confluence with Andrew's public health expertise drove them to futher develop StudyFind and make it a viable solution to the participant recruitment problem we see today.";
 
   const founders = [
-    {
-      image: Yohan,
-      name: "Yohan Jhaveri",
-      position: "Co-Founder",
-      description:
-        "Yohan recently graduated from Emory University with a degree in Computer Science and Economics",
-    },
     {
       image: Andrew,
       name: "Andrew Garcia",
@@ -51,14 +41,7 @@ function TeamSection() {
     },
   ];
 
-  return (
-    <Team
-      title={title}
-      description={description}
-      founders={founders}
-      panels={panels}
-    />
-  );
+  return <Team title={title} founders={founders} panels={panels} />;
 }
 
 export default TeamSection;

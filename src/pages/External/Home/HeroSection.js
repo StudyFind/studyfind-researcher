@@ -4,7 +4,7 @@ import Hero from "components/feature/External/HomeSections/Hero/Hero";
 function HeroSection() {
   return (
     <Hero
-      blackText="We simplify coordinating"
+      blackText="We simplify coordinating with"
       blueText="your participants"
       buttonText="Start Now"
       buttonLink="/auth"

@@ -70,7 +70,7 @@ const createStudy = (data) => {
     ...assertedFields,
     createdAt: now,
     updatedAt: now,
-    activated: false,
+    activated: true,
     researcher,
   });
 };

@@ -1,5 +1,7 @@
-import { useContext } from "react";
-import { PlanContext } from "context";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+
+import { studyParticipant } from "database/mutations";
 
 import { Text, Avatar, Badge, Flex } from "@chakra-ui/react";
 import { ActionButton } from "components";
@@ -11,8 +13,12 @@ import {
   FaComment,
 } from "react-icons/fa";
 
+import EditableParticipantName from "pages/Internal/Study/ViewStudy/Participants/EditableParticipantName";
+
 function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
-  const plan = useContext(PlanContext);
+  const { studyID } = useParams();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const statusColors = {
     interested: "gray",
@@ -22,6 +28,25 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
     rejected: "red",
   };
 
+  const color = participant?.color || "blue.500";
+  const fakename = participant?.fakename || participant?.id;
+
+  const [placeholder, setPlaceholder] = useState(fakename);
+
+  const handleChange = (val) => {
+    setPlaceholder(val);
+  };
+
+  const handleConfirm = () => {
+    setIsLoading(true);
+
+    studyParticipant
+      .updateFakename(studyID, participant.id, {
+        fakename: placeholder,
+      })
+      .finally(() => setIsLoading(false));
+  };
+
   return (
     <Flex align="center" gridGap="10px" padding="10px">
       <Avatar
@@ -29,12 +54,15 @@ function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
         width="30px"
         height="30px"
         color="white"
-        background="blue.500"
-        name={participant.id}
+        background={color}
+        name={fakename}
       />
-      <Text fontWeight="500" mr="auto">
-        {participant.id}
-      </Text>
+      <EditableParticipantName
+        value={placeholder}
+        isLoading={isLoading}
+        handleChange={handleChange}
+        handleConfirm={handleConfirm}
+      />
       <Badge
         size="sm"
         cursor="pointer"

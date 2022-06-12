@@ -1,13 +1,11 @@
 import { useHistory } from "react-router-dom";
 import { useParticipantQueryWithFilters, usePathParams } from "hooks";
 
-// import { Button } from "@chakra-ui/react";
 import { Loader } from "components";
 
 import TabHeader from "../TabHeader";
 
 import ParticipantsList from "./ParticipantsList";
-// import ParticipantsFilter from "./ParticipantsFilter";
 import ParticipantsDrawer from "./ParticipantsDrawer";
 import ParticipantsEmpty from "./ParticipantsEmpty";
 
@@ -17,16 +15,9 @@ function Participants({ study }) {
   const {
     participants,
     loading,
-    // error,
     loadingMore,
     handleLoadMore,
     fetchedAll,
-    // filters,
-    // toggleFilters,
-    // setToggleFilters,
-    // handleChangeFilter,
-    // handleClearFilters,
-    // areFiltersApplied,
   } = useParticipantQueryWithFilters(study);
 
   const selectedParticipant = participants.find(

@@ -16,8 +16,8 @@ function ParticipantsDrawer({
   participant,
   handleClose,
 }) {
-  const participantID = participant?.id;
-  const timezone = participant?.timezone;
+  const fakename = participant?.fakename || participant?.id;
+  const timezone = participant?.timezone?.region;
 
   const render = {
     status: action === "status" && (
@@ -38,7 +38,7 @@ function ParticipantsDrawer({
   return (
     <SideDrawer
       heading={action}
-      subheading={`${participantID} (${moment.tz(timezone).zoneAbbr()})`}
+      subheading={`${fakename} (${moment.tz(timezone).zoneAbbr()})`}
       isOpen={isOpen}
       onClose={handleClose}
     >
