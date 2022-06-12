@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useUserPlan } from "hooks";
 
 import { studyParticipant } from "database/mutations";
 
@@ -14,9 +15,11 @@ import {
 } from "react-icons/fa";
 
 import EditableParticipantName from "pages/Internal/Study/ViewStudy/Participants/EditableParticipantName";
+import { auth } from "database/firebase";
 
 function ParticipantsItem({ participant, handleOpen, hasQuestions }) {
   const { studyID } = useParams();
+  const plan = useUserPlan(auth);
 
   const [isLoading, setIsLoading] = useState(false);
 
