@@ -6,15 +6,21 @@ function PricingPlans({ plans, isBilledAnnually }) {
   const { responsive } = useDetectDevice();
 
   return (
-    <SimpleGrid gap="30px" width="100%" columns={responsive([1, 2, 3])}>
+    <SimpleGrid
+      gap="20px"
+      width="100%"
+      columns={responsive([1, 2, 2])}
+      justifyItems="center"
+      maxChildWidth="100px"
+    >
       {plans.map((plan, i) => (
         <PricingPlan
           key={i}
           name={plan.name}
-          icon={plan.icon}
           price={plan.price}
+          startLabel={plan.startLabel}
+          featureLabel={plan.featureLabel}
           features={plan.features}
-          isPopular={plan.isPopular}
           isBilledAnnually={isBilledAnnually}
         />
       ))}

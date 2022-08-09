@@ -1,18 +1,23 @@
-import { List, ListIcon, ListItem, Text, HStack } from "@chakra-ui/react";
-import { HiCheckCircle } from "react-icons/hi";
+import { List, ListIcon, ListItem, Text, HStack, Box } from "@chakra-ui/react";
+import { HiCheck } from "react-icons/hi";
 
-function PricingPlanFeatures({ features, color }) {
+function PricingPlanFeatures({ featureLabel, features, color }) {
   return (
-    <List spacing="16px" maxWidth="280px" marginX="auto">
-      {features.map((feature, index) => (
-        <ListItem fontWeight="medium" key={index}>
-          <HStack spacing="0">
-            <ListIcon fontSize="xl" as={HiCheckCircle} color={color} />
-            <Text>{feature}</Text>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+    <Box marginLeft="24px">
+      <Text fontWeight="700" marginBottom="5px">
+        {featureLabel}
+      </Text>
+      <List spacing="5px" maxWidth="280px">
+        {features.map((feature, index) => (
+          <ListItem fontWeight="400" key={index}>
+            <HStack spacing="0">
+              <ListIcon fontSize="xl" as={HiCheck} color={color} />
+              <Text>{feature}</Text>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 }
 

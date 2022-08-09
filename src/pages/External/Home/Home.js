@@ -6,25 +6,27 @@ import Footer from "components/feature/External/HomeSections/Footer/Footer";
 
 import HeroSection from "./HeroSection";
 import FeatureSection from "./FeatureSection";
-import TeamSection from "./TeamSection";
-import MailingSection from "./MailingSection";
 import PricingSection from "./PricingSection";
+import PromotionSection from "./PromotionSection";
+import ToolSection from "./ToolSection";
+import { useRef } from "react";
 
 function HomePage() {
   const dividerColor = useColor("gray.200", "gray.600");
+  const featureRef = useRef(null);
 
   return (
     <Box>
       <Header logoLink="/#" buttonText="Start Now" buttonLink="/auth" />
       <HeroSection />
       <Divider borderColor={dividerColor} />
-      <FeatureSection />
-      <Divider borderColor={dividerColor} />
-      <TeamSection />
+      <PromotionSection />
       <Divider borderColor={dividerColor} />
       <PricingSection />
       <Divider borderColor={dividerColor} />
-      <MailingSection />
+      <ToolSection />
+      <Divider borderColor={dividerColor} />
+      <FeatureSection ref={featureRef} />
       <Divider borderColor={dividerColor} />
       <Footer
         links={{

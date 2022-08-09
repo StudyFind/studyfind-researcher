@@ -13,7 +13,7 @@ function Feature({ icon, title, description }) {
         {icon}
       </Box>
       <Stack spacing="4px">
-        <Text fontWeight="800" fontSize="lg">
+        <Text fontWeight="700" fontSize="lg">
           {title}
         </Text>
         <Box color="gray.500">{description}</Box>

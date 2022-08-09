@@ -6,24 +6,23 @@ import PricingPlanHeader from "./PricingPlanHeader";
 import PricingPlanPrice from "./PricingPlanPrice";
 import PricingPlanFeatures from "./PricingPlanFeatures";
 import PricingPlanButton from "./PricingPlanButton";
+import PricingPlanFooter from "./PricingPlanFooter";
 
 function PricingPlan({
-  icon,
   name,
   price,
+  startLabel,
+  featureLabel,
   features,
-  isPopular,
   isBilledAnnually,
 }) {
-  const background = useColor("white", "gray.900");
+  const background = useColor("gray.100", "gray.200");
   const accentColor = useColor("blue.600", "blue.400");
   const borderColor = useColor("gray.200", "gray.700");
 
   return (
     <Flex
       gridGap="24px"
-      padding="24px"
-      paddingTop="48px"
       position="relative"
       overflow="hidden"
       shadow="lg"
@@ -32,16 +31,22 @@ function PricingPlan({
       borderWidth="1px"
       background={background}
       borderColor={borderColor}
+      width="75%"
+      align="flex-start"
     >
-      {isPopular && <PricingPlanBadge>Popular</PricingPlanBadge>}
-      <PricingPlanHeader icon={icon} name={name} color={accentColor} />
+      <PricingPlanHeader name={name} color={accentColor} />
       <PricingPlanPrice
         price={price}
         isBilledAnnually={isBilledAnnually}
         color={accentColor}
       />
-      <PricingPlanFeatures features={features} color={accentColor} />
-      <PricingPlanButton />
+      <PricingPlanButton startLabel={startLabel} />
+      <PricingPlanFeatures
+        featureLabel={featureLabel}
+        features={features}
+        color={accentColor}
+      />
+      <PricingPlanFooter />
     </Flex>
   );
 }

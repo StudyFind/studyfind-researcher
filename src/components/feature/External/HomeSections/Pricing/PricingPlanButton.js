@@ -2,7 +2,7 @@ import { useHistory } from "hooks";
 
 import { Button } from "@chakra-ui/react";
 
-function PricingPlanButton() {
+function PricingPlanButton({ startLabel }) {
   const history = useHistory();
 
   const handleClick = () => {
@@ -13,12 +13,12 @@ function PricingPlanButton() {
   return (
     <Button
       size="lg"
-      width="100%"
-      marginTop="10px"
+      width="88%"
+      alignSelf="center"
       colorScheme="blue"
       onClick={handleClick}
     >
-      Start Now
+      {startLabel}
     </Button>
   );
 }

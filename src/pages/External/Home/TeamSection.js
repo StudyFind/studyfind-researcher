@@ -19,7 +19,7 @@ function TeamSection() {
       title: "Our Team",
       colorScheme: "blue",
       description:
-        "The talented individuals resonsible for the day-to-day operations at StudyFind",
+        "The talented individuals responsible for the day-to-day operations at StudyFind",
       buttonText: "Meet the team",
       buttonLink: "/team#interns",
     },

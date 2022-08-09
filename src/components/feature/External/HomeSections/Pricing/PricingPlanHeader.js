@@ -1,9 +1,8 @@
-import { VStack, Heading, Icon } from "@chakra-ui/react";
+import { VStack, Heading } from "@chakra-ui/react";
 
-function PricingPlanHeader({ icon, name, color }) {
+function PricingPlanHeader({ name, color }) {
   return (
-    <VStack spacing="24px">
-      <Icon as={icon} fontSize="4xl" color={color} />
+    <VStack marginLeft="24px" marginTop="24px">
       <Heading size="lg" fontWeight="bold">
         {name}
       </Heading>

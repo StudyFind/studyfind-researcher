@@ -6,17 +6,18 @@ function PricingHeader({ title, description, isBilledAnnually, handleChange }) {
   const { isPhone } = useDetectDevice();
 
   return (
-    <VStack align="flex-start" spacing="24px" marginBottom="48px">
-      <VStack align="flex-start" spacing="15px">
-        <Heading fontWeight="900">{title}</Heading>
-        <Text color="gray.500" width={isPhone ? "100%" : "450px"}>
+    <VStack align="center" spacing="24px" marginBottom="48px">
+      <VStack align="center" spacing="15px">
+        <Heading fontWeight="700">{title}</Heading>
+        <Text textAlign="center" fontWeight="400" color="black" width="65%">
           {description}
         </Text>
       </VStack>
-      <HStack align="center" fontWeight="500">
+      <HStack fontWeight="700" paddingLeft="70px">
         <Text>Monthly</Text>
         <SwitchInput value={isBilledAnnually} onChange={handleChange} />
-        <Text>Annually</Text>
+        <Text>Yearly </Text>
+        <Text color="blue.500">(Save 20%)</Text>
       </HStack>
     </VStack>
   );

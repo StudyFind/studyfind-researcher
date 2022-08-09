@@ -1,40 +1,28 @@
 import Pricing from "components/feature/External/HomeSections/Pricing/Pricing";
 
-import { SiHive, SiMarketo, SiMicrosoft } from "react-icons/si";
-
 function PricingSection() {
   const plans = [
     {
-      icon: SiMicrosoft,
       name: "Free",
-      price: ["$0", "$0"],
+      price: ["0", "0"],
+      startLabel: "Start Now",
+      featureLabel: "Free Includes:",
       features: [
-        "Create Studies",
-        "Write Participant Notes",
-        "Track Participant Status",
+        "Study Creation",
+        "Written Participant Notes",
+        "Participant Status Tracker",
       ],
     },
 
     {
-      icon: SiMarketo,
-      name: "Standard",
-      price: ["$99", "$79"],
-      features: [
-        "Everything in Basic",
-        "Participant Reminders",
-        "Schedule Meetings",
-      ],
-      isPopular: true,
-    },
-
-    {
-      icon: SiHive,
       name: "Premium",
-      price: ["$249", "$199"],
+      price: ["249", "199"],
+      startLabel: "Start Free 3 Month Trial",
+      featureLabel: "Everything in Free, and:",
       features: [
-        "Everything in Standard",
+        "Participant Reminders",
+        "Scheduled Meetings",
         "Instant Messaging",
-        "Email and Text Notifications",
       ],
     },
   ];
@@ -42,8 +30,7 @@ function PricingSection() {
   return (
     <Pricing
       title="Pricing Plans"
-      description="Start with a free three month trial and then pick the plan of your liking. Account plans
-  unlock additional features and newer features may arrive to higher tier plans first."
+      description="Start with a free three-month trial, and then pick a plan of your liking. Account plans unlock additional features, and newer features may arrive at higher tiers first."
       plans={plans}
     />
   );

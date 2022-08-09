@@ -13,7 +13,7 @@ function SectionWrapper({ children, ...rest }) {
       paddingX={isPhone ? "40px" : "100px"}
       paddingY="50px"
       minHeight="100vh"
-      width="100vw"
+      width="100%"
       background={backgroundColor}
       {...rest}
     >

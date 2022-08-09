@@ -1,4 +1,4 @@
-import Background from "images/microscope.jpg";
+import Background from "images/hero_image.png";
 import Hero from "components/feature/External/HomeSections/Hero/Hero";
 
 function HeroSection() {

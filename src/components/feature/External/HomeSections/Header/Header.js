@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useColor, useDetectDevice } from "hooks";
 import { useWindowScroll, useWindowSize } from "react-use";
-
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, Text } from "@chakra-ui/react";
 import { Link } from "components";
 
 import HeaderLogo from "./HeaderLogo";
@@ -26,6 +25,28 @@ function Header({ logoLink, buttonText, buttonLink }) {
     return null;
   }
 
+  const links = [
+    { link: "https://studyfind.org/", title: "Participant" },
+    { link: "/team", title: "Our Team" },
+  ];
+
+  const navLinkItems = links.map((item) => (
+    <Link
+      key={item.title}
+      to={item.link}
+      style={{ textDecoration: "none" }}
+      onClick={() => window.scrollTo({ top: 0 })}
+    >
+      <Text
+        color="blue.500"
+        fontWeight="400"
+        _hover={{ transform: "scale(1.05)", textDecoration: "none" }}
+      >
+        {item.title}
+      </Text>
+    </Link>
+  ));
+
   return (
     <Flex
       top="0"
@@ -39,15 +60,31 @@ function Header({ logoLink, buttonText, buttonLink }) {
       zIndex="400"
       borderBottomWidth="1px"
       borderBottomColor={borderColor}
+      gridGap="10px"
     >
-      <Link to={logoLink}>
-        <HeaderLogo />
-      </Link>
-      <Link to={buttonLink}>
-        <Button size={isPhone ? "sm" : "md"} colorScheme="blue">
-          {buttonText}
-        </Button>
-      </Link>
+      <Flex
+        minWidth="max-content"
+        justify="space-between"
+        gridGap="5px"
+        alignItems="center"
+      >
+        <Link to={logoLink}>
+          <HeaderLogo />
+        </Link>
+      </Flex>
+      <Flex
+        align="center"
+        justify="space-between"
+        gridGap="20px"
+        minWidth="max-content"
+      >
+        {navLinkItems}
+        <Link to={buttonLink}>
+          <Button size={isPhone ? "sm" : "md"} colorScheme="blue">
+            {buttonText}
+          </Button>
+        </Link>
+      </Flex>
     </Flex>
   );
 }

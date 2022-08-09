@@ -6,6 +6,9 @@ function HeroLogo() {
     <HStack align="center" spacing="10px">
       <Image src={SFLogo} height="1.8rem" />
       <Heading fontSize="1.7rem">StudyFind</Heading>
+      <Heading fontSize="1.7rem" color="blue.500">
+        Researcher
+      </Heading>
     </HStack>
   );
 }

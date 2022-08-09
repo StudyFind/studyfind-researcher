@@ -12,17 +12,21 @@ function Pricing({ title, description, plans }) {
     setIsBilledAnnually(value);
   };
 
-  const background = useColor("gray.100", "gray.800");
+  const background = useColor("white", "gray.100");
 
   return (
-    <SectionWrapper background={background} align="flex-start">
+    <SectionWrapper background={background} align="center" maxWidth="100%">
       <PricingHeader
         title={title}
         description={description}
         isBilledAnnually={isBilledAnnually}
         handleChange={handleChange}
       />
-      <PricingPlans plans={plans} isBilledAnnually={isBilledAnnually} />
+      <PricingPlans
+        alignSelf="center"
+        plans={plans}
+        isBilledAnnually={isBilledAnnually}
+      />
     </SectionWrapper>
   );
 }

@@ -1,6 +1,6 @@
 import { useDetectDevice } from "hooks";
 
-import { Flex, Heading, Image } from "@chakra-ui/react";
+import { Flex, Heading, Image, HStack } from "@chakra-ui/react";
 import SFLogo from "images/logo.png";
 
 function HeaderLogo() {
@@ -8,14 +8,16 @@ function HeaderLogo() {
   const headingStyles = isPhone ? { size: "md" } : { fontSize: "25px" };
 
   return (
-    <Flex align="center">
+    <HStack align="center" spacing={isPhone ? "8px" : "10px"}>
       <Image
         src={SFLogo}
         height={isPhone ? "1.5rem" : "1.8rem"}
-        marginRight={isPhone ? "8px" : "10px"}
       />
       <Heading {...headingStyles}>StudyFind</Heading>
-    </Flex>
+      <Heading {...headingStyles} color="blue.500">
+        Researcher
+      </Heading>
+    </HStack>
   );
 }
 

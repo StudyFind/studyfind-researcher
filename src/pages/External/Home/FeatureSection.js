@@ -1,4 +1,5 @@
 import Features from "components/feature/External/HomeSections/Features/Features";
+import { forwardRef } from "react";
 
 import {
   FcDoughnutChart,
