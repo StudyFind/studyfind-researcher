@@ -41,7 +41,7 @@ function Team() {
           </HStack>
         </Link>
       </HStack>
-      <CoFounder />
+      <CoFounder position="fixed" />
       <Interns />
       <Divider borderColor={dividerColor} />
       <Board />
