@@ -16,7 +16,7 @@
     "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "firebase": "^8.6.3",
+    "firebase": "^11.0.2",
     "flesch": "^2.0.0",
     "framer-motion": "^4",
     "moment-timezone": "^0.5.33",
