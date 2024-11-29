@@ -3,10 +3,10 @@ import { useColor } from "hooks";
 
 import { Flex } from "@chakra-ui/react";
 import { Form, TextInput } from "components";
-import { FaPaperPlane } from "react-icons/fa";
+import { FaPaperPlane, FaFileDownload } from "react-icons/fa";
 import { ActionButton } from "components/simple/Buttons/ActionButton";
 
-function MessageInput({ handleMessageSend }) {
+function MessageInput({ handleMessageSend, handleMessageExport }) {
   const [text, setText] = useState("");
   const [isSending, setIsSending] = useState(false);
 
@@ -45,6 +45,13 @@ function MessageInput({ handleMessageSend }) {
           onChange={handleChange}
           placeholder="Type your message here..."
           borderWidth="0"
+        />
+        <ActionButton
+          onClick={handleMessageExport}
+          size="md"
+          background="transparent"
+          icon={<FaFileDownload />}
+          isLoading={isSending}
         />
         <ActionButton
           size="md"
