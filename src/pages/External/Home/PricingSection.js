@@ -16,23 +16,11 @@ function PricingSection() {
     },
 
     {
-      icon: SiMarketo,
-      name: "Standard",
-      price: ["$99", "$79"],
-      features: [
-        "Everything in Basic",
-        "Participant Reminders",
-        "Schedule Meetings",
-      ],
-      isPopular: true,
-    },
-
-    {
       icon: SiHive,
       name: "Premium",
       price: ["$249", "$199"],
       features: [
-        "Everything in Standard",
+        "Everything in Free",
         "Instant Messaging",
         "Email and Text Notifications",
       ],

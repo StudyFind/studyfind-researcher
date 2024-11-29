@@ -1,4 +1,4 @@
-import { useColor } from "hooks";
+import { useColor, useDetectDevice } from "hooks";
 import { Flex } from "@chakra-ui/react";
 
 import PricingPlanBadge from "./PricingPlanBadge";
@@ -18,6 +18,7 @@ function PricingPlan({
   const background = useColor("white", "gray.900");
   const accentColor = useColor("blue.600", "blue.400");
   const borderColor = useColor("gray.200", "gray.700");
+  const { isDesktop } = useDetectDevice();
 
   return (
     <Flex
@@ -25,6 +26,7 @@ function PricingPlan({
       padding="24px"
       paddingTop="48px"
       position="relative"
+      minWidth={isDesktop ? "500px" : "150px"}
       overflow="hidden"
       shadow="lg"
       direction="column"
