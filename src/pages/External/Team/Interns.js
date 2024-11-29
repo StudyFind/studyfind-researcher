@@ -26,7 +26,21 @@ import Ivan from "images/interns/ivan.png";
 import Etna from "images/interns/etna.png";
 import Biraj from "images/interns/biraj.png";
 import Brandon from "images/interns/brandon.png";
-// import Placeholder from "images/interns/placeholder.png";
+import Aakash from "images/interns/aakash.jpeg"
+import Aidan from "images/interns/aidan.jpeg"
+import Ameet from "images/interns/ameet.jpeg"
+import Andrew from "images/interns/andrew.png"
+import Caitlin from "images/interns/caitlyn.jpeg"
+import Christian from "images/interns/christian.jpeg"
+import DeAndre from "images/interns/deandre.jpeg"
+import Drew from "images/interns/drew.jpeg"
+import Harini from "images/interns/harini.jpeg"
+import Kathrin from "images/interns/kathrin.jpeg"
+import NatalieH from "images/interns/natalie.jpeg"
+import Ruochen from "images/interns/ruochen.jpeg"
+import Vijaya from "images/interns/vijaya.jpeg"
+import Yvonne from "images/interns/yvonne.jpeg"
+import Placeholder from "images/interns/placeholder.png";
 
 import TeamMember from "components/feature/External/HomeSections/Team/TeamMember";
 
@@ -63,12 +77,7 @@ function Interns() {
               position="Sr. Software Developer"
               linkedinURL="https://www.linkedin.com/in/jwebb45/"
             />
-            <TeamMember
-              image={Jonathon}
-              name="Jonathon Sisson"
-              position="Sr. Software Developer"
-              linkedinURL="https://www.linkedin.com/in/jonathon-sisson/"
-            />
+
             <TeamMember
               image={Eric}
               name="Eric Park"
@@ -81,12 +90,7 @@ function Interns() {
               position="Jr. Software Developer"
               linkedinURL="https://www.linkedin.com/in/jason-ji-566673166/"
             />
-            <TeamMember
-              image={Ivan}
-              name="Ivan Yau"
-              position="Jr. Software Developer"
-              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
-            />
+
             <TeamMember
               image={Etna}
               name="Etna Ozkara"
@@ -106,17 +110,102 @@ function Interns() {
               linkedinURL="https://www.linkedin.com/in/brandon-banarsi/"
             />
             <TeamMember
-              image={Sandra}
-              name="Sandra Mustopa"
-              position="Marketing and Technical Writing"
-              linkedinURL="https://www.linkedin.com/in/sandra-mustopa7090-graphicdesigner/"
-            />
-            <TeamMember
               image={Randy}
               name="Randy Erickson"
               position="Marketing and Technical Writing"
-              linkedinURL="https://www.linkedin.com/in/randy-erickson-2138878a/"
+            // linkedinURL="https://www.linkedin.com/in/randy-erickson-2138878a/"
             />
+            <TeamMember
+              image={Andrew}
+              name="Andrew Watson"
+              position="Jr. Software Developer Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Vijaya}
+              name="Vijaya Vegesn"
+              position="Jr. Software Developer Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Jiahao Zhao"
+              position="Software Developer Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Ruochen}
+              name="Ruochen Kong"
+              position="Software Developer Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Isabella Santos"
+              position="Marketing and Technical writing Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Yvonne}
+              name="Yvonne Birrer"
+              position="Marketing and Technical writing Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Aidan}
+              name="Aidan Carney"
+              position="Marketing and Motion Graphics Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Brandon}
+              name="Brandon Lang"
+              position="Marketing and Motion Graphics Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={DeAndre}
+              name="Deandre Davis"
+              position="Human Resources Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Caitlin}
+              name="Caitlin Sau"
+              position="Grant Writing Team"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={NatalieH}
+              name="Natalie Huitron"
+              position="Grant Writing Team"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Drew}
+              name="Drew Haaga"
+              position="Technical Sales Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Harini}
+              name="Harini Prakash"
+              position="Technical Sales Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Kathrin}
+              name="Kathrin Spendier"
+              position="Technical Sales Representative"
+            // linkedinURL=""
+            />
+
+
+
+
+
+
+
           </SimpleGrid>
         </Box>
         <Box>
@@ -205,6 +294,54 @@ function Interns() {
               name="Keely Culbertson"
               position="Software Developer"
               linkedinURL="https://www.linkedin.com/in/keely-culbertson/"
+            />
+            <TeamMember
+              image={Sandra}
+              name="Sandra Mustopa"
+              position="Marketing and Technical Writing"
+              linkedinURL="https://www.linkedin.com/in/sandra-mustopa7090-graphicdesigner/"
+            />
+            <TeamMember
+              image={Jonathon}
+              name="Jonathon Sisson"
+              position="Sr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/jonathon-sisson/"
+            />
+            <TeamMember
+              image={Christian}
+              name="Christian Armstrong"
+              position="Cybersecurity Engineer Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Ameet Rahegaonkar"
+              position="Cybersecurity Engineer Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Aakash}
+              name="Aakash Parekh"
+              position="Cybersecurity Engineer Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Tea Charlton"
+              position="Marketing and Technical Writing Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Placeholder}
+              name="Kyle Bronson"
+              position="Technical Sales Intern"
+            // linkedinURL=""
+            />
+            <TeamMember
+              image={Ivan}
+              name="Ivan Yau"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
             />
           </SimpleGrid>
         </Box>
