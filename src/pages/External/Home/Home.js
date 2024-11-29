@@ -15,7 +15,7 @@ function HomePage() {
 
   return (
     <Box>
-      <Header logoLink="/#" buttonText="Start Now" buttonLink="/auth" />
+      <Header logoLink="/#" buttonText="Login" buttonLink="/auth" />
       <HeroSection />
       <Divider borderColor={dividerColor} />
       <FeatureSection />
